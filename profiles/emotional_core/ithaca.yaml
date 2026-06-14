@@ -1,0 +1,83 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: ithaca
+team_id: null
+program_name: Ithaca College
+program_tier: 7
+
+emotional_core:
+  primary: grievance
+  secondary: spectacle
+  one_line: "Ithaca is the historic national championship program that won the Cortaca Jug in 2025 and dominates one of Division III's greatest rivalries, playing the biggest little game in America."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "One of Division III's most storied programs, with three national titles and a .667 winning percentage, defending its legacy against regional challengers."
+
+the_wound:
+  name: "The 1991 drought"
+  detail: "Ithaca's last national championship came in 1991 (34 years ago as of 2025). Seven Stagg Bowl appearances but only three titles, a track record of excellence interrupted by heartbreak."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win another national title and prove the three-time champion still belongs at the sport's highest level, reclaiming the Cortaca Jug annually."
+  drought: { since: 1991, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "Ithaca's chip is old-school prestige: three national titles (1979, 1988, 1991) and a .667 winning percentage over 542 wins. The fanbase believes the Bombers should compete for Stagg Bowls every year, not fall into regional obscurity."
+
+the_delusion:
+  tone: self-aware
+  text: "That championship pedigree guarantees championship contention. Ithaca fans know the 1979–1991 era was elite, but the program hasn't won a Stagg Bowl in 34 years. The fanbase believes it can happen again, even as the drought lengthens."
+
+the_grudge_texture:
+  rival: cortland
+  texture: blood-feud
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "The weight of history (three titles, 542 wins) vs the reality of a program searching for relevance in the modern era."
+register: ithaca-bombers-cortaca-jug-three-time-champion
+never_use:
+  - Recent national power — last title was 1991 (34 years ago)
+  - Consistent championship contender — only three titles ever, with long gaps between them
+
+story_canon:
+  the_unique_thing: "Three NCAA Division III national championships (1979, 1988, 1991) and half-ownership of the Cortaca Jug, the most famous rivalry in Division III — Ithaca leads the all-time series 44–36–3 and won 2025."
+  the_origin: "Ithaca College founded 1889. Football program established in the early 1900s. Built to a powerhouse under legendary coach Jim Butterfield."
+  golden_ages:
+    - { era: "1979–1991", what: "Three national championships (1979, 1988, 1991), seven Stagg Bowl appearances, the elite Ithaca era" }
+    - { era: "1960s–1980s", what: "Consistently competitive with multiple Lambert/Meadowlands Cup awards" }
+  legends:
+    - { name: Jim Butterfield, role: coach, why: "Legendary coach who built Ithaca into a national power during the 1979–1991 era" }
+  canonical_moments:
+    - { name: "1979 National Championship", year: 1979, what: "Ithaca won the NCAA Division III national title", handling: glory }
+    - { name: "1988 National Championship", year: 1988, what: "Second national championship", handling: glory }
+    - { name: "1991 National Championship", year: 1991, what: "Third national championship (last title to date)", handling: glory }
+    - { name: "Seven Stagg Bowl Appearances", year: 1991, what: "Ithaca made the Stagg Bowl seven times, winning three", handling: glory }
+    - { name: "2025 Cortaca Jug Victory", year: 2025, what: "Defeated Cortland 26–21 for the trophy; Ithaca now leads all-time 44–36–3", handling: glory }
+  the_place: "Ithaca College on the shores of Cayuga Lake in Ithaca, New York — a historic liberal-arts college with one of the most iconic football stadiums in Division III."
+  brand_of_football: "Elite college football played by student-athletes competing for national championships, not just regional titles."
+  cultural_footprint: "Ithaca represents the highest level of Division III football — three national titles, 542 career wins, a .667 winning percentage, and the ownership of the sport's most famous rivalry."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Ithaca compiled an 8–2 record in 2025, including the signature victory over Cortland in the Cortaca Jug on
+    November 15, 2025 (26–21), giving the Bombers a 44–36–3 all-time lead in the rivalry. Head coach Michael Toerper led the team through the regular
+    season before departing in December 2025 to become defensive coordinator at Cornell. Brandon Maguire was named successor in February 2026. The program
+    seeks to build on the 2025 success and return to national title contention while defending its championship pedigree and Cortaca Jug tradition.
+  research_checklist:
+    - Founded 1889 (historic liberal-arts college)
+    - Three national championships (1979, 1988, 1991)
+    - Seven Stagg Bowl appearances
+    - 542 career wins, .667 winning percentage
+    - Cortaca Jug co-founder (trophy since 1959, game since 1930)
+    - All-time Cortaca record: 44–36–3 (Ithaca leads)
+    - 2025 Cortaca: defeated Cortland 26–21
+    - 2025 record: 8–2
+    - Head coach change: Michael Toerper → Brandon Maguire (Feb 2026)
+  sources:
+    - https://en.wikipedia.org/wiki/Cortaca_Jug
+    - https://athletics.ithaca.edu/sports/2005/4/12/fballhistory.aspx
+    - https://www.d3football.com/teams/ithaca
+    - https://libertyleagueathletics.com

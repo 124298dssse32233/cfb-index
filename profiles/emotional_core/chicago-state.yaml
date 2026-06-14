@@ -1,0 +1,90 @@
+# Emotional Core — Chicago State Cougars (chicago-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-14 from live web research — brand-new FCS independent, 2026 inaugural season, Chicago return.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: chicago-state
+team_id: null           # new program; no historical team_id
+program_name: Chicago State Cougars
+program_tier: 5         # brand-new program, FCS independent
+division: FCS (Independent)
+
+emotional_core:
+  primary: disbelief    # the wonder of a brand-new program in a major city
+  secondary: contentment # the freedom of starting from scratch with no baggage
+  one_line: "Chicago State football is the only Division I football program in the city of Chicago since 1939 — a brand-new program built from scratch in 2026 with 55 inaugural players and the mandate to prove a major city can sustain big-time college football again."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A brand-new program with no historical ceiling and no weight of the past vs the reality of competing as an FCS Independent from day one."
+
+the_wound:
+  name: "Eighty-seven years without Division I football in Chicago (1939–2026)"
+  detail: "The last Division I football program in Chicago was the University of Chicago Maroons in 1939. Chicago has been without major college football for nearly nine decades. Chicago State's 2026 inauguration is an attempt to reclaim that lost tradition, but the wound runs deep — a major American city without a college football team for a century."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Play Division I football in Chicago again. Build a championship culture from the ground up. By 2027, move into the Northeast Conference and become the model for how to launch a new program in a major city."
+  drought: null
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe the chip is geographic: the Big Ten schools (Northwestern, Illinois, Notre Dame) dominate the Midwest, and Chicago has been left without representation in major college football. Chicago State isn't bitter; it's here to reclaim what the city lost."
+
+the_delusion:
+  tone: load-bearing
+  text: "That a brand-new program can compete for FCS playoffs within 5 years and become the model for major-city football revival. The fanbase believes in the audacity of starting from zero; no baggage, no history, no excuses — just excellence from day one."
+
+the_grudge_texture:
+  rival: null
+  texture: none          # brand-new; no rivalries yet
+
+the_coach_relationship: savior   # Bobby Rome II is the founder-coach tasked with building a dynasty
+the_internal_fracture: null
+register: chicago-cougars-bridgeview-2026-inaugural
+never_use:
+  - No history — Chicago had D-I football (Maroons, 1939); this is a reclamation
+  - Expansion team — this is a brand-new program, not a moved team
+
+story_canon:
+  the_unique_thing: "The first Division I football program in Chicago since 1939 — a 87-year gap reclaimed by Chicago State. The program is literally the return of major college football to a major American city."
+  the_origin: "Chicago State University announced a football program in 2023 with the inaugural season launching in 2026. The program was built by an exploratory committee including NFL veterans like Howard Griffith, Tom Thayer, and Otis Wilson."
+  golden_ages:
+    - { era: "2026 (Inaugural Season)", what: "Chicago State plays its first game as a Division I FCS Independent program" }
+  legends:
+    - { name: Bobby Rome II, role: coach, why: "The founder-coach of Chicago State football; tasked with building the program from day one" }
+    - { name: Howard Griffith, role: committee, why: "NFL veteran who helped explore the feasibility of a Chicago State football program" }
+    - { name: Tom Thayer, role: committee, why: "Chicago Bears legend; part of the exploratory committee that launched the program" }
+    - { name: Otis Wilson, role: committee, why: "Chicago Bears legend; founding advisor to the Chicago State football program" }
+  canonical_moments:
+    - { name: "Inaugural signing class", year: 2026, what: "Chicago State announces 55 inaugural players on National Signing Day (February 4, 2026)", handling: glory }
+    - { name: "First game", year: 2026, what: "Chicago State plays its inaugural Division I football game in 2026", handling: glory }
+  the_place: "SeatGeek Stadium in Bridgeview, Illinois (20,000 capacity) — home of Chicago State football."
+  brand_of_football: "The audacious startup — Chicago State football is about proving a major city can launch a major football program from scratch."
+  cultural_footprint: "Chicago State's footprint is still being written. The program's cultural impact will be defined by what it builds from day one."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-14: Chicago State football is brand-new, with the inaugural season
+    beginning in 2026. The program announced a signing class of 55 athletes on National Signing Day (February 4, 2026),
+    marking the official launch of Division I football in Chicago for the first time since 1939. Head coach Bobby Rome II
+    has built the program from the ground up with no historical baggage — only the mandate to compete and prove Chicago can
+    sustain big-time college football. The program will start as an FCS Independent before joining the Northeast Conference in 2027.
+  research_checklist:
+    - Brand-new program (announced 2023, inaugural 2026)
+    - 55 inaugural players (National Signing Day 2026)
+    - Coach Bobby Rome II (hired April 2025)
+    - SeatGeek Stadium in Bridgeview (20,000 capacity)
+    - Northeast Conference starting 2027
+    - FCS Independent in 2026
+    - Last Chicago D-I team: Maroons (1939)
+  sources:
+    - https://en.wikipedia.org/wiki/Chicago_State_Cougars_football
+
+briefing:
+  identity_phrase: Chicago State is the brand-new program that returned Division I football to Chicago after an 87-year absence — starting from zero in 2026.
+  mantra: "Back to Chicago"
+  selfname: the Cougars
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: "FCS Independent (2026); Northeast Conference (2027+)"

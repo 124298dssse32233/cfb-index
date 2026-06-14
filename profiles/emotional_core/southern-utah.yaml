@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: southern-utah
+team_id: 339
+program_name: Southern Utah
+program_tier: 5
+
+emotional_core:
+  primary: standard
+  secondary: contentment
+  one_line: "Southern Utah is the Thunderbirds that just returned to the Big Sky in 2026 after a 5-year exile in the WAC/UAC, a small Utah-proud program now re-anchored to the conference where it belongs."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A program that spent 10 years in Big Sky (2011–2020), briefly competed for titles, left for better resources, landed in smaller conferences, and is now coming home to a league that fits its ambitions."
+
+the_wound:
+  name: "The UAC years and the unfulfilled FCS playoff expectation"
+  detail: "Southern Utah went 7–5 in 2025 (6–2 UAC) but missed the FCS playoffs despite a winning record, a painful lesson that conference affiliation matters. The Thunderbirds are now returning to the Big Sky (2026), hoping the migration restores playoff eligibility and Big Sky identity."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Compete for Big Sky titles, return to FCS playoff eligibility, build sustainable Utah-pride football in Cedar City."
+  drought: { since: 2015, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Southern Utah carries no resentment — the fanbase is focused on re-establishing Big Sky belonging."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: weber-state
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "None; the program is united on the Big Sky return and fresh start."
+register: cedar-city-southern-utah-thunderbirds-big-sky-return
+never_use:
+  - Southern Utah never won Big Sky titles — the program was consistently competitive in Big Sky (2011–2020) but no outright conference championships
+  - The Thunderbirds dominated Utah rivalry football — the Beehive Bowl with Weber State is real but neither program has won it reliably
+
+story_canon:
+  the_unique_thing: "The Beehive Bowl — the rivalry with Weber State that anchors Southern Utah's in-state identity, a rivalry that survived five years outside Big Sky and is renewed in 2026 upon the Thunderbirds' return."
+  the_origin: "A small university in Cedar City, Utah in the southern part of the state, competing in regional conferences and building an in-state identity against Weber State and other Utah programs."
+  golden_ages:
+    - { era: "2011–2020 (Big Sky Era I)", what: "Southern Utah was a Big Sky member, a competitive mid-tier program with occasional playoff eligibility" }
+    - { era: "2023–2025 (WAC/UAC)", what: "The Thunderbirds competed in smaller conferences while building toward the Big Sky return" }
+  legends:
+    - { name: DeLane Fitzgerald, role: coach, why: "Fifth-year coach leading Southern Utah through the WAC/UAC era and into the 2026 Big Sky return" }
+  canonical_moments:
+    - { name: "2025 UAC Season", year: 2025, what: "Southern Utah goes 7–5 (6–2 UAC) but misses FCS playoffs, illustrating the ceiling of the smaller conference", handling: wound }
+  the_place: "Eccles Coliseum in Cedar City, Utah — a small mountain venue in the southern Utah geography"
+  brand_of_football: "In-state Utah mountain football — competing against Weber State and other Utah programs for regional identity"
+  cultural_footprint: "Southern Utah represents the reality that FCS programs move conferences and seasons must be recalibrated constantly."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Southern Utah (formerly known as "Dixie State" until 2022, rebranded "Utah Tech" was applied to the 2022
+    Dixie State, while Southern Utah is the separate cedar-city school) went 7–5 (6–2 UAC) in 2025 but was ineligible for the FCS playoffs
+    due to conference constraints. Southern Utah is officially returning to the Big Sky Conference in 2026 after five years away (2021–2025).
+    Coach DeLane Fitzgerald (5th year) is charged with rebuilding Big Sky competitiveness and returning the Thunderbirds to FCS playoff
+    relevance. The 2026 season is a reset and fresh start, reuniting Southern Utah with the Big Sky family and the Beehive Bowl rivalry
+    with Weber State. The question is whether the return to Big Sky restores playoff eligibility and sustainable competitiveness.
+  research_checklist:
+    - Southern Utah's return to Big Sky 2026 (confirmed; left after 2020)
+    - 2025 record 7–5 (6–2 UAC) and playoff miss despite winning record
+    - The Beehive Bowl with Weber State as the primary rivalry
+    - DeLane Fitzgerald as 5th-year coach
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Southern_Utah_Thunderbirds_football_team
+    - https://bigskyconf.com/news/2025/6/25/general-the-big-sky-conference-welcomes-southern-utah-utah-tech-starting-in-2026.aspx
+    - https://en.wikipedia.org/wiki/Southern_Utah_Thunderbirds_football

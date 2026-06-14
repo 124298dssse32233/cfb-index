@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: portland-state
+team_id: 338
+program_name: Portland State
+program_tier: 5
+
+emotional_core:
+  primary: deprival
+  secondary: restoration
+  one_line: "Portland State is the urban university program that created the Dam Cup trophy (a rivalry crossing four Columbia River dams) and won back-to-back Division II playoff appearances, then became the Big Sky's perpetual losing program with the worst FCS record in the league."
+
+self_image:
+  archetype: orphaned
+  standard_gap_frame: "A program that once mattered in small-college football and competed for Division II relevance, now orphaned in the Big Sky as the perpetual basement dweller with a trophy case that feels from a different program."
+
+the_wound:
+  name: "The 39-year collapse from Division II competitiveness to FCS irrelevance"
+  detail: "Portland State competed seriously in NCAA Division II in the 1980s (playoff appearances 1987, 1988), then reclassified to I-AA in 1993 and has spent 32 years losing. In 2025, the Vikings went 1–11 (1–7 Big Sky), the worst record in the conference. The program has become a cipher, not a rival, not a competitor — just the team nobody plays well to beat."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to .500 football, make the Big Sky respectable, stop being the guaranteed win on every schedule."
+  drought: { since: 1988, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Portland State doesn't carry a chip — the fanbase has internalized the losses."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes new coach Chris Fisk (hired 2026 after 11 years under Bruce Barnum) can reset the culture and build something sustainable. Fans know the losses are real; they believe a change can reverse the trajectory."
+
+the_grudge_texture:
+  rival: eastern-washington
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Optimism about the coaching change vs 32 years of evidence that Portland State simply cannot win at FCS level"
+register: portland-oregon-vikings-dam-cup
+never_use:
+  - Never won Division II championships — the program competed in Div II but the playoff appearances (1987, 1988) are the peak
+  - Portland State is competitive in FCS — the Vikings' FCS record is one of the worst in the league; 1–11 in 2025 is not an outlier
+  - The Dam Cup rivalry is equal — Eastern Washington leads the all-time series 20–18–1; the trophy is real, but the program is not
+
+story_canon:
+  the_unique_thing: "The Dam Cup — the 339-mile rivalry trophy with Eastern Washington, named after four Columbia River hydroelectric dams (Bonneville, Dalles, John Day, McNary) that separate the two programs. It is one of the most geographically specific trophies in college sports."
+  the_origin: "Portland State is an urban university in Portland, Oregon that competed in small-college football during the Division II era, creating a rivalry with neighboring Eastern Washington and the Dam Cup trophy."
+  golden_ages:
+    - { era: "1987–1988", what: "Portland State makes back-to-back NCAA Division II playoff appearances, the program's peak competitiveness" }
+  legends:
+    - { name: Unknown, role: coach, why: "Portland State's Division II era had coaches but no legends of note in modern history" }
+  canonical_moments:
+    - { name: "1987 Division II Playoffs", year: 1987, what: "Portland State appears in the NCAA Division II playoffs, the program's era of relevance", handling: glory }
+    - { name: "1988 Division II Playoffs", year: 1988, what: "Portland State returns to the Div II playoffs, proving the 1987 run was not a fluke", handling: glory }
+    - { name: "Dam Cup establishment", year: 1993, what: "The rivalry with Eastern Washington formalizes around the Dam Cup trophy, a geographic identity anchor", handling: glory }
+  the_place: "Providence Park (formerly Civic Stadium) in Portland, Oregon — an urban soccer facility used for football, not a dedicated FCS stadium"
+  brand_of_football: "Urban small-college football — pragmatic, underfunded, constrained by city location and limited on-campus student-athlete housing"
+  cultural_footprint: "Portland State is a cautionary tale: a program that competed in its subdivision, reclassified too high, and never found traction. The Vikings are the FCS team that loses every year, and the fanbase has internalized defeat."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Portland State went 1–11 (1–7 Big Sky) in 2025 under 11-year coach Bruce Barnum.
+    The Vikings were the worst team in the Big Sky, and Barnum's tenure ended. Chris Fisk was hired as the 2026 head coach.
+    Fisk inherits a program with the worst FCS record in the league (catastrophically low winning percentage over 32 years)
+    and a fanbase that has given up. The question is whether Fisk can rebuild from ash, or if Portland State has permanently
+    become the Big Sky's punching bag. The 2026 season will reveal whether a coaching change can restore dignity.
+  research_checklist:
+    - The Dam Cup as the sole identity anchor
+    - 1987–1988 Division II playoff appearances as the peak
+    - 32 years of I-AA / FCS futility
+    - 1–11 record in 2025
+    - Bruce Barnum's 11-year tenure ending; Chris Fisk hired 2026
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Portland_State_Vikings_football_team
+    - https://en.wikipedia.org/wiki/Portland_State_Vikings_football
+    - https://en.wikipedia.org/wiki/Dam_Cup
+    - https://goviks.com/news/2025/9/29/football-vikings-prepare-to-defend-trophy-in-dam-cup-rivalry-game-with-eagles.aspx

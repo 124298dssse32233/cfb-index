@@ -1,0 +1,64 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: colorado-mesa
+program_name: Colorado Mesa University
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Colorado Mesa is the Western Slope program playing solid D2 football on the road to a historic milestone — 500 football wins reached in 2025, a testament to sustained RMAC competitiveness."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A mid-tier RMAC program with a long history of steady football, now crossing into rare historical territory (500 wins) as a testament to longevity and regional tradition."
+
+the_wound:
+  name: "None named"
+  detail: "Colorado Mesa carries no recent wound — a program built on sustained mediocre success, competitive seasons, and the quiet pride of showing up year after year."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Sustain the Mavericks' steady success and build toward RMAC titles — prove that consistent execution can deliver postseason runs."
+  drought: { since: 2018, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — just the quiet satisfaction of 500 wins and counting."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: western-colorado
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Stability vs ambition — the tension between enjoying the program's steady success and pushing for RMAC supremacy."
+register: colorado-mesa-mavericks-western-slope-grand-junction
+never_use:
+  - National championship program — 6-5 in 2025, mid-pack RMAC
+  - Conference powerhouse — competitive but not dominant
+
+story_canon:
+  the_unique_thing: "The 500-win milestone reached in 2025 — a rare achievement that speaks to sustained football success and organizational stability over decades."
+  the_origin: "A Western Slope institution in Grand Junction, Colorado, building a long tradition of RMAC football and regional competitiveness."
+  golden_ages: []
+  legends: []
+  canonical_moments:
+    - { name: "500 football wins (2025)", year: 2025, what: "Colorado Mesa reached its 500th football victory, a milestone testament to decades of sustained program competitiveness", handling: glory }
+  the_place: "Grand Junction, Colorado — the Western Slope home of Mavericks football."
+  brand_of_football: "Steady, competitive D2 football — a program built on consistency and regional pride over individual heroics."
+  cultural_footprint: "A regional D2 institution proving that sustained execution and organizational stability can build lasting success."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Colorado Mesa under coach Miles Kochevar went 6-5 in 2025 (5-4 RMAC) and reached
+    the historic milestone of 500 football wins — a testament to the program's longevity and sustained competitiveness. The
+    Mavericks are a solid mid-tier RMAC performer with a strong regional identity and steady coaching. The question forward:
+    can Colorado Mesa push from sustained competence into genuine conference contention?
+  sources:
+    - https://en.wikipedia.org/wiki/Colorado_Mesa_Mavericks_football
+    - https://www.cmumavs.com/
+    - https://www.rmac.org/

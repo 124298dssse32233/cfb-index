@@ -1,0 +1,117 @@
+# Emotional Core — Coastal Carolina  (coastal-carolina)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: coastal-carolina
+team_id: 116
+program_name: Coastal Carolina
+program_tier: 3
+
+emotional_core:
+  primary: spectacle       # the teal turf, the chicken-dance mascot, the unbeaten Cinderella month — a program that became must-watch
+  secondary: restoration   # the post-Chadwell drift, a coach fired, and a new staff trying to get the magic back
+  one_line: "Coastal Carolina is the program that turned a teal field, a rooster mascot, and one undefeated month in 2020 into the most fun story college football had ever seen from a school that barely existed at this level."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "An 11-1 season ranked No. 14 in the country on teal turf in 2020 vs a present of 6-7, a fired coach, and a fan base wondering if the magic was the place or the man who built it."
+
+the_wound:
+  name: "The Beck era ends in a losing season"
+  detail: "Coastal went 6-7 in 2025 — a season that ended with three straight blowout losses (51-7 at South Carolina, 59-10 to James Madison) and an Independence Bowl defeat — and Tim Beck was fired before it was even over, closing a 20-18 run that never recaptured the heights of 2020."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get the teal back on the national map — another Sun Belt title, another month where the country can't look away from the Chanticleers, and proof the 2020 dream wasn't a one-time thing."
+  drought: { since: 2020, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Chanticleer fans heard the whole sport ask 'where is that?' during the 2020 run — and they say the same people who couldn't find Conway on a map were the ones most eager to call the whole thing an accident the moment it ended."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the teal turf is a real home-field weapon — that opponents genuinely lose their footing, and themselves, on that field — and they lean into the gimmick precisely because it unsettles teams that think they're too big for Conway."
+
+the_grudge_texture:
+  rival: app-state
+  texture: border-war   # two Carolinas Sun Belt neighbors; the rivalry Coastal grew into on its FBS rise
+
+the_coach_relationship: hot-seat-churn   # Chadwell left for Liberty, Beck fired mid-season; the new Ryan Beard era starts cold
+the_internal_fracture: it-was-Chadwell vs it-was-Coastal — the faction that thinks the 2020 magic walked out the door with Jamey Chadwell vs the faction that believes the teal, the place, and the identity can produce another riser
+register: conway-chanticleer-teal-turf
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always FCS — 2017 FBS reclassification + 2020 #14 AP finish ended that'
+  - 'One-game-fluke — sustained 2017-2022 ascent + #14 finish disprove'
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The teal turf and the 2020 dream — Coastal Carolina played its home games on a stunning teal field and rode an 11-1 season to a No. 14 final ranking, beating undefeated BYU 22-17 in a hastily scheduled instant classic that made the Chanticleers the most delightful story in the sport."
+  the_origin: "A young coastal university in Conway, South Carolina with a literary mascot — the Chanticleer, the proud rooster from Chaucer's Canterbury Tales — that reclassified to FBS in 2017 and almost immediately became a Sun Belt phenomenon."
+  golden_ages:
+    - { era: "2020 (Jamey Chadwell)", what: "An 11-1 season, a Sun Belt East title, a No. 14 final AP ranking, and a College GameDay visit to Conway — the program's national arrival" }
+  legends:
+    - { name: Jamey Chadwell, role: coach, why: "Architect of the triple-option-tinged 2020 dream team; the coach the whole era is measured against" }
+    - { name: Grayson McCall, role: player, why: "The dual-threat QB and Sun Belt Player of the Year who ran the 2020 magic" }
+  canonical_moments:
+    - { name: "Beating undefeated BYU on the teal", year: 2020, what: "A 22-17 win over No. 13 BYU in a game scheduled days earlier, stopped at the one-yard line as time expired", handling: glory }
+    - { name: "GameDay comes to Conway", year: 2020, what: "ESPN College GameDay visits the teal-turf Chanticleers — national arrival for a program four years into FBS", handling: glory }
+  the_place: "Brooks Stadium in Conway — home of the famous teal playing surface, a vivid, disorienting home field that became the program's visual signature and self-styled home-field weapon."
+  brand_of_football: "Joyful, tempo-and-option football — the Chadwell-era identity of trickery, ground game, and showmanship, played on teal in front of a chicken-dancing crowd; college football as pure fun."
+  cultural_footprint: "The feel-good story of 2020 — in a pandemic season that needed one, a rooster-mascot school on a teal field gave the sport its joy, and made 'Coastal Carolina' a name everyone suddenly knew."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Coastal's post-Chadwell drift came to a head in 2025 — a 6-7 season
+    that cratered down the stretch (a 59-10 home loss to James Madison, an Independence Bowl defeat) and got
+    Tim Beck fired before it ended, capping a 20-18 tenure. The program hired Missouri State's Ryan Beard as
+    its fifth head coach. The 2026 question in Conway: can a new staff get the teal magic back, or did the
+    2020 lightning leave with the coach who bottled it?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Coastal_Carolina_Chanticleers_football_team
+    - https://www.live5news.com/2025/11/30/tim-beck-fired-coastal-carolina-after-3-seasons/
+    - https://en.wikipedia.org/wiki/2020_BYU_vs._Coastal_Carolina_football_game
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: 'Coastal Carolina is the Sun Belt program whose 2020 11-1 + #14 final AP + teal turf
+    + Jamey Chadwell era turned a 2017 FBS newcomer into national G5 disruptor.'
+  mantra: Ball is life.
+  cultural_anchors:
+    fan_archetype_dominant: Conway-Teal-Chanticleer
+    outsider_archetype_dominant: G5-Where-Is-That-Diminisher
+    one_sentence: 'Coastal Carolina is the FBS-newcomer-ascent + teal-turf identity program — 2020 11-1
+      + #14 AP + Jamey Chadwell era that turned 2017 FBS reclassification into national G5 disruptor status.'
+  selfname: the Chanticleers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2020 11-1 +
+    - 2017 FBS reclassification + immediate competitive cycles
+    - Teal turf + Chanticleer literary-origin mascot
+    rituals:
+    - Teal Turf
+    - Jamey Chadwell Era (2017-2022)
+    - Chicken Dance + Chanticleer Identity
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (53/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

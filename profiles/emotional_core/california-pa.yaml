@@ -1,0 +1,80 @@
+# Emotional Core — PennWest California Vulcans (california-pa)
+# AUTHORED 2026-06-13 — web-verified 2022 PennWest consolidation, PSAC West Division
+# program_tier: 6 (PSAC Division II)
+
+status: live
+slug: california-pa
+team_id: null          # PSAC, not FBS-indexed
+program_name: Pennsylvania Western University–California
+program_tier: 6
+
+emotional_core:
+  primary: contentment       # A stable, institutionally anchored program with a legendary HC and consistent PSAC competitiveness
+  secondary: house-money     # A mid-tier performer finding steady success and the joy of execution under Gary Dunn
+  one_line: "California University of Pennsylvania is the 174-year-old Vulcan program in Western PA built on institutional loyalty, a decorated head coach, and quiet PSAC competitiveness."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Founded in 1852, a PSAC West fixture with 10 conference titles and a 66-24 coaching record under Gary Dunn — a program that measures success in consistency, not chaos."
+
+the_wound:
+  name: "The 2022 consolidation into PennWest — institutional rebranding without losing athletic identity"
+  detail: "California University merged into Pennsylvania Western University in 2022 (with Clarion and Edinboro), but retained 'Vulcans' and athletic independence. The wound is minimal: administrative change, not cultural disruption. The fanbase absorbed it as a resource play."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Build on the Gary Dunn era (2016–present) by sustaining PSAC West titles, reaching the NCAA playoffs again, and proving that a mid-sized Western PA school can compete at the highest Division II level."
+  drought: { since: 2016, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "The Vulcan fanbase carries institutional pride: California football began in 1916, won the Coal Bowl rivalry games, and has now stacked 10 conference titles (1984, 2008, 2016 being the most recent). They believe Gary Dunn has made the program unambiguously respectable."
+
+the_delusion:
+  tone: self-aware
+  text: "That a Western PA school can remain a PSAC West contender in perpetuity — that the Dunn infrastructure is durable enough to survive coaching transitions. The fanbase believes it because consistency has become the expectation."
+
+the_grudge_texture:
+  rival: iup-crimson-hawks     # Coal Bowl rivalry
+  texture: championship   # Historic Western PA rivalry with defined, civil competition
+
+the_coach_relationship: forever-ours
+the_internal_fracture: durability-skeptics vs infrastructure-believers — those who credit individual players vs those who believe Dunn's system compounds
+register: california-pa-vulcan-western-pennsylvania
+never_use:
+  - Small program — California is a PSAC West anchor with 10 conference titles
+  - Struggling — Gary Dunn's 66-24 record and 2024 playoff appearance contradict this
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The oldest continuous university program in western Pennsylvania (founded 1852) and the PSAC West's most consistently successful team under Gary Dunn (2016–present, 66–24 record)."
+  the_origin: "Founded as an academy in 1852, chartered as a normal school in 1865, and became California State Teachers College before achieving university status in 1983 — a 172-year institutional lineage."
+  golden_ages:
+    - { era: "1984", what: "PSAC championship and earliest modern conference title" }
+    - { era: "2008–2009", what: "Back-to-back PSAC West division titles" }
+    - { era: "2016–2024", what: "The Gary Dunn era: PSAC West title (2016), consistent top-half finishes, and NCAA playoff returns (2016, 2024)" }
+  legends:
+    - { name: Gary Dunn, role: coach, why: "Seven seasons with a 66–24 record (two-time PSAC West Coach of the Year), four-year player (OL, 1991–94), and institutional anchor since his return in 2016" }
+    - { name: Blaze the Vulcan, role: mascot, why: "Red-and-black colors and the Vulcan identity anchor the program's athletic brand" }
+  canonical_moments:
+    - { name: "The Coal Bowl Series vs. IUP", year: ongoing, what: "The historic Western PA regional rivalry between two mid-tier PSAC powers", handling: glory }
+    - { name: "2016 PSAC Championship", year: 2016, what: "Dunn's first season; immediate elevation to champion status with highest-scoring offense in Division II (49.6 PPG)", handling: glory }
+    - { name: "2024 NCAA Playoff Appearance", year: 2024, what: "PSAC West title and national tournament return under sustained Dunn tenure", handling: glory }
+  the_place: "Hepner–Bailey Field at Adamson Stadium (6,500 capacity) in California, PA — the institutional home of Division II football in Western Pennsylvania."
+  brand_of_football: "Fundamentally sound, offensive-minded — a mid-tier program that competes with precision, not flash."
+  cultural_footprint: "Proof that a small Western PA school can sustain PSAC competitiveness over time; Gary Dunn is the living embodiment of that durability."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Gary Dunn enters his seventh season in 2026 with a 66–24 record and two PSAC West Coach of the Year awards (2016, 2024). The program made the NCAA playoff in 2024 after a mid-tier 2025 season. The Vulcans have now proven they can stack back-to-back playoff appearances; the next narrative is sustained excellence. The question: can Dunn build a three-year run that establishes California as a permanent PSAC West anchor?
+  research_checklist:
+    - The 1852 founding and evolution to modern university status (1983)
+    - The Coal Bowl rivalry with IUP and its historical significance
+    - Gary Dunn's playing career (1991–94) and his return as HC in 2016
+    - The 2016 PSAC championship and Dunn's immediate elevation of the program
+    - The 2024 NCAA playoff return and the durability of the Dunn system
+  sources:
+    - https://calvulcans.com/
+    - https://en.wikipedia.org/wiki/California_Vulcans_football
+    - https://www.zippia.com/california-university-of-pennsylvania-careers/history/
+    - https://en.wikipedia.org/wiki/California_University_of_Pennsylvania
+    - https://www.observer-reporter.com/sports/college_sports/2025/nov/25/california-winning-thriving-under-dunn/

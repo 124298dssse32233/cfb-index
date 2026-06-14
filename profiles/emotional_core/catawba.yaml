@@ -1,0 +1,117 @@
+# Emotional Core — Catawba  (catawba)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: catawba
+team_id: 999  # Placeholder — may need D2 DB assignment
+program_name: Catawba
+program_tier: 6
+
+emotional_core:
+  primary: restoration  # a historic 1940s excellence returning; Tyler Haines orchestrated the largest SAC turnaround in 2023
+  secondary: standard
+  core_variant: perpetual-rebuild
+  one_line: "Catawba is the Piedmont program that won Tangerine Bowls in the 1940s and set a national consecutive-scoring record that stood for generations — and after decades of shadows, is climbing back under Tyler Haines with the best start since 2017."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A 1940s bowl winner and national-record holder with 11-win seasons vs decades of struggle before a coaching change in 2023 began the climb back."
+
+the_wound:
+  name: "Seventy years in the shadow of a 1940s dream"
+  detail: "Catawba's glory was 1946–1947: 10–2 and 11–1 seasons, Tangerine Bowl wins, and a 89-game consecutive-scoring streak. Since then, it's been long stretches of sub-.500 football and the whisper question — what happened to the program that once won bowls? Tyler Haines arrived in 2023 and began turning it around."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Get back to the bowl field, win the SAC title that the Piedmont school used to own, and make Salisbury believe Indians football can be national again."
+  drought: { since: 1947, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Catawba fans know their team won bowl games before most programs even had fields. The chip is that their own history — 1940s glory that everyone else has forgotten — is the standard they're chasing."
+
+the_delusion:
+  tone: self-aware
+  text: "Catawba fans believe the 89-game consecutive-scoring record is still alive in the bones of the program; that the Tangerine Bowl victory DNA is still in the Salisbury soil; that a Haines team could find that again."
+
+the_grudge_texture:
+  rival: ""
+  texture: border-war
+
+the_coach_relationship: savior   # Tyler Haines orchestrated the largest SAC turnaround in 2023 and has the program ascending
+the_internal_fracture: ""
+register: salisbury-indians-tangerine-bowl
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - "Still FCS or higher — always D2 or NAIA"
+  - "Never won any significant championship — 2 Tangerine Bowls (1946-47) + 89-game record prove excellence"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The 1940s bowl dynasty and the 89-game consecutive-scoring streak: Catawba won back-to-back Tangerine Bowls (1947, 1948) and set a national consecutive-scoring record of 89 games (1947–1949) that held against Yale's 72-game mark. The Indians proved a Piedmont school could build a national identity."
+  the_origin: "Catawba was founded in 1851 in Salisbury, North Carolina. Football came in the early 1900s and became a regional power. Under Gordon Kirkland in the 1940s, the program reached its peak."
+  golden_ages:
+    - { era: "1946–1947 (Gordon Kirkland)", what: "Two consecutive Tangerine Bowl victories (1947, 1948) and an 89-game consecutive-scoring streak that became a national footnote" }
+  legends:
+    - { name: Gordon Kirkland, role: coach, why: "Built the 1946–1947 bowl teams that defined Catawba football" }
+  canonical_moments:
+    - { name: "1947 Tangerine Bowl victory", year: 1947, what: "Catawba defeats Marshall 31–6 in the Tangerine Bowl, capping an 11–1 season", handling: glory }
+    - { name: "89-game consecutive-scoring record", year: 1949, what: "The streak breaks but stands as a national record for decades, breaking Yale's 72-game mark", handling: glory }
+  the_place: "Shuford Stadium in Salisbury, North Carolina — home of the Indians and a Piedmont landmark."
+  brand_of_football: "Bowl-winning, scoring-machine football from the 1940s — a team that could run and score and win in December when it mattered."
+  cultural_footprint: "Evidence that a small Piedmont college could build a real national identity in the 1940s — and that records set in that era can echo for generations."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Catawba went 5–1 overall and 3–1 SAC in 2025, its best start since 2017,
+    under head coach Tyler Haines in his third season. Haines orchestrated the largest turnaround in the SAC during
+    2023 and has the program ascending toward bowl eligibility. The Indians are no longer a basement program; they're
+    climbing back toward the Tangerine Bowl era in the modern SAC.
+  research_checklist:   # what to look up (web) when we author this team together
+    - The 1947 Tangerine Bowl game and the 1948 follow-up
+    - The 89-game consecutive-scoring streak (1947–1949) and how it compares to Yale's record
+    - Gordon Kirkland's coaching tenure and record
+    - Tyler Haines' previous schools and turnaround approach
+    - Current roster composition and 2026 outlook
+  sources:
+    - https://en.wikipedia.org/wiki/1946_Catawba_Indians_football_team
+    - https://en.wikipedia.org/wiki/1947_Catawba_Indians_football_team
+    - Salisbury Post (2014, 2018, 2022) — Tangerine Bowl anniversary pieces
+    - NCFootballNews (2025)
+    - Catawba Athletics official site
+    - FloFootball (2024-2025)
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Catawba is the Piedmont program whose 1946–1947 bowl victories and 89-game consecutive-scoring
+    record (1947–1949) define a golden age that the program is climbing back toward.
+  mantra: ''
+  cultural_anchors:
+    fan_archetype_dominant: Salisbury-Indians-Tangerine-Bowl
+    outsider_archetype_dominant: Sleeping-Giant-Awakening
+    one_sentence: Catawba is the Salisbury Indians — 1947–1948 Tangerine Bowl victories + 89-game consecutive-scoring
+      record that anchors the sleeping-giant arc.
+  selfname: the Indians
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: SAC (South Atlantic Conference)
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1947–1948 Tangerine Bowl victories
+    - 89-game consecutive-scoring record (1947–1949)
+    - Tyler Haines turnaround (largest SAC turnaround 2023)
+    rituals:
+    - Tangerine Bowl Victories (1947–1948)
+    - 89-Game Consecutive-Scoring Record
+    modules_already_rendering: ''
+  live_fingerprint:
+    backometer: ''
+    voice_profile: absent
+    delusion_premium: absent

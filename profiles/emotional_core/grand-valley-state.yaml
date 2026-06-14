@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: grand-valley-state
+team_id: null
+program_name: Grand Valley State University
+program_tier: 6
+
+emotional_core:
+  primary: grievance
+  secondary: restoration
+  one_line: "Grand Valley State is the D2 dynasty fallen and climbing back — a program that won four national titles in the early 2000s under Bob Clements, and is now fighting to prove that the golden age wasn't a one-generation flash."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A program with four national championships and the tradition of the Anchor-Bone rivalry, now rebuilding under new coaching and hungry to return to national relevance."
+
+the_wound:
+  name: "The fall from the 2000s peak"
+  detail: "Grand Valley State dominated Division II in 2002-2006, winning four national titles under legendary coach Bob Clements. After Clements' retirement, the program has struggled to recapture that dominance. The wound is not failure, but the gap between what was and what is now — a program that knows it was elite and can't yet prove it again."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to the national championship stage — another title run that announces that GVSU's 2000s dynasty wasn't a one-coach miracle, but the foundation of an elite program."
+  drought: { since: 2006, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe grand Valley's chip is the Anchor-Bone Trophy rivalry — the fierce competition with Ferris State, a program that has now won four titles in five years while GVSU searches for its next championship. The chip burns: GVSU was here first, won it first, and refuses to be left behind."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans believe the program can get back to the 2000s — the roster looks better, the coaching is steadier, and maybe this is the year the Lakers show the nation that GVSU football never really went away."
+
+the_grudge_texture:
+  rival: ferris-state
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Bob Clements' shadow vs Scott Wooster's fresh start — the tension between honoring what was and building something new."
+register: michigan-laker-dynasty-anchor-bone-trophy
+never_use:
+  - Never a champion — incorrect; GVSU won four national titles (2002, 2003, 2005, 2006)
+  - Ferris' peer from the start — GVSU was dominant first; Ferris is the recent usurper
+  - Bob Clements is still coaching — he retired; Scott Wooster now leads the program (2 seasons in)
+
+story_canon:
+  the_unique_thing: "A program that won four national championships in five years under Bob Clements (2002-2006), establishing itself as a D2 dynasty, and now fights to prove that era was the foundation, not an anomaly."
+  the_origin: "Grand Valley State joined NCAA Division II in the 1980s and built steadily under legendary coach Bob Clements, who took over in 1997 and transformed the Lakers into a national power."
+  golden_ages:
+    - { era: "2002–2006 (Bob Clements dynasty)", what: "Four national championships (2002, 2003, 2005, 2006) — the gold standard of D2 excellence" }
+    - { era: "2018–2019", what: "Return to relevance and playoff contention under post-Clements coaching" }
+  legends:
+    - { name: Bob Clements, role: coach, why: "Won four national titles and established GVSU as a D2 dynasty under his legendary 20-year tenure" }
+  canonical_moments:
+    - { name: "2006 national championship", year: 2006, what: "The final title of the four-championship run under Bob Clements", handling: glory }
+    - { name: "2002-2006 dynasty era", year: 2006, what: "Four national titles in five years, the peak of GVSU football", handling: glory }
+    - { name: "Anchor-Bone Trophy rivalry begins", year: 2002, what: "GVSU and Ferris State establish the fierce Anchor-Bone rivalry (memorial to Ferris linebacker Matt Sklom)", handling: glory }
+  the_place: "Allendale, Michigan — a campus in west-central Michigan where the Lakers represent a community proud of its athletic legacy."
+  brand_of_football: "Disciplined, tradition-rich football built on the foundation of Bob Clements' system — execution and the belief that GVSU football is a legacy worth playing for."
+  cultural_footprint: "Grand Valley State proved that D2 programs could achieve sustained national excellence; the 2002-2006 dynasty set the gold standard that other programs, including Ferris State, have since chased."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Under new head coach Scott Wooster (2 seasons in), Grand Valley State
+    is in a rebuild phase aimed at returning to national relevance. The Lakers compete in the GLIAC with Ferris
+    State, a program that has now surpassed GVSU with four titles in five years (2021, 2022, 2024, 2025). The
+    Anchor-Bone Trophy rivalry burns: Ferris held the trophy after a 38-31 win in October 2025. GVSU's task is
+    to prove that the 2000s dynasty was not a one-coach anomaly, but the beginning of an elite program identity
+    that can be restored.
+  research_checklist:
+    - Four national titles verified (2002, 2003, 2005, 2006)
+    - Bob Clements legendary tenure (20+ years, now retired)
+    - Scott Wooster current head coach (2 seasons)
+    - Anchor-Bone Trophy rivalry with Ferris State
+    - Current rebuilding trajectory
+  sources:
+    - https://en.wikipedia.org/wiki/Grand_Valley_State_Lakers_football
+    - https://www.gvsu.edu/lakers/
+    - https://www.gliac.org/

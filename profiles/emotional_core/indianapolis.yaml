@@ -1,0 +1,70 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+status: live
+slug: indianapolis
+program_name: University of Indianapolis
+program_tier: 6
+
+emotional_core:
+  primary: standard
+  secondary: house-money
+  one_line: "Indianapolis is the mid-tier D-II powerhouse that has stacked 18 conference championships and four straight GLVC titles — a program that plays for championships, not mercy."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "463-385-22 all-time record, 18 conference championships, four consecutive GLVC titles (2022-2025), and a program-tying 11-win season in 2025 — the steady, championship-minded engine of the GLVC."
+
+the_wound:
+  name: "The perennial near-miss at the national stage"
+  detail: "UIndy has won 18 conference titles and four straight GLVC championships, but has never won a national championship. The program made the 2025 NCAA D-II playoffs and lost in the second round 35-27 to Minnesota State. It's the wound that defines UIndy: great conference dominance, not-quite national contention."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win an NCAA Division II national championship. Make a Final Four run. Prove that a mid-tier Indianapolis program can compete at the very top of D-II."
+  drought: { since: 1995, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. UIndy plays for championships — conference titles and the grind of sustained excellence. The program is built on steady, methodical winning, not revenge."
+
+the_delusion:
+  tone: load-bearing
+  text: "That one more recruiting cycle, one more portal haul will break through to a national title. Fans believe UIndy can do it, and the program's track record (18 conference titles, four straight GLVC crowns) suggests they're not entirely deluded."
+
+the_grudge_texture:
+  rival: marian
+  texture: championship
+  # "Monumental Matchup" — revived 2025 after hiatus; UIndy 463-385-22 all-time
+
+the_coach_relationship: legends-shadow
+  # Chris Keevers (7th season); working under the weight of UIndy's championship culture
+
+the_internal_fracture: "conference-dominance-vs-national-ambition — the faction satisfied with GLVC titles vs the faction that demands a national title to validate the program"
+
+register: glvc-dynasty-steady-excellence-indianapolis
+
+never_use:
+  - '"UIndy is overrated" — 18 conference titles and four straight GLVC championships don''t lie'
+  - '"UIndy will never win a national title" — the program has been to the tournament and is capable'
+
+story_canon:
+  the_unique_thing: "18 GLVC conference championships and four consecutive GLVC titles (2022-2025) — a program-record-tying 11-win season in 2025 and a program built on sustained conference dominance."
+  the_origin: "The University of Indianapolis was founded in 1902 in Indianapolis, Indiana. Football became part of the university's identity early, and the Greyhounds built a steady reputation as a small-college power, particularly in recent decades."
+  golden_ages:
+    - { era: "Modern GLVC Era (2000s–present)", what: "18 GLVC conference championships and sustained tournament appearances; UIndy became the standard-bearer of the GLVC" }
+    - { era: "Four-Peat GLVC Titles (2022–2025)", what: "Consecutive GLVC championships under Chris Keevers; the program's most dominant stretch in recent memory", handling: glory }
+  legends: []
+  canonical_moments:
+    - { name: "18 GLVC Conference Championships", year: 2000, what: "UIndy built a tournament-ready program with more GLVC titles than any other modern program", handling: glory }
+    - { name: "Four Consecutive GLVC Titles (2022–2025)", year: 2025, what: "UIndy won the GLVC championship four years in a row, the program's most dominant stretch", handling: glory }
+  the_place: "Indianapolis, Indiana — a mid-sized city where the Greyhounds have built a championship program that anchors the GLVC."
+  brand_of_football: "Methodical, consistent, championship-driven. UIndy plays for GLVC titles and sustained excellence — the program is built on winning conferences, not individual moments."
+  cultural_footprint: "UIndy proved that a smaller Indiana university could build and sustain a championship program in the GLVC, competing at the highest level of Division II."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: University of Indianapolis went 11-3 (program-record-tying season) in 2025, winning the GLVC championship for the fourth consecutive year.
+    The Greyhounds made the NCAA D-II playoffs as a 1-seed but lost in the second round to Minnesota State 35-27. Chris Keevers (7th season) has built a steady program,
+    and the Monumental Matchup rivalry with Marian was revived in 2025. UIndy faces the eternal challenge: can they break through to a national title, or is conference
+    dominance the program's ceiling?
+  sources:
+    - https://athletics.uindy.edu/news/2025/11/29/uindy-football-season-ends-with-second-round-loss.aspx
+    - https://muknights.com/news/2025/2/7/football-monumental-matchup-returns-as-marian-hosts-uindy-in-2025-season-opener.aspx

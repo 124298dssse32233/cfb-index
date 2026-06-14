@@ -1,0 +1,82 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: ouachita-baptist
+team_id: null
+program_name: Ouachita Baptist
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Ouachita Baptist is the D2 powerhouse that began on September 17, 1897—the first college football game ever played in Arkansas—and has been the purple-and-gold heartbeat of Arkadelphia for 130 years."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A historic D2 program with seven conference titles since 2011 but no national championship—the Tigers have been close enough to touch it, but it keeps slipping away in the playoffs."
+
+the_wound:
+  name: "The national championship that refuses to come"
+  detail: "Ouachita Baptist has won 7 GAC Conference Championships (2011, 2014, 2017-2019, 2022, 2024) but has never won a Division II national title. They've made playoff runs and exited early—a program trapped in a glass ceiling."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Division II National Championship and cement Ouachita Baptist among the D2 elite—prove that regional dominance and sustained excellence can translate to one final game."
+  drought: { since: 2011, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe ouachita Baptist has no external chip. The Tigers' driving force is internal: the belief that 130 years of sustained football excellence—including being the first program to ever play college football in Arkansas—deserves recognition at the national stage."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that if Todd Knight—the head coach who has been building this program for 26 years—stays one more season, the Tigers will finally break through and win the national championship. They've been saying this for a decade, and they keep showing up."
+
+the_grudge_texture:
+  rival: henderson-state
+  texture: blood-feud
+
+the_coach_relationship: forever-ours
+the_internal_fracture: None; Ouachita Baptist is unified around Todd Knight's program
+register: arkadelphia-tigers-130-years-first-game-arkansas
+
+never_use:
+  - "Ouachita Baptist is a stepping stone"
+  - "The Tigers are just a regional power"
+  - "The Battle of the Ravine doesn't matter nationally"
+  - "Ouachita Baptist could never compete with FBS schools"
+
+story_canon:
+  the_unique_thing: "Ouachita Baptist played the first college football game ever in Arkansas on September 17, 1897, defeating the University of Arkansas 24-0—and has been a sustained D2 power for 130 years."
+  the_origin: "Founded in 1886, Ouachita Baptist began playing football in 1897 with a stunning upset of the University of Arkansas. The Tigers established themselves as a regional force and have been competing at a high level ever since."
+  golden_ages:
+    - { era: "1897", what: "Ouachita Baptist defeats the University of Arkansas 24-0 in the first college football game ever played in Arkansas" }
+    - { era: "2011-2024", what: "Seven GAC Conference Championships (2011, 2014, 2017, 2018, 2019, 2022, 2024); sustained regional dominance" }
+  legends:
+    - { name: Todd Knight, role: coach, why: "26-year head coach (169-107 record) who has defined Ouachita Baptist football since the late 1990s" }
+  canonical_moments:
+    - { name: "First Game in Arkansas", year: 1897, what: "Ouachita Baptist defeats University of Arkansas 24-0, marking the first college football game ever played in Arkansas", handling: glory }
+    - { name: "2024 GAC Championship", year: 2024, what: "Ouachita Baptist wins the GAC Conference Championship under Todd Knight", handling: glory }
+    - { name: "Playoff Ceiling", year: 2024, what: "Despite conference dominance, Ouachita Baptist consistently exits the Division II playoffs early—the glass ceiling moment", handling: wound }
+  the_place: "Sparkman Stadium (also known as Albert Womer Field) in Arkadelphia, Arkansas—home of the Tigers, five minutes across Route 67 from Henderson State, the rival that defined the region."
+  brand_of_football: "Consistent excellence. The kind of program that shows up every year, wins the conference, and competes in the playoffs—but somehow never crosses the final threshold."
+  cultural_footprint: "Ouachita Baptist is the proof that a small Baptist university can build a 130-year football tradition that rivals any program in Division II—not through flash, but through sustained competence and community."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Ouachita Baptist finished 7-4 in the 2025 season and won the 2024 GAC
+    Conference Championship. Head coach Todd Knight, in his 26th year with a 169-107 overall record, continues
+    to build a program that has won seven conference titles since 2011 but has not yet broken through to a
+    Division II national championship. The Tigers lost the 2025 Battle of the Ravine to Henderson State 41-14,
+    a setback in a rivalry that defines Arkadelphia. The questions for 2026: can Todd Knight finally bring
+    home the national title, or will Ouachita Baptist remain forever on the regional stage?
+  research_checklist:
+    - the 1897 first game vs. Arkansas and its historical significance
+    - Todd Knight's 26-year tenure and program building
+    - the seven GAC Conference Championships since 2011
+    - playoff history and why national titles have been elusive
+    - the cultural significance in Arkadelphia
+  sources:
+    - https://en.wikipedia.org/wiki/Ouachita_Baptist_Tigers_football
+    - https://obutigers.com/sports/football/roster/coaches/todd-knight/110
+    - https://en.wikipedia.org/wiki/Battle_of_the_Ravine
+    - https://greatamericanconference.com/standings.aspx?path=football

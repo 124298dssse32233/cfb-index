@@ -1,0 +1,82 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# UMass Dartmouth Division III emotional core
+
+status: live
+slug: umass-dartmouth
+team_id: null
+program_name: UMass Dartmouth
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: spectacle
+  one_line: "UMass Dartmouth is the Corsair on the rise — a 40-year-old program that captured its first MASCAC title in 2022 and has won three consecutive conference championships (2022–2024), capped by a perfect 2024 regular season (10–0) and an automatic NCAA playoff bye."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A young Division III program (founded 1985) that climbed from late-stage strugglers to three consecutive MASCAC titles in three years, proving that sustained excellence can be built quickly with the right coaching and institutional support."
+
+the_wound:
+  name: "The long pre-2022 struggle — 36 years as a program searching for identity"
+  detail: "UMass Dartmouth played football from 1985–2021 without winning a MASCAC championship. Three decades of regional competence, tournament appearances, but never breaking through until Josh Sylvester took over in 2023. The drought was not painful because the fanbase had low expectations; the recent success has reset what 'normal' looks like."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "A national championship. The 2024 perfect regular season (10–0) with an automatic playoff bye proves the Corsairs can compete for hardware. The next step is finishing the tournament run."
+  drought: { since: 1974, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "UMass Dartmouth is invisible to the national college football conversation. Three consecutive MASCAC titles and a 10–0 regular season in 2024 merit zero ESPN coverage. The chip is that nobody outside Massachusetts knows the Corsairs exist, and that fuels the fanbase's belief that another title run would force recognition."
+
+the_delusion:
+  tone: earnest
+  text: "That a small Massachusetts state school can win a Division III national championship. Josh Sylvester's arrival and three consecutive title runs have made believers of even the skeptics. The fanbase knows the odds, but the precedent is fresh and real."
+
+the_grudge_texture:
+  rival: framingham-state
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: expectation-vs-sustainability — Josh Sylvester's rapid success (3 titles in 3 years) has reset expectations from "be competitive" to "win a national championship"; the question is whether the program can sustain this level or if Sylvester's honeymoon will eventually normalize
+register: dartmouth-corsair-young-program-breakthrough
+
+never_use:
+  - UMass Dartmouth is an established MASCAC power (program founded 1985, titles began 2022)
+  - The Corsairs have a long history of success (first title 2022, three consecutive since)
+  - Josh Sylvester has coached for many seasons (hired 2023, second season when researched; only 3 years total)
+  - The program is old (founded 1985, only 41 years old)
+
+story_canon:
+  the_unique_thing: "The rapid rise from 36 years of futility to three consecutive MASCAC titles (2022–2024) in just three seasons — a young program that found its identity and immediately proved it at the highest level of Division III."
+  the_origin: "UMass Dartmouth began football in 1985, 40 years ago. The program competed as a MASCAC affiliate member and made occasional NCAA tournament appearances, but never broke through to conference dominance until Josh Sylvester's arrival."
+  golden_ages:
+    - { era: "2022–present (Sylvester era)", what: "Three consecutive MASCAC championships, including a 10–0 regular season in 2024 with an automatic NCAA tournament bye" }
+  legends:
+    - { name: Josh Sylvester, role: coach, why: "Three seasons (2023–2025), 25–7 all-time record, three consecutive MASCAC titles, transformed a middling program into a contender" }
+  canonical_moments:
+    - { name: "First MASCAC Championship (2022)", year: 2022, what: "UMass Dartmouth wins its first conference title after 37 years of trying, breaking through to a new level", handling: miracle }
+    - { name: "Three Consecutive MASCAC Titles (2022–2024)", year: 2024, what: "The Corsairs prove their breakthrough was sustainable, winning three straight conference championships", handling: glory }
+    - { name: "Perfect 2024 Regular Season (10–0)", year: 2024, what: "UMass Dartmouth goes undefeated in the regular season and receives an automatic NCAA tournament bye, the program's first perfect campaign", handling: glory }
+    - { name: "New England Bowl Championship (2024)", year: 2024, what: "UMass Dartmouth wins a postseason bowl game, extending the 2024 championship run", handling: glory }
+  the_place: "Dartmouth, Massachusetts — a small southern Massachusetts town where UMass Dartmouth's sudden football success has become a civic point of pride."
+  brand_of_football: "Disciplined, competitive football that has learned to win — from a young program still writing its identity."
+  cultural_footprint: "UMass Dartmouth's recent success has elevated the program from invisibility to regional prominence. The fanbase is young, enthusiastic, and building traditions from scratch."
+  the_ongoing_story: >
+    LIVE MASCAC — researched 2026-06-13: UMass Dartmouth went 10–0 (perfect regular season) in 2025, capturing
+    a third consecutive MASCAC championship and earning an automatic NCAA tournament bye. Josh Sylvester, in
+    his third season (hired 2023), has built a program identity around winning at the highest Division III
+    level. The Corsairs are one of the hottest programs in Massachusetts college football, and the fanbase
+    believes another national championship is not only possible but likely.
+  research_checklist:
+    - Program founding (1985)
+    - Josh Sylvester hire (2023) and record (25–7 through 2025)
+    - Three consecutive MASCAC titles (2022–2024)
+    - 10–0 perfect regular season (2024)
+    - New England Bowl championships
+    - All-time record: 200–159
+  sources:
+    - https://en.wikipedia.org/wiki/UMass_Dartmouth_Corsairs_football
+    - https://www.umassd.edu/athletics/football
+    - https://mascac.com/sports/fball/index

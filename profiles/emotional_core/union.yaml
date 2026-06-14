@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: union
+team_id: null
+program_name: Union College
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Union is the historic Dutchman that co-owns the oldest rivalry in New York state (since 1886) and clinched the 2025 Liberty League title with an 8–1 record."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A prestigious liberal-arts college with deep football tradition and the oldest rivalry in the state, defending historic prestige and conference championship titles."
+
+the_wound:
+  name: "Recent RPI dominance"
+  detail: "While Union leads the all-time series 51–24 in the Dutchman's Shoes trophy era, RPI has dominated since 2000 (14 of 24 games). The 2025 season provided redemption with a 28–21 victory over RPI in a championship-clinching game."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Dutchman's Shoes regularly and compete for Liberty League championship titles, proving the historic rivalry remains competitive at the highest level."
+  drought: { since: 2020, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe union's chip is ancient and prestige-driven: football began in 1886, the oldest rivalry in New York state, and Union dominated the pre-trophy era (33 of 47 games before 1950). The trophy is pride incarnate."
+
+the_delusion:
+  tone: self-aware
+  text: "That Union's all-time lead in the rivalry (51–24) matters more than the recent trophy era dominance by RPI. The fanbase knows the 2025 victory is sweet redemption, but the long-term pattern favors RPI since 2000."
+
+the_grudge_texture:
+  rival: rpi
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Historic prestige vs modern reality: Union leads all-time but trails in the trophy era."
+register: union-college-dutchman-shoes-oldest-rivalry
+never_use:
+  - Recent championship dynasty — Union clinched 2025 Liberty League title but has not won a Stagg Bowl in division history
+  - Consistent national power — Union's strength is regional rivalry tradition, not national championship status
+
+story_canon:
+  the_unique_thing: "The oldest football rivalry in New York state (since 1886) and the Dutchman's Shoes trophy (since 1950) against RPI — a 120-plus-game history that defines the program's identity and purpose."
+  the_origin: "Union College founded 1795. Football began in 1886 with the first game vs Rensselaer, making it the oldest collegiate rivalry in New York state."
+  golden_ages:
+    - { era: "Pre-1950 Dominance", what: "Union dominated the pre-trophy era with 33 of 47 victories before the Dutchman's Shoes trophy began" }
+    - { era: "2025 Championship Season", what: "8–1 record, clinched Liberty League title with 28–21 victory over RPI on Nov 15, 2025" }
+  legends: []
+  canonical_moments:
+    - { name: "Oldest NY Rivalry", year: 1886, what: "First football game vs Rensselaer, beginning the oldest rivalry in New York state", handling: glory }
+    - { name: "Dutchman's Shoes Trophy", year: 1950, what: "Wooden clogs on pedestal symbolizing the 120-plus-game rivalry tradition", handling: glory }
+    - { name: "Pre-Shoe Dominance", year: 1950, what: "Union dominated 33 of 47 games before the trophy era began", handling: glory }
+    - { name: "2025 Liberty League Championship", year: 2025, what: "Union clinched the Liberty League title with an 8–1 record and defeated RPI 28–21 in the championship-clinching game", handling: glory }
+  the_place: "Union College in Schenectady, New York — a historic liberal-arts college where the Dutchman's Shoes trophy sits as the centerpiece of football identity."
+  brand_of_football: "Tradition-driven, rivalry-focused football where the ancient competition with RPI defines the program's purpose."
+  cultural_footprint: "Union represents the apex of historic college football rivalry — a 120-plus-game tradition where a wooden clogs trophy symbolizes deep regional pride and prestige."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Union clinched the 2025 Liberty League title with an 8–1 record, defeating RPI 28–21 on November 15, 2025, in a championship-clinching game that also secured the Dutchman's Shoes trophy. The victory represents redemption in the trophy era after RPI dominated since 2000 (winning 14 of 24 games). Union's 2025 championship and NCAA Tournament berth mark a return to competitive prominence while honoring the historic rivalry tradition that dates to 1886.
+  research_checklist:
+    - Founded 1795 (historic liberal-arts college)
+    - Football began 1886 (oldest NY state rivalry vs RPI)
+    - Dutchman's Shoes trophy since 1950 (wooden clogs on pedestal)
+    - "All-time record vs RPI: leads 51–24 in trophy series (pre-trophy era dominated 33 of 47)"
+    - 2025 record: 8–1
+    - 2025 Liberty League champion
+    - 2025 Dutchman's Shoes victory: defeated RPI 28–21 on Nov 15, 2025
+    - 2025 NCAA Tournament berth
+  sources:
+    - https://en.wikipedia.org/wiki/Dutchman's_Shoes
+    - https://en.wikipedia.org/wiki/Union_College
+    - https://www.d3football.com/teams/union
+    - https://libertyleagueathletics.com

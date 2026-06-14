@@ -1,0 +1,83 @@
+# AUTHORED (D3 MAC) 2026-06-13 — web-verified
+# Middle Atlantic Conference | Dallas, PA | Established Cougars
+# Began 2012; strong 2025 season (7-3, 7-2 MAC); Catholic institution without athletic scholarships
+
+status: live
+slug: misericordia
+team_id: null
+program_name: Misericordia University
+program_tier: 7
+
+emotional_core:
+  primary: contentment      # a young program finding its footing; competitive without being dominant
+  secondary: honor          # Catholic institutional identity; commitment to student-athletes without scholarships
+  one_line: "Misericordia is the Dallas Cougar proving that a Catholic liberal arts program can compete in Division III football without athletic scholarships, building something real through institutional faith."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 13-year-old Catholic program competing alongside institutions with decades of history, doing it without athletic scholarships (need-based aid only), and proving that institutional commitment matters more than resources."
+
+the_wound:
+  name: "None acute; the chronic wound is resource parity"
+  detail: "Misericordia has no recent trauma—the 2025 season was 7-3 overall, 7-2 MAC, competitive at the mid-tier level. The chronic wound is the structural one: the Cougars compete at Division III against well-funded peers while offering no athletic scholarships. This creates a persistent ceiling—not despair, but structural tension."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that a Catholic program without athletic scholarships can sustain mid-tier MAC competitiveness year after year—not needing championships, just proof that the model works."
+  drought: { since: 2012, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no villain—just the quiet conviction that doing Division III football the Catholic way (need-based aid, institutional values, student-athlete development) is harder and more honest."
+
+the_delusion:
+  tone: earnest
+  text: "That a young program with the Cougar spirit and Catholic identity could compete for MAC titles against better-resourced peers—that institutional pride substitutes for scholarship dollars. The fanbase believes in the model."
+
+the_grudge_texture:
+  rival: delaware-valley
+  texture: championship    # MAC divisional rivals; Misericordia tied 2nd in 2025, just behind Delaware Valley-Eastern tier
+
+the_coach_relationship: savior              # Steve Cushing (2025, formerly defensive coordinator at 2023 D3 champ SUNY-Cortland)
+the_internal_fracture: institutional-faith vs competitive-hunger — celebrating the model's integrity vs wanting to break into elite MAC tier
+register: dallas-cougar-catholic-grace-competitive-model
+never_use:
+  - "Catholic schools can't compete in Division III — Misericordia's 7-3 season and all-MAC honors prove otherwise"
+  - "Programs without scholarships belong in a lower division — Division III allows Misericordia's model; the NCAA structure accommodates it"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The Dallas Cougar—a 13-year-old Catholic program competing at Division III without athletic scholarships, proving that institutional faith and need-based aid can build real football culture and sustained competitiveness."
+  the_origin: "Misericordia University, a Catholic liberal arts college in Dallas, PA, began fielding a Division III football team in 2012 as part of its athletic expansion and mission to serve student-athletes."
+  golden_ages:
+    - { era: "2012-2025 institutional arc", what: "A young program building consistent competitiveness through Catholic institutional values and need-based financial aid" }
+    - { era: "2025 competitive season", what: "7-3 overall, 7-2 MAC, tied 2nd place, nine all-MAC honors" }
+  legends:
+    - { name: "Catholic institutional mission", role: institution, why: "Misericordia's commitment to developing student-athletes without athletic scholarships represents a distinct educational philosophy" }
+    - { name: Steve Cushing, role: coach, why: "Defensive coordinator at 2023 D3 national champion SUNY-Cortland; brought winning experience to Dallas" }
+  canonical_moments:
+    - { name: "2012 program launch", year: 2012, what: "Misericordia University begins Division III football, committing to athletics without athletic scholarships", handling: glory }
+    - { name: "2025 competitive season", year: 2025, what: "Cougars finish 7-3 overall, 7-2 MAC, tied for 2nd place; nine all-MAC honors; compete at mid-tier MAC level", handling: glory }
+  the_place: "Mangelsdorf Field in Dallas, PA—home of the Cougars, representing a Catholic liberal arts athletic tradition."
+  brand_of_football: "The faithful Cougar—a program competing through institutional commitment and student-athlete development without athletic scholarships, proving the model works in Division III."
+  cultural_footprint: "Misericordia represents an alternative approach to Division III football—Catholic institutional identity as competitive advantage, not liability."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Misericordia finished 7-3 overall (7-2 MAC, tied 2nd place in MAC Commonwealth)
+    in 2025. Head coach Steve Cushing, a former defensive coordinator at 2023 Division III national champion SUNY-Cortland,
+    brought national championship culture to Dallas. The Cougars had nine players earn All-MAC Honors. The program operates
+    without athletic scholarships, offering need-based and academic aid to student-athletes—a distinctive model that defines
+    Misericordia's approach to Division III football. The 2025 season demonstrated competitive substance: a mid-tier MAC
+    performance that validates the institutional model and sets baseline expectations for 2026.
+  research_checklist:
+    - Founded 2012 (13-year-old program)
+    - Catholic liberal arts institution
+    - Mangelsdorf Field, Dallas PA
+    - No athletic scholarships (need-based aid only)
+    - 2025: 7-3 overall, 7-2 MAC (tied 2nd), nine all-MAC honors
+    - 2025 coach: Steve Cushing (1st year, ex-DC at 2023 D3 champ SUNY-Cortland)
+  sources:
+    - https://athletics.misericordia.edu/
+    - https://www.d3football.com/teams/misericordia
+    - https://gomacsports.com/
+    - https://en.wikipedia.org/wiki/Misericordia_Cougars_football

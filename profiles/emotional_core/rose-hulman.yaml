@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Rose-Hulman Institute of Technology Fightin' Engineers — The HCAC Contender
+
+status: live
+slug: rose-hulman
+team_id: null
+program_name: Rose-Hulman
+program_tier: 7
+
+emotional_core:
+  primary: grievance
+  secondary: restoration
+  one_line: "Rose-Hulman is the elite engineering school that has not won the HCAC title since 2021 — the Engineers with top individual talent like RB Jay Smith are hungry to reclaim their conference throne."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A program built on engineering excellence and consistent HCAC competitiveness vs the frustration of being a second- or third-place finisher for five straight years."
+
+the_wound:
+  name: "The five-year HCAC drought"
+  detail: "Rose-Hulman won the HCAC championship in 2021 but has finished second or third for the past five years (2021-2025). The wound is the persistent near-miss — the talent is there, Mount St. Joseph and Hanover are just slightly better."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the HCAC championship again and return to the national tournament — to prove Rose-Hulman's engineering excellence still translates to football dominance."
+  drought: { since: 2021, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe mount St. Joseph went 20-0 in HCAC games over the past three years — the defending champion that was supposed to be vulnerable. Hanover just beat them. Rose-Hulman watches both from below."
+
+the_delusion:
+  tone: self-aware
+  text: "That one more recruitment cycle or one more transfer portal haul will push the Engineers over Mount St. Joseph — the fanbase knows the talent gap is closing, and believes the championship is next."
+
+the_grudge_texture:
+  rival: mount-st-joseph
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Impatient alumni who demand a championship now vs coach Jeff Sokol's philosophy of sustainable excellence."
+register: rose-hulman-engineers-hcac-contender
+never_use:
+  - "Rose-Hulman is not competitive — second and third place finishes and individual All-HCAC honors prove otherwise"
+  - "Engineering schools cannot compete in football — Rose-Hulman's program shows the opposite"
+  - "No great players — Jay Smith set a school record with 1,297 rushing yards in 2024"
+
+story_canon:
+  the_unique_thing: "An elite engineering school in Terre Haute, Indiana that has built a sustained HCAC contender with top individual talent like running back Jay Smith — but cannot quite get over Mount St. Joseph's hump."
+  the_origin: "Founded in 1874 as a technical school in Terre Haute, Rose-Hulman has built a football program that competes with the best engineering schools."
+  golden_ages:
+    - { era: "2015–2021", what: "The pre-drought era with the 2021 HCAC championship as the peak" }
+    - { era: "2022–2025", what: "The persistent second- and third-place finishes, always competitive but never quite breaking through" }
+  legends:
+    - { name: Jeff Sokol, role: coach, why: "15-year head coach building a sustained HCAC contender" }
+    - { name: Jay Smith, role: player, why: "Senior running back, 2024 school record 1,297 rushing yards, 18 TDs, All-America recognition" }
+  canonical_moments:
+    - { name: "2021 HCAC Championship", year: 2021, what: "The most recent conference title", handling: glory }
+    - { name: "2025 season (second place behind Hanover)", year: 2025, what: "Another near-miss at the championship", handling: heartbreak }
+  the_place: "Rose-Hulman Institute of Technology in Terre Haute, Indiana — an elite engineering school on the Wabash River."
+  brand_of_football: "Precision, excellence, and engineering discipline applied to football — Rose-Hulman football is built on fundamentals and player development."
+  cultural_footprint: "The proof that engineering excellence can build football success. Rose-Hulman is the standard for what small technical schools can achieve in athletics."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Rose-Hulman finished second in the 2025 HCAC behind Hanover, who won the
+    title with a 48-0 victory over Bluffton. Senior running back Jay Smith led the Engineers with a school-record
+    1,297 rushing yards and 18 TDs in 2024, and 13 Rose-Hulman athletes earned All-HCAC honors in 2025. Head Coach
+    Jeff Sokol (15 years) is hunting for the program's first HCAC title since 2021.
+  research_checklist:
+    - "2021 HCAC championship (most recent title)"
+    - "2025: Second place behind Hanover"
+    - "RB Jay Smith: 1,297 yards, 18 TDs in 2024; Preseason All-America second team"
+    - "13 All-HCAC honors in 2025"
+  sources:
+    - https://sports.yahoo.com/article/season-preview-rose-hulman-football-035900338.html
+    - https://athletics.rose-hulman.edu/news/2025/11/26/13-rose-hulman-student-athletes-named-all-conference-for-football.aspx

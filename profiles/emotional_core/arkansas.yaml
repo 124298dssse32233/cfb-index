@@ -1,0 +1,119 @@
+# Emotional Core — Arkansas  (arkansas)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: arkansas
+team_id: 79
+program_name: Arkansas
+program_tier: 3
+
+emotional_core:
+  primary: deprival       # an entire state's program, a single 1964 title, and decades of being the SEC's odd man out
+  secondary: grievance    # the only Power program with no in-state rival, perpetually fighting to matter in a loaded league
+  one_line: "Arkansas is an entire state's only major program — no in-state rival, a fanbase scattered nationwide that all answers the same Hog Call — chasing the first real glory since a national title sixty years gone, now under a brand-new coach."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A 1964 national championship and a proud Southwest Conference past against a thirty-year SEC stretch of brief peaks and long stretches of finishing in the league's middle or worse."
+
+the_wound:
+  name: "The 2-10 collapse and Pittman's firing"
+  detail: "In 2025 the Razorbacks went 2-10, fired the beloved Sam Pittman after a 56-13 home loss to Notre Dame, lost out the rest of the way under interim Bobby Petrino, and turned the program over to Ryan Silverfield — the latest reset in a search for an SEC ceiling that keeps slipping away."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Break through in the SEC at last — a division-caliber season, a New Year's Six bowl, the first conference-level glory since the league swallowed the program whole."
+  drought: { since: 1964, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "Hog fans say the bluebloods of the SEC have spent thirty years treating Arkansas as a guaranteed win on the schedule — the league's outsider with no neighbor to lean on — and they call the Hogs every week, daring anyone to keep overlooking the whole state's team."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the right coach turns Arkansas into a perennial SEC contender overnight — that the talent base, the booster money, and the most devoted travel crowd in the conference mean the Hogs are always one hire from finally arriving."
+
+the_grudge_texture:
+  rival: texas
+  texture: border-war   # the old Southwest Conference blood feud, freshly relit by Texas joining the SEC in 2024
+the_coach_relationship: savior   # Ryan Silverfield arrives from Memphis as the latest hoped-for fix
+the_internal_fracture: loyalty vs ceiling — the faction that loved folksy Sam Pittman and hated to see him go vs the faction that decided affection was no substitute for an SEC ceiling the Hogs never reached under him
+register: razorback-southern-passion   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Small school — Arkansas is the only Division-I football program in the state
+  - Lost decade — every program has them; the Hogs come back
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Hog Call — 'Woo Pig Sooie,' the most distinctive sound in the sport — bonding a fanbase with no in-state Power rival and a diaspora scattered across the country; Arkansas is the rare program that is an entire state's team, and the Call is the thing that gathers it."
+  the_origin: "The University of Arkansas, the state's only major program, raised to national power by Frank Broyles, whose 1964 team went 11-0 and won the program's lone national championship."
+  golden_ages:
+    - { era: "1958–1976 (Frank Broyles)", what: "144 wins, seven Southwest Conference titles, and the 1964 national championship" }
+    - { era: "2006–2011 (Houston Nutt / Bobby Petrino)", what: "Darren McFadden's Heisman runner-up years and Petrino's 2011 11-2 Cotton Bowl team" }
+  legends:
+    - { name: Frank Broyles, role: coach, why: "The 1964 national title, the program's defining figure, later its legendary athletic director" }
+    - { name: Darren McFadden, role: player, why: "Two-time Heisman runner-up, the most electric back in school history" }
+    - { name: Lou Holtz, role: coach, why: "Took over in 1977 and led the Hogs to an Orange Bowl rout of Oklahoma in his first season" }
+  canonical_moments:
+    - { name: "The 1964 national championship", year: 1964, what: "Broyles' 11-0 team wins the program's only national title", handling: glory }
+    - { name: "The Miracle on Markham", year: 2002, what: "Matt Jones to DeCori Birmingham in the final seconds beats LSU — the signature modern Razorback play", handling: glory }
+    - { name: "The 2012 Petrino exit", year: 2012, what: "A motorcycle crash and scandal end the Petrino era just as the program had climbed to top-5 expectations — the great what-if wound", handling: heartbreak }
+  the_place: "Donald W. Reynolds Razorback Stadium in Fayetteville (and a long tradition of games in Little Rock) — the Hogs running out behind the Razorback, 70,000 calling the Hogs in unison across the Ozarks."
+  brand_of_football: "SEC physicality with a passing-game streak — from Broyles' option roots to the McFadden-era power run game to Petrino's vertical attack; at its best, downhill and bruising."
+  cultural_footprint: "The state of Arkansas's singular sporting identity — no pro team, no in-state Power rival, one program everyone rallies behind; the Hog Call as a cultural artifact that follows alumni nationwide."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Arkansas went 2-10 in 2025 and fired Sam Pittman after a 56-13 home
+    loss to Notre Dame; interim coach Bobby Petrino went winless the rest of the way amid a seven-game losing
+    streak. On November 30, 2025 the program hired Ryan Silverfield, who won 50 games in six years at Memphis,
+    as its 35th head coach. He enters 2026 rebuilding a roster and a fanbase still chasing the first real SEC
+    breakthrough — and now sharing a conference again with old Southwest rival Texas.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Arkansas_Razorbacks_football_team
+    - https://arkansasrazorbacks.com/silverfield-named-hogs-new-head-coach/
+    - https://www.espn.com/college-football/story/_/id/46409843/arkansas-fires-coach-sam-pittman-names-bobby-petrino-interim
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Arkansas is the program with no in-state rival and the most-spread-out fanbase in the
+    SEC.
+  mantra: Wooo Pig Sooie.
+  cultural_anchors:
+    fan_archetype_dominant: Diaspora-Razorback-Loyalist
+    outsider_archetype_dominant: Hog-Call-Curious-Outsider
+    one_sentence: Arkansas is the program whose fanbase has no in-state Power-5 rival to anchor against
+      and instead built its identity around the Hog call that travels with diaspora alumni nationwide.
+  selfname: the Razorbacks
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1964 national championship under Frank Broyles
+    - The Hog call as cultural artifact
+    - Sam Pittman / Bret Bielema / Bobby Petrino era arcs
+    rituals:
+    - Calling the Hogs
+    - Battle for the Boot (vs LSU)
+    - Razorback Mascot (Tusk + Sue E.)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (56/100, n=53)
+    voice_profile: absent
+    delusion_premium: absent

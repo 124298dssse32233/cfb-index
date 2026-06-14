@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# University of the South (Sewanee) — Tigers (Southern Athletic Association, Division III)
+
+status: live
+slug: sewanee
+team_id: null
+program_name: University of the South
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Sewanee is the Gothic mountaintop university that was once an SEC founding member, chose academics over football, and now plays D3 because the Oxford of the South values the mind before the game."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A unique institution that walked away from big-time football on purpose — an original SEC member that de-emphasized athletics to protect its scholarly mission, now content in D3."
+
+the_wound:
+  name: "The deliberate de-emphasis — trading football prestige for academic integrity"
+  detail: "Sewanee went 2-8 in 2025 under coach Mike Reese, but that record barely registers in the university's identity. Sewanee chose this path generations ago when it left the SEC to become a teaching college."
+  handling: never-a-punchline
+  freshness: all-time
+
+the_dream:
+  text: "Keep the football program alive, compete in the SAA, prove that a university can be the Oxford of the South and still play good football — just at the right scale."
+  drought: { since: 1966, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "No chip — the fanbase plays for the university and its students, not against anyone."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: rhodes
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: "none — Sewanee has no internal fracture because the entire institution agrees that football is secondary to the mission"
+register: sewanee-tennessee-sec-founding-member-oxford-of-the-south-gothic-scholarship
+never_use:
+  - Sewanee regrets leaving the SEC — it does not; it chose this path
+  - Sewanee prioritizes football — it explicitly does not
+  - Sewanee's 2-8 record is a crisis — it is not; this is expected in a D3 teaching college
+
+story_canon:
+  the_unique_thing: "The original SEC founding member that walked away — Sewanee was an SEC charter member and then chose to de-emphasize football to protect its academic mission, a decision that defines the entire institution."
+  the_origin: "Founded 1857 as an Episcopal university, Sewanee built itself into the 'Oxford of the South' — a mountaintop institution dedicated to scholarly excellence. Football came early but was always secondary."
+  golden_ages:
+    - { era: "1899-1915 (John Heisman era)", what: "Sewanee fielded a powerhouse under the legendary John Heisman, going undefeated and dominating the South before de-emphasis began" }
+    - { era: "1960s", what: "Sewanee's last season as a major-college football player before moving to Division III and SAA" }
+  legends:
+    - { name: "John Heisman", role: "coach", why: "Built Sewanee into a Southern power in 1899-1915 before moving on to Georgia Tech and immortality" }
+    - { name: "The 1899-1915 undefeated runs", role: "era", why: "Sewanee went undefeated over multiple seasons and dominated the South, proving the tiny mountain school could build national power" }
+  canonical_moments:
+    - { name: "John Heisman's 1899-1915 era", year: 1915, what: "Sewanee went undefeated under Heisman and dominated Southern college football", handling: glory }
+    - { name: "The SEC founding", year: 1932, what: "Sewanee was one of the founding members of the Southeastern Conference", handling: glory }
+    - { name: "The de-emphasis decision", year: 1966, what: "Sewanee chose to step away from major-college football to protect its academic mission", handling: miracle }
+  the_place: "Sewanee, Tennessee — a 13,000-acre mountaintop in the Cumberland Plateau, home to the University of the South, the most distinctive campus in the American South."
+  brand_of_football: "Purposefully small-scale — Sewanee plays football for the students and the university community, not for national relevance or revenue."
+  cultural_footprint: "Sewanee is proof that a university can have roots in big-time football and deliberately choose not to. That choice is the institution's defining act of integrity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Sewanee went 2-8 in 2025 under coach Mike Reese. The Tigers are a fixture in the Southern Athletic Association, playing D3 football because that fits the university's mission. The 2026 season is just another chapter in an institution that plays football because it is part of the college experience, not because it is trying to win titles. This is exactly as Sewanee intends.
+  research_checklist:
+    - 1857 founding and Episcopal heritage — verified
+    - John Heisman era 1899-1915 — verified undefeated runs
+    - SEC founding member 1932 — verified
+    - De-emphasis decision 1966 — verified
+    - 2025 record under Mike Reese — verified 2-8
+    - Current SAA membership — verified
+  sources:
+    - https://en.wikipedia.org/wiki/Sewanee_Tigers_football
+    - https://en.wikipedia.org/wiki/Southeastern_Conference#History
+    - https://en.wikipedia.org/wiki/University_of_the_South
+    - https://en.wikipedia.org/wiki/John_Heisman

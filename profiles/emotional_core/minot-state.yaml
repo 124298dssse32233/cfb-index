@@ -1,0 +1,67 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: minot-state
+team_id: null
+program_name: Minot State
+program_tier: 6        # Division II
+
+emotional_core:
+  primary: restoration    # new HC Randall Herbst tasked with rebuilding a 3-8 program
+  secondary: standard     # emerging offensive identity despite losing record
+  one_line: "Minot State is a North Dakota plains program that built a #6 national rushing offense in 2025 despite a 3-8 record — and is now under new coach Randall Herbst with a mandate to convert offensive talent into wins."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A program with elite offensive weapons (#6 rushing nationally) but a 3-8 record masks systemic deficiencies."
+
+the_wound:
+  name: "The 3-8 collapse and defensive weakness"
+  detail: "Minot State went 3-8 in 2025 while building a remarkable #6 national rushing offense (3,157 team rushing yards, a program record). The paradox — a team that can execute offensively but can't win games — revealed systemic weaknesses elsewhere. The 2025 season forced a coaching change; Ian Shields was replaced by Randall Herbst, tasking the new coach with converting offensive talent into victories."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the offensive identity that emerged in 2025 can be sustained and paired with improved defense; show the rushing offense is a blueprint for winning, not just yards."
+  drought: { since: 2018, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe minot State carries an internal chip: the gap between what the team can do (elite rushing) and what it can't (win consistently)."
+
+the_delusion:
+  tone: earnest
+  text: "That the #6 rushing offense is proof of breakthrough, and that Randall Herbst can build a defense to match it. Minot State fans believe the offensive foundation is real and just needs complementary pieces."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: savior    # Randall Herbst tasked with rebuilding after Shields era
+the_internal_fracture: offensive-excitement vs defensive-reality — the faction energized by elite rushing yards vs those who saw the 3-8 record as proof the offensive statistics were empty
+register: minot-state-beavers-plains-rushing-offense-north-dakota
+never_use:
+  - "Minot State is a power program: 3-8 record disproves any contention narrative"
+  - "Rushing offense guaranteed success: the 2025 paradox proved elite yards don't equal wins"
+
+story_canon:
+  the_unique_thing: "Minot State is a North Dakota plains program that built a #6 national rushing offense in 2025 (3,157 yards, program record) despite a 3-8 losing record — a paradoxical season that revealed both potential and systemic weakness."
+  the_origin: "Minot State is a small North Dakota program in the northern plains; the Beavers have competed in the NSIC as a modest regional program."
+  golden_ages: []
+  legends: []
+  canonical_moments:
+    - { name: "2025 #6 Rushing Offense", year: 2025, what: "Minot State ranked #6 nationally in rushing (3,157 yards), despite a 3-8 record", handling: miracle }
+  the_place: "Minot, North Dakota; a plains regional program; the Beavers' home."
+  brand_of_football: "An emerging rushing-first offense; Minot State built an elite rushing attack despite overall losing record."
+  cultural_footprint: "Minot State is a modest D2 program with a 2025 season that paradoxically featured elite offensive production and a losing record."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Minot State went 3-8 overall and 3-7 in the NSIC, but the Beavers ranked #6
+    nationally in rushing offense with 3,157 team rushing yards (program record). Kicker Brandon McCary was a Fred Mitchell
+    Award semifinalist. Despite elite offensive numbers, Minot State's defense was weak and overall record was poor, forcing
+    a coaching change. New HC Randall Herbst replaces Ian Shields with a mandate to build complementary defense around the
+    emerging rushing identity. The challenge for Minot State is proving the 2025 offensive explosion is sustainable and can
+    be paired with competent defense.
+  sources:
+    - https://msubeavers.com/news/2025/11/21/football-2025-minot-state-football-season-recap.aspx
+    - https://www.lj.com/sports/college/minot-state-hires-herbst-as-football-coach/article_b8a5dd1e-98dc-11ef-a999-ffc0999a2a63.html
+    - https://northernsun.org/schedule.aspx?schedule=3876

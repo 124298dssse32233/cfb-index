@@ -1,0 +1,71 @@
+# Emotional Core — University of Southern Virginia
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III (program_tier: 7) — graceful degradation, canon-first
+# Authored 2026-06-13 from live web research
+
+status: live
+slug: southern-virginia
+team_id: null
+program_name: University of Southern Virginia
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: standard
+  one_line: "A Virginia university with USA South football rooted in regional tradition and educational mission."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "D3 identity within Virginia's USA South conference."
+
+the_wound: {}
+
+the_dream:
+  text: "USA South success and competitive regional football."
+  drought: null
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: null
+register: virginia-regional
+never_use: []
+
+story_canon:
+  the_unique_thing: "A Virginia university with a USA South football program rooted in regional competition and educational values."
+  the_origin: "University of Southern Virginia, founded 1996, developed football as part of its educational mission in the USA South conference."
+  golden_ages: []
+  legends: []
+  canonical_moments: []
+  the_place: "Buena Vista, Virginia — a small Virginia town."
+  brand_of_football: "Regional tradition and institutional values."
+  cultural_footprint: "A regional D3 identity within Virginia college football."
+  the_ongoing_story: "LIVE 2026: Southern Virginia competes in the USA South conference."
+  sources:
+    - https://en.wikipedia.org/wiki/Southern_Virginia_Knights_football
+    - https://www.southernvirginia.edu/athletics/football/
+
+briefing:
+  identity_phrase: Southern Virginia is a Virginia university with USA South football tradition.
+  mantra: null
+  cultural_anchors:
+    fan_archetype_dominant: null
+    outsider_archetype_dominant: null
+  selfname: the Knights
+  story_materials:
+    always_surface: []
+    rituals: []
+    modules_already_rendering: null
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

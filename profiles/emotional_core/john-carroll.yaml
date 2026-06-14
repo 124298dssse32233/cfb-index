@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# John Carroll Blue Streaks — The Conference Defector
+
+status: live
+slug: john-carroll
+team_id: null
+program_name: John Carroll
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: grievance
+  one_line: "John Carroll is the OAC power that left the conference for greener pastures — trading 36 years of blood feuds for a shot at a deeper NCAA run."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A long history as an OAC contender with zero national titles vs the belief that a softer NCAC draw could finally deliver the championship that eluded Alliance."
+
+the_wound:
+  name: "The championship drought and the OAC ceiling"
+  detail: "John Carroll was an OAC power for 36 years (1989-2025) but never won a national title. In 2024, the Blue Streaks made a stunning playoff run but fell short in the postseason. That near-miss sparked the departure: the NCAC offers a clearer path to the Finals."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Finally break through to a national championship — the one that the OAC years couldn't deliver."
+  drought: { since: 1900, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe mount Union spent 36 years looming over John Carroll — the same conference, always better, always in the way. The Blue Streaks left to find a path around the mountain."
+
+the_delusion:
+  tone: self-aware
+  text: "That the NCAC is softer and the NCAA tournament path shorter — the fanbase knows it might be true, and chose to test it rather than stay in the shadow."
+
+the_grudge_texture:
+  rival: mount-union
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Old OAC loyalists vs the pragmatists who believe the NCAC was the only way forward to a national title."
+register: john-carroll-blue-streaks-ncac-defector
+never_use:
+  - "OAC has no great teams — Mount Union and Baldwin Wallace disprove this"
+  - "John Carroll is a new NCAC power — the move was 2025, just a season in"
+  - "John Carroll never won an OAC title — they were a perennial contender, just not champion"
+
+story_canon:
+  the_unique_thing: "The blue-collar Catholic university in Cleveland that was an OAC cornerstone for 36 years, always competitive, never quite breaking through to a national title — until the 2024 playoff run that sparked the bold move to the NCAC."
+  the_origin: "A Jesuit university in Shaker Heights, Ohio that joined the OAC in 1989 and built a steady contender, not a dynasty, in the shadow of larger programs."
+  golden_ages:
+    - { era: "1990s–2010s", what: "OAC competition — steady, respected, never dominant" }
+    - { era: "2024", what: "The historic playoff run that sparked the conference departure" }
+  legends:
+    - { name: Rocco Carayiannis, role: coach, why: "Long-time architect of John Carroll football in the OAC" }
+  canonical_moments:
+    - { name: "2024 NCAA Division III Playoff Run", year: 2024, what: "John Carroll's deepest playoff run in program history, sparking the NCAC move", handling: heartbreak }
+  the_place: "Wasmer Stadium in Shaker Heights, Ohio — a small Catholic university with a working-class fan base and deep Cleveland roots."
+  brand_of_football: "Scrappy, disciplined, over-prepared — John Carroll football plays for a city that knows it has to be better to belong."
+  cultural_footprint: "A Catholic blue-collar program that proved you don't need a dynasty to build identity — the 2024 playoff run gave John Carroll a new destiny."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: John Carroll left the OAC for the North Coast Athletic Conference (NCAC) in
+    fall 2025 after 36 years, betting that a softer conference draw would deliver the national championship that
+    eluded the program in Alliance. The 2024 playoff run under coach Rocco Carayiannis proved the Blue Streaks could
+    win postseason games. Now the question in Cleveland: was the NCAC move the key that unlocks the championship, or
+    was it a gamble that backfires?
+  research_checklist:
+    - "36 years in the OAC (1989-2025)"
+    - "2024 historic playoff run"
+    - "Move to NCAC in fall 2025"
+    - "Zero national titles in OAC era"
+  sources:
+    - https://www.wkyc.com/article/sports/john-carroll-university-joining-north-coast-athletic-conference-leaving-ohio-athletic-conference/95-f7b31f6e-1bd2-4c61-9293-68c9b3c034d1
+    - https://en.wikipedia.org/wiki/John_Carroll_Blue_Streaks_football
+    - https://www.ideastream.org/sports/2025-12-17/john-carroll-football-conquers-its-mount-everest-in-historic-playoff-run

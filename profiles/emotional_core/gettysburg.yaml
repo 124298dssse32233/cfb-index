@@ -1,0 +1,101 @@
+# Emotional Core — Gettysburg (gettysburg)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III — program_tier: 7, graceful degradation applies (small school, regional focus, academic mission).
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: gettysburg
+team_id: null
+program_name: Gettysburg
+program_tier: 7
+
+emotional_core:
+  primary: contentment   # acceptance of place and purpose in history
+  secondary: grief       # the fall from a brief peak
+  one_line: "Gettysburg football plays on a Civil War battlefield and carries that historical weight — a program that accepts its role in a sacred place, now rebuilding after recent collapse."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "One 1964 MAC championship (7–2) vs. the weight of playing where 50,000 soldiers died — the football is secondary to the ground beneath it."
+
+the_wound:
+  name: "Recent collapse (2022–2025)"
+  detail: "Under Maurice Banks (2020–2024), Gettysburg went 7–43 in five years. Banks was fired in November 2025 after the program bottomed out. This recent wound is raw and immediate, defining the current era."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Stabilize the program and rebuild it into a Centennial contender again — show that Gettysburg football still belongs in this conference and this place."
+  drought: { since: 1964, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip directed outward. Gettysburg's identity is internal: the privilege and weight of playing where the greatest battle of the Civil War was fought."
+
+the_delusion:
+  tone: none
+  text: "No false hope; Gettysburg fans know what they are — a small school with a big history, rebuilding after collapse, with more important things than football."
+
+the_grudge_texture:
+  rival: dickinson
+  texture: blood-feud    # oldest rivalry since 1892, 89 meetings; ancient border war
+
+the_coach_relationship: total-trust    # new coaches being hired; fanbase supportive of reset
+the_internal_fracture: history-vs-football — between those who see the Civil War battlefield as the primary identity and those who want to rebuild football excellence
+register: earnest-reverent
+never_use:
+  - "Just a football program (the ground Gettysburg plays on is sacred Civil War battlefield)"
+  - "Failure (rebuilding after coaching collapse is normal for small schools)"
+
+story_canon:
+  the_unique_thing: "Gettysburg is the only major-college football program whose campus sits on a Civil War battlefield (next to the Gettysburg Battlefield itself)—Pennsylvania Hall, the main academic building, was used by Union and Confederate forces during the 1863 battle. This is not flavor; it is the foundation of the program's identity."
+  the_origin: "Founded in 1832, Gettysburg College added football in the 1890s and became a Centennial Conference charter member in 1981. The program's identity is inseparable from the Civil War history of its location: Pennsylvania Hall served as a field hospital and signal corps post during the three-day battle in July 1863."
+  golden_ages:
+    - { era: "1964 MAC Championship", what: "The only significant championship era in program history—a 7–2 season that remains the high-water mark" }
+    - { era: "Centennial Conference founding (1981–2010)", what: "Mid-pack Centennial competitor; never a champion but a consistent participant" }
+  legends:
+    - { name: "The 1863 Civil War Battle", role: "program identity", why: "The Battle of Gettysburg (July 1–3, 1863) is what makes Gettysburg football unique; Pennsylvania Hall was a field hospital" }
+  canonical_moments:
+    - { name: "1964 MAC Championship", year: 1964, what: "7–2 season; the program's only conference title", handling: glory }
+    - { name: "Civil War Battlefield adjacency", year: 1863, what: "Pennsylvania Hall served Union and Confederate forces during the battle—the ground Gettysburg plays on is sacred", handling: glory }
+    - { name: "Centennial Conference founding", year: 1981, what: "Gettysburg becomes a charter Centennial member", handling: glory }
+  the_place: "Musselman Stadium in Gettysburg, Pennsylvania — built on and around the Gettysburg Battlefield National Park, with Pennsylvania Hall visible from the field. The setting is the identity."
+  brand_of_football: "Secondary to the place. Gettysburg football is played with reverence for what came before; the Civil War history outweighs any championship ambition."
+  cultural_footprint: "The only college football program where the ground beneath the field is sacred American history. Gettysburg carries the weight of the past more heavily than any other small school."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Gettysburg fired head coach Maurice Banks in November 2025 after a 7–43 record over five seasons (2020–2024). The program is in active rebuild mode with new coaching hires being announced. The 2026 question in Gettysburg: can the program stabilize after the Banks collapse and return to baseline Centennial competence, or does the football program take a secondary role to the historical significance of the campus itself?
+  research_checklist:
+    - 1964 MAC Championship (only major title)
+    - Civil War Battlefield identity (Pennsylvania Hall use in 1863 battle)
+    - Maurice Banks firing (November 2025, 7–43 record)
+    - Centennial Conference membership
+  sources:
+    - https://en.wikipedia.org/wiki/Gettysburg_Bullets_football
+    - https://gettysburgsports.com/sports/2006/11/2/Traditions.aspx
+    - https://en.wikipedia.org/wiki/Gettysburg_College
+
+briefing:
+  identity_phrase: Gettysburg is the only college football program adjacent to a Civil War battlefield—Pennsylvania Hall was a Union/Confederate field hospital in July 1863. History is the identity; football is secondary.
+  mantra: Bullet Pride.
+  cultural_anchors:
+    fan_archetype_dominant: Gettysburg-History-Reverent
+    outsider_archetype_dominant: Battlefield-Tourist
+    one_sentence: Gettysburg is the college football program whose campus is adjacent to the Civil War Battlefield; Pennsylvania Hall was a Union/Confederate field hospital. The ground is sacred; football is what happens there.
+  selfname: the Bullets
+  heritage:
+    conference: Centennial
+    championships: 1964 MAC Championship (7–2)
+  story_materials:
+    always_surface:
+    - Pennsylvania Hall Civil War history (Union/Confederate use, 1863)
+    - Gettysburg Battlefield adjacency (historical identity)
+    - 1964 MAC Championship (only modern title)
+    - Dickinson rivalry (since 1892, 89 meetings)
+    rituals:
+    - Civil War history reverence
+    - Battlefield adjacency
+    modules_already_rendering: none (D3 module set pending)
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal (canon-only, D3 small program)

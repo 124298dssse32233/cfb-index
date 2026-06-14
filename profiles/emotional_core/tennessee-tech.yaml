@@ -1,0 +1,69 @@
+status: live            # authored 2026-06-13 via web research
+slug: tennessee-tech
+team_id: null
+program_name: Tennessee Tech
+program_tier: 3
+
+emotional_core:
+  primary: spectacle      # historic 2025 season: 11-1, 15-game winning streak, joining SoCon in 2026
+  secondary: restoration  # the Bobby Wilder new-era coach climbing a small program to elite FCS status
+  one_line: "Tennessee Tech is the small program that just posted an 11-1 breakout season with a 15-game winning streak, joining the SoCon in 2026 with AFCA Coach of the Year Bobby Wilder and 482 program-record points scored."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program reborn in 2025 with historic offensive production and the most winning streak in program history — proving that mid-major investment and the right coach can transform a previously unknown school into a national conversation."
+
+the_wound:
+  name: "Decades of FCS anonymity"
+  detail: "Tennessee Tech was a solid but unremarkable FCS program for years, operating in the Ohio Valley Conference without major national recognition. The 2025 season (11-1, 15-game winning streak, 482 program points) changed that narrative entirely — but the fanbase remembers the years of obscurity and wonders if it will stick."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the 2025 season was the beginning of sustained contention in the SoCon, not a one-year wonder — make the FCS playoffs, win a conference title, and establish Tennessee Tech as a fixture in championship conversations."
+  drought: { since: 2025, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The Golden Eagles believe Tennessee Tech was invisible in the FCS until 2025 — and they're using the breakout season and AFCA Coach of the Year Bobby Wilder to prove the small program from Cookeville is done being overlooked."
+
+the_delusion:
+  tone: self-aware
+  text: "That one 11-1 season in the OVC proves Tennessee Tech is ready to dominate the SoCon. The fanbase knows better — but they also know they just posted 482 points and won 15 straight, and that's real."
+
+the_grudge_texture:
+  rival: utep
+  texture: border-war   # geographic rival, historic Texas-Tennessee border matchup
+
+the_coach_relationship: savior   # Bobby Wilder brought AFCA Coach of the Year honor and transformed the program
+the_internal_fracture: overnight_success_vs_foundation — those believing the 2025 season is sustainable vs. those worried it's a flash
+register: tennessee-tech-fcs-breakthrough
+never_use:
+  - "Tennessee Tech is a small program that can't compete"
+  - "the 2025 season was a fluke"
+
+story_canon:
+  the_unique_thing: "The 2025 breakout season: 11-1 record, 15-game winning streak, 482 program-record points scored, Bobby Wilder AFCA Coach of the Year — a program that transformed overnight into a national conversation piece."
+  the_origin: "Tennessee Tech was a solid but unremarkable FCS program in the Ohio Valley Conference until the 2025 season rewrote the narrative."
+  golden_ages:
+    - { era: "2025", what: "Historic 11-1 season with 15-game winning streak, 482 program points scored, AFCA Coach of the Year Bobby Wilder" }
+  legends:
+    - { name: Bobby Wilder, role: coach, why: "Hired in 2024/2025 and transformed Tennessee Tech into an 11-1 juggernaut in just his second year, awarded AFCA Coach of the Year" }
+  canonical_moments:
+    - { name: "2025 Breakout Season", year: 2025, what: "Tennessee Tech posts 11-1 record with 15-game winning streak and 482 program points, AFCA Coach of the Year", handling: glory }
+    - { name: "SoCon Entry", year: 2026, what: "Tennessee Tech joins the Southern Conference, taking its breakout momentum to a stronger conference", handling: glory }
+  the_place: "Tucker Stadium — the home of Golden Eagles football in Cookeville, Tennessee."
+  brand_of_football: "Historic offensive firepower — a program that just proved it can put up points with the best and win consistently."
+  cultural_footprint: "The mid-major transformation story — a small program that shocked the FCS and is joining the SoCon to prove it belongs."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Tennessee Tech stunned the FCS with an 11-1 season in 2025, posting a 15-game winning streak and scoring 482 program-record points. Bobby Wilder won AFCA Coach of the Year for the transformation. The Golden Eagles are joining the SoCon in 2026 as one of the hottest programs in the FCS. The question in Cookeville: can the breakout season translate to SoCon success, or was 2025 a one-year peak?
+  research_checklist:
+    - ✓ 11-1 record in 2025
+    - ✓ 15-game winning streak
+    - ✓ 482 program-record points
+    - ✓ Bobby Wilder AFCA Coach of the Year
+    - ✓ Joining SoCon in 2026
+  sources:
+    - https://en.wikipedia.org/wiki/Tennessee_Tech_Golden_Eagles_football
+    - https://www.ttuathletics.com
+    - https://www.thescore.com/nfl/news/tennessee-tech-football

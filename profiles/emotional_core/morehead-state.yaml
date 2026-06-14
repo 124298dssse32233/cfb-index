@@ -1,0 +1,85 @@
+# Emotional Core — Morehead State  (morehead-state)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: morehead-state
+team_id: null
+program_name: Morehead State
+program_tier: 5
+
+emotional_core:
+  primary: honor          # the only public school in an all-private conference, carrying regional pride
+  secondary: restoration  # climbing back to respectability after a lean decade
+  one_line: "Morehead State is the only public university in the all-private Pioneer League — a regional Kentucky power building back to the standard that won four straight conference titles in the 2000s."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Four straight Pioneer Football League South titles (2002–2005) and a last-second OVC championship game loss to archrival Eastern Kentucky vs a public school buffeted by state budget cycles and now rebuilding to a competitive baseline."
+
+the_wound:
+  name: "The long climb back to the 2000s standard"
+  detail: "Morehead State won four straight conference titles in 2002–2005 and competed consistently through the 2010s, but the past decade has seen the program slide toward the middle of the PFL. The wound is not acute; it's the long fade from regional power to steady-state competitor."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to the 2002–2005 standard of four straight conference titles and regional pride. A 7–5 season with a bowl bid would announce that Morehead is climbing back to the altitude that made it the eastern Kentucky flagship."
+  drought: { since: 2005, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Morehead's chip is the chip of a public school in a private league — the feeling that the all-private Pioneer League doesn't quite recognize a public university's fiscal and political constraints. The school competes with state budget cycles as much as with talent identification."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the 2002–2005 standard is reachable again, that Jason Woodman is the coach to get there, and that a public school can still compete in an all-private conference. They know the state budget is always a headwind, but they believe the program's base is strong enough to overcome it."
+
+the_grudge_texture:
+  rival: eastern-kentucky
+  texture: killed-by-realignment   # last-second 1966 OVC championship loss; EKU went FBS, Morehead to PFL, rivalry dormant
+
+the_coach_relationship: total-trust   # Jason Woodman contract extended December 2024; program stable
+the_internal_fracture: budget-vs-ambition — the tension between state funding constraints and the program's desire to be a regional power
+register: morehead-state-eagles-only-public-school-pioneer-league-eastern-kentucky-rival
+never_use:   # LAW — do not violate in any authored line
+  - "Private school — Morehead State is the only PUBLIC university in the Pioneer League"
+  - "Recently won titles — 2002–2005 era; no titles in 20 years"
+  - "Competes with equal resources — as a public school, state budget cycles are constant headwinds"
+  - "Has stable funding — state budget volatility is endemic to public FCS schools"
+  - "Will match private schools' resources — public school status means structural disadvantage"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Morehead State is the only public university in the all-private Pioneer League — a regional Kentucky power that won four straight PFL South titles (2002–2005) and still competes despite budget cycles that private schools don't face."
+  the_origin: "A public university in Morehead, Kentucky founded in 1922 that built football into a regional power through the 1960s–1980s. The program joined the Pioneer League in 1993 and won four straight South division titles in the early 2000s."
+  golden_ages:
+    - { era: "1962, 1966 (OVC era)", what: "Two Ohio Valley Conference titles in the 1960s, including a last-second championship game loss to archrival Eastern Kentucky" }
+    - { era: "2002–2005 (four straight South titles)", what: "Four consecutive Pioneer Football League South division titles, the program's modern high-water mark" }
+  legends:
+    - { name: Phil Simms, role: legacy, why: "The NFL QB who went to Morehead State; stadium renamed in his honor (October 2025)" }
+  canonical_moments:
+    - { name: "1962 OVC title", year: 1962, what: "Morehead wins an Ohio Valley Conference championship", handling: glory }
+    - { name: "1966 OVC championship game", year: 1966, what: "Morehead loses a last-second OVC championship game to Eastern Kentucky — a defining rivalry moment", handling: heartbreak }
+    - { name: "2002–2005 four straight South titles", year: 2005, what: "Four consecutive Pioneer Football League South division titles", handling: glory }
+  the_place: "Phil Simms Stadium in Morehead, Kentucky — recently renamed in October 2025 to honor the legendary NFL quarterback who played there."
+  brand_of_football: "Public-school honor in a private league — the program that competes with fewer resources than its peers, yet sustains excellence through institutional commitment and Appalachian regional pride."
+  cultural_footprint: "Morehead State is the example of what a public regional university can achieve in FCS non-scholarship football — proof that state school identity doesn't mean second-tier competition."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Morehead State went 6–6 (4–4 PFL) in 2025 under Jason Woodman in his second year — a respectable
+    record that showed stability after a 7–5 finish in 2024. Woodman's contract was extended in December 2024, signaling institutional
+    confidence. The 6–6 record is solid but reflects the program's current tier: competitive in the Pioneer League but not yet ascending
+    toward the 2002–2005 standard of four straight conference titles. The question in Morehead: can Woodman continue the climb toward
+    a 7–5 or 8–4 season that would prove the program is rebuilding to its former altitude?
+  research_checklist:
+    - the program's 3–7 most iconic games/plays (1966 OVC championship game, 2002–2005 South title games)
+    - the legendary coaches + players (Phil Simms, coaches from the 2002–2005 era)
+    - the unique tradition / identity / the one amazing thing (only public school in Pioneer League, regional Kentucky pride, Appalachian identity)
+    - the origin + the golden-age dynasty eras (1962–1966 OVC, 2002–2005 PFL South)
+    - the current-era storyline (Woodman's year two and the climb back to regional power status)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Morehead_State_Eagles_football_team
+    - https://en.wikipedia.org/wiki/Morehead_State_Eagles_football
+    - https://goEagles.org/sports/football
+    - https://en.wikipedia.org/wiki/Phil_Simms_Stadium

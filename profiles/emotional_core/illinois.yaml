@@ -1,0 +1,121 @@
+# Emotional Core — Illinois  (illinois)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: illinois
+team_id: 119
+program_name: Illinois
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # Bielema dragged a dormant Big Ten name back to back-to-back nine-win seasons
+  secondary: deprival     # the long generations of irrelevance that made the comeback feel improbable
+  core_variant: perpetual-rebuild
+  one_line: "Illinois is where Red Grange galloped into the sport's mythology a century ago — and where, after decades of being the Big Ten's afterthought, Bret Bielema just stacked the first back-to-back nine-win seasons in school history."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Red Grange, a dedicated stadium, and a place in football's founding lore vs sixty years of Big Ten also-ran finishes — until Bielema's 2024-2025 climb made Champaign relevant again."
+
+the_wound:
+  name: "The long winter of irrelevance"
+  detail: "For most of the modern era Illinois was the Big Ten's forgotten program — a 2008 Rose Bowl blowout and a 2007 fluke aside, decades of losing seasons and empty Octobers that taught the fanbase to expect nothing and brace for the bottom falling out."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "A Big Ten title and the Playoff — turning the Bielema rebuild from a feel-good surprise into a program that's supposed to be good every year."
+  drought: { since: 2001, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Illini fans are tired of being the Big Ten game nobody previews and the program penciled in as a loss; even at 9-4 they hear the analysts wait for the regression, and they want the respect a two-year climb has earned."
+
+the_delusion:
+  tone: earnest
+  text: "The faithful believe Champaign can be a genuine Big Ten power again — that a fertile in-state and Chicago-area recruiting base plus a proven coach means Grange's program was only ever sleeping, not finished."
+
+the_grudge_texture:
+  rival: northwestern
+  texture: border-war   # the in-state Land of Lincoln Trophy battle — the rivalry that means the most year to year
+
+the_coach_relationship: savior   # Bret Bielema took a moribund program to consecutive nine-win seasons, a school first
+the_internal_fracture: enjoy-the-renaissance vs demand-the-next-step — fans savoring relevance after the long drought vs fans who now want a Big Ten contender, not a happy story
+register: champaign-red-grange-historical
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Stuck in 1924 — 2024 9-3 Bielema rebuild ended that frame
+  - Mid-pack only — 5 national titles + Red Grange disprove the historical ceiling
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Red Grange — the 'Galloping Ghost.' On October 18, 1924, at the dedication of Memorial Stadium, Grange scored four touchdowns in the first twelve minutes against Michigan, a performance so legendary it helped make college football a national sport. No program has a more foundational figure."
+  the_origin: "A Big Ten charter member and one of college football's oldest programs, claiming five national titles in the pre-modern era and a place at the very founding of the sport's mythology through Grange and coach Bob Zuppke."
+  golden_ages:
+    - { era: "1923–1925 (Red Grange)", what: "The Galloping Ghost era — national titles and the most famous individual run in the sport's history" }
+    - { era: "1983 & 2001", what: "Big Ten championships and Rose Bowl trips — the modern program's rare peaks" }
+  legends:
+    - { name: Red Grange, role: player, why: "The Galloping Ghost — the four-TD Michigan game; the player who helped make the sport national" }
+    - { name: Dick Butkus, role: player, why: "The archetypal middle linebacker; the award is named for him" }
+    - { name: Bob Zuppke, role: coach, why: "Four national titles and the coach of the Grange era" }
+  canonical_moments:
+    - { name: "Grange's four TDs vs Michigan", year: 1924, what: "Four touchdowns in twelve minutes at Memorial Stadium's dedication", handling: glory }
+    - { name: "2001 Big Ten championship", year: 2001, what: "An outright Big Ten title and a Rose Bowl berth under Ron Turner", handling: glory }
+    - { name: "Music City Bowl over Tennessee", year: 2025, what: "A 30-28 win to cap consecutive nine-win seasons, a school first", handling: glory }
+  the_place: "Memorial Stadium in Champaign — its 200 columns each engraved with the name of an Illinois student or alum who died in World War I, dedicated in 1924 on the day Grange ran wild."
+  brand_of_football: "Under Bielema, throwback Big Ten football — a power running game, a stout defense, and ball control; a physical identity that suits the program's heartland roots."
+  cultural_footprint: "A founding piece of college football's lore through Grange, and the cradle of two iconic defenders — Butkus and Simeon Rice — in a state that breeds linebackers."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Illinois went 9-4 (5-4 Big Ten) in 2025 and beat Tennessee 30-28 in the Music
+    City Bowl, giving Bret Bielema back-to-back nine-win seasons for the first time in school history. QB Luke Altmyer
+    starred (2,717 yards, 22 TDs, 6 INTs). The Illini peaked at No. 17 but were humbled 63-10 by Indiana, the
+    season's reminder of the gap to the Big Ten's elite. Champaign enters 2026 relevant for the first time in a
+    generation, asking whether Bielema can make it last.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Illinois_Fighting_Illini_football_team
+    - https://fightingillini.com/news/2025/10/4/football-altmyer-beatty-lead-22-illinois-to-cannon-win-at-purdue
+    - https://en.wikipedia.org/wiki/Illinois_Fighting_Illini_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Illinois is the Big Ten program whose Red Grange 1924 era anchors the historical canon
+    and whose Bret Bielema 2024 9-3 rebuild reset the modern competitive ceiling.
+  mantra: I-L-L.
+  cultural_anchors:
+    fan_archetype_dominant: Champaign-Galloping-Ghost-Loyalist
+    outsider_archetype_dominant: Big-Ten-Mid-Pack-Diminisher
+    one_sentence: Illinois is the historic-program-resurrected — Red Grange 1924 + Memorial Stadium columns
+      + 2024 Bret Bielema 9-3 rebuild that completed the modern competitive reset.
+  selfname: the Fighting Illini
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Red Grange 1923-1925 era + 1924 Michigan game canon
+    - 1924 Memorial Stadium dedication + column architecture
+    - 2024 9-3 under Bret Bielema + Big Ten competitive reset
+    rituals:
+    - Red Grange Legacy (1923-1925)
+    - Memorial Stadium Columns
+    - I-L-L / I-N-I Call-Response
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (57/100, n=65)
+    voice_profile: absent
+    delusion_premium: absent

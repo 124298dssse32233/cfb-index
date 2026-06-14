@@ -1,0 +1,93 @@
+# Emotional Core — Columbia Lions (columbia)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-14 from live web research — Ivy program, 1933 Rose Bowl, famous losing streak.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: columbia
+team_id: null           # non-FBS
+program_name: Columbia Lions
+program_tier: 3         # competitive Ivy; recovery narrative
+division: FCS (Ivy)
+
+emotional_core:
+  primary: restoration  # the climb back from historic losing streak
+  secondary: redemption # the 2024 shared Ivy title vindication
+  core_variant: perpetual-rebuild
+  one_line: "Columbia football survived the worst losing streak in sports history (44 games, 1983–1988), stayed true to Ivy principles, and just won a shared national championship in 2024 — the ultimate redemption story."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "One of the oldest programs in American football, a 1933 national champion, and a 2024 Ivy co-champion vs a 44-game losing streak that defines the program's identity more than Lou Little ever could."
+
+the_wound:
+  name: "The 44-game losing streak (1983–1988) — the worst in sports history"
+  detail: "Between 1983 and 1988, Columbia lost 44 consecutive games. The streak lasted 5 years and 44 games, earning Columbia a permanent place on ESPN's list of worst teams ever (ranked #4). One game saw Columbia lose 49–17 to Harvard despite leading 17–0 with five minutes left in the third quarter. The wound is permanently part of the program's identity."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Prove the 44-game streak was an anomaly, not the program's destiny. Winning a shared Ivy League championship in 2024 was that proof — Columbia is back."
+  drought: null
+
+the_chip:
+  villain: none
+  text: "Fans here believe columbia doesn't have a chip against anyone. The Lions' rival is their own history. Every win is a repudiation of the 44-game streak, not a grudge against another program. Every Ivy title is proof that the worst team ever can become a champion again."
+
+the_delusion:
+  tone: load-bearing
+  text: "That the 1933 Lou Little team and the 2024 championship team are the real Columbia, and the 44-game streak was just a terrible moment in a long narrative. Columbia fans believe in redemption — and the 2024 title proves it works."
+
+the_grudge_texture:
+  rival: yale
+  texture: little-brother    # historic rivalry, but Columbia was never the peer
+
+the_coach_relationship: total-trust   # Jon Poppe brought the program back to relevance
+the_internal_fracture: null
+register: columbia-new-york-lions-rose-bowl-1933
+never_use:
+  - Still that terrible team — the 44-game streak was 1983–1988; the program has moved on
+  - Never won anything — 1933 national championship + 2024 shared Ivy title
+
+story_canon:
+  the_unique_thing: "The 1933 Rose Bowl victory — Columbia's sole national championship, a 7–0 defeat of Stanford. It's proof the program was built for excellence; the losing streak was just a detour."
+  the_origin: "Columbia started football in 1870, the third-oldest program in the US. The program won a national championship in 1933 under Lou Little, a Hall of Famer who defined Columbia football for 27 seasons."
+  golden_ages:
+    - { era: "1933 (Lou Little)", what: "Columbia wins the Rose Bowl and the national championship — the program's greatest moment" }
+    - { era: "1961", what: "Columbia shares the Ivy League championship with Harvard" }
+    - { era: "2024", what: "Columbia wins a shared Ivy League championship under Jon Poppe — full redemption 36 years after the worst streak" }
+  legends:
+    - { name: Lou Little, role: coach, why: "27-year tenure; won the 1933 national championship and the Rose Bowl; Hall of Famer" }
+    - { name: Sid Luckman, role: player, why: "Hall of Famer; played at Columbia in the 1930s before NFL dominance" }
+    - { name: Jon Poppe, role: coach, why: "Brought Columbia back from irrelevance to an Ivy championship in 2024" }
+  canonical_moments:
+    - { name: "1933 Rose Bowl", year: 1933, what: "Columbia defeats Stanford 7–0 in the Rose Bowl; the program's only national championship", handling: glory }
+    - { name: "The 44-game losing streak", year: 1988, what: "Columbia's historic losing streak (1983–1988) becomes the worst in sports history — ESPN ranks it #4 worst ever", handling: wound }
+    - { name: "2024 Ivy Championship", year: 2024, what: "Columbia wins a shared Ivy League championship under Jon Poppe — redemption 36 years after the streak", handling: glory }
+  the_place: "Robert K. Kraft Field at Lawrence A. Wien Stadium in Manhattan's Inwood neighborhood — a program that plays in New York City."
+  brand_of_football: "Redemption football — Columbia is proof that even the worst moments don't define a program forever."
+  cultural_footprint: "The 44-game losing streak is Columbia's cultural footprint, for better or worse. The 2024 championship is the program reclaiming its narrative."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-14: Under coach Jon Poppe, Columbia has returned to Ivy League
+    competitiveness. The 2024 team finished 7–3 and won a shared Ivy League championship with Harvard
+    and Dartmouth, a vindication of the program's commitment to sustainable football. Poppe has transformed
+    the narrative from the historical losing streak to modern excellence, proving that programs can recover
+    from their worst moments.
+  research_checklist:
+    - 1933 Rose Bowl (national championship)
+    - Lou Little (27-year Hall of Fame coach)
+    - 44-game losing streak (1983–1988, worst in sports history)
+    - 2024 shared Ivy title
+    - Sid Luckman (Pro Hall of Famer)
+    - Jon Poppe (redemption coach)
+  sources:
+    - https://en.wikipedia.org/wiki/Columbia_Lions_football
+    - https://en.wikipedia.org/wiki/Lou_Little
+
+briefing:
+  identity_phrase: Columbia is the program that won a 1933 national championship, survived the worst losing streak in history, and won an Ivy title in 2024 — the ultimate redemption narrative.
+  mantra: "Rose Bowl to Redemption"
+  selfname: the Lions
+  heritage:
+    national_titles: 1
+    conference_titles: "2 Ivy (1961, 2024)"
+    current_conference: Ivy League (FCS)

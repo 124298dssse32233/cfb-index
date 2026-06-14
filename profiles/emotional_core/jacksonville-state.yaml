@@ -1,0 +1,122 @@
+# Emotional Core — Jacksonville State  (jacksonville-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: jacksonville-state
+team_id: 115
+program_name: Jacksonville State
+program_tier: 3
+
+emotional_core:
+  primary: house-money    # three years in FBS, three nine-win seasons — every bit of this is gravy
+  secondary: disbelief    # the little Alabama school that wasn't supposed to be here keeps winning
+  one_line: "Jacksonville State jumped to the FBS in 2023 and just won nine games for the third year running — a little Alabama school playing with house money and refusing to act overwhelmed by any of it."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "An FCS program three years removed from the move up vs a Conference USA where it has already reached two title games and won bowls — winning faster than newcomers are supposed to."
+
+the_wound:
+  name: "Losing Rich Rodriguez right as it got good"
+  detail: "Rich Rodriguez built the FBS jump into instant winning, then bolted back to West Virginia after 2024 — the kind of departure that usually resets a young program. The quiet fear in Jacksonville: that a small school is just a launchpad, a place coaches and players use on the way to somewhere bigger."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Conference USA title outright after two trips to the game — and prove a tiny Alabama school can be a permanent FBS winner, not a feel-good novelty that fades once the league catches up."
+  drought: { since: 2023, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans hear the program dismissed as an FCS refugee that wandered up a level — never mind two CUSA title-game trips and three straight nine-win seasons. They've stopped waiting for the respect and started just stacking the wins."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the place is built to keep winning no matter who's coaching — that Charles Kelly is the fourth straight to win nine in his debut because the program, not the man, is the thing. They half-know that's a lot to ask of a school this size, and they say it anyway."
+
+the_grudge_texture:
+  rival: troy
+  texture: border-war   # two Alabama programs, the Ol' School Bell on the line
+
+the_coach_relationship: forever-ours   # the program keeps producing nine-win debuts; the fans trust the place over any one coach
+the_internal_fracture: dream-bigger vs stay-grateful — the faction that wants a CUSA crown and a Group-of-Five ceiling-break now vs the faction still pinching itself that a tiny school is winning in FBS at all
+register: jacksonville-al-gamecocks-fbs-newcomer   # scrappy, grateful, chip-on-shoulder small-Alabama-town pride
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Still FCS — 2023 FBS reclassification + 2024 bowl win ended that
+  - Confused with South Carolina — JSU Gamecock predates SC Gamecock identity-ownership
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Jacksonville State is one of the sport's freshest FBS arrivals — a small school in Jacksonville, Alabama that moved up in 2023 and immediately won, posting nine wins in each of its first three FBS seasons and reaching two Conference USA title games before most newcomers find their footing."
+  the_origin: "A longtime FCS power in the Ohio Valley and ASUN that built a reputation as a giant-killer — famously stunning Florida State in 2017 — then accepted the FBS invitation, joined Conference USA in 2023, and hit the ground winning."
+  golden_ages:
+    - { era: "2013–2021 (FCS power)", what: "Multiple conference titles, deep FCS playoff runs, and the 2017 upset of Florida State" }
+    - { era: "2023–2025 (FBS arrival)", what: "Three straight nine-win seasons, two CUSA Championship Game trips, and back-to-back bowl appearances" }
+  legends:
+    - { name: Rich Rodriguez, role: coach, why: "Built the FBS jump into instant winning before returning to West Virginia — the architect of the rise" }
+    - { name: Charles Kelly, role: coach, why: "Won nine games in his 2025 debut, the fourth straight Gamecock coach to win nine in year one" }
+    - { name: Zerrick Cooper, role: player, why: "The QB who led the late-FCS-era Gamecocks and embodied the giant-killer identity" }
+  canonical_moments:
+    - { name: "Upset of Florida State", year: 2017, what: "FCS Jacksonville State stuns Florida State in Tallahassee — the program's giant-killer calling card", handling: glory }
+    - { name: "New Mexico Bowl title", year: 2024, what: "JSU wins its first FBS bowl under Rich Rodriguez, capping a 9-win debut FBS-bowl season", handling: glory }
+    - { name: "Salute to Veterans Bowl over Troy", year: 2025, what: "Charles Kelly's Gamecocks beat in-state Troy 17-13 to reclaim the Ol' School Bell and finish 9-5", handling: glory }
+  the_place: "Burgess-Snow Field at JSU Stadium in Jacksonville, Alabama — a small, loud Calhoun County home where 'Rock the House' is the mantra and the program out-punches its enrollment."
+  brand_of_football: "Giant-killer-turned-grinder — fast, physical, fearless football from a program built on the belief that a small school can out-hit anybody on the right Saturday."
+  cultural_footprint: "Proof that an FCS program can move up and win immediately — the most recent multi-tier ascent in the sport, and a point of fierce pride for a small Alabama town that owns the Gamecock name."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Jacksonville State went 9-5 (7-1 Conference USA) in 2025 under first-year
+    head coach Charles Kelly, lost the CUSA Championship Game 19-15 to Kennesaw State, then beat in-state Troy
+    17-13 in the Salute to Veterans Bowl — a third straight nine-win season and second straight bowl in only its
+    third FBS year. Rich Rodriguez left for West Virginia after 2024 and Kelly didn't miss a beat. The 2026 goal
+    in Jacksonville: turn two CUSA title-game trips into an outright championship.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Jacksonville_State_Gamecocks_football_team
+    - https://jaxstatesports.com/news/2025/12/17/football-gamecocks-whup-troy-to-reclaim-ol-school-bell-at-is4s-salute-to-veterans-bowl.aspx
+    - https://www.espn.com/college-football/story/_/id/42920015/sources-rich-rodriguez-set-return-west-virginia-coach
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Jacksonville State is the Conference USA newcomer whose 2023 FBS reclassification + Rich
+    Rodriguez 2024 9-4 + 2025 New Mexico Bowl championship make them the most-recent multi-tier ascent +
+    bowl-winning team in CFB.
+  mantra: Rock the House.
+  cultural_anchors:
+    fan_archetype_dominant: Jacksonville-AL-Gamecock-Loyalist
+    outsider_archetype_dominant: FCS-Refugee-Diminisher
+    one_sentence: Jacksonville State is the most-recent multi-tier ascent + bowl-winning team — 2023 FBS
+      reclassification + Rich Rodriguez 2024 9-4 + New Mexico Bowl championship + Conference USA legitimacy
+      in two years.
+  selfname: the Gamecocks
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2023 FBS reclassification + Conference USA entry
+    - 2024 9-4 + New Mexico Bowl championship under Rich Rodriguez
+    - Rich Rodriguez 2022-present coaching tenure
+    rituals:
+    - Rich Rodriguez Tenure (2022-present)
+    - 2023 FBS Reclassification + Conference USA Entry
+    - Jacksonville Alabama Gamecock Mascot
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (53/100, n=18)
+    voice_profile: absent
+    delusion_premium: absent

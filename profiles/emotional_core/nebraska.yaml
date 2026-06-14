@@ -1,0 +1,117 @@
+# Emotional Core — Nebraska  (nebraska)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live  (AUTHORED 2026-06-13, web-verified)
+slug: nebraska
+team_id: 199
+program_name: Nebraska
+program_tier: 2
+
+emotional_core:
+  primary: grief          # the most loyal sad fanbase in America, mourning a dynasty it remembers in HD
+  secondary: restoration  # the Rhule rebuild, the eternal "is the giant waking" hope
+  one_line: "Nebraska is the most loyal sad fanbase in America — still selling out for a program that hasn't mattered in October since the '90s — and just watched the quarterback it built its future around leave for Oregon."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "Five national titles and a 60-3 run from 1993-1997 vs a quarter-century without a conference title and no real relevance since the dynasty fell."
+
+the_wound:
+  name: "The fall from the '90s — and the Raiola defection"
+  detail: "Nebraska's 1990s dynasty (three titles in four years, a 60-3 run) gave way to a quarter-century of decline; the 2025 team went 7-5, and the franchise QB the program built around — legacy recruit Dylan Raiola — broke his leg, then transferred to Oregon, the latest gut-punch for the most loyal fanbase in the sport."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Matter in November again — a division race, a New Year's bowl, the first real whisper that the giant is finally awake."
+  drought: { since: 1999, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "The take that Nebraska is a museum — a great history and a hollow present, coasting on a sellout streak and 1990s highlights. The fanbase answers with the streak itself: still there, still full, still waiting."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes the sleeping giant is one right coach, one right quarterback, from waking — that the tradition, the walk-on pipeline, and the sellout streak mean Nebraska is owed a return to relevance. It has believed this every August for twenty-five years."
+
+the_grudge_texture:
+  rival: iowa
+  texture: border-war   # the Heroes Game, the day-after-Thanksgiving rivalry (Oklahoma is the lost historic one)
+
+the_coach_relationship: hot-seat-churn   # post-Osborne, a string of hires who couldn't restore it — Callahan, Pelini, Riley, Frost, now Rhule
+the_internal_fracture: the-giant-is-waking vs we've-heard-this-before — the faction that reads Rhule's bowl streak as the climb vs the faction that's watched 25 years of false dawns and the latest QB leave
+register: midwest-grit-with-three-titles
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Has-been program — the title count remains permanent
+  - Dead fanbase — sellout streak is the data
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The sellout streak and the walk-on pipeline — Nebraska has sold out Memorial Stadium for every game since 1962, the longest streak in sports, and built three 1990s titles on home-grown walk-ons. The most loyal fanbase in America, attached to a program that hasn't mattered in a generation."
+  the_origin: "A Great Plains power built by Bob Devaney and perfected by Tom Osborne — five national titles, capped by a 60-3 run from 1993-1997 and three championships in four years."
+  golden_ages:
+    - { era: "1970–1971 (Devaney)", what: "Back-to-back national titles" }
+    - { era: "1993–1997 (Osborne)", what: "Three titles in four years and a 60-3 record — the Blackshirts and the option dynasty" }
+  legends:
+    - { name: Tom Osborne, role: coach, why: "The 1990s dynasty — three titles, 255 wins, the program's soul" }
+    - { name: Tommie Frazier, role: player, why: "The option QB of the 94-95 titles and the legendary Fiesta Bowl run" }
+  canonical_moments:
+    - { name: "The 1990s dynasty", year: 1995, what: "Three titles in four years (1994, 1995, 1997) and a 60-3 run", handling: glory }
+    - { name: "The fall", year: 2003, what: "The post-Osborne decline that became a quarter-century of irrelevance", handling: wound }
+  the_place: "Memorial Stadium — the sellout streak since 1962 (the longest in sports), the 'Sea of Red,' the third-largest city in Nebraska on game day."
+  brand_of_football: "The option and the Blackshirts — Osborne's power-option and a defense of home-grown walk-ons; a brand of football the modern game left behind, which is half the grief."
+  cultural_footprint: "The state's identity — the Sea of Red, the sellout streak, the walk-on ethos; proof that loyalty can outlast relevance by decades."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Nebraska went 7-5 in 2025, bowl-eligible for a second straight year under
+    Matt Rhule — modest progress for a fanbase that hasn't won a conference title since 1999. The gut-punch: legacy
+    QB Dylan Raiola broke his leg in November, then transferred to Oregon, the franchise centerpiece gone. Rhule turns
+    to the portal and a fresh QB battle, with the eternal question hanging over Lincoln: is the sleeping giant finally
+    waking, or is this another false dawn?
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://bleacherreport.com/articles/25332188-matt-rhule-reacts-dylan-raiola-transfer-lot-guys-want-play-nebraska
+    - https://www.si.com/fannation/college/cfb-hq/transfer-portal/1-3-million-qb-named-crown-jewel-of-college-football-transfer-portal-dylan-raiola-oregon
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Nebraska is the program with three national titles, a 25-year drought, and the most patient
+    fanbase in college football.
+  mantra: Go Big Red.
+  cultural_anchors:
+    fan_archetype_dominant: Cornfield-Loyalist-Patient
+    outsider_archetype_dominant: Three-Titles-Twenty-Years-Ago
+    one_sentence: Nebraska is the program whose fanbase has waited 25 years for a return to relevance and
+      shown up to Memorial Stadium for every game of that wait.
+  selfname: the Huskers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1994, 1995, 1997 national championships
+    - Tom Osborne (255 wins, three titles, .836 win pct)
+    - The sellout streak (60+ years)
+    rituals:
+    - Sea of Red
+    - Tunnel Walk
+    - Throwing Balloons on First Down
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (57/100, n=54)
+    voice_profile: present
+    delusion_premium: absent

@@ -1,0 +1,84 @@
+# AUTHORED (D3 MAC) 2026-06-13 — web-verified
+# Middle Atlantic Conference | Doylestown, PA | Historic Aggies
+# MAC dominance dynasty (2017-2023): 50-0 conference record run; transitioned coaches 2025
+
+status: live
+slug: delaware-valley
+team_id: null
+program_name: Delaware Valley University
+program_tier: 7
+
+emotional_core:
+  primary: restoration      # post-dynasty rebuilding; Mike Isgro departed after 2025, new era begins
+  secondary: contentment    # strong 8-3 record shows the foundation remains solid
+  core_variant: perpetual-rebuild
+  one_line: "Delaware Valley is the Aggie dynasty that ruled the MAC for seven straight years (2017-2023, 50-0 conference), now rebuilding as institutional power transfers to the next coaching regime."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A recent powerhouse (2017-2023: 50-0 MAC record, seven straight conference titles) now navigating the transition from dominance to rebuilding, determined to prove the dynasty was institutional, not coach-dependent."
+
+the_wound:
+  name: "The end of an era and the transfer of power"
+  detail: "After winning six straight MAC championships and going 50-0 in conference play from 2017-2023, Delaware Valley finished 8-3 in 2025 and faced a coaching transition as Mike Isgro departed to Division II West Chester, replaced by Bill Zwaan. The dynasty ended abruptly, raising the question: was the success about the coach or the institution? Can the Aggies maintain culture without the architect?"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the dynasty was institutional, not coach-dependent—return to back-to-back MAC titles and prove that Aggie football remains a program to be feared, regardless of who's calling plays."
+  drought: { since: 2023, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no external villain—just the internal drive to answer whether the Aggie way (institutional discipline, player development, culture) transcends any single coach. Delaware Valley is determined to prove it does."
+
+the_delusion:
+  tone: self-aware
+  text: "That the coaching change won't disrupt the dynasty—that Bill Zwaan inherits a machine that runs on institutional momentum alone. Delaware Valley knows coaching matters; it believes in culture anyway."
+
+the_grudge_texture:
+  rival: misericordia
+  texture: championship    # MAC Commonwealth divisional rivals competing for conference supremacy
+
+the_coach_relationship: hot-seat-churn      # Mike Isgro departed; Bill Zwaan (named Jan 12, 2026) takes over
+the_internal_fracture: dynasty-nostalgia vs institutional-faith — the faction clinging to the 2017-2023 standard vs those rebuilding with new coach
+register: doylestown-aggie-dynasty-transition-power
+never_use:
+  - "Delaware Valley football has peaked — eight straight years of contention (2017-2024) proves institutional strength"
+  - "Isgro built something that can't be replaced — the Aggies' 50-0 conference record was a team and institutional effort"
+  - "The MAC title drought means decline — one season outside championship conversation is not institutional collapse"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The Aggie dynasty—Delaware Valley's six consecutive MAC championships (2017-2023) and 50-0 conference record represented one of Division III's most dominant runs, built on institutional discipline and player development that transcended a single coach."
+  the_origin: "Delaware Valley University, a comprehensive liberal arts institution in Doylestown, PA, built a football program that became a MAC fixture in the 2000s and accelerated into a dynasty under Mike Isgro in 2017."
+  golden_ages:
+    - { era: "2017-2023 dynasty era", what: "Six consecutive MAC championships, 50-0 conference record, national respect as a Division III power" }
+    - { era: "Early 2010s foundation-building", what: "Competitive MAC teams that set the stage for the dynasty era" }
+  legends:
+    - { name: Mike Isgro, role: coach, why: "Engineered the 2017-2023 six-year dynasty; 50-0 MAC record; elevated Delaware Valley to national prominence" }
+    - { name: Robert A. Lipinski, role: namesake, why: "The Lipinski Field honors the athletic legacy at Delaware Valley" }
+  canonical_moments:
+    - { name: "Six consecutive MAC titles", year: 2023, what: "Delaware Valley wins back-to-back conference championships 2017-2023, establishing the Aggie dynasty", handling: glory }
+    - { name: "50-0 conference record", year: 2023, what: "Unprecedented MAC run: six years, zero conference losses", handling: glory }
+    - { name: "2025 Centennial Bowl victory", year: 2025, what: "Aggies defeat Dickinson in bowl game, maintaining postseason tradition under new coach", handling: glory }
+  the_place: "Robert A. Lipinski Field at James Work Memorial Stadium (renovated 2023) in Doylestown, PA—home of the Aggies and the physical representation of institutional athletic commitment."
+  brand_of_football: "The dynasty Aggie—a program built on discipline, player development, and a winning culture that elevated a regional Pennsylvania school into a Division III power."
+  cultural_footprint: "Delaware Valley's six-year MAC title run represents one of Division III's most dominant institutional arcs—proof that comprehensive universities can build sustained excellence through commitment to culture."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Delaware Valley finished 8-3 overall (7-2 MAC) in 2025, maintaining competitive
+    quality despite Mike Isgro's departure to Division II West Chester. The Aggies won the Centennial-MAC Bowl against Dickinson,
+    extending their postseason tradition. Bill Zwaan was named the new head coach (effective January 12, 2026), inheriting
+    a program built on institutional discipline and a 50-0 conference record (2017-2023). The 2026 season will test whether
+    the Aggie way survives a coaching transition—institutional strength or legendary coach?
+  research_checklist:
+    - 2017-2023: six consecutive MAC championships (50-0 conference record)
+    - Home: Robert A. Lipinski Field (renovated 2023), Doylestown PA
+    - 2025 record: 8-3 overall, 7-2 MAC
+    - 2025 coach: Mike Isgro (departed)
+    - 2026 coach: Bill Zwaan (named Jan 12, 2026)
+  sources:
+    - https://athletics.delval.edu/
+    - https://www.d3football.com/teams/delaware-valley
+    - https://gomacsports.com/
+    - https://en.wikipedia.org/wiki/Delaware_Valley_Aggies_football

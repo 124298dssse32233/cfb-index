@@ -1,0 +1,120 @@
+# Emotional Core — Boston College  (boston-college)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: boston-college
+team_id: 339
+program_name: Boston College
+program_tier: 3
+
+emotional_core:
+  primary: deprival        # a Power-conference seat and the Flutie pedigree, with nothing on the field to show for it in two decades
+  secondary: contentment   # the for-Boston, do-it-right, never-cheat self-image that quietly forgives the losing
+  one_line: "Boston College is the Power-conference program that holds onto a frozen-rope miracle from 1984 because the four decades since haven't given Chestnut Hill anything bigger to point to."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A Heisman, a Hail Mary, and an 11-win Matt Ryan team vs a present where a Power-Four seat keeps yielding 4-8, 7-6, and the back half of the ACC."
+
+the_wound:
+  name: "The 2025 floor — two wins, and the seat finally warm"
+  detail: "Bill O'Brien's second year went 2-10 (1-7 ACC), the program's worst in over a decade, and a 10-game losing streak only ended against Syracuse — a season that asked, out loud, whether an NFL-pedigree hire could lift a program that has finished the regular season ranked exactly once since Matt Ryan left."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Matter in the ACC again — a winning record, a New Year's-adjacent bowl, and a Saturday where the rest of the league has to take the Eagles seriously, not just respect the crest."
+  drought: { since: 2007, unit: relevance }
+
+the_chip:
+  villain: national_media
+  text: "Eagles fans hear the same shrug every fall — that Northeast football doesn't travel, that the league forgets BC is in it — and they answer with a Heisman, a Hail Mary, and a checkbook the school just opened wider."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes BC can win the right way — clean program, real degrees, no shortcuts — and still climb the ACC, that doing it honestly isn't the reason the ceiling stays low."
+
+the_grudge_texture:
+  rival: notre-dame
+  texture: blood-feud   # the Holy War — two Catholic flagships, the Ireland Trophy, BC's 1993 spoiling of the Irish national-title run
+
+the_coach_relationship: hot-seat-churn   # Addazio, Hafley, now O'Brien on a warming seat — no era has held since Jagodzinski's Ryan window
+the_internal_fracture: invest-and-win vs do-it-right-and-be-proud — the faction that wants BC to spend like a Power program and demand more than respectability vs the faction that prizes the clean, academic, for-Boston identity even when it caps the ceiling
+register: chestnut-hill-eagles-doug-flutie-academic
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always ACC-bottom — 1984 Flutie + 2007 Matt Ryan eras disprove
+  - Northeast football irrelevant — Hail Mary remains in canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Hail Mary — Doug Flutie's 48-yard prayer to Gerard Phelan to beat defending champ Miami on the day after Thanksgiving 1984, the most replayed throw in college-football history and the play credited with putting the school on the national map ('the Flutie effect' on applications)."
+  the_origin: "A Jesuit university in Chestnut Hill, Massachusetts — Catholic, academic, and proudly Boston's college team ('For Boston,' the oldest college fight song in America) — that built its football identity around being the Northeast's flagship rather than a recruiting machine."
+  golden_ages:
+    - { era: "1983–1984 (Flutie)", what: "10-2, a Cotton Bowl win, and Doug Flutie's 1984 Heisman — the only Heisman in program history" }
+    - { era: "2007–2008 (Jagodzinski / Ryan)", what: "Matt Ryan's 11-3 senior year and an ACC Atlantic title game, BC's last sustained national relevance" }
+  legends:
+    - { name: Doug Flutie, role: player, why: "1984 Heisman; the Hail Mary; the most famous Eagle ever" }
+    - { name: Matt Ryan, role: player, why: "The 2007 ACC-contending QB and No. 3 NFL draft pick — the program's modern high-water mark" }
+    - { name: Luke Kuechly, role: player, why: "Tackle machine and Butkus winner; the embodiment of BC's blue-collar defensive identity" }
+  canonical_moments:
+    - { name: "The Hail Mary", year: 1984, what: "Flutie's 48-yard touchdown to beat No. 12 Miami 47-45 the day after Thanksgiving", handling: miracle }
+    - { name: "Flutie's Heisman", year: 1984, what: "The first and only Heisman in program history", handling: glory }
+    - { name: "Spoiling Notre Dame's title run", year: 1993, what: "David Gordon's last-second field goal beats No. 1 Notre Dame 41-39", handling: glory }
+  the_place: "Alumni Stadium in Chestnut Hill — an intimate ~44,500-seat bowl tucked into a Jesuit campus, where 'For Boston' (college football's oldest fight song) and the Superfans frame a distinctly Northeastern, distinctly Catholic gameday."
+  brand_of_football: "For-Boston football — tough, defensive, offensive-line-proud ('O-Line U'), allergic to shortcuts; a program that would rather lose clean than win dirty, and tells you so."
+  cultural_footprint: "The Catholic Northeast's football flagship and a national academic name — 'the Flutie effect' (a measurable admissions bump after 1984) is the textbook example of sports driving a university's brand."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Bill O'Brien's second season cratered to 2-10 (1-7 ACC), BC's worst
+    in over a decade, with a 10-game skid snapped only against Syracuse. Rather than fire the NFL-pedigree
+    hire, the school doubled down — retaining O'Brien for year three and publicly committing to a maximum
+    revenue-share allotment and bigger operational investment in football. The 2026 question in Chestnut
+    Hill: can money and an O'Brien rebuild finally turn a Power-Four seat into Power-Four results?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Boston_College_Eagles_football_team
+    - https://www.espn.com/college-football/story/_/id/47178259/bc-retains-bill-obrien-commits-bigger-football-investment
+    - https://en.wikipedia.org/wiki/Doug_Flutie
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Boston College is the ACC academic-private program whose 1984 Doug Flutie Hail Mary +
+    1984 Heisman + Alumni Stadium tradition define what Catholic-Northeast-football looks like.
+  mantra: For Boston.
+  cultural_anchors:
+    fan_archetype_dominant: Chestnut-Hill-Eagle-For-Boston
+    outsider_archetype_dominant: ACC-Mid-Pack-Diminisher
+    one_sentence: Boston College is the Catholic-Northeast academic football flagship — Doug Flutie 1984
+      Hail Mary + Matt Ryan 2007 era + 'For Boston' fight-song identity that anchor the historical ACC arc.
+  selfname: the Eagles
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1984 10-2 + Cotton Bowl + Doug Flutie Heisman + Hail Mary
+    - 2007 Matt Ryan era + 11-3 + ACC Atlantic championship
+    - '''For Boston'' fight-song identity (since 1880s)'
+    rituals:
+    - Doug Flutie Hail Mary (1984)
+    - For Boston Identity
+    - Matt Ryan 2007 Era
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

@@ -1,0 +1,120 @@
+# Emotional Core — Colorado  (colorado)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: colorado
+team_id: 91
+program_name: Colorado
+program_tier: 3
+
+emotional_core:
+  primary: spectacle      # Boulder is the loudest show in the sport — the lights, the cameras, Prime Time
+  secondary: disbelief    # 9-4 with two future first-rounders, then 3-9 the moment they left
+  one_line: "Colorado is the program that turned a head-coaching hire into appointment television — and is now finding out what the lights look like when the wins stop following them."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 1990 national title and the most-watched arrival in modern college football vs a 3-9 face-plant the year the cameras stopped finding a Hunter or a Sanders to point at."
+
+the_wound:
+  name: "The 2025 fall to earth"
+  detail: "The year after a 9-4 season carried by Travis Hunter (No. 2 overall) and Shedeur Sanders, Colorado went 3-9 (1-8 Big 12) — a 53-7 wipeout at Utah, blowouts to both Arizona schools — and the questions about whether the show could ever become a program got loud."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Turn the noise into November — a Big 12 title and a Playoff run that proves the spotlight in Boulder was pointed at a real program, not just a moment."
+  drought: { since: 2001, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Every Buffs fan knows the deal: the same cameras that made Boulder the center of the sport are the ones counting down to the day they can call it a circus that fell apart. The fanbase loves the attention and resents the verdict riding in behind it."
+
+the_delusion:
+  tone: load-bearing
+  text: "Buffs fans believe the spotlight is the program now — that Prime keeps Boulder relevant, recruitable, and one roster away no matter what the record says, because nobody walks away from the biggest stage in the sport."
+
+the_grudge_texture:
+  rival: colorado-state
+  texture: border-war   # the Rocky Mountain Showdown — the in-state little brother who refuses to stay little
+
+the_coach_relationship: savior   # Deion took a 1-11 program to the front page of the sport; Boulder is all-in on Prime
+the_internal_fracture: show vs substance — the faction that says the relevance, recruiting, and revenue Prime brought are the win, vs the faction that says four years in, the scoreboard has to start agreeing
+register: rocky-mountain-prime-era   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Has-been program — Coach Prime era is structural
+  - 1990 fluke title — McCartney built three Big 8 titles
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Colorado is the only program that became the biggest story in the sport without winning anything — when Deion Sanders arrived in 2023, Boulder turned into the most-watched, most-talked-about address in college football overnight, a media tornado attached to a team that had gone 1-11 the year before."
+  the_origin: "A Boulder land-grant school that built a real power under Bill McCartney in the late '80s and early '90s — three Big Eight titles and a share of the 1990 national championship — then spent two decades drifting before Coach Prime made it must-see TV again."
+  golden_ages:
+    - { era: "1989–1994 (McCartney)", what: "Three Big Eight titles, the 1990 national championship, and Rashaan Salaam's 1994 Heisman" }
+    - { era: "2023– (Coach Prime)", what: "Not a trophy era yet — a relevance era; the program became the center of the sport's attention" }
+  legends:
+    - { name: Bill McCartney, role: coach, why: "Built the 1990 national champions; the architect of Colorado's only golden age" }
+    - { name: Rashaan Salaam, role: player, why: "1994 Heisman winner, 2,000-yard rusher — the program's signature talent" }
+    - { name: Deion Sanders, role: coach, why: "Made Boulder appointment television; the most magnetic figure in the modern sport" }
+  canonical_moments:
+    - { name: "Fifth Down / 1990 national title", year: 1990, what: "Colorado wins a share of the national championship — the high-water mark the whole program is measured against", handling: glory }
+    - { name: "Salaam's Heisman", year: 1994, what: "Rashaan Salaam rushes for 2,055 yards and wins the Heisman", handling: glory }
+    - { name: "The 2025 collapse", year: 2025, what: "3-9 the year after Hunter and Shedeur left — a 53-7 loss at Utah the low point", handling: wound }
+  the_place: "Folsom Field at 5,360 feet — Ralphie the live buffalo thundering onto the grass before kickoff, the altitude as a built-in home-field weapon."
+  brand_of_football: "Spectacle football — fast, brash, camera-aware; under Prime the program is as much a broadcast as a team, swagger first and apologies never."
+  cultural_footprint: "The proof that attention is its own currency in modern college football — a program that drives ratings, recruiting buzz, and culture-war debate regardless of where it finishes in the standings."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Deion Sanders returns for year four (16-21 overall at CU) after a brutal
+    3-9 (1-8 Big 12) crash in 2025, the season after Travis Hunter (No. 2 overall) and Shedeur Sanders left for
+    the NFL. Prime spent the spring recovering from a health scare (blood clots, prior bladder-cancer surgery) and
+    declared he's got his swagger back; he signed a five-year, $54M extension in March 2025 and is rebuilding the
+    trenches. Boulder is loudly not on the hot seat — but four years in, the spotlight is waiting on the wins.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Colorado_Buffaloes_football_team
+    - https://www.cbssports.com/college-football/news/deion-sanders-colorado-health-presence-2026-outlook/
+    - https://www.si.com/college/colorado/football/colorado-deion-sanders-ranks-fbs-head-coaches
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Colorado is the program with a 1990 national title and the most-watched college football
+    story of the 2020s thanks to Coach Prime.
+  mantra: Go Buffs.
+  cultural_anchors:
+    fan_archetype_dominant: Mountain-West-Cultural-Reborn
+    outsider_archetype_dominant: Prime-Skeptic-Or-Believer
+    one_sentence: Colorado is the program that pivoted from 1990 national title to early-2020s wilderness
+      to 2023 Coach Prime media tornado — the most discontinuous identity arc in CFB.
+  selfname: the Buffaloes
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1990 national championship under Bill McCartney
+    - Rashaan Salaam Heisman (1994)
+    - 2023 Coach Prime hire
+    rituals:
+    - Ralphie's Run
+    - Folsom Field at Altitude
+    - Coach Prime Era
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

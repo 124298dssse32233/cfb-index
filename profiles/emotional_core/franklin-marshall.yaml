@@ -1,0 +1,101 @@
+# Emotional Core — Franklin & Marshall (franklin-marshall)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III — program_tier: 7, graceful degradation applies (small school, regional focus, academic mission).
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: franklin-marshall
+team_id: null
+program_name: Franklin & Marshall
+program_tier: 7
+
+emotional_core:
+  primary: disbelief     # breaking through after decades of heartbreak
+  secondary: restoration
+  one_line: "Franklin & Marshall just made its first NCAA Division III playoff appearance in program history in 2025 — a breakthrough that rewrites what a 15-conference-championship school thought it could be."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "15 Centennial conference titles (the most of any charter member) vs. zero NCAA playoff appearances until 2025 — the title-holder that finally proved it belongs in the postseason."
+
+the_wound:
+  name: "The NCAA playoff drought (1981–2024)"
+  detail: "F&M won 15 Centennial titles spanning four decades but never made an NCAA playoff game — the title-holder everyone overlooked. That drought, finally broken in 2025, defines the relief and vindication."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove 2025 was not a fluke — win another Centennial title and advance deeper into the NCAA playoffs, turning one breakthrough year into a program-defining era."
+  drought: { since: 2025, unit: national_title }  # only one year in, but the dream is to sustain it
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is the record itself: 15 conference titles with zero NCAA playoff appearances. F&M was the program everyone underestimated, and 2025 is the proof of disrespect."
+
+the_delusion:
+  tone: earnest
+  text: "F&M fans believe 2025 is not a fluke but the arrival of a program that was always good enough but finally had the coaching (Michael Phelan) to prove it."
+
+the_grudge_texture:
+  rival: johns-hopkins
+  texture: championship    # bitter 2025 Centennial championship game (F&M won in OT), not a historic blood feud but now defining
+
+the_coach_relationship: savior    # Michael Phelan elevated from associate to head coach mid-season 2025, won Centennial Coach of Year
+the_internal_fracture: championship-culture-arrival — the sudden transition from "always-good-but-never-quite" to playoff contender
+register: earnest-vindicated
+never_use:
+  - Never-won-a-title — 15 Centennial conference titles prove otherwise
+  - Irrelevant — breaking the playoff drought in 2025 proves the program has always been relevant
+
+story_canon:
+  the_unique_thing: "Franklin & Marshall just made its first NCAA playoff appearance in 2026-06-13 verified (2025 season)—a charter Centennial member that won 15 conference titles before ever stepping into a postseason game."
+  the_origin: "Founded in 1787 in Lancaster, Pennsylvania, F&M became a Centennial Conference charter member in 1981 and won 15 conference titles across four decades—the most of any charter member—yet never made an NCAA playoff game until 2025."
+  golden_ages:
+    - { era: "1981–2024 (championship years)", what: "15 Centennial Conference titles scattered across four decades; competitive but never quite playoff-ready" }
+    - { era: "2025 (the breakthrough)", what: "Under new head coach Michael Phelan, F&M won the Centennial title with a dramatic OT upset of #3-ranked Johns Hopkins, then made the program's first NCAA playoff appearance" }
+  legends:
+    - { name: Michael Phelan, role: coach, why: "Elevated mid-season 2025, won Centennial Coach of the Year and broke the 44-year NCAA playoff drought in one season" }
+  canonical_moments:
+    - { name: "2025 Centennial Championship (OT vs Johns Hopkins)", year: 2025, what: "F&M defeats #3-ranked Johns Hopkins 33–30 in OT to win the Centennial title and break the NCAA playoff drought", handling: glory }
+    - { name: "15 Centennial Conference Titles", year: 2024, what: "Most of any charter Centennial member; the achievement that haunted the program until it reached the playoffs", handling: glory }
+    - { name: "First NCAA playoff appearance", year: 2025, what: "Breaking a 44-year drought; proof the program belonged all along", handling: glory }
+  the_place: "Williamson Field in Lancaster, Pennsylvania — a small liberal arts town where football sits among other academic pursuits but the 2025 breakthrough changed everything."
+  brand_of_football: "Centennial football at its best: well-coached, disciplined, and built to win in November when it matters—F&M played small-school football perfectly until 2025, then added postseason credentials."
+  cultural_footprint: "The vindication of the overlooked title-holder; proof that 15 conference championships can be real and that a small-school program can break through in one season with the right coach."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Franklin & Marshall made its first NCAA Division III playoff appearance in 2025 under newly elevated head coach Michael Phelan, winning the Centennial Conference championship with a dramatic 33–30 OT upset of #3-ranked Johns Hopkins. This breakthrough rewrites the program's identity: no longer "15-time champions who never made the playoffs" but "the breakthrough Centennial power." The 2025 NCAA playoff run was F&M's first postseason game in program history. The question heading into 2026: can Phelan sustain this and turn one breakthrough year into a sustained playoff contender, or was 2025 the once-in-a-generation moment?
+  research_checklist:
+    - 15 Centennial Conference titles (most of any charter member)
+    - Michael Phelan elevation and 2025 Centennial Coach of Year
+    - 2025 OT championship game vs Johns Hopkins (#3 ranked)
+    - First NCAA playoff appearance (2025)
+  sources:
+    - https://en.wikipedia.org/wiki/Franklin_%26_Marshall_Diplomats_football
+    - https://godiplomats.com/news/2025/11/15/football-history-made.aspx
+    - https://en.wikipedia.org/wiki/Michael_Phelan_(American_football)
+
+briefing:
+  identity_phrase: Franklin & Marshall is the charter Centennial program whose 15 conference titles finally broke through to the NCAA playoffs in 2025 under new head coach Michael Phelan — vindication of overlooked excellence.
+  mantra: Go Diplomats.
+  cultural_anchors:
+    fan_archetype_dominant: Lancaster-Diplomat-Vindicated
+    outsider_archetype_dominant: Overlooked-Champion-Disrespected
+    one_sentence: Franklin & Marshall is the charter Centennial member with 15 conference titles (most of any charter) that broke the NCAA playoff drought in 2025 under newly elevated coach Michael Phelan, defeating #3 Johns Hopkins in OT.
+  selfname: the Diplomats
+  heritage:
+    conference: Centennial
+    championships: 15 Centennial titles (1981–2024); 2025 Centennial title
+  story_materials:
+    always_surface:
+    - 15 Centennial Conference titles (most of any charter member)
+    - 2025 breakthrough: first NCAA playoff appearance
+    - Michael Phelan 2025 Centennial Coach of Year
+    - 2025 OT championship win vs Johns Hopkins
+    rituals:
+    - Centennial Championship game annual tradition
+    - 2025 playoff breakthrough as turning point
+    modules_already_rendering: none (D3 module set pending)
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal (canon-only, D3 small program); 2025 breakthrough may enable signal-gathering

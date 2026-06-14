@@ -1,0 +1,118 @@
+# Emotional Core — Navy  (navy)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: navy
+team_id: 145
+program_name: Navy
+program_tier: 3
+
+emotional_core:
+  primary: honor          # the only program where the players will literally go to war; the game is the point
+  secondary: house-money  # an 11-2 season that wasn't supposed to happen, and a win over Army that crowns it
+  one_line: "Navy is the program where every man on the field has signed up to serve — and where a 17-16 December comeback over Army means more than any ranking the rest of the sport plays for."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A service academy bound by height, weight, and a five-year military commitment, beating ranked teams with an offense the rest of the sport stopped running decades ago."
+
+the_wound:
+  name: "The recruiting math never changes"
+  detail: "Navy can't outbid anyone in a transfer-portal, NIL era — every recruit must qualify for the Naval Academy and owe years of active service. The Midshipmen win in spite of constraints no other FBS program faces, and a down year is always one roster crunch away."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Keep the Commander-in-Chief's Trophy in Annapolis and finally win the American outright — a conference title the program has never claimed since joining the league in 2015 — sending another class into the fleet having beaten the teams that had every advantage."
+  drought: { since: 2015, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans hear the option offense called a relic every December — and then watch the Midshipmen, with players half the size of their opponents, go 11-2 and beat a ranked Army team, and wait for the analysts to admit the constraints are the point, not the excuse."
+
+the_delusion:
+  tone: load-bearing
+  text: "The brigade believes the academy makes them tougher, not smaller — that a roster of future officers who will run the triple option until your defense breaks can outlast anyone, and that no opponent wants it more than men who'll serve their country after the final whistle."
+
+the_grudge_texture:
+  rival: army
+  texture: blood-feud   # Army-Navy — the most honored rivalry in American sports
+
+the_coach_relationship: forever-ours   # Niumatalolo's long era, now Newberry carrying the academy identity
+the_internal_fracture: tradition vs adaptation — the faction that says the triple option and the academy way are sacred vs the faction that wants the scheme modernized to keep pace with a changing sport
+register: annapolis-service-academy-triple-option   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Old-fashioned program — 2024 9-3 + competitive cycles disprove the frame
+  - Triple-option doesn't work modern — 2024 records prove it does
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Army-Navy game — the most honored rivalry in American sports, where every player on both sidelines has committed to serve in uniform after graduation. There is no transfer portal, no NIL bidding war, no escape hatch — just a triple option run by future officers, and a December Saturday the whole country stops to watch."
+  the_origin: "The football team of the United States Naval Academy in Annapolis, playing since 1879 — independent for 134 years before joining the American in 2015, defined always by the brigade, the service commitment, and the game against Army."
+  golden_ages:
+    - { era: "1960–1963 (Bellino & Staubach)", what: "Two Heisman Trophies in four years — Joe Bellino in 1960, Roger Staubach in 1963 — and a national-title-contending run" }
+    - { era: "2009–2019 (Ken Niumatalolo)", what: "The winningest era in program history, perfecting the triple option and stacking wins over Army" }
+  legends:
+    - { name: Roger Staubach, role: player, why: "1963 Heisman winner, Naval officer, then NFL Hall of Famer — the academy's signature figure" }
+    - { name: Ken Niumatalolo, role: coach, why: "The program's all-time wins leader; the keeper of the triple-option identity" }
+    - { name: Joe Bellino, role: player, why: "1960 Heisman winner, the first of Navy's two" }
+  canonical_moments:
+    - { name: "Staubach's Heisman", year: 1963, what: "Roger Staubach wins the Heisman and leads Navy to a Cotton Bowl and a national-title-game stage", handling: glory }
+    - { name: "Back-to-back over Army", year: 2025, what: "Navy rallies from 16-7 down to beat a ranked Army 17-16, its first consecutive wins in the series since 2014-15, retaining the Commander-in-Chief's Trophy", handling: glory }
+  the_place: "Navy-Marine Corps Memorial Stadium in Annapolis — where the brigade of midshipmen marches in, and where the alma maters are sung side by side after Army-Navy regardless of the score."
+  brand_of_football: "The triple option — a disciplined, run-first, assignment-perfect attack the rest of the sport abandoned, weaponized by undersized players who simply execute longer than you can."
+  cultural_footprint: "More than a team — a representation of the Navy and the country. The Army-Navy game closes the regular season every year as a national ritual, and these players go to war, not the pros."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Navy went 11-2 in 2025 (7-1 American) under third-year coach Brian
+    Newberry, won the Liberty Bowl 35-13 over Cincinnati, and rallied to beat a ranked Army 17-16 in December —
+    a second straight win over its rival behind QB Blake Horvath. The Midshipmen enter 2026 needing to replace
+    Horvath while chasing the one prize that's eluded them: an outright American Conference championship.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Navy_Midshipmen_football_team
+    - https://www.washingtonpost.com/sports/2025/12/13/army-navy-commander-in-chief-trophy/
+    - https://www.ncaa.com/news/football/article/2015-07-01/navy-football-officially-joins-aac-ending-134-years-independent
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Navy is the Annapolis service academy whose triple-option offense + Army-Navy game +
+    2024 9-3 + Brian Newberry era keep the Midshipmen permanently in the December CFB calendar.
+  mantra: Go Navy. Beat Army.
+  cultural_anchors:
+    fan_archetype_dominant: Annapolis-Brigade-Loyalist
+    outsider_archetype_dominant: Triple-Option-Diminisher
+    one_sentence: Navy is the Annapolis service academy whose Roger Staubach 1963 Heisman + Army-Navy game
+      + triple-option offense make every December's CFB calendar feel different.
+  selfname: the Midshipmen
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1963 9-1 + Roger Staubach Heisman + Cotton Bowl +
+    - 2015 11-2 + American Athletic Western division championship under Ken Niumatalolo
+    - Army-Navy game institutional anchor
+    rituals:
+    - Army-Navy Game
+    - Roger Staubach 1963 Heisman
+    - Bill the Goat Mascot
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (48/100, n=52)
+    voice_profile: absent
+    delusion_premium: absent

@@ -1,0 +1,123 @@
+# Emotional Core — Utah  (utah)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: utah
+team_id: 121
+program_name: Utah
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # the program nobody believes in that keeps out-toughing the room and conquering its conference
+  secondary: honor        # a 21-year culture handed from Whittingham to the man who lived it for two decades
+  core_variant: the-chronic-chip
+  one_line: "Utah is the program that walks into every league it joins and wins it on toughness — and just watched the coach who built that culture over 21 years leave for Michigan, handing the keys to the man beside him the whole time."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "An undefeated 2008 BCS season and back-to-back Pac-12 titles vs a national reputation that still treats Utah as a regional curiosity rather than the conference-conquering program its record says it is."
+
+the_wound:
+  name: "Losing Whittingham to Michigan"
+  detail: "After 21 years, Kyle Whittingham left Utah in December 2025 to become head coach at Michigan — not a retirement, a departure to a bigger job. Utah promoted 20-year staffer and defensive coordinator Morgan Scalley to replace him, betting the culture is in the building and not just the man. The transition lands on a high: an 11-2 season capped by a 44-21 Las Vegas Bowl win over Nebraska."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Big 12 the way they won the Pac-12 — prove the toughness travels, the culture outlasts the coach, and the program belongs in the national conversation it keeps getting left out of."
+  drought: { since: 2022, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Utah fans are tired of being the program the country keeps underrating — the conference-killer everyone treats as a fluke until it does it again. They'll tell you the Utes have out-toughed bluer blood than anyone wants to admit."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes the culture is bigger than any one coach — that Whittingham built something in the building that Morgan Scalley simply inherits, and that Utah will keep out-working and out-hitting programs with twice the recruiting stars."
+
+the_grudge_texture:
+  rival: byu
+  texture: blood-feud   # the Holy War — the genuine, religiously-charged in-state hatred with BYU
+
+the_coach_relationship: legends-shadow   # Morgan Scalley steps out of Kyle Whittingham's 21-year shadow; every move now measured against the era he served in
+the_internal_fracture: continuity-faith vs uncertainty — the faction sure Scalley keeps the machine running vs the faction nervous that 21 years of culture left with the man who built it
+register: wasatch-grit-conference-killer   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - BCS Buster, but only — 2021-2022 Pac-12 titles are the modern résumé
+  - Pac-12 leftover — Big 12 transition is structural
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Utah is the original BCS-buster turned conference-conqueror — the program that went undefeated twice as a so-called outsider, then joined the Pac-12 and won it back-to-back, proving over and over that toughness and culture beat recruiting rankings."
+  the_origin: "A Salt Lake City program that spent decades in the Mountain West, defined itself by grit and a relentless defense, and used two perfect BCS seasons to force its way into the power-conference world."
+  golden_ages:
+    - { era: "2004 (Urban Meyer) / 2008 (Kyle Whittingham)", what: "Two undefeated BCS-busting seasons — Meyer's 12-0 Fiesta Bowl team and Whittingham's 13-0 Sugar Bowl team that beat Alabama" }
+    - { era: "2021–2022 (Whittingham)", what: "Back-to-back Pac-12 championships and Rose Bowl trips — the conference-killer at its peak" }
+  legends:
+    - { name: Kyle Whittingham, role: coach, why: "21 years, the 2008 undefeated Sugar Bowl team, two Pac-12 titles — the architect of modern Utah" }
+    - { name: Alex Smith, role: player, why: "The quarterback of the 2004 undefeated team and the #1 overall NFL Draft pick" }
+  canonical_moments:
+    - { name: "The Sugar Bowl over Alabama", year: 2009, what: "Whittingham's 13-0 Utes blow out Alabama to finish undefeated", handling: glory }
+    - { name: "Back-to-back Pac-12 titles", year: 2022, what: "Utah wins the conference it was told it didn't belong in — twice", handling: glory }
+    - { name: "Whittingham to Michigan", year: 2025, what: "After 21 years, the program's defining coach leaves for a bigger job", handling: wound }
+  the_place: "Rice-Eccles Stadium — the Mighty Utah Student Section ('the MUSS'), the Block U on the mountainside, a loud, hard place to play in the Wasatch."
+  brand_of_football: "Wasatch grit — physical, defense-first, special-teams-obsessed football that out-toughs more talented teams; the culture is the scheme."
+  cultural_footprint: "Salt Lake City's secular football identity in a state where BYU carries the religious flag — the program that proved a Mountain West outsider could climb to the very top of the sport on culture alone."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Utah went 11-2 (7-2 Big 12) in 2025, beating Nebraska 44-21 in the Las
+    Vegas Bowl behind All-Big 12 QB Devon Dampier, who returns for 2026. Then Kyle Whittingham left after 21
+    years to coach Michigan, and Utah promoted longtime defensive coordinator Morgan Scalley — a 20-year staffer
+    — to head coach. The question on the Wasatch: does the toughness-first culture Whittingham built survive
+    the man who built it.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Utah_Utes_football_team
+    - https://www.nbcnews.com/sports/college-football/university-michigan-hires-utahs-kyle-whittingham-football-coach-report-rcna251041
+    - https://utahutes.com/news/2025/12/13/morgan-scalley-named-head-coach-of-utah-football-program
+    - https://www.espn.com/college-football/story/_/id/47601750/qb-devon-dampier-announces-return-utah-2026-season
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Utah is the program that conquered the Pac-12 in 2021-2022 and now imports that culture
+    to the Big 12.
+  mantra: Go Utes.
+  cultural_anchors:
+    fan_archetype_dominant: Mountain-West-Pac-12-Big-12-Loyalist
+    outsider_archetype_dominant: BYU-Rival-First
+    one_sentence: Utah is the program that turned 'Pac-12 outsider' into back-to-back Pac-12 titles, then
+      carried that culture into the Big 12 in 2024.
+  selfname: the Utes
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2008 13-0 Sugar Bowl season under Kyle Whittingham
+    - 2021-2022 back-to-back Pac-12 titles
+    - Alex Smith Heisman finalist (2004 with Urban Meyer)
+    rituals:
+    - Mighty Utah Student Section (MUSS)
+    - Block U Hike
+    - Holy War vs BYU
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (51/100, n=195)
+    voice_profile: absent
+    delusion_premium: absent

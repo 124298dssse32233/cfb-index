@@ -1,0 +1,69 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: minnesota-duluth
+team_id: null
+program_name: Minnesota Duluth
+program_tier: 6        # Division II
+
+emotional_core:
+  primary: restoration    # unshared NSIC title after 13-year drought (first since 2012)
+  secondary: contentment  # D2 power settling into sustainable contention
+  one_line: "Minnesota Duluth is the D2 power that won national championships in 2008 and 2010 — and just broke a 13-year drought to claim an unshared NSIC title in 2025, proving the Bulldogs still belong at the top of Division II."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Two national championships and a D2 legacy vs a 13-year title drought that ended in 2025."
+
+the_wound:
+  name: "The 13-year NSIC title drought (2012-2025)"
+  detail: "Minnesota Duluth won the 2010 national championship (15-0) and claimed multiple NSIC titles through the early 2010s, establishing the Bulldogs as a D2 power. But from 2012 through 2024, UMD won 22 NSIC titles — yet never an unshared conference crown. The drought felt like a slow erosion of a championship program's identity. In 2025, Curt Wiese's team finally broke through with a 10-2 overall record, 9-1 NSIC North Division, and an unshared title for the first time in 13 years."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the national championship conversation and prove the 2008-2010 Bulldogs weren't a flash in the pan."
+  drought: { since: 2010, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the Bulldogs carry an internal chip: the gap between what UMD proved it could accomplish (national titles) and what it became (an NSIC contender without an unshared title for 13 years)."
+
+the_delusion:
+  tone: earnest
+  text: "That the 2025 unshared title is the beginning of a new dynasty, not just a single respectable season. Bulldogs fans believe the championship DNA is still there and the 10-2 season is proof."
+
+the_grudge_texture:
+  rival: bemidji-state
+  texture: blood-feud   # northern Minnesota battle; the Bulldogs beat Bemidji while the Beavers collapsed in 2025
+
+the_coach_relationship: forever-ours    # Curt Wiese 10th season, 97-23 career
+the_internal_fracture: championship-expectations vs sustainability-patience — the faction riding the 2025 title believing another dynasty is possible vs those accepting UMD as a perennial contender, not a championship program anymore
+register: duluth-bulldogs-d2-power-northern-minnesota
+never_use:
+  - "Fell from grace: winning 22 NSIC titles is excellence, even without an unshared crown"
+  - "Never won after 2010: UMD won NSIC titles in 2011, 2012, 2013, 2014, and others; the drought was for UNSHARED titles"
+
+story_canon:
+  the_unique_thing: "Minnesota Duluth is a D2 power that won the national championship in 2010 with a perfect 15-0 record, and has spent the last 13 years chasing another unshared title, finally breaking through in 2025."
+  the_origin: "Minnesota Duluth is a regional northern Minnesota program that climbed into D2 contention in the late 2000s and established itself as a legitimate power with back-to-back national titles (2008, 2010)."
+  golden_ages:
+    - { era: "2008–2010 (Tim Tormanen era)", what: "National championships in 2008 and 2010 (15-0 in 2010); the Bulldogs' peak" }
+    - { era: "2010–2015 (Curt Wiese early seasons)", what: "Sustained NSIC title contention and playoff appearances" }
+  legends:
+    - { name: Tim Tormanen, role: coach, why: "Led the 2008 and 2010 national championship teams" }
+    - { name: Curt Wiese, role: coach, why: "10 seasons, 97-23 career record; rebuilt the program and won the 2025 unshared NSIC title" }
+  canonical_moments:
+    - { name: "2010 National Championship", year: 2010, what: "Minnesota Duluth goes 15-0 and wins the D2 national title", handling: glory }
+    - { name: "2025 Unshared NSIC Title", year: 2025, what: "10-2 overall, 9-1 NSIC North; first unshared title since 2012", handling: glory }
+  the_place: "Duluth, Minnesota; a northern port city on Lake Superior; the Bulldogs' home and regional identity."
+  brand_of_football: "A D2 power that has proven it can compete at a national level; Minnesota Duluth is built on recruiting excellence and championship program culture."
+  cultural_footprint: "Minnesota Duluth is one of Division II's most prestigious programs, with two national championships and sustained playoff success; the 2025 title proves the Bulldogs are still a power."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Minnesota Duluth went 10-2 overall and 9-1 in the NSIC North Division in 2025,
+    claiming the conference's 22nd unshared title and the program's first unshared crown since 2012 — ending a 13-year drought.
+    Coach Curt Wiese (10th season, 97-23 career) has rebuilt UMD into a consistent contender; the Bulldogs received a #7 NCAA tournament seed but lost to #18 Ashland 32-7 in the first round. The 2025 season signals UMD's resurgence but also confirms the Bulldogs are a perennial contender, not yet a championship program again.
+  sources:
+    - https://umdbulldogs.com/news/2025/11/15/no-11-umd-football-clinches-nsic-championship-title
+    - https://bleacherreport.com/articles/560200-minnesota-duluth-wins-2010-division-ii-football-national-championship
+    - https://northernsun.org/schedule.aspx?schedule=3876

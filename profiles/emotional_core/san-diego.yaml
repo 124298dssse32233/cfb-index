@@ -1,0 +1,86 @@
+# Emotional Core — San Diego  (san-diego)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: san-diego
+team_id: null
+program_name: San Diego
+program_tier: 5
+
+emotional_core:
+  primary: honor          # the legacy non-scholarship FCS power that proved academics and excellence coexist
+  secondary: restoration  # climbing back after a competitive dip
+  one_line: "San Diego is the West Coast non-scholarship FCS dynasty — 12 Pioneer League titles, multiple playoff runs, and the program where Jim Harbaugh and Josh Johnson proved talent identification beats recruitment budgets."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Twelve Pioneer League titles (2005–2019) and FCS playoff wins in 2016–2017 vs a program that hasn't won a conference championship since 2019 and is now rebuilding to that standard."
+
+the_wound:
+  name: "The six-year title drought (2020–2025)"
+  detail: "San Diego won 12 conference titles in 15 years, including three consecutive (2017–2019), then didn't win another from 2020 onward. The wound is not a collapse; it's the slow fade from auto-bid favorite to competitive-but-not-dominant."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the 2017–2019 standard — another conference title, another playoff run, proof that the dynasty is dormant, not dead. An 8–4 season with a bowl bid would quiet the questions about whether San Diego's peak has passed."
+  drought: { since: 2019, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe san Diego's chip is the disrespect of the non-scholarship narrative — the media that treats FCS as minor-league football and San Diego's success as a curiosity, not proof of concept. The program proved in 2016–2017 that non-scholarship teams can make FCS playoffs. The media still acts like that's surprising."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the program's institutional DNA — the Harbaugh-Johnson legacy of talent identification and non-scholarship excellence — is still there, waiting to be activated. They know the six-year drought is real, but they believe it's a dip, not a new baseline."
+
+the_grudge_texture:
+  rival: none
+  texture: blood-feud   # no traditional named rival in the Pioneer League
+
+the_coach_relationship: total-trust   # Brandon Moore in third year; program stable
+the_internal_fracture: legacy-vs-present — the faction believing San Diego can return to the 2017–2019 standard vs the faction accepting the program is now a .500-conference team
+register: san-diego-toreros-west-coast-dynasty-jim-harbaugh-josh-johnson-12-titles
+never_use:   # LAW — do not violate in any authored line
+  - "Recent champion — last title 2019; six-year drought"
+  - "Is a perennial playoff team — playoff appearances in 2016–2017; none since"
+  - "Has stronger titles than Dayton/Drake — 12 titles over 15 years is elite non-scholarship pedigree"
+  - "Guarantees playoff access — the 2016–2017 era is dormant; returning is aspirational"
+  - "Jim Harbaugh/Josh Johnson will repeat — the legendary era is closed; new eras don't copy"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "San Diego won 12 Pioneer League titles (2005–2019) and made two FCS playoff runs (2016–2017) without scholarship funding — the non-scholarship program that proved talent identification and coaching excellence beat recruitment budgets."
+  the_origin: "A private Catholic university in San Diego, California founded in 1949 with a football program added in 1960. The program joined the Pioneer League in 1993 and built itself into a regional power under the ethos of non-scholarship excellence."
+  golden_ages:
+    - { era: "2005–2019 (12 titles in 15 years)", what: "The dynasty era — San Diego won nearly a conference title every other year" }
+    - { era: "2016–2017 (FCS playoff runs)", what: "Two consecutive years of FCS playoff advancement, proving non-scholarship teams could compete at the highest FCS tier" }
+  legends:
+    - { name: Jim Harbaugh, role: coach, why: "Built San Diego football and proved talent identification works; later became a national figure at Michigan and the NFL" }
+    - { name: Josh Johnson, role: player, why: "The dual-threat QB who drove San Diego's success in the 2000s–2010s and set NCAA FCS records" }
+  canonical_moments:
+    - { name: "12 Pioneer League titles (2005–2019)", year: 2019, what: "A 15-year span with 12 conference championships — the dynasty standard", handling: glory }
+    - { name: "2016–2017 FCS playoff runs", year: 2017, what: "Two consecutive years of FCS playoff advancement without scholarship funding", handling: glory }
+    - { name: "Jim Harbaugh era", year: 2010, what: "The years when Jim Harbaugh was building San Diego football and setting the template for non-scholarship success", handling: glory }
+  the_place: "Torero Stadium in San Diego — the on-campus home where the Toreros built a 12-title dynasty."
+  brand_of_football: "West Coast non-scholarship excellence — the program that proved a California university could build a dynasty on talent identification, coaching, and institutional commitment to FCS football."
+  cultural_footprint: "San Diego is the proof that non-scholarship FCS teams can compete at the highest levels. Twelve titles and two FCS playoff runs make San Diego the defining example of the non-scholarship model."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: San Diego went 8–4 (6–2 PFL) in 2025 under Brandon Moore in his third year — a respectable record
+    that showed competitive consistency but not the dominance that defined the 2005–2019 era. Moore has stabilized the program after
+    the coaching turnover of the early 2020s. The 8–4 record is solid, but it reflects a program that is no longer an auto-bid favorite
+    for the PFL title. The question in San Diego: can Moore return the program to the 2017–2019 standard of conference titles and playoff
+    runs, or has the program permanently settled into a lower competitive tier?
+  research_checklist:
+    - the program's 3–7 most iconic games/plays (2016–2017 playoff games, recent title clinchers)
+    - the legendary coaches + players (Jim Harbaugh, Josh Johnson, coaches from the 12-title era)
+    - the unique tradition / identity / the one amazing thing (12 titles in 15 years, non-scholarship dynasty, FCS playoff success)
+    - the origin + the golden-age dynasty eras (1960 founding, 1993 Pioneer League entry, 2005–2019 dynasty)
+    - the current-era storyline (Moore's third year and the climb back to title contention)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_San_Diego_Toreros_football_team
+    - https://en.wikipedia.org/wiki/San_Diego_Toreros_football
+    - https://www.utsandiego.com/sports/toreros
+    - https://en.wikipedia.org/wiki/Josh_Johnson_(quarterback)

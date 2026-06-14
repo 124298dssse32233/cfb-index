@@ -1,0 +1,82 @@
+# Emotional Core — Butler  (butler)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: butler
+team_id: null
+program_name: Butler
+program_tier: 5
+
+emotional_core:
+  primary: contentment      # the small Indiana school that's made peace with honest football in a big league
+  secondary: standard       # steady, unglamorous excellence in the Pioneer League
+  one_line: "Butler is the Indianapolis school that competes for non-scholarship excellence every year — the Hoosier Helmet Trophy rival and the example that football works best without the noise."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A 140-year-old private university with a 4–4 conference record vs the FCS ceiling it will never reach — and frankly, has stopped trying to."
+
+the_wound:
+  name: "The permanent second-tier ceiling"
+  detail: "Butler football arrived at FCS in 1992 and has never had a season where a bowl or playoff felt plausible. The wound is the opposite of despair — it's the acceptance that excellence here means .500, not glory."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "A 7–5 season with a bowl bid. The concrete dream is small — win the Hoosier Helmet, finish at .500 in conference, make a legitimate case for the FCS playoffs. That would be the program's Everest."
+  drought: { since: 2004, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe butler has no chip. The program chose a different path: invest in the student-athlete experience, not the recruiting machine. The chip would contradict the whole point."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: valparaiso
+  texture: championship   # the Hoosier Helmet Trophy since 2006; the rivalry that matters most
+
+the_coach_relationship: forever-ours    # Lynch is year one, but the culture absorbs him
+the_internal_fracture: excellence-vs-expectations — the tension between the program's genuine competence and the FCS ceiling it will never break through
+register: indianapolis-privateers-hoosier-helmet-non-scholarship-honor
+never_use:   # LAW — do not violate in any authored line
+  - "Ever wins a bowl game — 2004 floor; no postseason since"
+  - "Competes with the powers — non-scholarship FCS is the honest game, not the talent-hoarding one"
+  - "Has a chip or a wound — contentment is the realistic core, not disappointment"
+  - "Is climbing toward something bigger — the program has chosen its tier and is content there"
+  - "Sacrifices academics for football — the opposite; academics come first, always"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Butler is the example of what non-scholarship FCS football actually is — honest competition where the school chooses academics and experience over recruitment. The Hoosier Helmet Trophy against Valparaiso is not rivalry theater; it's the conference championship that matters."
+  the_origin: "A large Jesuit university in Indianapolis founded in 1855 that added football in 1889 and competed through multiple eras before joining the Pioneer League in 1992 as a non-scholarship FCS school. The 1997–2004 era under Grant Teaff brought four bowl bids."
+  golden_ages:
+    - { era: "1997–2004 (Grant Teaff)", what: "Four bowl appearances and the program's high-water mark at FCS" }
+  legends:
+    - { name: Grant Teaff, role: coach, why: "The legendary coach who built the 1997–2004 bowl era and legitimized Butler at FCS" }
+  canonical_moments:
+    - { name: "1997 NCAA playoff berth", year: 1997, what: "Butler's first FCS playoff run under Grant Teaff", handling: glory }
+    - { name: "Hoosier Helmet Trophy rivalry", year: 2006, what: "The annual conference championship trophy against Valparaiso, the rivalry that defines the program's identity", handling: glory }
+  the_place: "Bud & Jackie Sellick Bowl in Indianapolis — the modest on-campus stadium where the Bulldogs have competed since moving home."
+  brand_of_football: "Non-scholarship excellence — the belief that football is best when it's played by true student-athletes competing for the experience, not the name."
+  cultural_footprint: "Butler is the Ivy-League-without-the-Ivy model: academic prestige married to honest sports. The program proves small-private schools can compete when they refuse to compromise their identity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Butler went 6–6 (4–4 PFL) in 2025 under new coach Kevin Lynch, who arrived
+    after Mike Uremovich left for Ball State. Lynch's inaugural season showed competence and stability — the team matched
+    its conference record and held its own in the non-scholarship tier. The question in Indianapolis: can Lynch sustain
+    the program's contentment-era baseline and deliver the occasional bowl bid that would crown a successful half-decade?
+  research_checklist:
+    - the program's 3–7 most iconic games/plays (Hoosier Helmet history, Teaff-era rivalry wins)
+    - the legendary coaches + players (Grant Teaff is the statue-worthy figure)
+    - the unique tradition / identity / the one amazing thing (non-scholarship honor, academic prestige)
+    - the origin + the golden-age dynasty eras (1889 founding, 1997–2004 bowl era, Pioneer League entry 1992)
+    - the current-era storyline (the Lynch rebuild in a stable program)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Butler_Bulldogs_football_team
+    - https://en.wikipedia.org/wiki/Butler_Bulldogs_football
+    - https://www.butlerathletics.com/news/2024/12/13/football-kevin-lynch-named-new-head-football-coach.aspx
+    - https://en.wikipedia.org/wiki/Hoosier_Helmet_Trophy

@@ -1,0 +1,67 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Pacific Lutheran Lutes — NWC competitor with four national titles across eras
+
+status: live
+slug: pacific-lutheran
+team_id: null
+program_name: Pacific Lutheran University
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Pacific Lutheran is a Christian liberal arts school in Tacoma whose Lutes have won four national championships — a program rooted in faith and sustained excellence in NWC."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A Christian university that has tasted national success (four titles) but finds its home in NWC steady competition — content with conference prestige aligned with the institution's values."
+
+the_wound:
+  name: "The golden era is past"
+  detail: "Pacific Lutheran's national titles came in NAIA (1980, 1987, 1993) and NCAA D3 (1999) — the deepest playoff runs were decades ago, and the program is now a steady NWC competitor."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Compete annually for NWC titles, build toward another playoff run, and represent PLU's Christian mission through athletics."
+  drought: { since: 1999, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Pacific Lutheran competes to honor the university and the conference."
+
+the_delusion:
+  tone: self-aware
+  text: "That PLU can build another championship team with the resources available. The fanbase knows the ceiling but believes in the foundation."
+
+the_grudge_texture:
+  rival: linfield
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: none — the program is aligned
+register: tacoma-lutes-nwc-faithful-legacy
+never_use:
+  - "Current powerhouse — the era of titles is behind them"
+  - "National contender — NWC is the focus now"
+  - "Perennial playoff team — steady DIII presence, but not post-season frequent"
+  - "Elite program — well-resourced for NWC, not nationally"
+
+story_canon:
+  the_unique_thing: "Four national championships across two eras (NAIA 1980–1993, NCAA D3 1999) — Pacific Lutheran is a program that has tasted national success and competes as an NWC peer."
+  the_origin: "Pacific Lutheran University, founded 1890, is a Lutheran liberal arts university in Tacoma, Washington. The Lutes represent PLU's commitment to faith-based education and athletic excellence."
+  golden_ages:
+    - { era: "NAIA era (1980–1993)", what: "Three NAIA Division II national championships (1980, 1987, 1993)" }
+    - { era: "1999", what: "NCAA Division III national championship" }
+  legends: []
+  canonical_moments:
+    - { name: "Four national titles", year: 1999, what: "Pacific Lutheran wins national championships: three NAIA titles (1980, 1987, 1993) and one NCAA D3 title (1999)", handling: glory }
+  the_place: "Tacoma, Washington — a liberal arts campus in the Pacific Northwest."
+  brand_of_football: "Christian mission and sustained excellence — PLU football reflects faith and community values."
+  cultural_footprint: "A regional power with national title history; Pacific Lutheran's legacy is part of Pacific Northwest college athletics heritage."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Pacific Lutheran competes in the Northwest Conference under head coach Brant McAdams (8th season, 34-37
+    record). The Lutes have a rich history of national championships (three NAIA titles and one NCAA D3 title) but now focus on NWC competition.
+    The 2026 season continues PLU's commitment to conference excellence and Christian values.
+  sources:
+    - https://en.wikipedia.org/wiki/Pacific_Lutheran_Lutes_football

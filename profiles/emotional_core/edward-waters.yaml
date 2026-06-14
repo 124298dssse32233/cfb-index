@@ -1,0 +1,70 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: edward-waters
+team_id: null
+program_name: Edward Waters University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: house-money
+  one_line: "Edward Waters is the Tiger founded in 1866 (the first HBCU in Florida) that brought football back to life in 2012 after a 15-year hiatus, and now plays every Saturday as a gift to the university and the city of Jacksonville."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "The oldest HBCU in Florida, Edward Waters carries 160 years of educational prestige and a football program that came back from dormancy, now climbing toward steady SIAC competence."
+
+the_wound:
+  name: "15-year absence (1997–2012) and the shadow of Jim 'Cannonball' Butler"
+  detail: "Edward Waters shut down football in 1997 and didn't return until 2012. The program lost its connection to the 1964 undefeated team's glory, and when the Tigers came back, they had to rebuild from almost nothing. Jim Butler, the program's only NFL alumnus, became a memory, not a blueprint."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Build a steady SIAC program that honors Edward Waters' 160-year legacy and the 1964 team's perfection. Make Jacksonville remember that the Tigers belong."
+  drought: { since: 1964, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "The fanbase believes: Edward Waters has no chip, it has a mission. The program plays for the university, for Jacksonville, and for the honor of being the first Black college in Florida."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that the Tigers' 1964 undefeated season (9–0, shutout six foes) was only the beginning, and that a 14-year-old program can recapture that legacy through excellence and pride."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: honor-of-legacy vs. pragmatic-growth — those who want to honor 1964's perfection vs. those building for long-term SIAC contention
+
+register: tigers-jacksonville-florida-hbcu-first
+never_use:
+  - Never won anything. 1964 9-0 undefeated, shutout six opponents.
+  - New program. Founded 1866; only the modern football program (2012 onwards) is young.
+
+story_canon:
+  the_unique_thing: "1964 undefeated season (9–0, six shutouts), the program's peak and eternal reference point. Edward Waters proved it could compete at the highest level of Black college football before shutting down for 48 years."
+  the_origin: "Founded 1866 by the African Methodist Episcopal Church as the first historically Black college in Florida. Edward Waters University is a foundational institution in American Black education, predating every other HBCU in the state by decades."
+  golden_ages:
+    - { era: "1950–1964 (Football Prime)", what: "Edward Waters' football program was competitive and culturally significant, culminating in the undefeated 1964 season" }
+    - { era: "1964 (Undefeated)", what: "The Tigers go 9–0 with six shutouts, establishing the program's eternal high-water mark" }
+    - { era: "2012–present (Resurrection)", what: "Edward Waters returns to football and has been rebuilding with pride and patience" }
+  legends:
+    - { name: "Jim 'Cannonball' Butler", role: "Player (1960s)", why: "The program's only NFL alumnus; a symbol of Edward Waters' competitive pedigree" }
+    - { name: "Brian Jenkins", role: "Coach (2025–)", why: "Elevated from interim to permanent, leading the Tigers with vision and stability" }
+  canonical_moments:
+    - { name: "1964 Undefeated Season", year: 1964, what: "Edward Waters goes 9–0 with six shutouts, establishing the program's legacy", handling: glory }
+    - { name: "Football Returns (2012)", year: 2012, what: "Edward Waters brings football back after 15 years, beginning the modern resurrection", handling: glory }
+    - { name: "2025 Competitive Season", year: 2025, what: "After starting historic 3–0, Edward Waters finishes 5–5 (4–4 SIAC), showing steady progress", handling: glory }
+  the_place: "Jacksonville, Florida — Edward Waters sits in a historic Black education epicenter. The program plays in a city with deep HBCU roots and serves the community with pride."
+  brand_of_football: "Disciplined, development-focused SIAC football — a program that prioritizes education and community while building competitive excellence."
+  cultural_footprint: "The first HBCU in Florida with a modern football resurrection story. Edward Waters carries historical weight and serves as an anchor institution for Jacksonville's HBCU identity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Edward Waters started the 2025 season 3–0 (historic hot start for the program's comeback), then settled to a 5–5 final record (4–4 SIAC). Coach Brian Jenkins was elevated from interim to permanent in 2025, signaling institutional confidence in his vision. The Tigers showed they could compete with SIAC teams early before leveling off, a realistic progression for a 13-year-old program rebuilding toward conference contention. Jenkins enters 2026 with a stable roster and the momentum of having proven the Tigers belong.
+  sources:
+    - https://en.wikipedia.org/wiki/Edward_Waters_University
+    - https://www.firstcoastnews.com/article/sports/local-sports/edward-waters-university-names-brian-jenkins-head-football-coach/77-a1be1b5e-db07-4507-9f6b-43e7ef3f5011
+    - https://ewufootball.com/

@@ -1,0 +1,109 @@
+# Emotional Core — Hampton  (hampton)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: hampton
+team_id: 1104
+program_name: Hampton
+program_tier: 2
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  core_variant: regime-reset
+  one_line: "Hampton is the HBCU that won seven Black College National Championships and dominated the MEAC, now rebuilding its identity in the CAA after the move from its home conference stripped the program of its natural habitat."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "Seven Black college national titles and multiple MEAC championships vs two straight losing seasons in the CAA — Hampton knows what it was and is working to reclaim a version of it."
+
+the_wound:
+  name: "The CAA transition and the 2024-2025 collapse"
+  detail: "Hampton left the MEAC — where it won championships and HBCU titles — for the Big South and then the CAA. The 2025 season produced a 2-10 record (0-8 CAA), the program's worst mark in memory. Head coach Trenton Boykin is in his second year trying to rebuild a roster that has struggled to compete at the CAA level after leaving the HBCU conference ecosystem."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Rebuild to MEAC-caliber competitiveness inside the CAA — prove Hampton's championship DNA travels to any conference and that the Pirates can win at a level that honors the program's HBCU legacy."
+  drought: { since: 2006, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The fanbase says Hampton earned its titles when championships were won on the field and that the move to the CAA is proof they're willing to compete at the highest FCS level — they believe the talent pipeline from Hampton Roads and HBCU recruiting can produce a winner anywhere."
+
+the_delusion:
+  tone: earnest
+  text: "They believe Hampton's championship tradition from the MEAC era translates directly to the CAA — that the program's culture and recruiting footprint in Hampton Roads is enough to compete with programs that have been in FCS major conferences for decades."
+
+the_grudge_texture:
+  rival: norfolk-state
+  texture: blood-feud
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: HBCU-identity-preservation vs CAA-integration — the faction that wants Hampton to honor its HBCU roots and sees the conference move as cultural displacement vs the faction that believes competing in the CAA is the path to sustainable FCS relevance
+
+register: hampton-pirates-hbcu-champion-restructuring-caa
+never_use:
+  - "Small HBCU program — seven Black College National Championships and MEAC dominance in the early 2000s disprove any small-program framing"
+  - "Never won — Hampton's championship era (2004-2006 MEAC three-peat, 1997 HBCU title) is documented and real"
+
+story_canon:
+  the_unique_thing: "Hampton is the HBCU that won seven Black College National Championships — including a MEAC three-peat from 2004 to 2006 — and produced one of the most dominant early-2000s runs in HBCU football, then traded its conference home for the CAA in search of a different kind of legitimacy."
+  the_origin: "Hampton University has played football since 1902. The Pirates joined the MEAC in 1995 and immediately became a force — winning their first MEAC title in 2001 under Joe Taylor and then peaking with three straight MEAC championships and two straight HBCU national titles (2004-2006). The program left the MEAC for the Big South in 2018 and moved to the CAA in 2023."
+  golden_ages:
+    - { era: "2001-2006 (Joe Taylor dynasty)", what: "First MEAC title in 2001, then MEAC three-peat (2004-2006) with back-to-back HBCU national titles in 2005 and 2006" }
+    - { era: "1997 HBCU championship", what: "Hampton wins the Black college national championship, establishing the program as an HBCU power before the MEAC dynasty" }
+  legends:
+    - { name: Joe Taylor, role: coach, why: "Built the 2001-2006 dynasty — MEAC four-title run and two HBCU national championships; the definitive coach in program history" }
+  canonical_moments:
+    - { name: "2001 first MEAC title", year: 2001, what: "Hampton goes undefeated in MEAC play in Joe Taylor's second season — the program's first conference crown", handling: glory }
+    - { name: "2004-2006 MEAC three-peat", year: 2006, what: "Three straight MEAC championships and back-to-back HBCU national titles — the peak of program history", handling: glory }
+    - { name: "1997 HBCU national championship", year: 1997, what: "Hampton claims the Black college national title, first major championship in the modern era", handling: glory }
+  the_place: "Armstrong Stadium in Hampton, Virginia — the home of a program that has played football in the Hampton Roads corridor since 1902."
+  brand_of_football: "Physical, disciplined, HBCU-proud — a program built on Hampton Roads recruiting and HBCU football culture that is now testing whether that identity transplants to a Power FCS conference."
+  cultural_footprint: "One of the defining HBCU football programs of the early 2000s — Hampton's 2004-2006 dynasty is canon in HBCU circles, and the rivalry with Norfolk State is one of the most charged matchups in Black college football history."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Hampton went 2-10 (0-8 CAA) in 2025 under second-year head coach
+    Trenton Boykin — the program's most difficult season since leaving the MEAC. The Pirates are in the
+    middle of an identity reckoning: the conference that birthed their championship culture is gone, and
+    the CAA has proven more competitive than anticipated. Boykin's task is to build a roster that can
+    compete week-to-week in the CAA while honoring the HBCU tradition that makes Hampton football
+    meaningful to its community. The rivalry with Norfolk State continues as a scheduled non-conference
+    touchstone — the one game where MEAC-era Hampton still feels present.
+  sources:
+    - https://en.wikipedia.org/wiki/Hampton_Pirates_football
+    - https://sportsteamhistory.com/hampton-pirates/
+    - https://hbcusports.com/2023/07/24/the-modern-history-of-hbcu-realignment-a-cause-for-celebration/
+
+briefing:
+  identity_phrase: Hampton is the HBCU with seven Black College National Championships and a MEAC three-peat (2004-2006) under Joe Taylor, now rebuilding identity in the CAA after leaving the conference that made them champions.
+  mantra: Go Pirates.
+  cultural_anchors:
+    fan_archetype_dominant: HBCU-Champion-Proud
+    outsider_archetype_dominant: Conference-Transplant-Skeptic
+    one_sentence: Hampton is the HBCU football dynasty (seven Black college national titles) now navigating a CAA transition that tests whether championship culture survives a conference change.
+  selfname: the Pirates
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Joe Taylor
+    era_name_overrides: {}
+    always_surface:
+      - Seven Black College National Championships
+      - 2004-2006 MEAC three-peat under Joe Taylor
+      - Norfolk State rivalry (43 all-time meetings)
+      - 2001 first MEAC title (undefeated conference record)
+    rituals:
+      - Armstrong Stadium
+      - HBCU Championship Pride
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

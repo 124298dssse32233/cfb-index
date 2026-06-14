@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Emotional Core — soul file for Emporia State Hornets (MIAA)
+
+status: live
+slug: emporia-state
+team_id: null
+program_name: Emporia State
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Emporia State is the Hornet program steeped in tradition and rivalry — a small Kansas school with deep roots in the MIAA, where football is about the battles with Pittsburg State and Washburn, not the national stage."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A program with 19 seasons under Garin Higgins and deep rivalries with the MIAA's best, competing consistently but never quite cresting into the national conversation."
+
+the_wound:
+  name: "The ceiling of the regional powerhouse — excellence in Kansas and the MIAA, never the breakthrough onto the national stage"
+  detail: "Emporia State has appeared in three D2 playoffs in the last 14 seasons and played in five bowl games, but has never won a national championship. It's the wound of the consistent program: good enough to matter, not quite enough to be remembered beyond the region."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win a D2 playoff game and climb to national relevance — prove the Hornets belong among the elite, not just the MIAA's steady middle."
+  drought: { since: 2012, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "No chip — just the quiet rivalry. The Hornets don't play for national respect; they play to beat Pittsburg State and Washburn. That's the measure."
+
+the_delusion:
+  tone: self-aware
+  text: "Emporia State fans believe that any given Saturday, the Hornets can outplay Pittsburg State or Washburn and steal a rivalry — that the regional supremacy matters more than the national podium. They know the limits of their reach, and celebrate what they own."
+
+the_grudge_texture:
+  rival: pittsburg-state
+  texture: blood-feud
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "legacy vs. renewal — fans split between celebrating Garin Higgins' 19 seasons of stability and pushing for new energy to finally break through"
+register: kansas-hornet-heartland-rivalry
+never_use:
+  - "No legacy (Fran Welch and Garin Higgins built 19+ years of tradition)"
+  - "Irrelevant on the field (consistent bowl teams and playoff appearances over 14 seasons)"
+
+story_canon:
+  the_unique_thing: "Emporia State is the Hornet program at the heart of the MIAA's fiercest rivalry — the 7th-most-played D2 rivalry with Pittsburg State (103 meetings, Pitt leads 66-35-2), and a genuine blood-feud that defines small-school football in Kansas."
+  the_origin: "Founded in 1863 as a teachers college, Emporia State football became a MIAA staple in the early 20th century. The rivalry with Pittsburg State runs back decades and is the emotional center of the program."
+  golden_ages:
+    - { era: "2011–2015", what: "Garin Higgins' steady rise, multiple MIAA championship contenders" }
+    - { era: "2012–present", what: "Consistent bowl appearances and playoff contention" }
+  legends:
+    - { name: "Fran Welch", role: "coach", why: "Built the program and held the all-time wins record (116) before Garin Higgins tied it in 2025" }
+    - { name: "Garin Higgins", role: "coach", why: "19 seasons of sustained excellence; tied Welch's wins record in Oct 2025" }
+  canonical_moments:
+    - { name: "Higgins Ties Welch Record", year: 2025, what: "Garin Higgins tied Fran Welch's 116-win record on Oct 11, 2025, vs Missouri Southern", handling: glory }
+    - { name: "103 Meetings with Pittsburg State", year: 2025, what: "The 7th-most-played D2 rivalry; Hornet-Gorilla blood-feud", handling: glory }
+  the_place: "Gaede Stadium in Emporia, Kansas — home to the Hornets and the heart of the region's football culture."
+  brand_of_football: "Rivalry-driven, steady, development-focused — football that lives for the Pittsburg State matchup and the pride of the region."
+  cultural_footprint: "The Kansas school that proved small-state football could sustain excellence for decades through institutional loyalty and coaching continuity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Emporia State went 5-6 overall, 4-5 in the MIAA in 2025 — a down year for the Hornets but not a crisis. Garin Higgins is in his 19th season and just tied Fran Welch's all-time wins record. The program has made five bowl games in 14 seasons and three playoff appearances, establishing itself as a consistent MIAA competitor. The question: can the Hornets reverse the 2025 slide and return to conference contention?
+  research_checklist:
+    - Garin Higgins' 19-season record and legacy
+    - Fran Welch's program-building era
+    - The Pittsburg State rivalry (103 meetings, 7th-most-played D2)
+    - The Washburn rivalry history
+    - Bowl-game and playoff-appearance trends
+  sources:
+    - https://en.wikipedia.org/wiki/Emporia_State_Hornets_football
+    - https://www.emporia.edu/athletics/
+    - https://themiaa.com/
+    - https://www.d2football.com/

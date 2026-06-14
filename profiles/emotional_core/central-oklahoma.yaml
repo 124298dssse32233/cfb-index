@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Emotional Core — soul file for Central Oklahoma Bronchos (MIAA)
+
+status: live
+slug: central-oklahoma
+team_id: null
+program_name: Central Oklahoma
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  core_variant: perpetual-rebuild
+  one_line: "Central Oklahoma is the Broncho program climbing back — a mid-tier MIAA contender rebuilding into conference championship form under Adam Dorrel's steady hand."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Two NAIA national titles (1962, 1982) and a President's Cup rivalry with Northeastern State that runs deep, but a D2 program still searching for national relevance after the move to four-year status."
+
+the_wound:
+  name: "The NAIA-to-D2 transition — and the loss of the small-school dominance that once defined the Bronchos"
+  detail: "Central Oklahoma won NAIA championships and built a proud program in Oklahoma City. But the move to NCAA Division II meant competing against bigger budgets and more-established powers. That wound — the loss of kingship — still echoes."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to the national stage — win a D2 playoff game, prove the Bronchos can contend at the highest level of mid-tier college football."
+  drought: { since: 1982, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The chip is the silence — a program that once mattered nationally, now fighting for respect in the MIAA. The fanbase believes UCO can be bigger than the regional bubble allows."
+
+the_delusion:
+  tone: self-aware
+  text: "Bronchos fans believe that Adam Dorrel's steady build could crack the national postseason sooner than expected — that the 2025 playoff team wasn't a fluke, but the start of a run. They know the odds, and play the hope anyway."
+
+the_grudge_texture:
+  rival: northeastern-state
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "NAIA nostalgia vs. D2 ambition — the fanbase split between those who remember dominance and those pushing for a new era of UCO football"
+register: oklahoma-city-broncho-resurrection
+never_use:
+  - "Always been mid-tier (two NAIA championships prove otherwise)"
+  - "No playoff history (made 2024 playoffs as MIAA champions)"
+
+story_canon:
+  the_unique_thing: "Central Oklahoma is the NAIA champion program (1962, 1982) that moved to NCAA Division II and is now climbing back to national relevance — proof that institutional identity survives transitions."
+  the_origin: "Founded in 1904, Central Oklahoma football became an NAIA power under legendary coaches, winning national championships in 1962 and 1982. The move to four-year NCAA Division II status in the late 20th century represented a shift in identity but not in aspiration."
+  golden_ages:
+    - { era: "1962–1982", what: "Two NAIA national championships and the domination of the NAIA landscape" }
+    - { era: "1998–present", what: "The President's Cup rivalry with Northeastern State, and steady MIAA membership" }
+  legends:
+    - { name: "Barry Switzer (historical influence)", role: "coach", why: "Coached at nearby Oklahoma; Central Oklahoma looked to his model" }
+    - { name: "Adam Dorrel", role: "coach", why: "Rebuilding UCO into playoff contention; led 2024 MIAA champions" }
+  canonical_moments:
+    - { name: "1962 NAIA Championship", year: 1962, what: "The first national title in program history", handling: glory }
+    - { name: "1982 NAIA Championship", year: 1982, what: "The second and most recent national championship", handling: glory }
+    - { name: "2024 MIAA Championship + Playoff", year: 2024, what: "11-2 season, MIAA champs, reached Super Region III semis", handling: glory }
+  the_place: "Jim Thorpe Stadium (or the home of Bronchos football) in Edmond, Oklahoma — the center of UCO athletic identity."
+  brand_of_football: "Resilient, rebuilding, pride-driven — football that carries the weight of former glory and aims to prove Central Oklahoma still belongs."
+  cultural_footprint: "A program that moved from one NCAA division to another without losing its sense of self; proof that NAIA pedigree translates."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Central Oklahoma went 9-3 in 2025 and co-won the MIAA with Pittsburg State, earning a playoff seed and competing at a high level. Adam Dorrel is in his fourth season and has built a program trending upward — the 2024 playoff team wasn't a fluke. Montriel Lee was MIAA Offensive Lineman of the Year. The question in Edmond: can this momentum carry UCO to a D2 playoff deep run?
+  research_checklist:
+    - NAIA championship history (1962, 1982)
+    - Adam Dorrel's build arc and 2024 playoff run
+    - President's Cup rivalry with Northeastern State (since 1998)
+    - Buddy Broncho mascot tradition (since 1932)
+    - Current roster and 2025 postseason trajectory
+  sources:
+    - https://en.wikipedia.org/wiki/Central_Oklahoma_Bronchos_football
+    - https://www.uco.edu/athletics/
+    - https://themiaa.com/
+    - https://www.d2football.com/

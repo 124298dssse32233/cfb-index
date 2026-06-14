@@ -1,0 +1,167 @@
+# Emotional Core — Oklahoma  (oklahoma)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: oklahoma
+team_id: 280
+program_name: Oklahoma
+program_tier: 1
+
+emotional_core:
+  primary: restoration    # year three in the SEC answered the doubters — the climb back to the top is the live story
+  secondary: grievance    # the "they don't belong in this league" take the move invited
+  core_variant: dynasty-restoration
+  one_line: "The Sooners are the seven-title program that crossed leagues and made the Playoff in year three of the SEC — then watched a 17-0 lead and the doubt they came to bury both slip away in one half against Alabama."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Seven national championships and 50 league titles vs a move to the SEC that demanded the program prove, all over again, that the standard travels — and a Playoff that ended the moment a 17-0 lead became a 34-24 loss."
+
+the_wound:
+  name: "The 34-24 collapse"
+  detail: "The Sooners reached the 12-team Playoff in 2025 and led Alabama 17-0 early — then surrendered 27 straight points and lost 34-24 at home, dropping Brent Venables to 0-5 in the postseason and turning a vindicating year into one half the fanbase can't unsee."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the league it chose to join and end the long wait for No. 8 — a championship that says the move was a coronation, not a gamble."
+  drought: { since: 2000, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Ever since the leagues changed, the take has been that the Sooners showed up late and out of their depth; the fanbase points to a Playoff berth in year three and says the doubters got the answer, then chose not to hear it because the last half went the wrong way."
+
+the_delusion:
+  tone: load-bearing
+  text: "Sooner fans believe the program carries the standard into any league it joins — that seven titles and the deepest winning tradition in the sport are portable, and that the SEC was always going to bend to Norman rather than the other way around."
+
+the_grudge_texture:
+  rival: texas
+  texture: blood-feud   # the Red River Rivalry — at the State Fair, on neutral ground, now both in the SEC
+
+the_coach_relationship: total-trust   # Venables's 2025 Playoff run earned the room's belief despite the postseason record
+the_internal_fracture: vindication vs ceiling — the room that says the Playoff berth proves Venables built it right vs the room that says 0-5 in the postseason and a blown 17-point lead mean the program is back in the field but not yet back on top
+register: crown-program-in-transition   # DRAFT (from voice_register) — confirmed
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Oklahoma as generic Big-12 framing (they're SEC as of 2024)
+  - Bedlam as a still-annual rivalry framing (the series is on hiatus post-realignment)
+  - Barry Switzer as a museum artifact (he is active in the program's public life)
+  - scrappy
+  - Cinderella
+  - plucky
+  - crown as a boast (it is a structural fact, not a performance)
+  - It ain't easy to be from Oklahoma as filler (not the voice)
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Oklahoma owns the highest winning percentage of the modern era and seven national titles, built on a Land Rush mythology made literal — the Sooner Schooner, a covered wagon pulled by two white ponies, rides onto the field after every score, the only mascot of its kind in the sport."
+  the_origin: "A territory-era program in Norman that Bud Wilkinson turned into a juggernaut in the 1950s, including the 47-game winning streak (1953-1957) that still stands as the longest in major college football history."
+  golden_ages:
+    - { era: "1947–1963 (Bud Wilkinson)", what: "Three national titles and the record 47-game winning streak" }
+    - { era: "1973–1988 (Barry Switzer)", what: "Three national championships and the wishbone dynasty" }
+    - { era: "1999–2016 (Bob Stoops)", what: "The 2000 national title and a sustained return to the sport's elite" }
+  legends:
+    - { name: Bud Wilkinson, role: coach, why: "Built the dynasty and the 47-game streak; the program's foundational coach" }
+    - { name: Barry Switzer, role: coach, why: "Three titles with the wishbone; still an institutional presence on campus" }
+    - { name: Billy Sims, role: player, why: "1978 Heisman; one of the program's seven, tied for most of any school" }
+  canonical_moments:
+    - { name: "The 47-game streak", year: 1957, what: "Wilkinson's Sooners run off the longest winning streak in major college history", handling: glory }
+    - { name: "The 2000 national title", year: 2001, what: "Stoops beats Florida State in the Orange Bowl for the program's seventh championship", handling: glory }
+    - { name: "The 34-24 Playoff collapse", year: 2025, what: "Oklahoma leads Alabama 17-0 in its CFP game, then loses 34-24 at home", handling: heartbreak }
+  the_place: "Gaylord Family Oklahoma Memorial Stadium (cap 83,489) in Norman, where the Sooner Schooner circles the field after every score and 'Boomer Sooner' doubles as the fight song and the universal greeting."
+  brand_of_football: "Crown-program-in-transition: historically explosive and tempo-driven, now reconfigured for an SEC line of scrimmage — confident about the standard, practical about what the new league demands."
+  cultural_footprint: "A statewide identity built on Land Rush mythology — the program is how Oklahoma sees itself nationally, and the only place in the sport where the mascot is a Conestoga wagon at a gallop."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: In year three of the SEC, Oklahoma went 10-3 and returned to the 12-team
+    Playoff under Brent Venables — a vindication after the doubt the league move invited. Behind transfer QB John
+    Mateer (2,885 passing yards, 431 rushing, after a midseason hand injury) and new coordinator Ben Arbuckle, the
+    Sooners started 5-0, then in the CFP led Alabama 17-0 before losing 34-24, dropping Venables to 0-5 in the
+    postseason. Mateer returns for 2026. The program is back in the field; the open question is whether it can win
+    its new league and chase the eighth title that would make the move look like destiny.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Oklahoma_Sooners_football_team
+    - https://www.on3.com/news/oklahomas-playoff-loss-stings-but-brent-venables-proved-the-doubters-wrong-in-2025/
+    - https://tide1009.com/brent-venables-cfp-loss-alabama-oklahoma/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Oklahoma is a crown program crossing leagues and still carrying the crown.
+  mantra: Boomer Sooner.
+  cultural_anchors:
+    fan_archetype_dominant: Manifest-Destiny-Believer
+    outsider_archetype_dominant: Late-to-the-SEC
+    one_sentence: Oklahoma is the program built on Land Rush mythology and the only American college team
+      where the mascot is two white ponies pulling a Conestoga wagon at 25mph.
+  selfname: the Sooners
+  aspiration_ladder_top: National Championship
+  rivalries:
+  - texas
+  - oklahoma-state
+  - nebraska
+  - missouri
+  heritage:
+    national_titles: 7
+    conference_titles: 50
+    current_conference: SEC (as of 2024)
+  prose_excerpts:
+    taboos: The 2021–2022 Lincoln Riley exit is recent but not a wound — the program's public voice has
+      treated it as a transition, not a betrayal. Bob Stoops remains an institutional figure; copy should
+      reflect that. The 2022 6-7 season is real fact; framing it as the program's identity is false. Barry
+      Switzer is a living institutional presence on campus; "Switzer" as a punchline does not work. Bedlam's
+      hiatus is a sensitive topic — the fanbase wants the rivalry back.
+    fans_culture: 'The fanbase is Oklahoma-wide with a concentration in the Oklahoma City / Norman / Tulsa
+      corridor and significant Dallas-metroplex representation (Red River geography). The gameday culture
+      runs: the Sooner Schooner (a covered wagon pulled by two horses, rolled onto the field after every
+      Oklahoma score since 1964), the Oklahoma drill (a defensive rhythm that shares the program''s name),
+      "Boomer Sooner" as both the fight song and the universal greeting, and the Pride of…'
+    voice_ethos: 'The voice is crown-program-in-transition: confident about the seven titles, practical
+      about the Big-12-to-SEC move, aware of what Venables inherited, and unwilling to speak with the register
+      of a mid-major. Oklahoma does not perform humility about its standing; it also does not pretend the
+      2022 6-7 season didn''t happen. The register is closer to an institutional memo than a pep-rally speech.
+      Identity phrase: **"Oklahoma is a crown program crossing leagues and still carrying…'
+    narratives: 'The SEC transition is the single open narrative thread. Four specific questions: (1) does
+      the Venables program''s recruiting fit the SEC talent-pool battle; (2) does the 2026 schedule produce
+      a year that validates the move; (3) can the offense reach the Riley-era ceiling under different scheme;
+      (4) when does Bedlam come back. The 2024 SEC debut was a rough first-sentence answer to (1) and (2);
+      (3) and (4) are still being written. The Lincoln Riley departure (to USC, November…'
+    in_jokes: '"Boomer. Sooner." — the chant, the greeting, the sign-off. "OU DNA" — modern stock phrase,
+      especially used during recruiting. "The Big Game" — how fans refer to Red River in conversation; no
+      further context needed. "Horns down" — the gesture; originated as an anti-Texas taunt, now used across
+      rival fanbases.'
+  story_materials:
+    legendary_coach: Bud Wilkinson
+    era_name_overrides:
+      1895-1907: The Territory Era
+      1947-1963: The Bud Wilkinson Dynasty
+      1973-1988: The Barry Switzer Era
+      1999-2016: The Bob Stoops Era
+      2017-2021: The Riley Window
+      2022-: The Venables Reinvention
+    always_surface:
+    - 7 national championships (1950, 1955, 1956, 1974, 1975, 1985, 2000)
+    - 7 Heisman winners (most of any program tied with Notre Dame / Ohio State)
+    - SEC membership as of July 2024 (move announced 2021)
+    - Gaylord Family Oklahoma Memorial Stadium capacity 83,489
+    - The Venables era (since December 2021) and the identity-reinvention bet
+    - The Sooner Schooner pregame tradition
+    rituals:
+    - Sooner Schooner
+    - Boomer Sooner (fight song)
+    - The Crimson Walk (Sooner Walk)
+    - Pride of Oklahoma (band)
+    - Red River Rivalry Week
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

@@ -1,0 +1,72 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: kentucky-state
+team_id: null
+program_name: Kentucky State University
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Kentucky State is the Thoroughbred that won black college national championships in 1934–1935, then disappeared from relevance for 90 years, and in 2025 made its first-ever NCAA D2 playoff appearance with the program's best season since the Depression era."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A program with early national championship pedigree (1934–1935) and a Pro Hall of Famer (Joe Kendall), now awakened in 2025 with a 9–3 record and first D2 playoff appearance, proving the Thorobreds are climbing back."
+
+the_wound:
+  name: "90-year drought between national championships"
+  detail: "Kentucky State won black college national championships in 1934–1935 under coach Henry Kean, then spent nine decades trying to get back to that peak. The program played in the shadows of bigger SEC schools and never quite found its footing until 2025."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win a SIAC championship and make a deeper D2 playoff run — prove that 2025 wasn't a one-year spike but the beginning of a Thorobred resurgence in a program that is finally built to compete."
+  drought: { since: 1935, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The fanbase believes: Nobody remembers that Kentucky State won national championships 90 years ago. The Thorobreds have a chip that runs decades deep, the need to remind the world that Henry Kean and Joe Kendall built something that mattered."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that 2025 was just the start — that Kentucky State has found the formula to compete in the SIAC and D2 playoffs, and that a dynasty from the 1930s can be reborn in the 2020s."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: savior
+the_internal_fracture: 90-years-of-patience vs. championship-now — those who waited decades for this moment vs. those who want to capitalize immediately on the 2025 breakthrough
+
+register: thorobreds-frankfort-kentucky-hbcu
+never_use:
+  - Always dormant. The 1934-1935 national championships prove otherwise.
+  - Never made the playoffs. First-ever D2 playoff appearance 2025.
+
+story_canon:
+  the_unique_thing: "2025 Season — 9–3 record, 7–1 in SIAC Western Division, first-ever NCAA D2 playoff appearance. The best season in Kentucky State football since 1935, ending a 90-year absence from national relevance."
+  the_origin: "Founded 1907 as Kentucky State Industrial College, Kentucky State became a pillar of African American education in the Commonwealth. Football has been part of the program since the early 1900s, peaking in the early 1930s."
+  golden_ages:
+    - { era: "1934–1935 (National Champions)", what: "Under coach Henry Kean, Kentucky State won black college national championships, establishing the program as a legitimate national power" }
+    - { era: "1950–1960s (Joe Kendall Era)", what: "Joe 'Tarzan' Kendall played for Kentucky State and went on to the Pro Hall of Fame, cementing the program's standing" }
+    - { era: "2025 (Resurrection)", what: "Kentucky State finishes 9–3, wins the SIAC Western Division, and makes its first-ever D2 playoff appearance" }
+  legends:
+    - { name: "Joe 'Tarzan' Kendall", role: "Player (1950s–1960s)", why: "Pro Football Hall of Famer and the program's greatest alumnus, proving Kentucky State could develop elite talent" }
+    - { name: "Henry Kean", role: "Coach (1930s)", why: "Architect of Kentucky State's 1934–1935 national championship era" }
+    - { name: "Felton Huggins Jr.", role: "Coach (2025–)", why: "Leading the modern Thorobred resurgence and building on the 2025 breakthrough" }
+  canonical_moments:
+    - { name: "1934 National Championship", year: 1934, what: "Kentucky State wins the black college national championship under Henry Kean", handling: glory }
+    - { name: "1935 National Championship", year: 1935, what: "Back-to-back national championship, cementing the golden era", handling: glory }
+    - { name: "Joe Kendall Pro Hall of Fame", year: null, what: "Pro Football Hall of Famer Joe 'Tarzan' Kendall attended Kentucky State, proving the program's elite talent pipeline", handling: glory }
+    - { name: "2025 D2 Playoff Appearance", year: 2025, what: "Kentucky State makes its first-ever NCAA Division II playoff appearance, capping the best season since 1935", handling: glory }
+  the_place: "Frankfort, Kentucky — the state capital where Kentucky State serves as a pillar of Black education and cultural pride. The Thorobreds play in a program with deep historical roots and community significance."
+  brand_of_football: "Disciplined, pride-driven SIAC football — a program that plays with the confidence of teams that have won at the national level and are building back to that standard."
+  cultural_footprint: "A sleeping giant awakened. Kentucky State has 90 years of dormancy to overcome but has proven in 2025 that the program can climb back to national relevance."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Kentucky State's 2025 season (9–3, 7–1 SIAC Western Division) resulted in the program's first-ever NCAA Division II playoff appearance, marking a watershed moment in program history. The Thorobreds' best season since 1935 proved that a 90-year absence from national contention could be ended by the right coaching, roster, and culture. Coach Felton Huggins Jr. (continuing 2026) has stabilized the program and positioned it for sustained SIAC competence and deeper D2 playoff runs.
+  sources:
+    - https://www.kysu.edu/news/2025/11/ksu-football-earns-first-ncaa-divison-ii-playoff-berth.php
+    - https://en.wikipedia.org/wiki/Kentucky_State_Thorobreds_football
+    - https://thesiac.com/sports/football/

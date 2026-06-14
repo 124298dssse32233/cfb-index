@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+status: live
+slug: valdosta-state
+program_name: Valdosta State University
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: grievance
+  one_line: "Valdosta is the defending national championship runner-up (2024) that owned a 13-1 record and four D-II national titles — the Blazers are hungry to finish what 2024 started."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Four NCAA Division II National Championships (2015, 2017, 2019) and a 2024 national runner-up finish (13-1 record, lost to Ferris State 49-14) — Valdosta is a Gulf South dynasty with unfinished business."
+
+the_wound:
+  name: "The 2024 national championship loss to Ferris State (49-14)"
+  detail: "Valdosta finished the 2024 regular season 13-1 and made it to the national championship game, but lost decisively to Ferris State 49-14. The wound isn't just the loss — it's the margin, the way a perfect season got dismantled. The Blazers know they belong at the top, and 2024 proved it; they also know they fell short when it mattered most."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win back the national championship. Prove that 2024 wasn't the peak — it was the preview. Get back to the title game and finish the job."
+  drought: { since: 2019, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe the chip is validation. Valdosta has won four national titles in the Division II era and proved in 2024 that the program can compete at the very top. The runner-up finish fuels the belief that this program belongs on the national stage and will get back there."
+
+the_delusion:
+  tone: self-aware
+  text: "That 2024 was the dress rehearsal and 2025 (or 2026) will be the coronation. Fans know the Gulf South is tough and Ferris State was the better team on the day, but they also know Valdosta has the talent and the coach to break through."
+
+the_grudge_texture:
+  rival: west-florida
+  texture: championship
+  # GSC rival; also West Alabama plays in the conference
+
+the_coach_relationship: legends-shadow
+  # Graham Craig (1st season, promoted Jan 20, 2025 after the 2024 runner-up team) — inheriting a championship-ready roster
+
+the_internal_fracture: "expectations-vs-grief — the faction expecting another national title after the 2024 runner-up finish vs the faction processing the championship loss"
+
+register: gulf-south-dynasty-blazers-valdosta-royalty
+
+never_use:
+  - '"Valdosta is a one-time national champion" — four titles and a 2024 runner-up finish prove sustained excellence'
+  - '"Valdosta won''t be back" — a 13-1 roster and Graham Craig running the team make 2026 playoff contention extremely likely'
+
+story_canon:
+  the_unique_thing: "Four NCAA Division II National Championships (2015, 2017, 2019) and a 2024 national championship runner-up finish (13-1 record, lost to Ferris State 49-14) — Valdosta is a Gulf South dynasty with multiple titles and unfinished business."
+  the_origin: "Valdosta State University was founded in 1906 in Valdosta, Georgia. Football became part of the university's identity early, and the Blazers built a steady regional presence. By the 21st century, Valdosta had emerged as a Gulf South power."
+  golden_ages:
+    - { era: "National Championship Era (2015, 2017, 2019)", what: "Valdosta won four NCAA Division II national championships in a seven-year span, establishing itself as a Gulf South dynasty" }
+    - { era: "2024 Runner-Up Run", what: "Valdosta finished 13-1 and reached the national championship game, coming up short against Ferris State 49-14", handling: heartbreak }
+  legends: []
+  canonical_moments:
+    - { name: "2015 National Championship", year: 2015, what: "Valdosta won the NCAA Division II national championship", handling: glory }
+    - { name: "2017 National Championship", year: 2017, what: "Valdosta won the NCAA Division II national championship", handling: glory }
+    - { name: "2019 National Championship", year: 2019, what: "Valdosta won the NCAA Division II national championship", handling: glory }
+    - { name: "2024 National Championship Runner-Up (49-14 loss to Ferris State)", year: 2024, what: "Valdosta finished 13-1 and made the national championship game, but lost decisively", handling: heartbreak }
+  the_place: "Valdosta, Georgia — home of Valdosta State University and the Blazers, where Gulf South football royalty has dominated for over a decade."
+  brand_of_football: "Championship-minded, high-octane, winning-caliber. Valdosta plays to win titles, not games — the program is built for postseason contention."
+  cultural_footprint: "Valdosta proved that a Georgia university could sustain a national-championship-caliber program in Division II and compete on the biggest stage."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Valdosta went 6-5 in 2025 (lost first-round NCAA playoff 35-30 to Albany State) under new head coach Graham Craig, promoted
+    from the 2024 championship runner-up staff on January 20, 2025. Craig inherits a program that finished 13-1 in 2024 and lost in the national championship game to
+    Ferris State 49-14. The 2025 season was a step back from that peak, but Valdosta remains one of the most dangerous Gulf South programs. The program's core identity
+    is built on four national titles and championship-caliber football; the 2024 runner-up finish proves the Blazers belong in that conversation. The 2026 season is about
+    getting back to the playoff conversation and another chance at a title.
+  sources:
+    - https://www.walb.com/2024/12/15/blazers-punch-ticket-to-ncaa-division-ii-national-championship/
+    - https://www.flofootball.com/articles/13270589-ferris-state-football-wins-2024-d2-championship-dominates-valdosta-49-14/
+    - https://vstateblazers.com/news/2025/11/22/football-blazers-come-up-short-in-35-30-loss-at-no-13-albany-state-in-first-round-of-ncaa-playoffs.aspx

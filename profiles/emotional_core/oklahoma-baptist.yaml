@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: oklahoma-baptist
+team_id: null
+program_name: Oklahoma Baptist
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Oklahoma Baptist is the Bison—a small Baptist university that plays college football because it matters to the community, not because it wins championships."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small private Baptist school in Shawnee, Oklahoma that has competed in the GAC for decades, building identity through steady participation rather than winning records."
+
+the_wound:
+  name: "Sustained competitiveness at the regional level, never excellence"
+  detail: "Oklahoma Baptist has never won a GAC Conference Championship. Eleven years of head coach Chris Jensen (48-85 record) have not produced a winning record in any season, a chronic losing pattern that defines the program."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a game that matters—produce a winning season that shows Shawnee that Oklahoma Baptist belongs in D2, even if national glory never arrives."
+  drought: { since: 1970, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe oklahoma Baptist has no chip. The Bison play because the sport matters at a Baptist university—for the players, the community, and the continuation of a tradition."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase hopes that Chris Jensen, now in his 12th year, might finally find the right formula. They know the odds, but they show up anyway."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: Long-tenured coach (Jensen, 11+ years) vs. sustained losing record
+register: shawnee-bison-baptist-pride
+
+never_use:
+  - "Oklahoma Baptist should fold football"
+  - "Baptist schools can't be competitive"
+  - "The Bison are irrelevant"
+  - "Chris Jensen is incompetent"
+
+story_canon:
+  the_unique_thing: "Oklahoma Baptist is a small Baptist university whose football program is built on the principle that the sport matters to the community, even if winning is elusive."
+  the_origin: "Oklahoma Baptist was founded in 1910 and is located in Shawnee, Oklahoma. The football program has been a constant part of the university's identity, competing in the GAC."
+  golden_ages:
+    - { era: "Pre-1970", what: "Oklahoma Baptist competed in earlier eras; limited historical record of sustained success" }
+  legends:
+    - { name: Chris Jensen, role: coach, why: "Eleven-year head coach (48-85 record) who has become the face of the program despite losing seasons" }
+  canonical_moments:
+    - { name: "Sustained Participation", year: null, what: "Oklahoma Baptist continues to compete in D2 as a statement of community and faith", handling: glory }
+  the_place: "Currence-Pitts Stadium in Shawnee, Oklahoma—home of the Bison, where faith and football intersect."
+  brand_of_football: "Community football. The kind where the game matters because it brings people together, not because of a win-loss record."
+  cultural_footprint: "Oklahoma Baptist is proof that a small Baptist university can maintain a football program through decades of losing, because the program serves a purpose beyond the scoreboard."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Oklahoma Baptist finished 2-9 (2-9 GAC) in 2025 under head coach
+    Chris Jensen, who is in his 12th year with a 48-85 overall record. The Bison have not posted a winning
+    season during Jensen's tenure, a sustained struggle that continues into 2026. The question for Oklahoma Baptist:
+    will the program find a path to competitive improvement, or will the losing continue?
+  research_checklist:
+    - Oklahoma Baptist's founding and history
+    - the Baptist university football tradition
+    - Chris Jensen's 12-year tenure and coaching philosophy
+    - 2025 season results and roster composition
+    - conference standings and positioning
+  sources:
+    - https://en.wikipedia.org/wiki/Oklahoma_Baptist_Bison_football
+    - https://obubison.com/sports/football/roster/coaches/chris-jensen/682
+    - https://greatamericanconference.com/standings.aspx?path=football

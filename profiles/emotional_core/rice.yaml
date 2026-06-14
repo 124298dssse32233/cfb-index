@@ -1,0 +1,121 @@
+# Emotional Core — Rice  (rice)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: rice
+team_id: 273
+program_name: Rice
+program_tier: 3
+
+emotional_core:
+  primary: contentment    # the rare program at peace with itself — the school where the degree is the point and football is the bonus
+  secondary: deprival     # but a real ache underneath: a SWC charter member shrunk to the smallest stage in the AAC
+  one_line: "Rice is the brain of college football — the most selective school in the sport, where 1,000 students still major in being an Owl, and where a win over a team that recruits ten times your enrollment is the whole reward."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A Southwest Conference charter member that beat Alabama in the 1954 Cotton Bowl and hosted a Super Bowl — against a present where the Owls bowled at 5-7 because better teams turned the bid down."
+
+the_wound:
+  name: "The shrinking — from SWC charter to the smallest room in the AAC"
+  detail: "Rice helped found the Southwest Conference and was a national name in the 1940s-50s; the league dissolved in 1996 and the Owls have spent the years since as the smallest enrollment in every conference they join. The 2025 reset under first-year coach Scott Abell went 5-7, reaching the Armed Forces Bowl only because bowl-eligible teams declined, then losing it 41-10 to Texas State."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Be the smartest team that also wins — a conference title that proves the academic ceiling was never the football ceiling, the way 1953 once proved it."
+  drought: { since: 2013, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Rice fans carry less of a grudge than a knowing smile: they will tell you their Owls graduate, beat schools ten times their size on a good Saturday, and answer to a standard nobody else in the sport even attempts."
+
+the_delusion:
+  tone: self-aware
+  text: "Owl fans half-believe the engineering rigor that runs the rest of the school could run a football program too — that if anyone could think their way past a talent gap, it would be the smartest campus in the sport. They know the math; they love the idea anyway."
+
+the_grudge_texture:
+  rival: houston
+  texture: border-war   # the Bayou Bucket — crosstown Houston, a few miles down the road
+
+the_coach_relationship: savior   # Scott Abell, the academy-style triple-option architect, hired to make Rice punch above its weight again
+the_internal_fracture: mission vs scoreboard — the faction that says Rice's whole point is doing football the right way at a real university vs the faction that's tired of losing and wants the Owls to just win
+register: houston-rice-owls-academic-private   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always last — 1953 #6 AP + 2008 Texas Bowl disprove the ceiling'
+  - No history — Rice Stadium hosted Super Bowl VIII + SWC-era titles
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Rice is the most academically selective school playing major-college football — a tiny private research university in Houston that helped found the Southwest Conference, beat Alabama in a Cotton Bowl, hosted a Super Bowl, and still fields a team that out-classrooms everyone it plays. The Owl is the sport's conscience: proof you can do this at a real university."
+  the_origin: "Endowed by the estate of William Marsh Rice and opened in 1912, Rice was a Southwest Conference charter member (1914) and a genuine national football power in the 1940s and 1950s before the school's size and standards left it the smallest stage in every league it has joined since."
+  golden_ages:
+    - { era: "1934–1957 (Jess Neely)", what: "Multiple SWC titles and the 1954 Cotton Bowl win over Alabama — Rice as a national name" }
+    - { era: "2012–2014 (David Bailiff)", what: "A 10-win 2013 and the program's only Conference USA championship — the modern high-water mark" }
+  legends:
+    - { name: "Jess Neely", role: coach, why: "27 years, the SWC-era titles — the coach the era is named for" }
+    - { name: "Dicky Moegle", role: player, why: "Ran for 265 yards in the 1954 Cotton Bowl and was tackled off the bench by Alabama's Tommy Lewis — Rice's single most-told story" }
+    - { name: "David Bailiff", role: coach, why: "Took the smallest school in C-USA to a 2013 conference title and a 10-win season" }
+  canonical_moments:
+    - { name: "The Tommy Lewis off-the-bench tackle", year: 1954, what: "Rice's Dicky Moegle is breaking a long touchdown run in the Cotton Bowl when Alabama's Tommy Lewis leaps off the sideline to tackle him; officials award the 95-yard score and Rice wins 28-6 — one of the most famous plays in bowl history", handling: glory }
+    - { name: "2013 Conference USA title", year: 2013, what: "Rice beats Marshall 41-24 for the program's only C-USA championship, capping a 10-4 season", handling: glory }
+    - { name: "The Southwest Conference dissolves", year: 1996, what: "The league Rice helped charter folds; the Owls begin two decades as the smallest enrollment in every conference they enter", handling: wound }
+  the_place: "Rice Stadium (cap ~47,000) — the cavernous bowl that hosted Super Bowl VIII in 1974 and JFK's 'we choose to go to the Moon' speech in 1962; far too big for the modern crowd, and proud of every empty seat's history."
+  brand_of_football: "Undersized and over-schooled — a program that has to scheme and out-think its way past talent gaps, now leaning into Scott Abell's academy-style triple-option to make the math work."
+  cultural_footprint: "The sport's academic flagship: a tiny, elite, no-athletic-scholarship-mythology campus that keeps a Power-era football pedigree alive as a point of identity, not a business plan. When people argue 'can a real university still play football,' Rice is Exhibit A."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Rice hired Scott Abell from Davidson before the 2025 season, betting on
+    his triple-option to close the talent gap. Year one went 5-7 (2-6 American); the Owls reached the Armed Forces
+    Bowl only because bowl-eligible teams declined the bid, then lost 41-10 to Texas State. The 2025 Bayou Bucket
+    was billed as the last meeting with crosstown Houston, now Big 12. Abell enters year two trying to prove the
+    scheme can lift the smallest roster in the league back toward 2013.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Rice_Owls_football_team
+    - https://en.wikipedia.org/wiki/2013_Conference_USA_Football_Championship_Game
+    - https://www.underdogdynasty.com/american-conference/41664/how-rice-landed-a-bowl-bid-at-5-7
+    - https://en.wikipedia.org/wiki/Rice_Owls_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Rice is the Houston private university whose 1953 Cotton Bowl championship + 2008 Texas
+    Bowl + Rice Stadium 70,000 capacity define what historic-academic-private-football looks like.
+  mantra: Go Owls.
+  cultural_anchors:
+    fan_archetype_dominant: Houston-Rice-Owl-Academic
+    outsider_archetype_dominant: Always-Last-In-Conference-Diminisher
+    one_sentence: Rice is the Houston academic-private football flagship — 1953 Cotton Bowl + Rice Stadium
+      70,000 capacity legacy + 2008 Texas Bowl championship that anchor the historic SWC-era arc.
+  selfname: the Owls
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1953 10-2 + Cotton Bowl championship +
+    - 2008 10-3 + Texas Bowl championship under David Bailiff
+    - Rice Stadium 70,000 capacity + Super Bowl VIII hosting
+    rituals:
+    - Rice Stadium 70,000 Capacity
+    - 1953 Cotton Bowl Championship
+    - Academic Private Identity
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

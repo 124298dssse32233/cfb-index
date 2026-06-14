@@ -1,0 +1,70 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+status: live
+slug: duquesne
+team_id: null
+program_name: Duquesne University
+program_tier: 5
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Duquesne is the Northeast Conference veteran and 'City Game' rival—a program that resumed the Pittsburgh football rivalry after 86 years of silence, anchored by Jerry Schmitt's 21-year coaching legacy."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A historic FCS program with a 1937 Orange Bowl appearance and 10 NEC conference titles vs. a team still rebuilding toward consistent playoff contention—where past glory lingers but present validation remains elusive."
+
+the_wound:
+  name: "The City Game's return and the Pitt gap"
+  detail: "Duquesne and Pittsburgh haven't played since 1939 (86 years). The 2025 resumption of the 'City Game' at Acrisure Stadium was a landmark moment—the Dukes returned to the scene of Pittsburgh football's glory and lost. The wound is structural: Pittsburgh is FBS (ACC), Duquesne is FCS (NEC). The gap between the two programs is now geographic, not just competitive."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the City Game against Pitt (or at least keep it competitive), defend NEC championships, and prove that Duquesne football is climbing back toward the relevance it enjoyed in the 1930s-2000s."
+  drought: { since: 2021, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "The fanbase carries the weight of Pittsburgh's dominance in the same city. Duquesne is the other program, the Jesuit school that once beat Pitt, then lost the rivalry for 86 years. The City Game's return is validation—and every loss to Pitt reinforces the gap."
+
+the_delusion:
+  tone: earnest
+  text: "That Duquesne can compete with Pitt on the biggest stage and that the City Game will eventually tilt toward the Dukes. The fanbase believes Pittsburgh athletics has room for a strong Duquesne football program; the ACC network suggests otherwise."
+
+the_grudge_texture:
+  rival: pittsburgh
+  texture: little-brother
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: City-Game obsession vs. NEC focus—the faction that measures success by the Pitt result vs. those demanding NEC championships to validate institutional resources
+register: pittsburgh-dukes-city-game-jesuit-pride
+never_use:
+  - "A minor program" # 1937 Orange Bowl; 21-year coach Jerry Schmitt with 10 NEC titles
+  - "No history with Pitt" # City Game rivals 1930s–1939, resumed 2025
+  - "Forgotten in Pittsburgh" # 2025 City Game resumption shows continued regional relevance
+
+story_canon:
+  the_unique_thing: "The 'City Game'—the resumed Duquesne vs. Pittsburgh rivalry that lasted from the 1930s to 1939, then went dormant for 86 years until the 2025 resumption at Acrisure Stadium. The rivalry represents old Pittsburgh football identity, a time when Duquesne was a peer to Pitt rather than a lower-level program."
+  the_origin: "Duquesne University was founded in 1878 in Pittsburgh, Pennsylvania, as a Catholic institution. The football program was established and competed at high levels throughout the early 1900s. The rivalry with Pitt began in the 1930s and lasted until 1939 before Pitt moved on to bigger conferences."
+  golden_ages:
+    - { era: "1930s–1939 (Original City Game)", what: "Duquesne and Pitt play the City Game as peer rivals; Duquesne earns 1937 Orange Bowl appearance" }
+    - { era: "2000s NEC Dominance", what: "Duquesne wins 10 NEC championships and makes multiple FCS playoff appearances" }
+    - { era: "2025 City Game Return", year: 2025, what: "After 86 years, Duquesne and Pitt resume the City Game rivalry at Acrisure Stadium" }
+  legends:
+    - { name: Jerry Schmitt, role: coach, why: "21-year head coach (all-time winningest in program history) with 10 NEC titles and 3 FCS playoff appearances" }
+  canonical_moments:
+    - { name: "1937 Orange Bowl Appearance", year: 1937, what: "Duquesne plays in the Orange Bowl, a marker of national prominence", handling: glory }
+    - { name: "Original City Game (1930s–1939)", year: 1939, what: "Duquesne plays Pittsburgh in the storied City Game rivalry before a 86-year hiatus", handling: glory }
+    - { name: "City Game Resumption", year: 2025, what: "After 86 years, Duquesne vs. Pittsburgh resumes at Acrisure Stadium in 2025", handling: miracle }
+  the_place: "Rooney Field in Pittsburgh—the home of the Dukes, a traditional campus venue from which Duquesne plays its NEC schedule and from which the City Game rivalry was once contested."
+  brand_of_football: "Jesuit pride with a hidden-peer identity—Duquesne plays for Pittsburgh relevance, for the City Game narrative, and for the belief that the small Jesuit program belongs in the city's football conversation."
+  cultural_footprint: "Duquesne's contribution to FCS football is the City Game—a rivalry revived after 86 years, proof that old football bonds run deep and that Pittsburgh's football story includes a Jesuit institution that once belonged."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Duquesne finished 2025 at 7–5 (5–2 NEC), a solid season under 21-year head coach Jerry Schmitt, the program's all-time winningest coach. The 2025 season included the historic resumption of the City Game vs. Pitt at Acrisure Stadium—a landmark moment for the program even in defeat. QB Tyler Riddell led a balanced offense. The 2026 challenge: defend NEC competitiveness while the City Game rivalry develops (annual starting 2025). The question: can Duquesne win the City Game in the coming years, or will it remain a symbolic-but-lopsided annual meeting?
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Duquesne_Dukes_football
+    - https://www.espn.com/college-football/team/_/id/2184/duquesne-dukes
+    - https://www.nec.org/sports/fball
+    - https://www.duquesne.edu/athletics/
+

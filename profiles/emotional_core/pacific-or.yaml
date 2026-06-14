@@ -1,0 +1,64 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Pacific University Boxers — NWC founding member since 1926, football since 1894
+
+status: live
+slug: pacific-or
+team_id: null
+program_name: Pacific University
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Pacific University is an NWC founding member whose Boxers have been playing football since 1894 — a small Oregon school with deep roots in collegiate competition."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A historic small college competing in NWC with steady pride, measuring success by conference presence and the continuity of tradition."
+
+the_wound:
+  name: "Small-school NWC reality"
+  detail: "Pacific competes against well-resourced peers in NWC; the program operates knowing its ceiling is conference respectability, not national relevance."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Compete annually for NWC respect, maintain football as part of Pacific's identity, and honor the 130+ year tradition."
+  drought: { since: null, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Pacific plays for the game and the conference."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: none — the program is aligned
+register: forest-grove-boxers-nwc-heritage
+never_use:
+  - "Powerhouse — Pacific is a small NWC school"
+  - "Dynasty — the identity is steady, not dominant"
+  - "National contender — NWC is the right home"
+  - "Historic champion — 130 years of participation, not dominance"
+
+story_canon:
+  the_unique_thing: "A founding NWC member (1926) with 130+ years of continuous football — Pacific began playing in 1894 and has been part of Oregon collegiate athletics since the beginning."
+  the_origin: "Pacific University, founded 1849, is a small liberal arts university in Forest Grove, Oregon. The Boxers football program traces back to 1894, making it one of the oldest programs in the region."
+  golden_ages: []
+  legends: []
+  canonical_moments: []
+  the_place: "Forest Grove, Oregon — a small liberal arts community in the Willamette Valley."
+  brand_of_football: "Continuity and pride — Pacific football is defined by 130 years of showing up and competing."
+  cultural_footprint: "A historic Oregon institution; Pacific's program is part of the state's college football heritage."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Pacific University competes in the Northwest Conference as a founding member (1926). The Boxers have been
+    playing football continuously since 1894, making the program one of the oldest in Oregon collegiate athletics. The program continues to compete
+    in NWC with steady presence and community pride.
+  sources:
+    - https://en.wikipedia.org/wiki/Pacific_University

@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: austin-college
+team_id: null
+program_name: Austin College
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Austin College is a small Texas school punching above its weight—a 130+ year tradition of All-Americans and an NAIA national championship proving excellence knows no FBS label."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small liberal-arts college in Sherman, Texas with a remarkable 130+ year history of producing All-Americans and competing at the highest small-college level, proving that big pipelines are optional."
+
+the_wound:
+  name: "The FCS ceiling—competitive but never quite at the top"
+  detail: "Austin College has won NAIA, has produced 130+ All-Americans, won an NAIA national championship (1981 11-1-1 with that famous 57-yard field goal off the crossbar), and competed in what is now the SCAC for decades. But the college's 2025 season (3-6, 1-5 SCAC) reflects the modern reality: a small school trying to compete in a conference with established powers, still searching for the next championship."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win another SCAC conference championship and prove that the 1981 NAIA magic wasn't a singular moment—that Austin College can be a perennial contender in the SCAC, not just a team hoping to compete."
+  drought: { since: 1981, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe austin College's identity is that it doesn't need FBS prestige to be important—the program has built 130+ years of excellence at whatever level it's competed, and 2026 is about carrying that forward."
+
+the_delusion:
+  tone: earnest
+  text: "Austin College fans believe the program belongs in the SCAC and can compete for titles. They've seen the All-Americans, they've seen the NAIA championship. They know what their school is capable of."
+
+the_grudge_texture:
+  rival: texas-lutheran
+  texture: championship
+  # Two SCAC rivals, both with NAIA championship pedigree
+
+the_coach_relationship: savior
+the_internal_fracture: "Ambition for SCAC success vs contentment with small-school pride—should the program push harder or embrace its role as a mid-level competitor?"
+register: austin-college-kangaroos-sherman-texas-all-americans-130-years
+never_use:
+  - Never won anything—1981 NAIA national championship (11-1-1) and 8 conference titles on the record
+  - Irrelevant small school—130+ All-Americans proves sustained excellence
+  - No tradition—Austin College has played for 130+ years continuously
+
+story_canon:
+  the_unique_thing: "The 1981 NAIA National Championship (11-1-1 record) featuring the famous 57-yard field goal that bounced off the crossbar for a tie in NAIA playoff history—a singular moment of glory that defined the program's aspirational identity. Plus 130+ All-Americans across the program's 130+ year history, proof that small-school excellence is real and sustained."
+  the_origin: "Austin College, founded 1849 in Sherman, Texas, is one of the oldest continuously operating liberal-arts colleges in Texas. The program has played football since the early days of college sports and has built a remarkable history of producing All-American players and competing at the highest small-college levels."
+  golden_ages:
+    - { era: "1970s–1981 (NAIA era)", what: "Austin College's peak: the 1981 NAIA National Championship team and sustained NAIA power" }
+    - { era: "1996–present (SCAC era)", what: "Austin College competes in the SCAC as a mid-tier program, still producing All-Americans" }
+  legends:
+    - { name: Historic NAIA championship team, role: players, why: "1981 NAIA National Championship team represents the program's greatest moment" }
+    - { name: 130+ All-Americans, role: program heritage, why: "Sustained production of elite players proves Austin College's educational and athletic excellence" }
+  canonical_moments:
+    - { name: "1981 NAIA National Championship", year: 1981, what: "Austin College wins the NAIA National Championship (11-1-1), famous for a 57-yard field goal bouncing off the crossbar for a tie in playoff history", handling: glory }
+    - { name: "8 SCAC conference championships", year: 1996, what: "Austin College has won multiple SCAC titles as a program competing at Division III level", handling: glory }
+  the_place: "Sherman, Texas—a small liberal-arts college town, home to one of Texas's oldest institutions."
+  brand_of_football: "Resilient, capable, fundamentally sound—Austin College plays with the confidence of a program that has proven it can compete at any level."
+  cultural_footprint: "Austin College represents sustained small-school excellence: 130+ years, 130+ All-Americans, an NAIA championship, and a commitment to building winning football within an educational mission."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Austin College went 3-6 (1-5 SCAC) in 2025, a down year
+    that reflected the competitive gap in the SCAC. Jaylon Talton (Jr QB) led the offense with 1,334 passing
+    yards, 8 TD, but the Kangaroos couldn't string together wins. Tony Joe White (3rd year) faces the 2026
+    challenge of returning to SCAC competitiveness and proving that the 2025 season was a step backward, not
+    a direction.
+  research_checklist:
+    - 1981 NAIA National Championship (11-1-1, famous 57-yard FG story)
+    - 130+ All-Americans across program history
+    - 8 SCAC conference championships
+    - Modern era SCAC membership and mid-tier status
+    - Small-school pride and excellence
+  sources:
+    - https://www.austincollege.edu/athletics/football/
+    - https://www.scacathletics.org/sports/football/
+    - https://www.d3football.com/
+    - https://en.wikipedia.org/wiki/1981_NAIA_Division_I_Football_Championship

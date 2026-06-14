@@ -1,0 +1,176 @@
+# Emotional Core — Florida  (florida)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+#
+# AUTHORED 2026-06-13 (first real pass, status: drafted) from live web research — see story_canon.sources.
+# The wound/delusion fields are sensitive and need owner sign-off before flipping to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: florida
+team_id: 294
+program_name: Florida
+program_tier: 2
+
+emotional_core:
+  primary: grief          # a two-time-crowned program that set the crown down and can't pick it back up
+  secondary: restoration  # the live Sumrall bet — hope, not yet earned
+  one_line: "Florida has held the crown twice and knows the weight of having set it down — and after the worst season since the 1940s, it is betting on an outsider to pick it back up."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "Two national titles and three Heismans by 2008 vs. one winning SEC season since — and a 4-8 floor in 2025, the worst win rate since the 1940s."
+
+the_wound:
+  name: "The long fall from the Spurrier–Meyer summit"
+  detail: "Three titles and three Heismans by 2008, then fifteen years of coaching misfires (Muschamp, McElwain, the Mullen collapse, Napier) — bottoming out at 4-8 in 2025 with Napier fired mid-October."
+  handling: referenceable   # the program's whole self-image; carried with the gravity of a fallen dynasty, never as a dunk
+  freshness: generational
+
+the_dream:
+  text: "Be Florida again — back in the SEC title race, Ben Hill Griffin feared again at 2:30 in September, a Heisman arm under center."
+  drought: { since: 2008, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The same analysts who buried the Sumrall hire as 'another Group-of-Five retread from Louisiana, Napier 2.0' will be the first to call it a steal if it works. Gainesville is keeping the receipts."
+
+the_delusion:
+  tone: load-bearing
+  text: "That Florida is still a 'national-title program' that simply keeps mis-hiring — that the talent-rich state and the brand mean a title is one right coach away, not a decade of rebuilding away. It is the faith that carries the fanbase through the wilderness."
+
+the_grudge_texture:
+  rival: georgia
+  texture: championship   # the Cocktail Party — Jacksonville, neutral-site, historically SEC-title stakes (FSU is the blood-feud secondary)
+
+the_coach_relationship: hot-seat-churn   # four hires since Meyer, all chasing the next Spurrier; every hire coaches in Spurrier's living shadow
+the_internal_fracture: faith-vs-doom     # is Sumrall the long-awaited right hire, or the next name in the carousel — the Spurrier-era believers vs the burned realists
+register: fallen-dynasty-rebuilding — owns the two crowns and the wilderness; no performative modesty, no pretending the 2010s didn't happen
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - fun n gun as a detached nostalgic reference (it's Spurrier's, not a marketing line)
+  - Gator Bait chant (officially retired by UF in 2020; surfacing it reads as outsider-copy)
+  - little-SEC-brother framing
+  - The Swamp as a metaphor instead of a stadium
+  - Cinderella
+  - scrappy (at this tier)
+  - reductive framings of the Urban Meyer exit
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Swamp — 'Only Gators get out alive' (Spurrier's coinage) — and the swagger Spurrier invented: the idea that an SEC program could throw it around, talk trash, and win titles doing it. Florida is where modern SEC offense got fun."
+  the_origin: "A land-grant flagship that became a national power when Steve Spurrier — a Heisman winner AS a Gator — came home in 1990, weaponized the Fun 'n' Gun, and turned a historically underachieving program into the SEC's first modern dynasty."
+  golden_ages:
+    - { era: "1990–2001 (Spurrier)", what: "Six SEC titles and the 1996 national championship, won throwing it all over the yard" }
+    - { era: "2005–2010 (Meyer)", what: "Two national titles in three years (2006, 2008), the Tebow spread-option era" }
+  legends:
+    - { name: Steve Spurrier, role: coach, why: "Heisman QB turned program architect; invented the modern Florida and remains a living campus presence" }
+    - { name: Tim Tebow, role: player, why: "2007 Heisman, the cultural face of the Meyer dynasty, two crowns" }
+    - { name: Danny Wuerffel, role: player, why: "1996 Heisman, the trigger of the first title" }
+  canonical_moments:
+    - { name: "The 1996 national title", year: 1996, what: "Spurrier routs FSU in the Sugar Bowl rematch for the program's first crown", handling: glory }
+    - { name: "The Tebow titles", year: 2008, what: "Meyer and Tebow deliver two championships in three years", handling: glory }
+    - { name: "The 2025 collapse", year: 2025, what: "4-8, Napier fired mid-October, the worst win rate since the 1940s", handling: wound }
+  the_place: "Ben Hill Griffin Stadium — 'The Swamp,' capacity 88,548. One of the loudest, hottest home environments in the sport; the early-afternoon SEC heat is itself a weapon."
+  brand_of_football: "Spurrier's Fun 'n' Gun proved SEC football could be aggressive AND fun. The 2026 identity twist: it's the DEFENSE, not the offense, that's the strength — the nation's #1 returning defense paired with an offense rebuilt from scratch."
+  cultural_footprint: "The flagship of the nation's third-largest state and one of its richest recruiting grounds. 'It's great to be a Florida Gator' is a real sign-off, not a bit; the Gator Nation runs statewide along the Jacksonville–Tallahassee–Miami corridor."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After a 4-8 2025 (the worst since the 1940s), Florida fired Billy Napier
+    mid-October and hired Tulane's Jon Sumrall — 42-11 as a head coach, a College Football Playoff team — on a
+    6-year/$44.7M deal. Star QB DJ Lagway left for Baylor; Sumrall imported the Georgia Tech offense (OC Buster
+    Faulkner + transfer QB Aaron Philo). The 2026 team returns the nation's #1 defense (77% of production) but
+    rebuilds the entire offense, draws Texas, Georgia and Oklahoma, and opens at a 6.5-win Vegas total. The
+    question the whole sport is asking: is the Sumrall bet the long-awaited right hire, or the next name in a
+    fifteen-year carousel? (Supersedes the seeded "Napier restoration" briefing below, which predates the firing.)
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://www.espn.com/college-football/story/_/id/46649076/florida-fires-coach-billy-napier-3-4-start-2025
+    - https://www.espn.com/college-football/story/_/id/47151490/sources-florida-finalizing-deal-hire-tulane-jon-sumrall
+    - https://www.alligator.org/article/2026/01/dj-lagway-baylor-official
+    - https://www.lineups.com/betting/florida-gators-2026-college-football-preview-betting-odds-picks-predictions/
+    - https://www.alligator.org/article/2025/12/a-deeper-look-at-florida-2026-schedule
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+# NOTE 2026-06-13: briefing.narratives below is STALE (pre-dates the Napier firing). The current
+# arc lives in story_canon.the_ongoing_story above. Left intact as the original seed record.
+briefing:
+  identity_phrase: Florida is a program that has held the crown twice and knows the weight of it.
+  mantra: Go Gators.
+  cultural_anchors:
+    fan_archetype_dominant: Spurrier-Era Believer
+    outsider_archetype_dominant: Living-in-the-90s
+    one_sentence: Florida is the program that turned swamp humidity and SEC speed into a national-title
+      formula — and never quite stopped believing the formula still works.
+  selfname: the Gators
+  aspiration_ladder_top: National Championship
+  rivalries:
+  - georgia
+  - tennessee
+  - florida-state
+  - lsu
+  - miami
+  heritage:
+    national_titles: 3
+    conference_titles: 9
+    current_conference: SEC
+  prose_excerpts:
+    taboos: The Aaron Hernandez history is institutional memory and not a subject for light humor. The Gator
+      Bait chant was officially retired by UF in 2020 after a review of its racial history; surfacing it
+      reads as either outdated or willful. The Urban Meyer exit (2010 health, 2011 Ohio State) is complicated
+      and should not be reduced to a punchline. Steve Spurrier is a living institutional presence on campus;
+      copy should reflect that. The 2020–2021 Mullen-era exit issues are recent…
+    fans_culture: 'The fanbase is Florida-wide with a concentration in the Jacksonville / Tallahassee /
+      Miami corridor and a significant in-state contingent across every county. The gameday culture runs:
+      the Gator Walk pregame (players walk from their bus to the locker room through a fan corridor), "We
+      Are the Boys" sung between the third and fourth quarters, the chomp gesture (two arms making a gator-jaw
+      shape), and — during play — one of the loudest home-field environments in the sport when…'
+    voice_ethos: 'The voice is fallen-dynasty-rebuilding: confident about the two peaks, honest about the
+      valleys, and neither apologizing for the wilderness years nor pretending they didn''t matter. Florida
+      speaks like a program that has held the crown twice and knows both the weight of it and the weight
+      of having set it down. Performative modesty is a trust-killer; so is pretending the 2010s didn''t
+      happen. Identity phrase: **"Florida is a program that has held the crown twice and knows the…'
+    narratives: 'The Napier restoration is the single open narrative thread. Three specific questions: (1)
+      does DJ Lagway''s development produce a 2026 QB the program can build a CFP run around; (2) does the
+      2026 schedule provide enough wins to get the program to the SEC title race; (3) does the Napier regime
+      survive long enough to convert the recruiting classes into three-year returns. The 2024 bowl season
+      was a positive-inflection data point; 2026 is the measurement year. Conference…'
+    in_jokes: '"It''s great to be a Florida Gator." — real sign-off, not a bit. "Only Gators get out alive."
+      — Spurrier''s coinage for The Swamp. "Chomp" — the gesture, the word; both work. "We Are the Boys
+      of Old Florida." — actual tradition, sung between the third and fourth quarters. "The Cocktail Party."
+      — historical nickname for Florida-Georgia; the university has asked broadcast partners to move away
+      from it but the fanbase still uses it.'
+  story_materials:
+    legendary_coach: Steve Spurrier
+    era_name_overrides:
+      1990-2001: The Spurrier Era
+      2002-2004: The Zook Interval
+      2005-2010: The Meyer Dynasty
+      2011-2014: The Muschamp Era
+      2015-2017: The McElwain Era
+      2018-2021: The Mullen Era
+      2022-: The Napier Restoration
+    always_surface:
+    - 3 national championships (1996, 2006, 2008)
+    - 3 Heisman winners (Steve Spurrier 1966, Danny Wuerffel 1996, Tim Tebow 2007)
+    - Steve Spurrier as program architect and ongoing institutional figure
+    - Tim Tebow as cultural anchor for the Meyer era
+    - Ben Hill Griffin Stadium ("The Swamp") capacity 88,548
+    - The Napier restoration (since December 2021)
+    - SEC East divisional history (retired after 2023 expansion)
+    rituals:
+    - Mr. Two Bits
+    - Gator Chomp
+    - We Are The Boys (from Old Florida)
+    - Albert and Alberta
+    - Bull Gator Walk
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

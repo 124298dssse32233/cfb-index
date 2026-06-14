@@ -1,0 +1,120 @@
+# Emotional Core — Minnesota  (minnesota)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: minnesota
+team_id: 89
+program_name: Minnesota
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # a pre-WWII national power, dormant for generations, made solidly good again by Fleck
+  secondary: contentment  # nine straight bowl wins — the program has quietly made winning a habit
+  core_variant: dynasty-restoration
+  one_line: "Minnesota was a national champion when leather helmets were new — and after eighty years of being told that was a museum, P.J. Fleck has it winning nine bowls in a row and daring the sport to remember the Gophers were once the standard."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "Six national titles in the 1930s-40s Bierman dynasty vs eight decades without a Big Ten title — a glorious past most of the country files as ancient history."
+
+the_wound:
+  name: "The long dormancy"
+  detail: "Minnesota was one of the sport's great early powers, then spent generations as a Big Ten afterthought, with no outright conference title since 1967. Fleck's program is good — 8-5 in 2025, a Big Ten-record ninth straight bowl win — but the breakthrough back to the top of the league still hasn't come."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the Big Ten again — turn nine straight bowl wins and a steady program into the conference title the Bierman trophies say belongs here."
+  drought: { since: 1967, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans hear the program's golden age waved off as a relic of a smaller sport — and answer that the trophies are real, the resurrection is real, and the country keeps underrating a Gophers team that just won its ninth bowl in a row."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Fleck and a young homegrown quarterback in Drake Lindsey are building toward the Big Ten breakthrough — that Row the Boat finally rows the program back to where the 1930s say it belongs."
+
+the_grudge_texture:
+  rival: wisconsin
+  texture: border-war   # Paul Bunyan's Axe — the most-played rivalry in major college football
+
+the_coach_relationship: total-trust   # Fleck, entering year 10, has earned the fanbase's belief
+the_internal_fracture: gratitude vs greed — the faction content with a stable, bowl-winning program vs the faction that says a six-time national champion shouldn't settle for solid
+register: minneapolis-row-the-boat-believer
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Stuck-in-1940s — Fleck era's 11-win seasons disprove the floor
+  - Cold-weather underdog — 2019 11-2 + Outback Bowl reset the ceiling
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Bierman dynasty — Minnesota claims seven national championships, five of them under Bernie Bierman in 1934, 1935, 1936, 1940 and 1941, when the Gophers were one of the most dominant programs in the country. Almost no current Big Ten also-ran carries that deep a championship pedigree."
+  the_origin: "The land-grant flagship in Minneapolis, a founding power of the sport that won national titles across the early decades and built the 1930s dynasty that still defines its heritage."
+  golden_ages:
+    - { era: "1934–1941 (Bernie Bierman)", what: "Five national championships and a stretch of national dominance" }
+    - { era: "2017–present (P.J. Fleck)", what: "The Row the Boat resurrection — a 2019 11-2 season and a record bowl-win streak" }
+  legends:
+    - { name: Bernie Bierman, role: coach, why: "Architect of the 1930s-40s dynasty; the program's defining figure" }
+    - { name: Bronko Nagurski, role: player, why: "Two-way legend of the early era; one of football's iconic names" }
+    - { name: P.J. Fleck, role: coach, why: "Resurrected the modern program and made bowl-winning a habit" }
+  canonical_moments:
+    - { name: "The Bierman national titles", year: 1936, what: "The heart of the 1930s dynasty — back-to-back-to-back champions", handling: glory }
+    - { name: "The 2019 11-2 season", year: 2019, what: "Fleck's breakthrough — an Outback Bowl win and a top-10 finish", handling: glory }
+  the_place: "Huntington Bank Stadium (TCF Bank Stadium) in Minneapolis — outdoor Big Ten football back on campus, the Row the Boat oar, and rivalry weeks for the Axe and Floyd of Rosedale."
+  brand_of_football: "Physical, run-heavy, cold-weather Big Ten football — Fleck's culture-first program built on toughness and an oar-rowing identity."
+  cultural_footprint: "Row the Boat — a once-dormant national power reawakened into a proud, bowl-winning Big Ten program, carrying trophies (Paul Bunyan's Axe, Floyd of Rosedale) that anchor every November."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Minnesota went 8-5 (5-4 Big Ten) in 2025 and beat New Mexico 20-17 in
+    overtime in the Rate Bowl for a Big Ten-record ninth straight bowl win, behind freshman QB Drake Lindsey
+    (2,382 yards, 18 TDs), who returns for 2026. P.J. Fleck enters his tenth season with a stable, winning
+    program — and the still-open question of whether Row the Boat can finally row back to a Big Ten title.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://gophersports.com/sports/2026/1/5/2025-football-year-in-review
+    - https://en.wikipedia.org/wiki/2026_Minnesota_Golden_Gophers_football_team
+    - https://www.on3.com/sites/gophers-nation/news/minnesota-qb-drake-lindsey-locked-in-for-2026-season/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Minnesota is the Big Ten program whose 6 pre-WWII national titles + P.J. Fleck Row-the-Boat
+    era + Floyd of Rosedale rivalry define what historic-program-resurrected looks like.
+  mantra: Row the boat.
+  cultural_anchors:
+    fan_archetype_dominant: Minneapolis-Row-The-Boat-Believer
+    outsider_archetype_dominant: Pre-WWII-Glory-Diminisher
+    one_sentence: Minnesota is the historic-program-resurrected — 7 national titles in the pre-WWII era
+      + P.J. Fleck's 2017-present Row-the-Boat tenure + Floyd of Rosedale and Paul Bunyan's Axe rivalries
+      that anchor every Big Ten November.
+  selfname: the Gophers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1934-1941 Bierman dynasty + 6 national titles
+    - 2019 11-2 + Outback Bowl under P.J. Fleck
+    - Floyd of Rosedale + Paul Bunyan's Axe trophies
+    rituals:
+    - Row the Boat
+    - Bernie Bierman Dynasty (1934-1941)
+    - Floyd of Rosedale (vs Iowa)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (57/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

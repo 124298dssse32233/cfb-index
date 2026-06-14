@@ -1,0 +1,122 @@
+# Emotional Core — Georgia Southern  (georgia-southern)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: georgia-southern
+team_id: 217
+program_name: Georgia Southern
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # six FCS rings and a triple-option dynasty the FBS world keeps treating as prologue
+  secondary: restoration  # Helton has the Eagles bowling again — and finally beating the mountain rival
+  core_variant: the-ceiling
+  one_line: "Georgia Southern won six national titles running the option through everybody, and Statesboro still carries the chip of a program told all of it stopped counting the day it joined the big league."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Six FCS national championships and a triple-option lineage that spawned a coaching tree vs a Sun Belt newcomer's ceiling that files every ring under 'before it mattered.'"
+
+the_wound:
+  name: "The dynasty that gets an asterisk"
+  detail: "Eagles fans grew up on Erk Russell and six rings; the FBS world hears 'six titles' and adds the silent qualifier — at a lower level. The 2017-2021 stretch of losing seasons after the move up nearly proved the doubters' point before Clay Helton steadied it."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "A Sun Belt championship and a New Year's-adjacent bowl that makes the option dynasty read as a beginning, not a museum."
+  drought: { since: 2014, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Statesboro is two hours from Athens and a world away from the recruiting machine that never once scheduled them; Eagles fans wear the snub like a letterman jacket and would trade a season to take Georgia's measure for one Saturday."
+
+the_delusion:
+  tone: self-aware
+  text: "Eagle fans will tell you the right option quarterback on a cold November night could still gash anybody in the country — that the offense the giants never solved didn't expire, it just changed conferences."
+
+the_grudge_texture:
+  rival: app-state
+  texture: blood-feud   # the Sun Belt's nastiest — two mountain-and-south neighbors who genuinely hate it; GS won the 2025 Birmingham Bowl meeting 29-10
+
+the_coach_relationship: forever-ours   # Helton, once SoCal's punching bag, has become Statesboro's steadying hand — extended through 2029
+the_internal_fracture: option-purists vs the modern-spread truce — the faction that still wants the triple-option back as identity vs the faction content to win Helton's way as long as it wins
+register: statesboro-eagles-paulson-fcs-dynasty
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Still FCS — 2014 Sun Belt championship in first FBS year ended that frame
+  - No identity — 6 FCS titles + Triple-Option + 2014 SB combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The triple-option dynasty: Erk Russell's Eagles won six FCS national titles (1985-2000) running an offense nobody at the level could stop, and seeded a coaching tree — Paul Johnson, Brian VanGorder, a generation of option disciples — that carried the scheme to Navy, Georgia Tech and beyond."
+  the_origin: "Football was dropped in 1941 and dormant for four decades until Erk Russell, Georgia's famed defensive coordinator, came to Statesboro in 1981, built a program from nothing, and turned a no-name commuter school into an FCS juggernaut almost overnight."
+  golden_ages:
+    - { era: "1985–1990 (Erk Russell)", what: "Three FCS national titles in six years — a program that didn't exist in 1980 dominating the level" }
+    - { era: "1999–2000 (Paul Johnson)", what: "Two more rings running the flexbone option — six total, an FCS dynasty" }
+  legends:
+    - { name: Erk Russell, role: coach, why: "Built the program from scratch and won the first three titles; 'GATA' and the bald-headed bleed are his" }
+    - { name: Paul Johnson, role: coach, why: "Perfected the triple-option, won two titles, then took it to Navy and Georgia Tech" }
+    - { name: Adrian Peterson, role: player, why: "Eagles' option workhorse — FCS all-time touchdown machine, four-time All-American" }
+  canonical_moments:
+    - { name: "First national title", year: 1985, what: "A program four years old wins the I-AA championship under Erk Russell", handling: glory }
+    - { name: "First FBS season, Sun Belt title", year: 2014, what: "9-3 and a Sun Belt crown in the very first year up — the move-up done right", handling: glory }
+    - { name: "Birmingham Bowl over App State", year: 2025, what: "29-10 over the blood rival to cap a 7-6 bowl season under Helton", handling: glory }
+  the_place: "Allen E. Paulson Stadium and 'Beautiful Eagle Creek' — the ditch behind the end zone that became a tailgating shrine; 'GATA' (Get After Their A**) is the program's creed."
+  brand_of_football: "The option as identity — a downhill, ball-control, grind-you-out offense born under Russell and Johnson; even in the modern spread era, Statesboro's soul is the flexbone."
+  cultural_footprint: "Proof that a commuter school with no football four decades ago can build a real dynasty — and the wellspring of the triple-option's modern coaching tree."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Georgia Southern went 7-6 (4-4 Sun Belt) in Clay Helton's fourth season and
+    won the Birmingham Bowl 29-10 over blood rival Appalachian State. Georgia Southern extended Helton through 2029,
+    betting on stability after the rocky early-FBS years. The Eagles enter 2026 a steady Sun Belt bowl team chasing
+    the conference crown that's eluded them since their dream debut in 2014.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Georgia_Southern_Eagles_football_team
+    - https://gseagles.com/news/2025/2/5/football-georgia-southern-extends-contract-of-clay-helton.aspx
+    - https://en.wikipedia.org/wiki/Georgia_Southern_Eagles_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Georgia Southern is the Sun Belt program whose 1985-2000 6 FCS national championships
+    dynasty + 2014 FBS reclassification + 2014 Sun Belt championship in first FBS season define what historic-Statesboro-football
+    looks like.
+  mantra: Hail Southern.
+  cultural_anchors:
+    fan_archetype_dominant: Statesboro-Eagle-Hail-Southern
+    outsider_archetype_dominant: FCS-Refugee-Diminisher
+    one_sentence: Georgia Southern is the Statesboro Sun Belt program — 6 FCS national championships dynasty
+      + Triple-Option heritage + 2014 first-FBS-season Sun Belt championship that anchor the historic dominance
+      arc.
+  selfname: the Eagles
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 6 FCS national championships (1985, 1986, 1989, 1990, 1999, 2000)
+    - 2014 FBS reclassification + immediate Sun Belt championship
+    - Triple-Option offense heritage (Paul Johnson coaching tree)
+    rituals:
+    - 6 FCS National Championships (1985-2000)
+    - Triple-Option Offense Heritage
+    - 2014 FBS Reclassification + Sun Belt Title
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (48/100, n=51)
+    voice_profile: absent
+    delusion_premium: absent

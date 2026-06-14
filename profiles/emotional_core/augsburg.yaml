@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: augsburg
+team_id: null
+program_name: Augsburg University
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: house-money
+  one_line: "Augsburg is a program in transition—new leadership breaking ground, building a culture from the ground up, one season at a time."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A young program stepping into its identity, hiring Black leadership for the first time in MIAC history, betting on culture over pedigree."
+
+the_wound:
+  name: "Seasons of struggle"
+  detail: "Augsburg has played small, without the resources or historic identity of MIAC peers like Saint John's or Bethel. The 2025 season (4-6) reflected a program learning who it is, not yet who it wants to be."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build something new—a program with its own story, its own identity, proving that a small Minneapolis school can compete in a legendary conference."
+  drought: { since: 2000, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe augsburg's chip is not against anyone else—it's against its own ceiling, the assumption that a small private program in Minneapolis can't stand shoulder-to-shoulder with the MIAC powers."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the new coach, the new culture, the new era means this is the start, not the middle. Every game in 2026 builds toward something bigger than the last 20 years."
+
+the_grudge_texture:
+  rival: hamline
+  texture: border-war
+
+the_coach_relationship: savior
+the_internal_fracture: "Building identity vs immediate wins—the question of whether to trust the foundation or push for quick success."
+register: augsburg-auggies-minneapolis-heartland
+never_use:
+  - Historic powerhouse—Augsburg is not and never was
+  - Back-to-back titles—the program is early in its arc
+  - Regional dynasty—it's a small school finding its footing
+
+story_canon:
+  the_unique_thing: "The 2025 hiring of KiJuan Ware, the first Black head coach in MIAC history—a leadership milestone that signals a program committed to building something new."
+  the_origin: "Augsburg University, a small Lutheran school in Minneapolis, has competed in the MIAC since the conference's founding era—not with the prestige of Saint John's or Bethel, but with steady, quiet ambition."
+  golden_ages:
+    - { era: "1980s–1990s", what: "Augsburg's strongest seasons, competing at MIAC level without breakthrough championships" }
+  legends:
+    - { name: KiJuan Ware, role: coach, why: "First Black head coach in MIAC history; hired to rebuild the culture and identity of the program" }
+  canonical_moments:
+    - { name: "The KiJuan Ware era begins", year: 2025, what: "Augsburg hires its first Black head coach, marking a cultural shift and commitment to building a new identity", handling: glory }
+  the_place: "Augsburg Park in Minneapolis—a small, intimate campus in the heartland, where a city program builds its own identity."
+  brand_of_football: "Steady, fundamental, building—a program that competes without pretense, playing the game as it should be played."
+  cultural_footprint: "Augsburg represents the small-school ethos: no million-dollar facilities, no dynasty pedigree, just students and coaches committed to each other and the game."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Augsburg went 4-6 (4-5 MIAC) in KiJuan Ware's first season,
+    hiring a new head coach who represents the program's first African American leadership at the position.
+    The 2026 challenge is clear: build a winning culture from the ground up, prove the new era is
+    different from the past, and show MIAC opponents that Augsburg belongs.
+  research_checklist:
+    - the program's core competitive level (mid-MIAC, not dynasty)
+    - the KiJuan Ware hiring as a cultural inflection point
+    - the small-school pride and identity
+    - the Minneapolis location and community connection
+    - the current-era rebuilding narrative
+  sources:
+    - https://www.augsburg.edu/athletics/football/
+    - https://miachome.org/sports/football/
+    - https://www.d3football.com/

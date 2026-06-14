@@ -1,0 +1,84 @@
+# Emotional Core — Gannon University  (gannon)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Status: live | Tier: 6 (Division II PSAC) | Authored 2026-06-13
+
+status: live             # todo | drafted | authored | reviewed | live
+slug: gannon
+team_id: 226            # placeholder; verify against CFBD ID mapping
+program_name: Gannon University
+program_tier: 6         # Division II PSAC
+
+emotional_core:
+  primary: contentment        # stable, long-tenured HC building a coherent program year over year
+  secondary: restoration      # Raeburn's steady rebuild from a program that needed direction
+  one_line: "Gannon is the PSAC program finding its rhythm under Erik Raeburn's patient six-year tenure, a Head Coach who chose to stay and build rather than chase bigger jobs."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A program that knows its lane — PSAC West contender, not a national power — and builds accordingly with a coach who picked Erie as home."
+
+the_wound:
+  name: "Pre-Raeburn instability"
+  detail: "Before Raeburn's 2020 hire, Gannon cycled coaches and never sustained winning. The program needed anchoring, not flash."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Establish Gannon as the PSAC West's consistent challenger — the program that Raeburn built into a perennial playoff-contender identity."
+  drought: null  # no specific championship drought; program aspires to consistency not history
+
+the_chip:
+  villain: national_media
+  text: "Gannon doesn't get top-tier recruits because it's not Alabama or Michigan. But Erie-area boys who stay close to home and play for Raeburn's system? They win."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes this program is closer to a PSAC championship than it looks — that Raeburn has built the pieces and one bowl run proves the upside."
+
+the_grudge_texture:
+  rival: slippery-rock
+  texture: championship   # both are PSAC West powers; it's a rivalry of equals
+
+the_coach_relationship: forever-ours     # Raeburn chose Gannon and has stayed, giving the program an identity
+the_internal_fracture: null         # program is unified around Raeburn's steady approach
+register: erie-area-loyal-builder
+never_use:
+  - "PSAC doormat — Raeburn era ended that narrative"
+  - "Flash-in-the-pan — sixth year in, he's built something sustainable"
+
+# ── STORY CANON (doc 64) ────────────────────────────────────────────────────
+story_canon:
+  the_unique_thing: "A program that chose stability: Erik Raeburn turned down bigger jobs and stayed in Erie to build Gannon into a PSAC power."
+  the_origin: "Gannon University (1926–), a Catholic-rooted PSAC member in Erie, PA, near the banks of Lake Erie."
+  golden_ages:
+    - { era: "Raeburn Era (2020–)", what: "Steady ascent from 2-9 to playoff-caliber PSAC West contender under a Head Coach who built the program as a career anchor." }
+  legends:
+    - { name: Erik Raeburn, role: coach, why: "Built Gannon into a PSAC power after a 2020 hire that could have been a steppingstone but became a destination." }
+  canonical_moments: []  # program is still building its modern canon under Raeburn
+  the_place: "McConnell Family Stadium — on the edge of Lake Erie, where Erie's football identity lives."
+  brand_of_football: "Disciplined, physical PSAC football — Raeburn's system favors defense and ball control over flash."
+  cultural_footprint: "A small PSAC program that earned respect by staying put and building — rare in an era of coach churn."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Erik Raeburn enters his seventh season at Gannon in 2026, having
+    stabilized a program that lacked direction. With McConnell Stadium as home and a slate of PSAC West
+    foes on the schedule, Gannon aims to sustain its climb toward a PSAC title conversation in a region
+    dominated by Kutztown and Slippery Rock.
+  research_checklist:
+    - Erik Raeburn's prior coaching history and why he chose Gannon
+    - McConnell Family Stadium traditions and Erie's football culture
+    - Gannon's recent PSAC West finishes and playoff appearances
+    - The PSAC West power hierarchy (Kutztown, Slippery Rock, Gannon, IUP)
+  sources:
+    - https://gannonsports.com/sports/football/roster/coaches/erik-raeburn/1748
+    - https://gannonsports.com/news/2026/4/20/gannon-announces-2026-football-schedule.aspx
+    - https://en.wikipedia.org/wiki/Erik_Raeburn
+
+# ── BRIEFING (read-only context; NOT part of published core) ──
+briefing:
+  identity_phrase: "Gannon is the PSAC program with a Head Coach who stayed — Erik Raeburn's six-year tenure anchors a Lake Erie program building consistent PSAC West contention."
+  mantra: "Gannon football."
+  cultural_anchors:
+    fan_archetype_dominant: "Erie-Area-Loyal-Program-Builder"
+    outsider_archetype_dominant: "PSAC-Mid-Tier-Observer"
+    one_sentence: "Gannon is the PSAC West program anchored by Erik Raeburn, a coach who chose Erie as home and built a consistent competitor."
+  selfname: "the Golden Knights"

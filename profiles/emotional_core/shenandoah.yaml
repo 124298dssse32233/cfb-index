@@ -1,0 +1,71 @@
+# Emotional Core — Shenandoah University
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III (program_tier: 7) — graceful degradation, canon-first
+# Authored 2026-06-13 from live web research
+
+status: live
+slug: shenandoah
+team_id: null
+program_name: Shenandoah University
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: standard
+  one_line: "A Virginia university in the Shenandoah Valley with ODAC football rooted in regional competition and educational values."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "D3 identity within the Shenandoah Valley regional community."
+
+the_wound: {}
+
+the_dream:
+  text: "Competitive ODAC football and regional success."
+  drought: null
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: null
+register: virginia-valley-regional
+never_use: []
+
+story_canon:
+  the_unique_thing: "A Virginia university in the Shenandoah Valley with a football program rooted in regional ODAC competition."
+  the_origin: "Shenandoah University, founded 1875, developed football as part of its comprehensive educational mission in the Shenandoah Valley."
+  golden_ages: []
+  legends: []
+  canonical_moments: []
+  the_place: "Winchester, Virginia — the Shenandoah Valley."
+  brand_of_football: "Regional tradition and valley identity."
+  cultural_footprint: "A regional D3 program within Virginia college football."
+  the_ongoing_story: "LIVE 2026: Shenandoah competes in the ODAC with regional rivals."
+  sources:
+    - https://en.wikipedia.org/wiki/Shenandoah_Eagles_football
+    - https://www.su.edu/athletics/football/
+
+briefing:
+  identity_phrase: Shenandoah is a Virginia university in the Shenandoah Valley with regional ODAC football tradition.
+  mantra: null
+  cultural_anchors:
+    fan_archetype_dominant: null
+    outsider_archetype_dominant: null
+  selfname: the Eagles
+  story_materials:
+    always_surface: []
+    rituals: []
+    modules_already_rendering: null
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

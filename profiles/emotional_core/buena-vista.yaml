@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Buena Vista University Division III emotional core
+
+status: live
+slug: buena-vista
+team_id: null
+program_name: Buena Vista University
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Buena Vista is the Iowa pioneer — founded 1898, football since the earliest days of organized college sports, a small university with 128 years of continuous football and a place in the historic Iowa Intercollegiate Athletic Association."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "One of Iowa's oldest college football programs with a deep IIAC heritage (charter 1922), 4 conference titles, and a century-plus of steady regional competition, but no national championship or recent breakthrough."
+
+the_wound:
+  name: "The long decline from early power"
+  detail: "Buena Vista's last ARC championship was 1978. The last 47 years have been quiet regional competence, not marked by crisis but by the slow realization that the Beavers are no longer climbing toward anything bigger. 2025's 3–7 record is a particularly bruising reminder."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Return to the days when Buena Vista football mattered at the ARC level — another conference title would feel like vindication."
+  drought: { since: 1978, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "No real chip — Buena Vista is too small, too quiet, too rooted in regional pride to carry a grievance. The fanbase knows the program is not going to shock the Division III world."
+
+the_delusion:
+  tone: earnest
+  text: "That the right coaching hire could bring back the 1970s. Fans believe in cycles; they know other Iowa schools have rebuilt. They believe Buena Vista's next coach might be the one to spark something."
+
+the_grudge_texture:
+  rival: central-ia
+  texture: little-brother
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: tradition-vs-patience — Austin Dickinson is in his fourth season; the question is whether the fanbase believes in long-term investment or expects immediate turnaround
+register: storm-lake-beaver-iowa-pioneer
+
+never_use:
+  - Buena Vista is a new program (football since 1898, 128 years old)
+  - The Beavers dominate the ARC (4 titles, mostly regional competence)
+  - Buena Vista has a recent national championship (no national championship in program history)
+  - The program is in freefall (steady regional competitor, 2025 was a down year but not a crisis)
+
+story_canon:
+  the_unique_thing: "One of Iowa's earliest college football programs — founded 1898, a charter member of the Iowa Intercollegiate Athletic Association (1922), and a continuous competitor for 128 seasons."
+  the_origin: "Buena Vista University, founded 1891 in Storm Lake, Iowa, began football in 1898. A founding member of the IIAC in 1922, the Beavers competed in one of the earliest organized athletic conferences in American higher education."
+  golden_ages:
+    - { era: "1920s–1970s", what: "Sustained IIAC/ARC membership and 4 conference championships, most recently in 1978" }
+    - { era: "Present (steady regional competitor)", what: "Consistent ARC membership with occasional tournament appearances" }
+  legends:
+    - { name: "Unknown (IIAC pioneer era)", role: coach, why: "Early coaches who built Buena Vista's IIAC presence" }
+  canonical_moments:
+    - { name: "IIAC Charter Membership (1922)", year: 1922, what: "Buena Vista becomes a charter member of the Iowa Intercollegiate Athletic Association, joining the earliest organized college athletic conference", handling: glory }
+    - { name: "1978 ARC Championship", year: 1978, what: "Buena Vista's last conference title — a moment of peak regional success", handling: glory }
+  the_place: "Storm Lake, Iowa — a rural Iowa town where Buena Vista football is woven into the community identity."
+  brand_of_football: "Regional, steady football with a deep Iowa roots and a heritage dating to the earliest days of organized college sports."
+  cultural_footprint: "Buena Vista is a small-college story — a 1,600-student university in rural Iowa that has fielded a football team since 1898, a steady presence without pretension."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Buena Vista went 3–7 (2–6 ARC) in 2025 under Austin Dickinson's
+    fourth season. The Beavers remain a regional competitor in the American Rivers Conference. The program
+    is not in crisis but in quiet search for identity — the fanbase knows Buena Vista's football is a small-school
+    endeavor, played for love and tradition, not for national headlines.
+  research_checklist:
+    - IIAC charter membership (1922)
+    - 128-year continuous football history (1898–present)
+    - 4 ARC/conference titles (most recent 1978)
+    - Storm Lake, Iowa location and community identity
+    - Austin Dickinson's tenure (2023–present)
+  sources:
+    - https://en.wikipedia.org/wiki/Buena_Vista_Beavers_football
+    - https://www.bvu.edu/athletics/football
+    - https://d3football.com/teams/buena-vista

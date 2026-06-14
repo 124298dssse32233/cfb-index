@@ -1,0 +1,108 @@
+# Emotional Core — Georgetown Hoyas (georgetown)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — FCS Patriot League
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: georgetown
+team_id: null
+program_name: Georgetown Hoyas
+program_tier: 3
+
+emotional_core:
+  primary: redemption       # climbing out of decades of irrelevance
+  secondary: restoration
+  one_line: "Washington's historic institution slowly ascending from a half-century of football silence."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "The 1940 Orange Bowl era and the Bill Carpenter 1960s legend vs. decades of football invisibility in a power-five pipeline program."
+
+the_wound:
+  name: "The loss of DC relevance and the disappearance of the Howard rivalry"
+  detail: "Georgetown football was overshadowed by basketball and erased from the Washington D.C. sports landscape. The cross-town rivalry with Howard (two DC Cup awards, 2008-2009) vanished when Howard left the conference. Georgetown is not wounded by recent collapse but by decades of irrelevance in its own city."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Become the Washington D.C. football program again — reclaim the Hoyas name and make Georgetown football matter in the capital."
+  drought: { since: 1940, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "The chip is basketball's shadow. Georgetown basketball made 'Hoya Saxa' iconic; football gets to be the second sport on campus. The fanbase believes football can follow the same path basketball did."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that Georgetown's Jesuit academic rigor and D.C. location make football recruitment easier. (The reality: Georgetown has never been a major football draw and d.c. has never been a football hub.)"
+
+the_grudge_texture:
+  rival: howard
+  texture: killed-by-realignment
+
+the_coach_relationship: legends-shadow   # Following Bill Carpenter legacy from 1960s
+the_internal_fracture: basketball-first vs. football-building — the hoops-centric infrastructure vs. those trying to invest in football
+register: intellectual-earnest
+never_use:
+  - scrappy
+  - overachieving
+  - mid-tier
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. ──
+story_canon:
+  the_unique_thing: "The Hoya Saxa chant and the 1874 founding make Georgetown football one of America's oldest programs, yet it's been invisible for decades. Georgetown's unique thing is the gap between historical legitimacy and modern irrelevance."
+  the_origin: "Georgetow football was founded in 1874 (first game 1887) as one of the oldest FCS programs in America. Located in Washington, D.C., it was a major power before basketball overshadowed it."
+  golden_ages:
+    - { era: "1940 (Orange Bowl era)", what: "Georgetown reached the Orange Bowl, losing 14-7 to Mississippi State — a moment of national relevance" }
+    - { era: "1965-1968 (Bill Carpenter era)", what: "Hall of Famer Bill Carpenter played quarterback for Georgetown, setting multiple records" }
+  legends:
+    - { name: "Bill Carpenter", role: "player", why: "Hall of Famer QB 1965-1968 who set multiple records and became the most famous Georgetown football player" }
+  canonical_moments:
+    - { name: "1940 Orange Bowl", year: 1940, what: "Georgetown reached the Orange Bowl, losing 14-7 to Mississippi State", handling: glory }
+    - { name: "Bill Carpenter Era", year: 1965, what: "Hall of Famer Bill Carpenter played for Georgetown, the most famous modern Georgetown player", handling: glory }
+  the_place: "Cooper Field in Washington, D.C., home of a program buried in the capital's basketball-centric sports landscape."
+  brand_of_football: "Historic but invisible — a program with legitimate lineage but zero modern cultural footprint in the nation's capital."
+  cultural_footprint: "Georgetown football is what happens when a historic program gets overshadowed by basketball and never reclaims attention. The Hoyas name is synonymous with basketball, not football."
+  the_ongoing_story: >
+    LIVE ARC — 2026-06-13: Georgetown finished 6-6 (3-4 Patriot League) in 2025, improving from the 5-6 (2-4) record in 2024. Coach Rob Sgarlata entered his 10th season; the program is slowly ascending out of irrelevance. The question in D.C.: can football build any momentum, or is basketball's shadow permanent?
+  research_checklist:
+    - The Bill Carpenter (Hall of Famer) era and his significance
+    - The 1940 Orange Bowl and Georgetown's only moment of national football relevance
+    - The Howard rivalry and the DC Cup (2008-2009) and why it disappeared
+    - The basketball-football dynamic and why hoops overshadowed football
+    - The Hoya Saxa chant and its connection to football vs. basketball
+  sources:
+    - https://sportsteamhistory.com/georgetown-hoyas/
+    - https://en.wikipedia.org/wiki/Georgetown_Hoyas_football
+    - https://en.wikipedia.org/wiki/2024_Georgetown_Hoyas_football_team
+    - https://richmondfreepres.com/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Georgetown is the historic D.C. Jesuit program built on Bill Carpenter's legend and invisible for decades, slowly climbing out of basketball's shadow.
+  mantra: "Hoya Saxa for football (reclaiming the chant)"
+  cultural_anchors:
+    fan_archetype_dominant: D.C. Intellectual Pride
+    outsider_archetype_dominant: "The Basketball School's Football Afterthought"
+    one_sentence: Georgetown measures itself against Bill Carpenter's 1960s legend and the 1940 Orange Bowl, historical moments that defined football relevance before basketball became the Hoyas' true identity.
+  selfname: Hoyas
+  aspiration_ladder_top: "Consistent Patriot League competitor / National relevance"
+  rivalries:
+    - howard
+    - lehigh
+  heritage:
+    national_titles: "None"
+    conference_titles: "Multiple (pre-1960s era)"
+    current_conference: Patriot League
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: "Unknown (program predates modern era)"
+    era_name_overrides: {}
+    always_surface:
+      - "Bill Carpenter Hall of Famer (1965-1968 QB)"
+      - "1940 Orange Bowl (lost 14-7 to Mississippi State)"
+      - "Hoya Saxa chant (defined by basketball, not football)"
+    rituals: []
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    signal: "no live signal yet (canon-only) — FCS program not covered by discourse fingerprint"

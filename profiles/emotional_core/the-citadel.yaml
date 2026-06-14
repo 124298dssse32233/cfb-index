@@ -1,0 +1,72 @@
+status: live            # authored 2026-06-13 via web research
+slug: the-citadel
+team_id: null
+program_name: The Citadel
+program_tier: 2
+
+emotional_core:
+  primary: honor         # military college honor code, the option legacy, the bulldog mascot since 1928
+  secondary: contentment # 1992 SoCon champion defending tradition rather than chasing titles
+  one_line: "The Citadel is the military college where football is secondary to the code — a program that runs the triple option, has live bulldog mascots on the sideline since 1928, and leads the Military Classic of the South vs. VMI 46-33-2 across 82 games."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A 1992 SoCon champion and military institution that defines itself by honor and tradition, not by chasing championships — the Bulldogs run the option and keep a live mascot on the sideline."
+
+the_wound:
+  name: "The option era fade"
+  detail: "The Citadel built its identity on the triple option and military tradition, winning the 1992 SoCon title. But the modern FCS has moved away from the option, and the Bulldogs have struggled to compete as a pure-option team in a pass-happy league. The wound isn't failure; it's irrelevance in a sport that left the option behind."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the option can still work in the modern FCS, win another SoCon title, and remind the country that Citadel football is about honor and tradition, not just winning — but winning too."
+  drought: { since: 1992, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The Citadel runs the option while the rest of the FCS runs spread offenses and pass-happy attacks. The Bulldogs see it not as a limitation but as a commitment to the option's integrity — and they'll prove the military way works."
+
+the_delusion:
+  tone: earnest
+  text: "That the option is competitive in modern college football because of the integrity of the system, not in spite of it. The fanbase knows the option is hard to coach and defend against; they also know it's the Citadel way and won't change."
+
+the_grudge_texture:
+  rival: vmi
+  texture: blood-feud   # Military Classic of the South — 82 games, Citadel leads 46-33-2, one of the oldest FCS rivalries
+
+the_coach_relationship: legends-shadow   # Maurice Drayton (year 3) must honor the option legacy while building modern competitiveness
+the_internal_fracture: pure_option_vs_evolution — purists demanding the option vs. those who want Citadel to evolve to compete
+register: the-citadel-military-honor-option
+never_use:
+  - "the option is outdated"
+  - "Citadel can't compete with spread offenses"
+
+story_canon:
+  the_unique_thing: "The triple option and live bulldog mascots on the sideline since 1928 — a military college program that defines itself by institutional honor and tactical tradition, not just winning records."
+  the_origin: "The Citadel became a SoCon power with the triple option offense, established the Military Classic rivalry with VMI, and built a program on military honor as much as football success."
+  golden_ages:
+    - { era: "1992", what: "The Citadel wins the SoCon championship, the program's highest honor" }
+    - { era: "Military tradition", what: "Live bulldog mascots since 1928 and the triple option as the offensive backbone" }
+  legends:
+    - { name: Maurice Drayton, role: coach, why: "Year 3 coach continuing the Citadel tradition while navigating the modern FCS" }
+  canonical_moments:
+    - { name: "1992 SoCon Championship", year: 1992, what: "The Citadel wins the conference title on the strength of the triple option", handling: glory }
+    - { name: "The Military Classic", year: 1942, what: "The Citadel and VMI begin one of the oldest FCS rivalries, now spanning 82 games", handling: glory }
+    - { name: "Live Bulldog Mascots", year: 1928, what: "The Citadel puts live bulldogs on the sideline, a tradition continuing to the present day", handling: glory }
+  the_place: "Johnson Hagood Stadium — the home of Bulldogs football in Charleston, South Carolina, a military college campus."
+  brand_of_football: "The triple option as a statement of principle — a military program that runs the option not because it's easy, but because it represents discipline and institutional commitment."
+  cultural_footprint: "The military college that proved the option could be a winning system and a symbol of institutional values, not just a nostalgic offensive scheme."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: The Citadel remains a SoCon power and the keeper of the triple option flame in the FCS. Maurice Drayton is in year 3 as coach, balancing the option's pure legacy with the demands of modern college football. The 2025 Military Classic result (Citadel 35, VMI 24) maintained the Bulldogs' dominance in the rivalry. The question in Charleston: can the option thrive in the modern FCS, or is the Citadel destined to remain a noble relic?
+  research_checklist:
+    - ✓ 1992 SoCon championship
+    - ✓ Triple option offense
+    - ✓ Live bulldog mascots since 1928
+    - ✓ Military Classic rivalry with VMI (82 games, Citadel leads 46-33-2)
+    - ✓ 2025 Military Classic win (35-24)
+    - ✓ Maurice Drayton (year 3)
+  sources:
+    - https://en.wikipedia.org/wiki/Citadel_Bulldogs_football
+    - https://www.citadelportals.com
+    - https://www.thescore.com/nfl/news/citadel-football

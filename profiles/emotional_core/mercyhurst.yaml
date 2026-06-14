@@ -1,0 +1,69 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+status: live
+slug: mercyhurst
+team_id: null
+program_name: Mercyhurst University
+program_tier: 5
+
+emotional_core:
+  primary: restoration
+  secondary: redemption
+  one_line: "Mercyhurst is the historic Erie institution climbing Division I—a program in Year 2 of the FCS transition, betting that new head coach Thomas Sydeski can stabilize the D1 culture and deliver sustained Northeast Conference competitiveness."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A small Catholic institution with a 1981-founded football program vs. a Division I FCS rookie in a major transition year (new head coach, learning the level)—where the institutional leap from Division II feels massive but the commitment is clear."
+
+the_wound:
+  name: "The Division II loss and the coaching transition"
+  detail: "Mercyhurst transitioned from Division II (PSAC) to Division I FCS in 2024. The first year (2024) was a learning curve. In 2025, the program went 5–7 (4–3 NEC) and head coach Ryan Riemedio left for Youngstown State as defensive coordinator. The wound is transitional: the program is rebuilding, new HC Thomas Sydeski (promoted from within in Feb 2026) is unproven, and there is no guarantee the D1 investment pays off."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove Thomas Sydeski can stabilize the program and build toward NEC championship contention—win 7+ games in 2026, earn bowl eligibility, and validate the Division I transition bet."
+  drought: { since: 2024, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "No chip yet—Mercyhurst is too early in its Division I journey. The fanbase is hopeful but patient. The institutional commitment to the transition is the story, not grievance."
+
+the_delusion:
+  tone: earnest
+  text: "That Thomas Sydeski's internal promotion signals a sustainable Division I program—that Mercyhurst can compete in the Northeast Conference and eventually earn FCS playoff berths. The fanbase believes the transition is working, even as evidence remains limited."
+
+the_grudge_texture:
+  rival: null
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "Quick-success expectations vs. patient-rebuild realism—the faction demanding immediate improvement vs. those accepting that Division I transitions take 2–3 seasons"
+register: erie-lakers-division-one-transition-mercyhurst
+never_use:
+  - "A Division II program" # Joined Division I FCS in 2024; now competing in Northeast Conference
+  - "No commitment to football" # Created new HC position, Division I transition shows institutional priority
+
+story_canon:
+  the_unique_thing: "Mercyhurst's Division I FCS transition (2024-present) from Division II (PSAC) is the signature institutional achievement—a Catholic university betting on football's role in Division I identity and investing in infrastructure to support the level change."
+  the_origin: "Mercyhurst University was founded in 1926 in Erie, Pennsylvania, as a Catholic institution of the Sisters of Mercy. The football program was founded in 1981, making it one of the newer programs in the region. The program spent over 40 years building in Division II before the 2024 transition to Division I FCS."
+  golden_ages:
+    - { era: "Division II Success (2000s–2023)", what: "Mercyhurst builds a competitive Division II program with winning seasons and PSAC success" }
+    - { era: "2024 Division I Transition", year: 2024, what: "Mercyhurst transitions from Division II to Division I FCS, joining the Northeast Conference" }
+    - { era: "2026 Coaching Leadership", year: 2026, what: "Thomas Sydeski promoted to head coach, signaling institutional confidence in internal development" }
+  legends:
+    - { name: Ryan Riemedio, role: coach, why: "14-season head coach who led Mercyhurst through the Division II era and oversaw the initial D1 transition (2024–2025)" }
+    - { name: Thomas Sydeski, role: coach, why: "Promoted to head coach in 2026, tasked with stabilizing the Division I culture and building NEC competitiveness" }
+  canonical_moments:
+    - { name: "Division I FCS Transition", year: 2024, what: "Mercyhurst moves from Division II (PSAC) to Division I FCS (Northeast Conference)", handling: glory }
+    - { name: "Thomas Sydeski Named Head Coach", year: 2026, what: "Internal promotion of Sydeski to HC signals institutional stability and confidence in the Division I vision", handling: miracle }
+  the_place: "Mercyhurst University's stadium in Erie, Pennsylvania—a smaller venue that has been home to Lakers football since 1981."
+  brand_of_football: "Catholic pride with a Division I ambition—Mercyhurst plays for Erie relevance, for the proof that a small Catholic school can compete at Division I FCS level, and for the institutional vision of sustained excellence."
+  cultural_footprint: "Mercyhurst's contribution to FCS football is the institutional courage to transition from Division II—a bet that football can elevate the university's profile and compete in the Northeast Conference."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Mercyhurst finished 2025 at 5–7 (4–3 NEC), the program's second season in Division I FCS. Head coach Ryan Riemedio (14 seasons) left for Youngstown State as defensive coordinator, and Thomas Sydeski was promoted from within in February 2026. The 2025 roster showed flashes (QB Adam Urena had 311 yards and 2 TDs in one game; RB Brian Trobel showed 115-yard potential), but consistency was lacking. The 2026 challenge: Sydeski must prove he can stabilize the Division I culture, improve record to 7+ wins, and validate the transition investment. The program is in a crucial year—the outcome determines whether Mercyhurst becomes a stable Division I participant or struggles with the level change.
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Mercyhurst_Lakers_football
+    - https://www.espn.com/college-football/team/_/id/3099/mercyhurst-lakers
+    - https://www.nec.org/sports/fball
+    - https://www.mercyhurst.edu/athletics/
+

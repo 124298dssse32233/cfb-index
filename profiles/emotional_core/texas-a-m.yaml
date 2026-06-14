@@ -1,0 +1,120 @@
+# Emotional Core — Texas A&M  (texas-a-m)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: texas-a-m
+team_id: 245
+program_name: Texas A&M
+program_tier: 2
+
+emotional_core:
+  primary: redemption     # the cathedral finally paid off — the long underachievement broken in 2025
+  secondary: honor        # the Corps, the 12th Man, tradition as the program's actual currency
+  one_line: "Texas A&M built the loudest, most ritual-heavy program in the sport and spent decades watching the wins not match the cathedral — until 2025, when an 11-0 start and the program's first-ever Playoff berth finally made the football worthy of the tradition."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "The largest stadium in the SEC, the Corps of Cadets, the 12th Man, more tradition than any program in the country — vs a single national title in 1939 and decades of finishing short of the apparatus's promise, until the 2025 breakthrough."
+
+the_wound:
+  name: "The 2025 stumble at the summit"
+  detail: "Texas A&M ripped off its first 11-0 start since 1992 and rose to No. 3 in the Playoff rankings — the highest in program history — then lost the rivalry game to Texas 27-17, missed the SEC Championship despite a 7-1 league record, and fell 10-3 to Miami in the program's first Playoff game. The best season in a generation ended one rung below the mountaintop."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the thing the tradition was built for — a national championship to finally match a cathedral that has stood for one since 1939."
+  drought: { since: 1939, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans heard the program written off as all pageantry and no payoff — the place with the best traditions and the most overrated football in America — for a generation. The 2025 Playoff berth was the answer, and they intend to keep delivering it until the narrative stops."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes the tradition is the program — that the Corps, the 12th Man, and Kyle Field's 100,000 are a competitive advantage as real as any roster, and that a program that builds belief at that scale was always destined to win it all once the football caught up."
+
+the_grudge_texture:
+  rival: texas
+  texture: blood-feud   # the Lone Star Showdown — reignited in the SEC, and the 2025 loss that cost a perfect season
+
+the_coach_relationship: total-trust   # Mike Elko delivered the breakthrough and signed a new six-year deal after 2025
+the_internal_fracture: arrival vs unfinished — the faction that says 2025 proved the program has finally made it vs the faction that says a Playoff exit at 10-3 means nothing has truly changed until a title comes
+register: aspirational-aggie-cathedral — earnest, tradition-forward, proud of the ritual scale, allergic to being called more pageantry than program
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Almost — Aggies don't trade in almost-language
+  - Cult — too dismissive of real institutional heritage
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The 12th Man — the entire student body stands for all four quarters of every home game, a tradition born in 1922 when a student came out of the stands ready to play, and the deepest, most ritualized identity in the sport: the Corps of Cadets, Midnight Yell Practice the night before games, Aggie Ring Day. No program treats tradition as more literally load-bearing."
+  the_origin: "Texas A&M opened in 1876 as a military college, and its football culture grew straight out of the Corps of Cadets — discipline, ritual, and the 12th Man — making the program's identity inseparable from the institution's military heritage."
+  golden_ages:
+    - { era: "1939 (Homer Norton)", what: "The program's lone national championship — an undefeated team led by John Kimbrough" }
+    - { era: "2012 (Kevin Sumlin)", what: "Johnny Manziel's Heisman season in the SEC debut year, including a stunning upset of No. 1 Alabama in Tuscaloosa" }
+  legends:
+    - { name: Johnny Manziel, role: player, why: "Johnny Football — the 2012 Heisman, the first freshman to win it, and the face of A&M's SEC arrival" }
+    - { name: John Kimbrough, role: player, why: "The bruising back of the 1939 national champions" }
+    - { name: R.C. Slocum, role: coach, why: "The winningest coach in program history and the 'Wrecking Crew' defense era" }
+  canonical_moments:
+    - { name: "1939 national title", year: 1939, what: "The program's only championship, still the standard the cathedral was built to match", handling: glory }
+    - { name: "Johnny Manziel beats No. 1 Alabama", year: 2012, what: "A&M's SEC statement game in Tuscaloosa, launching the Manziel legend", handling: glory }
+    - { name: "First Playoff berth, out in the first round", year: 2025, what: "An 11-0 start and program-high No. 3 ranking, then a 10-3 Playoff loss to Miami", handling: wound }
+  the_place: "Kyle Field (cap ~102,700) — the largest stadium in the SEC and one of the largest in the country, 'Home of the 12th Man,' the entire student section standing for four quarters, Midnight Yell the night before."
+  brand_of_football: "Aspirational-Aggie-cathedral — Elko's physical, defense-first identity matched to a fanbase that treats tradition as a competitive weapon; football meant to honor the apparatus around it."
+  cultural_footprint: "One of the most distinctive cultures in American sports — the Corps, the 12th Man, the Aggie Ring, the yells — a program whose traditions are studied as much as its football, and whose move to the SEC in 2012 is a case study in timing."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Mike Elko's second season delivered the best campaign in a generation —
+    Texas A&M started 11-0 (first since 1992), rose to a program-record No. 3 in the Playoff rankings, and earned
+    its first-ever Playoff berth. But the Aggies lost the rivalry finale to Texas 27-17, missed the SEC title game
+    despite a 7-1 league mark, and fell 10-3 to Miami in the Playoff's first round to finish 11-2. Elko signed a new
+    six-year extension; the question is whether 2025 was the floor of a new era or its ceiling.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Texas_A%26M_Aggies_football_team
+    - https://12thman.com/news/2025/11/15/football-texas-am-elko-agree-to-contract-extension
+    - https://abcnews.go.com/Sports/wireStory/texas-announces-new-6-year-contract-coach-mike-127563662
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Texas A&M is the program with the country's largest cathedral and the longest wait for
+    what it was built for.
+  mantra: Gig 'em.
+  cultural_anchors:
+    fan_archetype_dominant: Tradition-Cathedral-Builder
+    outsider_archetype_dominant: Patient-Awaited-Breakthrough
+    one_sentence: Texas A&M is the program whose tradition apparatus dwarfs its football championship total,
+      and whose fans treat that asymmetry as the point.
+  selfname: the Aggies
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1939 national championship (the only one)
+    - Johnny Manziel 2012 Heisman
+    - SEC move (2012) — best-time-to-move-leagues case study
+    rituals:
+    - Midnight Yell
+    - The 12th Man Stands
+    - Aggie Ring Day
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

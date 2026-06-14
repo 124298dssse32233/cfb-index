@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: southern-nazarene
+team_id: null
+program_name: Southern Nazarene
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Southern Nazarene is the Crimson Storm—a small D2 program rooted in the Nazarene faith and the community of Bethany, Oklahoma, where the game matters because the church matters."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small Nazarene university in Bethany, Oklahoma that maintains college football because it represents the values and identity of a faith-based community."
+
+the_wound:
+  name: "Perpetual struggle and limited resources"
+  detail: "Southern Nazarene finished 2-9 in 2025. The program has rarely been competitive, a chronic bottom-tier GAC team that plays knowing the resources are limited."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build a winning program that represents the university's values and the Bethany community—prove that a small Nazarene school can compete with integrity."
+  drought: { since: 1970, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe southern Nazarene has no chip. The Crimson Storm play because the university is rooted in faith, and because the game is part of the community's identity."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase hopes that Dustin Hada, in his fifth year as head coach, might finally turn the corner. They know the odds, but faith and persistence are Nazarene values."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: None; Southern Nazarene is unified around the faith-based mission
+register: bethany-crimson-storm-nazarene-faith
+
+never_use:
+  - "Southern Nazarene should fold football"
+  - "Faith-based schools can't compete"
+  - "The Crimson Storm are irrelevant"
+  - "Bethany can't support D2 football"
+
+story_canon:
+  the_unique_thing: "Southern Nazarene is the Crimson Storm—a D2 program rooted in the Church of the Nazarene, competing in Bethany, Oklahoma, where faith and football intertwine."
+  the_origin: "Southern Nazarene was founded in 1900 and is affiliated with the Church of the Nazarene. The university is located in Bethany, Oklahoma, and the football program reflects the values of faith and community."
+  golden_ages:
+    - { era: "Pre-2000s", what: "Southern Nazarene had competitive seasons in earlier eras" }
+  legends:
+    - { name: Dustin Hada, role: coach, why: "Fifth-year head coach committed to building the Crimson Storm program with Nazarene values" }
+  canonical_moments:
+    - { name: "Faith and Football", year: null, what: "Southern Nazarene maintains football as part of its faith-based mission and community identity", handling: glory }
+  the_place: "SNU Stadium in Bethany, Oklahoma (capacity 2,500)—home of the Crimson Storm, where a Nazarene community gathers to watch."
+  brand_of_football: "Faith-based football. The kind where the game serves the mission of the church and the community, not the other way around."
+  cultural_footprint: "Southern Nazarene is proof that a small faith-based university can maintain a D2 football program as an extension of its religious and community mission."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Southern Nazarene finished 2-9 in 2025 under fifth-year head coach
+    Dustin Hada. The Crimson Storm have struggled to find winning seasons, but the program continues to operate
+    as an expression of the university's Nazarene values and commitment to the Bethany community. The question for
+    2026: can Hada build a winning program that reflects the university's identity and mission?
+  research_checklist:
+    - Southern Nazarene's founding and Nazarene affiliation
+    - the connection between faith and football at the university
+    - Dustin Hada's coaching tenure and philosophy
+    - 2025 season results and roster composition
+    - SNU Stadium and capacity
+    - recent conference standings
+  sources:
+    - https://en.wikipedia.org/wiki/Southern_Nazarene_Crimson_Storm
+    - https://snuathletics.com/sports/football/roster/coaches/dustin-hada/564
+    - https://en.wikipedia.org/wiki/SNU_Stadium
+    - https://greatamericanconference.com/standings.aspx?path=football

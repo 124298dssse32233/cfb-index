@@ -1,0 +1,87 @@
+# Emotional Core — Stetson  (stetson)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: stetson
+team_id: null
+program_name: Stetson
+program_tier: 5
+
+emotional_core:
+  primary: restoration      # the 62-year revival that is still finding its footing
+  secondary: spectacle      # the historic resurrection of Florida's oldest college football
+  one_line: "Stetson is the Florida pioneer — the oldest continuous college football in the state (first games 1894) — that dropped the sport in 1956 and revived it in 2013, now rebuilding to find the program it once was."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A 1927 undefeated team that beat Auburn and Miami, and a 1952 Tangerine Bowl champion vs a program 62 years dormant that is now seven years back into FCS, still learning how to compete at this level."
+
+the_wound:
+  name: "The 56-year dormancy (1956–2013)"
+  detail: "Stetson dropped football in 1956 and didn't return until 2013 — a 57-year gap that meant the program lost its traditions, its rivals, its rooted fan identity. When the program revived, it was building from scratch at FCS, not from a sleeping position."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Climb back to respectability — a 6–6 or 7–5 season would announce that the 2013 revival is taking root, that Stetson can be a baseline FCS program. The 1927 undefeated and the 1952 Tangerine Bowl are too far back to chase; the goal is simply to stabilize."
+  drought: { since: 1952, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe stetson has no chip. The program is still establishing itself. The chip would come much later, after winning seasons accumulate and a rivalry reignites."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the 1927 and 1952 legacy means something, that Stetson is a sleeping giant waking up. But they also know that a program 10 years removed from revival can't claim that narrative yet. The hope is patient."
+
+the_grudge_texture:
+  rival: none
+  texture: blood-feud   # no traditional rival yet; program too young to have rooted rivalries in FCS
+
+the_coach_relationship: total-trust   # Michael Jasper in year one; program gives new coaches clean slates
+the_internal_fracture: tradition-vs-present — the faction embracing the 1927–1952 legacy vs the faction focused on stabilizing the 2013-onward era
+register: stetson-hatters-florida-pioneer-1894-1927-undefeated-1952-tangerine-bowl
+never_use:   # LAW — do not violate in any authored line
+  - "Has continuous football tradition — 1956–2013 gap; revival program"
+  - "Is rebuilding to recent success — last bowl 1952 (Tangerine Bowl, 73 years ago)"
+  - "Is a perennial FCS contender — program in year seven of revival"
+  - "Will replicate 1927–1952 era — too many decades removed; those ghosts are historical, not operational"
+  - "Michael Jasper guaranteed success — year one went 3–9; long rebuild ahead"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Stetson played the first college football games in Florida (1894) and revived football in 2013 after a 56-year gap — a program whose historical arc spans from pioneering the sport in the state to dormancy to resurrection."
+  the_origin: "A private university in DeLand, Florida founded in 1883 that started football in 1894, making it the oldest continuous college football in Florida. The program competed through 1956, then dropped football. It revived in 2013 at the FCS level, starting a second era."
+  golden_ages:
+    - { era: "1927 (undefeated season)", what: "Stetson goes undefeated in 1927 with notable wins over Auburn and Miami" }
+    - { era: "1952 (Tangerine Bowl)", what: "The program's last bowl appearance — a Tangerine Bowl victory" }
+    - { era: "2013–present (revival era)", what: "The resurrection that is still finding its footing" }
+  legends:
+    - { name: Pre-1956 coaches and players, role: legacy, why: "The architects of the 1927–1952 era (specific names TBD via program records)" }
+  canonical_moments:
+    - { name: "1894 first Florida college football games", year: 1894, what: "Stetson plays the first college football games in Florida, pioneering the sport in the state", handling: glory }
+    - { name: "1927 undefeated season", year: 1927, what: "Stetson goes undefeated with wins over Auburn (then a major power) and Miami", handling: glory }
+    - { name: "1952 Tangerine Bowl", year: 1952, what: "Stetson's last bowl appearance before the 1956 discontinuation", handling: glory }
+    - { name: "2013 revival", year: 2013, what: "Stetson revives football after 56 years, starting a second era", handling: glory }
+  the_place: "Spec Martin Stadium in DeLand, Florida — the on-campus home where the Hatters pioneered Florida football and are now rebuilding the tradition."
+  brand_of_football: "Pioneer Florida prestige married to FCS modern ambition — the program that showed the state how to play football in 1894 and is now proving a revival program can compete in FCS."
+  cultural_footprint: "Stetson is proof that a program can sleep for 56 years and wake up ready to compete. The 1927–1952 legacy is dormant but real, and the 2013 revival proves the school still has the resources and will to sustain FCS football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Stetson went 3–9 (2–6 PFL) in 2025 under Michael Jasper in his inaugural year — a tough season
+    that reflects the program's still-developing FCS position. Jasper arrived as a new coach after a four-year rebuild cycle under previous
+    leadership. The 3–9 finish is a down year, but it also marks a stability inflection point: Jasper is now in place, the roster is taking
+    shape, and 2026 should show whether the program can climb back toward the 5–6 range that would suggest the revival is rooting. The
+    question in DeLand: can Jasper stabilize the program and build it toward consistent FCS competence, or is the revival still too young
+    to produce winning seasons?
+  research_checklist:
+    - the program's 3–7 most iconic games/plays (1927 Auburn/Miami wins, 1952 Tangerine Bowl, 2013 revival game)
+    - the legendary coaches + players (pre-1956 coaches, 2013 revival-era coaches)
+    - the unique tradition / identity / the one amazing thing (1894 first Florida college football, 1927 undefeated, 56-year gap, 2013 revival)
+    - the origin + the golden-age dynasty eras (1894 founding, 1927 undefeated, 1952 Tangerine Bowl, 2013 revival)
+    - the current-era storyline (Jasper's first year and the program's climb back to respectability)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Stetson_Hatters_football_team
+    - https://en.wikipedia.org/wiki/Stetson_Hatters_football
+    - https://www.stetsonathletics.com/sports/football

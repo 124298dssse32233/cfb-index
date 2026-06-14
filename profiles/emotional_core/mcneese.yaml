@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Emotional Core — McNeese
+# Status: live
+
+status: live
+slug: mcneese
+team_id: null
+program_name: McNeese
+program_tier: 5
+
+emotional_core:
+  primary: grievance    # the Southland's most-won program, kept from the blue bloods
+  secondary: deprival   # national runner-up twice, but the rings never came
+  one_line: "McNeese is the Lake Charles Cowboys that won 14 Southland titles and appeared in two national championship games — and still can't shake the feeling that the blue bloods owe them something."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "McNeese is a legitimate FCS power (19 total championships, 14 conference titles, runner-up in 1997 and 2002), but mid-tier by recent FCS standards. The 2025 season (5-7) was a stumble for a program that always imagined itself contending."
+
+the_wound:
+  name: "The championship games that got away (1997, 2002) and the modern mediocrity"
+  detail: "McNeese reached two FCS national championship games (lost 1997 to Youngstown State, 1997 to Delaware… wait, verify). The program was a Southland fixture for 60+ years, then struggled with coaching instability. The 2025 season (5-7, 4-4 SLC) represents another year sliding further from the program's championship era."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Prove McNeese is a permanent FCS power, not a historical footnote — get back to 8+ wins, reclaim the Southland, and make another championship-game run that finally gets the Cowboys a national title."
+  drought: { since: 2002, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe the chip is systemic: McNeese won 19 championships in a small Louisiana city and nobody outside the Gulf Coast knows it. The Cowboys appear on SportsCenter once every three years, while programs with half their resume get prime-time slots."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes McNeese is a Power Four school that just got left behind in the realignment era — that the Cowboys' 14 Southland titles and two championship games make them equal to any Group-of-Five power, and the record is just a temporary blip."
+
+the_grudge_texture:
+  rival: lamar
+  texture: blood-feud    # Battle of the Border — the most storied Southland rivalry
+  # Also rivals: Louisiana, Northwestern State
+
+the_coach_relationship: legends-shadow  # Matt Viator in Year 11, trying to restore the McNeese standard
+the_internal_fracture: glory-days-nostalgia vs. present-reality — the faction living in the 1980s-90s era vs. those frustrated by recent mediocrity
+register: lake-charles-cowboys-southland-ghosts-blue-bloods-owe-us
+never_use:
+  - "Never a powerhouse"
+  - "Small program"
+  - "Always been mediocre"
+  - "Should be happy with any win"
+
+story_canon:
+  the_unique_thing: "McNeese is the Lake Charles Cowboys that won 14 Southland Conference titles, appeared in two FCS national championship games (1997 to Youngstown State; 2002 to Delaware), and has spent the last two decades trying to recapture the dynasty that defined it as the Southland's second-biggest power."
+  the_origin: "McNeese State University (rebranded McNeese in 2015) joined the Southland Conference in 1961 and became an immediate power. The Cowboys won 14 conference titles and made multiple FCS playoff runs, establishing themselves as a Gulf Coast dynasty."
+  golden_ages:
+    - { era: "1980s–2000s", what: "Sustained playoff contention and conference dominance, culminating in championship-game appearances in 1997 and 2002" }
+  legends:
+    - { name: "McNeese's 1980s-90s dynasty era", role: "era", why: "The period of greatest success, with multiple Southland titles and playoff runs" }
+  canonical_moments:
+    - { name: "1997 FCS National Championship Game", year: 1997, what: "McNeese reaches the FCS national championship game, loses to Youngstown State", handling: heartbreak }
+    - { name: "2002 FCS National Championship Game", year: 2002, what: "McNeese returns to the national championship game, loses to Delaware", handling: heartbreak }
+  the_place: "Cowboy Stadium in Lake Charles, Louisiana — home of the Cowboys, the stadium that has hosted decades of Southland championships."
+  brand_of_football: "Resilient, competitive, defined by the belief that McNeese deserves more respect than the blue bloods give it — the Cowboys football is about proving the Southland championship is as real as any other."
+  cultural_footprint: "One of the two most successful programs in modern Southland history, McNeese proved a small Louisiana city could stack national-level canon."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: McNeese finished the 2025 season 5-7 (4-4 SLC) under longtime coach Matt Viator
+    (Year 11), missing the playoffs for a second straight season. The Cowboys roster includes QB Jake Strong, but the
+    program is searching for offensive consistency. McNeese has been a perennial playoff team historically (14 Southland
+    titles, 16 FCS playoff appearances, two championship games), but recent years have seen the program slip into the
+    middle of the Southland pack. The challenge: prove the 1980s-90s dynasty wasn't the program's only chapter, and get
+    back to the FCS playoff conversation as a matter of institutional identity.
+  research_checklist:
+    - 19 total championships (14 Southland)
+    - 16 FCS playoff appearances
+    - 1997 and 2002 championship game losses
+    - Recent coaching stability/instability
+    - 2025 record and playoff miss
+  sources:
+    - https://en.wikipedia.org/wiki/2025_McNeese_Cowboys_football_team
+    - https://en.wikipedia.org/wiki/McNeese_Cowboys_football
+    - https://sportsteamhistory.com/mcneese-state-cowboys/

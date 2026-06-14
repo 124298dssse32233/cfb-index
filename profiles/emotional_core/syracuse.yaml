@@ -1,0 +1,123 @@
+# Emotional Core — Syracuse  (syracuse)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: syracuse
+team_id: 207
+program_name: Syracuse
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the historic Northeast flagship reaching for relevance again under a young, magnetic coach
+  secondary: deprival     # the 1959 title and Ernie Davis canon vs decades of being the ACC's afterthought
+  core_variant: perpetual-rebuild
+  one_line: "Syracuse owns the first Black Heisman, a 1959 national title, and the number 44 — and is betting that Fran Brown, the Camden kid who came home to coach, is the one who finally makes the Orange matter again, even after a torn Achilles cost them their breakout season."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "An 11-0 national champion and Ernie Davis's Heisman vs a program that has spent a generation as the ACC's polite afterthought, with a 10-win 2024 the only recent proof of life."
+
+the_wound:
+  name: "The Achilles that stole the breakout"
+  detail: "After Fran Brown's electric 10-3 debut in 2024, QB Steve Angeli was leading the nation in passing through four games in 2025 — and tore his Achilles in the second half of an upset of Clemson; Syracuse, just 3-1 to that point, lost its last eight to finish 3-9, last in the ACC."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Turn the Fran Brown energy into something that lasts — an ACC title, a return to the Orange's place among the names that matter, not just a good year that injuries take away."
+  drought: { since: 2004, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans are tired of being the program everyone files under 'historic Northeast football' and forgets — the place pundits treat as a recruiting pit stop, a job Fran Brown is supposed to use as a launchpad rather than a destination. They want him to prove the doubters and the bigger jobs wrong."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Fran Brown is different — that the home-state recruiter who signed the highest-ranked class in school history is building something real, and that a healthy Angeli plus Brown's energy means the 44 legacy finally gets a modern chapter worthy of it."
+
+the_grudge_texture:
+  rival: boston-college
+  texture: killed-by-realignment   # the old Big East feud, scattered when both fled to the ACC and the conference died around them
+
+the_coach_relationship: savior   # Fran Brown is the emotional engine of the entire program right now
+the_internal_fracture: believe-the-energy vs wait-for-the-wins — the faction sold on Fran Brown's recruiting and charisma vs the faction that needs a second winning season before buying the revival
+register: carrier-dome-orange-believer   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Old-fashioned program — 2024 10-3 + Fran Brown era ended that frame
+  - Always last in ACC — competitive 10-win seasons disprove the floor
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The number 44 — the jersey Jim Brown, Ernie Davis, and Floyd Little all wore, retired into the rafters as a single shared legend. Syracuse is the program that produced the first Black Heisman winner (Davis, 1961) and treats one number as the soul of the whole institution."
+  the_origin: "An upstate New York football power that won the 1959 national title 11-0 under Ben Schwartzwalder, became a running-back factory, and spent decades playing indoors in the Carrier Dome — the loudest, strangest home-field in the sport."
+  golden_ages:
+    - { era: "1959-1961 (Schwartzwalder)", what: "An 11-0 national title and Ernie Davis's Heisman — the first won by a Black player" }
+    - { era: "1987-2001 (Pasqualoni / late MacPherson)", what: "Donovan McNabb, Marvin Harrison, sustained top-25 relevance and Big East titles" }
+  legends:
+    - { name: Ernie Davis, role: player, why: "The first Black Heisman winner (1961); his number 44 is the program's sacred text" }
+    - { name: Jim Brown, role: player, why: "Arguably the greatest football player ever, who also wore 44 at Syracuse" }
+    - { name: Donovan McNabb, role: player, why: "The QB who carried the 1990s Orange and became a face of the program nationally" }
+  canonical_moments:
+    - { name: "The 1959 national championship", year: 1959, what: "An 11-0 season and Syracuse's only consensus national title", handling: glory }
+    - { name: "Ernie Davis wins the Heisman", year: 1961, what: "The first Heisman awarded to a Black player", handling: glory }
+    - { name: "Angeli's torn Achilles", year: 2025, what: "The QB leading the nation in passing goes down upsetting Clemson; an 8-game losing streak follows", handling: heartbreak }
+  the_place: "The JMA Wireless Dome (the old Carrier Dome) — the only domed stadium in the Power conferences, where the noise has no roof to escape through and the 44 banners hang above it all."
+  brand_of_football: "Northeast grit indoors — a running-back tradition reborn under Fran Brown as a fast, physical, defense-and-attitude program built on relentless recruiting."
+  cultural_footprint: "The historic flagship of Northeast college football and a landmark in the sport's racial history — the 44 legacy and Ernie Davis's story carry meaning far beyond the box score."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Fran Brown's electric 10-3 debut in 2024 gave way to a brutal 2025:
+    QB Steve Angeli led the nation in passing through four games before tearing his Achilles in an upset of
+    Clemson, and a 3-1 start collapsed into an eight-game losing streak and a 3-9 finish, last in the ACC.
+    Yet Brown then signed the highest-ranked recruiting class in school history, and a healthy Angeli returns
+    for 2026. The bet in the Dome: that 2025 was an injury, not a ceiling.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Syracuse_Orange_football_team
+    - https://cuse.com/news/2025/12/5/football-brown-inks-highest-ranked-recruiting-class-in-syracuse-history
+    - https://dailyorange.com/2025/11/syracuse-football-fran-brown-playing-career/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Syracuse is the ACC program whose Carrier Dome dome-roof era + Donovan McNabb / Marvin
+    Harrison Sr. canon + 2018 10-3 + 2024 10-3 under Fran Brown define what historic-northeast-football
+    looks like.
+  mantra: Otto, Otto.
+  cultural_anchors:
+    fan_archetype_dominant: Upstate-NY-Orange-Loyalist
+    outsider_archetype_dominant: Northeast-Football-Diminisher
+    one_sentence: 'Syracuse is the historic Northeast football flagship — 1959 national title, Ernie Davis
+      Heisman, jersey #44 legacy, Carrier Dome, and the 2024 Fran Brown era reset that brought the Orange
+      back into ACC relevance.'
+  selfname: the Orange
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1959 11-0 national title under Ben Schwartzwalder
+    - Ernie Davis Heisman 1961 + jersey
+    - 2024 10-3 under Fran Brown + Carrier Dome modernization
+    rituals:
+    - Carrier Dome / JMA Wireless Dome
+    - Ernie Davis Heisman 1961
+    - 44 Tradition (Brown, Davis, Little)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

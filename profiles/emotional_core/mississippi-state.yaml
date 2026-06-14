@@ -1,0 +1,119 @@
+# Emotional Core — Mississippi State  (mississippi-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: mississippi-state
+team_id: 253
+program_name: Mississippi State
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # the loyalty is total, the football is hard, and the disrespect is the fuel
+  secondary: contentment  # the cowbell shows up at 5-8; the love isn't conditional on the record
+  core_variant: the-chronic-chip
+  one_line: "Mississippi State is the program that rang cowbells loud enough to get them legislated against in the SEC — a fanbase whose devotion has never once depended on the scoreboard."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "One magical autumn at the very top of the sport — five weeks from unranked to AP No. 1 in 2014 — against a program history where ten-win seasons are rare and the league's biggest names rarely lose sleep over Starkville."
+
+the_wound:
+  name: "The Lebby holding pattern"
+  detail: "Jeff Lebby went 2-10 in 2024, then 5-8 in 2025 — his first SEC win didn't come until November 1 against Arkansas, and the year ended with a Duke's Mayo Bowl loss to Wake Forest. A loyal base is being asked, again, to wait for the floor to lift."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Climb back into the SEC's upper half and stay there — another autumn like 2014, when Starkville was the center of the sport for a few unforgettable Saturdays."
+  drought: { since: 2014, unit: relevance }
+
+the_chip:
+  villain: big_brother
+  text: "Fans are tired of being treated as the lesser team in their own state — a different school with a different identity, an engineering university with the loudest crowd in the league, told every November that the Egg Bowl is the rivalry that defines them."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the noise is a real edge — that the cowbells genuinely rattle a visiting offense, that Davis Wade on a night game is a place where bigger names come to lose, and that one more right hire turns Starkville back into a No. 1 town."
+
+the_grudge_texture:
+  rival: ole-miss
+  texture: blood-feud   # the Egg Bowl — an in-state war that runs hotter than the records
+
+the_coach_relationship: hot-seat-churn   # Mullen left, then Leach (who died in office), Arnett, now Lebby — a decade of restarts
+the_internal_fracture: patience vs exhaustion — the faction that says a base this loyal owes a young coach a real runway vs the faction that has waited through too many rebuilds to wait through another
+register: cowbell-pragmatic-honest   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Country bumpkin school — Mississippi State is a research university with engineering
+  - Smaller Ole Miss — different identity, different fanbase
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The cowbell — the only fanbase whose noisemaker got formally regulated by the SEC. Mississippi State rings them so relentlessly the league wrote a rule about it, and Davis Wade on a night game is one of the loudest places in college football."
+  the_origin: "A land-grant agricultural and engineering university in Starkville, founded 1878 — the working-state school of Mississippi, defined more by the volume and loyalty of its crowd than by trophies."
+  golden_ages:
+    - { era: "2014 (Dan Mullen / Dak Prescott)", what: "Unranked to AP No. 1 in five weeks — the fastest rise to No. 1 in poll history — capped by an Orange Bowl berth" }
+    - { era: "1998–2000 (Jackie Sherrill)", what: "An SEC West title in 1998 and a sustained run of the program's best modern football" }
+  legends:
+    - { name: Dak Prescott, role: player, why: "The quarterback who carried State to No. 1 in 2014; the face of the program's best season ever" }
+    - { name: Mike Leach, role: coach, why: "Brought the Air Raid and national attention to Starkville before his death in office in December 2022" }
+    - { name: Jackie Sherrill, role: coach, why: "The 1998 SEC West title and the program's most sustained success" }
+  canonical_moments:
+    - { name: "No. 1 in the country", year: 2014, what: "State beats Auburn and rises to AP No. 1 for the first time in school history", handling: glory }
+    - { name: "Leach dies in office", year: 2022, what: "Mike Leach passes away in December, midway through building something in Starkville", handling: heartbreak }
+  the_place: "Davis Wade Stadium — among the oldest in college football — where thousands of cowbells turn a night game into a wall of sound the SEC had to legislate."
+  brand_of_football: "Defense, a ground game, and noise — a hard-nosed working-school identity, with the Leach Air Raid as the great stylistic experiment in between."
+  cultural_footprint: "The cowbell is the most distinctive fan artifact in the sport — passed down in families, banned and re-permitted, the truest symbol that this fanbase's love was never contingent on winning."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Jeff Lebby went 2-10 in 2024 and 5-8 in 2025, not landing his
+    first SEC win until November 1 against Arkansas before a Duke's Mayo Bowl loss to Wake Forest. Entering
+    year three, the most patient fanbase in the league is again being asked to wait for the floor to rise —
+    and asking how long loyalty alone can carry a program through the SEC's hardest decade.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Mississippi_State_Bulldogs_football_team
+    - https://www.ncaa.com/news/football/poll-position/2014-10-12/mississippi-state-completes-fastest-ascent-no-1-ap-top-25
+    - https://www.si.com/college/mississippistate/football/does-mississippi-state-have-a-win-number-for-lebby
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Mississippi State is the program with the loudest cowbells in the SEC and the longest
+    patience with the football product underneath.
+  mantra: Hail State.
+  cultural_anchors:
+    fan_archetype_dominant: Cowbell-Loyalist-Underdog
+    outsider_archetype_dominant: Cowbell-Annoyed-Visitor
+    one_sentence: Mississippi State is the program whose cowbells became more famous than its football and
+      whose fanbase ranks among the SEC's most patient by necessity.
+  selfname: the Bulldogs
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2014
+    - Dak Prescott (2014-2015) as program elevator
+    - The cowbell SEC regulatory history
+    rituals:
+    - Cowbells
+    - Egg Bowl (vs Ole Miss)
+    - Hail State Salute
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (58/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

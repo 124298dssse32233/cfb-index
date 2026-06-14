@@ -1,0 +1,87 @@
+# Emotional Core — West Chester University  (west-chester)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Status: live | Tier: 6 (Division II PSAC) | Authored 2026-06-13
+
+status: live             # todo | drafted | authored | reviewed | live
+slug: west-chester
+team_id: 235            # placeholder; verify against CFBD ID mapping
+program_name: West Chester University
+program_tier: 6         # Division II PSAC
+
+emotional_core:
+  primary: restoration          # Duke Greco in year three, rebuilding West Chester to historical standards
+  secondary: contentment         # patient rebuild from a 8-13 record; steady progress toward contention
+  one_line: "West Chester is the PSAC power rebuilding under Duke Greco — a historic program in year three of a restoration toward championship contention."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A program with historical PSAC power status vs a 8-13 record through two seasons under Duke Greco, who brought 99 wins and six MAC titles from Delaware Valley."
+
+the_wound:
+  name: "Pre-Greco decline"
+  detail: "West Chester experienced down years before Greco's hire in 2024. The program needed external investment and a proven builder from outside."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Restore West Chester to PSAC championship contention — Duke Greco's record at Delaware Valley (99 wins, six MAC titles) proves he can rebuild a program to sustained excellence."
+  drought: null  # rebuilding period; no specific championship drought yet
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe west Chester was a PSAC program that mattered. Greco's hire signals the administration wants that status back. Year three is about proving the rebuild is real."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Duke Greco's track record at Delaware Valley (99 wins, six MAC titles) means he'll rebuild West Chester into a PSAC East power within three to five years."
+
+the_grudge_texture:
+  rival: kutztown
+  texture: championship     # West Chester aims to compete with Kutztown; Greco wants to prove he can build against elite PSAC programs
+
+the_coach_relationship: savior         # Duke Greco is the architect tasked with restoration
+the_internal_fracture: null            # unified around Greco's proven coaching track record
+register: west-chester-golden-ram-believer
+never_use:
+  - "Small-time program — West Chester has historical PSAC power status"
+  - "Greco's failing — 99-28 record at Delaware Valley proves he rebuilds programs"
+
+# ── STORY CANON (doc 64) ────────────────────────────────────────────────────
+story_canon:
+  the_unique_thing: "West Chester is a historic PSAC program in restoration under Duke Greco, who brings 99 wins and six MAC championships from Delaware Valley to rebuild the Golden Rams to contention."
+  the_origin: "West Chester University (1812–), a public regional university in West Chester, PA (near Philadelphia, in Chester County), fielding Golden Rams football with deep PSAC and Pennsylvania tradition."
+  golden_ages:
+    - { era: "Historic PSAC Era", what: "West Chester was historically competitive in the PSAC, though specific championship eras are pre-Greco tenure and require research." }
+    - { era: "Greco Era (2024–)", what: "Duke Greco, who compiled 99 wins and six MAC titles at Delaware Valley, hired to rebuild West Chester into a PSAC East contender." }
+  legends:
+    - { name: Duke Greco, role: coach, why: "Brought to West Chester to restore the program to competitive status; 99-28 overall record and six MAC championships at Delaware Valley University." }
+  canonical_moments:
+    - { name: "Duke Greco's Delaware Valley Record (99-28, Six MAC Titles)", year: 2023, what: "At Delaware Valley, Greco built a program that won consistently and claimed conference championships — the blueprint he brings to West Chester.", handling: glory }
+  the_place: "West Chester's football stadium — home to the Golden Rams in Chester County, Pennsylvania."
+  brand_of_football: "Disciplined, organized football — Greco's system is built on fundamentals, winning culture, and conference-level execution."
+  cultural_footprint: "A program that trusts in proven rebuilding — West Chester's hire of Greco signals patience and commitment to restoring championship status."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Duke Greco enters his third season as West Chester head coach with an 8-13 record
+    through two seasons. The 2026 schedule features challenging opponents including defending PSAC champion Kutztown and
+    strong IUP program. Greco aims to show marked improvement in year three and establish West Chester as a climbing PSAC
+    East contender. With his proven track record at Delaware Valley (99 wins, six MAC titles), Greco's task is to translate
+    that success into a PSAC rebuild.
+  research_checklist:
+    - Duke Greco's 99-28 record at Delaware Valley University
+    - Six MAC championship runs at Delaware Valley
+    - West Chester's recent program history before Greco's 2024 hire
+    - 2026 schedule and competitive positioning in PSAC East
+  sources:
+    - https://wcupagoldenrams.com/news/2026/5/25/west-chester-releases-2026-football-schedule.aspx
+    - https://en.wikipedia.org/wiki/Duke_Greco
+    - https://wcupagoldenrams.com/sports/football/roster/coaches/duke-greco/2152
+
+# ── BRIEFING (read-only context; NOT part of published core) ──
+briefing:
+  identity_phrase: "West Chester is the historic PSAC program in restoration under Duke Greco, a proven builder (99 wins, six MAC titles at Delaware Valley)."
+  mantra: "Go, Golden Rams!"
+  cultural_anchors:
+    fan_archetype_dominant: "West-Chester-Historic-Program-Believer"
+    outsider_archetype_dominant: "PSAC-Rebuild-Observer"
+    one_sentence: "West Chester is the historic PSAC program restoring championship contention under Duke Greco, who brings 99 wins and six MAC titles from Delaware Valley."
+  selfname: "the Golden Rams"

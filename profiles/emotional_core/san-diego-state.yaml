@@ -1,0 +1,123 @@
+# Emotional Core — San Diego State  (san-diego-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: san-diego-state
+team_id: 307
+program_name: San Diego State
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # a 3-9 team rebuilt into a 9-4 bowl team, timed perfectly to walk into a power conference
+  secondary: house-money  # the California G5 program that spent years on the doorstep finally gets its power-conference seat
+  core_variant: perpetual-rebuild
+  one_line: "San Diego State is the program that gave football Air Coryell and Marshall Faulk, built a stadium of its own at Snapdragon, and — after a 3-9 bottom and a 9-4 rebuild — finally walks through the door into the Pac-12 in 2026."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Don Coryell's small-college national titles and Marshall Faulk's records, against a long stretch as a very good Mountain West program that kept getting passed over — until the Pac-12 invite came."
+
+the_wound:
+  name: "The doorstep years — the realignment bridesmaid"
+  detail: "For a decade SDSU built like a power program — a 12-win 2016, a College Football Playoff-adjacent reputation, a brand-new Snapdragon Stadium in 2022 — and watched bigger leagues form, dissolve, and reform without it. The 2024 season bottomed at 3-9 under new coach Sean Lewis before the rebuild and the Pac-12 invitation arrived together."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the new Pac-12 and prove the seat was earned — that the program of Coryell and Faulk was always a power program waiting for a power conference to admit it."
+  drought: { since: 2016, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Aztec fans are tired of being the program everyone respects and nobody ranks — the California school with two Hall-of-Fame names in its past that kept getting filed under 'G5.' They'll tell you the Pac-12 invite just made official what they always knew."
+
+the_delusion:
+  tone: earnest
+  text: "San Diego fans believe the Pac-12 jump changes everything overnight — that a beautiful new stadium, a Southern California recruiting base, and a 9-4 rebuild make the Aztecs an instant contender in the reborn league. They're sure the ceiling was always conference-level, just waiting on the invitation."
+
+the_grudge_texture:
+  rival: fresno-state
+  texture: border-war   # the Oil Can / California MW rivalry — and now Pac-12 housemates again
+
+the_coach_relationship: savior   # Sean Lewis took a 3-9 team to 9-4 and a bowl in year two, into the Pac-12 era
+the_internal_fracture: arrival vs proof — the faction that treats the Pac-12 seat as the destination reached vs the faction that says nothing's proven until the Aztecs actually win in it
+register: san-diego-aztecs-snapdragon-3-3-5   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always G5 — 1969 #18 AP + 2016 Mountain West championship reset'
+  - No identity — Coryell + Long + Snapdragon combine into permanent canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "San Diego State is where the modern passing game was born. Don Coryell built 'Air Coryell' here in the 1960s before taking it to the NFL — the lineage that runs through every spread offense since — and a decade-plus later Marshall Faulk rewrote the record book in an Aztec uniform. Two of football's most important names share one campus."
+  the_origin: "A commuter-era state school in San Diego that Don Coryell turned into a small-college power in the 1960s, then a program that produced NFL stars and lived for decades as the best team in Southern California that the blue bloods kept overlooking."
+  golden_ages:
+    - { era: "1961–1972 (Don Coryell)", what: "A 104-19-2 run, undefeated teams, small-college national championships, and the birth of Air Coryell" }
+    - { era: "2015–2016 (Rocky Long)", what: "Back-to-back double-digit-win seasons and the 2016 Mountain West championship — the modern peak" }
+  legends:
+    - { name: "Don Coryell", role: coach, why: "Invented the modern vertical passing game at SDSU before revolutionizing the NFL — the Aztecs' founding genius" }
+    - { name: "Marshall Faulk", role: player, why: "Pro Football Hall of Famer; as a freshman led the nation in rushing and scoring at SDSU" }
+    - { name: "Rocky Long", role: coach, why: "The 3-3-5 defensive architect who delivered the 2016 Mountain West title" }
+  canonical_moments:
+    - { name: "Faulk's record day", year: 1991, what: "As a freshman, Marshall Faulk runs for 386 yards and seven touchdowns vs Pacific — one of the great individual games in college history", handling: glory }
+    - { name: "2016 Mountain West championship", year: 2016, what: "SDSU caps a 11-win season with the conference title — the program's modern high point", handling: glory }
+    - { name: "Snapdragon Stadium opens", year: 2022, what: "The Aztecs open their own purpose-built home in Mission Valley after years sharing an NFL stadium — a program planting its flag", handling: glory }
+  the_place: "Snapdragon Stadium (cap ~35,000), opened in 2022 in Mission Valley — SDSU's first dedicated home, the physical proof of a program building for the big time after decades as a tenant in the Chargers' old stadium."
+  brand_of_football: "A Coryell passing pedigree married to Rocky Long's gambling 3-3-5 defense — historically a stout, physical Mountain West identity, now modernizing under Sean Lewis's up-tempo offense."
+  cultural_footprint: "Southern California's flagship state-school football program — the team San Diego claims as its own in an NFL-less city, and a coaching tree (Coryell) that shaped the entire pro and college passing game."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Sean Lewis followed a 3-9 debut (2024) with a 9-4 bounce-back in 2025,
+    losing a wild 49-47 New Mexico Bowl to North Texas in the Aztecs' final Mountain West game. In 2026 SDSU joins
+    the rebuilt Pac-12 alongside Boise State, Fresno State and Colorado State — the power-conference invitation the
+    program chased for years. Year three for Lewis opens with the Aztecs picked to contend in the new league.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_San_Diego_State_Aztecs_football_team
+    - https://www.espn.com/college-football/game/_/gameId/401778321/north-texas-san-diego-st
+    - https://www.foxsports.com/stories/college-football/pac12-is-adding-boise-state-fresno-state-colorado-state-and-san-diego-state-from-the-mountain-west-starting-in-2026
+    - https://www.ncaa.com/news/football/flashback-friday/2014-08-21/san-diego-states-marshall-faulk-sets-four-records-one
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: San Diego State is the Mountain West program whose 2010s-2020s Brady Hoke + Rocky Long
+    + Brady Hoke (return) era + 3-3-5 defensive scheme + Snapdragon Stadium 2022 reset define what California-G5-football
+    looks like.
+  mantra: Go Aztecs.
+  cultural_anchors:
+    fan_archetype_dominant: San-Diego-Aztec-Believer
+    outsider_archetype_dominant: G5-Forever-Diminisher
+    one_sentence: San Diego State is the California G5 powerhouse — Don Coryell pass-offense pioneer era
+      + Rocky Long 3-3-5 defensive legacy + 2022 Snapdragon Stadium reset that anchor the modern Mountain
+      West era.
+  selfname: the Aztecs
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2016 11-3 + Mountain West championship under Rocky Long
+    - Don Coryell 1961-1972 'Air Coryell' pass-offense era
+    - 2022 Snapdragon Stadium opening (first dedicated SDSU venue)
+    rituals:
+    - Snapdragon Stadium 2022 Opening
+    - Rocky Long 3-3-5 Defensive Legacy
+    - Don Coryell Era (1961-1972)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (56/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: frostburg-state
+team_id: null
+program_name: Frostburg State University
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: spectacle
+  one_line: "Frostburg is the mid-sized Maryland school that went from Division III anonymity to NCAA D2 powerhouse in six years — and won the Mountain East championship in its seventh year as a D2 contender."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program that was historically Division III (NJAC) and irrelevant nationally, now suddenly fielding top-25 teams and playoff contenders in a higher division."
+
+the_wound:
+  name: "Two decades of D3 invisibility"
+  detail: "Frostburg spent 90+ years in Division III, founding football in 1898 but never achieving national relevance. The NJAC semifinal appearance in 1993 (2-10) was an outlier, not a trajectory. The program existed for a century in near-total obscurity, a regional curio on the Maryland-Pennsylvania border."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Build a sustainable D2 program that competes for national titles, not just conference crowns — prove the Frostburg transition is a rise, not a fluke."
+  drought: { since: 2018, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe the chip is coded into the transition: a century of D3 obscurity, a jump to D2 in 2019, and immediate respect from nobody. Frostburg's 2025 championship and playoff appearance demanded acknowledgment the program was never going to get sitting in the NJAC."
+
+the_delusion:
+  tone: load-bearing
+  text: "That Frostburg belongs in the national D2 conversation now — fans know the program just showed up, but they believe the football talent is real and the climb to FCS isn't unthinkable."
+
+the_grudge_texture:
+  rival: salisbury-university
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: ambition-vs-stability — some want to keep climbing toward FCS; others want to consolidate the D2 foothold and avoid overreach
+register: frostburg-d3-to-d2-rise-eric-wagoner-jordan-brooks
+never_use:
+  - Long-established powerhouse (Frostburg is six years into D2; the rise is real but very recent)
+  - Historic football tradition (football dates to 1898, but it was a D3 afterthought until 2019)
+  - Perennial conference contenders (one MEC title and one playoff appearance; the pattern is not established yet)
+
+story_canon:
+  the_unique_thing: "Frostburg's story is the rise itself — a Division III school that went 10-1 undefeated (8-0 NJAC) in its final year as a D3 team (2018), then transitioned to D2 in 2019 and, after steady building, won the MEC championship and a top-25 ranking in 2025. The proof is on the field: Jordan Brooks throwing for 2,256 yards and 17 touchdowns in 2025."
+  the_origin: "A small liberal-arts campus in Frostburg, Maryland (Allegheny Mountains), founded 1898 as a teacher's college. Football existed as a regional NJAC sport for decades — solid but unnoticed — until the school decided to move up to Division II and committed to building a real program."
+  golden_ages:
+    - { era: "2018", what: "The final NJAC season: 10-1 undefeated, 8-0 conference record, a send-off that signaled the rise to come" }
+    - { era: "2025", what: "7-1 MEC regular season, MEC Championship, NCAA D2 playoff qualifier, top-25 national ranking, beat #2 Johnson C. Smith in the playoffs" }
+  legends:
+    - { name: Eric Wagoner, role: coach, why: "In four years (2022-2025), Wagoner went from 32-13 overall to MEC Coach of the Year 2025 — the architect of Frostburg's emergence" }
+    - { name: Jordan Brooks, role: player, why: "RS-SO QB who threw for 2,256 yards and 17 TDs in 2025, 6th all-time in single-season passing yards for the program" }
+  canonical_moments:
+    - { name: "2018 Final NJAC Season", year: 2018, what: "Frostburg went 10-1 undefeated (8-0 NJAC) in its final year as a Division III team, setting the tone for the D2 transition", handling: glory }
+    - { name: "2025 MEC Championship and Playoff Run", year: 2025, what: "Co-champion with Charleston, Frostburg won the MEC title and advanced to the NCAA D2 playoffs, beating #2 Johnson C. Smith, a signature victory proving the program belongs", handling: glory }
+  the_place: "Frostburg, Maryland, a small Appalachian town in the Allegheny Mountains, 10 miles south of the Pennsylvania border."
+  brand_of_football: "High-octane, upstart football — a program that showed up in D2 hungry and is proving it belongs through explosive offensive production (2,256 passing yards from a RS-SO) and playoff wins over ranked teams."
+  cultural_footprint: "Frostburg's rise from D3 obscurity to D2 contender in six years is the story of a school that believed it could be more. The 2025 championship and playoff run aren't just football results; they're proof of institutional ambition."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Frostburg finished 9-2 overall (7-1 MEC) in 2025, won the MEC Championship (co-champion with
+    Charleston), and advanced to the NCAA D2 playoffs, where the Bobcats beat ranked Johnson C. Smith in a signature victory. Head
+    coach Eric Wagoner (MEC Coach of the Year) built this from 32-13 over four years. Sophomore QB Jordan Brooks threw for 2,256
+    yards and 17 TDs. The question for 2026: Is the rise sustainable, or was 2025 a peak? Frostburg has no historic D2 playbook to
+    follow — the program is writing its own story.
+  research_checklist:
+    - D3-to-D2 transition (2019)
+    - 2018 final undefeated NJAC season (10-1, 8-0)
+    - 2025 MEC Championship and playoff run
+    - Jordan Brooks QB production
+    - Eric Wagoner coaching trajectory
+  sources:
+    - https://en.wikipedia.org/wiki/Frostburg_State_University
+    - https://en.wikipedia.org/wiki/2025_NCAA_Division_II_football_season
+    - https://www.frostburg.edu/athletics/

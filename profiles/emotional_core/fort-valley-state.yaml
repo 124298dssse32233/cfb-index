@@ -1,0 +1,69 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: fort-valley-state
+team_id: null
+program_name: Fort Valley State University
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Fort Valley State is the Wildcat that scored 106 points in a single game (1969) and has been a steady SIAC presence ever since, playing for the love of the game and the history of Rayfield Wright."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small Georgia HBCU with a Pro Hall of Famer (Rayfield Wright) and a stunning historical scoring record, now playing solid SIAC football with pride and the joy of a program that earned its place."
+
+the_wound:
+  name: "Overshadowed by bigger Georgia HBCUs"
+  detail: "Fort Valley State sits in a state loaded with Atlanta HBCU power (Morehouse, Clark Atlanta, Spelman) and has had to build its identity quietly, without the national spotlight. The Wildcats play for themselves and for those who know them, not for national recognition."
+  handling: never-a-punchline
+  freshness: generational
+
+the_dream:
+  text: "Win a SIAC East Division title and make a run at the conference championship — prove that the Wildcats belong in the conversation with the bigger names, year after year."
+  drought: { since: 1969, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "The fanbase believes: Fort Valley State doesn't have a chip, it has a tradition of quiet excellence and the respect of those who know the Wildcats' real story."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that Fort Valley's steady SIAC competence could translate into a surprise championship run if the right pieces align — that a program that scored 106 points in a game has championship DNA buried in it."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: tradition-pride vs. championship-hunger — those content to be solid SIAC competitors vs. those believing the Wildcats could reach higher
+
+register: wildcats-fort-valley-georgia-hbcu
+never_use:
+  - Never won a national title. Unverified, but 1969 season was remarkable and the program has been steady for 50+ years.
+  - Small and irrelevant. Rayfield Wright (Pro Hall of Famer) and 106-point game disprove this.
+
+story_canon:
+  the_unique_thing: "1969 season: Fort Valley State scored 106 points in a single game vs. Knoxville College, the modern-era scoring record. A moment of pure offensive brilliance that defined an era of Wildcat football."
+  the_origin: "Founded 1895 as Fort Valley High and Industrial School, Fort Valley State became a pillar of rural Georgia HBCU education. Football has been part of the program's identity since the early 1900s."
+  golden_ages:
+    - { era: "1969 (Historic Scoring Year)", what: "Fort Valley State's football team produced one of the most remarkable offensive performances in D2 history, scoring 106 points vs. Knoxville College" }
+    - { era: "2000s (Steady SIAC Presence)", what: "Fort Valley became a reliable mid-tier SIAC competitor and a staple of conference play" }
+  legends:
+    - { name: "Rayfield Wright", role: "Player (1960s)", why: "Pro Football Hall of Famer who put Fort Valley State on the national athletic map and remains the program's greatest alumnus" }
+    - { name: "Marlon Watson", role: "Coach (2025–)", why: "Promoted mid-2025 to permanent head coach after Shawn Gibbs' departure to UNC" }
+  canonical_moments:
+    - { name: "106-Point Game (1969)", year: 1969, what: "Fort Valley State scores 106 points vs. Knoxville College, establishing a modern-era D2 scoring record", handling: glory }
+    - { name: "Rayfield Wright Pro Hall of Fame", year: null, what: "Pro Football Hall of Famer Rayfield Wright played for Fort Valley State and became the program's greatest ambassador", handling: glory }
+    - { name: "2025 SIAC East Division Championship", year: 2025, what: "Fort Valley State finishes as the SIAC East Division Champions, a steady marker of conference competence", handling: glory }
+  the_place: "Fort Valley, Georgia — a small town in rural Middle Georgia where Fort Valley State serves as the cultural and educational center. The Wildcats play in a tight-knit community where the program is essential."
+  brand_of_football: "Balanced, community-focused SIAC football — a program that plays for pride and the love of the game, not for national headlines."
+  cultural_footprint: "A quiet HBCU power. Fort Valley State has built a 50+ year tradition of steady competition and community service, anchored by Rayfield Wright's Pro Hall of Fame legacy."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Fort Valley State finished the 2025 season 4–6 overall but captured the SIAC East Division championship by season's end, showing the Wildcats' ability to compete and peak at the right time. Marlon Watson was promoted to permanent head coach after Shawn Gibbs' departure to North Carolina A&T (January 2025), giving Fort Valley stability and continuity. The Wildcats are now positioned as a consistent East Division contender, capable of playing spoiler in the SIAC Championship Game conversation.
+  sources:
+    - https://en.wikipedia.org/wiki/Fort_Valley_State_University_Wildcats_football
+    - https://fvsusports.com/news/2025/11/11/wildcats-are-the-2025-siac-east-division-champions.aspx
+    - https://www.si.com/college/hbcu/football

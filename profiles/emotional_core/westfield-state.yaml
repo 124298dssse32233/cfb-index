@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Westfield State University Division III emotional core
+
+status: live
+slug: westfield-state
+team_id: null
+program_name: Westfield State University
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Westfield State is the Massachusetts Owl — a small state university with 44 years of Division III football history (since 1982), one MASCAC conference title (2001), and a legacy anchored in multi-sport athletic excellence rather than football dominance."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A Massachusetts state university with 44 years of football history (since 1982), one MASCAC title (2001), a 178–224–1 all-time record (.443 winning percentage), and an identity rooted in overall athletic excellence rather than football prominence."
+
+the_wound:
+  name: "The 24-year drought since 2001 — one title, then silence"
+  detail: "Westfield State won the MASCAC championship in 2001, the program's only title. The subsequent 24 years have been a struggle for competence. The 2025 3–7 record reflects a program searching for identity — not in crisis, but stalled. The fanbase knows 2001 was exceptional, not the baseline."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Another conference title. Another winning season that signals Westfield State can compete at the MASCAC level again."
+  drought: { since: 2001, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no real chip — Westfield State's identity is too rooted in overall athletic excellence (20 Smith Cups as MASCAC's all-time winningest institution in all sports) to carry a grievance about football alone."
+
+the_delusion:
+  tone: earnest
+  text: "That Lou Conte Jr., the new coach (second season, 2026), can spark a turnaround. The fanbase knows it's unlikely after 24 years; they believe institutional strength eventually produces another title."
+
+the_grudge_texture:
+  rival: framingham-state
+  texture: championship
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: football-focus-vs-multi-sport-identity — Westfield State's athletic brand is built on multi-sport excellence, not football dominance; the question is whether the football program gets the resources and attention to compete at the MASCAC level
+register: westfield-owl-multi-sport-identity
+
+never_use:
+  - Westfield State is an old program (football began 1982, 44 years old)
+  - The Owls have won multiple recent titles (one title in 2001, none since)
+  - Westfield State is a football powerhouse (178–224–1 all-time record is below .500)
+  - Lou Conte Jr. has been coaching for many years (second season, 2026)
+
+story_canon:
+  the_unique_thing: "A Massachusetts state university whose athletic identity is defined by overall multi-sport excellence (20 Smith Cups as MASCAC's winningest institution) rather than football alone, a rare institutional posture in college sports."
+  the_origin: "Westfield State University began football in 1982, 44 years ago. A state university with limited football resources, the Owls have competed regionally and developed a strong multi-sport athletic program."
+  golden_ages:
+    - { era: "2001", what: "Westfield State wins the only MASCAC championship in program history" }
+    - { era: "Multi-sport excellence (all sports)", what: "20 Smith Cups as MASCAC's all-time winningest institution across all sports" }
+  legends:
+    - { name: "Unknown (2001 championship coach)", role: coach, why: "Led the only MASCAC title team" }
+  canonical_moments:
+    - { name: "2001 MASCAC Championship", year: 2001, what: "Westfield State wins the only conference title in program history", handling: glory }
+    - { name: "20 Smith Cups (Multi-Sport Excellence)", year: 2025, what: "Westfield State is MASCAC's all-time winningest institution in overall athletic competition", handling: glory }
+  the_place: "Westfield, Massachusetts — a small Massachusetts town where Westfield State's athletic identity is broader than football."
+  brand_of_football: "Supporting football within a larger multi-sport athletic identity; competence matters, but success is defined at the institutional level."
+  cultural_footprint: "Westfield State football is secondary to the university's overall athletic brand. The program is respected but not central to the institution's identity."
+  the_ongoing_story: >
+    LIVE MASCAC — researched 2026-06-13: Westfield State went 3–7 (3–6 MASCAC) in 2025 under Lou Conte Jr.'s
+    second season (hired late 2024). The Owls are rebuilding within the constraints of a state university
+    with divided athletic priorities. The fanbase expects competence but does not center football as the
+    program's core identity.
+  research_checklist:
+    - Program founding (1982, 44 years old)
+    - 2001 MASCAC championship (only title)
+    - All-time record: 178–224–1
+    - 20 Smith Cups (multi-sport excellence)
+    - Lou Conte Jr. tenure (2025–present, second season)
+    - MASCAC membership (2013–present)
+  sources:
+    - https://en.wikipedia.org/wiki/Westfield_State_Owls_football
+    - https://www.westfield.ma.edu/athletics/football
+    - https://mascac.com/sports/fball/index

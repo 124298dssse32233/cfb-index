@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Simpson University Division III emotional core
+
+status: live
+slug: simpson
+team_id: null
+program_name: Simpson University
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Simpson is the Iowa Storm — a Methodist university founded in 1860 and named for Bishop Matthew Simpson, a program with 133 years of football and 12 conference titles anchored in Midwest tradition and Methodist heritage."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A Methodist liberal arts college with 12 ARC conference titles, consistent NCAA tournament appearances, and a 130-year football tradition, but no national championship or recent dominance."
+
+the_wound:
+  name: "The 1997 peak and subsequent plateau"
+  detail: "Simpson's last ARC championship was 1997. The subsequent 28 years have been solid regional competence — tournament appearances, ARC wins — but no return to a title run. The 2025 6–4 record signals stability but not ascent."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Another ARC championship. Another playoff run that matters. Simpson knows it's not built for national glory, but another conference title would validate that the Storm identity is more than nostalgia."
+  drought: { since: 1997, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "No chip — Simpson's identity is too rooted in Methodist pride and tradition to carry a grievance. The fanbase finds meaning in the program's steady presence, not in media recognition."
+
+the_delusion:
+  tone: self-aware
+  text: "That the next coach, the next recruiting class, will spark a return to 1997. The fanbase knows 28 years is a long time, knows the odds, but believes in the program's fundamental institutional strength."
+
+the_grudge_texture:
+  rival: coe
+  texture: championship
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: continuity-vs-ambition — Reed Hoskins is in his third season; the question is whether he can sustain Simpson's regional competence or build toward another title
+register: indianola-storm-methodist-bishop-simpson
+
+never_use:
+  - Simpson is a new program (football since 1893, 133 years old)
+  - The Storm is a recent name or mascot (Methodist heritage, name rooted in Bishop Matthew Simpson)
+  - Simpson has won a national championship (no national championship, 12 conference titles)
+  - The program is struggling (steady 6–4 finish in 2025 reflects consistent regional competence)
+
+story_canon:
+  the_unique_thing: "Methodist heritage and historical continuity — Simpson was founded 1860 as a Methodist seminary and named for Bishop Matthew Simpson, a program whose identity is inseparable from American Methodist history."
+  the_origin: "Simpson University, founded 1860 as Indianola Male & Female Seminary and renamed Simpson Centenary College in 1867 to honor Bishop Matthew Simpson and the Methodist centennial. Football began in 1893, 12 years after the college's founding."
+  golden_ages:
+    - { era: "1970s–1997", what: "Multiple ARC championship eras, with 12 total titles spread across decades, most recently 1997" }
+    - { era: "2000s–present", what: "Steady regional competence and occasional playoff appearances" }
+  legends:
+    - { name: Reed Hoskins, role: coach, why: "Three seasons (2023–present) rebuilding the program's regional competence" }
+  canonical_moments:
+    - { name: "Simpson College Founding (1860)", year: 1860, what: "Simpson is founded as a Methodist seminary, establishing the foundation for the program's Methodist identity", handling: glory }
+    - { name: "1997 ARC Championship", year: 1997, what: "Simpson's last conference title, the recent peak of the program's regional success", handling: glory }
+    - { name: "12 ARC Championships", year: 1997, what: "Over the course of a century, Simpson has captured 12 conference titles", handling: glory }
+  the_place: "Indianola, Iowa — a small Iowa town where Simpson's Methodist identity and football tradition are central to the college's story."
+  brand_of_football: "Steady, regionally competitive football rooted in Methodist values of discipline and community."
+  cultural_footprint: "Simpson football is woven into Indianola's civic identity. The program represents the college's Methodist heritage and commitment to student-athlete development."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Simpson went 6–4 (5–3 ARC) in 2025 under Reed Hoskins' third season.
+    The Storm remain a consistent regional competitor. The fanbase is satisfied with steady competence,
+    knowing that another title run would require a fortunate convergence of recruiting, coaching, and timing.
+  research_checklist:
+    - Methodist heritage (founded 1860)
+    - Named for Bishop Matthew Simpson
+    - 133-year football history (1893–present)
+    - 12 ARC/conference championships
+    - Reed Hoskins tenure (2023–present, third season)
+    - Bill Buxton Stadium home venue
+  sources:
+    - https://en.wikipedia.org/wiki/Simpson_Storm_football
+    - https://www.simpson.edu/athletics/football
+    - https://d3football.com/teams/simpson

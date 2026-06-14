@@ -1,0 +1,70 @@
+status: live            # authored 2026-06-13 via web research
+slug: western-carolina
+team_id: null
+program_name: Western Carolina
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # 2024 SoCon runner-up (6-2 record) after near 50-year title drought
+  secondary: grievance
+  core_variant: perpetual-rebuild
+  one_line: "Western Carolina is the 49-year SoCon title drought team that broke through to the conference final in 2024 (6-2 SoCon, runner-up) — the Catamounts finally proving they belong in the conversation."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "49 years without a SoCon championship (1975-2024) vs. a 2024 runner-up finish that proved the drought could end — the program that's been waiting longer than any other conference member to win."
+
+the_wound:
+  name: "The 49-year drought"
+  detail: "Western Carolina hasn't won a SoCon title since 1975 — 49 years of conference-level futility in one of the most storied leagues in FCS. The 2024 season (6-2 SoCon, runner-up finish) was the closest the Catamounts have come in a generation, but they came up short again. The fanbase watched a title slip away after nearly half a century of waiting."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the SoCon championship in 2025 or 2026 and end the 49-year drought — prove the 2024 runner-up finish was the foundation of sustained contention, not another false hope."
+  drought: { since: 1975, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Western Carolina has waited 49 years for a SoCon title. Furman won in 1988. Wofford has made ten playoff runs. Mercer won back-to-back. The Catamounts' chip is the longest drought in the room — and it's burning."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 2024 runner-up finish proved Western Carolina is finally ready to win a championship. The fanbase knows they've heard that hope before; they also know 6-2 in the SoCon is the best record the program has posted in a generation."
+
+the_grudge_texture:
+  rival: furman
+  texture: championship   # Furman won national title, Western Carolina hasn't won SoCon in 49 years
+
+the_coach_relationship: legends-shadow   # Kerwin Bell (year 5) must prove he can finally break the drought
+the_internal_fracture: drought_burden_vs_future — the weight of 49 years without a title vs. belief that 2024 was the turning point
+register: western-carolina-49-year-drought
+never_use:
+  - "Western Carolina will never win a SoCon title"
+  - "the Catamounts are a second-tier program"
+
+story_canon:
+  the_unique_thing: "The 49-year SoCon title drought (1975-2024) — the longest active drought in the conference — followed by the 2024 runner-up finish (6-2 SoCon) that proved the Catamounts could finally compete for a championship."
+  the_origin: "Western Carolina was a SoCon power until 1975, after which the Catamounts entered a decades-long drought."
+  golden_ages:
+    - { era: "1975", what: "Western Carolina's last SoCon championship" }
+    - { era: "2024", what: "The Catamounts finish 6-2 in SoCon play and reach the conference final, the most successful recent season" }
+  legends:
+    - { name: Kerwin Bell, role: coach, why: "Year 5 coach building Western Carolina back to conference contention after decades of futility" }
+  canonical_moments:
+    - { name: "1975 SoCon Championship", year: 1975, what: "Western Carolina's last conference title", handling: glory }
+    - { name: "2024 SoCon Runner-Up", year: 2024, what: "Western Carolina finishes 6-2 in SoCon play and reaches the conference final, the closest in a generation", handling: heartbreak }
+  the_place: "Kidd Brewer Stadium — the home of Catamounts football in Cullowhee, North Carolina."
+  brand_of_football: "Resilient, fighting SoCon football — a program that's finally proving it can compete after 49 years of drought."
+  cultural_footprint: "The longest-suffering team in the SoCon — a program that's endured nearly half a century without a conference title and is finally showing signs of breaking through."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Western Carolina's 2024 season (6-2 SoCon, runner-up finish) was the most successful in recent program history after 49 years without a conference title. Kerwin Bell is in year 5 as coach and has the Catamounts positioned to finally break the drought. The 2025 season will test whether the 2024 run was sustainable growth or a one-year spike. The room in Cullowhee is hopeful — and weary from waiting.
+  research_checklist:
+    - ✓ 49-year SoCon title drought (1975-2024)
+    - ✓ 2024 runner-up finish (6-2 SoCon record)
+    - ✓ Kerwin Bell era (year 5)
+    - ✓ Most successful recent season in 2024
+  sources:
+    - https://en.wikipedia.org/wiki/Western_Carolina_Catamounts_football
+    - https://www.catamountsports.com
+    - https://www.thescore.com/nfl/news/western-carolina-football

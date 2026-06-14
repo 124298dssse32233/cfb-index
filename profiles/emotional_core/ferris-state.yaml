@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: ferris-state
+team_id: null
+program_name: Ferris State University
+program_tier: 6
+
+emotional_core:
+  primary: spectacle
+  secondary: honor
+  one_line: "Ferris State is the D2 dynasty in the making — an undefeated national champion that has stacked four titles in five years and has made the Anchor-Bone rivalry the most feared matchup in Division II."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program that climbed from mid-tier GLIAC competitor to four-time national champion under Tony Annese, now the standard-setter that others chase."
+
+the_wound:
+  name: "The climb from obscurity"
+  detail: "Ferris State won its first national title in 2021 — before that, a competent but unremarkable GLIAC program. The wound is the hunger of a program that knows it was never supposed to be here, and won't let anyone forget how hard the climb was."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Another national championship — and a dynasty that lasts a generation, not just a moment. Ferris wants to be a D2 name that rivals the greatest programs in the sport."
+  drought: { since: null, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip needed — Ferris is the favorite. The only motivation left is to prove that 2021-2025 was the beginning of something, not a peak."
+
+the_delusion:
+  tone: earnest
+  text: "Fans believe this team can repeat — four titles in five years, an undefeated 2025 run, Tony Annese's system working — and that Ferris can become the name in D2."
+
+the_grudge_texture:
+  rival: grand-valley-state
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: "None — Tony Annese's system is unified and proven."
+register: michigan-bulldog-dynasty-anchor-bone-trophy
+never_use:
+  - One-title wonder — Ferris has four national titles (2021, 2022, 2024, 2025), not one
+  - New program — Ferris was mid-tier before 2021, but has been GLIAC since the 1980s
+  - Accidental champion — undefeated 16-0 in 2025 proves sustained excellence
+
+story_canon:
+  the_unique_thing: "A program that rose from mid-tier GLIAC competitor to four-time national champion in five years, and made the Anchor-Bone rivalry with Grand Valley State the fiercest matchup in Division II football."
+  the_origin: "Ferris State joined NCAA Division II in the 1980s as a competent but largely unremarkable GLIAC program. Tony Annese took over the head coaching job in 2011."
+  golden_ages:
+    - { era: "2021–2025 (Tony Annese dynasty)", what: "Four national championships (2021, 2022, 2024, 2025), including an undefeated 16-0 run in 2025" }
+  legends:
+    - { name: Tony Annese, role: coach, why: "Transformed Ferris State into a four-time national champion and the most dominant program in D2" }
+  canonical_moments:
+    - { name: "2025 undefeated national championship", year: 2025, what: "Ferris State goes 16-0 and wins the fourth national title in five years", handling: glory }
+    - { name: "2021 national championship breakthrough", year: 2021, what: "First national title under Tony Annese, beginning the dynasty", handling: glory }
+    - { name: "Anchor-Bone Trophy rivalry", year: 2002, what: "Ferris established the fierce rivalry with Grand Valley State over the Anchor-Bone Trophy (memorial to Ferris linebacker Matt Sklom)", handling: glory }
+  the_place: "Big Rapids, Michigan — a small college town in the heart of the GLIAC where Ferris State football has become the center of regional pride."
+  brand_of_football: "Disciplined, systematic, executable — Tony Annese's program is built on precision, preparation, and the belief that execution wins championships."
+  cultural_footprint: "Ferris State proof that D2 programs can achieve sustained excellence and national dominance; a modern dynasty that has changed the perception of what's possible in Division II."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Ferris State completed an undefeated 16-0 season in 2025, winning the
+    fourth national championship in five years. The program is now the standard in Division II, and the question
+    entering 2026 is whether Tony Annese can sustain the run — the Bulldogs retain key talent and are the clear
+    favorite to make another playoff run. The Anchor-Bone rivalry with Grand Valley State continues to be the
+    fiercest matchup in D2, with Ferris holding the trophy after a 38-31 victory in October 2025.
+  research_checklist:
+    - Four national titles verified (2021, 2022, 2024, 2025)
+    - Tony Annese tenure (14 seasons, all-time great D2 coach)
+    - Anchor-Bone Trophy rivalry with GVSU
+    - 2025 undefeated 16-0 record
+  sources:
+    - https://en.wikipedia.org/wiki/Ferris_State_Bulldogs_football
+    - https://ferrisdogs.com/sports/m-footbl/
+    - https://www.gliac.org/

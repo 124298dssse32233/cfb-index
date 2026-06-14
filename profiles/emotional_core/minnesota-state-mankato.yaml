@@ -1,0 +1,71 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: minnesota-state-mankato
+team_id: null
+program_name: Minnesota State Mankato
+program_tier: 6        # Division II
+
+emotional_core:
+  primary: grievance      # made two national championship game appearances but never won
+  secondary: restoration  # 2025 playoff success (defeated #12 Findlay, #8 Indianapolis) shows contention window is open
+  one_line: "Minnesota State Mankato is the NSIC contender that has twice reached the Division II national championship game (2014, 2019) but lost both — and uses that championship hunger as fuel for every recruiting class."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Two national championship game appearances vs zero titles; the program that punches at the highest level but hasn't captured the crown."
+
+the_wound:
+  name: "The championship game losses (2014, 2019)"
+  detail: "Minnesota State Mankato built sustained excellence in the 2010s, winning conference titles and reaching the national championship game in both 2014 and 2019. Yet both times, the Mavericks fell short at the final step, losing championship games rather than winning them. The losses created a program identity built on 'almost' — a team that can reach the top but can't seal it."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the national championship and erase the 'almost' label that has defined Mankato football since 2014."
+  drought: { since: 2014, unit: national_title }
+
+the_chip:
+  villain: committee
+  text: "Fans here believe the chip is the national stage itself — Mankato knows it can compete with anyone, but has to prove it on the biggest stage."
+
+the_delusion:
+  tone: earnest
+  text: "That the next championship run will be the one that finally ends in a title rather than a runner-up finish. Mavericks fans believe the 2025 playoff success (wins over #12 Findlay and #8 Indianapolis) proves the program can beat anyone."
+
+the_grudge_texture:
+  rival: minnesota-duluth
+  texture: championship    # the northern Minnesota D2 power battle for NSIC contention
+
+the_coach_relationship: forever-ours    # Todd Hoffner 12th consecutive season (16th overall), sustained excellence
+the_internal_fracture: national-championship-obsession vs regional-content — the faction that views anything short of a title as failure vs those accepting Mankato as a perennial contender in good standing
+register: mankato-mavericks-championship-game-almost-nsic-power
+never_use:
+  - "Mankato has won a national championship: two finals appearances, zero titles (championships in 2014, 2019 went to other teams)"
+  - "Mankato is a D2 underdog: the Mavericks are a consistent playoff contender with sustained success"
+
+story_canon:
+  the_unique_thing: "Minnesota State Mankato is a sustained NSIC power that has reached the Division II national championship game twice (2014, 2019) without winning, creating an identity built on 'almost' and championship hunger."
+  the_origin: "Minnesota State Mankato is a regional Minnesota program that climbed into D2 contention in the 2010s and established itself as a consistent playoff contender under coach Todd Hoffner."
+  golden_ages:
+    - { era: "2010–2019 (Todd Hoffner)", what: "Sustained playoff success and two national championship game appearances" }
+  legends:
+    - { name: Todd Hoffner, role: coach, why: "16 seasons (12 consecutive), built Mankato into an NSIC power and playoff contender; the architect of the championship-game appearances" }
+  canonical_moments:
+    - { name: "2014 National Championship Game", year: 2014, what: "Mankato reached the national championship game but lost", handling: heartbreak }
+    - { name: "2019 National Championship Game", year: 2019, what: "Mankato returned to the national championship game but lost again", handling: heartbreak }
+    - { name: "2025 Playoff Success", year: 2025, what: "Mankato (#21 seed) defeated #12 Findlay (37-14) and #8 Indianapolis (35-27) before losing to #1 Ferris State in the quarterfinals", handling: glory }
+  the_place: "Mankato, Minnesota; a southern Minnesota regional program base."
+  brand_of_football: "A sustained NSIC power that regularly makes the playoffs and competes at the national level; Mankato football is built on championship-level expectations."
+  cultural_footprint: "Minnesota State Mankato is one of Division II's most consistent contenders, with sustained playoff success and a championship-game pedigree."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Minnesota State Mankato went 10-4 overall in 2025, entering the NCAA tournament
+    as a #21 seed. The Mavericks won playoff victories over #12 Findlay (37-14) and #8 Indianapolis (35-27), proving the
+    championship-game experience of 2014 and 2019 created a program that knows how to compete at the national level. Mankato
+    fell to #1 Ferris State 52-29 in the quarterfinals. Coach Todd Hoffner (12th consecutive season, 16 overall, 97-23 at UMD,
+    97+ at Mankato) continues to build a program that reaches the postseason regularly but has yet to claim the national title
+    that would erase the "almost" label.
+  sources:
+    - https://msumavericks.com/news/2025/12/6/football-mavericks-playoff-run-ends-at-1-ferris-state.aspx
+    - https://www.ncaa.com/news/football/article/2019-12-14/college-football-minnesota-state-reaches-national-championship-game
+    - https://northernsun.org/schedule.aspx?schedule=3876

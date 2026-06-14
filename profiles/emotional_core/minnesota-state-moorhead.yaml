@@ -1,0 +1,65 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: minnesota-state-moorhead
+team_id: null
+program_name: Minnesota State Moorhead
+program_tier: 6        # Division II
+
+emotional_core:
+  primary: standard      # consistent mid-tier regional program, no special wound or dream
+  secondary: contentment  # 8-3 season signals solid building trajectory
+  one_line: "Minnesota State Moorhead is a mid-tier NSIC North competitor that plays consistent, respectable football — a regional program building toward playoffs rather than chasing championships."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "An 8-3 regular season suggests tournament potential, but no championship window is visible."
+
+the_wound:
+  name: "Modest regional program footprint"
+  detail: "Minnesota State Moorhead competes as a mid-tier NSIC North program with limited national profile and no history of deep playoff runs or conference titles. The Dragons are a solid, consistent program but lack the championship pedigree or recent contention window of larger NSIC powers like Mankato, UMD, or Augustana."
+  handling: never-a-punchline
+  freshness: generational
+
+the_dream:
+  text: "Build on the 8-3 season and establish the Dragons as a regular playoff contender in the NSIC North."
+  drought: { since: 2015, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the Dragons have no external chip. Moorhead is a modest program that views each winning season as a step forward."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: southwest-minnesota-state
+  texture: championship    # annual Ag Bowl opener
+
+the_coach_relationship: legends-shadow    # Steve Laqua tenure details limited; program identity is institutional, not coach-driven
+the_internal_fracture: building-patience vs window-anxiety — modest expectations vs the question of whether 8-3 signals a turning point or plateau
+register: moorhead-dragons-regional-nsic-north
+never_use:
+  - "Moorhead is a power program: the Dragons are mid-tier contenders at best"
+  - "Historic championship tradition: Moorhead has no conference titles or deep playoff history"
+
+story_canon:
+  the_unique_thing: "Minnesota State Moorhead is a regional NSIC North program with a 8-3 2025 season, suggesting steady building rather than championship contention."
+  the_origin: "Minnesota State Moorhead is a small northern Minnesota program in the Moorhead area; the Dragons have competed in the NSIC as a consistent, respectable team."
+  golden_ages: []
+  legends: []
+  canonical_moments:
+    - { name: "2025 8-3 season", year: 2025, what: "Moorhead finished 8-3, a respectable regular season record", handling: glory }
+  the_place: "Moorhead, Minnesota; a northern regional community; the Dragons' home."
+  brand_of_football: "A solid mid-tier NSIC program that plays consistent football; Moorhead is built on institutional stability rather than breakthrough moments."
+  cultural_footprint: "Minnesota State Moorhead is a modest D2 program with regional significance; the Dragons are known for consistency, not championships."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Minnesota State Moorhead finished 8-3 overall in 2025, a solid regular season
+    that suggests the Dragons are building toward tournament contention. Head coach Steve Laqua has established a program
+    that competes in the NSIC North Division but has not yet broken through to a championship window or deep playoff run.
+    The 2026 season will test whether the 8-3 mark represents a platform for continued growth or a ceiling.
+  sources:
+    - https://www.msumdragons.com/sports/football/schedule/2025
+    - https://www.msumdragons.com/news/2025/2/6/dragon-football-announces-2025-schedule.aspx
+    - https://northernsun.org/schedule.aspx?schedule=3876

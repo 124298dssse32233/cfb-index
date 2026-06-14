@@ -1,0 +1,90 @@
+# Emotional Core — Salisbury University (salisbury)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: salisbury
+team_id: null
+program_name: Salisbury University
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: spectacle
+  one_line: "The NJAC dynasty that won six titles in nine years under Sherman Wood (2025 AFCA National Coach of the Year) — blue-collar, defensive football built to dominate."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A modern NJAC dynasty (6 titles in 9 years) under a legendary HC who earned the 2025 AFCA National Coach of the Year award, proving sustained excellence is possible in Division III."
+
+the_wound:
+  name: ""
+  detail: ""
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win seven NJAC titles before the decade ends; sustain championship-level football as the standard, not the exception; honor Sherman Wood's coaching legacy as the foundation."
+  drought: { since: never, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The disbelievers who say D3 programs can't sustain dynasties. Salisbury responds by winning six titles in nine years and making Sherman Wood the 2025 AFCA National Coach of the Year."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: christopher-newport
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: ""
+register: gull-dynasty-sherman
+never_use:
+  - "Never contended — 7 NJAC titles total; 6 NJAC titles in 9 years (2015–2025); 2025 AFCA National Coach of Year"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Sherman Wood's 32-year coaching tenure producing six NJAC titles in nine years (2015–2025), capped by the 2025 AFCA National Coach of the Year award — the proof that a coach can build a modern dynasty in Division III."
+  the_origin: "Salisbury University, Salisbury, Maryland — a blue-collar Maryland institution with deep regional roots competing in the NJAC."
+  golden_ages:
+    - { era: "2015–2025 (Wood's dynasty)", what: "6 NJAC titles in 9 years; 7 NJAC titles total; 11 total conference championships; consistent top-10 national rankings" }
+    - { era: "2024", what: "12–1 record, NJAC title, quarterfinal playoff appearance" }
+    - { era: "2025", what: "10–1 record, ranked 6th nationally at one point, 2nd-round NCAA playoff victory, Sherman Wood AFCA National Coach of Year" }
+  legends:
+    - { name: "Sherman Wood", role: coach, why: "32 seasons as head coach; 6 NJAC titles in 9 years; 2025 AFCA National Coach of the Year; the architect of modern Salisbury dominance" }
+  canonical_moments:
+    - { name: "2015–2025 championship run", year: 2015, what: "6 NJAC titles in 9 years under Sherman Wood", handling: glory }
+    - { name: "2025 AFCA National Coach of Year", year: 2025, what: "Sherman Wood named national coach of year at D3 level", handling: glory }
+    - { name: "Coaching staff NJAC Coaching Staff of Year (2025)", year: 2025, what: "Entire Salisbury staff honored", handling: glory }
+    - { name: "2025 2nd-round NCAA playoff victory", year: 2025, what: "10–1 Salisbury advances in NCAA tournament", handling: glory }
+  the_place: "Salisbury main stadium — home of the Sea Gulls."
+  brand_of_football: "Blue-collar, defensive football — built on preparation, toughness, and the understanding that titles are won in the trenches."
+  cultural_footprint: "A Maryland NJAC dynasty under the longest-tenured and most successful coach in the league's modern era (Sherman Wood, 32 years). Salisbury proves that Division III can sustain true excellence."
+  the_ongoing_story: "LIVE as of 2026-06: Salisbury went 10–1 overall in 2025, captured the NJAC championship era (6 titles in 9 years), and produced the 2025 AFCA National Coach of the Year in Sherman Wood (32 seasons). The Coaching Staff was named NJAC Coaching Staff of Year. The Sea Gulls advanced to the 2nd round of the NCAA tournament. This is the peak of modern Salisbury football — sustained excellence, a legendary coach, and national recognition proving that a Division III program can build a dynasty."
+  sources:
+    - https://en.wikipedia.org/wiki/Salisbury_University_Sea_Gulls_football
+    - https://www.salisbury.edu/athletics/football/
+    - https://www.salisbury.edu/about/
+    - https://www.njac.org/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Salisbury is the NJAC dynasty with 6 titles in 9 years under Head Coach Sherman Wood (2025 AFCA National Coach of Year, 32 seasons).
+  mantra: Sea Gull dynasty.
+  cultural_anchors:
+    fan_archetype_dominant: Salisbury-Dynasty-Faithful
+    outsider_archetype_dominant: NJAC-Champion
+    one_sentence: Salisbury University is the NJAC dynasty with 6 conference titles in 9 years under Head Coach Sherman Wood (2025 AFCA National Coach of the Year).
+  selfname: the Sea Gulls
+  rituals:
+    - 6 NJAC titles in 9 years (2015–2025)
+    - Sherman Wood era (32 seasons)
+    - 2025 AFCA National Coach of Year
+    - Blue-collar defensive tradition
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

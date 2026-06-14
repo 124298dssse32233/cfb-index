@@ -1,0 +1,166 @@
+# Emotional Core — Vanderbilt  (vanderbilt)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: vanderbilt
+team_id: 304
+program_name: Vanderbilt
+program_tier: 5
+
+emotional_core:
+  primary: house-money     # the program that wasn't supposed to win in the SEC just went 10-3 and produced a Heisman finalist
+  secondary: disbelief     # Nashville still pinching itself that this was real and not a one-week miracle
+  one_line: "Vanderbilt is the program that turned a transfer quarterback nobody else wanted into a Heisman finalist and the SEC's best story — a 10-win season the school's own history said was impossible."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Four SEC titles that all predate 1924 and decades as the league's hardest competitive slot vs a 2025 that finished 10-3, ranked No. 14, with a Heisman runner-up — the gap between what the record book said and what just happened."
+
+the_wound:
+  name: "The thirty-nine-year wait between bowls"
+  detail: "Before James Franklin's 2011-2013 window, Vanderbilt had not been to a bowl since the Reagan administration — the long stretch of seasons that taught the fanbase to brace for the floor, and made 2025's 10 wins feel less like a result than a vindication."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the SEC outright — not survive it, not shock it once, but stand at the top of the hardest league in the sport and make the breakthrough a habit."
+  drought: { since: 1923, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Every preseason poll buries Vanderbilt by reflex, and the fanbase has heard 'the scheme called it a scheduling accident' so often it became the program's dry punchline. They say 2025 wasn't luck — it was the year the math finally listened."
+
+the_delusion:
+  tone: load-bearing
+  text: "Commodore fans believe the right roster and the right scheme make Vanderbilt a permanent SEC contender — that 2025 was the proof of concept, not the ceiling, and that the program can keep doing it without the quarterback who did it."
+
+the_grudge_texture:
+  rival: tennessee
+  texture: blood-feud   # the in-state Tennessee rivalry — the bell, the bad blood, the only game some fans circle
+
+the_coach_relationship: total-trust   # Clark Lea, the Vanderbilt alum coaching his alma mater, delivered the season of a lifetime
+the_internal_fracture: keep-it-going vs brace-for-regression — the faction that believes Lea built something durable vs the faction that watched Pavia leave and fears 2025 was the lightning, not the bottle
+register: defiant-academic   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - David vs. Goliath
+  - cute underdog
+  - punching above their weight (it isn't — the school's scale makes the outputs honest)
+  - little engine that could
+  - rich kids' school
+  - academic first, football second as framing that dismisses the football
+  - the SEC's doormat
+  - Rocky Top invocations on Vanderbilt copy
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Vanderbilt is the oldest continuously operating football program in the Deep South — founded 1886 — that spent the modern era as the SEC's hardest competitive slot, then in 2025 went 10-3 and produced a Heisman runner-up, the season its own history said couldn't happen."
+  the_origin: "A private research university in Nashville that began playing football in 1886 and won four early Southern Intercollegiate titles under Dan McGugin (the McGugin era, 1904-1934) — the South's first football power, long before the SEC swallowed everyone bigger."
+  golden_ages:
+    - { era: "1904–1934 (Dan McGugin)", what: "The South's original power; four conference championships, all before 1924" }
+    - { era: "2011–2013 (James Franklin)", what: "Three straight bowls — the first sustained modern winning, ending a 39-year bowl drought" }
+    - { era: "2024–2025 (Clark Lea)", what: "The Alabama upset, then a 10-3, No. 14 season with a Heisman finalist — the program's modern peak" }
+  legends:
+    - { name: Dan McGugin, role: coach, why: "Built the South's first football power and coached Vanderbilt for 30 years" }
+    - { name: Clark Lea, role: coach, why: "A Vanderbilt alum who took his alma mater to its greatest modern season — 10 wins and a national audience" }
+    - { name: Diego Pavia, role: player, why: "The transfer quarterback who became a 2025 Heisman runner-up and the engine of the program's best year in a century" }
+  canonical_moments:
+    - { name: "The Alabama upset", year: 2024, what: "Vanderbilt beats No. 1 Alabama 40-35 in Nashville, the program's signature modern win and the spark of the rise", handling: glory }
+    - { name: "The 10-win season", year: 2025, what: "A program-record 10-3 finish, a No. 14 final ranking, and Diego Pavia as Heisman runner-up", handling: glory }
+    - { name: "First bowl in 39 years", year: 2008, what: "Vanderbilt ends a generation-long bowl drought with a Music City Bowl win", handling: glory }
+  the_place: "FirstBank Stadium (formerly Vanderbilt Stadium) — the smallest venue in the SEC, an intimate on-campus field in the middle of Nashville whose quieter register is not apathy."
+  brand_of_football: "Anchor Down — clear-eyed, scheme-driven, and built around finding the quarterback nobody else valued; a program that treats real proof of life in the SEC as the whole point."
+  cultural_footprint: "The standing argument that the SEC's toughest structural slot is not a permanent sentence — that a school built on research and selectivity can field the league's best story when the roster and scheme align."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Clark Lea returns for 2026 after a program-record 10-3 (6-2 SEC) season,
+    a No. 14 final ranking, and Diego Pavia's Heisman-runner-up campaign (3,192 pass yards, 826 rush, 36 total TDs).
+    Vanderbilt lost the ReliaQuest Bowl 34-27 to No. 23 Iowa, and Pavia is gone — out of eligibility, undrafted,
+    now in an NFL camp. The 2026 question is the only one that matters in Nashville: was 2025 the lightning, or
+    the new floor? Lea enters spring without a named successor at quarterback and a fanbase desperate to believe
+    the breakthrough was built to last.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Vanderbilt_Commodores_football_team
+    - https://www.cbssports.com/college-football/news/2025-heisman-trophy-second-vanderbilt-qb-deigo-pavia/
+    - https://www.cbssports.com/college-football/news/vanderbilt-qb-diego-pavia-denied-intentions-to-play-in-2026-as-ncaa-lawsuit-continues-this-is-my-last-year
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Vanderbilt is the program that is not supposed to be here, and is.
+  mantra: Anchor Down.
+  cultural_anchors:
+    fan_archetype_dominant: Patient-Believer
+    outsider_archetype_dominant: Forgotten-Until-Upset
+    one_sentence: Vanderbilt is the program that proves academic-elite-meets-SEC is possible if you wait
+      long enough and find the right transfer quarterback.
+  selfname: the Commodores
+  aspiration_ladder_top: SEC contender
+  rivalries:
+  - tennessee
+  - kentucky
+  - ole-miss
+  - wake-forest
+  heritage:
+    national_titles: 0
+    conference_titles: 4
+    current_conference: SEC
+  prose_excerpts:
+    taboos: The program's pre-SEC conference titles (1904, 1906, 1911, 1923) are not a historical footnote
+      to the fanbase — they are the proof the program is not structurally incapable. Framing modern wins
+      as historic "relative to the program" reads as patronizing; they are historic relative to the SEC,
+      which is a harder and more accurate frame. The institution's funding structure for athletics is a
+      live conversation with the administration; copy that mocks Vanderbilt's spending…
+    fans_culture: 'The fanbase is local-heavy with a national alumni network — the Vanderbilt alumni base
+      skews toward high-income coastal cities and reads football as one thread of institutional identity
+      alongside research and academic reputation. Gameday register is restrained and specific to the campus:
+      a smaller stadium creates an intimate home-field feel that is structurally different from SEC West
+      cathedrals. The fanbase does not mistake its quieter register for apathy. Vanderbilt fans…'
+    voice_ethos: 'The voice is defiant-academic: unapologetic about playing in the SEC''s hardest structural
+      slot, clear-eyed about the competitive math, and specific about what progress looks like. Vanderbilt
+      does not speak about itself as a feel-good story; the program''s own register is that three wins in
+      the SEC is real proof of life, not a punchline. Any copy that frames the program as a plucky underdog
+      gets the voice wrong. Identity phrase: **"Vanderbilt is the program that is not…'
+    narratives: The 2024 Alabama upset is the program's biggest near-term narrative marker — a win that
+      entered the national consciousness and activated a legitimate portal-recruiting tailwind. The 2024
+      season's 6-6 regular-season finish and bowl eligibility confirmed that the Alabama result was not
+      an isolated scoreline. The 2026 spring question is whether the Lea rebuild compounds or normalizes
+      back to the program's structural baseline. Quarterback Diego Pavia's eligibility fight…
+    in_jokes: '"Anchor Down" is sincere, not performative. "The scheme called it a scheduling accident"
+      is the program''s dry reply to any media narrative that frames Vanderbilt as out of place. "First
+      bowl since [year]" is a real marker the fanbase counts.'
+  story_materials:
+    legendary_coach: Dan McGugin
+    era_name_overrides:
+      1886-1910: The Founding
+      1911-1934: The McGugin Era
+      1997-2002: The Wilderness
+      2011-2013: The First Golden Window
+      2023-: The Lea Rebuild
+    always_surface:
+    - Oldest continuously-operating football program in the Deep South (founded 1886)
+    - Vanderbilt Stadium / FirstBank Stadium (renamed 2022) — smallest in the SEC
+    - Academic selectivity is a recruiting filter that produces a specific roster identity
+    - 4-time SEC Championship (all pre-1923) — historical context matters here
+    - James Franklin era (2011-2013) — three consecutive bowl appearances, first since 1982
+    - Clark Lea — a Vanderbilt alum coaching the alma mater, the only current P4 head coach from his own
+      school
+    - Dan Balcetis / Sean McEvoy — academic-athletic integration under current athletics admin
+    rituals:
+    - Anchor Down
+    - Star Walk
+    - Mr. Commodore
+    - Dynamite (fight song)
+    - The Vandy Whistle (and Goalpost Tradition)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (53/100, n=159)
+    voice_profile: absent
+    delusion_premium: absent

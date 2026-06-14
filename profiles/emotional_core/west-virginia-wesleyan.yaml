@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: west-virginia-wesleyan
+team_id: null
+program_name: West Virginia Wesleyan University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: restoration
+  one_line: "West Virginia Wesleyan is the Jesuit-affiliated Bobcat program whose football tradition dates to 1898 and whose school colors (orange/black) were inspired by Princeton — a small Appalachian college playing for heritage and academic mission."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A 450-year-old Ignatian institution with 47 WVIAC titles and a century of football tradition, now rebuilding after a 0-11 season and coaching transition."
+
+the_wound:
+  name: "The 0-11 2025 season and the loss of everything"
+  detail: "West Virginia Wesleyan finished 0-11 overall in 2025 — a winless season that ended a coaching era and forced the school to completely reset the program. The loss of every game is a wound that will take years to heal, and the transition to new coach Mike Kellar is a blank-slate rebuild."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to .500 and restore the Bobcats to respectability in the Mountain East — prove that the 0-11 season was a nadir, not a permanent state."
+  drought: { since: 2025, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no active chip — Wesleyan's identity is built on Ignatian mission and academic excellence, not football grievance. The Bobcats play as an extension of the school's values, not as a vehicle for vindication."
+
+the_delusion:
+  tone: self-aware
+  text: "That a 450-year-old Jesuit college can build a competitive Division II football program in a small Appalachian town — the fanbase knows the odds are against them, but believes in the Bobcat tradition anyway."
+
+the_grudge_texture:
+  rival: wheeling-university
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: mission-vs-winning — the tension between Wesleyan's commitment to academic rigor and Ignatian service, and the practical need to field a competitive football team
+register: wesleyan-1898-football-ignatian-jesuit-orange-black-princeton-47-titles
+never_use:
+  - Historic football powerhouse (47 titles is regional success, not national relevance)
+  - Perennial national contenders (Wesleyan was a WVIAC force, not a D2 heavyweight)
+  - National championship program (no D2 or modern football title)
+
+story_canon:
+  the_unique_thing: "West Virginia Wesleyan's football tradition is inseparable from the school's Ignatian (Jesuit) mission — the sport exists within a larger context of academic rigor and ethical leadership. The Bobcat name and orange/black colors (inspired by Princeton, honoring football greats) date to 1898, making Wesleyan one of the oldest continuously-playing programs in the region. The 47 WVIAC titles represent sustained regional excellence, not national dominance."
+  the_origin: "A 450-year-old Jesuit institution (founded 1873 by the College of the Sacred Heart, part of a 450-year Ignatian educational tradition). Football was established in 1898 as a pre-college seminary sport. The school colors (orange/black) were adopted to honor Princeton and the great football traditions, and the Bobcat mascot was adopted (re-adopted in 2020 after historic 20th-century usage)."
+  golden_ages:
+    - { era: "1957–2013", what: "The 47-title WVIAC era — Wesleyan was a consistent conference power through the 20th century" }
+    - { era: "2000s–2010s", what: "Sustained regional competitiveness before the transition to Division II" }
+  legends:
+    - { name: "The Ignatian tradition", role: mission, why: "The real legend of Wesleyan is the 450-year Jesuit commitment to education and service — football is the field where that mission plays out" }
+    - { name: Frank Thompson, role: player, why: "1898 fullback/captain who inspired the orange/black school colors honoring Princeton" }
+  canonical_moments:
+    - { name: "Football Founded in 1898", year: 1898, what: "West Virginia Wesleyan established football as a pre-college seminary sport, one of the oldest continuously-playing programs in Appalachia", handling: glory }
+    - { name: "47 WVIAC Conference Titles", year: 2013, what: "Wesleyan won 47 WVIAC titles (1957-2013), making the school a regional power", handling: glory }
+    - { name: "Bobcat Mascot Re-adoption", year: 2020, what: "The Bobcat, a historic 20th-century Wesleyan mascot, was formally re-adopted in 2020 to honor the school's heritage", handling: glory }
+  the_place: "Buckhannon, West Virginia, a small Appalachian college town in north-central West Virginia."
+  brand_of_football: "Academic-mission football — the Bobcats play as an extension of Ignatian educational values, emphasizing service, rigor, and ethical leadership over competitive dominance."
+  cultural_footprint: "Wesleyan's cultural footprint is the Jesuit mission and the 450-year educational tradition. Football is a proud part of that heritage but not the center of it. The 47 WVIAC titles represent sustained regional respect."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: West Virginia Wesleyan finished 0-11 overall in 2025 under departing coach Dwayne Martin, a season that shattered
+    the program. New head coach Mike Kellar was hired in November 2025 to rebuild from scratch. The 2026 season is about recovery and restoration — proving
+    that the 0-11 nadir was an anomaly, not a reflection of Wesleyan's true capacity. Kellar faces the challenge of re-establishing a culture and
+    competitiveness in a program that completely lost its way in 2025. The Bobcats will lean on the 450-year Ignatian tradition and the Jesuit
+    commitment to education and service as the foundation for rebuilding.
+  research_checklist:
+    - Founded 1873 by College of the Sacred Heart (450-year Ignatian tradition)
+    - Football established 1898
+    - School colors orange/black inspired by Princeton (1898)
+    - Frank Thompson fullback/captain heritage
+    - 47 WVIAC conference titles (1957-2013)
+    - Bobcat mascot re-adoption (2020)
+  sources:
+    - https://en.wikipedia.org/wiki/West_Virginia_Wesleyan_University
+    - https://en.wikipedia.org/wiki/2025_NCAA_Division_II_football_season
+    - https://www.wvwu.edu/athletics/

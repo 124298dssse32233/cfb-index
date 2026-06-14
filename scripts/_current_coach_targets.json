@@ -1,0 +1,597 @@
+[
+  {
+    "slug": "adrian",
+    "program": "Adrian College",
+    "tier": 7,
+    "coach_name": "Joe Palka",
+    "why": "Second-year coach (since 2024) rebuilding Adrian with 6-4 and 7-4 seasons"
+  },
+  {
+    "slug": "anderson-in",
+    "program": "Anderson (IN)",
+    "tier": 7,
+    "coach_name": "Sarah Hendricks",
+    "why": "Head coach who describes the program as having 'exceptional veteran leadership and youthful talent'"
+  },
+  {
+    "slug": "arkansas-tech",
+    "program": "Arkansas Tech",
+    "tier": 6,
+    "coach_name": "Roy Thompson Jr.",
+    "why": "Hired in December 2024; tasked with reviving the Wonder Boys program"
+  },
+  {
+    "slug": "augsburg",
+    "program": "Augsburg University",
+    "tier": 7,
+    "coach_name": "KiJuan Ware",
+    "why": "First Black head coach in MIAC history; hired to rebuild the culture and identity of the program"
+  },
+  {
+    "slug": "beloit",
+    "program": "Beloit College",
+    "tier": 7,
+    "coach_name": "Kyle Langhoff",
+    "why": "31st head coach and current steward of the Beloit tradition"
+  },
+  {
+    "slug": "bethel-mn",
+    "program": "Bethel University (Minnesota)",
+    "tier": 7,
+    "coach_name": "Mike McElroy",
+    "why": "Built Bethel into a consistent national-level competitor; 2nd year as head coach, leading an undefeated season"
+  },
+  {
+    "slug": "bloomsburg",
+    "program": "Commonwealth University\u2013Bloomsburg",
+    "tier": 6,
+    "coach_name": "Frank Sheptock",
+    "why": "Fifth season as head coach; alma mater HC returning to rebuild post-consolidation identity"
+  },
+  {
+    "slug": "bluffton",
+    "program": "Bluffton",
+    "tier": 7,
+    "coach_name": "Coach Hedden",
+    "why": "New head coach hired in March 2025 to rebuild the Beavers"
+  },
+  {
+    "slug": "calvin",
+    "program": "Calvin University",
+    "tier": 7,
+    "coach_name": "Trent Figg",
+    "why": "Inaugural and current head coach (since 2023), hired before program began; architect of the rapid ascension"
+  },
+  {
+    "slug": "carleton",
+    "program": "Carleton College",
+    "tier": 7,
+    "coach_name": "Tom Journell",
+    "why": "Carleton head coach; steward of the Goat Trophy tradition and the rivalry's modern custodian"
+  },
+  {
+    "slug": "case-western-reserve",
+    "program": "Case Western Reserve",
+    "tier": 7,
+    "coach_name": "Greg Debeljak",
+    "why": "21-year head coach with 144+ career wins, the architect of sustained Case excellence and the program's greatest champion"
+  },
+  {
+    "slug": "central-oklahoma",
+    "program": "Central Oklahoma",
+    "tier": 6,
+    "coach_name": "Adam Dorrell",
+    "why": "Rebuilding UCO into playoff contention; led 2024 MIAA champions"
+  },
+  {
+    "slug": "charleston-wv",
+    "program": "University of Charleston",
+    "tier": 6,
+    "coach_name": "Michael Tesch",
+    "why": "Hired in 2025 (1st season) to lead Charleston's championship charge after steady builds by predecessors"
+  },
+  {
+    "slug": "christopher-newport",
+    "program": "Christopher Newport University",
+    "tier": 7,
+    "coach_name": "Matt Kelchner",
+    "why": "Inaugural HC since 2001; still coaching in 2026; architect of startup success and NJAC dominance"
+  },
+  {
+    "slug": "clarion",
+    "program": "Pennsylvania Western University\u2013Clarion",
+    "tier": 6,
+    "coach_name": "Raymond Monica",
+    "why": "Fourth season as head coach (2022\u2013present); back-to-back Edinboro victories represent the peak of his tenure and the program's resurgence"
+  },
+  {
+    "slug": "concordia-moorhead",
+    "program": "Concordia University Moorhead",
+    "tier": 7,
+    "coach_name": "Terry Horan",
+    "why": "25-year head coach at Concordia-Moorhead, 150+ career wins, longest-tenured active coach in Minnesota college football\u2014a symbol of stability and steady building"
+  },
+  {
+    "slug": "cornell-ia",
+    "program": "Cornell College",
+    "tier": 7,
+    "coach_name": "Dan Pifer",
+    "why": "Current head coach (2026), steward of the 1992 legacy"
+  },
+  {
+    "slug": "curry",
+    "program": "Curry College",
+    "tier": 7,
+    "coach_name": "Todd Parsons",
+    "why": "Restored Curry to winning in his 4th season; 2025 breakthrough"
+  },
+  {
+    "slug": "east-central",
+    "program": "East Central",
+    "tier": 6,
+    "coach_name": "John Litrenta",
+    "why": "Third-year head coach tasked with maintaining program pride in Division II"
+  },
+  {
+    "slug": "elizabeth-city-state",
+    "program": "Elizabeth City State University",
+    "tier": 6,
+    "coach_name": "Adrian Jones",
+    "why": "Bringing five years of CIAA experience from Shaw, Jones is tasked with building consistency at Elizabeth City State"
+  },
+  {
+    "slug": "endicott",
+    "program": "Endicott College",
+    "tier": 7,
+    "coach_name": "Paul McGonagle",
+    "why": "Architect of Endicott's five-year dynasty since 2018; 7-0 CNE in 2025"
+  },
+  {
+    "slug": "fitchburg-state",
+    "program": "Fitchburg State University",
+    "tier": 7,
+    "coach_name": "Izzy Abraham",
+    "why": "Hired 2025 to rebuild the program from a 130\u2013293\u20131 all-time record"
+  },
+  {
+    "slug": "grove-city",
+    "program": "Grove City",
+    "tier": 7,
+    "coach_name": "Andrew DiDonato",
+    "why": "10-year head coach with program record-holder status (7,509 career passing yards as a player)"
+  },
+  {
+    "slug": "gustavus-adolphus",
+    "program": "Gustavus Adolphus College",
+    "tier": 7,
+    "coach_name": "Peter Haugen",
+    "why": "17-year head coach; architect of the 2023 breakthrough and builder of the modern Gustavus winning culture"
+  },
+  {
+    "slug": "hamline",
+    "program": "Hamline University",
+    "tier": 7,
+    "coach_name": "Bob Davies",
+    "why": "Hired December 2025 to rebuild after the 1-10 disaster; represents the reset and the fresh start"
+  },
+  {
+    "slug": "hanover",
+    "program": "Hanover",
+    "tier": 7,
+    "coach_name": "Coach Burton",
+    "why": "Head coach leading the Panthers to the 2025 HCAC championship"
+  },
+  {
+    "slug": "hendrix",
+    "program": "Hendrix College",
+    "tier": 7,
+    "coach_name": "Buck Buchanan",
+    "why": "1st year head coach, first coach in 52 years (since 1973); architect of the 2025 breakthrough and builder of the modern Warriors identity"
+  },
+  {
+    "slug": "hilbert",
+    "program": "Hilbert College",
+    "tier": 7,
+    "coach_name": "Ted Egger",
+    "why": "Leading Hilbert's inaugural Liberty League season as head coach in his 3rd year with the program"
+  },
+  {
+    "slug": "hiram",
+    "program": "Hiram",
+    "tier": 7,
+    "coach_name": "Xavier Dupree",
+    "why": "New head coach for 2025 and beyond, tasked with rebuilding the program and developing young talent like QB Sean Tejada"
+  },
+  {
+    "slug": "indiana-pa",
+    "program": "Indiana University of Pennsylvania",
+    "tier": 6,
+    "coach_name": "Paul Tortorella",
+    "why": "Ten-year head coach who elevated IUP to regional powerhouse status and PSAC West champion."
+  },
+  {
+    "slug": "kalamazoo",
+    "program": "Kalamazoo College",
+    "tier": 7,
+    "coach_name": "John Krajacic",
+    "why": "Newly hired (Jan 1 2026), 20+ years in program as associate coach, tasked with rebuilding"
+  },
+  {
+    "slug": "kean",
+    "program": "Kean University",
+    "tier": 7,
+    "coach_name": "Dan Garrett",
+    "why": "Head coach since 2006 (20+ seasons); architect of coaching stability and tournament culture"
+  },
+  {
+    "slug": "kenyon",
+    "program": "Kenyon College",
+    "tier": 7,
+    "coach_name": "Ian Good",
+    "why": "Current coach (4 seasons), inheriting a struggling program and attempting to rebuild Owl culture"
+  },
+  {
+    "slug": "lawrence",
+    "program": "Lawrence University",
+    "tier": 7,
+    "coach_name": "Tony Aker",
+    "why": "Current head coach (2026), steward of Viking football"
+  },
+  {
+    "slug": "linfield",
+    "program": "Linfield University",
+    "tier": 7,
+    "coach_name": "Joseph Smith",
+    "why": "19-year head coach with 173-33 record, architect of sustained success"
+  },
+  {
+    "slug": "lock-haven",
+    "program": "Commonwealth University\u2013Lock Haven",
+    "tier": 6,
+    "coach_name": "Joe Battaglia",
+    "why": "The head coach who broke the 44-year losing drought and restored winning football to Lock Haven in his debut year."
+  },
+  {
+    "slug": "maine-maritime",
+    "program": "Maine Maritime Academy",
+    "tier": 7,
+    "coach_name": "Nick Sheehan",
+    "why": "Tasked with rebuilding the program in 2025 after 5-year suspension"
+  },
+  {
+    "slug": "marietta",
+    "program": "Marietta",
+    "tier": 7,
+    "coach_name": "Tom Kaufman",
+    "why": "New head coach hired to deliver Marietta's first OAC title"
+  },
+  {
+    "slug": "merchant-marine",
+    "program": "United States Merchant Marine Academy",
+    "tier": 7,
+    "coach_name": "Jameson Croall",
+    "why": "4th-season head coach rebuilding Merchant Marine football culture"
+  },
+  {
+    "slug": "midwestern-state",
+    "program": "Midwestern State",
+    "tier": 6,
+    "coach_name": "Rich Renner",
+    "why": "Defensive coordinator under Maskill for 16 years; elevated to HC in 2024; tasked with proving the program transcends its founder"
+  },
+  {
+    "slug": "mit",
+    "program": "Massachusetts Institute of Technology",
+    "tier": 7,
+    "coach_name": "Brian Bubna",
+    "why": "8-season head coach providing modern-era continuity and NEWMAC competitiveness"
+  },
+  {
+    "slug": "morrisville",
+    "program": "SUNY Morrisville",
+    "tier": 7,
+    "coach_name": "Eric Jendryaszek",
+    "why": "Named head coach April 2025 to lead the next chapter of the resurgence"
+  },
+  {
+    "slug": "nebraska-kearney",
+    "program": "Nebraska-Kearney",
+    "tier": 6,
+    "coach_name": "Ryan Held",
+    "why": "First season in 2025; tasked with returning the Lopers to playoff contention"
+  },
+  {
+    "slug": "nichols",
+    "program": "Nichols College",
+    "tier": 7,
+    "coach_name": "Vinny Marino",
+    "why": "In 2nd year of rebuilding Nichols football"
+  },
+  {
+    "slug": "northwest-missouri-state",
+    "program": "Northwest Missouri State",
+    "tier": 6,
+    "coach_name": "John McMenamin",
+    "why": "New coach in 2026; tasked with resurrecting the championship tradition"
+  },
+  {
+    "slug": "northwestern-oklahoma-state",
+    "program": "Northwestern Oklahoma State",
+    "tier": 6,
+    "coach_name": "Ronnie Jones",
+    "why": "Outgoing coach tasked with maintaining the Rangers program through difficult years"
+  },
+  {
+    "slug": "northwestern-oklahoma-state",
+    "program": "Northwestern Oklahoma State",
+    "tier": 6,
+    "coach_name": "Jerry Partridge",
+    "why": "Incoming coach hired December 2025 to lead the Rangers into the 2026 season"
+  },
+  {
+    "slug": "northwood",
+    "program": "Northwood University",
+    "tier": 6,
+    "coach_name": "Dustin Beurer",
+    "why": "Third-year head coach who turned the program around from 11-11 in first two years to 9-3 in 2025"
+  },
+  {
+    "slug": "norwich",
+    "program": "Norwich University",
+    "tier": 7,
+    "coach_name": "Bill Russell",
+    "why": "Hired Nov 2023; rebuilding from 0-10 toward competitive football"
+  },
+  {
+    "slug": "oberlin",
+    "program": "Oberlin College",
+    "tier": 7,
+    "coach_name": "Jay Peterson",
+    "why": "Current staff member attempting to rebuild Oberlin football from historic lows"
+  },
+  {
+    "slug": "ohio-dominican",
+    "program": "Ohio Dominican University",
+    "tier": 6,
+    "coach_name": "Kelly Cummings",
+    "why": "Head coach leading the Panthers with a focus on development and student-athlete growth"
+  },
+  {
+    "slug": "ohio-northern",
+    "program": "Ohio Northern",
+    "tier": 7,
+    "coach_name": "Andy Fries",
+    "why": "Second-year head coach who flipped Ohio Northern from projected fifth place to 8-2 and Coach of the Year in 2025"
+  },
+  {
+    "slug": "oklahoma-baptist",
+    "program": "Oklahoma Baptist",
+    "tier": 6,
+    "coach_name": "Chris Jensen",
+    "why": "Eleven-year head coach (48-85 record) who has become the face of the program despite losing seasons"
+  },
+  {
+    "slug": "olivet",
+    "program": "Olivet College",
+    "tier": 7,
+    "coach_name": "Erik Ieuter",
+    "why": "Newly hired (2025-26), from Ohio Athletic Conference, tasked with rebuilding"
+  },
+  {
+    "slug": "otterbein",
+    "program": "Otterbein",
+    "tier": 7,
+    "coach_name": "Dave Marquis",
+    "why": "New head coach hired in 2025 to deliver the Cardinals' first winning season since 2017"
+  },
+  {
+    "slug": "ouachita-baptist",
+    "program": "Ouachita Baptist",
+    "tier": 6,
+    "coach_name": "Todd Knight",
+    "why": "26-year head coach (169-107 record) who has defined Ouachita Baptist football since the late 1990s"
+  },
+  {
+    "slug": "plymouth-state",
+    "program": "Plymouth State University",
+    "tier": 7,
+    "coach_name": "Devin Zeman",
+    "why": "Co-head coach since 2020, part of the unique two-coach structure that has sustained success"
+  },
+  {
+    "slug": "rose-hulman",
+    "program": "Rose-Hulman",
+    "tier": 7,
+    "coach_name": "Jeff Sokol",
+    "why": "15-year head coach building a sustained HCAC contender"
+  },
+  {
+    "slug": "rowan",
+    "program": "Rowan University",
+    "tier": 7,
+    "coach_name": "Pat Ruley",
+    "why": "2nd season as head coach (2025); steering Rowan toward a new identity"
+  },
+  {
+    "slug": "saint-johns-mn",
+    "program": "Saint John's University (Minnesota)",
+    "tier": 7,
+    "coach_name": "Gary Fasching",
+    "why": "13th year head coach, carrying forward the post-Gagliardi era, building toward the next national championship"
+  },
+  {
+    "slug": "salisbury",
+    "program": "Salisbury University",
+    "tier": 7,
+    "coach_name": "Sherman Wood",
+    "why": "32 seasons as head coach; 6 NJAC titles in 9 years; 2025 AFCA National Coach of the Year; the architect of modern Salisbury dominance"
+  },
+  {
+    "slug": "seton-hill",
+    "program": "Seton Hill University",
+    "tier": 6,
+    "coach_name": "Kevin May",
+    "why": "Promoted from defensive coordinator to head coach in 2025; spent six seasons building the Seton Hill defense before elevation."
+  },
+  {
+    "slug": "shepherd",
+    "program": "Shepherd University",
+    "tier": 6,
+    "coach_name": "Ernie McCook",
+    "why": "Eight-year head coach who built Shepherd into a stable, competitive PSAC program with a 66\u201322 record and regional respect."
+  },
+  {
+    "slug": "simpson",
+    "program": "Simpson University",
+    "tier": 7,
+    "coach_name": "Reed Hoskins",
+    "why": "Three seasons (2023\u2013present) rebuilding the program's regional competence"
+  },
+  {
+    "slug": "southeastern-oklahoma-state",
+    "program": "Southeastern Oklahoma State",
+    "tier": 6,
+    "coach_name": "Bo Atterberry",
+    "why": "Current head coach tasked with building the Savage Storm program"
+  },
+  {
+    "slug": "southern-nazarene",
+    "program": "Southern Nazarene",
+    "tier": 6,
+    "coach_name": "Dustin Hada",
+    "why": "Fifth-year head coach committed to building the Crimson Storm program with Nazarene values"
+  },
+  {
+    "slug": "st-olaf",
+    "program": "St. Olaf College",
+    "tier": 7,
+    "coach_name": "James Kilian",
+    "why": "9th year head coach; steward of the Goat Trophy tradition and the rivalry's modern custodian"
+  },
+  {
+    "slug": "st-scholastica",
+    "program": "University of St. Scholastica",
+    "tier": 7,
+    "coach_name": "Matt Bremer",
+    "why": "1st year head coach, hired to establish culture and competitive presence in a new MIAC home"
+  },
+  {
+    "slug": "suny-maritime",
+    "program": "State University of New York Maritime College",
+    "tier": 7,
+    "coach_name": "Anthony Trotta",
+    "why": "Hired for 2025-26 season to continue Privateers tradition"
+  },
+  {
+    "slug": "texas-am-kingsville",
+    "program": "Texas A&M-Kingsville",
+    "tier": 6,
+    "coach_name": "Scott Parr",
+    "why": "Hired December 2024 from Louisiana Tech; tasked with honoring the Javelina tradition while building a new era"
+  },
+  {
+    "slug": "texas-lutheran",
+    "program": "Texas Lutheran University",
+    "tier": 7,
+    "coach_name": "Neal LaHue",
+    "why": "4th year head coach; architect of the modern Texas Lutheran elite program and the 2024 championship"
+  },
+  {
+    "slug": "thomas-more",
+    "program": "Thomas More University",
+    "tier": 6,
+    "coach_name": "Chris Norwell",
+    "why": "Fourth-year head coach navigating Thomas More's transition to full NCAA Division II membership"
+  },
+  {
+    "slug": "trine",
+    "program": "Trine University",
+    "tier": 7,
+    "coach_name": "Troy Abbs",
+    "why": "Head coach since 2015 (11 seasons), 67-31 career record, architect of the Thunder's sustained competitiveness"
+  },
+  {
+    "slug": "ut-permian-basin",
+    "program": "UT Permian Basin",
+    "tier": 6,
+    "coach_name": "Chris Softley",
+    "why": "Hired December 31, 2025, from Lubbock Christian School; tasked with sustaining the 2025 momentum"
+  },
+  {
+    "slug": "vermont-state-castleton",
+    "program": "Vermont State University Castleton",
+    "tier": 7,
+    "coach_name": "Tyler Higley",
+    "why": "Current head coach steering Castleton through NJAC transition"
+  },
+  {
+    "slug": "virginia-state",
+    "program": "Virginia State University",
+    "tier": 6,
+    "coach_name": "Dr. Henry Frazier III",
+    "why": "Hired in 2022, given a long-term contract through the 2030s; building a 2024 Co-CIAA championship program"
+  },
+  {
+    "slug": "wabash",
+    "program": "Wabash College",
+    "tier": 7,
+    "coach_name": "Jake Gilbert",
+    "why": "Second-year coach (since 2024) tasked with winning the bell again"
+  },
+  {
+    "slug": "walsh",
+    "program": "Walsh University",
+    "tier": 6,
+    "coach_name": "John Fankhauser",
+    "why": "Ninth-year head coach (since 2018) providing stability and incremental improvement; led the program to its best NCAA D2 season in 2025"
+  },
+  {
+    "slug": "washburn",
+    "program": "Washburn",
+    "tier": 6,
+    "coach_name": "Zach Watkins",
+    "why": "New coach hired Nov 2024; first season in 2025; tasked with rebuilding the program"
+  },
+  {
+    "slug": "washington-stl",
+    "program": "Washington University in St. Louis",
+    "tier": 7,
+    "coach_name": "Aaron Keen",
+    "why": "Coach since 2020 (WashU '94 grad), leading the program through the CCIW exit and into the NCAC"
+  },
+  {
+    "slug": "west-texas-am",
+    "program": "West Texas A&M",
+    "tier": 6,
+    "coach_name": "Josh Lynn",
+    "why": "Year 2 (hired Dec 2022 from Nebraska-Kearney); author of the 2025 breakthrough; tasked with sustaining the momentum"
+  },
+  {
+    "slug": "western-new-mexico",
+    "program": "Western New Mexico",
+    "tier": 6,
+    "coach_name": "Billy Hickman",
+    "why": "Head coach tasked with rebuilding from a 2\u20139 season and restoring Mustang pride"
+  },
+  {
+    "slug": "wisconsin-la-crosse",
+    "program": "UW-La Crosse",
+    "tier": 7,
+    "coach_name": "Michael Zweifel",
+    "why": "Hired in early 2026 to lead the next La Crosse era and prove the program's standard survives transitions"
+  },
+  {
+    "slug": "wisconsin-oshkosh",
+    "program": "UW-Oshkosh",
+    "tier": 7,
+    "coach_name": "Peter Jennings",
+    "why": "In fourth season, rebuilding the Titans toward contention after drought years"
+  },
+  {
+    "slug": "worcester-state",
+    "program": "Worcester State University",
+    "tier": 7,
+    "coach_name": "Corey Stefanik",
+    "why": "Hired December 2024, tasked with building sustained success at the MASCAC level"
+  }
+]

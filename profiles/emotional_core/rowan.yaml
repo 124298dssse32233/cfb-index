@@ -1,0 +1,94 @@
+# Emotional Core — Rowan University (rowan)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: rowan
+team_id: null
+program_name: Rowan University
+program_tier: 7
+
+emotional_core:
+  primary: grievance
+  secondary: restoration
+  core_variant: the-chronic-chip
+  one_line: "Five national championship game runner-up finishes (1990s) that proved Rowan belonged at the table — now rebuilding from the peak with 15+ tournament appearances as proof of staying power."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A 1990s elite program that reached five national championship games and has spent 25 years chasing that peak, refusing to disappear despite the fall."
+
+the_wound:
+  name: "The 1990s championship game failures"
+  detail: "Five times in five years (1993, 1995, 1996, 1998, 1999) Rowan reached the NCAA Division III national championship game and lost every one. The wound is not that they lost — it's that they got that close and never crossed the line. The 1993 team remains the closest miss: lost 34–24 to Mount Union."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the national championship that escaped in 1993, 1995, 1996, 1998, 1999; restore the Rowan program to title contender status; prove the 1990s weren't the absolute peak."
+  drought: { since: 1999, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe rowan was built to win titles — five championship games proved it. Never crossing the line is the scar that won't heal."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that the 1990s were the only real era — that every team in Rowan history is chasing Mount Union 1993. The program knows better, but the championship game ghosts never leave."
+
+the_grudge_texture:
+  rival: njac-circuit
+  texture: blood-feud
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Chasing the 1990s elite era vs. accepting the reality of modern competition and accepting that titles may not come"
+register: prof-championship-ghost
+never_use:
+  - "No history — Five national championship game runner-ups (1993, 1995, 1996, 1998, 1999); 15 NCAA tournament appearances since 1991"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Five national championship game runner-up finishes in five years (1993, 1995, 1996, 1998, 1999) — the 1990s elite era that proved Rowan belonged with the giants, only to fall every time it mattered most."
+  the_origin: "Rowan University, Glassboro, New Jersey (formerly Glassboro State) — a New Jersey institution that became an elite 1990s program under its teacher-training school roots."
+  golden_ages:
+    - { era: "1993", what: "First national championship game: lost 34–24 to Mount Union (the closest miss)" }
+    - { era: "1995", what: "Second championship game: lost 36–7 to La Crosse (the blow-out loss)" }
+    - { era: "1996", what: "Third championship game: lost 56–24 to Mount Union" }
+    - { era: "1998", what: "Fourth championship game: lost in title game" }
+    - { era: "1999", what: "Fifth championship game: lost in title game; the end of the elite run" }
+    - { era: "1991–2025", what: "15 NCAA tournament appearances spanning three decades" }
+  legends:
+    - { name: "1993 national championship team", role: team, why: "Inducted Rowan Hall of Fame 2023; the closest Rowan ever came (34–24 loss to Mount Union)" }
+    - { name: "Pat Ruley", role: coach, why: "2nd season as head coach (2025); steering Rowan toward a new identity" }
+  canonical_moments:
+    - { name: "1993 national championship game", year: 1993, what: "Lost 34–24 to Mount Union; the closest Rowan came to a title", handling: wound }
+    - { name: "Five championship games (1993, 1995, 1996, 1998, 1999)", year: 1999, what: "Five times in five years Rowan lost in the national championship game; the defining era and the defining scar", handling: wound }
+    - { name: "1993 team Hall of Fame induction", year: 2023, what: "The 1993 championship team finally honored in Rowan's Hall of Fame", handling: wound }
+    - { name: "15 NCAA tournament appearances (1991–2025)", year: null, what: "Proof Rowan didn't disappear after the 1990s", handling: glory }
+  the_place: "Coach Richard Wackar Stadium, Rowan campus, Glassboro, New Jersey (5,000 capacity) — home of the Profs."
+  brand_of_football: "Championship-game football — Rowan programs are built to reach title games, even if they fall short."
+  cultural_footprint: "The program that came closest in the 1990s (five championship games) and has spent 25 years proving that run was real, not a fluke. Rowan's identity is chasing the ghost of what it was."
+  the_ongoing_story: "LIVE as of 2025: Rowan went 8–2–1 overall, 5–2 NJAC in 2025 (with one tie game vs. Case Western Reserve on Sept. 6 due to thunderstorm). Head Coach Pat Ruley (2nd season) is steering Rowan toward a post-1990s identity. The program still carries five national championship games (1993, 1995, 1996, 1998, 1999) as proof of being elite once. The 15 NCAA tournament appearances (since 1991) prove Rowan didn't disappear. But the championship never came, and that wound defines everything."
+  sources:
+    - https://en.wikipedia.org/wiki/Rowan_University_Profs_football
+    - https://www.rowan.edu/athletics/football/
+    - https://www.rowan.edu/about/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Rowan University is the 1990s elite that reached five national championship games (1993, 1995, 1996, 1998, 1999) and lost every one — carrying that ghost.
+  mantra: Prof championship wound.
+  cultural_anchors:
+    fan_archetype_dominant: Rowan-Championship-Ghost-Believer
+    outsider_archetype_dominant: 1990s-Elite-Memory
+    one_sentence: Rowan University reached five NCAA Division III national championship games in five years (1993, 1995, 1996, 1998, 1999) and lost all five — the defining identity.
+  selfname: the Profs (Professors, from 1923 teacher-training founding)
+  rituals:
+    - Five championship games (1993, 1995, 1996, 1998, 1999)
+    - 1993 loss to Mount Union (34–24, closest miss)
+    - 15 NCAA tournament appearances (1991–2025)
+    - 1993 team Hall of Fame (2023)
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

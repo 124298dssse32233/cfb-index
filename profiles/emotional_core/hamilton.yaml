@@ -1,0 +1,73 @@
+# AUTHORED (D3/NESCAC) 2026-06-13 — web-verified
+
+status: live
+slug: hamilton
+team_id: null
+program_name: Hamilton College
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Upstate New York liberal-arts stalwart—Hamilton is a consistent NESCAC competitor with strong institutional stability and the eternal wound of the Rocking Chair Trophy."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Sustained competitive presence vs. 28+ year Rocking Chair Trophy drought under Middlebury"
+
+the_wound:
+  name: "The Rocking Chair Trophy drought"
+  detail: "Hamilton and Middlebury have contested the Rocking Chair Trophy (oldest continuous American college football rivalry claim) since ~1905. Middlebury leads 36–8 all-time and has held the trophy for 28+ consecutive years. The 5–5 (2025) record perpetuates the pattern."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Rocking Chair Trophy—end the 28+ year drought and reclaim institutional supremacy over Middlebury."
+  drought: { since: 1997, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe middlebury is the Rocking Chair keeper, and it's beaten Hamilton in every institutional rivalry metric for a generation. Hamilton is tired of the annual heartbreak."
+
+the_delusion:
+  tone: self-aware
+  text: "Hamilton fans believe that talent and organizational capacity exist to break the Middlebury stranglehold—that one winning season could flip the entire dynamic."
+
+the_grudge_texture:
+  rival: middlebury
+  texture: killed-by-realignment
+
+the_coach_relationship: total-trust
+the_internal_fracture: patience-vs-urgency — whether to build incrementally (the current approach) or demand immediate Rocking Chair contention
+
+register: upstate-academic-steadfast
+
+never_use:
+  - "Consistently losing to Middlebury (Hamilton is competitive; the rivalry is the institutional focal point)"
+  - "Permanently inferior (the trophy record doesn't reflect current program quality)"
+
+story_canon:
+  the_unique_thing: "The Rocking Chair Trophy rivalry with Middlebury—oldest continuous American college football rivalry claim, held by Middlebury for 28+ years (36–8 all-time record)."
+  the_origin: "Hamilton College (founded 1812) is an upstate New York liberal-arts institution with 200+ years of football tradition. The Rocking Chair rivalry since ~1905 anchors program identity."
+  golden_ages:
+    - { era: "1970s–1980s", what: "Competitive NESCAC years; periodic bowl/tournament appearances" }
+    - { era: "1994–2005", what: "Modern competitive era; consistent tournament participant; Rocking Chair Trophy competitive" }
+    - { era: "2010–2020", what: "Sustained NESCAC relevance; 2017–2018 playoff appearances" }
+  legends:
+    - { name: Rocking Chair Trophy, role: institution, why: "The oldest continuous rivalry trophy in American college football; Hamilton's focal point institution" }
+  canonical_moments:
+    - { name: "Rocking Chair rivalry establishment", year: 1905, what: "Annual trophy game with Middlebury; contested since early 1900s", handling: glory }
+    - { name: "2018 NCAA playoff appearance", year: 2018, what: "Modern tournament berth; institutional milestone", handling: glory }
+  the_place: "Clinton, New York—upstate liberal-arts college town; home of the Rocking Chair Trophy."
+  brand_of_football: "Institutional, steady football—a program that competes with discipline and commitment despite regional disadvantages."
+  cultural_footprint: "The loyal challenger to Middlebury; proof that consistent competitiveness without dominance can anchor program identity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Hamilton went 5–5 (2025), NESCAC middle tier. The Rocking Chair Trophy remains
+    the institutional focal point; the rivalry defines Hamilton more than national rankings. The question is whether the program
+    can build incremental excellence that eventually breaks the Middlebury dynasty, or whether the trophy will remain a symbol of
+    worthy but futile annual effort. Institutional pride is strong; the wound is active.
+  sources:
+    - https://www.hamilton.edu/athletics/sports/football
+    - https://www.nescac.org/sports/fball/standings
+    - https://en.wikipedia.org/wiki/Rocking_Chair_Trophy
+    - https://www.ncaa.org/sports/football/d3

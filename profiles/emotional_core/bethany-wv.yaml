@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: bethany-wv
+team_id: null
+program_name: Bethany (West Virginia)
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: house-money
+  one_line: "Bethany is West Virginia's oldest institution of higher learning, a 1840-founded college playing football with the pride of deep Appalachian heritage and the humility of a small school punching above its academic weight."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Founded before West Virginia itself was a state, Bethany carries the identity of a pioneer college more focused on education than athletics — football is the fall celebration, not the identity."
+
+the_wound:
+  name: "The football has always been secondary"
+  detail: "Bethany's 2025 season (1-9, 1-7 PAC) reflects the core truth: this is a college that prioritizes scholarship and small-school mission over football prominence. The wound is not shame but honest assessment — athletic excellence was never the institution's north star."
+  handling: never-a-punchline
+  freshness: all-time
+
+the_dream:
+  text: "Build a season or two where football becomes something the whole college rallies around — not to become a powerhouse, but to show Appalachian students that small-school pride can thrive in athletics too."
+  drought: { since: 2019, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Bethany plays because it's tradition, because it builds community. The motivation is institutional pride and the love of the game, not vindication."
+
+the_delusion:
+  tone: earnest
+  text: "That next year the whole campus shows up and Bethany finds a quarterback and the wind shifts — the fanbase knows college football is built on hope, and Bethany fans hold tight to theirs."
+
+the_grudge_texture:
+  rival: none
+  texture: none
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Academic mission vs. athletic ambition — how much should the college invest in football?"
+register: bethany-bisons-first-college-west-virginia-small-school-mission
+
+never_use:
+  - Football powerhouse — never has been, not relevant
+  - Perennial bowl teams — D3 doesn't have bowls; playoff appearances are rare
+  - Storied football legacy — Bethany's legacy is academic, not athletic
+
+story_canon:
+  the_unique_thing: "Bethany College was founded in 1840 and is the first institution of higher education established in what would become West Virginia — a liberal-arts pioneer college with deep roots in Appalachian heritage."
+  the_origin: "A small college in Bethany, West Virginia (population ~1,400), founded by Alexander Campbell to educate rural Appalachian students. Football came later as a unifying autumn tradition."
+  golden_ages:
+    - { era: "1980s–1990s", what: "The program's most competitive years in the PAC, with occasional playoff appearances" }
+  legends:
+    - { name: "Alexander Campbell", role: "founder", why: "Founded Bethany College in 1840, establishing West Virginia's first institution of higher learning" }
+  canonical_moments:
+    - { name: "College founding 1840", year: 1840, what: "Bethany College is established as West Virginia's first college, setting the foundation for 186 years of Appalachian education", handling: glory }
+  the_place: "Bethany, West Virginia — a tiny college town in the northern panhandle, surrounded by Appalachian forest and coal country."
+  brand_of_football: "Honest football played by scholar-athletes. Bethany's game is about showing up, playing hard, and representing your college — not about winning a championship."
+  cultural_footprint: "A guardian of Appalachian educational heritage. Bethany's football team represents the college's broader mission: serve rural students and build community leaders."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Bethany went 1-9 overall (1-7 PAC) in 2025 and brought in new head coach
+    Brandon Robinson for 2026. The program faces the honest challenge of building competitiveness while staying true
+    to its academic mission. Bethany's future depends on finding coach-athlete fit and growing confidence within the
+    college community that football can succeed here.
+
+  research_checklist:
+    - Bethany College founded 1840 (West Virginia's first)
+    - Recent coaching changes and program direction
+    - PAC conference standing and competitive context
+    - Small-school identity and academic mission alignment
+    - Appalachian heritage and community role
+
+  sources:
+    - https://en.wikipedia.org/wiki/Bethany_College_(West_Virginia)
+    - https://www.bethanywv.edu/athletics/football
+    - https://en.wikipedia.org/wiki/Bethany_Bisons_football

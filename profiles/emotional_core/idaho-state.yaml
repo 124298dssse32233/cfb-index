@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: idaho-state
+team_id: 333
+program_name: Idaho State
+program_tier: 5
+
+emotional_core:
+  primary: grief
+  secondary: restoration
+  one_line: "Idaho State is the only FCS national champion in the modern Big Sky — the 1981 team that won it all under Dave Kragthorpe — and carries the weight of proving that singular moment was not a fluke."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A program with a legitimate national championship in its trophy case and nothing to show for the 45 years since — the gap between 1981 glory and the long quiet that followed defines Idaho State's identity."
+
+the_wound:
+  name: "The 1981 championship and the 45-year drought after"
+  detail: "Idaho State won the FCS national championship in 1981 (beating Eastern Kentucky 34–23 in the Cradle of 10,000 Quarterbacks), then spent the next 45 years chasing that moment without approaching it. Coaches turned over, the program leveled, and by 2025 the Bengals were wrestling in the mid-Big Sky tier with a trophy that feels like ancient history."
+  handling: referenceable
+  freshness: all-time
+
+the_dream:
+  text: "Reclaim the Kragthorpe standard, compete for Big Sky titles every year, remind the sport that the 1981 championship was not an accident."
+  drought: { since: 1981, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe college football has written Idaho State out of the historical narrative; the 1981 championship is a footnote, not a landmark. The Bengals carry the resentment of a program whose greatest accomplishment is too old and too FCS to matter."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the Kragthorpe playbook — tough, disciplined, quarterback-friendly football — is still in the building's walls, and a coach who taps it can resurrect the 1981 standard. Fans know it's unlikely, and believe it anyway."
+
+the_grudge_texture:
+  rival: idaho
+  texture: border-war
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Nostalgia vs forward momentum — does the program measure itself by 1981, or build something new?"
+register: pocatello-idaho-bengals-kragthorpe-legacy
+never_use:
+  - Never won an FCS national title — the 1981 championship is real and documented
+  - Consistent national-contender status — 1981 was an outlier, not a pattern
+  - Dave Kragthorpe still coaching — he's been gone for decades; his shadow lingers but his system is gone
+  - The 2002 Big Sky co-championship is a national title — it's not; Big Sky co-champions do not go to playoffs
+
+story_canon:
+  the_unique_thing: "The 1981 FCS National Championship — Idaho State is the only current Big Sky member to win a national title, beating Eastern Kentucky 34–23 under coach Dave Kragthorpe on December 19, 1981. It remains the program's singular defining moment."
+  the_origin: "A small mountain school in Pocatello, Idaho that built itself into a I-AA power under Dave Kragthorpe, winning the 1981 national championship with a quarterback-centric, disciplined system."
+  golden_ages:
+    - { era: "1981", what: "The FCS National Championship under Dave Kragthorpe, beating Eastern Kentucky in the title game" }
+    - { era: "1963, 1981, 2002 (Big Sky)", what: "Three conference-championship seasons, though only 1981 resulted in a national title" }
+  legends:
+    - { name: Dave Kragthorpe, role: coach, why: "Won the 1981 FCS national championship with quarterback-driven football, the greatest coach in program history" }
+    - { name: Dan Fouts, role: player, why: "legendary quarterback who played nearby at Oregon; though not Idaho State, represents the era of Pacific Northwest quarterback excellence" }
+  canonical_moments:
+    - { name: "1981 National Championship", year: 1981, what: "Idaho State defeats Eastern Kentucky 34–23 for the FCS national title, the program's only national championship", handling: glory }
+    - { name: "1963 Big Sky Championship", year: 1963, what: "An early conference title that presaged the Kragthorpe era success", handling: glory }
+  the_place: "Holt Arena in Pocatello, Idaho — a small-town mountain facility that hosted the 1981 champions"
+  brand_of_football: "Kragthorpe-legacy quarterback football — disciplined, scheme-driven, built on the conviction that a good QB can elevate a program"
+  cultural_footprint: "Idaho State carries the proof that even small-town FCS programs can win national titles; the 1981 championship is a monument to what application and discipline can achieve."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Idaho State went 6–6 (5–3 Big Sky) in 2025 under coach Cody Hawkins (3rd year).
+    The Bengals were respectable but not contenders, missing the Big Sky playoff cutline. QB Jordan Cooke threw 16 TDs and provided
+    hope that the quarterback pipeline — the Kragthorpe legacy — is still producing talent. Hawkins enters 2026 in a critical third
+    year: he must either build to a Big Sky contender or risk the program settling into permanent mid-tier status. The 1981 championship
+    casts a long shadow; every offseason fans whisper about reclaiming it. Hawkins' job is to stop the whispers by proving he can build
+    something sustained, not just chase ghosts.
+  research_checklist:
+    - The 1981 national championship victory over Eastern Kentucky (34–23)
+    - Dave Kragthorpe as the legendary coach and architect
+    - The quarterback-centric tradition that defines Idaho State
+    - The 45-year drought since the title
+    - 2025 as a respectable but unfulfilled year
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Idaho_State_Bengals_football_team
+    - https://en.wikipedia.org/wiki/1981_Idaho_State_Bengals_football_team
+    - https://en.wikipedia.org/wiki/Idaho_State_Bengals_football
+    - https://en.wikipedia.org/wiki/Dave_Kragthorpe

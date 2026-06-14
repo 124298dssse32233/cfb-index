@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+# Elizabeth City State University Vikings (CIAA Division II)
+
+status: live
+slug: elizabeth-city-state
+team_id: null
+program_name: Elizabeth City State University
+program_tier: 6
+
+emotional_core:
+  primary: house-money       # every game and every tradition is a gift to the community
+  secondary: restoration     # new coach Adrian Jones rebuilding in his first season
+  one_line: "Elizabeth City State is the North Carolina HBCU whose HomeEComing celebration is woven into the fabric of the community, where the Vikings play for pride and parade."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A historic HBCU with deep community roots and the powerful HomeEComing tradition, navigating modest football resources with outsized pride."
+
+the_wound:
+  name: "Years of inconsistency and the search for stability"
+  detail: "Elizabeth City State cycled through coaching changes and struggled to find consistent winning. The 2024 season (3-7) left the program searching for direction, leading to the hire of Adrian Jones in January 2025."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build consistency under Adrian Jones. The dream is to return to .500 football and make the HomeEComing celebration something tied to on-field pride alongside the parade, the band, and the community gathering."
+  drought: { since: 2020, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip against the outside. The motivation is internal: prove that Elizabeth City State football can be a vehicle for Viking pride and homecoming joy, not a source of frustration."
+
+the_delusion:
+  tone: earnest
+  text: "That HomeEComing glory can be translated to the field. The fanbase knows football resources are thin, but believes that with the right coach and culture, Vikings football can match the energy of the celebration."
+
+the_grudge_texture:
+  rival: null
+  texture: none                # No traditional blood rival identified
+
+the_coach_relationship: savior           # Adrian Jones brings fresh start after five years at Shaw
+the_internal_fracture: tradition vs. competence — the balance between honoring the HomeEComing heritage and building a winning football team
+register: elizabeth-city-vikings-homecoming-north-carolina
+never_use:
+  - Elizabeth City State is a basketball school — football is central to homecoming culture
+  - Consistent bowl contender — the program has not been to a bowl in recent memory
+  - High-profile national players — ECSU develops within its resource constraints
+  - A powerhouse in D2 — ECSU competes with modest resources and heart
+
+story_canon:
+  the_unique_thing: "The HomeEComing celebration — a parade down Main Street in Elizabeth City, marching band performance, Greek step shows, alumni mixers, and community gathering that defines fall for the region. Football is one chapter of a larger community tradition."
+  the_origin: "Elizabeth City State University, founded as an HBCU in North Carolina, has built its football identity around the HomeEComing festival, making athletics part of a larger cultural fabric."
+  golden_ages:
+    - { era: "HomeEComing tradition", what: "Decades of community celebration and cultural prominence tied to the Vikings program" }
+  legends:
+    - { name: Adrian Jones, role: coach, why: "Bringing five years of CIAA experience from Shaw, Jones is tasked with building consistency at Elizabeth City State" }
+  canonical_moments:
+    - { name: "The HomeEComing celebration", year: null, what: "Annual community gathering with parade, band, and alumni returning to Elizabeth City", handling: glory }
+  the_place: "Elizabeth City, North Carolina — a small city on the Outer Banks, where the HomeEComing parade routes down Main Street and the entire community gathers."
+  brand_of_football: "Community-centered HBCU football — resource-constrained, tradition-driven, where the game is part of a larger cultural and social fabric."
+  cultural_footprint: "The HomeEComing celebration is the defining moment for Elizabeth City State athletics. The Vikings band, the parade, and the reunion of the community make fall a powerful season."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Elizabeth City State went 4-6 overall and 4-3 in CIAA in 2025, a modest improvement from the 3-7 season that ended Kyle Jackson's tenure. New coach Adrian Jones, hired in January 2025, arrived from Shaw with five years of CIAA experience. His mandate: build consistency and make Vikings football a source of pride for the annual HomeEComing celebration. The community gathers for the parade; now the question is whether the football team can build wins to match.
+  research_checklist:
+    - The HomeEComing celebration history and community significance
+    - Adrian Jones' coaching record and vision at Shaw
+    - CIAA standing and trajectory under new leadership
+    - Marching band presence and role in homecoming
+    - Recruiting and roster development
+  sources:
+    - https://ecsuvikings.com
+    - https://theciaa.com/sports/fball/index
+    - https://hbcugameday.com/elizabeth-city-state-vikings
+    - https://en.wikipedia.org/wiki/Elizabeth_City_State_Vikings_football

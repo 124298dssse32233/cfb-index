@@ -1,0 +1,110 @@
+# Emotional Core — Fordham Rams (fordham)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — FCS Patriot League
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: fordham
+team_id: null
+program_name: Fordham Rams
+program_tier: 3
+
+emotional_core:
+  primary: restoration      # the Seven Blocks legacy haunting a modern collapse
+  secondary: redemption
+  core_variant: regime-reset
+  one_line: "The Bronx football program that carries Vince Lombardi's 'Seven Blocks of Granite' as both crown jewel and curse."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "The Seven Blocks legacy and 1960s dominance vs. a 1-11 season in 2025 and decades of irrelevance."
+
+the_wound:
+  name: "The 2025 collapse to 1-11 and the pattern of football instability"
+  detail: "After three consecutive winning seasons in the early 2020s, Fordham collapsed to 1-11 (1-6 Patriot League) in 2025 under coach Joe Conlin. The wound runs deeper: the Seven Blocks legacy (Vince Lombardi on the 1936 line) is impossible to carry in modern Patriot League football. Fordham football is caught between a legendary past and a struggling present."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the Bronx can produce a winner again — that urban New York football still means something, and the Seven Blocks legacy is dormant, not dead."
+  drought: { since: 1960, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Fordham owns the guilt. The program hasn't recaptured the era when the Rams and Rose Hill (the campus) were known nationally. The question isn't what happened to us; it's whether we can become anything again."
+
+the_delusion:
+  tone: self-aware
+  text: "That Rose Hill (the campus, the history, the Bronx location) can be a recruiting asset when every other program has moved away from urban centers. Fordham believes the historic campus and the Seven Blocks echo matter; the results suggest they don't."
+
+the_grudge_texture:
+  rival: lafaiette
+  texture: championship
+
+the_coach_relationship: hot-seat-churn   # Conlin in his 7th season entering 2026 after 1-11 collapse
+the_internal_fracture: legacy-pride vs. modern-reality — the old guard clinging to Seven Blocks vs. those accepting Fordham is a mid-tier urban program
+register: urban-gritty-earnest
+never_use:
+  - scrappy
+  - overachieving
+  - Ivy
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. ──
+story_canon:
+  the_unique_thing: "The 'Seven Blocks of Granite' — the 1936 offensive line that featured Vince Lombardi (who became a legend and namesake of the Super Bowl trophy). It's the most famous line in college football history and Fordham football is defined by being the program that produced it."
+  the_origin: "Fordham football dates to the 1800s. The program is embedded in Rose Hill campus in the Bronx, the historic Jesuit institution that was a national power in the 1930s-1960s."
+  golden_ages:
+    - { era: "1936 (Seven Blocks era)", what: "The 'Seven Blocks of Granite' offensive line featuring Vince Lombardi, the most famous line in college football history" }
+    - { era: "1940s-1950s", what: "Continued national relevance under legendary coach" }
+    - { era: "2013-2023", what: "Four FCS playoff appearances in a decade, the most recent playoff era" }
+  legends:
+    - { name: "Vince Lombardi", role: "player", why: "1936 'Seven Blocks of Granite' offensive lineman who became a legendary coach and namesake of the Super Bowl trophy" }
+  canonical_moments:
+    - { name: "Seven Blocks of Granite", year: 1936, what: "The 1936 Fordham line featuring Vince Lombardi, the most famous line in college football history", handling: glory }
+    - { name: "1940 Orange Bowl", year: 1940, what: "Fordham reached the Orange Bowl, losing 14-7 to Mississippi State", handling: glory }
+  the_place: "Rose Hill campus in the Bronx, a historic Jesuit institution with 1925 Fordham-red bedrock walls. Coffey Field is the home stadium. The campus is New York City football."
+  brand_of_football: "Urban Jesuit tradition — a program that once meant something nationally and has never recaptured it."
+  cultural_footprint: "The program that produced Vince Lombardi and the Super Bowl name, yet can't win games in the Patriot League. A cautionary tale of how legacy alone doesn't sustain modern success."
+  the_ongoing_story: >
+    LIVE ARC — 2026-06-13: Fordham collapsed to 1-11 (1-6 Patriot League) in 2025 after competitive seasons in the early 2020s. Coach Joe Conlin and the staff underwent major restructuring with new defensive and offensive coordinators. The program enters 2026 desperate to escape the reputation of failure and prove the Seven Blocks legacy still resonates in the modern Patriot League.
+  research_checklist:
+    - The 1936 Seven Blocks of Granite and Vince Lombardi's role
+    - The 1940 Orange Bowl appearance
+    - The Jesuit urban Fordham identity and how it's changed
+    - The four FCS playoff appearances (2013-2023 era) and their significance
+    - The Rose Hill campus history and its meaning to the program
+  sources:
+    - https://sportsteamhistory.com/fordham-rams/
+    - https://www.stadiumjourney.com/stadiums/rose-hill-gymnasium-s1029
+    - https://en.wikipedia.org/wiki/2024_Fordham_Rams_football_team
+    - https://en.wikipedia.org/wiki/Seven_Blocks_of_Granite
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Fordham is the Bronx Jesuit program built on Vince Lombardi's 1936 "Seven Blocks of Granite," carrying a legendary past into modern irrelevance.
+  mantra: "Seven Blocks — Forever (the legacy that won't release)"
+  cultural_anchors:
+    fan_archetype_dominant: Urban Jesuit Pride
+    outsider_archetype_dominant: "The Fallen Catholic School"
+    one_sentence: Fordham measures itself against the 1936 "Seven Blocks of Granite" and Vince Lombardi, a legacy that defines recruitment and institutional pride but offers no roadmap for modern success.
+  selfname: Rams
+  aspiration_ladder_top: "Return to FCS playoff era (2013-2023 standards)"
+  rivalries:
+    - lafayette
+    - colgate
+  heritage:
+    national_titles: "None (1940 Orange Bowl participant)"
+    conference_titles: "Multiple (pre-1982 era)"
+    current_conference: Patriot League
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: "Unknown (program predates modern era)"
+    era_name_overrides: {}
+    always_surface:
+      - "Seven Blocks of Granite (1936 line featuring Vince Lombardi)"
+      - "1940 Orange Bowl (lost 14-7 to Mississippi State)"
+      - "Vince Lombardi (player who became legendary coach, namesake of Super Bowl trophy)"
+    rituals: []
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    signal: "no live signal yet (canon-only) — FCS program not covered by discourse fingerprint"

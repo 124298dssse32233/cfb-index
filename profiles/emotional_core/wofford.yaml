@@ -1,0 +1,71 @@
+status: live            # authored 2026-06-13 via web research
+slug: wofford
+team_id: null
+program_name: Wofford
+program_tier: 2
+
+emotional_core:
+  primary: grievance      # ten FCS playoff runs and 7 SoCon titles but no championship — the program with the resume and no ring
+  secondary: contentment  # the Mike Ayers 30-year legacy still defining the program post-retirement
+  core_variant: the-chronic-chip
+  one_line: "Wofford is the SoCon dynasty with ten FCS playoff appearances and 7 conference titles — but zero national championships — a program with the grandest resume and the emptiest trophy case."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Ten FCS playoff appearances and seven SoCon titles vs. zero national championships — the program that's been to the dance ten times but has never won the whole thing."
+
+the_wound:
+  name: "The championship that never came"
+  detail: "Wofford has made ten FCS playoff appearances and won seven SoCon titles — the resume of a championship program. But the Terriers have never won a national title. For 30 years under Mike Ayers, Wofford was consistently a tournament team that never broke through to the final. Now post-Ayers, the Terriers are trying to prove the success wasn't dependent on the legendary coach."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Finally win an FCS national championship and prove the ten playoff runs were building toward the top, not just consistent excellence — another title, another deep run, the one trophy that's eluded the program."
+  drought: { since: 1995, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Wofford has made ten FCS playoffs and won seven SoCon titles — it's been to the dance more than almost anyone, but it hasn't won at the highest level. The Terriers see their resume and know the only thing missing is a national championship."
+
+the_delusion:
+  tone: load-bearing
+  text: "That consistency in the playoffs means the next run could be the championship. Wofford's fanbase knows ten playoff appearances without a title is painful; they also know the program is only one run away from vindication."
+
+the_grudge_texture:
+  rival: furman
+  texture: blood-feud   # Deep South's oldest rivalry (since 1889), Wofford won recent meetings
+
+the_coach_relationship: legends-shadow   # Mike Ayers 30-year tenure defines Wofford; post-Ayers era must prove the program is bigger than one coach
+the_internal_fracture: ayers_nostalgia_vs_new_era — honoring the legendary coach vs. building the post-Ayers dynasty
+register: wofford-ten-playoff-runs-no-ring
+never_use:
+  - "Wofford is small and can't win it all"
+  - "the playoff runs don't matter without a title"
+
+story_canon:
+  the_unique_thing: "Ten FCS playoff appearances and seven SoCon championships — the most storied tournament resume in the SoCon — but zero national titles, making Wofford the program with the grandest playoff resume and the emptiest championship case."
+  the_origin: "Wofford became a consistent SoCon power under Mike Ayers, establishing itself as one of the most reliable tournament teams in FCS history."
+  golden_ages:
+    - { era: "1992-2014 (Mike Ayers), 2003-2019", what: "Seven SoCon titles and ten FCS playoff appearances during the longest tenure by any coach in the SoCon" }
+    - { era: "1980s-2010s", what: "Wofford as a consistent tournament and conference contender" }
+  legends:
+    - { name: Mike Ayers, role: coach, why: "30-year coach (1992-2014+) who built Wofford into a consistent FCS tournament program and won seven SoCon titles" }
+  canonical_moments:
+    - { name: "Ten FCS Playoff Appearances", year: 2019, what: "Wofford establishes the most robust playoff resume in the SoCon", handling: glory }
+    - { name: "Seven SoCon Championships", year: 2019, what: "Wofford wins seven conference titles, the most in the modern SoCon era", handling: glory }
+  the_place: "Gibbs Stadium — the home of Terriers football in Spartanburg, South Carolina."
+  brand_of_football: "Consistent excellence — a program that shows up every year and competes at the highest FCS level."
+  cultural_footprint: "The SoCon's gold standard for tournament consistency — a program that's proven it belongs in the FCS playoffs again and again but hasn't broken through to the national title."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Wofford remains a SoCon power with ten FCS playoff appearances and seven conference titles. The post-Mike Ayers era is proving the program is bigger than any one coach. Recent seasons have seen the Terriers maintain conference contention and compete in the SoCon tournament. The question in Spartanburg: can the program finally reach the national championship game, or will the ten playoff runs remain the defining legacy without the final ring?
+  research_checklist:
+    - ✓ Ten FCS playoff appearances (most in SoCon)
+    - ✓ Seven SoCon championships
+    - ✓ Mike Ayers 30-year legacy (1992-2014+, 207-139-1 record)
+    - ✓ Deep South's oldest rivalry with Furman (since 1889)
+    - ✓ Post-Ayers transition era
+  sources:
+    - https://en.wikipedia.org/wiki/Wofford_Terriers_football
+    - https://www.woffordterriers.com
+    - https://www.thescore.com/nfl/news/wofford-football

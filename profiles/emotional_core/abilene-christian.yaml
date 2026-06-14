@@ -1,0 +1,74 @@
+# Emotional Core — Abilene Christian Wildcats (abilene-christian)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: abilene-christian
+team_id: 246
+program_name: Abilene Christian
+program_tier: 5
+
+emotional_core:
+  primary: house-money        # A new champion in a new conference — the sudden belief that 2024 wasn't a fluke
+  secondary: contentment      # The program that built something real in the UAC
+  one_line: "Abilene Christian is the Texas school that won a Division I conference title in 2024 and spent 2025 proving it could happen again."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "One UAC championship under their belt, Abilene Christian knows they belong at the Division I level — the question is whether they can stay there."
+
+the_wound:
+  name: "The pre-2024 futility — decades of FCS competence with no hardware"
+  detail: "Abilene Christian played FCS football for years as a functional mid-tier program, never winning a conference championship, never threatening the national conversation. The 2024 UAC title was the first Division I championship in school history — a sudden arrival into the winner's circle."
+  handling: dated-grievance
+  freshness: this-era
+
+the_dream:
+  text: "Win the UAC again, build a multi-year run that proves 2024 wasn't a one-year spike — make Abilene Christian a permanent fixture in the FCS playoff conversation."
+  drought: { since: 2024, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "The chip is brand-new: Abilene Christian wasn't supposed to win the UAC in 2024 — a Texas school nobody was watching suddenly claimed a Division I title. The fanbase knows they're the startup champion, and they're determined to keep it."
+
+the_delusion:
+  tone: earnest
+  text: "That a small Texas program can sustain a championship-level culture, that the 2024 title proves Abilene Christian has arrived as a permanent power. The fanbase believes it because they've seen it happen."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: growth-skeptics-vs-builders — the longtime fans who lived through decades of mid-tier FCS existence vs the new believers who think the 2024 title changed everything
+register: wildcat-abilene-texas-new-champion
+never_use:
+  - Small program — they just won a Division I conference title
+  - Nobody's watching — 2025 co-championship and playoff participation proved otherwise
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The 2024 UAC championship — Abilene Christian's first Division I conference title in school history, a sudden arrival into the winner's circle after years of FCS competence."
+  the_origin: "A Texas school that competed at the FCS level for years as a functional but unremarkable program, finally breaking through to win the UAC in 2024 under fourth-year coach Keith Patterson."
+  golden_ages:
+    - { era: "2024–2025", what: "Back-to-back years of UAC championship contention: 2024 UAC champion (9–5), 2025 UAC co-champion (9–5, second round FCS Playoff)" }
+  legends:
+    - { name: Keith Patterson, role: coach, why: "The architect of Abilene Christian's Division I breakthrough — four seasons to transform a mid-tier FCS program into a conference champion" }
+    - { name: Stone Earle, role: player, why: "The redshirt senior QB who led the 2025 co-championship run" }
+  canonical_moments:
+    - { name: "The 2024 UAC Championship", year: 2024, what: "Abilene Christian wins the UAC in its first year of contention under Patterson", handling: glory }
+    - { name: "The 2025 Co-Championship", year: 2025, what: "Back-to-back UAC title contention (co-champions with Tarleton State)", handling: glory }
+  the_place: "Wildcat Stadium in Abilene, Texas — a program built from mid-tier FCS into a UAC power."
+  brand_of_football: "Competitive, fundamental — a small Texas program that outworks bigger names."
+  cultural_footprint: "A startup champion: proof that the UAC is real, and that a Texas school can stake its claim to Division I relevance."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Abilene Christian went 9–5 (7–1 UAC) in 2025, co-winning the conference and advancing to the FCS Playoff Second Round before falling to Stephen F. Austin (34–41). Coach Keith Patterson enters year five with a returning QB in Stone Earle and a program that has now proven the 2024 breakthrough was no fluke. The question in Abilene: can the Wildcats sustain a multi-year run and become a permanent playoff contender, or was the UAC title the program's ceiling?
+  research_checklist:
+    - the first Division I conference championship in Abilene Christian history (2024)
+    - back-to-back UAC championship contention (2024–2025)
+    - the Keith Patterson coaching tenure and transformation
+    - the Texas small-school identity and the sudden arrival narrative
+    - the 2025 FCS playoff run
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Abilene_Christian_Wildcats_football_team
+    - https://en.wikipedia.org/wiki/2024_Abilene_Christian_Wildcats_football_team
+    - https://acusports.com/sports/football/

@@ -1,0 +1,88 @@
+# Emotional Core — Shippensburg University  (shippensburg)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Status: live | Tier: 6 (Division II PSAC) | Authored 2026-06-13
+
+status: live             # todo | drafted | authored | reviewed | live
+slug: shippensburg
+team_id: 232            # placeholder; verify against CFBD ID mapping
+program_name: Shippensburg University
+program_tier: 6         # Division II PSAC
+
+emotional_core:
+  primary: restoration          # new HC rebuilding from the Maciejewski era's conclusion
+  secondary: grief              # mourning the end of a legendary tenure, celebrating what was built
+  one_line: "Shippensburg is the PSAC program honoring its past while building its future — Drew Gallardy, an alum and Maciejewski-era coach, takes over after 15 years of legendary leadership."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "Mark Maciejewski's 15-year legacy (88 wins, PSAC stability) vs an unknown 2026 future under Drew Gallardy, an alum and offensive coordinator stepping up to rebuild."
+
+the_wound:
+  name: "End of an era"
+  detail: "Mark 'Mac' Maciejewski retired after the 2025 season after 15 years and 88 wins as head coach. The Shippensburg faithful must say goodbye to a legend and embrace the unknown."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Honor the Maciejewski legacy while building something new — Drew Gallardy must prove that continuity from within the program can sustain winning."
+  drought: null  # no championship drought; transition year signals possibility, not failure
+
+the_chip:
+  villain: none
+  text: "Shippensburg fans believe in Gallardy because he was Maciejewski's guy — a coach who understands the system and the culture. There's no outside hire bringing fresh chaos; it's an internal handoff."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the Gallardy era will prove that great programs sustain themselves — that the Maciejewski foundation is strong enough for a successor to build upon it immediately."
+
+the_grudge_texture:
+  rival: millersville
+  texture: border-war     # both are PSAC East rebuilding programs in neighboring areas
+
+the_coach_relationship: total-trust       # Gallardy was Maciejewski's offensive coordinator; the torch passes within the program
+the_internal_fracture: null              # program unified around honoring Mac while trusting Gallardy
+register: shippensburg-raider-mac-believer
+never_use:
+  - "End of an era means collapse — Gallardy's continuity plan proves otherwise"
+  - "Shippensburg is finished — 88 Maciejewski wins and stable PSAC contention prove the foundation remains"
+
+# ── STORY CANON (doc 64) ────────────────────────────────────────────────────
+story_canon:
+  the_unique_thing: "Mark Maciejewski built Shippensburg into a 15-year PSAC power (88 wins, stable contender), and Drew Gallardy, an alum and Maciejewski-era offensive coordinator, inherits the blueprint to sustain winning."
+  the_origin: "Shippensburg University (1871–), a public regional university in Shippensburg, PA (Cumberland Valley), fielding Raiders football with deep regional tradition."
+  golden_ages:
+    - { era: "Maciejewski Era (2010–2025)", what: "Mark Maciejewski built Shippensburg into a PSAC perennial with 88 wins over 15 seasons, including PSAC titles and consistent NCAA tournament appearances." }
+  legends:
+    - { name: Mark Maciejewski, role: coach, why: "The legendary Shippensburg coach who spent 32 years at the university (player + coach) and led the Raiders for 15 years with 88 wins and a PSAC-contender identity." }
+    - { name: Drew Gallardy, role: coach, why: "Shippensburg alum (2007–2010, senior captain) and Maciejewski-era offensive coordinator, now inheriting the torch as 2026 head coach." }
+  canonical_moments:
+    - { name: "Mark Maciejewski's 15-Year Era (88 Wins)", year: 2025, what: "Maciejewski retired after 15 seasons and 88 victories, establishing Shippensburg as a PSAC staple.", handling: glory }
+    - { name: "2009 PSAC State Game + NCAA Tournament", year: 2009, what: "Gallardy, as a player, captained Shippensburg to a PSAC title and NCAA tournament appearance under Maciejewski.", handling: glory }
+  the_place: "Shippensburg's football stadium — home to the Raiders in Cumberland Valley, Pennsylvania."
+  brand_of_football: "Physical, disciplined Maciejewski-style PSAC football — defensive-minded and tough."
+  cultural_footprint: "A program that proved consistency is possible — Maciejewski's 15-year tenure set a standard that Gallardy now must honor and extend."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Drew Gallardy becomes Shippensburg's head coach in 2026 after Mark Maciejewski's
+    retirement following the 2025 season. Gallardy served as offensive coordinator in 2025 and brings 17 years of collegiate
+    coaching experience, including three seasons as defensive coordinator at Alfred State. As a Shippensburg alum
+    (senior captain, 2009 PSAC title run), Gallardy inherits a program built on Maciejewski's foundation. The 2026 season
+    is about sustaining the culture while bringing Gallardy's offensive philosophy to a PSAC East contender.
+  research_checklist:
+    - Mark Maciejewski's 15-year tenure and legacy
+    - Drew Gallardy's playing career at Shippensburg (2007–2010)
+    - Gallardy's 17-year coaching experience (offensive coordinator roles, defensive coordinator at Alfred State)
+    - The 2009 PSAC championship run when Gallardy was a senior captain
+  sources:
+    - https://shipraiders.com/news/2025/12/23/drew-gallardy-10-named-head-football-coach-at-shippensburg-university.aspx
+    - https://www.altoonamirror.com/uncategorized/2025/12/altoona-native-drew-gallardy-hired-as-shippensburg-football-coach/
+    - https://en.wikipedia.org/wiki/Mark_Maciejewski
+
+# ── BRIEFING (read-only context; NOT part of published core) ──
+briefing:
+  identity_phrase: "Shippensburg is the PSAC program honoring Mark Maciejewski's 15-year legacy while entrusting Drew Gallardy, an alum and Maciejewski-era coach, to sustain the foundation."
+  mantra: "Go, Raiders!"
+  cultural_anchors:
+    fan_archetype_dominant: "Shippensburg-Raider-Maciejewski-Legacy-Believer"
+    outsider_archetype_dominant: "PSAC-Era-Transition-Watcher"
+    one_sentence: "Shippensburg honors Mark Maciejewski's 15-year legacy while entering Drew Gallardy's era as the new head coach."
+  selfname: "the Raiders"

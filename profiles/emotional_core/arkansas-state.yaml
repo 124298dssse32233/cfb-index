@@ -1,0 +1,120 @@
+# Emotional Core — Arkansas State  (arkansas-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: arkansas-state
+team_id: 257
+program_name: Arkansas State
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # the Sun Belt dynasty that built coaches for everyone else and never got the credit
+  secondary: restoration  # Butch Jones clawing the program back to bowls after the dynasty faded
+  core_variant: the-ceiling
+  one_line: "Arkansas State won five straight Sun Belt titles and turned its sideline into a coaching factory — Malzahn, Freeze, Harsin, all hired away — a program that built champions and head coaches for everyone but itself."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Five consecutive conference titles and a coaching tree that staffs the SEC against a decade since, the program watching its own blueprint enrich bigger schools."
+
+the_wound:
+  name: "The long fade since the dynasty"
+  detail: "After five straight Sun Belt championships from 2011-2015 — each won under a coach who immediately left for a bigger job — Arkansas State spent the years since chasing that height, sliding into losing seasons before Butch Jones steadied it; the 2025 team started 1-4 before rallying to 7-6 and a bowl win."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the Sun Belt again — break the decade-long drought, prove Jonesboro can keep a champion together instead of feeding the bigger programs, and get back to the top of the league it once owned."
+  drought: { since: 2016, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Red Wolves fans say the power programs treat Arkansas State as a vending machine — pull a coach, take the blueprint, move on — and never once look back; Jonesboro says it built the tree the SEC harvests, and it's tired of getting none of the fruit."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes Jonesboro can finally keep a winner — that the next breakout coach stays long enough to rebuild the dynasty instead of bolting for a bigger paycheck; they've watched it happen five times and believe it anyway."
+
+the_grudge_texture:
+  rival: troy
+  texture: championship   # the Sun Belt's signature rivalry — two of the league's standard-bearers
+the_coach_relationship: forever-ours   # Butch Jones has stayed and stabilized the program after the carousel years
+the_internal_fracture: ambition vs reality — the faction that wants A-State swinging for the Sun Belt crown now vs the faction that just wants a coach who stays and a program that stops feeding bigger schools
+register: jonesboro-red-wolves-sun-belt-anchor   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always Sun-Belt-bottom — 5 consecutive championships disprove
+  - No identity — Wolves Up + 5 titles + coaching tree combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The coaching factory — Arkansas State won five straight Sun Belt titles (2011-2015) under a revolving door of coaches who each left after one year for a bigger job: Hugh Freeze to Ole Miss, Gus Malzahn to Auburn, Bryan Harsin to Boise State and later Auburn. No program in the sport produced more head-coaching talent per win, and lost them all."
+  the_origin: "A Jonesboro program that became the Indians, then rebranded as the Red Wolves in 2008, and built a Sun Belt dynasty in the 2010s that doubled as the best coaching incubator in the Group of Five."
+  golden_ages:
+    - { era: "2011–2015", what: "Five consecutive Sun Belt championships — the league's defining dynasty" }
+    - { era: "Freeze / Malzahn / Harsin / Anderson", what: "A coaching tree that staffed the SEC, each hired away after a single title season" }
+  legends:
+    - { name: Gus Malzahn, role: coach, why: "Won the 2012 Sun Belt, then left for Auburn and a national-title game — the archetype of the A-State launchpad" }
+    - { name: Hugh Freeze, role: coach, why: "2011 Sun Belt champion in his one season before Ole Miss; the tree's first branch" }
+    - { name: Butch Jones, role: coach, why: "The coach who finally stayed, steadying the program back to bowl games" }
+  canonical_moments:
+    - { name: "Five straight Sun Belt titles", year: 2015, what: "The 2011-2015 dynasty — the most dominant run in conference history", handling: glory }
+    - { name: "The coaching carousel", year: 2013, what: "Three head coaches in three years, each leaving for a Power job after winning the league — the program's blessing and its curse", handling: wound }
+  the_place: "Centennial Bank Stadium in Jonesboro — the Red Wolves' den in the Arkansas Delta, 'Wolves Up' across a fanbase that has watched its coaches walk out the door for a decade."
+  brand_of_football: "Up-tempo, spread-it-out offense — the Malzahn-Freeze DNA that the program kept exporting; modern, fast, and built to outscore in a high-scoring league."
+  cultural_footprint: "The Group of Five's coaching incubator — proof that a small Delta school can build champions and the men who coach them, even as it watches the talent leave; the Red Wolves rebrand a rare mid-major identity remake that stuck."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Arkansas State went 7-6 (5-3 Sun Belt) in 2025 under Butch Jones,
+    starting 1-4 against a schedule that included Power foes Arkansas and Iowa State, then winning six of
+    its last eight and beating Missouri State 34-28 in the Xbox Bowl. Jones, now in his sixth season — a
+    rare display of continuity after the carousel years — enters 2026 trying to climb back toward the top
+    of a Sun Belt the Red Wolves once owned.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Arkansas_State_Red_Wolves_football_team
+    - https://astateredwolves.com/news/2025/12/3/a-state-football-announces-2026-recruiting-class.aspx
+    - https://www.sports-reference.com/cfb/schools/arkansas-state/2025-schedule.html
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Arkansas State is the Sun Belt program whose 2011-2016 5-consecutive-Sun-Belt-championships
+    dynasty + Centennial Bank Stadium + Hugh Freeze/Bryan Harsin coaching tree define what historic-Sun-Belt-football
+    looks like.
+  mantra: Wolves Up.
+  cultural_anchors:
+    fan_archetype_dominant: Jonesboro-Red-Wolves-Up
+    outsider_archetype_dominant: Sun-Belt-Mid-Pack-Diminisher
+    one_sentence: Arkansas State is the historic Sun Belt champion — 5 consecutive Sun Belt titles 2011-2015
+      + Freeze/Malzahn/Harsin/Anderson coaching tree + Wolves Up identity that anchor the program's modern
+      era.
+  selfname: the Red Wolves
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 5 consecutive Sun Belt championships (2011-2015)
+    - Hugh Freeze + Gus Malzahn + Bryan Harsin coaching tree
+    - 2008 Red Wolves mascot rename
+    rituals:
+    - 5 Consecutive Sun Belt Championships (2011-2015)
+    - Wolves Up Identity
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

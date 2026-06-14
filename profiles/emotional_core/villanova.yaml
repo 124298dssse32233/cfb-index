@@ -1,0 +1,112 @@
+# Emotional Core — Villanova Wildcats (villanova)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — FCS Patriot League
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: villanova
+team_id: null
+program_name: Villanova Wildcats
+program_tier: 1
+
+emotional_core:
+  primary: restoration      # the dynasty reinstituted in 1985, entering a new conference
+  secondary: spectacle
+  core_variant: dynasty-restoration
+  one_line: "The FCS dynasty built from nothing in 1985, now moving to the Patriot League to align with ambition and geography."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "The 2009 FCS national championship and 36 NFL draft picks + 31 first-team All-Americans vs. the challenge of sustaining success in a new conference."
+
+the_dream:
+  text: "Prove the move to the Patriot League elevates the program — deliver another national title from a conference most see as a step down."
+  drought: { since: 2016, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The chip is geographic and cultural: Villanova is a Philadelphia Catholic school leaving the CAA (and a regional conference with rivals like Delaware, UCONN, Maine) for the Patriot League (a Northeast conference with no Philadelphia presence). The fanbase believes Villanova football deserves more respect, more investment, more national attention."
+
+the_wound:
+  name: "The shadow of the 2009 championship hanging over sustainability"
+  detail: "Villanova won the FCS national title in 2009 and has been chasing that peak for 16 years. The program sent 36 players to the NFL and claims the strongest pipeline in FCS, yet can't recapture the championship. The wound is the question: was 2009 lightning in a bottle, or can a dynasty be rebuilt?"
+  handling: referenceable
+  freshness: this-era
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes that Villanova can win a national title in the Patriot League the way it did in 2009, that the program's success is sustainable because the culture and the NFL pipeline are permanent. (The reality: dynasties are often dependent on a specific era and coaching; another title requires all the variables to align again.)"
+
+the_grudge_texture:
+  rival: delaware
+  texture: championship
+
+the_coach_relationship: total-trust   # Mark Ferrante, stable leadership
+the_internal_fracture: conference-loyalty vs. ambition-driving — the faction that misses CAA rivals vs. those convinced the Patriot League move is about national respect
+register: philadelphia-catholic-ambitious
+never_use:
+  - scrappy
+  - overachieving
+  - mid-major
+  - small school
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. ──
+story_canon:
+  the_unique_thing: "Reinstituted from scratch in 1985 and built into an FCS national champion (2009) and a pipeline to the NFL (36 draft picks, 31 first-team All-Americans, three Walter Payton Award winners). Few programs have built a legacy as quickly from zero."
+  the_origin: "Villanova football was reinstituted in 1985 after being dormant. The program was built by legendary coach Andy Talley (1985-2016), who coached for 32 years and created a dynasty from a non-existent foundation."
+  golden_ages:
+    - { era: "1985-2016 (Andy Talley era)", what: "Built Villanova from nothing into an FCS powerhouse with a national title and consistent playoff appearances" }
+    - { era: "2009", what: "FCS national championship, the peak of the Talley era" }
+    - { era: "2010-2024", what: "Sustained FCS success with 16 playoff appearances and 10 quarterfinal-plus runs, 18-16 all-time playoff record" }
+  legends:
+    - { name: "Andy Talley", role: "coach", why: "Legendary coach (1985-2016) who built Villanova from a reinstituted program into an FCS powerhouse and national champion" }
+    - { name: "Howie Long", role: "player", why: "Hall of Famer, one of Villanova's most famous NFL success stories" }
+    - { name: "Brian Westbrook", role: "player", why: "All-Pro, one of Villanova's most famous NFL success stories" }
+  canonical_moments:
+    - { name: "2009 FCS National Championship", year: 2009, what: "Villanova won the FCS national title, the program's peak achievement", handling: glory }
+    - { name: "Andy Talley Era (1985-2016)", year: 2016, what: "32-year coaching tenure that built a dynasty from a reinstituted program", handling: glory }
+    - { name: "2025 Patriot League Move", year: 2025, what: "Villanova will join the Patriot League in 2026 after winning the CAA", handling: glory }
+  the_place: "Philadelphia Catholic tradition — a program built at Villanova University with a strong Wildcat identity and championship culture."
+  brand_of_football: "The reinstituted dynasty — a program that was built from nothing in 1985 into an FCS power through sustained excellence and NFL development."
+  cultural_footprint: "Villanova proved an FCS program can reach a championship level and maintain it. The NFL pipeline (36 draft picks) is rare in FCS football and makes Villanova special."
+  the_ongoing_story: >
+    LIVE ARC — 2026-06-13: Villanova finished 12-3 (7-1 CAA) in 2025, won the CAA championship in its final year in the conference, then lost to Illinois State 14-30 in the FCS playoff semifinal. The program announced it will join the Patriot League in 2026 as an associate member (other sports remain CAA). Coach Mark Ferrante is entering his tenure after sustained CAA success. The question in Philadelphia: can Villanova maintain its winning culture in a new conference, or does the move disrupt the pipeline that made the program special?
+  research_checklist:
+    - The reinstitution of the program in 1985 and Andy Talley's initial build
+    - The 2009 national championship and how it was achieved
+    - The NFL pipeline (36 draft picks, 31 first-team All-Americans, three Walter Payton Award winners)
+    - Hall of Famers and All-Pros: Howie Long, Brian Westbrook
+    - The CAA era (2007-2025) and the dominance within that conference
+  sources:
+    - https://www.espn.com/college-football/story/_/id/45457371/villanova-football-leave-caa-join-patriot-league-2026
+    - https://en.wikipedia.org/wiki/Villanova_Wildcats_football
+    - https://en.wikipedia.org/wiki/2025_Villanova_Wildcats_football_team
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Villanova is the reinstituted FCS dynasty (1985 → 2009 national title) that built an NFL pipeline (36 draft picks, 31 All-Americans) and is now moving to the Patriot League in 2026.
+  mantra: "From Nothing to Everything (the reinstitution legacy)"
+  cultural_anchors:
+    fan_archetype_dominant: Philadelphia Catholic Pride
+    outsider_archetype_dominant: "The FCS Powerhouse"
+    one_sentence: Villanova reinstituted its program in 1985 and built an FCS dynasty with a 2009 national title, an NFL pipeline (36 draft picks, 31 All-Americans), and is moving to the Patriot League in 2026 to align with ambition.
+  selfname: Wildcats
+  aspiration_ladder_top: "National FCS championship + NFL draft dominance"
+  rivalries:
+    - delaware
+  heritage:
+    national_titles: "1 (2009)"
+    conference_titles: "Multiple (CAA era, 2023-2025 back-to-back)"
+    current_conference: "CAA (transitioning to Patriot League in 2026)"
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: "Andy Talley (1985-2016)"
+    era_name_overrides: {}
+    always_surface:
+      - "2009 FCS National Championship"
+      - "Andy Talley era (1985-2016, built the dynasty from reinstitution)"
+      - "NFL pipeline (36 draft picks, 31 first-team All-Americans, 3 Walter Payton Award winners)"
+    rituals: []
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    signal: "no live signal yet (canon-only) — FCS program not covered by discourse fingerprint"

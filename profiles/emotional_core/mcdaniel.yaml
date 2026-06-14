@@ -1,0 +1,97 @@
+# Emotional Core — McDaniel (mcdaniel)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III — program_tier: 7, graceful degradation applies (small school, regional focus, academic mission).
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: mcdaniel
+team_id: null
+program_name: McDaniel
+program_tier: 7
+
+emotional_core:
+  primary: contentment   # acceptance of steady, unspectacular existence
+  secondary: honor       # academic mission matters more than football
+  one_line: "McDaniel is a small Westminster, Maryland liberal arts college where football is played with dignity but without ambition — a program that knows its place and occupies it steadily."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "12 Centennial conference titles across 44 years vs. the reality: McDaniel plays football to stay competitive, not to win."
+
+the_wound:
+  name: "Chronic mid-pack identity"
+  detail: "McDaniel has won 12 conference titles but none in the last 18+ years. The program has accepted a mid-pack, stable-but-unremarkable existence — not a wound, but a condition."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win a Centennial championship and prove that McDaniel can compete with the program's 1980s-2000s winners — a modest dream, not a dynasty dream."
+  drought: { since: 2007, unit: conference_title }  # approximate; research shows no recent titles
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip; McDaniel doesn't resent anyone. The program exists in steady equilibrium with its academic mission."
+
+the_delusion:
+  tone: none
+  text: "The fanbase believes no delusion. McDaniel knows what it is: a small school that fields a competent team and expects steady, unspectacular results."
+
+the_grudge_texture:
+  rival: muhlenberg
+  texture: championship    # peer Centennial school, no blood feud
+
+the_coach_relationship: total-trust   # Skyler Fultz rebuilding with support
+the_internal_fracture: none           # no major internal split; consensus around stability
+register: earnest-steady
+never_use:
+  - "Irrelevant (12 conference titles prove competence)"
+  - "Collapse (steady mid-pack is the design, not a failure)"
+
+story_canon:
+  the_unique_thing: "McDaniel is the oldest continuous user of the 'Green Terror' nickname in college sports, dating to 1891 — a small liberal arts school with one of the oldest sports traditions."
+  the_origin: "McDaniel College was founded in 1899 as Western Maryland College in Westminster, Maryland. The program became a Centennial Conference charter member in 1981 and won 12 conference championships scattered across the league's first 27 years."
+  golden_ages:
+    - { era: "1980s–2000s", what: "12 Centennial championships spread across this era; the program's competitive height" }
+    - { era: "2007-present", what: "Steady mid-pack Centennial performer; no titles but consistent bowl-less participation" }
+  legends:
+    - { name: "The Green Terror Name", role: "tradition", why: "Oldest continuous nickname dating to 1891, predating most college sports traditions" }
+  canonical_moments:
+    - { name: "12 Centennial Conference Titles", year: 2007, what: "Last championship in the 12-title span; none since", handling: glory }
+    - { name: "Green Terror Tradition (since 1891)", year: 1891, what: "One of the oldest sports nicknames in continuous use", handling: glory }
+  the_place: "Witherspoon Field in Westminster, Maryland — a small liberal arts campus where football is one activity among many academic pursuits."
+  brand_of_football: "Steady, unremarkable Centennial football — well-coached, disciplined, middle-tier competence."
+  cultural_footprint: "The keeper of one of college sports' oldest nicknames (Green Terror, since 1891); proof that tradition matters more than recent success in small-school football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: McDaniel is in its second season under head coach Skyler Fultz (2024–2025), who elevated from associate coach. Fultz's 2024 debut had 4 All-Centennial selections (the most since 2018), signaling a potential rebuilding trajectory. The program remains mid-pack Centennial; the 2026 question is whether Fultz can return McDaniel to championship contention or whether the program settles into a comfortable middle tier indefinitely.
+  research_checklist:
+    - 12 Centennial Conference titles (most recent ~2007)
+    - Green Terror nickname since 1891
+    - Skyler Fultz coaching tenure (2024+)
+  sources:
+    - https://en.wikipedia.org/wiki/McDaniel_Green_Terror_football
+    - https://www.mcdaniel.edu/athletics
+    - https://mcdanielathletics.com/staff-directory/
+
+briefing:
+  identity_phrase: McDaniel is the Centennial charter with 12 conference titles and the oldest continuous sports nickname (Green Terror, since 1891)—a program of steady competence without championship ambition.
+  mantra: Green Terror Pride.
+  cultural_anchors:
+    fan_archetype_dominant: Westminster-Steady-Terror
+    outsider_archetype_dominant: Overlooked-Tradition
+    one_sentence: McDaniel is the Centennial charter with 12 conference titles and the "Green Terror" nickname dating to 1891—a program of steady mid-pack existence with deep tradition.
+  selfname: the Green Terror
+  heritage:
+    conference: Centennial
+    championships: 12 titles (1980s–2000s)
+  story_materials:
+    always_surface:
+    - 12 Centennial Conference titles
+    - Green Terror name since 1891
+    - Steady mid-pack performer
+    rituals:
+    - Green Terror tradition
+    modules_already_rendering: none (D3 module set pending)
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal (canon-only, D3 small program)

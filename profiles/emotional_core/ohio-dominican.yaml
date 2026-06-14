@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Ohio Dominican University — G-MAC modest program, first varsity 2004
+
+status: live
+slug: ohio-dominican
+team_id: null
+program_name: Ohio Dominican University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: house-money
+  one_line: "Ohio Dominican is the modest Panthers program built on Dominican Catholic values and community pride — a small Ohio university playing Division II football with heart over historical prestige."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A program with 22 years of NCAA Division II history (first varsity 2004) vs. regional rivals with deeper tradition; Ohio Dominican competes through culture and coaching rather than legacy."
+
+the_wound:
+  name: "The youth and the thin identity"
+  detail: "Ohio Dominican began its NCAA Division II program in 2004, giving it less than 25 years of history and no championship legacy. The program operates in the shadow of older, more established G-MAC rivals, requiring constant effort to gain regional recognition."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Build consistent .500 Division II football that honors the Dominican Catholic mission, graduates student-athletes with pride, and occasionally wins games that shock the G-MAC."
+  drought: { since: 2004, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe ohio Dominican has no chip — the program plays with the pride of a small Catholic university committed to education and faith as much as wins."
+
+the_delusion:
+  tone: none
+  text: null
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "Mission-driven identity vs. competitive expectations — balancing the Dominican Catholic values that define the university with the desire to win games."
+register: panthers-ohio-dominican-catholic-mission
+
+never_use:
+  - "Irrelevant NAIA program: Ohio Dominican has been NCAA Division II since its founding in 2004"
+  - "No history or tradition: 22 years of D2 football with modest but consistent competitiveness"
+  - "Perennial bottom-feeder: the program has competitive seasons and occasional upsets"
+
+story_canon:
+  the_unique_thing: "A Dominican Catholic university program — Ohio Dominican's identity is rooted in mission and values as much as football; the Panthers' 2025 upset of undefeated Tiffin in the G-MAC opener exemplifies the program's competitive spirit."
+  the_origin: "Ohio Dominican University launched its NCAA Division II football program in 2004 as part of the university's broader athletic expansion. The program began as an independent, then joined the GLIAC (2010) and later the G-MAC (2017), where it has competed as a regional Division II school."
+  golden_ages:
+    - { era: "2004–present", what: "Building era of steady Division II competitiveness with occasional wins against established rivals" }
+    - { era: "2025", what: "Upset victory over undefeated Tiffin in the G-MAC opener showcased the Panthers' competitive potential" }
+  legends:
+    - { name: Kelly Cummings, role: coach, why: "Head coach leading the Panthers with a focus on development and student-athlete growth" }
+  canonical_moments:
+    - { name: "2004 First Varsity Season", year: 2004, what: "Ohio Dominican launches its NCAA Division II football program", handling: glory }
+    - { name: "2025 Tiffin Upset", year: 2025, what: "Ohio Dominican defeats undefeated Tiffin in the G-MAC opener, shocking a conference favorite", handling: glory }
+  the_place: "Columbus, Ohio — home of Ohio Dominican University, a small Dominican Catholic institution with urban community roots."
+  brand_of_football: "Scrappy, competitive Division II football rooted in Dominican values of education, faith, and service."
+  cultural_footprint: "Ohio Dominican represents the mission-driven small program: a Catholic university playing Division II football with pride in the institution and joy in the game."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Ohio Dominican enters 2026 off a 5-5 overall, 4-5 conference season that proved the Panthers can compete in the G-MAC. Head Coach Kelly Cummings leads a program that operates with mission-first values alongside competitive football. The 2025 upset of undefeated Tiffin in the G-MAC opener showed that Ohio Dominican can surprise established rivals when the moment is right. The Panthers' task in 2026 is to build on competitive seasons and develop student-athletes who embody both Dominican Catholic values and Division II excellence. Every win is meaningful; every student-athlete graduates with purpose beyond football.
+  research_checklist:
+    - 2004 first varsity season
+    - GLIAC 2010-2016, G-MAC 2017-present
+    - 2025: 5-5 overall, 4-5 G-MAC
+    - 2025 upset victory over undefeated Tiffin in G-MAC opener
+    - Coach Kelly Cummings
+  sources:
+    - https://www.ohiodominicanpanthers.com/
+    - https://d2football.com/2025-season-preview
+    - https://www.gmacports.com/news/

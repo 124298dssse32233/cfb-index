@@ -1,0 +1,96 @@
+# Emotional Core — New Haven (new-haven)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# status: live (web-researched 2026-06-13)
+#
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: new-haven
+team_id: null           # placeholder; map in seed script
+program_name: New Haven
+program_tier: 3
+
+emotional_core:
+  primary: restoration      # the inaugural FCS journey — first year in D-I after decades in D-II
+  secondary: standard
+  core_variant: first-ascension
+  one_line: "New Haven is the Chargers climbing into FCS for the first time — a Northeast Conference newcomer proving that the jump from D-II can be navigated with discipline and time."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "An entire program's first year in Division I — navigating a new conference, new competition level, and new expectations in the Northeast Conference, a league full of programs with decades of FCS pedigree."
+
+the_wound:
+  name: "The inaugural campaign — proving the jump was real"
+  detail: "New Haven's 2025 season as an FCS probationary program in the Northeast Conference tested whether a D-II powerhouse could survive the leap. A 5-5 record in the first year is a respectable foundation, but every loss came with the question: is this the level we belong at now?"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Become a Northeast Conference power within five years — prove that the D-II pedigree translated and the Chargers belong in FCS, then compete for a conference title."
+  drought: { since: 2025, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Plenty of D-II programs jump to FCS and stumble. New Haven's first season proved they had the discipline to stay competitive — now the fanbase wants the program to climb, not just hold its ground."
+
+the_delusion:
+  tone: self-aware
+  text: "That the jump to FCS is already complete, that the Chargers are ready to be a NEC power now. The fanbase knows better — the program is still settling in, still building for a bigger ceiling."
+
+the_grudge_texture:
+  rival: ""
+  texture: none
+
+the_coach_relationship: savior   # Mark Powell brought defensive expertise to launch the FCS era
+the_internal_fracture: ""  # inaugural cohesion around the D-I mission
+register: new-haven-chargers-inaugural-fcs-climb
+never_use:
+  - Division II powerhouse jumping up (reframe as inaugural ascension, not a defeat)
+  - Still figuring it out (too deferential — they proved they belong with a .500 season)
+
+# ── STORY CANON (doc 64) ──
+
+story_canon:
+  the_unique_thing: "New Haven's journey into FCS in 2025 — a Northeast Conference newcomer navigating its inaugural season in Division I after a long, successful run in Division II. The Chargers proved in year one that the jump was viable."
+  the_origin: "A Division II powerhouse in New England that decided to climb to the FCS level in 2025, joining the Northeast Conference and bringing decades of D-II success into a new era. Mark Powell was hired as first FCS head coach to lead the transition."
+  golden_ages:
+    - { era: "D-II era (pre-2025)", what: "Successful Division II program in New England with established winning tradition" }
+    - { era: "2025 inaugural FCS season", what: "5-5 record in first year proves the program can compete at the FCS level" }
+  legends:
+    - { name: Mark Powell, role: coach, why: "Brought defensive expertise to lead New Haven's inaugural FCS season in 2025" }
+  canonical_moments:
+    - { name: "2025 inaugural FCS season", year: 2025, what: "New Haven goes 5-5 in its first year in Division I and the Northeast Conference", handling: miracle }
+  the_place: "Chargers Field in New Haven, Connecticut — home of the Chargers' climb into Division I competition."
+  brand_of_football: "Disciplined, defensive-minded football — the foundational approach to competing at a new level."
+  cultural_footprint: "A program that took the leap from D-II to FCS and proved it could stay afloat in year one, inspiring confidence in the Northeast Conference transition."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: New Haven's 2025 inaugural FCS season ended 5-5 overall
+    (0-0 in conference play — still finding its footing in the NEC structure). Head coach Mark
+    Powell established a defensive foundation in his first year. Year two will test whether the
+    Chargers can build on the inaugural stability and move toward NEC competitiveness. The question:
+    can the D-II pedigree translate into a sustained FCS climb?
+  research_checklist:
+    - the program's defining tradition (D-II era foundations)
+    - the legendary coaches (D-II success lineage)
+    - the unique transition story (inaugural FCS year)
+    - the cultural footprint (New Haven sports tradition)
+    - the current-era storyline (the inaugural FCS era)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_New_Haven_Chargers_football_team
+    - https://www.newhavenchargers.com/sports/football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: New Haven is the Northeast Conference newcomer in its inaugural FCS season,
+    proving a D-II powerhouse can navigate the jump to Division I.
+  mantra: Climb. Compete. Belong.
+  cultural_anchors:
+    fan_archetype_dominant: New-England-D2-to-FCS-believer
+    outsider_archetype_dominant: D2-Skeptic
+    one_sentence: New Haven is the inaugural FCS program testing whether D-II success translates
+      to Division I competitiveness in the Northeast Conference.
+  selfname: the Chargers
+  live_fingerprint:
+    voice_profile: absent (inaugural era)
+    signal: new-found FCS signal — limited source coverage yet

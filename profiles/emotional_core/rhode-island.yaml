@@ -1,0 +1,111 @@
+# Emotional Core — Rhode Island  (rhode-island)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: rhode-island
+team_id: 1109
+program_name: Rhode Island
+program_tier: 2
+
+emotional_core:
+  primary: redemption
+  secondary: house-money
+  one_line: "Rhode Island is the program that went 17 years without a winning season, then won back-to-back CAA championships in 2024 and 2025 under Jim Fleming — the Rams are proof that patience and the right coach can turn four decades of dormancy into a dynasty."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Back-to-back CAA championships (2024-2025), 11 wins in 2025, and a program-first conference title after a 40-year drought — the Rams have turned one of FCS's great long-suffering programs into the conference's current standard bearer."
+
+the_wound:
+  name: "The 17-year winless-season drought — ended 2018"
+  detail: "Rhode Island did not have a winning season from 2001 through 2017 — a 17-year trough that made the program one of FCS's most dormant mid-majors. Jim Fleming arrived in 2014, and his first winning season in 2018 ended the drought. The Rams have not looked back — but the weight of those 17 years shapes how the fanbase understands every winning season."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Build a sustained dynasty from the CAA titles — prove that back-to-back championships are the beginning of an era, not a two-year peak, and make the FCS quarterfinals or beyond."
+  drought: { since: 1985, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "The fanbase says Rhode Island went 17 years without a winning season and no one cared when they were losing, and now that they're back-to-back CAA champions, national FCS media is still slow to treat Kingston like an elite address — the room believes they've earned the noise they're not getting."
+
+the_delusion:
+  tone: load-bearing
+  text: "They believe the 17-year drought is the origin story, not a liability — that a program that broke out of it with back-to-back titles is the most dramatic FCS redemption arc of the decade, and that Jim Fleming has built something that will outlast any comparison to the lean years."
+
+the_grudge_texture:
+  rival: new-hampshire
+  texture: border-war
+
+the_coach_relationship: savior
+the_internal_fracture: title-winner vs deeper-run-demanders — the faction satisfied with back-to-back CAA championships as validation vs the faction that believes the program must advance past the second round of the FCS playoffs to earn a permanent elite reputation
+
+register: rhode-island-rams-kingston-caa-champion-redemption-fleming
+never_use:
+  - "Small Rhode Island program — back-to-back CAA titles and the program-first outright conference crown after 40 years disprove any small-program dismissal"
+  - "Lucky CAA winners — undefeated conference record in 2025 (8-0 CAA) is dominant, not fortunate"
+
+story_canon:
+  the_unique_thing: "The most dramatic FCS redemption arc of the decade — Rhode Island went 17 years without a winning season, then won back-to-back CAA championships in 2024 and 2025 under Jim Fleming, including the program's first outright conference title since 1985 (going 8-0 in conference play in 2025)."
+  the_origin: "Rhode Island has played football since 1893 and was a Yankee Conference power in the 1950s and early 1980s, winning conference titles in 1952, 1953, 1955, 1957, 1981, 1984, and 1985. After the 1985 title, the program fell into a 17-year winning-season drought from 2001 to 2017. Jim Fleming arrived in 2014 and rebuilt the program into a CAA champion."
+  golden_ages:
+    - { era: "1950s Yankee Conference era", what: "Rhode Island wins four Yankee Conference championships in the 1950s — the program's first golden age" }
+    - { era: "1981-1985 (second Yankee era)", what: "Three Yankee Conference titles in five years; 1985 title is the last conference championship before a 40-year drought" }
+    - { era: "2024-2025 (Fleming dynasty)", what: "Back-to-back CAA championships; 11 wins in 2025; first outright conference title since 1985; Eddie Robinson Award finalist" }
+  legends:
+    - { name: Jim Fleming, role: coach, why: "Ended the 17-year winning-season drought, built back-to-back CAA champions, Eddie Robinson Award finalist — the architect of the program's rebirth" }
+    - { name: Marquis Buchanan, role: player, why: "2024 All-American wide receiver; cornerstone of the CAA championship offense" }
+    - { name: Devin Farrell, role: player, why: "Quarterback of the 2024-2025 CAA championship teams; paired with Buchanan to form the conference's top passing attack" }
+  canonical_moments:
+    - { name: "2018 first winning season in 17 years", year: 2018, what: "Rhode Island ends a 17-year winning-season drought under Jim Fleming — the turning point in the modern program's history", handling: glory }
+    - { name: "2024 CAA championship", year: 2024, what: "Rhode Island wins the program's first CAA title — the first conference championship since 1985", handling: glory }
+    - { name: "2025 CAA championship (8-0)", year: 2025, what: "Rams go undefeated in conference play for the first time since 1985 and win back-to-back CAA titles; 11-3 overall", handling: glory }
+  the_place: "Meade Stadium in Kingston, Rhode Island — the campus home of a program that spent 17 years building toward a CAA championship from the bottom of FCS."
+  brand_of_football: "Disciplined, system-complete, championship-caliber — Jim Fleming's program wins with a balanced passing game (Farrell-to-Buchanan) and a defense that holds up late in seasons."
+  cultural_footprint: "The FCS redemption story of the decade — 17 years without a winning season, then back-to-back CAA titles, proof that patience and the right coach can transform even the most dormant programs."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Rhode Island went 11-3 (8-0 CAA) in 2025 — back-to-back CAA
+    champions, undefeated in conference play for the first time since 1985, and advancing to the FCS
+    second round before losing 26-47 to UC Davis. Jim Fleming was named a finalist for the Eddie Robinson
+    Award — the top coaching honor in FCS. The Rams' next challenge is converting two conference titles
+    into a genuine FCS quarterfinal or semifinal run. QB Devin Farrell and WR Marquis Buchanan return
+    as the core of a program that looks like the CAA's dominant program entering 2026.
+  sources:
+    - https://en.wikipedia.org/wiki/Rhode_Island_Rams_football
+    - https://gorhody.com/sports/football/roster/coaches/jim-fleming/1142
+    - https://gorhody.com/news/2025/11/24/football-fleming-named-a-finalist-for-eddie-robinson-award.aspx
+
+briefing:
+  identity_phrase: Rhode Island is the 17-year-winning-season-drought program that Jim Fleming rebuilt into back-to-back CAA champions (2024-2025) — the FCS redemption arc of the decade, now chasing a deep playoff run.
+  mantra: Go Rhody.
+  cultural_anchors:
+    fan_archetype_dominant: Long-Suffering-Turned-Believer
+    outsider_archetype_dominant: Small-State-Dismisser
+    one_sentence: Rhode Island is the program that broke a 17-year winning drought and won back-to-back CAA championships under Jim Fleming — the most dramatic FCS redemption of the 2020s.
+  selfname: the Rams
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Jim Fleming
+    era_name_overrides: {}
+    always_surface:
+      - 17-year winning-season drought ended 2018
+      - 2024 CAA championship — first conference title since 1985
+      - 2025 CAA championship (8-0 conference) — back-to-back
+      - Eddie Robinson Award finalist 2025 (Fleming)
+      - Devin Farrell-Marquis Buchanan passing duo
+    rituals:
+      - Meade Stadium
+      - The Fleming Rebuild
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

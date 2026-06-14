@@ -1,0 +1,111 @@
+# Emotional Core — Emory & Henry  (emory-henry)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: emory-henry
+team_id: 999  # Placeholder — may need D2 DB assignment
+program_name: Emory & Henry
+program_tier: 6
+
+emotional_core:
+  primary: house-money      # a brand-new D2 program (transitioned from ODAC D3 in 2024) competing like it belongs
+  secondary: restoration    # climbing from D3 startup to ranked D2 competitor in two seasons
+  one_line: "Emory & Henry moved from Division III to Division II just two years ago and has already become a ranked Super Region II contender — a Wasps program writing its D2 origin story in real time."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A Division III program last year vs a ranked Division II Super Region II competitor now — the Wasps went from ODAC to D2 playoffs in 18 months of eligibility."
+
+the_wound:
+  name: "Starting a new program from scratch at a higher level"
+  detail: "Emory & Henry transitioned from the ODAC (Division III) to the South Atlantic Conference (Division II) in 2024, leaving behind a Division III identity and having to prove they belonged in D2 immediately. The climb was steep; the Wasps are climbing it."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the Appalachian program can not just survive Division II but thrive — make the SAC playoff conversation, build a regional identity that stretches beyond Virginia's mountains."
+  drought: { since: 2024, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Emory & Henry fans spent generations in the ODAC and were told Division III was where the program belonged. They carry the chip of proving that the transition was right, that the Wasps program had Division II blood in it, and that mountain schools can compete at a higher level."
+
+the_delusion:
+  tone: self-aware
+  text: "That a Division III powerhouse becomes a Division II contender just by moving conferences; that the talent was there all along. The Wasps believe the ceiling is higher than anyone thought; they're proving it with every win."
+
+the_grudge_texture:
+  rival: ""
+  texture: border-war
+
+the_coach_relationship: legends-shadow   # Quintin Hunter is building post-transition; program is still in his shadow/guidance era
+the_internal_fracture: ""
+register: emory-henry-wasps-d2-rise
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - "Always Division III — transitioned to D2 in 2024"
+  - "Program is new to D2 — technically true, but D2-eligible and competing at the highest level already"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Division II transition: Emory & Henry left the ODAC (Division III) and joined the South Atlantic Conference (Division II) in 2024, skipping years of transition purgatory and becoming a contender in Super Region II within two seasons of eligibility. The Wasps proved a mountain program could climb levels."
+  the_origin: "Emory & Henry was founded in 1836 in Emory, Virginia. Football was a regional power in the ODAC (Division III) for decades. In 2024, the university reclassified to Division II and joined the SAC."
+  golden_ages:
+    - { era: "2024–2025 (D2 reclassification)", what: "Two seasons of D2 eligibility that led to a 9–2 record in 2024 and an 8–3 record in 2025, both Super Region II ranking eligible" }
+  legends: []
+  canonical_moments:
+    - { name: "2024 D2 debut season", year: 2024, what: "Emory & Henry goes 9–2 in its first D2 season, proving the reclassification was correct", handling: glory }
+    - { name: "2025 Super Region II ranking", year: 2025, what: "Ranked 9th in Super Region II after 8–3 season, competing for playoff positioning", handling: glory }
+  the_place: "Fred Selfe Stadium at Nicewonder Field in Emory, Virginia — the Appalachian home of the Wasps."
+  brand_of_football: "Scrappy, climb-the-mountain football from an Appalachian program that's hungry to prove D2 belongs to small schools with big hearts."
+  cultural_footprint: "A test case for Division III programs seeking to transition upward: Emory & Henry proved it can be done without a decade of transition purgatory."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Emory & Henry went 8–3 (6–3 SAC) in 2025, its second full season at the
+    D2 level, and ranked 9th in Super Region II. Head coach Quintin Hunter (3rd season at the school, 2nd as D2 HC)
+    has the Wasps positioned to challenge for playoff positioning in 2026. The program is no longer a bottom-feeder
+    in the SAC; it's a middle-tier competitor with upside potential.
+  research_checklist:   # what to look up (web) when we author this team together
+    - The 2024 ODAC-to-SAC transition mechanics and timeline
+    - Quintin Hunter's coaching tenure and the reclassification build
+    - Notable 2024 and 2025 wins and the Super Region II ranking implications
+    - Recruiting pipeline changes post-transition
+  sources:
+    - https://emory-henry.edu/
+    - Emory & Henry Athletics official site
+    - Wikipedia: Emory & Henry Wasps football
+    - Roanoke.com (2023–2024) — transition coverage
+    - FloFootball (2024-2025)
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Emory & Henry is the Appalachian program that reclassified from ODAC (Division III) to SAC
+    (Division II) in 2024 and became a Super Region II contender in 18 months of D2 eligibility.
+  mantra: ''
+  cultural_anchors:
+    fan_archetype_dominant: Emory-Henry-Wasps-D2-Riser
+    outsider_archetype_dominant: Mountain-School-Climber
+    one_sentence: Emory & Henry is the Wasps — ODAC-to-SAC reclassification (2024) + immediate D2 contention that
+      anchors the successful transition arc.
+  selfname: the Wasps
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: SAC (South Atlantic Conference)
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2024 ODAC-to-SAC reclassification
+    - 9–2 record in 2024 D2 debut
+    - 8–3 record and Super Region II ranking in 2025
+    rituals: []
+    modules_already_rendering: ''
+  live_fingerprint:
+    backometer: ''
+    voice_profile: absent
+    delusion_premium: absent

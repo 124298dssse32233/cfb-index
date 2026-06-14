@@ -1,0 +1,119 @@
+# Emotional Core — ULM  (ul-monroe)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: ul-monroe
+team_id: 33
+program_name: ULM
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # the program with one of the great upsets in the sport's history, perpetually picked last anyway
+  secondary: deprival     # the smallest budget in the Sun Belt, scrapping for a winning season that rarely comes
+  core_variant: the-ceiling
+  one_line: "ULM is the north-Louisiana program that walked into Little Rock and stunned #8 Arkansas in overtime — one perfect Saturday it has spent a decade-plus trying to feel again."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A 1987 FCS national title and the 'Shock in Little Rock' vs a modern reality of bottom-of-the-Sun-Belt finishes and a single bowl trip since 2012."
+
+the_wound:
+  name: "Living on one upset"
+  detail: "ULM's defining modern memory — the 2012 overtime win over #8 Arkansas, 'The Shock in Little Rock' — is now thirteen-plus years old, and the program has mostly struggled since. A 3-9 (1-7 Sun Belt) finish in 2025, Bryant Vincent's second year, was the latest reminder that the magic Saturday hasn't had many sequels."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build a team that wins more than it loses — a bowl, a Sun Belt run, the feeling that Monroe's program can do it for a season and not just a Saturday."
+  drought: { since: 2012, unit: bowl }
+
+the_chip:
+  villain: blue_bloods
+  text: "ULM fans know the power-conference programs schedule them as a paycheck and a guaranteed win — and they'll remind you the Warhawks once cashed that check the other way, walking into an SEC stadium and walking out with the upset of the year."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Monroe is one good Saturday from doing it again — that the program that shocked Arkansas can shock anybody, and that the next marquee scalp is always one upset away."
+
+the_grudge_texture:
+  rival: louisiana
+  texture: border-war   # the Louisiana Battle for the Wooden Boot — the in-state, in-Sun-Belt grudge with Lafayette
+
+the_coach_relationship: hot-seat-churn   # a program that has cycled coaches (Berry→Viator→Vincent) chasing the next winning year
+the_internal_fracture: patience vs frustration — give Bryant Vincent time to rebuild the smallest budget in the league vs the faction tired of waiting on another bowl
+register: monroe-warhawks-bayou-sun-belt   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always Sun-Belt-bottom — 2012 Arkansas upset + 1987 FCS title disprove
+  - No identity — 1987 + 2012 + Malone Stadium combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "ULM owns one of the most famous upsets in college-football history — 'The Shock in Little Rock,' a 34-31 overtime win over #8 Arkansas in 2012 — the proof that a tiny north-Louisiana program can fell a giant on the right Saturday."
+  the_origin: "A Monroe, Louisiana school once known as Northeast Louisiana that won an FCS national title in 1987, climbed to FBS, and rebranded as the Warhawks in 2006 — small-budget football in the Bayou State's third football town."
+  golden_ages:
+    - { era: "1987 (Pat Collins)", what: "An NCAA Division I-AA (FCS) national championship — the program's lone title" }
+    - { era: "2012 (Todd Berry)", what: "8-5, an Independence Bowl trip, and the Arkansas upset — the high point of the FBS era" }
+  legends:
+    - { name: Kolton Browning, role: player, why: "The quarterback who accounted for 481 yards and the game-winning overtime scramble against Arkansas" }
+    - { name: Todd Berry, role: coach, why: "Raised the program's national profile and led the 2012 run" }
+  canonical_moments:
+    - { name: "The Shock in Little Rock", year: 2012, what: "ULM stuns #8 Arkansas 34-31 in overtime, rallying from 21 down", handling: glory }
+    - { name: "The 1987 FCS national championship", year: 1987, what: "Northeast Louisiana wins the I-AA title", handling: glory }
+  the_place: "Malone Stadium in Monroe — an intimate Sun Belt venue on the banks of the Ouachita, where a small school packs in for its one Division-I team."
+  brand_of_football: "Underdog opportunism — a program built to spring the upset, dangerous on the day it catches a bigger team looking past it."
+  cultural_footprint: "North Louisiana's football team — neither LSU nor New Orleans — a region's proof that the giants can be beaten, cited every time a Sun Belt school walks into an SEC stadium."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: ULM went 3-9 (1-7 Sun Belt) in 2025, Bryant Vincent's second season,
+    after a 5-7 first year that started 5-1 and collapsed. Vincent also took on an interim athletic-director
+    role in August 2025, an unusual dual hat. The question in Monroe: can the program climb back toward bowl
+    contention on the smallest budget in the league, or does it stay defined by a single great Saturday.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Louisiana%E2%80%93Monroe_Warhawks_football_team
+    - https://www.espn.com/college-football/game/_/gameId/322520008/ul-monroe-arkansas
+    - https://ulmwarhawks.com/news/2012/9/9/205681999.aspx
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: ULM is the Sun Belt program whose 2007 program rename + 2012 Alabama upset + Malone Stadium
+    identity define what Monroe-North-Louisiana-football looks like.
+  mantra: Fly High.
+  cultural_anchors:
+    fan_archetype_dominant: Monroe-Warhawk-Fly-High
+    outsider_archetype_dominant: Sun-Belt-Mid-Pack-Diminisher
+    one_sentence: ULM is the Monroe North Louisiana Sun Belt program — 1987 FCS national championship +
+      2012 Arkansas upset + Malone Stadium identity that anchor the historic G5 arc.
+  selfname: the Warhawks
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1987 NCAA Division I-AA national championship
+    - 2012 8-5 + Independence Bowl + Arkansas upset under Todd Berry
+    - 2007 program rename (Northeast Louisiana → ULM)
+    rituals:
+    - 2012 Alabama Upset
+    - 1987 FCS National Championship
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (57/100, n=12)
+    voice_profile: absent
+    delusion_premium: absent

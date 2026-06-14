@@ -1,0 +1,120 @@
+# Emotional Core — South Florida  (south-florida)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: south-florida
+team_id: 267
+program_name: South Florida
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the program that rocketed to No. 2, crashed, and in 2025 finally rebuilt back into a ranked, explosive team
+  secondary: spectacle    # the 43-points-a-game show that made the Bulls must-watch again
+  core_variant: regime-reset
+  one_line: "South Florida went from not existing in 1996 to No. 2 in the country by 2007 — then spent a decade in the wreckage, until a 2025 offense that hung 43 a game and beat two ranked teams in eight days put the Bulls back on the map."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "The fastest rise in modern football history — unranked-to-No.-2 in eleven years — against the long fall that followed, and a 2025 reclamation that reached No. 18 before its coach left."
+
+the_wound:
+  name: "The lost decade after No. 2 — and the coach who just walked out"
+  detail: "USF climbed from a 1997 startup to No. 2 in 2007, then collapsed: the Leavitt firing, losing seasons, near-irrelevance. Alex Golesh finally rebuilt the Bulls into a 9-4, top-ten-scoring team in 2025 — and then left for Auburn in late November before the bowl, which USF lost. The Bulls open 2026 under Brian Hartline, hoping the momentum survived the exit."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the American and crack the rankings to stay — finish the climb back so the 2007 peak reads as a preview, not a fluke the program could never repeat."
+  drought: { since: 2007, unit: relevance }
+
+the_chip:
+  villain: national_media
+  text: "Bulls fans remember being No. 2 in the country and then being written off entirely — and they remember 2025, when USF beat Boise State and Florida in eight days and made the doubters look up again. They'll tell you nobody believed the rebuild until the scoreboard forced it."
+
+the_delusion:
+  tone: earnest
+  text: "Tampa fans believe a young program in talent-rich Florida is a sleeping power — that with the right offense and an NFL stadium to fill, USF can be a Big-12-or-better program any season now. The 2007 ride taught them the rise can come fast, and they're sure it can come again."
+
+the_grudge_texture:
+  rival: central-florida
+  texture: little-brother   # the War on I-4 with UCF — the in-state, attitude-laden grudge that means the most in Tampa
+
+the_coach_relationship: savior   # Alex Golesh resurrected the program in 2023-2025 (then left for Auburn); Brian Hartline inherits the build
+the_internal_fracture: momentum vs whiplash — the faction riding the 2025 breakthrough vs the faction bracing for another reset after losing the coach who built it
+register: tampa-bulls-charlie-strong-rebuild   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always G5 — 2007 #2 AP peak + Big East era resolved the historical tier'
+  - No identity — Leavitt founding era + Strong rebuild combine into multi-era canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "South Florida had the fastest rise in modern college football. The program played its first game in 1997 and was ranked No. 2 in the country by 2007 — a decade from nonexistent to one win from the national-title conversation. No major program ever climbed that far that fast."
+  the_origin: "A commuter university in Tampa that didn't field football until 1997, built from scratch by Jim Leavitt into a Big East team that shocked the sport by 2007 — then lost its way after Leavitt's 2010 firing and spent a decade trying to find the altitude again."
+  golden_ages:
+    - { era: "2005–2007 (Jim Leavitt)", what: "The meteoric rise — Big East relevance, a 2007 run to No. 2 with wins over Auburn and West Virginia, Matt Grothe at quarterback" }
+    - { era: "2025 (Alex Golesh)", what: "A 9-4 reclamation built on a top-ten scoring offense (43 ppg) and back-to-back ranked wins to open the year" }
+  legends:
+    - { name: "Jim Leavitt", role: coach, why: "The founding coach who built USF from its first game in 1997 to No. 2 in the country" }
+    - { name: "Matt Grothe", role: player, why: "The quarterback of the 2007 rise and the program's all-time leading passer" }
+  canonical_moments:
+    - { name: "USF reaches No. 2", year: 2007, what: "After beating Auburn in overtime and toppling West Virginia, the 10-year-old program climbs to No. 2 in the country — the high point of the fastest rise in modern football", handling: glory }
+    - { name: "Two ranked wins in eight days", year: 2025, what: "USF opens the season routing No. 25 Boise State 34-7, then wins at Florida 18-16 on a walk-off field goal — its first ranked wins since 2016 — and enters the AP poll at No. 18", handling: glory }
+    - { name: "Golesh leaves for Auburn", year: 2025, what: "The coach who rebuilt the program departs before the bowl game, which USF loses — a familiar twist for a program that keeps losing what it builds", handling: wound }
+  the_place: "Raymond James Stadium in Tampa — the Buccaneers' NFL home that USF shares as a tenant; 2026 is the Bulls' final season there before an on-campus stadium opens, a program at last building a house of its own."
+  brand_of_football: "Explosive and fast — the Golesh-era identity was a top-ten scoring offense and tempo; the Bulls play to outscore, in a recruiting-rich state that gives them the speed to do it."
+  cultural_footprint: "Proof of how fast a program can be willed into being — USF is the modern case study in startup football, the Tampa school that crashed the national conversation a decade after kickoff and has chased that feeling ever since."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Alex Golesh rebuilt USF into a 9-4, top-ten-scoring team in 2025 — opening
+    with ranked wins over Boise State and at Florida, reaching No. 18 — then left for Auburn in late November
+    before a Cure Bowl loss to Old Dominion. USF hired former Ohio State OC Brian Hartline (a six-year, $21M deal)
+    to keep the momentum, with 2026 set as the Bulls' last season at Raymond James before their new on-campus home.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_South_Florida_Bulls_football_team
+    - https://gousfbulls.com/news/2025/8/28/usf-football-dominates-no-25-boise-state-34-7-for-first-ranked-wins-since-2016.aspx
+    - https://www.underdogdynasty.com/american-conference/41346/south-florida-hires-brian-hartline-as-head-coach
+    - https://en.wikipedia.org/wiki/2007_South_Florida_Bulls_football_team
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: South Florida is the American Athletic program whose Charlie Strong tenure + 2024 7-6
+    Alex Golesh rebuild + Big East historical legacy define what Tampa Bay football survival looks like.
+  mantra: Go Bulls.
+  cultural_anchors:
+    fan_archetype_dominant: Tampa-Bay-Bulls-Survivor
+    outsider_archetype_dominant: G5-Forever-Diminisher
+    one_sentence: 'South Florida is the Tampa Bay football survivor — Jim Leavitt founding era + 2007 #2
+      AP peak + Charlie Strong rebuild + 2024 7-6 Alex Golesh era keeping the Bulls in AAC competitive cycles.'
+  selfname: the Bulls
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2007 Jim Leavitt
+    - Charlie Strong 2017-2019 rebuild + consecutive 10-2 + 7-6 seasons
+    - 2024 7-6 + Alex Golesh era rebuild continuation
+    rituals:
+    - Jim Leavitt 1997-2009 (Founding Era)
+    - Raymond James Stadium (NFL Co-Tenant)
+    - Charlie Strong Tenure (2017-2019)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (56/100, n=15)
+    voice_profile: absent
+    delusion_premium: absent

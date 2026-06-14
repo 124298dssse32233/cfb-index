@@ -1,0 +1,78 @@
+# AUTHORED (D3 MAC) 2026-06-13 — web-verified
+# Middle Atlantic Conference | Madison, NJ | Division III Devils
+# Part of Fairleigh Dickinson system; transitioning D3 program; 1-9 season
+
+status: live
+slug: fdu-florham
+team_id: null
+program_name: Fairleigh Dickinson University-Florham
+program_tier: 7
+
+emotional_core:
+  primary: house-money       # competing with limited resources; punching above institutional weight
+  secondary: restoration     # rebuilding after a difficult season
+  one_line: "FDU-Florham is the Devil competing at Division III despite resource constraints, rebuilding pride after a challenging 2025 season in Madison, New Jersey."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A Madison, NJ regional institution competing in a powerhouse conference (MAC) with fewer athletic resources than peer programs, determined to prove that commitment and culture can bridge the resource gap."
+
+the_wound:
+  name: "The 2025 season and resource limitations"
+  detail: "FDU-Florham finished 1-9 overall (1-8 MAC) in 2025, posting the worst conference record and raising questions about program viability at Division III level. The wound is twofold: the season itself was painful, but the underlying cause is resource allocation—competing at Division III without Division III-scale budget or facilities."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build a Division III program that competes despite being a smaller piece of the Fairleigh Dickinson athletic system—prove that regional pride and football culture can matter in Madison."
+  drought: { since: 2020, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no external villain—just the drive to prove that being the smaller Fairleigh Dickinson campus doesn't mean football has to be a doormat. Madison wants its program respected."
+
+the_delusion:
+  tone: earnest
+  text: "That the next coaching hire and roster cycle could turn 2025's loss into a forgotten valley—that commitment to the program's identity could yield playoffs within two years. The fanbase believes in the rebuild."
+
+the_grudge_texture:
+  rival: none
+  texture: none            # limited geographic rivalries; part of broader MAC/NJ regional dynamic
+
+the_coach_relationship: hot-seat-churn      # Anthony Van Curen's tenure shows mixed results
+the_internal_fracture: investment-vs-retreat — supporting continued Division III commitment vs questioning whether FDU should focus resources on the Metropolitan campus
+register: madison-devil-regional-pride-builder
+never_use:
+  - "Program is not worth supporting — Fairleigh Dickinson's commitment to Division III football is institutional"
+  - "Always going to lose — one season does not define a program's trajectory"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The Florham Devil—a Division III program competing within the Fairleigh Dickinson system, representing Madison, NJ pride while navigating resource constraints that larger, better-funded peer institutions don't face."
+  the_origin: "The Florham campus of Fairleigh Dickinson University, located in Madison, NJ, fields a Division III football team competing in the Middle Atlantic Conference."
+  golden_ages:
+    - { era: "Early 2010s competitive years", what: "Periods of competitive MAC play and winning seasons" }
+  legends:
+    - { name: "Madison institutional pride", role: institution, why: "The program represents the Florham campus commitment to athletics and student-athlete development" }
+  canonical_moments:
+    - { name: "MAC membership", year: 2014, what: "FDU-Florham competes in the Middle Atlantic Conference alongside peer regional Division III institutions", handling: glory }
+  the_place: "Jake Nevin Field at Florham Park, Madison, NJ—home of the Devils, representing regional athletic tradition."
+  brand_of_football: "The regional competitor—a program managing resource constraints while building pride in a smaller market."
+  cultural_footprint: "FDU-Florham represents the possibility of sustaining Division III football in the New York/New Jersey region despite competition for resources and attention."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: FDU-Florham finished 1-9 overall (1-8 MAC) in 2025, posting the worst
+    conference record. Head coach Anthony Van Curen carries a 19-23 overall record at the Florham campus. The 2025
+    season represented a significant valley for the program, raising questions about competitive direction under current
+    leadership. The program faces a fork in 2026: recommit to Division III with revised expectations and personnel,
+    or question whether Fairleigh Dickinson's athletic resources are better allocated elsewhere.
+  research_checklist:
+    - Madison, NJ location (Florham campus)
+    - Part of Fairleigh Dickinson system
+    - 2025 record: 1-9 overall, 1-8 MAC (9th place)
+    - Head coach: Anthony Van Curen (19-23 record)
+    - Home: Jake Nevin Field
+  sources:
+    - https://fdudevils.com/
+    - https://www.d3football.com/teams/fdu-florham
+    - https://gomacsports.com/
+    - https://en.wikipedia.org/wiki/FDU-Florham_Devils_football

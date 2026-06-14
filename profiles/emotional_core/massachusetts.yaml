@@ -1,0 +1,160 @@
+# Emotional Core — UMass  (massachusetts)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: massachusetts
+team_id: 219
+program_name: UMass
+program_tier: 9
+
+emotional_core:
+  primary: deprival       # nine years adrift as an independent, just back in a conference, starting from zero
+  secondary: restoration  # the MAC return is the first real structure in a decade — a place to rebuild toward
+  one_line: "UMass spent nearly a decade as a homeless independent and just rejoined a conference — and the first season back, a winless one, was less a verdict than the price of finally having somewhere to climb from."
+
+self_image:
+  archetype: orphaned
+  standard_gap_frame: "A flagship research university with two FCS national titles vs an FBS program that played nine years with no conference, no stakes, and a revenue gap it had to explain at every turn."
+
+the_wound:
+  name: "The winless return"
+  detail: "UMass went 0-12 in 2025, Joe Harasymiak's first year and the program's first full season back in the MAC after the long independent stretch — a hard floor for a roster rebuilding from the ground up, played in the program's signature small-stadium intimacy at McGuirk."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Climb the rung above — win a conference game, then string enough together to reach bowl eligibility, a height the program has never touched since joining the FBS in 2012."
+  drought: { since: 2012, unit: bowl }
+
+the_chip:
+  villain: national_media
+  text: "Outsiders ask why UMass is even at this level — and the fanbase answers that running football at a flagship has always meant explaining itself to people who'd rather it disappear, and showing up anyway."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the MAC return finally gives the program a ladder worth climbing — that with real conference stakes and a second-year staff, UMass plays for the rung above itself, exactly as it always has."
+
+the_grudge_texture:
+  rival: uconn
+  texture: border-war   # the New England flagship rivalry, two state schools with a long, bitter ledger
+
+the_coach_relationship: savior   # Harasymiak is the fresh start the program is betting on
+the_internal_fracture: ambition vs sustainability — the faction that wants UMass to commit fully to FBS football vs the faction asking whether the investment ever matches the level
+register: scrappy-proud
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - mid-major as a dismissive frame
+  - cupcake
+  - glorified FCS
+  - doormat
+  - David vs. Goliath
+  - they shouldn't be in FBS
+  - plucky New England upstart
+  - UMASS-achusetts (it is not the program's name)
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The 1998 national championship — Mark Whipple's team won the I-AA (FCS) title, the high-water mark of a program that has spent its FBS years searching for a foothold ever since. UMass knows it can win at the top of a level; the question has always been which level."
+  the_origin: "The land-grant flagship of Massachusetts in the Pioneer Valley, an FCS power that won national titles in 1964 and 1998 before making the leap to the FBS in 2012 — a leap that cost it the conference home it spent nearly a decade without."
+  golden_ages:
+    - { era: "1998 (Mark Whipple)", what: "The I-AA national championship — the program's defining title" }
+    - { era: "1978–1998 (Yankee Conference era)", what: "A sustained FCS power with conference titles and deep playoff runs" }
+  legends:
+    - { name: Mark Whipple, role: coach, why: "Coached the 1998 national champions; the most successful coach in program history" }
+    - { name: Victor Cruz, role: player, why: "Pioneer Valley product who became a Super Bowl-winning NFL receiver" }
+  canonical_moments:
+    - { name: "The 1998 national championship", year: 1998, what: "Whipple's UMass wins the I-AA title", handling: glory }
+    - { name: "The FBS leap", year: 2012, what: "UMass moves up to the FBS — ambition that traded a conference home for nine independent years", handling: heartbreak }
+  the_place: "Warren McGuirk Alumni Stadium in Amherst — a 17,000-seat home that creates genuine intimacy, Sam the Minuteman and the Rise as One chant carrying a small-but-real New England gameday."
+  brand_of_football: "Grounded, identity-forward flagship football — a program that plays for the rung above itself and knows exactly which rung that is, without performing the part."
+  cultural_footprint: "Rise as One — the football identity of the Massachusetts flagship, a program structurally honest about the FBS revenue divide and committed to the level anyway."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UMass went 0-12 in 2025, Joe Harasymiak's first season and the program's
+    first full year back in the MAC after the long independent stretch — the program's first winless campaign,
+    and the price of rebuilding a roster while finally rejoining a conference. Entering 2026, Harasymiak's
+    second year, the realistic ladder starts at winning a conference game and climbs toward the bowl
+    eligibility UMass has never reached since going FBS.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_UMass_Minutemen_football_team
+    - https://en.wikipedia.org/wiki/2026_UMass_Minutemen_football_team
+    - https://www.hustlebelt.com/umass-minutemen/43815/umass-becomes-19th-team-to-finish-0-12-or-worse
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: UMass is playing for the version of itself that gets invited to the conversation.
+  mantra: Rise as one.
+  cultural_anchors:
+    fan_archetype_dominant: Loyalist-Through-Transitions
+    outsider_archetype_dominant: Why-Are-They-FBS
+    one_sentence: UMass is the program that proves Group of Five football is a different sport — and that
+      running an FBS program at a flagship-research university requires explaining itself constantly.
+  selfname: the Minutemen
+  aspiration_ladder_top: Bowl win
+  rivalries:
+  - uconn
+  - new-hampshire
+  - maine
+  heritage:
+    national_titles: 2
+    conference_titles: 10
+    current_conference: MAC (as of 2025)
+  prose_excerpts:
+    taboos: The 2016-2024 independent era is a painful memory — scheduling nightmares, revenue gaps, a conference-less
+      ledger that produced zero conference championships or bowl wins. Copy that treats it as a joke misses
+      that the program made that decision under specific institutional pressure. The Gillette Stadium era
+      is remembered honestly — the revenue was real, the identity cost was real, and the decision to walk
+      away was the right one. Comparisons to UConn should respect that…
+    fans_culture: The fanbase is Pioneer Valley-centered with a dispersed Massachusetts alumni network.
+      Gameday register is genuinely small-stadium and New England-specific — a 17,000-seat home venue creates
+      an intimate atmosphere with fewer traditions than programs with larger footprints, but real ones (Sam
+      the Minuteman, Rise as One chant, pregame campus walk). The fanbase is structurally aware of the FBS
+      revenue divide and argues honestly about whether UMass's football commitment matches…
+    voice_ethos: 'The voice is scrappy-proud. Not scrappy-cute — there is a meaningful difference. UMass
+      does not perform being an underdog; the program plays for the rung above itself and knows exactly
+      which rung that is. The register is specific, grounded, and allergic to outsider-framings that reduce
+      the program to a charming upset story. Identity phrase: **"UMass is playing for the version of itself
+      that gets invited to the conversation."** The phrasing is forward-looking, not…'
+    narratives: The 2025 MAC return is the single largest narrative marker since the 2012 FBS transition.
+      A conference schedule produces a structure of stakes (conference standings, division math, rivalry
+      weeks) that the 2016-2024 independent era lacked entirely. The aspiration ladder for 2025 realistically
+      starts at "win a conference game" — the program has not played conference games since 2015 — and ends
+      at "bowl eligibility" as a dream rung that would be genuinely historic. The…
+    in_jokes: '"Rise as one" — sincere. "The Minutemen" — earnest, pre-dates the mascot rebrand conversation.
+      The Pioneer Valley local register (apples, autumn, campus walks) can be surfaced in mascot-voice copy;
+      overuse reads as precious.'
+  story_materials:
+    legendary_coach: Mark Whipple
+    era_name_overrides:
+      1879-1899: The Founding Years
+      1978-1998: The Yankee Conference Era
+      1999-2006: The Atlantic 10 FCS Window
+      2012-2015: The MAC Experiment
+      2016-2024: The Independent Wandering
+      2025-: The MAC Return
+    always_surface:
+    - 2 FCS national championships (1998, with the 1998 team coached by Mark Whipple)
+    - FBS transition (2012), joining the MAC
+    - Gillette Stadium era (2012-2014 as partial home stadium)
+    - McGuirk Stadium renovation (2014, on-campus home)
+    - Return to the MAC for 2025 after a long independent stretch
+    - Flagship university identity — the land-grant flagship of Massachusetts
+    rituals:
+    - Minuteman Cannon
+    - Power and Class (band tradition)
+    - Fight Mass (fight song)
+    - Sam the Minuteman
+    - Flagship-First Identity
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

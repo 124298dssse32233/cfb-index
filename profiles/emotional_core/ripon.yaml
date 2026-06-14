@@ -1,0 +1,86 @@
+# Emotional Core — Ripon College (ripon)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: ripon
+team_id: null
+program_name: Ripon College
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: standard
+  one_line: "The Wisconsin school that won two perfect seasons (1957, 1963) and now competes in the Midwest Conference knowing excellence is possible in any given November."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A Wisconsin institution with two perfect seasons (1957, 1963) in its history, now competing steadily in the Midwest Conference with that legacy as proof of capability."
+
+the_wound:
+  name: ""
+  detail: ""
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to perfect-season parity; honor the 1957 and 1963 championships; compete for Midwest Conference titles; prove that Wisconsin football tradition still matters."
+  drought: { since: 1963, unit: national_title }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: lawrence
+  texture: border-war
+
+the_coach_relationship: forever-ours
+the_internal_fracture: ""
+register: red-hawk-wisconsin-pride
+never_use:
+  - "Never successful — Two perfect seasons (1957, 1963) in Midwest Conference history"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Two perfect seasons — 1957 (8–0 MWC under Coach Jerry Thompson) and 1963 (8–0 MWC under Coach John Storzer). That's the ceiling of Ripon football."
+  the_origin: "Ripon College, Wisconsin — a historic Wisconsin institution with roots in the 19th century."
+  golden_ages:
+    - { era: "1957", what: "Perfect 8–0 MWC Championship under Coach Jerry Thompson" }
+    - { era: "1963", what: "Perfect 8–0 MWC Championship under Coach John Storzer (6th championship in Storzer's 7-year tenure, 1963–1968)" }
+  legends:
+    - { name: "Jerry Thompson", role: coach, why: "Architect of the 1957 perfect season" }
+    - { name: "John Storzer", role: coach, why: "5 MWC titles in 7 years (1963–1968); 1963 perfect season" }
+  canonical_moments:
+    - { name: "1957 perfect season", year: 1957, what: "8–0 MWC Championship under Jerry Thompson", handling: glory }
+    - { name: "1963 perfect season", year: 1963, what: "8–0 MWC Championship under John Storzer", handling: glory }
+  the_place: "Ripon College campus, Wisconsin — home of the Red Hawks."
+  brand_of_football: "Wisconsin football tradition — modest, prepared, capable of perfection on a given season."
+  cultural_footprint: "A Wisconsin program anchored by two perfect seasons (1957, 1963); the ceiling is high when it clicks."
+  the_ongoing_story: "LIVE as of 2025: Ripon went 5–5 overall, 5–4 MWC in 2025, with 4 players earning All-MWC honors. The Red Hawks are competing in the Midwest Conference with the memory of two perfect seasons (1957, 1963) as proof that excellence is within reach. This is a program that knows what it looks like when it peaks, and every season is a chase for that moment again."
+  sources:
+    - https://en.wikipedia.org/wiki/Ripon_College_Red_Hawks_football
+    - https://www.ripon.edu/athletics/football/
+    - https://www.ripon.edu/about/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Ripon College is the Wisconsin school with two perfect seasons (1957 8–0, 1963 8–0) in Midwest Conference history.
+  mantra: Red hawk pride.
+  cultural_anchors:
+    fan_archetype_dominant: Wisconsin-Perfect-Season-Faithful
+    outsider_archetype_dominant: Regional-MWC-Competitor
+    one_sentence: Ripon College is the Wisconsin program that achieved two perfect seasons (1957, 1963) in Midwest Conference history.
+  selfname: the Red Hawks
+  rituals:
+    - 1957 perfect 8–0 season
+    - 1963 perfect 8–0 season
+    - Wisconsin football tradition
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

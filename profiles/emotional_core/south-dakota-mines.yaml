@@ -1,0 +1,67 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: south-dakota-mines
+program_name: South Dakota School of Mines & Technology
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "South Dakota Mines is the engineering Hardrockers leading the Black Hills Brawl all-time 67 wins — the traditional rival champion in D2's greatest 140-year rivalry, holding the Homestake Trophy with pride."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A regional powerhouse defined by engineering prestige and the historic dominance of the Black Hills Brawl — winning the rivalry matters more than national titles."
+
+the_wound:
+  name: "None named"
+  detail: "South Dakota Mines carries no wound — a program built on the satisfaction of leading a historic rivalry and maintaining regional tradition."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Extend the Brawl lead and maintain the Homestake Trophy — prove that regional dominance and engineering identity are enough to matter."
+  drought: { since: 2012, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — just the quiet pride of owning the greatest rivalry in D2 history."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: black-hills-state
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Regional tradition vs RMAC competitiveness — the balance between celebrating the Brawl dominance and building toward conference titles."
+register: south-dakota-mines-hardrockers-rapid-city-brawl
+never_use:
+  - Recent national champions — 3-8 in 2025, middle-tier RMAC
+  - Brawl underdogs — lead 67-games all-time
+
+story_canon:
+  the_unique_thing: "The Black Hills Brawl — 140 years old (since 1895), the fourth-most-played rivalry in NCAA history and the most-played in Division II. South Dakota Mines leads 67 wins all-time, holding the Homestake Trophy."
+  the_origin: "An engineering school in Rapid City, South Dakota, born from the mining industry and defined from the start by the rivalry with Black Hills State."
+  golden_ages:
+    - { era: "Brawl Legacy (1895–present)", what: "140 years of dominance in college football's greatest rivalry — 67-win all-time series lead" }
+  legends: []
+  canonical_moments:
+    - { name: "The Black Hills Brawl (established 1895)", year: 1895, what: "First played against Black Hills State — the start of the 140-year rivalry", handling: glory }
+  the_place: "Rapid City, South Dakota — the Black Hills region and home of Hardrockers football."
+  brand_of_football: "Regional rivalry obsession — a program whose identity is built on winning the Brawl and the Homestake Trophy, year after year."
+  cultural_footprint: "Custodians of the most-played rivalry in Division II history, with 140 years of documented Brawl supremacy — the program's moat is not national titles, but regional immortality."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: South Dakota Mines under coach Charlie Flohr (Year 6) went 3-8 (3-6 RMAC) in 2025.
+    The Hardrockers remain the all-time leader in the Black Hills Brawl (67-win series lead), holding the Homestake Trophy.
+    The program's identity is rooted in regional engineering excellence and rivalry dominance — the Brawl is the measure of success,
+    and South Dakota Mines has proven it can sustain that leadership across generations. The question forward: can the Hardrockers
+    climb back to RMAC competitiveness while maintaining the Brawl edge?
+  sources:
+    - https://en.wikipedia.org/wiki/South_Dakota_School_of_Mines_%26_Technology_Hardrockers_football
+    - https://www.hardrockers.com/
+    - https://www.rmac.org/
+    - https://en.wikipedia.org/wiki/Black_Hills_Brawl

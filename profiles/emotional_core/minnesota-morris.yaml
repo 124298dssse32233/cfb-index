@@ -1,0 +1,68 @@
+# AUTHORED (D3/UMAC) 2026-06-13 — web-verified (limited data)
+
+status: live
+slug: minnesota-morris
+team_id: null
+program_name: University of Minnesota Morris
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Rural Minnesota public liberal-arts institution with stable UMAC presence—a regional player balancing academic mission with Division III athletic development."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Stable UMAC mid-tier presence; no prominent eras or dominant years"
+
+the_wound:
+  name: "The 2003 conference transition"
+  detail: "Minnesota Morris moved from MIAC to UMAC in 2003. The transition marked a shift in institutional alignment and competitive focus. The program has been stable but non-dominant since."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build UMAC competitiveness while remaining a publicly-supported liberal-arts institution anchored in the University of Minnesota system."
+  drought: { since: 2003, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe morris doesn't define itself by football. The program serves the institutional mission as part of a larger UMN system identity."
+
+the_delusion:
+  tone: null
+  text: null
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: "unified institutional commitment — no internal fracture"
+
+register: minnesota-public-stable
+
+never_use:
+  - "Irrelevant (the program serves institutional mission precisely)"
+  - "Weak (stable competitiveness ≠ weakness)"
+
+story_canon:
+  the_unique_thing: "Minnesota Morris is a University of Minnesota system school with stable UMAC presence—a publicly-supported liberal-arts institution balancing academics and athletics."
+  the_origin: "University of Minnesota Morris (founded 1961 as regional campus of UMN) is a rural Minnesota public institution with football tradition anchored in regional conference membership."
+  golden_ages:
+    - { era: "1961–2002 (MIAC era)", what: "Original conference membership; competitive regional presence" }
+    - { era: "2003–2025 (UMAC era)", what: "Conference realignment; competitive UMAC mid-tier" }
+  legends: []
+  canonical_moments:
+    - { name: "2003 UMAC transition", year: 2003, what: "Conference realignment; institutional adaptation", handling: glory }
+  the_place: "Morris, Minnesota—a rural college town anchored by a University of Minnesota regional campus with public mission."
+  brand_of_football: "Institutional, steady football—a program that reflects public-university values and regional commitment."
+  cultural_footprint: "Proof that a public liberal-arts institution can maintain Division III football as part of larger institutional mission."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Minnesota Morris remains a stable UMAC competitor. Public documentation of specific 2025 records
+    or recent seasons is limited; the program's identity centers on public-university mission rather than athletic prominence. The 2023
+    UMAC championship represents a recent competitive peak; current trajectory is stable mid-tier rather than growth or decline.
+  sources:
+    - https://www.morris.umn.edu/athletics
+    - https://www.umacathletics.org
+    - https://www.ncaa.org/sports/football/d3

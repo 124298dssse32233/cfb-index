@@ -1,0 +1,121 @@
+# Emotional Core — Virginia  (virginia)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: virginia
+team_id: 240
+program_name: Virginia
+program_tier: 4
+
+emotional_core:
+  primary: disbelief       # 122 years and the program had never won 11 games — then it did, the season nobody saw coming
+  secondary: restoration   # Tony Elliott climbing from near-fired to the best season in school history
+  one_line: "Virginia is the program that waited 122 years for its first 11-win season — then beat an SEC team in the Gator Bowl to seal it, the year a coach on the brink became the best in school history."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A century-plus with a single ACC title (1989-95 George Welsh) and zero 11-win seasons vs a 2025 that went 11-3, finished ranked, and rewrote the program record book in one autumn."
+
+the_wound:
+  name: "The grief the program carries"
+  detail: "Virginia football's hardest year was 2022, when three players were killed in an on-campus shooting and the season was cut short — a loss that reshaped what the program means to Charlottesville and made the 2025 breakthrough feel like something earned, not just won."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Turn the best season in school history into the first sustained run the program has ever had — an ACC title and a permanent seat at the conference's top table, not a one-year visit."
+  drought: { since: 1995, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Cavalier fans spent years hearing their program treated as an afterthought at the bottom of the ACC. They say 2025 — eleven wins, a bowl scalp of an SEC team — was the answer to everyone who assumed Virginia football would never amount to anything."
+
+the_delusion:
+  tone: earnest
+  text: "Hoo fans believe Charlottesville can be a real football town — that a school this selective, in a state this rich with talent, was always one right staff away from winning big, and that Tony Elliott just proved it can stay."
+
+the_grudge_texture:
+  rival: virginia-tech
+  texture: border-war   # the Commonwealth Cup — the in-state battle for Virginia, the rivalry that defines the program locally
+
+the_coach_relationship: forever-ours   # Tony Elliott went from hot seat to the best season in school history; the fanbase is all-in
+the_internal_fracture: believers vs the burned — the faction that thinks Elliott built something real vs the faction that's seen Virginia tease relevance before and won't trust an 11-win year until it happens twice
+register: charlottesville-academic-orange   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Academic-only — football has 130+ years of program history
+  - ACC bottom-feeder — George Welsh era + Tony Elliott era both better than the frame
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Virginia waited 122 years — its entire football history — for an 11-win season, and got it in 2025, beating a ranked SEC opponent in the Gator Bowl to do it. No program in the sport made its fans wait longer for that number."
+  the_origin: "The University of Virginia, founded by Thomas Jefferson in 1819, fielded football from the 1880s as a Jeffersonian academical-village school in Charlottesville — tradition-bound, patient, and slow to ever be a football town."
+  golden_ages:
+    - { era: "1989–1995 (George Welsh)", what: "Virginia's most competitive stretch — a share of the 1989 ACC title and the program's only sustained run at the top of the league" }
+    - { era: "2025 (Tony Elliott)", what: "The first 11-win season in school history, a final ranking, and the first bowl win over an SEC opponent" }
+  legends:
+    - { name: George Welsh, role: coach, why: "The winningest coach in program history; made Virginia an ACC contender for the first time" }
+    - { name: Tony Elliott, role: coach, why: "Took a program off the hot seat to the greatest season it has ever had" }
+    - { name: Chandler Morris, role: player, why: "The transfer quarterback and Gator Bowl MVP who quarterbacked the record-breaking 2025 team" }
+  canonical_moments:
+    - { name: "The first 11-win season", year: 2025, what: "Virginia goes 11-3, the most wins in the program's 122-year history", handling: glory }
+    - { name: "Gator Bowl win over Missouri", year: 2025, what: "A 13-7 victory over No. 25 Missouri — the program's first bowl win over an SEC team — that sealed the record season", handling: glory }
+    - { name: "The 2022 tragedy", year: 2022, what: "Three football players are killed in an on-campus shooting and the season is cut short — the program's defining grief", handling: heartbreak }
+  the_place: "Scott Stadium in Charlottesville, where the Good Old Song is sung arm-in-arm after scores and 'Wahoowa' carries — an academical-village setting that took 122 years to feel like a real football home."
+  brand_of_football: "Wahoowa — a portal-built, scheme-driven program that finally married Virginia's recruiting access to a staff that could win in the ACC; identity through resilience as much as style."
+  cultural_footprint: "A program bound to Jeffersonian tradition and, since 2022, to a grief that reframed what the team means to Charlottesville — and a 2025 breakthrough that gave the city something joyful to hold."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Tony Elliott returns for 2026 after the best season in school history —
+    11-3 (7-2 ACC), a final ranking, and a 13-7 Gator Bowl win over No. 25 Missouri, the program's first 11-win
+    year and first bowl win over an SEC team. Quarterback Chandler Morris (Gator Bowl MVP) was denied a seventh
+    year of eligibility by the NCAA and is gone; Virginia brought in Beau Pribula (Missouri) and Eli Holstein
+    (Pittsburgh) to compete for the job. The question in Charlottesville is whether the breakthrough was a year
+    or the start of an era.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://www.nbcsports.com/college-football/news/no-20-virginia-notches-first-11-win-season-by-beating-25th-ranked-missouri-in-the-gator-bowl
+    - https://www.cavalierdaily.com/article/2025/12/history-made-no-19-virginia-wins-gator-bowl-finishes-2025-with-record-11-wins
+    - https://www.cbssports.com/college-football/news/chandler-morris-virginia-eligibility-denied-seventh-season/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Virginia is the program whose football identity is bound to Jeffersonian tradition and
+    the patience of a school that has been a school since 1819.
+  mantra: Wahoowa!
+  cultural_anchors:
+    fan_archetype_dominant: Charlottesville-Academic-Patient
+    outsider_archetype_dominant: UVA-Football-Curious-Outsider
+    one_sentence: Virginia is the program whose academic-Jeffersonian identity occasionally produces a strong
+      football program but always produces a fanbase singing the Good Old Song to its end.
+  selfname: the Cavaliers / the Hoos
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - George Welsh's 1989-1995 ACC competitiveness
+    - The Good Old Song as cultural artifact
+    - The 2022 tragic UVA shooting that shaped the program's culture
+    rituals:
+    - Wahoowa
+    - Run Like Sabres / Sabre Logo
+    - Good Old Song
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (51/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

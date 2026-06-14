@@ -1,0 +1,72 @@
+status: live            # authored 2026-06-13 via web research
+slug: mercer
+team_id: null
+program_name: Mercer
+program_tier: 2
+
+emotional_core:
+  primary: restoration    # back-to-back SoCon champions 2024-2025; perpetual climb
+  secondary: spectacle
+  core_variant: first-ascension
+  one_line: "Mercer is the reinstatement program that shocked the SoCon with back-to-back titles and a perfect 2025 conference record — the bears that went from FCS reinstatement to conference dynasty in a decade."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Reinstated in 2013 with a non-scholarship team, now SoCon champions two straight years with three consecutive FCS playoff appearances — the program that proved mid-major investment works."
+
+the_wound:
+  name: "The Mike Jacobs resignation"
+  detail: "Mercer's legendary coach Mike Jacobs resigned in December 2025 after building the program into a back-to-back SoCon champion and three-time FCS playoff contender. The Jacobs era (20 wins in 2 years) seemed like the foundation of dynasty; his departure leaves the bears without their architect and scrambling to prove the success wasn't dependent on one man."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Continue the championship run with a new coach, make another FCS playoff appearance, and cement Mercer as a sustained SoCon power — prove the dynasty is bigger than any one person."
+  drought: { since: null, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe mercer came out of nowhere in 2024 to win a SoCon championship. Furman has 1988, Wofford has ten playoff runs, the Citadel has tradition. The bears have momentum — and they're using it to prove reinstatement programs can build real dynasties."
+
+the_delusion:
+  tone: self-aware
+  text: "That Mercer's back-to-back titles prove the bears belong in the conversation with Furman and Wofford. The fanbase knows a decade ago they were reinstatement programs; they also know they're hosting college football's biggest stage right now."
+
+the_grudge_texture:
+  rival: samford
+  texture: championship   # Both are rising SoCon powers; Mercer beat Samford (2022 champ) to win 2024 title
+
+the_coach_relationship: legends-shadow   # Mike Jacobs' resignation leaves new coach to prove it's not all his doing
+the_internal_fracture: jacobs_nostalgia_vs_new_era — honoring Jacobs' build vs. trusting the new regime to continue
+register: mercer-reinstatement-dynasty-builders
+never_use:
+  - "Mercer can't win the SoCon"
+  - "reinstatement programs never sustain success"
+
+story_canon:
+  the_unique_thing: "Back-to-back SoCon championships (2024-2025) and three consecutive FCS playoff appearances, transforming Mercer from a reinstatement program into a conference heavyweight in a single decade."
+  the_origin: "Mercer reinstated FCS football in 2013 as a non-scholarship program and immediately began a climb that no one saw coming."
+  golden_ages:
+    - { era: "2023-2025", what: "Three consecutive FCS playoff appearances and back-to-back SoCon titles — the Jacobs dynasty that remade the program" }
+    - { era: "2024-2025", what: "Perfect 8-0 SoCon record in 2025 and consecutive conference championships" }
+  legends:
+    - { name: Mike Jacobs, role: coach, why: "Rebuilt Mercer from a non-scholarship reinstatement program into a back-to-back SoCon champion and three-time FCS playoff team; 20 wins in 2 years" }
+  canonical_moments:
+    - { name: "2024 SoCon Championship", year: 2024, what: "Mercer wins the SoCon title as reinstatement program, shocking the conference", handling: glory }
+    - { name: "2025 Perfect SoCon Record", year: 2025, what: "Mercer goes 8-0 in SoCon play and repeats as conference champion", handling: glory }
+    - { name: "Mike Jacobs Era", year: 2025, what: "20 wins in 2 years before Jacobs resigned in December 2025", handling: glory }
+  the_place: "Mercer Football Stadium — the home of Bears football in Macon, Georgia."
+  brand_of_football: "High-octane, championship-caliber football — an investment program that proves you can build a dynasty on the right foundation."
+  cultural_footprint: "The reinstatement success story that shocked the SoCon and proved non-scholarship programs can win big."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Mercer's back-to-back SoCon championships (2024-2025) with a perfect 8-0 conference record in 2025 represent the most successful two-year run in program history. Coach Mike Jacobs resigned in December 2025 after building the dynasty, leaving the bears with an interim coach tasked with proving the success is sustainable. The question in Macon: can the program maintain championship culture without Jacobs, or will the bears regress to the pack?
+  research_checklist:
+    - ✓ 2024 SoCon championship
+    - ✓ 2025 perfect 8-0 SoCon record + repeat title
+    - ✓ Three consecutive FCS playoff appearances (2023-2025)
+    - ✓ Mike Jacobs 20-win dynasty (resigned 12/2025)
+    - ✓ Reinstatement in 2013
+  sources:
+    - https://en.wikipedia.org/wiki/Mercer_Bears_football
+    - https://www.mercerbears.com
+    - https://www.thescore.com/nfl/news/mercer-football

@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Baldwin Wallace Yellow Jackets — The OAC Challenger
+
+status: live
+slug: baldwin-wallace
+team_id: null
+program_name: Baldwin Wallace
+program_tier: 7
+
+emotional_core:
+  primary: grievance
+  secondary: restoration
+  one_line: "Baldwin Wallace is the OAC power trying to dethrone Mount Union — a Yellow Jackets program that finished third last season and is hungry for the championship that keeps slipping away."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A strong OAC contender with steady winning records vs the frustration of living in Mount Union's shadow, chasing a conference title that has eluded the Yellow Jackets since 2016."
+
+the_wound:
+  name: "The Mount Union curse — nine years without an OAC title"
+  detail: "Baldwin Wallace won the OAC championship in 2016, then watched Mount Union win it every year since (2017-2025). The Yellow Jackets have been good — third place finishes, 7-8 win seasons — but never good enough to break the streak. The wound is fresh: 2025 saw BW at 8-2, second in the league, still behind the mountain."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Snap Mount Union's nine-year OAC title streak — to prove the Yellow Jackets belong at the top of the conference."
+  drought: { since: 2016, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Mount Union is not a blue blood, but they function like one in Division III. Baldwin Wallace has the talent to compete, but the narrative always writes Mount Union as inevitable."
+
+the_delusion:
+  tone: self-aware
+  text: "That a hot November can finally break the Mount Union streak — the fanbase knows the talent is there, knows BW can beat Mount Union head-to-head, and believes the right season is coming."
+
+the_grudge_texture:
+  rival: mount-union
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Impatient fans demanding a championship now vs coaches building sustainable excellence for 2026 and beyond."
+register: baldwin-wallace-yellow-jackets-oac-chaser
+never_use:
+  - "Never won the OAC — won in 2016, Mount Union just stopped them after"
+  - "Mediocre program — 7-8 win seasons and top-three finishes are respectable in a strong league"
+  - "No future — the Yellow Jackets have the pieces, just haven't clicked yet"
+
+story_canon:
+  the_unique_thing: "A small Methodist university in Berea, Ohio that has been a consistent top-three OAC contender with a 2016 championship, always competitive, always just behind Mount Union."
+  the_origin: "Founded as Baldwin-Wallace College, a Methodist school that built a steady football tradition in the OAC, known for discipline and fundamentals."
+  golden_ages:
+    - { era: "2014–2016", what: "The pre-Mount-dynasty dominance — Baldwin Wallace as a top OAC power" }
+    - { era: "2020–2025", what: "The consistent winning and third-place finishes in a Mount Union–dominated league" }
+  legends:
+    - { name: Charlie Bubonics, role: player, why: "Returning quarterback leading the 2025 Yellow Jackets" }
+  canonical_moments:
+    - { name: "2016 OAC Championship", year: 2016, what: "The last time Baldwin Wallace won the conference title", handling: glory }
+    - { name: "Mount Union's nine-year streak begins (2017)", year: 2017, what: "The year BW's championship dreams started slipping away", handling: wound }
+  the_place: "Koehler Field in Berea, Ohio — a small Methodist campus in a blue-collar Cleveland suburb, rooted in the Rust Belt ethos."
+  brand_of_football: "Disciplined, hard-nosed, prepared — Baldwin Wallace football plays to the strength of a small school: outwork everyone."
+  cultural_footprint: "The steady Yellow Jackets are proof that consistency builds respect, even if championships haven't come since 2016."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Baldwin Wallace finished 8-2 in 2025 with a 6-2 OAC record, good for second place
+    and a second-straight strong season. Returning quarterback Charlie Bubonics and running backs George Linberger and
+    Tyrone Singleton are the core of the offense. The question in Berea: is this the year the Yellow Jackets finally
+    break Mount Union's nine-year OAC title streak?
+  research_checklist:
+    - "2016 OAC championship (last title)"
+    - "2025: 8-2 overall, 6-2 OAC (second place)"
+    - "Nine-year drought since last conference crown"
+    - "Returning QB Charlie Bubonics, RBs Linberger and Singleton"
+  sources:
+    - https://www.flofootball.com/articles/14452182-baldwin-wallace-football-2025-schedule-preview-and-more
+    - https://bwyellowjackets.com/news/2025/9/24/showdown-in-the-oac-football-hosts-no-2-mount-union-in-pivotal-clash.aspx

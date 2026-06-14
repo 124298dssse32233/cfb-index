@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: st-vincent
+team_id: null
+program_name: Saint Vincent
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Saint Vincent College is the Presidents' Athletic Conference program anchored by a 1949 undefeated season and a Tangerine Bowl victory, a small Benedictine institution playing with Catholic small-school pride."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Saint Vincent went 2-8 in 2025 but carries the memory of a perfect 1949 season and bowl victory. The program's identity is rooted in something real, even if distant."
+
+the_wound:
+  name: "The gap between 1949 glory and modern reality"
+  detail: "Saint Vincent went 10-0 in 1949 and beat Emory & Henry in the Tangerine Bowl. That 77 years of distance and the program has never returned to that height. The wound is time and the slow fade of a golden memory."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Honor the 1949 legacy by building a season that proves Saint Vincent football still matters, that Benedictine discipline and small-school pride can compete."
+  drought: { since: 1949, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Saint Vincent plays for Benedictine values and the pride of college football tradition. The motivation is institutional: honor your roots and play with discipline."
+
+the_delusion:
+  tone: self-aware
+  text: "That somewhere in the roster there's a great team waiting to happen, and this year's new coach Casey Goff will find it — the fanbase knows 1949 was special and holds onto hope anyway."
+
+the_grudge_texture:
+  rival: none
+  texture: none
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Pride in Benedictine tradition vs. pressure to win now"
+register: st-vincent-benedictines-small-pennsylvania-catholic-1949
+
+never_use:
+  - Perennial title contender — one undefeated season in 1949
+  - Bowl game regular — the Tangerine Bowl in 1949 is the only bowl appearance
+  - Powerhouse program — never has been; a small Catholic college
+
+story_canon:
+  the_unique_thing: "Saint Vincent went 10-0 (undefeated) in 1949 and defeated Emory & Henry in the Tangerine Bowl, a perfect season and a bowl victory that remains the program's singular defining achievement."
+  the_origin: "A small Benedictine Catholic college in Latrobe, Pennsylvania, founded in 1846 as a monastery and educational institution. Football came later as part of the college's athletic mission."
+  golden_ages:
+    - { era: "1949", what: "A perfect 10-0 season culminating in a Tangerine Bowl victory over Emory & Henry" }
+  legends:
+    - { name: "Saint Vincent's 1949 Team", role: "dynasty", why: "The only undefeated season and bowl victory in program history" }
+  canonical_moments:
+    - { name: "1949 Undefeated Season & Tangerine Bowl Victory", year: 1949, what: "Saint Vincent goes 10-0 and defeats Emory & Henry 20-16 in the Tangerine Bowl, the program's greatest achievement", handling: glory }
+  the_place: "Latrobe, Pennsylvania — a small town east of Pittsburgh, home to a Benedictine monastery and Saint Vincent College."
+  brand_of_football: "Disciplined, principled football rooted in Benedictine values. Saint Vincent's game is about doing things right and representing the college with honor."
+  cultural_footprint: "A Catholic small-school institution where football is a unifying fall tradition. Saint Vincent's identity is tied to the Benedictine mission: community, discipline, and the pursuit of learning."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Saint Vincent went 2-8 overall in 2025 and brought in new head coach Casey Goff
+    for the 2026 season. The program has been in a long rebuild and faces the challenge of establishing competitiveness
+    while honoring a legacy that dates back to 1949. Goff's task is to find the formula that can raise Saint Vincent back
+    to PAC contention, one season at a time.
+
+  research_checklist:
+    - 1949 undefeated season (10-0) verified
+    - Tangerine Bowl victory vs. Emory & Henry (20-16)
+    - Casey Goff hired for 2025
+    - Recent program trajectory and 2-8 record
+    - Benedictine Catholic small-school context
+
+  sources:
+    - https://en.wikipedia.org/wiki/Saint_Vincent_College
+    - https://www.saintvincent.edu/athletics/
+    - https://en.wikipedia.org/wiki/Saint_Vincent_Benedictines_football

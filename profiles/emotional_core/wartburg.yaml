@@ -1,0 +1,82 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Wartburg College Division III emotional core
+
+status: live
+slug: wartburg
+team_id: null
+program_name: Wartburg College
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: grievance
+  one_line: "Wartburg is the ARC power that broke through its own ceiling under Chris Winter — four consecutive conference titles, two national semifinal runs, and a program permanently redrawn by the belief that the Knights belong in November."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A Lutheran college in rural Iowa that climbed from perennial ARC contender to sustained NCAA playoff participant in three seasons, shedding the identity of 'always good, never great' in the Winter era."
+
+the_wound:
+  name: "The pre-Winter decades — consistent near-miss"
+  detail: "Before Chris Winter arrived in 2021, Wartburg had won 14 ARC titles but never reached a national semifinal, never hosted a playoff game, never made the fanbase believe the Knights could truly compete for a national championship. The program was perpetually 'good for Iowa,' not 'good for Division III.' Winter changed the entire identity in three seasons."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "A national championship. Winter has taken the Knights to two Division III semifinals in his first three seasons (2022, 2023); the next step is finishing one of those runs."
+  drought: { since: 1974, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe iowa's other successful college football programs — Iowa, Iowa State — dominate the state narrative and media cycles. Wartburg knows it's the best-kept secret in Division III, and the chip is that the national media barely knows the Knights exist despite back-to-back playoff success."
+
+the_delusion:
+  tone: self-aware
+  text: "That a Lutheran college of 1,600 students in Waverly, Iowa can compete for a national championship. The fanbase knows the odds, but Winter's semifinal runs in years 2 and 3 have made believers of even the skeptics. They know it's unlikely, and they believe it anyway."
+
+the_grudge_texture:
+  rival: central-ia
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: sustainability-vs-honeymoon — Chris Winter has transformed Wartburg in just four seasons (53–8 all-time), four consecutive ARC titles; the question is whether this is a dynasty being born or a coach's honeymoon that will eventually normalize
+register: waverly-knights-lutheran-college-iowa-breakthrough
+
+never_use:
+  - Wartburg won a Division III national championship (no national title, two semis is the peak)
+  - Winter has been at Wartburg for many years (hired 2021, only four seasons)
+  - The Knights were a weak ARC program before Winter (consistently competitive; Winter elevated them to elite)
+  - Wartburg plays at a large stadium (small Division III enrollment, intimate setting)
+
+story_canon:
+  the_unique_thing: "The Chris Winter breakthrough — a rural Lutheran college that went from sustained ARC contender to Division III national semifinal participant in three seasons, proving that the right coach can permanently redraw a program's ceiling."
+  the_origin: "Wartburg College, founded 1852 by the German Evangelical Synod, began football in the early 1900s. A founding member of the ARC, the Knights competed regionally for over a century before Winter arrived."
+  golden_ages:
+    - { era: "1970–1990s", what: "Sustained ARC competence and 14 conference titles over five decades, but no national-level breakthrough" }
+    - { era: "2021–present (Chris Winter)", what: "Four consecutive ARC championships (2022–2025), 53–8 all-time record, two Division III national semifinal appearances, and a program identity permanently redrawn" }
+  legends:
+    - { name: Chris Winter, role: coach, why: "Transformed Wartburg in four seasons from regional contender to national-level competitor" }
+  canonical_moments:
+    - { name: "2022 Semifinal Run", year: 2022, what: "Wartburg reaches the Division III National Semifinal in Winter's second season, breaking the program's glass ceiling", handling: miracle }
+    - { name: "2023 Semifinal Run", year: 2023, what: "The Knights return to the semifinals, proving the breakthrough was not a fluke", handling: glory }
+    - { name: "30-Game Conference Winning Streak (2023–2025)", year: 2025, what: "Wartburg surpassed Central College's 1987 mark of 29 consecutive conference-game wins with a 30-game streak", handling: glory }
+    - { name: "Four Consecutive ARC Championships (2022–2025)", year: 2025, what: "Back-to-back-to-back-to-back ARC titles under Chris Winter", handling: glory }
+  the_place: "Levora Field in Waverly, Iowa — a small college town where Winter's Knights have made playoff football a winter tradition."
+  brand_of_football: "Disciplined, competitive football that competes for conference titles and playoff positions, not just regional respectability."
+  cultural_footprint: "Wartburg football is no longer a Iowa small-college curiosity — Winter's success has made the Knights a national conversation point among Division III coaches and analysts."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Wartburg went 10–1 (8–0 ARC) in 2025, winning its fourth consecutive
+    American Rivers Conference championship under Chris Winter. With a 53–8 all-time record and two national
+    semifinal appearances in four seasons, Winter has redrawn the program's identity from regional contender to
+    national contender. The question in Waverly is not whether the Knights can compete for a title — it is whether
+    Winter can finally finish one.
+  research_checklist:
+    - Chris Winter's 4-season tenure (2021–present, 53–8 record)
+    - Two Division III national semifinal appearances (2022, 2023)
+    - Four consecutive ARC championships (2022–2025)
+    - 30-game conference winning streak (surpassing Central 1987 record)
+    - ARC Coach of the Year: Winter 4 consecutive (2022–2025)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Wartburg_Knights_football_team
+    - https://www.wartburgknights.com/sports/football/index
+    - https://d3football.com/teams/wartburg

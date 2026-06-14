@@ -1,0 +1,122 @@
+# Emotional Core — TCU  (tcu)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: tcu
+team_id: 138
+program_name: TCU
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # the program that was left for dead by the SWC collapse and clawed all the way to a title game
+  secondary: house-money  # everything since the 1990s wilderness is gravy — and the fanbase knows it
+  core_variant: the-ceiling
+  one_line: "TCU got abandoned when the Southwest Conference died, wandered three leagues for two decades, then walked into the national title game in 2022 — and now treats every purple Saturday like a debt the sport still owes Fort Worth."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 13-2 national-finalist season and a Sammy Baugh / Davey O'Brien deep history vs the long stretch of being the program nobody wanted when the SWC broke apart."
+
+the_wound:
+  name: "Left behind when the SWC collapsed"
+  detail: "When the Southwest Conference dissolved in 1996, Texas and Texas A&M went to the Big 12 and TCU was cast into the WAC, then Conference USA, then the Mountain West — a wandering exile the fanbase never forgot, even after the 2012 Big 12 invite and the 2022 title-game run."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Finish the climb the 2022 team started — get back to the Playoff and win the championship game that slipped away, and make the snub years the prologue to a title instead of the whole story."
+  drought: { since: 1938, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The chip is the SWC breakup itself: the in-state powers grabbed the conference seats and left Fort Worth out in the cold, and fans believe TCU has spent thirty years proving the schools that abandoned it picked wrong. The 2022 run wasn't a fluke to them — it was a verdict."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the chaos is the edge — that a program forged by four conference moves and a near-death experience is built to spring exactly the kind of run nobody sees coming, and that purple is quietly the most dangerous color in Texas."
+
+the_grudge_texture:
+  rival: baylor
+  texture: border-war   # the Revivalry — two private Texas schools 90 miles apart, reunited by the Big 12
+
+the_coach_relationship: total-trust   # Sonny Dykes took them to a title game and just got extended past 2028
+the_internal_fracture: title-game-hangover — the faction that treats 2022 as proof TCU belongs in the elite tier vs the faction bracing for a regression to the comfortable 9-win middle
+register: fort-worth-purple-pragmatic   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Lucky run — TCU's 2022 was earned, not fluky
+  - Mid-major — Big 12 since 2012, P5 structurally
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "TCU is the program that turned conference homelessness into a chip on its shoulder and rode it to the 2022 national title game — a school left out when the SWC died that survived four conference moves and out-stubborned everyone who wrote it off."
+  the_origin: "A private Fort Worth university whose 1930s teams under Dutch Meyer were national champions, producing Sammy Baugh and Davey O'Brien — then a long fall after the SWC collapse exiled it to the mid-major wilderness."
+  golden_ages:
+    - { era: "1935-1938 (Dutch Meyer)", what: "National championship caliber football; Davey O'Brien's 1938 Heisman and Sammy Baugh's passing revolution" }
+    - { era: "2009-2014 (Gary Patterson)", what: "Undefeated 2010 capped by a Rose Bowl win, and the 2012 jump to the Big 12" }
+    - { era: "2022 (Sonny Dykes)", what: "A 13-2 run to the College Football Playoff National Championship Game in his first season" }
+  legends:
+    - { name: Davey O'Brien, role: player, why: "TCU's 1938 Heisman winner; the national award for QBs bears his name" }
+    - { name: Gary Patterson, role: coach, why: "Built TCU from mid-major into a Big 12 program over two decades; the 2010 Rose Bowl" }
+    - { name: Max Duggan, role: player, why: "The 2022 Heisman runner-up who quarterbacked the title-game run" }
+  canonical_moments:
+    - { name: "The 2011 Rose Bowl", year: 2011, what: "TCU caps a perfect season with a Rose Bowl win over Wisconsin", handling: glory }
+    - { name: "The 2022 title-game run", year: 2022, what: "Sonny Dykes's first team reaches the national championship game", handling: glory }
+    - { name: "The SWC collapse", year: 1996, what: "The conference dissolves and TCU is left out of the Big 12, beginning the exile years", handling: wound }
+  the_place: "Amon G. Carter Stadium in Fort Worth — purple everywhere, the Horned Frog logo, and a campus-stadium intimacy that made 'Riff Ram Bah Zoo' a citywide chant."
+  brand_of_football: "Fort-Worth pragmatic — opportunistic, defense-rooted, and allergic to being underestimated; a program that wins by being tougher and smarter than its recruiting rankings."
+  cultural_footprint: "The patron saint of the left-behind — every program snubbed by realignment cites TCU as proof you can claw back from exile all the way to a national final."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: TCU went 9-4 in 2025 (5-4 Big 12), beating USC 30-27 in overtime in
+    the Alamo Bowl to finish No. 25 — back-to-back 9-4 seasons that earned Sonny Dykes a contract extension
+    past 2028 in April 2026. QB Josh Hoover transferred to Indiana; Dykes replaced him with Harvard transfer
+    Jaden Craig, who threw for 2,869 yards and 25 TDs in the Ivy League in 2025. The question in Fort Worth:
+    is the comfortable 9-win floor enough, or does the 2022 run still demand another Playoff push?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_TCU_Horned_Frogs_football_team
+    - https://www.nbcdfw.com/news/sports/tcu-sonny-dykes-contract-extension/4005619/
+    - https://sports.yahoo.com/articles/sonny-dykes-went-ivy-league-150000137.html
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: TCU is the program that made a national title-game appearance in 2022 and proved Big
+    12 outlier status is a feature, not a bug.
+  mantra: Go Frogs.
+  cultural_anchors:
+    fan_archetype_dominant: Fort-Worth-Purple-Proud
+    outsider_archetype_dominant: Hypnotoad-Curious-Outsider
+    one_sentence: TCU is the program that survived four conference moves (SWC → WAC → Mountain West → Big
+      12), reached the CFP title game in 2022, and made purple the most-feared color in Fort Worth.
+  selfname: the Horned Frogs
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2022 CFP National Championship game appearance
+    - The 1935-1938 Sammy Baugh / Davey O'Brien era
+    - Hypnotoad as the Twitter fan-voice
+    rituals:
+    - Riff Ram Bah Zoo
+    - Horned Frog Mascot
+    - Helmet Logo Vegetation
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (57/100, n=53)
+    voice_profile: absent
+    delusion_premium: absent

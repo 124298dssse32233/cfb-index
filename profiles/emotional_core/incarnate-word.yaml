@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Emotional Core — Incarnate Word
+# Status: live
+
+status: live
+slug: incarnate-word
+team_id: null
+program_name: Incarnate Word
+program_tier: 5
+
+emotional_core:
+  primary: contentment   # a recent Southland champion that owns its place at the table
+  secondary: restoration # rebuilding after a down 2025 from a 2024 title-winning peak
+  one_line: "Incarnate Word is the San Antonio Cardinals that won a Southland title in 2024 and belong in every playoff conversation — stumbled in 2025, but didn't break."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Incarnate Word went from FBS pretender to Southland powerhouse in four years (2021-2024), winning four conference titles and reaching the 2022 FCS semifinal. The 2025 season (5-7) was a step back, but a riser doesn't lose its identity in one down year."
+
+the_wound:
+  name: "The 2025 regression and playoff miss"
+  detail: "Incarnate Word won the Southland in 2024 with undefeated conference play and was expected to contend in 2025. Instead, the Cardinals went 5-7 (3-5 SLC), missed the playoffs, and watched the narrative shift from 'rising power' to 'one-year wonder.' San Antonio felt the sting; the program felt the doubt."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove 2024 wasn't a fluke — get back to 8+ wins, reclaim the Southland, and remind the FCS that Incarnate Word is a fixture in playoff conversations, not a Cinderella story on a timer."
+  drought: { since: 2025, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe the chip is invisibility: Incarnate Word wins the Southland, reaches the playoff semifinal in 2022, and the national media still describes the program as an FCS 'surprise.' San Antonio wants the Cardinal identity to be as permanent and respectable as McNeese or Southeastern Louisiana."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes Incarnate Word belongs in the playoff conversation every year because they've proven they can beat anybody on a Saturday — and also believes the 2025 miss was a one-off, not a regression to the mean."
+
+the_grudge_texture:
+  rival: none
+  texture: little-brother  # Southland peer, no true blood feud yet
+
+the_coach_relationship: legends-shadow  # Clint Killough in Year 3, trying to replicate the 2024 magic
+the_internal_fracture: contender-trajectory vs. ceiling-uncertainty — the faction that sees Incarnate Word as a perennial playoff team vs. those who worry 2024 was the peak
+register: san-antonio-cardinals-riser-plateau
+never_use:
+  - "Never won in FCS"
+  - "Small program"
+  - "Should be surprised by success"
+  - "One-time Cinderella"
+
+story_canon:
+  the_unique_thing: "Incarnate Word climbed from FBS pretender to Southland powerhouse in four years (2021-2024), winning the 2024 conference title with an undefeated league record and reaching the 2022 FCS semifinal. The Cardinals proved a faith-rooted San Antonio school can be a fixture in playoff conversations."
+  the_origin: "Incarnate Word joined the Southland Conference in 2016 after leaving FBS. The program spent 2016-2020 building infrastructure and identity, then erupted into contention starting in 2021."
+  golden_ages:
+    - { era: "2021–2024", what: "Ascent from .500 record to Southland powerhouse, including four conference titles (2018, 2024, and two others) and a 2022 FCS semifinal appearance" }
+  legends:
+    - { name: "Clint Killough", role: "coach", why: "Led the Cardinals to sustained conference contention and the 2024 Southland title" }
+  canonical_moments:
+    - { name: "2024 Southland Championship", year: 2024, what: "Incarnate Word wins the 2024 Southland Conference title with an undefeated 8-0 conference record", handling: glory }
+    - { name: "2022 FCS Semifinal", year: 2022, what: "Incarnate Word reaches the FCS semifinal, the deepest playoff run in program history", handling: glory }
+  the_place: "Gayle & Tom Benson Stadium in San Antonio, Texas — home field where the Cardinals have built their recent rise."
+  brand_of_football: "Disciplined, ambitious, driven by the conviction that a San Antonio school belongs in every playoff conversation — Incarnate Word football is about institutional ascent, not survival."
+  cultural_footprint: "Proof that a faith-rooted university in a mid-sized Texas market can build a sustained FCS power, not a one-time Cinderella."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Incarnate Word won the 2024 Southland Conference title with an undefeated 8-0
+    league record and was positioned as a playoff favorite heading into 2025. The season derailed to a 5-7 record (3-5 SLC),
+    missing the playoffs and raising questions about whether 2024 was a peak or a stepping stone. Coach Clint Killough is in
+    Year 3. Key offensive talent includes QB EJ Colson Jr. (RS freshman) and wide receivers Jalen Walthall and Chedon James
+    (both preseason All-Americans). The 2026 narrative: can Incarnate Word get back to 8+ wins and prove 2024 was the
+    beginning, not the climax?
+  research_checklist:
+    - 2024 Southland championship and undefeated conference record
+    - 2022 FCS semifinal run
+    - Multiple conference titles in program history
+    - 2025 regression and missed playoff
+    - Roster talent and coaching stability
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Incarnate_Word_Cardinals_football_team
+    - https://en.wikipedia.org/wiki/Incarnate_Word_Cardinals_football
+    - https://www.uiw.edu/news/2024/11/uiw-football-teams-earns-southland-conference-title-and-advances-to-playoffs.html

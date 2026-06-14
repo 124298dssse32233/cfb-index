@@ -1,0 +1,73 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: davenport
+team_id: null
+program_name: Davenport University
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: house-money
+  one_line: "Davenport is the steady GLIAC hand, a program that year after year finds the playoffs through consistency and the belief that showing up is half the game."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A mid-sized Michigan university that plays solid, workmanlike football — not the flashy name, but the team that knows how to win in the Midwest and never takes a season for granted."
+
+the_wound:
+  name: "Perpetual mid-tier status"
+  detail: "Davenport has never won a national title or cracked the GLIAC's elite tier. Coach Sparky McEwen's 9-year tenure has brought stability (the 5-6 win range almost guaranteed), but also a ceiling: the consistent tournament team that's never the favorite."
+  handling: dated-grievance
+  freshness: this-era
+
+the_dream:
+  text: "One season where the pieces align and Davenport punches through to a regional final — a tournament run that announces the Panthers belong in the conversation."
+  drought: { since: 2006, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Davenport's chip is quiet: the program that does the work every year, shows up prepared, wins six games on merit, and never complains about the draw. The fanbase takes pride in that steadiness."
+
+the_delusion:
+  tone: self-aware
+  text: "That any season could be the one — fans know the program's ceiling is real, but they show up anyway, believing this year might be different."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "None — the program is unified in its expectation of steady, respectable football."
+register: michigan-panther-steady-GLIAC-hand
+never_use:
+  - Never a champion — accuracy: no national titles, stable mid-tier record
+  - GVSU/Ferris peer — incorrect; Davenport is distinctly different tier
+  - Title contender — the program knows its place
+
+story_canon:
+  the_unique_thing: "A program built on showing up every year with a prepared team and consistent effort, finishing 5-6 games and competitive in the GLIAC without the pressure of dynasty expectations."
+  the_origin: "Davenport joined NCAA Division II and the GLIAC in the 1990s, establishing itself as a reliable mid-tier competitor in Michigan's toughest conference."
+  golden_ages:
+    - { era: "2010s (Sparky McEwen era)", what: "Nine straight seasons of competitive football, annual GLIAC tournament appearances, steady 5-6 win consistency" }
+  legends:
+    - { name: Sparky McEwen, role: coach, why: "Nine-year tenure establishing program stability and annual playoff contention" }
+  canonical_moments: []
+  the_place: "Davenport University in Grand Rapids, Michigan — a mid-sized campus where football is respected but not the entire identity."
+  brand_of_football: "Competent, prepared, steady — the team that shows up ready to play and never beats itself."
+  cultural_footprint: "Davenport proves that not every program needs national ambitions; respect within the region, consistent tournament appearances, and player development is a complete and worthy mission."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Under Sparky McEwen (now in his 9th season), Davenport finished 5-5 in
+    2025, a typical outcome for the program's consistency model. The Panthers are known for preparation and
+    showing up ready; the 2026 season will likely follow the same script — competitive games, respectable record,
+    and another shot at a playoff berth. The program's identity is not about breakthrough moments, but about
+    reliability and doing the work every year.
+  research_checklist:
+    - Sparky McEwen's 9-year tenure + playoff consistency
+    - GLIAC membership and competitive position within conference
+    - Mid-tier but stable program identity
+    - 2025 season record (5-5)
+  sources:
+    - https://en.wikipedia.org/wiki/Davenport_Panthers_football
+    - https://davenportpanthers.com/sports/m-footbl/
+    - https://www.gliac.org/

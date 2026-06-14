@@ -1,0 +1,109 @@
+# Emotional Core — Lafayette Leopards (lafayette)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — FCS Patriot League
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: lafayette
+team_id: null
+program_name: Lafayette Leopards
+program_tier: 2
+
+emotional_core:
+  primary: grievance       # the series lead that won't translate to modern dominance
+  secondary: restoration
+  core_variant: the-snub
+  one_line: "The half of The Rivalry that won the first game 56-0 and has been chasing vindication ever since."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "82 all-time series wins vs. Lehigh (82-74-5) yet Lehigh dominated the recent decade and has won the last two in the rivalry."
+
+the_wound:
+  name: "The inability to translate series dominance into modern championship"
+  detail: "Lafayette is 82-74-5 all-time against Lehigh and won the first game 56-0 in 1884. Yet Lehigh has dominated in the 2020s, won the 160th game 38-14 in 2024, and claimed the Patriot League title when Lafayette finished 2-4 in conference. The wound is the gap between historical superiority and modern irrelevance. Lafayette has the better all-time record but Lehigh gets to claim the present."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win The Rivalry again and prove the historical edge still matters — reclaim the narrative from Lehigh and the modern Patriot League."
+  drought: { since: 2024, unit: relevance }
+
+the_chip:
+  villain: big_brother
+  text: "Lehigh. The fanbase reminds itself: Lafayette won 82 of the 160 games and won the first game 56-0 — the program that started The Rivalry should be running it. Instead, Lehigh has taken the narrative and the recent wins. The fanbase says: we should be better."
+
+the_delusion:
+  tone: load-bearing
+  text: "Fans cling to the all-time series lead (82-74-5) as proof that Lafayette should be winning now — that history has weight in a rivalry defined by the moment. They know Lehigh has built something better in the present, but they believe anyway."
+
+the_grudge_texture:
+  rival: lehigh
+  texture: blood-feud
+
+the_coach_relationship: savior   # John Troxell named Patriot League Coach of Year 2024, signed extension
+the_internal_fracture: history-obsession vs. present-focused — the faction that clings to the 82-74-5 advantage vs. those accepting Lehigh is better right now
+register: patriotic-grievance
+never_use:
+  - scrappy
+  - overachieving
+  - cupcake
+  - FCS second-tier
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. ──
+story_canon:
+  the_unique_thing: "The half of The Rivalry that started it all — Lafayette won the first game 56-0 in 1884 and holds the all-time series edge 82-74-5. The Rivalry IS college football's most-played matchup (160 meetings), and Lafayette IS its origin point."
+  the_origin: "Lafayette football began in 1884, the same year Lehigh-Lafayette played the first game. The program is embedded in Easton, Pennsylvania, part of the Lehigh Valley identity."
+  golden_ages:
+    - { era: "1884-1980s", what: "Lafayette dominated the all-time series and won the first game 56-0" }
+    - { era: "Early 2000s", what: "Lafayette remained competitive as The Rivalry evolved" }
+  legends:
+    - { name: "Coach John Troxell", role: "coach", why: "Named Patriot League Coach of the Year 2024 and Eddie Robinson National Coach of the Year finalist; signed contract extension through 2031" }
+  canonical_moments:
+    - { name: "The First Game (1884)", year: 1884, what: "Lafayette defeated Lehigh 56-0 in the inaugural Rivalry game, winning with dominance that has never been repeated", handling: glory }
+    - { name: "160 Games of The Rivalry", year: 2024, what: "The 160th Rivalry game played (November 23, 2024); Lafayette lost 38-14 and Lehigh claimed the Patriot League title", handling: wound }
+  the_place: "Easton, Pennsylvania — the Lehigh Valley home where The Rivalry began and defined two towns' football identity for 140 years."
+  brand_of_football: "The original, the first, the historical victor — a program defined by being the senior partner in The Rivalry."
+  cultural_footprint: "Lafayette football is inseparable from The Rivalry. It's the program that started it all and is defined by the gap between that historic beginning and the modern inability to finish."
+  the_ongoing_story: >
+    LIVE ARC — 2026-06-13: Lafayette finished 8-4 (6-1 Patriot League) in 2025, improving from 6-6 (2-4) in 2024. Coach John Troxell, named Patriot League Coach of the Year in 2024 and Eddie Robinson National Coach of the Year finalist, signed a contract extension through 2031. The program is ascending, but lost the 160th Rivalry game to Lehigh 38-14 and finished second in the conference. Troxell's extension signals belief in the rebuild; the question is whether Lafayette can reclaim the modern Patriot League after decades of watching Lehigh rise.
+  research_checklist:
+    - The Rivalry origin (1884, Lafayette's 56-0 win) and its place in college football lore
+    - The all-time series record (82-74-5 in Lafayette's favor) and what that means
+    - John Troxell's coaching success and philosophy
+    - The Lehigh transition and why Lehigh is now better
+    - The Easton, PA identity and The Rivalry's cultural footprint
+  sources:
+    - https://en.wikipedia.org/wiki/The_Rivalry_(Lafayette%E2%80%93Lehigh)
+    - https://lehighsports.com/news/2024/11/23/football-lehigh-rolls-to-38-14-win-in-rivalry160-secures-13th-patriot-league-title
+    - https://en.wikipedia.org/wiki/2025_Lafayette_Leopards_football_team
+    - https://patriotleague.org/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Lafayette is the half of The Rivalry that started it all (56-0 win, 1884) and holds the all-time edge (82-74-5), yet Lehigh is winning now.
+  mantra: "The First and The Best (the historical claim)"
+  cultural_anchors:
+    fan_archetype_dominant: Lehigh Valley Patriotic Pride
+    outsider_archetype_dominant: "The Second-Place Original"
+    one_sentence: Lafayette is defined by The Rivalry — winning the first game 56-0 in 1884, holding the all-time series edge 82-74-5, yet watching Lehigh dominate the modern era.
+  selfname: Leopards
+  aspiration_ladder_top: "Patriot League championship + The Rivalry dominance"
+  rivalries:
+    - lehigh
+  heritage:
+    national_titles: "None"
+    conference_titles: "Multiple (pre-Patriot League era)"
+    current_conference: Patriot League
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: "Unknown (program predates modern era)"
+    era_name_overrides: {}
+    always_surface:
+      - "The Rivalry (160 games since 1884, most-played in college football)"
+      - "First Rivalry game (1884, Lafayette 56-0 Lehigh)"
+      - "All-time series lead (82-74-5 in Lafayette's favor)"
+    rituals: []
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    signal: "no live signal yet (canon-only) — FCS program not covered by discourse fingerprint"

@@ -1,0 +1,112 @@
+# Emotional Core — UW-Eau Claire  (wisconsin-eau-claire)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Researched 2026-06-13 from live web research — see story_canon.sources.
+#
+# The program in the pit: 3-7 record, 0-7 WIAC in 2025.
+# Eau Claire is rebuilding, and the pain of the moment is visible.
+
+status: live
+slug: wisconsin-eau-claire
+team_id: null
+program_name: UW-Eau Claire
+program_tier: 7
+
+emotional_core:
+  primary: deprival
+  secondary: restoration
+  core_variant: null
+  one_line: "The program in the valley: UW-Eau Claire went 0-7 in the WIAC in 2025 — the Blugolds are rebuilding and the fanbase is learning patience."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "Eau Claire is the WIAC program currently in the pit — a 3-7 record and 0-7 WIAC in 2025 under third-year coach Rob Erickson. The Blugolds have been respectable in the past but are now in a rebuild year that hurts. The hope is that Erickson is building something that will emerge in 2026-2027, but right now, the program is asking the fanbase to trust the process."
+
+the_wound:
+  name: "The 0-7 WIAC season"
+  detail: "Eau Claire went winless in conference in 2025 — 0-7 in the WIAC, the worst outcome in a historically competitive conference. The wound is the collective pain of a full-season conference drought and the question of whether Rob Erickson's rebuild is on track or has stalled."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get back to .500 in the WIAC. Win a conference game. Prove that the 3-7, 0-7 season was a low point, not a new floor — that Eau Claire can rebuild and climb back to conference respectability."
+  drought: { since: 1985, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans hope the rock-bottom 2025 season is a foundation for rebuild, not a new standard."
+
+the_delusion:
+  tone: load-bearing
+  text: "That Rob Erickson's rebuild is working, even if the results don't show it yet. That the Blugolds will climb back to WIAC competency in 2026-2027. The fanbase believes the plan, even though the scoreboard says otherwise."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: rebuild-faith vs immediate-results — the faction trusting Rob Erickson's process and rebuilding through the valley vs the faction demanding wins now, not faith in future years
+register: eau-claire-rebuild-blugolds-valley
+never_use:
+  - Eau Claire has never been competitive (historical WIAC respectability proves otherwise)
+  - Erickson is the problem (three-year rebuild with context; one bad season does not define tenure)
+
+story_canon:
+  the_unique_thing: "The program's commitment to rebuilding through a down year — Eau Claire chose long-term stability over quick fixes, and Rob Erickson is asking the fanbase to trust a multi-year rebuild plan."
+  the_origin: "A Wisconsin-Eau Claire program with WIAC history, now in a deliberate rebuild under third-year coach Rob Erickson. The Blugolds are a program in transition, building toward sustainability."
+  golden_ages:
+    - { era: "1985 (WIAC Champions)", what: "Last conference title; the high-water mark of Eau Claire football" }
+  legends:
+    - { name: Rob Erickson, role: coach, why: "Third-year coach implementing a rebuild; asking the fanbase to trust the process through a difficult 2025" }
+  canonical_moments:
+    - { name: "1985 WIAC Championship", year: 1985, what: "Last conference title, 40 years ago", handling: glory }
+    - { name: "2025 rebuild year", year: 2025, what: "Eau Claire goes 3-7 (0-7 WIAC) as Erickson implements a multi-year rebuild plan", handling: wound }
+  the_place: "Carson Park Field — home of Eau Claire football and the stage for the Blugolds' rebuild."
+  brand_of_football: "Disciplined, rebuilding football — Eau Claire is about executing a long-term plan and trusting that the valley of 2025 leads to heights in 2026-2027."
+  cultural_footprint: "The program proving that sometimes the most honest choice is to rebuild, not spin — Eau Claire represents a fanbase patient enough to support a multi-year process in a competitive conference."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UW-Eau Claire went 3-7 in 2025 (0-7 WIAC) under third-year coach Rob
+    Erickson. The Blugolds were winless in conference play, the worst outcome in the modern WIAC. Erickson is
+    implementing a multi-year rebuild and has asked the fanbase to trust the process. The 2026 season will be
+    critical: either the rebuild produces wins and conference competency, or Erickson's tenure comes under
+    immediate scrutiny. For now, Eau Claire is the program in the valley, learning patience.
+  research_checklist:
+    - Rob Erickson third-year tenure
+    - 3-7 record in 2025, 0-7 WIAC
+    - last conference championship 1985 (40 years)
+    - rebuild timeline and expectations
+    - WIAC standings and trajectory
+  sources:
+    - https://en.wikipedia.org/wiki/Wisconsin-Eau_Claire_Blugolds_football
+    - https://www.uwec.edu/athletics/
+    - https://www.d3football.com/conf/WIAC/2025/standings
+
+briefing:
+  identity_phrase: UW-Eau Claire is the WIAC program rebuilding under third-year coach Rob Erickson after a
+    0-7 WIAC season in 2025 — the Blugolds are in the valley, asking the fanbase to trust the process.
+  mantra: Go Blugolds
+  cultural_anchors:
+    fan_archetype_dominant: Patient-Rebuilder
+    outsider_archetype_dominant: Program-in-Transition
+    one_sentence: UW-Eau Claire is the D3 program rebuilding under Rob Erickson after a 0-7 WIAC season in 2025,
+      asking the fanbase to trust a multi-year plan.
+  selfname: the Blugolds
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: 1 (1985)
+    current_conference: WIAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+      - Last conference title 1985 (40 years ago)
+      - Rob Erickson rebuild era
+      - 0-7 WIAC in 2025
+    rituals: []
+    modules_already_rendering: []
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

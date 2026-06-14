@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Bluffton University Beavers — The Rebuild with New Staff
+
+status: live
+slug: bluffton
+team_id: null
+program_name: Bluffton
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: house-money
+  one_line: "Bluffton is the HCAC program in full rebuild mode — 5-5 in 2025 with a new coaching staff under Chris Hedden, betting on fresh leadership to break through."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A program that fell to 5-5 in 2025 vs the belief that new coaches with creative play-calling and strong defensive schemes will deliver a turnaround."
+
+the_wound:
+  name: "The extended mediocrity"
+  detail: "Bluffton has struggled to sustain excellence, finishing 5-5 in 2025 despite bringing in new talent and a new coaching staff. The wound is the fresh start that hasn't quite clicked yet."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win 8+ games and make the HCAC tournament — to prove the new coaching staff is the ingredient the Beavers needed."
+  drought: { since: 1900, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Bluffton is starting over and focused on the next step."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that the new coaches — Chris Hedden, offensive coordinator Elizabeth Winters, defensive coordinator Michael Jimenez — can unlock the Beavers' potential."
+
+the_grudge_texture:
+  rival: mount-union
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: "Impatient alumni vs a new coaching staff that needs time to build chemistry."
+register: bluffton-beavers-hcac-rebuild
+never_use:
+  - "Bluffton cannot compete — the program hired new coaches because the talent is there"
+  - "The 5-5 record is the ceiling — new coaches and recruitment indicate otherwise"
+  - "This is a perennial loser — one season of transition is not a trend"
+
+story_canon:
+  the_unique_thing: "A small Mennonite university in Bluffton, Ohio that hired a completely new coaching staff in March 2025 and is betting on fresh energy and creative play-calling to jump-start the program."
+  the_origin: "Founded in 1899 in Bluffton, Ohio as a Mennonite school, Bluffton has built a modest football tradition."
+  golden_ages:
+    - { era: "2020–2024", what: "The previous coaching regime" }
+    - { era: "2025–forward", what: "The Chris Hedden era begins" }
+  legends:
+    - { name: Chris Hedden, role: coach, why: "New head coach hired in March 2025 to rebuild the Beavers; 30+ years coaching experience, previously OC at Trine University" }
+    - { name: Elizabeth Winters, role: coach, why: "Offensive coordinator known for creative play-calling" }
+    - { name: Michael Jimenez, role: coach, why: "Defensive coordinator known for strong defensive schemes" }
+  canonical_moments:
+    - { name: "2025 coaching staff overhaul", year: 2025, what: "Complete new coaching staff hired to reset the program", handling: miracle }
+  the_place: "Bluffton University in Bluffton, Ohio — a small Mennonite school in northwest Ohio."
+  brand_of_football: "Community, discipline, and the Mennonite tradition of service — Bluffton football is built on values-driven excellence."
+  cultural_footprint: "A small Mennonite school competing in a tough HCAC, representing the values of a close-knit community."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Bluffton University underwent a complete coaching staff overhaul in March 2025,
+    hiring new Head Coach Chris Hedden, offensive coordinator Elizabeth Winters (known for creative play-calling), and
+    defensive coordinator Michael Jimenez (strong defensive mind). The Beavers went 5-5 in 2025 and lost the HCAC
+    Championship Game 48-0 to Hanover. The program is betting that the new staff will deliver sustained improvement
+    in 2026 and beyond.
+  research_checklist:
+    - "Complete coaching staff hired March 2025"
+    - "2025: 5-5 overall, 3-3 HCAC"
+    - "New offensive and defensive coordinators"
+    - "HCAC Championship Game loss to Hanover 48-0"
+  sources:
+    - https://usfootballes.com/bluffton-university-football/
+    - https://blufftonbeavers.com/sports/fball/2025-26/schedule

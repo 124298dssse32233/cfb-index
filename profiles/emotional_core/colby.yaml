@@ -1,0 +1,74 @@
+# AUTHORED (D3/NESCAC) 2026-06-13 — web-verified
+
+status: live
+slug: colby
+team_id: null
+program_name: Colby College
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: contentment
+  one_line: "Maine's intellectual warrior—Colby cycles between dominance and rebuilding, always competitive, with deep regional roots and 2025 resurgence (6–4, best in 20 years)."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "1980s–1990s CBB dominance vs. 20-year drought, now reversing (6–4 in 2025)"
+
+the_wound:
+  name: "Two decades of near-misses"
+  detail: "From 1990 to 2025, Colby went through cycles of competitiveness but never recaptured the 1980s–1990s dynasty. The 2025 resurgence (6–4, best finish in 20 years) signals organizational reversal."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the 1986–1990 standard—another perfect season, another CBB title, another institutional peak."
+  drought: { since: 1990, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe colby owns Maine football history; the 1980s–1990s dominance is fact, not nostalgia. The 20-year rebuild is an aberration, not the true program."
+
+the_delusion:
+  tone: self-aware
+  text: "Colby fans believe the 2025 resurgence is not a fluke—that the infrastructure for CBB competitiveness still exists, and the program is returning to form rather than arriving as a new contender."
+
+the_grudge_texture:
+  rival: bates
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: championship-now vs. long-term-rebuild — whether 2025 signals sustained excellence or another cycle
+
+register: intellectual-maine-restoration
+
+never_use:
+  - "Always mediocre (the 1980s–1990s dynasty is undisputed; 2025 proves the program can climb back)"
+  - "Third-tier (Colby is a historic CBB power entering resurgence)"
+
+story_canon:
+  the_unique_thing: "1986–1990 perfect/near-perfect seasons and CBB titles—and the 2025 resurgence (6–4, best in 20 years) proving the program can climb back from prolonged drought."
+  the_origin: "Colby College (founded 1813) is a Maine liberal-arts institution with 200+ years of football tradition. CBB membership since ~1920 anchors the program."
+  golden_ages:
+    - { era: "1980s–1990s", what: "Peak CBB era; conference titles; NCAA D3 tournament appearances; perfect or near-perfect seasons" }
+    - { era: "2010–2015", what: "Modern rebuild; competitive NESCAC play; tournament appearances" }
+    - { era: "2025–present", what: "Resurgence year (6–4, best in 20 years); organizational reversal" }
+  legends:
+    - { name: Rick Nalin, role: coach, why: "Key era stabilizer; brought organizational discipline to Colby football" }
+  canonical_moments:
+    - { name: "1986 perfect season", year: 1986, what: "Peak CBB era; undefeated campaign", handling: glory }
+    - { name: "1990 CBB title", year: 1990, what: "Final major conference championship of classic era", handling: glory }
+    - { name: "2025 resurgence (6–4)", year: 2025, what: "Best finish in 20 years; organizational reversal and institutional commitment", handling: glory }
+  the_place: "Waterville, Maine—a college town on the Kennebec River, anchor of Maine's intellectual community."
+  brand_of_football: "Disciplined, institutional football built on Maine toughness and academic rigor."
+  cultural_footprint: "A CBB heavyweight that cycles; proof that patient rebuilding can restore a dormant program to competitiveness."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Colby went 6–4 (2025), the best finish in 20 years and the strongest signal of
+    organizational reversal after prolonged drought. The 2025 record represents potential rather than proven sustained excellence;
+    the question is whether the resurgence is sustainable or another cycle. Colby fans see 2025 as vindication of the program's
+    inherent capacity and new coaching/administrative commitment.
+  sources:
+    - https://www.colby.edu/athletics/sports/football
+    - https://www.nescac.org/sports/fball/standings
+    - https://en.wikipedia.org/wiki/Colby-Bates-Bowdoin_Conference
+    - https://www.ncaa.org/sports/football/d3

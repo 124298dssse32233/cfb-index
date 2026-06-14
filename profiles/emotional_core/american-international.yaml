@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: american-international
+team_id: null
+program_name: American International College
+program_tier: 6
+
+emotional_core:
+  primary: house-money      # scrappy Springfield underdog, every win a small treasure
+  secondary: contentment    # we are who we are — proud Yellow Jackets competing at our level
+  one_line: "American International is the Springfield school that has hung around Division II longer than most, building a small but real identity around grit and regional pride."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Five conference championships in a 92-year history vs a program that struggles year-to-year but refuses to disappear."
+
+the_wound:
+  name: "The recruiting ceiling and the perennial rebuild"
+  detail: "A small Springfield NESCAC-era program that moved to NCAA Division II in 2001 and has treaded water ever since — winning conference titles in 2008 and 2013 but never building sustained power, always rebuilding, never dynasty. A program that punches hard some years and whimpers others."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "String together three winning seasons and prove the Yellow Jackets can stay competitive in the Northeast-10."
+  drought: { since: 2013, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "No chip, really — the Yellow Jackets just want to be the best version of Springfield they can be."
+
+the_delusion:
+  tone: self-aware
+  text: "That a recruiting class or a strong QB could suddenly make AIC a contender for titles — the fanbase knows better, but hopes anyway."
+
+the_grudge_texture:
+  rival: saint-anselm
+  texture: blood-feud   # regional New England neighbor, vintage rivalry dating to AIC's founding era
+
+the_coach_relationship: hot-seat-churn    # Chipka is in first season; program has cycled coaches frequently
+the_internal_fracture: stability vs breakthrough — the faction content with competitive mediocrity vs those believing a big hire could elevate the program
+register: springfield-yellow-jackets-new-england-scrappy
+never_use:
+  - "Dynasty — 2008 and 2013 titles are the ceiling, not launching pads"
+  - "Elite program — AIC is competent mid-tier D2, not blue-blood caliber"
+  - "National contention — a single conference title would be a euphoria moment, not a stepping stone"
+  - "Always losing — five conference titles prove consistency at their level"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "A small New England liberal-arts school that joined Division II in 2001 and has stayed competitive through the Northeast-10 rise, capturing two conference titles (2008, 2013) on the strength of regional recruiting and coaching cycles."
+  the_origin: "Founded as an athletics program in 1933, American International fielded football and baseball as independent New England competitors, later stabilizing as a regional player before the 2001 Division II transition."
+  golden_ages:
+    - { era: "2008–2013", what: "Two Northeast-10 Conference championships under strong coaching tenures" }
+  legends:
+    - { name: "The 2008/2013 title teams", role: "coach/roster", why: "The only conference championships in the Division II era, proof of AIC's competitive ceiling" }
+  canonical_moments:
+    - { name: "2008 NE10 Championship", year: 2008, what: "American International wins the Northeast-10 Conference title", handling: glory }
+    - { name: "2013 NE10 Championship", year: 2013, what: "American International captures a second conference title", handling: glory }
+  the_place: "Ronald J. Abdow Field — the 4,000-seat home in Springfield, Massachusetts, where Yellow Jackets football has been rooted since the Division II era."
+  brand_of_football: "The scrappy Northeast regional program — not flashy, not wealthy, just gritty Springfield football."
+  cultural_footprint: "A small program in a small city, AIC is a blue-collar athletics identity in the Northeast-10. Proof that you can build something real without blue-blood money."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: American International finished 2-8 (2-7 NE10) in 2025, near the bottom of the
+    conference, with first-year head coach Daniel Chipka trying to turn around a struggling roster. The question facing
+    Springfield now is whether another coaching change can spark a return to the 2008-2013 glory years, or whether the
+    program has settled into a new mid-tier reality.
+  research_checklist:
+    - Founded 1933, moved to Division II in 2001
+    - Two NE10 titles (2008, 2013)
+    - Home field: Ronald J. Abdow Field, Springfield
+    - 2025: 2-8 record, first-year coach Daniel Chipka
+  sources:
+    - https://en.wikipedia.org/wiki/American_International_Yellow_Jackets_football
+    - https://americanfootball.fandom.com/wiki/American_International_Yellow_Jackets
+    - https://northeast10.org/schedule.aspx?schedule=3785

@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Kalamazoo College Hornets
+
+status: live
+slug: kalamazoo
+team_id: null
+program_name: Kalamazoo College
+program_tier: 7
+
+emotional_core:
+  primary: redemption
+  secondary: contentment
+  one_line: "Kalamazoo is the historic Hornet program with 14 MIAA championships (last in 1963) and a perfect 8-0 season in 1962—now rebuilding under new coaching leadership to restore the dynasty of its 1930s-1960s golden age."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A program with 14 MIAA titles and a 1962 perfect season vs. a 4-6 campaign in 2025 and the question of whether new coach John Krajacic can resurrect the Hornet identity."
+
+the_wound:
+  name: "The 62-year title drought and the 2025 coaching transition"
+  detail: "Kalamazoo's last conference title was 1963 (back-to-back 1962-1963), and the program has not won since—a 62-year drought. More immediately, Jamie Zorbo, the 18-season coach and 2025 Conference Coach of the Year, stepped down after the 2025 season to focus on his AD role. The program went 4-6 in 2025 and faces a new HC in John Krajacic (longtime associate coach). The wound is chronic: a powerhouse era (14 titles through 1963) followed by six decades of struggle."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a MIAA title again and prove Kalamazoo can return to the dynasty era of the 1950s-1960s."
+  drought: { since: 1963, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is against time. Kalamazoo's golden age was 1897-1963 (14 titles), and 62 years have passed since the last one. The program wants to prove it was not a relic."
+
+the_delusion:
+  tone: earnest
+  text: "That John Krajacic, a program lifer, can unlock what Zorbo could not—a conference title. Kalamazoo fans believe the blueprint exists somewhere in the Hornet identity."
+
+the_grudge_texture:
+  rival: hope
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "14-title dynasty legacy (through 1963) vs. 62-year title drought; Zorbo's consistency vs. Krajacic's untested tenure"
+register: kalamazoo-michigan-hornets-wooden-shoes
+never_use:
+  - "Irrelevant small program — 14 MIAA titles proves historic significance"
+  - "Only recent success — 14 titles span 1897-1963, not recent; last was 1963"
+  - "No tradition — Wooden Shoes rivalry (since 1910) is one of the MIAA's cornerstone traditions"
+
+story_canon:
+  the_unique_thing: "Kalamazoo is the historic Hornet program with 14 MIAA championships (most recently 1963) and a perfect 8-0 season in 1962—co-owner of the Wooden Shoes trophy (since 1910) with Hope College."
+  the_origin: "Kalamazoo College began playing football in 1892 and quickly became an MIAA powerhouse, winning 14 conference titles between 1897 and 1963. The 1962 season was a perfect 8-0, the first undefeated season in 25 years at the time. The program competes for the Wooden Shoes trophy with Hope (since 1910, formalized 1931), one of the MIAA's most storied traditions."
+  golden_ages:
+    - { era: "1897–1899 (Three straight)", what: "Three consecutive MIAA championships" }
+    - { era: "1916, 1919, 1921, 1930, 1934, 1936–1937, 1946–1947, 1962–1963", what: "Multiple championship eras spanning the first half of the 20th century" }
+    - { era: "1962 perfect season", what: "8-0 undefeated, the program's only perfect season in the modern era" }
+  legends:
+    - { name: Jamie Zorbo, role: coach, why: "18 seasons (through 2025), 2025 Conference Coach of the Year; stepping down to AD role" }
+    - { name: John Krajacic, role: coach, why: "Newly hired (Jan 1 2026), 20+ years in program as associate coach, tasked with rebuilding" }
+  canonical_moments:
+    - { name: "1897 first title", year: 1897, what: "Kalamazoo wins first MIAA championship", handling: glory }
+    - { name: "1962 perfect season", year: 1962, what: "8-0 undefeated, the only perfect season in modern Hornet history", handling: glory }
+    - { name: "1963 conference title", year: 1963, what: "Back-to-back championship, Kalamazoo's last title (62 years ago)", handling: glory }
+  the_place: "Kalamazoo, Michigan, a mid-sized town in south-central Michigan. Angell Field is the home. The town has a long tradition of college athletics."
+  brand_of_football: "Fundamentally sound and academic-minded. Kalamazoo football is built around the student-athlete model and consistent execution, not raw athleticism."
+  cultural_footprint: "A fallen powerhouse. Kalamazoo's identity is bound to the 1950s-1960s golden age and the Wooden Shoes rivalry. The program is respected but has not won a conference title in 62 years."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Kalamazoo went 4-6 in 2025 (1-6 MIAA, tied for 6th), a disappointing season for a program with 14 MIAA titles. Jamie Zorbo, the 18-season coach and 2025 MIAA Coach of the Year, stepped down after the season to focus on his athletic director role. John Krajacic, a 20+ year program veteran as associate coach, was hired as the new HC on January 1, 2026. Krajacic faces the challenge of rebuilding a roster and culture while competing in the MIAA. The Hornets have not won a conference title since 1963 (62 years), and that drought defines the program's modern era. The question for Krajacic is whether he can break the drought in his first season or if the rebuild will take multiple years.
+  research_checklist:
+    - 1892 founding (134 years old)
+    - 14 MIAA championship titles (1897-1963)
+    - 1962 perfect season (8-0)
+    - 1963 last title (62-year drought)
+    - Jamie Zorbo 18 seasons, 2025 Coach of the Year (stepped down to AD role)
+    - John Krajacic hired Jan 1 2026
+    - 2025 season 4-6, 1-6 MIAA (tied 6th)
+    - Wooden Shoes rivalry with Hope (since 1910)
+  sources:
+    - https://hornets.kzoo.edu
+    - https://en.wikipedia.org/wiki/Kalamazoo_Hornets_football

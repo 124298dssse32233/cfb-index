@@ -1,0 +1,113 @@
+# Emotional Core — Florida A&M  (florida-a-m)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: florida-a-m
+team_id: 8
+program_name: Florida A&M
+program_tier: 3
+
+emotional_core:
+  primary: honor        # the only HBCU to win an I-AA/FCS national championship (1978), 17 black college national championships, 29 SIAC titles, 8 MEAC titles
+  secondary: restoration   # Quinn Gray rebuilding in year one, searching to return the program to national prominence
+  one_line: "Florida A&M is the HBCU that won the only I-AA/FCS national championship ever claimed by an HBCU (1978) and has 17 black college national titles across multiple eras — a program rebuilding under Quinn Gray in year one."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "An I-AA national championship (1978), 17 black college national titles, 29 SIAC titles, 8 MEAC titles, and a 606-352-22 all-time record (.630 winning percentage) vs a new coaching era under Quinn Gray and the search to return to national prominence."
+
+the_wound:
+  name: "The post-1978 I-AA championship eclipse"
+  detail: "Florida A&M won the only I-AA/FCS national championship ever won by an HBCU in 1978, but has not returned to that peak since (47 years). The program remains historically dominant but hasn't reclaimed that championship standard. Quinn Gray enters year one tasked with rebuilding the program toward relevance."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the national championship conversation; prove that the 1978 I-AA title and 17 black college championships represent a floor, not a ceiling; rebuild Florida A&M into a SWAC contender and Celebration Bowl regular."
+  drought: { since: 1978, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe florida A&M is the only HBCU to win an I-AA/FCS national championship and knows the standard. The chip is that 47 years have passed since that peak and the program is determined to prove it's not a one-era program; the standard exists and is achievable again."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes that a program with 17 national championships across multiple eras and an I-AA title is built for success — that the standard of excellence is institutional and not dependent on any one coach or era. The 1978 championship is proof the ceiling is high."
+
+the_grudge_texture:
+  rival: bethune-cookman
+  texture: championship   # both are Florida HBCUs with championship histories
+
+the_coach_relationship: total-trust   # Quinn Gray is year one; the room believes in the new direction
+the_internal_fracture: patient-rebuild vs immediate-impact — the faction that says Quinn Gray needs time vs the faction that says Florida A&M's history demands immediate national relevance
+register: championship-lineage — 17 titles, I-AA championship, 118 years of history
+never_use:   # LAW — do not violate in any authored line
+  - one-hit-wonder framing on the I-AA title (17 national championships, 29 SIAC titles, 8 MEAC titles)
+  - scrappy
+  - just trying to have fun
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep canon ──
+story_canon:
+  the_unique_thing: "Florida A&M is the HBCU that won the only I-AA/FCS national championship ever claimed by an HBCU (1978) and has accumulated 17 black college national championships across multiple eras (SIAC, MEAC, SWAC). The program has also won 29 SIAC titles, 8 MEAC titles, and 1 SWAC title. The program's all-time record is 606-352-22 (.630 winning percentage), and it has produced multiple Pro Football Hall of Famers."
+  the_origin: "A land-grant university in Tallahassee, Florida that began football in 1907 (118 years of history) and competed across multiple conferences (SIAC, MEAC, SWAC). Florida A&M built itself into one of the most historically successful HBCU programs."
+  golden_ages:
+    - { era: "1907–1950s (SIAC era)", what: "Multiple SIAC championships; the foundational era of FAMU dominance" }
+    - { era: "1970s–1980s (MEAC era)", what: "8 MEAC championships and the I-AA national championship (1978)" }
+    - { era: "1978 (I-AA championship)", what: "Florida A&M becomes the only HBCU to win an I-AA/FCS national championship" }
+  legends:
+    - { name: Rattlers, role: mascot, why: "The program's identity and cultural anchor in Tallahassee" }
+  canonical_moments:
+    - { name: "The 1978 I-AA national championship", year: 1978, what: "Florida A&M won the I-AA/FCS national championship — the only HBCU to ever do so", handling: glory }
+    - { name: "17 black college national titles", year: 1970s, what: "Multiple national championships across different eras", handling: glory }
+    - { name: "118 years of football", year: 1907, what: "Continuous competition since 1907; one of the oldest HBCU programs", handling: glory }
+  the_place: "Bragg Memorial Stadium in Tallahassee, Florida (cap 19,633); home of Rattler tradition."
+  brand_of_football: "Championship-proven: a program that has won at every level it's competed at and is searching for the next national championship era."
+  cultural_footprint: "Florida A&M is the HBCU that proved it could win an I-AA/FCS national championship — the only HBCU to achieve that feat. The program's 17 black college national titles and 118-year history make it one of the sport's most historically successful institutions."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Florida A&M hired Quinn Gray as head coach in his first season. The program
+    is rebuilding after several years of competitive but not championship-level play. With 17 black college national
+    championships, an I-AA national championship (1978), and a 606-352-22 all-time record, Florida A&M has the
+    infrastructure and history to compete at the national level. Quinn Gray is tasked with returning the program to
+    that standard and rebuilding Florida A&M into a SWAC contender and national championship player.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Florida_A%26M_Rattlers_football
+    - https://en.wikipedia.org/wiki/1978_NCAA_Division_I-AA_Football_Championship
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Florida A&M is the only HBCU to win an I-AA national championship (1978); 17 black college national titles.
+  mantra: Go Rattlers.
+  cultural_anchors:
+    fan_archetype_dominant: Championship-Pioneer
+    outsider_archetype_dominant: Historic-Power
+    one_sentence: Florida A&M is the HBCU that won the only I-AA/FCS national championship ever claimed by an HBCU.
+  selfname: the Rattlers
+  aspiration_ladder_top: ''
+  rivalries:
+  - bethune-cookman
+  heritage:
+    national_titles: 17
+    conference_titles: 38
+    current_conference: SWAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1978 I-AA national championship (only HBCU to win)
+    - 17 black college national championships
+    - 118 years of football (1907 origin)
+    rituals:
+    - Annual SWAC competition
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

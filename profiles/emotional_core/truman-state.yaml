@@ -1,0 +1,70 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+status: live
+slug: truman-state
+program_name: Truman State University
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: grievance
+  one_line: "Truman is the GLVC powerhouse that climbed back to the NCAA D-II playoffs for the first time in 31 years — the mountain's still there, and the Bulldogs are climbing again."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "27 conference championships and a 2025 GLVC Coach of the Year — Truman spent three decades out of the NCAA playoffs, then roared back to the Dance in year two under Kellen Nesbitt."
+
+the_wound:
+  name: "Three decades without an NCAA D-II playoff appearance (1994–2025)"
+  detail: "Truman was a 27-time GLVC champion but hadn't seen the NCAA D-II playoffs since 1994 — a 31-year drought that felt like abandonment by the program's own standard. The fanbase watched peers make the postseason while Truman stayed home. That gap defines what a comeback feels like."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the GLVC championship and make a deep NCAA D-II playoff run. Break through the second round. Prove that the 2025 playoff appearance wasn't a fluke — it's the beginning of a new era."
+  drought: { since: 1994, unit: bowl }
+
+the_chip:
+  villain: national_media
+  text: "The chip is invisibility. Truman won 27 conference titles and nobody outside Missouri cared. The fanbase watched the Bulldogs get no respect while FCS and G5 programs hogged the spotlight. Now there's proof — the playoff spot in 2025 — that Truman belongs."
+
+the_delusion:
+  tone: self-aware
+  text: "That the Bulldogs could finally break through and compete with the national powers in the D-II playoffs. Fans know the ceiling is real, but 8-4 and a playoff berth prove the climb has started."
+
+the_grudge_texture:
+  rival: lincoln-mo
+  texture: championship
+  # Renewed rivalry; Truman leads 24-4-1 all-time; these programs played from early rivalry, then stopped for decades, now play again in GLVC
+
+the_coach_relationship: savior
+  # Kellen Nesbitt (2nd season, 2025); 2025 GLVC Coach of the Year; first playoff appearance in 31 years under his watch
+
+the_internal_fracture: "loyalty-vs-ambition — the faction satisfied with GLVC dominance vs the faction that wants NCAA D-II playoff success and a national title"
+
+register: glvc-powerhouse-comeback-bulldogs-kirksville
+
+never_use:
+  - '"Truman was irrelevant for 31 years" — the program won 27 conference titles; it was just invisible nationally'
+  - '"The 2025 playoff appearance is the ceiling" — it''s the start of a new era, not the peak'
+
+story_canon:
+  the_unique_thing: "27 GLVC conference championships and a return to the NCAA D-II playoffs in 2025 after a 31-year drought (1994–2025) — the program that was always great locally, now proving it on the national stage."
+  the_origin: "Truman State University (formerly Northeast Missouri State) was founded in 1867 in Kirksville, Missouri. Football became part of the school's identity early, and the Bulldogs built a reputation as a consistent small-college power. For decades, Truman dominated the GLVC."
+  golden_ages:
+    - { era: "GLVC Dynasty (1970s–2000s)", what: "27 GLVC conference championships and sustained conference dominance; the Bulldogs were the standard-bearer of the GLVC" }
+    - { era: "2025 Renaissance", what: "8-4 season, 2nd place GLVC finish, NCAA D-II playoff appearance for the first time since 1994", handling: glory }
+  legends: []
+  canonical_moments:
+    - { name: "27 GLVC Conference Championships", year: 2000, what: "Truman dominated the Great Lakes Valley Conference for decades, winning more titles than any other program", handling: glory }
+    - { name: "2025 Return to NCAA D-II Playoffs", year: 2025, what: "After 31 years, Truman made the NCAA Division II playoffs and won the GLVC Coach of the Year for Kellen Nesbitt", handling: miracle }
+  the_place: "Kirksville, Missouri — a small town in northeast Missouri where Truman State sits and where the Bulldogs have played for over 150 years."
+  brand_of_football: "Methodical, hard-nosed, conference-dominant. Truman plays for Kirksville and for the GLVC tradition, now with eyes on the national stage."
+  cultural_footprint: "Truman proved that a small Midwest university could win conference titles consistently and, with a fresh coaching hire, could break back into the NCAA D-II playoff conversation."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Truman went 8-4 (2-4 GLVC) in 2025, making the NCAA D-II playoffs for the first time since 1994 — a 31-year drought broken under Kellen Nesbitt
+    (2nd season). Nesbitt was named GLVC Coach of the Year. The Bulldogs lost their first-round playoff game 57-14 to Indianapolis, but the narrative shifted: Truman is back.
+    The rivalry with Lincoln has been renewed (Truman leads 24-4-1 all-time). The 2026 season is about consolidating the playoff return and proving it wasn't a one-year fluke.
+  sources:
+    - https://americanfootball.fandom.com/wiki/2025_Truman_State_Bulldogs
+    - https://trumanbulldogs.com/news/2025/11/24/football-fifteen-bulldogs-earn-all-glvc-honors-nesbitt-named-glvc-coach-of-the-year.aspx
+    - https://bvmsports.com/2024/11/01/blue-tigers-face-truman-state-for-football-rivalry-renewal/

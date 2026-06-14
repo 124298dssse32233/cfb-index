@@ -1,0 +1,120 @@
+# Emotional Core — Colorado State  (colorado-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: colorado-state
+team_id: 192
+program_name: Colorado State
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # a fired coach, a new conference, and a hire meant to make Fort Collins matter again
+  secondary: grievance    # forever the in-state little brother to the Buffs and the spotlight they get
+  core_variant: regime-reset
+  one_line: "Colorado State is the Fort Collins program that finally got a real stage — a Pac-12 invite — at the exact moment it had to fire its coach and start over to prove it deserves the seat."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Sonny Lubick's 1990s Border-Conference-to-WAC dynasty and a beautiful 2017 stadium vs a 2-10 collapse that cost Jay Norvell his job just as the program walked into the Pac-12."
+
+the_wound:
+  name: "The 2025 bottom-out"
+  detail: "The Rams went 2-10 (1-7 MW) and fired Jay Norvell on October 19 after a 2-5 start — a humiliating final Mountain West season right before the move up, with interim coach Tyson Summers closing out the year."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Walk into the new Pac-12, win it, and turn Canvas Stadium into the reason recruits stop in Fort Collins instead of driving past it to Boulder."
+  drought: { since: 2002, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Rams fans have spent a generation watching Colorado get the cameras, the recruits, and the benefit of the doubt while Fort Collins gets called the other Colorado school. The Pac-12 move is the chance, finally, to be looked at as a peer instead of a punchline."
+
+the_delusion:
+  tone: earnest
+  text: "Fort Collins believes Canvas Stadium plus a Power-conference badge changes the gravity of the whole program — that the right coach turns a 2-10 team into a Pac-12 contender, because the Rams were always one good hire from belonging."
+
+the_grudge_texture:
+  rival: colorado
+  texture: border-war   # the Rocky Mountain Showdown — the in-state grudge that defines the program's standing
+
+the_coach_relationship: savior   # Jim Mora hired to be the credibility hire that the Pac-12 leap demands
+the_internal_fracture: leap vs reality — the faction giddy that the Pac-12 move and a name-brand coach finally validate the program, vs the faction that just watched a 2-10 team and wants wins before banners
+register: fort-collins-rams-canvas-stadium   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always MW-bottom — Lubick 1990s + 1997 Holiday Bowl disprove
+  - No identity — Lubick + Canvas + Rocky Mountain Showdown combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Colorado State is the program Sonny Lubick willed into relevance — a Fort Collins school that had been a doormat for decades until Lubick turned the 1990s Rams into a ranked, conference-winning regular and made the field at the stadium bear his name."
+  the_origin: "A Fort Collins land-grant school whose football identity was largely flat until Sonny Lubick arrived in 1993 and built six conference titles in the WAC and Mountain West across a 15-year run."
+  golden_ages:
+    - { era: "1994–2002 (Lubick)", what: "Six conference titles, multiple ranked finishes, and the 1997 Holiday Bowl season — the era the program still defines itself by" }
+    - { era: "2017", what: "Canvas Stadium opens on campus — the first dedicated on-campus venue in decades, a physical statement of ambition" }
+  legends:
+    - { name: Sonny Lubick, role: coach, why: "Built the only sustained winning era in program history; the field is named for him" }
+    - { name: Joey Porter, role: player, why: "Lubick-era defensive star who became a Super Bowl champion and NFL Pro Bowler" }
+  canonical_moments:
+    - { name: "1997 Holiday Bowl season", year: 1997, what: "An 11-2 Lubick team and a New Year's-tier bowl trip — the program's high-water mark", handling: glory }
+    - { name: "Canvas Stadium opens", year: 2017, what: "The on-campus stadium finally gives the Rams a real home and a recruiting pitch", handling: glory }
+    - { name: "Norvell fired mid-2025", year: 2025, what: "A 2-5 start in the final MW season triggers the firing, capping a 2-10 year", handling: wound }
+  the_place: "Canvas Stadium — a sleek 2017 on-campus build at the foot of the Rockies, the Aggie-era bell tolling Ram wins, a venue meant to make Fort Collins feel major."
+  brand_of_football: "Hard-nosed Mountain-West grinding under Lubick; a program whose identity is built on defense, toughness, and the chip of being overlooked in its own state."
+  cultural_footprint: "The land-grant Ram identity of northern Colorado — agricultural roots, the green-and-gold of a town that lives a tier below the national glare and resents it."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Colorado State went 2-10 (1-7 MW) in 2025 and fired Jay Norvell on
+    October 19 after a 2-5 start, with Tyson Summers finishing as interim. The Rams hired Jim L. Mora to lead a
+    reset, and 2026 is their first season in the Pac-12 — a Power-conference leap arriving at the program's lowest
+    on-field moment in years. The arc is pure restoration: prove the badge upgrade was earned, not just timed.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Colorado_State_Rams_football_team
+    - https://en.wikipedia.org/wiki/2026_Colorado_State_Rams_football_team
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Colorado State is the Mountain West program whose Sonny Lubick 1990s dynasty + Canvas
+    Stadium 2017 opening + Jay Norvell era under construction define what Fort-Collins-G5-football looks
+    like.
+  mantra: Stalwart.
+  cultural_anchors:
+    fan_archetype_dominant: Fort-Collins-Ram-Stalwart
+    outsider_archetype_dominant: MW-Mid-Pack-Diminisher
+    one_sentence: Colorado State is the Fort Collins Mountain West anchor — Sonny Lubick 1990s dynasty +
+      Canvas Stadium 2017 modernization + Rocky Mountain Showdown vs Colorado defining the program's historic
+      identity.
+  selfname: the Rams
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1997 11-2 + Holiday Bowl championship under Sonny Lubick
+    - Sonny Lubick 1993-2007 dynasty era
+    - 2017 Canvas Stadium opening (first dedicated venue since 1968)
+    rituals:
+    - Sonny Lubick Era (1993-2007)
+    - Canvas Stadium 2017 Opening
+    - Rocky Mountain Showdown (vs Colorado)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (58/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

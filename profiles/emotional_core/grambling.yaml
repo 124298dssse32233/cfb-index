@@ -1,0 +1,119 @@
+# Emotional Core — Grambling  (grambling)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: grambling
+team_id: 2
+program_name: Grambling
+program_tier: 3
+
+emotional_core:
+  primary: spectacle      # the program whose identity is the Tiger Marching Band and Eddie Robinson's 56-year legacy
+  secondary: honor        # the Hall of Fame coach, the 9 national championships, the gravitas of 408-165-15 record
+  one_line: "Grambling is the HBCU founded by Eddie Robinson's legacy — 56 years, 408 wins, 9 national championships, and the Tiger Marching Band's halftime show that still matters more than most football teams' final scores."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Nine black college national championships and 17 SWAC titles under Eddie Robinson (1941-1997) vs an FCS ceiling and a post-Robinson era searching for a second act; the Robinson museum and the band are the program's anchors."
+
+the_wound:
+  name: "The post-Robinson uncertainty"
+  detail: "Eddie Robinson retired in 1997 after 56 years (408-165-15); three head coaches since (Doug Williams, Jack Spinks, Broderick Fobbs) have not replicated that era. The program remains culturally vital but the 2025 season reflects the struggle to return to consistent SWAC contention."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Find a coach who can honor the Robinson legacy without being crushed by it; prove that the Grambling identity is bigger than any one man, and compete for SWAC titles the way the program did in the 1980s."
+  drought: { since: 1997, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "The fanbase knows every Grambling coach since Eddie Robinson hears the same question: are you ready to run a program that expects what the greatest coach in HBCU history delivered? The program knows what excellence looks like and refuses to pretend anything less is success."
+
+the_delusion:
+  tone: load-bearing
+  text: "Grambling fans believe that a program with this much history, this much gravitas, and this much cultural capital is one brilliant hire away from honoring the Robinson legacy. The Tiger Marching Band alone gives the program enough identity to fill a stadium; the football is the ceremony around the real show."
+
+the_grudge_texture:
+  rival: southern-university
+  texture: blood-feud   # the Bayou Classic — the biggest HBCU game, 250,000 visitors, $50 million economic impact, Battle of the Bands, 1932 origin, 2025 game Southern won 28-27
+
+the_coach_relationship: legends-shadow   # Every Grambling coach lives in Eddie Robinson's shadow; he is still an institutional presence
+the_internal_fracture: stability vs ambition — the faction that says a long-term hire to rebuild tradition vs the faction that says Grambling is a top-4 HBCU program and should compete for a SWAC title immediately
+register: hall-of-fame-program — gravitas, tradition, cultural weight; Eddie Robinson made Grambling a household name
+never_use:   # LAW — do not violate in any authored line
+  - just trying to have fun
+  - scrappy
+  - Eddie Robinson comparisons as a dismissal (he is the program's foundation, not a bar to mock coaches for not meeting)
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep canon ──
+story_canon:
+  the_unique_thing: "Grambling is the HBCU that Eddie Robinson built into a college football powerhouse — 56 years (1941-1997), 408 wins, 9 black college national championships, 17 SWAC titles, and more than 200 players who went professional (three Pro Football Hall of Famers: Buck Buchanan, Willie Brown, Charlie Joiner). The Tiger Marching Band and the Bayou Classic against Southern are institutional identity events."
+  the_origin: "A small historically black college in Louisiana that Eddie Robinson took over in 1941 and transformed into a dynasty. Robinson proved that a HBCU could field a program that competed with anyone, that talent recognized excellence regardless of institutional prestige, and that the culture of a place could matter as much as the budget."
+  golden_ages:
+    - { era: "1941–1997 (Eddie Robinson)", what: "56 years, 408-165-15 record, 9 national championships, 17 SWAC titles — the greatest run in HBCU history" }
+    - { era: "1970s–1980s", what: "The peak SWAC era with multiple championships and Pro Football Hall of Famers on the roster" }
+  legends:
+    - { name: Eddie Robinson, role: coach, why: "56 years, 408 wins, 9 national titles; founded the modern program and proved an HBCU could be elite" }
+    - { name: Buck Buchanan, role: player, why: "Pro Football Hall of Famer; one of Robinson's greatest products" }
+    - { name: Doug Williams, role: player, why: "HBCU starting QB who succeeded Robinson as head coach; symbol of the continuity challenge" }
+  canonical_moments:
+    - { name: "Eddie Robinson's 56 years", year: 1997, what: "1941-1997; the longest tenure of any college coach in history", handling: glory }
+    - { name: "The Bayou Classic", year: 1974, what: "Grambling vs Southern formalized; became the Battle of the Bands and one of the biggest college football games", handling: glory }
+    - { name: "200+ players to the NFL", year: 1997, what: "More than 200 Grambling players went professional; proof of the program's talent development", handling: glory }
+  the_place: "Eddie Robinson Stadium (cap 35,000) in Grambling, Louisiana; the Tiger Marching Band takes the field first and the halftime show is the main event."
+  brand_of_football: "Spectacle-and-substance: the band matters as much as the team; Grambling is about culture, history, and the proof that excellence doesn't need a blue-blood name."
+  cultural_footprint: "Grambling is the HBCU that Eddie Robinson proved could be a peer to any program in the country. The program's 9 national championships and 17 SWAC titles are proof; the Tiger Marching Band's national reputation is the final word."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Eddie Robinson retired in 1997 after 56 years; Doug Williams served one season,
+    then Jack Spinks (1998-2002), Broderick Fobbs (2003-2005), and current coach Rod Broadway. The post-Robinson
+    era has been competitive but not dominant — the program remains a SWAC contender and a cultural institution, but
+    has not won another national championship or returned to consistent title contention. The 2025 Bayou Classic
+    saw Grambling lose 28-27 to Southern, a 2025 game that symbolizes the current state: the rivalry is alive and
+    matters, but Grambling is rebuilding. The Robinson museum on campus and the Tiger Marching Band keep the legacy
+    alive while the football team searches for the next chapter.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Eddie_Robinson_%28football_coach%29
+    - https://en.wikipedia.org/wiki/Bayou_Classic
+    - https://en.wikipedia.org/wiki/Grambling_State_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Grambling is Eddie Robinson's legacy — 56 years, 408 wins, 9 national championships, and the Tiger Marching Band.
+  mantra: G-R-A-M.
+  cultural_anchors:
+    fan_archetype_dominant: Robinson-Heritage-Keeper
+    outsider_archetype_dominant: Hall-of-Fame-Program
+    one_sentence: Grambling is the HBCU that Eddie Robinson built into a peer to any program in the country.
+  selfname: the Tigers
+  aspiration_ladder_top: ''
+  rivalries:
+  - southern-university
+  heritage:
+    national_titles: 9
+    conference_titles: 17
+    current_conference: SWAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: 'Eddie Robinson'
+    era_name_overrides: {}
+    always_surface:
+    - Eddie Robinson (56 years, 408 wins, 9 national championships)
+    - Tiger Marching Band
+    - Bayou Classic vs Southern (1932 origin, 1974 formalized)
+    rituals:
+    - Bayou Classic (Battle of the Bands)
+    - Eddie Robinson Museum
+    - Tiger Marching Band Halftime Performance
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

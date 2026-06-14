@@ -1,0 +1,74 @@
+# Emotional Core — Eastern Illinois  (eastern-illinois)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: eastern-illinois
+team_id: null
+program_name: Eastern Illinois
+program_tier: 5
+
+emotional_core:
+  primary: redemption
+  secondary: grievance
+  one_line: "Eastern Illinois is the historic Ohio Valley Panther program that fell from I-AA relevance into a decade of rebuilding, and whose fanbase is waiting for the resurgence."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A historic FCS program with playoff history and OVC titles vs a modern reality of sustained mediocrity and a fanbase that remembers when the Panthers mattered."
+
+the_wound:
+  name: "The long irrelevance"
+  detail: "Eastern Illinois was a fixture in FCS playoff conversations in the late 2000s and 2010s, but the program has spent recent years in the basement of the OVC-Big South, going 3-9 in 2025 and signaling a program in steep decline. The wound is the institutional knowledge that the Panthers were competitive at the FCS level, but current success is nowhere in sight."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the OVC-Big South conversation, build a winning season that signals resurgence, and prove the Panthers can climb back to playoff consideration."
+  drought: { since: 2019, unit: bowl }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes Eastern Illinois' historic OVC success proves the program can still compete, that the current mediocrity is a temporary stumble, and that the Panthers will find their way back to relevance."
+
+the_grudge_texture:
+  rival: western-illinois
+  texture: championship
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: historical-pride-vs-current-reality — the faction citing historic OVC success vs the faction accepting modern mediocrity
+register: charleston-illinois-panther-valley-power
+never_use:
+  - Lost relevance entirely (the Panthers have historic playoff pedigree from their FCS era)
+  - Never mattered (Eastern Illinois was a consistent OVC competitor in the 2000s-2010s)
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Eastern Illinois is a historic FCS program with multiple Ohio Valley Conference titles and playoff appearances, a Panther tradition that dominated the OVC in the late 2000s and 2010s before recent decline."
+  the_origin: "A state school in Charleston, Illinois that built an FCS program with sustained OVC success, playoff appearances, and a tradition of Panther football that became synonymous with the Ohio Valley."
+  golden_ages:
+    - { era: "2007-2011 (OVC dominance)", what: "Eastern Illinois won multiple OVC titles and made consistent FCS playoff appearances" }
+    - { era: "1980s-1990s (Early FCS era)", what: "Built a competitive I-AA program with playoff history" }
+  legends:
+    - { name: none, role: none, why: none }
+  canonical_moments:
+    - { name: "OVC playoff runs", year: 2011, what: "Eastern Illinois made multiple FCS playoffs in the late 2000s and early 2010s, the program's high-water mark", handling: glory }
+  the_place: "O'Brien Stadium in Charleston, Illinois — the traditional home of Panther football."
+  brand_of_football: "Disciplined OVC football focused on building competitive conference teams and making playoff runs."
+  cultural_footprint: "Eastern Illinois represents the historic FCS program with deep OVC roots, a program that mattered in the broader FCS conversation before the modern decline."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Eastern Illinois went 3-9 in 2025 in the Big South-OVC conference, the worst record among the 11 FCS programs being researched and a signal of acute program distress. Coach Chris Wilkerson is in his fourth year, and the program faces questions about whether it can turn around or whether it has entered a sustained decline. The Panthers are one of the programs most in need of rebuilding and fresh direction.
+  research_checklist:
+    - Historic FCS program with OVC titles (verified)
+    - O'Brien Stadium home field (verified)
+    - 2025 season 3-9 record (verified)
+    - Big South-OVC conference affiliation (verified)
+    - Rivalry with Western Illinois (verified)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Eastern_Illinois_Panthers_football_team
+    - https://en.wikipedia.org/wiki/Eastern_Illinois_Panthers_football
+    - https://www.eiu.edu/athletics/

@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: arkansas-tech
+team_id: null
+program_name: Arkansas Tech
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Arkansas Tech is the Wonder Boys—a 100-year-old identity born from a 13-0 season in 1920—a small D2 program that plays for pride in Russellville, not for national titles."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small polytechnic school in Russellville that has carried a 100+ year-old identity through decades of ups and downs, knowing that being a Wonder Boy means something in the Arkansas hill country."
+
+the_wound:
+  name: "The weight of 100 years without a national title"
+  detail: "The Wonder Boys have never won a D2 national championship. They've never even been especially close. The wound is not fresh—it's layered, inherited, accepted as part of the identity."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Win a game that matters—build momentum toward something meaningful, not necessarily a national title, but a season where the Wonder Boys remind themselves why they've carried this name for a century."
+  drought: { since: 1920, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Arkansas Tech has no chip. The Wonder Boys play because they love the game and because the name means something in Russellville. That's the only fuel they need."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase knows they're not going to win a national championship. But they show up anyway, because calling themselves Wonder Boys for a century means something—and because Roy Thompson Jr., the new coach, might be the one who builds something."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: New coaching hire (Roy Thompson Jr., Dec 2024) vs. program history; building trust from zero
+register: russellville-wonder-boys-century-identity
+
+never_use:
+  - "The Wonder Boys are irrelevant"
+  - "Arkansas Tech should fold the program"
+  - "100-year-old names don't matter"
+  - "Small schools can't build sustained culture"
+
+story_canon:
+  the_unique_thing: "Arkansas Tech is called the Wonder Boys because of a 13-0 season in 1920—and has carried that name for more than a century as a badge of pride in a small Arkansas polytechnic school."
+  the_origin: "Arkansas Tech was founded in 1909 as the Arkansas Polytechnic Institute. The football program began shortly after, and the 1920 team went 13-0—earning the nickname 'Wonder Boys' that would stick for over 100 years."
+  golden_ages:
+    - { era: "1920", what: "Arkansas Tech goes 13-0 and earns the nickname 'Wonder Boys' that defines the program identity for a century" }
+    - { era: "Mid-1990s to 2000s", what: "Arkansas Tech had competitive GAC teams in the late 20th century" }
+  legends:
+    - { name: Roy Thompson Jr., role: coach, why: "Hired in December 2024; tasked with reviving the Wonder Boys program" }
+  canonical_moments:
+    - { name: "The 1920 Undefeated Season", year: 1920, what: "Arkansas Tech goes 13-0 and becomes the 'Wonder Boys'—a name that lasts more than 100 years", handling: glory }
+  the_place: "Simmons Bank Field at Thone Stadium in Russellville, Arkansas—home of the Wonder Boys, where a century of small-school pride is played out."
+  brand_of_football: "Pride football. The kind where the name and the tradition matter more than the wins—where being a Wonder Boy is about carrying forward something that began in 1920."
+  cultural_footprint: "Arkansas Tech is proof that a small D2 program can maintain a 100-year identity through sustained commitment to a name and a place, even when national glory never arrives."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Arkansas Tech went 5-6 in 2025 under new head coach Roy Thompson Jr.,
+    hired in December 2024 from Oklahoma Baptist. The 2025 season was a transition year for the Wonder Boys as they
+    rebuild under new leadership. Roy Thompson Jr.'s mandate is to restore competitive footing in the GAC and begin
+    moving the Wonder Boys trajectory upward. The question in Russellville: can the new coaching hire tap into the
+    100-year Wonder Boys legacy and build something sustainable?
+  research_checklist:
+    - the 1920 13-0 season and the origin of the "Wonder Boys" name
+    - Arkansas Tech's history in the GAC
+    - Roy Thompson Jr.'s previous coaching experience and philosophy
+    - 2025 season results and current roster state
+    - recruiting and future outlook
+  sources:
+    - https://en.wikipedia.org/wiki/Arkansas_Tech_Wonder_Boys_football
+    - https://arkansastechsports.com/news/2024/12/10/football-roy-thompson-jr-named-head-football-coach-at-arkansas-tech.aspx
+    - https://www.arkansastechnews.com/wonder-boys-golden-suns-and-jerry-tech-traditions/
+    - https://greatamericanconference.com/standings.aspx?path=football

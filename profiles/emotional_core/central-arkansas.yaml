@@ -1,0 +1,73 @@
+# Emotional Core — Central Arkansas Bears (central-arkansas)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: central-arkansas
+team_id: 4
+program_name: Central Arkansas
+program_tier: 5
+
+emotional_core:
+  primary: grievance          # Champions in 2017, irrelevant by 2025 — a program that fell off
+  secondary: disbelief        # The question of whether the Golden Bears can climb back
+  one_line: "Central Arkansas is the Arkansas program that won a conference title in 2017 and has spent eight seasons losing its way."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A program with one recent championship (2017) and a growing body of evidence that it may have been the peak, not a launchpad."
+
+the_wound:
+  name: "The 2017 championship — and the eight-year decline since"
+  detail: "Central Arkansas won the Southland Conference in 2017 (10–2, 9–0 conference) and made the FCS Playoff, but has only one winning season (5–6, 4–3 in 2021) in the eight years since. By 2025, the Bears went 3–9 (2–6 UAC), suggesting the 2017 title was the era's ceiling, not its foundation."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Find a way back to 2017 — win the UAC, return to the FCS Playoff, prove that one championship year was a launchpad, not a peak."
+  drought: { since: 2017, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The chip is one moment wide and eight years deep: Central Arkansas won a conference title in 2017 and made the Playoff, but has never been back. The Bears know they belong at that level because they've been there — they just can't seem to stay."
+
+the_delusion:
+  tone: load-bearing
+  text: "That the 2017 Southland title proves Central Arkansas can compete at the highest FCS level. The fanbase clings to it because it's the only evidence they have."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: championship-believers-vs-realistic-doomers — the fans who watched 2017 and believe it's repeatable vs the ones who watch 2025 and see a program in freefall
+register: central-arkansas-bears-conway-southland
+never_use:
+  - Never won anything — 2017 Southland Conference championship disproves
+  - Always terrible — 2021 reached 5–6, one win away from bowl eligibility
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The 2017 Southland Conference championship (10–2, 9–0 conference) — Central Arkansas' one recent moment of Division I relevance, a championship run that made the FCS Playoff."
+  the_origin: "A small Arkansas program that climbed to FCS and found one era of success in 2017, but has been unable to sustain it."
+  golden_ages:
+    - { era: "2017", what: "Southland Conference championship, FCS Playoff Second Round appearance" }
+  legends:
+    - { name: Nathan Brown, role: coach, why: "The eight-year coach overseeing the program's 2017 peak and long decline" }
+  canonical_moments:
+    - { name: "The 2017 Southland Championship", year: 2017, what: "Central Arkansas goes 10–2 (9–0 Southland), wins conference title, loses to New Hampshire in FCS Playoff Second Round", handling: glory }
+    - { name: "The 2025 3–9 Collapse", year: 2025, what: "Bears go 3–9 (2–6 UAC) — the deepest losing season since moving to UAC", handling: wound }
+  the_place: "Estes Stadium in Conway, Arkansas — a program that has had one shining moment."
+  brand_of_football: "Inconsistent — capable of competing (2017) but unable to sustain consistency."
+  cultural_footprint: "A program defined by its singular championship year and the question of whether it can ever get back."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Central Arkansas finished 3–9 (2–6 UAC) in 2025 under eighth-year coach Nathan Brown, marking one of the program's worst seasons since joining the UAC. The Bears have now gone eight years (since 2017) without a conference title and have made the FCS Playoff only once (2017). The question in Conway: is Nathan Brown the right coach to rebuild, or has the program stalled under his tenure?
+  research_checklist:
+    - the 2017 Southland Conference championship (the peak moment)
+    - the eight-year decline and inability to sustain success
+    - Nathan Brown's tenure and competitive record
+    - UAC competitive positioning and trajectory
+    - the gap between 2017 (10–2) and 2025 (3–9)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Central_Arkansas_Bears_football_team
+    - https://en.wikipedia.org/wiki/2017_Central_Arkansas_Bears_football_team
+    - https://en.wikipedia.org/wiki/2016_Central_Arkansas_Bears_football_team

@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Nebraska Wesleyan University Division III emotional core
+
+status: live
+slug: nebraska-wesleyan
+team_id: null
+program_name: Nebraska Wesleyan University
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Nebraska Wesleyan is the Lincoln Methodist university whose Prairie Wolves identity emerged in 2000 and whose 30-year Brian Keller era (1996–2025) became the definition of quiet, steady college football in the heartland."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small Methodist university with 135 years of football, a Prairie Wolves mascot born in 2000, a remarkable 30-year coaching tenure under Brian Keller (1996–2025), and a 515–478–42 all-time record that reflects decades of regional respectability without national prominence."
+
+the_wound:
+  name: "The end of the Keller era — transition into the unknown"
+  detail: "Brian Keller coached Nebraska Wesleyan for 30 years (1996–2025), the longest tenure at any Division III program in that span. His retirement in December 2025 ended an era and left the fanbase wondering whether another coach can replicate the stability and competence Keller built."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Continuity. Another era of stability and competence like the Keller years. Nebraska Wesleyan's dream is less about winning a championship than about finding the next coach who can stay, build, and sustain."
+  drought: { since: 2000, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe nebraska's big-time football programs (Nebraska Cornhuskers, UNK Lopers) dominate the state narrative and media cycles. Nebraska Wesleyan knows it will never be the state's story, only a small footnote in Lincoln's football landscape."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 30-year Keller era was replicable, that another coach can come in and build a decade of stability. The fanbase knows it's rare, knows Keller was exceptional, but believes the program's fundamental competence can attract a successor coach."
+
+the_grudge_texture:
+  rival: doane-university
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: continuity-vs-change — Jacob Donohoe, hired in 2026 from Coe's coaching staff, faces the enormous task of following a 30-year legend
+register: lincoln-prairie-wolves-keller-era
+
+never_use:
+  - Nebraska Wesleyan is a new program (football since 1891, 135 years old)
+  - The Prairie Wolves mascot is ancient (adopted 2000 to replace Plainsmen; Plainsmen used since 1933)
+  - Brian Keller has won national championships (no national championship, ARC regular competitor)
+  - Nebraska Wesleyan went 1–9 in 2025 due to collapse (new coach taking over after Keller's retirement was always going to reset the program)
+
+story_canon:
+  the_unique_thing: "The Brian Keller era — 30 years (1996–2025) of remarkable coaching stability, the longest tenure at any Division III program in that span, building a program identity around competence and continuity."
+  the_origin: "Nebraska Wesleyan University, founded 1887 by the Methodist Church, began football in 1891. A core ARC member since the conference's modern founding, the university has fielded a football team continuously for 135 years."
+  golden_ages:
+    - { era: "1996–2025 (Brian Keller)", what: "Thirty years of coaching stability, building a program of steady competence and ARC respect, without ever winning a conference title but maintaining consistent tournament eligibility" }
+  legends:
+    - { name: Brian Keller, role: coach, why: "30-year coaching tenure (1996–2025), the longest in Division III during that span, built a program of consistent ARC competence" }
+  canonical_moments:
+    - { name: "The 2000 Mascot Rebrand", year: 2000, what: "Nebraska Wesleyan adopts the Prairie Wolves mascot (replacing Plainsmen), symbolizing a modern identity anchored in regional pride", handling: glory }
+    - { name: "The 2000 Doane Upset", year: 2000, what: "In the year of the Prairie Wolves debut, Nebraska Wesleyan defeats arch-rival Doane 22–18, a statement game for the new mascot era", handling: glory }
+    - { name: "The Keller Era (1996–2025)", year: 2025, what: "Brian Keller's 30-year tenure ends, leaving behind a legacy of stability and competence", handling: glory }
+  the_place: "Lincoln, Nebraska — a Methodist university in the state capital, where football is a small but meaningful institution."
+  brand_of_football: "Steady, competent football built on coaching continuity and organizational stability — the antithesis of flash, but the embodiment of reliability."
+  cultural_footprint: "Nebraska Wesleyan football is a Lincoln institution, less known statewide than the Cornhuskers but deeply rooted in the university's Methodist identity and commitment to sustained excellence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Nebraska Wesleyan went 1–9 (1–7 ARC) in 2025, Jacob Donohoe's first season
+    after taking over from the retired Brian Keller. The transition year is expected to be difficult — Keller's
+    30-year tenure left large shoes to fill. Donohoe, a former Coe offensive coordinator and quarterbacks coach,
+    has the task of rebuilding from what is a "reset" year, not a collapse. The fanbase is patient, knowing that
+    a strong second season would signal stability returning to Lincoln.
+  research_checklist:
+    - Brian Keller coaching era (1996–2025, 30 years)
+    - Prairie Wolves mascot adoption (2000, replacing Plainsmen from 1933)
+    - Plainsmen name (1933–1999)
+    - 2000 Doane upset (22–18)
+    - All-time record: 515–478–42
+    - Jacob Donohoe hire (2026, replacing Keller)
+  sources:
+    - https://en.wikipedia.org/wiki/Nebraska_Wesleyan_Prairie_Wolves_football
+    - https://www.nebrwesleyan.edu/athletics/football
+    - https://d3football.com/teams/nebraska-wesleyan

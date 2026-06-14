@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: fairmont-state
+team_id: null
+program_name: Fairmont State University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Fairmont State won West Virginia's first college football national title in 1967 and has spent 60 years proving that a regional university can own a genuine piece of football history."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A program with a national championship resume (1967 NAIA title) that found its footing in Division II, now climbing back toward relevance under stable coaching."
+
+the_wound:
+  name: "The 59-year championship drought"
+  detail: "Fairmont captured the 1967 NAIA National Championship under coach Harold 'Deacon' Duvall, beating Eastern Washington 28-21, and West Virginia has never forgotten it. But in the 60 years since, the Falcons have never returned to that height, enduring decades of regional competition without another national title."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to a Bowl or D2 playoff appearance and restore Fairmont's national profile — prove that the 1967 championship wasn't a one-off."
+  drought: { since: 1967, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no active chip — the 1967 title is a source of pride, not a grudge. Fairmont plays for its own history, not against anyone."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 1967 national championship crown still matters in modern D2 — fans know the game has changed, but they believe it anyway: Fairmont can be that program again."
+
+the_grudge_texture:
+  rival: glenville-state
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: nostalgia-vs-future — tension between those who want to recapture the 1967 glory and those focused on building a sustainable D2 contender
+register: fairmont-1967-national-champions-deacon-duvall-western-virginia
+never_use:
+  - Perennial national contenders (one title in 59 years does not make a dynasty)
+  - West Virginia's flagship football program (Fairmont is regional, not flagship)
+  - Consistent bowl team (Fairmont has not made a bowl since transitioning to D2)
+
+story_canon:
+  the_unique_thing: "The 1967 NAIA National Championship under coach Harold 'Deacon' Duvall — the first (and, to date, only) national football championship won by a West Virginia college program. Fairmont beat Eastern Washington 28-21 to claim the crown, a moment that defined the program's entire identity."
+  the_origin: "A small regional university in Fairmont, WV, that built a football program around the 'Deacon' Duvall era (125-42-3 record, eight conference titles, 1950s-1960s). Duvall's teams were known for toughness and discipline, which culminated in the 1967 national championship."
+  golden_ages:
+    - { era: "1950s–1960s", what: "The Deacon Duvall coaching era, including eight conference titles and the 1967 NAIA National Championship" }
+    - { era: "1960s–1980s", what: "Regional dominance and sustained WVIAC success" }
+  legends:
+    - { name: Harold Duvall, role: coach, why: "The 'Deacon' won 125 games, eight conference titles, and the 1967 NAIA National Championship — the architect of Fairmont's identity" }
+  canonical_moments:
+    - { name: "1967 NAIA National Championship", year: 1967, what: "Fairmont beat Eastern Washington 28-21 to win the NAIA National Championship, the only national title ever won by a West Virginia college football program", handling: glory }
+    - { name: "Eight WVIAC Conference Titles", year: 1960, what: "Duvall's Falcons dominated the WVIAC, winning eight conference titles across the 1950s and 1960s", handling: glory }
+  the_place: "Fairmont, West Virginia, a small regional college town."
+  brand_of_football: "Tough, disciplined football built on the Deacon's ethos — the idea that regional programs can compete for and win national titles."
+  cultural_footprint: "Fairmont's sole cultural footprint is the 1967 championship — a moment that elevated a small regional program into national conversation and proved that the path to the top doesn't require big-state backing."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Fairmont finished 6-5 overall (3-5 MEC) in 2025 under second-year coach Luke Barker. The
+    Falcons are rebuilding in the Mountain East after years of regional competition, still searching for the consistency that would
+    complement their national championship heritage. Barker's challenge is to turn Fairmont into a sustainable MEC contender rather
+    than a one-championship footnote.
+  research_checklist:
+    - 1967 NAIA National Championship (Eastern Washington, 28-21)
+    - Deacon Duvall coaching legacy (125-42-3)
+    - Eight WVIAC conference titles
+    - Current MEC rebuild
+  sources:
+    - https://en.wikipedia.org/wiki/Fairmont_State_University
+    - https://en.wikipedia.org/wiki/1967_NAIA_Division_I_football_championship
+    - https://www.fairmontstate.edu/athletics/

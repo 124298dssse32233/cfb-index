@@ -1,0 +1,68 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: clark-atlanta
+team_id: null
+program_name: Clark Atlanta University
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Clark Atlanta is the Atlanta Panther that resurrected its football program in 2022 after a 45-year grave, and is now climbing toward SIAC contention in the city where HBCUs built empires."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A historic Atlanta HBCU that sat dormant from 1977–2022, has returned to football and is learning the game anew in a city loaded with HBCU tradition and sky-high expectations."
+
+the_wound:
+  name: "45 years without football (1977–2022)"
+  detail: "Clark Atlanta shuttered its football program in 1977 when Title IX era shifted resources. The Panthers watched from the sidelines for 45 years as other HBCUs built modern programs. The resurrection feels like a second chance earned through patience and investment."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build a SIAC contender in the city that owns HBCU legacy — prove that Clark Atlanta doesn't need history, just a commitment to excellence and a stadium full of Panthers who care."
+  drought: { since: 2022, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "The fanbase believes: Clark Atlanta has no chip, just gratitude that it got a second chance. They are rebuilding with clean hands and high hopes."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that a big-city HBCU like Clark Atlanta can accelerate its rise faster than mountain schools — that Atlanta's HBCU energy and resources can fast-track a program into SIAC contention in half a decade."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: savior
+the_internal_fracture: franchise-new vs. tradition-hungry — building-it-right culture vs. win-now expectations that come with being in Atlanta's HBCU ecosystem
+
+register: panthers-atlanta-georgia-resurrection
+never_use:
+  - Always competitive. The 45-year hiatus is the defining story.
+  - New program, no legacy. Clark Atlanta founded 1904, one of Atlanta's historic pillars; only the football program is young.
+
+story_canon:
+  the_unique_thing: "Resurrection in 2022 after 45 years in the grave, playing in one of America's greatest HBCU cities (Atlanta). Clark Atlanta returned to football as one of the latest resurrection projects in SIAC history."
+  the_origin: "Founded 1904 by merger of Atlanta and Clark Universities. A centerpiece of Atlanta's HBCU ecosystem (alongside Morehouse, Spelman, AUC). Football played from early 1900s until shutdown in 1977."
+  golden_ages:
+    - { era: "1904–1977 (Long Tradition)", what: "Clark Atlanta was part of Atlanta's HBCU constellation for 73 years, playing college football with pride" }
+    - { era: "2024 (First SIAC Championship Game)", what: "Just two seasons after resurrection, Clark Atlanta reached the SIAC Championship Game in 2024, a rapid rise" }
+    - { era: "2022–present (Resurrection)", what: "Clark Atlanta returned to football and has been climbing toward championship contention" }
+  legends:
+    - { name: "Terry Sims", role: "Coach (2026–)", why: "Named January 2026 to lead Clark Atlanta's rise toward SIAC contention; former Bethune-Cookman coach" }
+  canonical_moments:
+    - { name: "Football Returns (2022)", year: 2022, what: "Clark Atlanta boots up a football program after 45 years, joining the SIAC in partnership with the university's resurgence", handling: glory }
+    - { name: "2024 SIAC Championship Game", year: 2024, what: "Just two years after resurrection, Clark Atlanta reaches the SIAC Championship Game, a remarkable ascent", handling: glory }
+  the_place: "Atlanta, Georgia — the HBCU capital of America. Clark Atlanta's campus sits in one of the most storied college football ecosystems for Black institutions. The program is part of a larger AUC renaissance."
+  brand_of_football: "Disciplined, developmental football — a program that is learning the modern game while honoring Atlanta's HBCU tradition."
+  cultural_footprint: "The fastest-rising resurrection in SIAC history. Proof that investment and commitment can accelerate a program from dormancy to championship contention in just a few years."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Clark Atlanta reached the SIAC Championship Game in just its third season back (2024), then appears to have finished 12th in SIAC standings in 2025 (final record unverified). Head Coach Teddy Keaton's departure in late 2025 led to the hiring of Terry Sims (January 2026, former Bethune-Cookman coach), marking the program's second coaching transition. The Panthers are recalibrating after a rapid rise and an unexpected decline, with Sims tasked with stabilizing the culture and returning Clark Atlanta to championship contention.
+  sources:
+    - https://en.wikipedia.org/wiki/Clark_Atlanta_University
+    - https://www.cau.edu/news/clark-atlanta-university-welcomes-terry-sims-head-football-coach
+    - https://thesiac.com/sports/football/

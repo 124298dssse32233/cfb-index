@@ -1,0 +1,122 @@
+# Emotional Core — South Alabama  (south-alabama)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: south-alabama
+team_id: 224
+program_name: South Alabama
+program_tier: 3
+
+emotional_core:
+  primary: house-money    # a program born in 2009 with no history to honor and nothing to lose — every win is found money
+  secondary: restoration  # but the live arc is a 4-8 step back that needs fixing after a bowl-winning 2024
+  one_line: "South Alabama is one of the youngest programs in the sport — its first football game was in 2009 — and it has spent fifteen years writing a history from a blank page on the Gulf Coast in Mobile."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program with no golden age to chase, against the ordinary growing pains of building one — a 7-6 bowl winner in 2024 that slipped to 4-8 in 2025."
+
+the_wound:
+  name: "The 2025 step back"
+  detail: "Major Applewhite's first year (2024) ended 7-6 with a bowl win over Western Michigan in Montgomery. Year two fell to 4-8 (3-5 Sun Belt West), though the Jaguars won three of their last five — a stumble that put a young program's upward trajectory in question and turned up the heat on a still-new staff."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Sun Belt — put the first conference championship banner in a building that has never had one, and turn a 16-year-old program into a real one."
+  drought: { since: 2009, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Jaguar fans live in the shadow of Alabama and Auburn, where the whole state's football identity already lives. They'll tell you South Alabama built a program from literally nothing in their lifetime, and that being the new team in Mobile beats being nobody's team at all."
+
+the_delusion:
+  tone: earnest
+  text: "Mobile fans believe a city this football-rich — the Gulf Coast that feeds talent to half the SEC — can will a Power-level program into existence around the only school that's truly its own. They're sure the recruiting base alone makes the Jaguars' ceiling far higher than fifteen years of history suggests."
+
+the_grudge_texture:
+  rival: troy
+  texture: little-brother   # the Battle for the Belt — in-state Sun Belt sibling Troy, the older, more-established neighbor
+
+the_coach_relationship: hot-seat-churn   # Major Applewhite's 4-8 second year cooled the optimism from a 7-6 debut
+the_internal_fracture: patience vs urgency — the faction that says a program this young needs time vs the faction that tasted a 2024 bowl and won't accept regression
+register: mobile-jaguars-fbs-newcomer-2012   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Still FCS — 2012 FBS reclassification + 2013 Sun Belt entry resolved
+  - No identity — 2009 founding + Hancock Whitney + Wommack era combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "South Alabama is one of the youngest football programs in the country — it played its first game in 2009 and jumped to the FBS by 2012. Almost everything in its record book is a 'first.' The Jaguars are what it looks like to build a major-college program, from scratch, in real time, in the football-soaked Gulf Coast."
+  the_origin: "The University of South Alabama in Mobile launched football in 2009 under Joey Jones, won its earliest games as a startup independent, and climbed to the Sun Belt and the FBS within a few seasons — a program with no past, only a beginning."
+  golden_ages:
+    - { era: "2009–2013 (Joey Jones, the founding)", what: "From the first game to FBS membership and the first bowl trips — the program literally coming into existence" }
+    - { era: "2023–2024", what: "Back-to-back bowl seasons, including a 2024 bowl win over Western Michigan in Major Applewhite's first year — the modern high point" }
+  legends:
+    - { name: "Joey Jones", role: coach, why: "The founding head coach who started the program from nothing in 2009 and walked it into the FBS" }
+    - { name: "Gerald Everett", role: player, why: "A second-round NFL Draft pick (2017) and the program's first marquee pro — proof the young Jaguars could develop NFL talent" }
+    - { name: "Jalen Tolbert", role: player, why: "A 2022 third-round NFL Draft pick at receiver — a modern South Alabama star" }
+  canonical_moments:
+    - { name: "The first game", year: 2009, what: "South Alabama plays the first football game in school history, beginning a program from a blank page", handling: glory }
+    - { name: "Hancock Whitney Stadium opens", year: 2020, what: "The Jaguars open their own on-campus stadium after a decade sharing Mobile's Ladd-Peebles — a young program finally putting down roots", handling: glory }
+    - { name: "2024 bowl win", year: 2024, what: "Major Applewhite's debut season ends with a bowl victory over Western Michigan — the program's strongest recent statement", handling: glory }
+  the_place: "Hancock Whitney Stadium (opened 2020, cap ~25,000) on the USA campus — the first home the Jaguars ever owned, after a decade playing in the city's aging Ladd-Peebles Stadium."
+  brand_of_football: "A modern Sun Belt spread identity, still defining itself — a program young enough that its style is being written, not inherited."
+  cultural_footprint: "Mobile's own team — the only Division I program in a Gulf Coast city that produces SEC talent by the dozen, fighting to claim a slice of a state that lives and dies with Alabama and Auburn."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Major Applewhite's debut went 7-6 with a bowl win over Western Michigan in
+    2024; year two slipped to 4-8 (3-5 Sun Belt West) in 2025, though South Alabama won three of its last five.
+    Entering 2026, Applewhite's third season, the young program is trying to steady its climb and chase the
+    conference title it has never won.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_South_Alabama_Jaguars_football_team
+    - https://usajaguars.com/sports/football/roster/coaches/major-applewhite/1901
+    - https://en.wikipedia.org/wiki/South_Alabama_Jaguars_football
+    - https://en.wikipedia.org/wiki/South_Alabama%E2%80%93Troy_football_rivalry
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: South Alabama is the Sun Belt program whose 2009 football founding + 2012 FBS reclassification
+    + Hancock Whitney Stadium 2020 opening + 2023 7-6 + Kane Wommack era define what most-recent-FBS-newcomer-ascent
+    looks like.
+  mantra: Go Jags.
+  cultural_anchors:
+    fan_archetype_dominant: Mobile-Jaguar-Founding-Era
+    outsider_archetype_dominant: FBS-Newcomer-Diminisher
+    one_sentence: South Alabama is the 2009-founded FBS-newcomer Sun Belt program — Mobile Gulf Coast identity
+      + 2020 Hancock Whitney Stadium opening + 2023 Kane Wommack 7-6 + bowl appearance that complete the
+      15-year ascent arc.
+  selfname: the Jaguars
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2009 program founding + 2012 FBS reclassification
+    - 2020 Hancock Whitney Stadium opening (first dedicated venue)
+    - 2023 7-6 + 68 Ventures Bowl under Kane Wommack
+    rituals:
+    - 2009 Program Founding
+    - Hancock Whitney Stadium 2020 Opening
+    - Mobile, Alabama Gulf Coast Identity
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (53/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: utah-tech
+team_id: 341
+program_name: Utah Tech
+program_tier: 5
+
+emotional_core:
+  primary: standard
+  secondary: contentment
+  one_line: "Utah Tech is the newest Big Sky member (2026 debut from WAC), the rebranded Dixie State that changed its mascot to Trailblazers in 2022 and is now starting over in FCS with minimal institutional football tradition."
+
+self_image:
+  archetype: orphaned
+  standard_gap_frame: "A program that doesn't yet have an established identity — formerly Dixie State, brand-new as Utah Tech (2022), and a first-time FCS Big Sky member with uncertain football roots."
+
+the_wound:
+  name: "The identity crisis of being newly rebranded and organizationally young"
+  detail: "Utah Tech (formerly Dixie State) changed its name in 2022, became FCS-independent in 2022, joined WAC in 2023, and was mediocre (2–10 in 2025). The program is building from scratch without institutional football heritage or proven winning culture. The wound is not a historical failure — it's the absence of history entirely."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build a winning foundation, compete for Big Sky titles over time, create Utah Tech football traditions that haven't existed yet."
+  drought: { since: 2022, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe utah Tech carries no chip — the program is too young to carry resentment."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the Big Sky move is the right conference fit, that Lance Anderson (2nd-year coach) can build a program, and that Utah Tech can become a respectable FCS competitor in time. The fanbase knows it's a long-term project."
+
+the_grudge_texture:
+  rival: none
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: "None; the program is unified on the long-term build."
+register: st-george-utah-tech-trailblazers-new-program
+never_use:
+  - Utah Tech has decades of football tradition — the program is essentially starting from scratch in 2022
+  - The Trailblazers are a well-established program — the rebranding to Utah Tech and move to Big Sky are brand-new
+
+story_canon:
+  the_unique_thing: "The newness itself — Utah Tech is a born-from-scratch FCS program, rebranded from Dixie State in 2022, joining Big Sky in 2026 with no established tradition. The program is building identity from the ground up."
+  the_origin: "Dixie State became Utah Tech in 2022 in a comprehensive rebranding. As Utah Tech, the program played FCS-independent in 2022, joined WAC in 2023, and is now joining Big Sky in 2026 — a program in constant conference transition."
+  golden_ages:
+    - { era: "2022-present (Utah Tech Era)", what: "The program is building toward a future identity; the 2022 rebranding is the starting point" }
+  legends: []
+  canonical_moments: []
+  the_place: "Dixie State Field in St. George, Utah — a small-town facility in southern Utah"
+  brand_of_football: "Pragmatic, building-year football — the program is establishing systems before measuring wins"
+  cultural_footprint: "Utah Tech is a cautionary tale and a hope tale simultaneously: a program that rejected its old identity and is building a new one from the ground up, hoping that Big Sky provides stability."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Utah Tech went 2–10 (1–7 UAC) in 2025 under second-year coach Lance Anderson.
+    The Trailblazers are the newest Big Sky member (starting 2026), having been WAC for three seasons (2023–2025).
+    The program is brand-new as an organizational entity (rebranded from Dixie State in 2022) and has no FCS football tradition.
+    Anderson's job is to establish a baseline of competitiveness and create culture in a program that has been in constant motion.
+    The Big Sky move signals the athletic department's commitment to stability. 2026 will reveal whether Anderson can build
+    sustainable football or if Utah Tech will remain the conference's perpetual rebuilder.
+  research_checklist:
+    - Dixie State rebranded to Utah Tech 2022
+    - FCS independent 2022
+    - WAC member 2023–2025
+    - Big Sky debut 2026
+    - Lance Anderson 2nd-year coach (2025)
+    - 2–10 record in 2025
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Utah_Tech_Trailblazers_football_team
+    - https://en.wikipedia.org/wiki/Utah_Tech_Trailblazers_football
+    - https://bigskyconf.com/news/2025/6/25/general-the-big-sky-conference-welcomes-southern-utah-utah-tech-starting-in-2026.aspx

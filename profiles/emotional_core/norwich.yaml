@@ -1,0 +1,86 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — Norwich University (norwich)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: norwich
+team_id: null
+program_name: Norwich University
+program_tier: 7
+
+emotional_core:
+  primary: honor      # the military college tradition
+  secondary: restoration  # rebuilding from 0-10 (2024) in 2025
+  one_line: "Norwich is the Cadets program — the oldest private military college in America (1819) and birthplace of ROTC, rebuilding from 0-10 with the mission of proving that military discipline and football excellence belong together."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A 200+ year old military institution whose football program is rebuilding from a 0-10 catastrophe — the Cadets play for restoration of a program worth saving."
+
+the_wound:
+  name: "The 0-10 2024 season"
+  detail: "Norwich went 0-10 in 2024, a complete failure that exposed fundamental program problems. Bill Russell was hired in November 2023, but his first full season (2024) was a disaster. The 2025 season is about redemption from that nadir."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Restore Norwich football to competitive NEWMAC standing — prove that military discipline and officer training build better football players, not worse."
+  drought: { since: 2015, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Norwich plays for honor: the honor of military service, the honor of a 200-year institution, the honor of ROTC's birthplace."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that the 0-10 season was an anomaly, not a pattern — that Bill Russell's rebuilding will unlock the discipline and toughness inherent in a military college."
+
+the_grudge_texture:
+  rival: coast-guard
+  texture: blood-feud   # fellow military/service academy rivals
+
+the_coach_relationship: savior   # Bill Russell hired Nov 2023 to rebuild
+the_internal_fracture: belief in Russell's rebuild vs. despair from 0-10
+register: cadets-military-college-historic-rotc-birthplace
+never_use:
+  - Norwich is a new military college — founded 1819, making it the oldest private military college in America
+  - The program never had competitive football — 0-10 is current reality, not historical pattern; older success existed
+  - Military training prevents competitive football — Norwich proved this false for 150+ years before recent collapse
+
+story_canon:
+  the_unique_thing: "Norwich University (1819) is the oldest private military college in the United States and the birthplace of ROTC, producing 100+ generals and 25+ admirals — and the football program, though recently 0-10 (2024), carries that same officer-development mission."
+  the_origin: "Norwich University was founded in 1819 in Northfield, Vermont, establishing the first private military college in America. ROTC was invented here."
+  golden_ages:
+    - { era: "1819–2015", what: "200 years of continuous military college tradition, officer training, and football" }
+    - { era: "2025–present (Russell rebuild)", what: "Recovery from 0-10 through Bill Russell's reconstruction" }
+  legends:
+    - { name: Norwich University founders, role: institution, why: "1819 founding as oldest private military college; ROTC birthplace" }
+    - { name: Bill Russell, role: coach, why: "Hired Nov 2023; rebuilding from 0-10 toward competitive football" }
+    - { name: General alumni, role: historical, why: "100+ generals, 25+ admirals trained at Norwich" }
+  canonical_moments:
+    - { name: "Founded 1819", year: 1819, what: "Oldest private military college in United States", handling: glory }
+    - { name: "ROTC birthplace", year: 1819, what: "Norwich invented ROTC; featured in College Football Hall of Fame 'From Gridiron to Battlefield' exhibit", handling: glory }
+    - { name: "2024 season 0-10", year: 2024, what: "Complete failure; nadir from which 2025 rebuilds", handling: wound }
+  the_place: "Norwich University in Northfield, Vermont — the historic military college in New England."
+  brand_of_football: "Discipline and officer development — military football."
+  cultural_footprint: "Proof that military leadership training and competitive athletics have been intertwined for 200 years."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Norwich University fielded the Cadets in 2025 under Bill Russell's second year of rebuilding
+    after the catastrophic 0-10 season in 2024. Russell was hired in November 2023 with a mandate to restore a program built on
+    military discipline and officer development. The 2025 season is critical: proof that Russell's methodology can lift the Cadets
+    from complete collapse toward competitive NEWMAC football. Norwich carries 200+ years of history: founded 1819 as the oldest
+    private military college in America and the birthplace of ROTC. The question: can the Cadets' military heritage and officer-development
+    mission help Russell rebuild competitive football, or is the program in deeper structural decline?
+  research_checklist:
+    - 1819 founding as oldest private military college
+    - ROTC birthplace and history
+    - 100+ general and admiral alumni
+    - 2024 0-10 season
+    - Bill Russell hired November 2023
+    - 2025 rebuilding season
+  sources:
+    - https://en.wikipedia.org/wiki/Norwich_University_Cadets_football
+    - https://www.ncaa.org/sports/2025/d3/football/norwich-university/schedule
+    - https://www.ncollegefootball.com/teams/norwich-cadets
+    - https://www.norwich.edu/ (official university site)
+    - College Football Hall of Fame "From the Gridiron to the Battlefield" exhibit

@@ -1,0 +1,82 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Emotional Core — Southeastern Louisiana
+# Status: live
+
+status: live
+slug: southeastern-louisiana
+team_id: null
+program_name: Southeastern Louisiana
+program_tier: 5
+
+emotional_core:
+  primary: contentment   # a program at peace with being consistently competitive
+  secondary: restoration # 9-4 and a playoff bid after a quiet decade
+  one_line: "Southeastern Louisiana is the Hammond Lions that won 10 regional and conference titles across four different leagues (LIC, GSC, SLC) — and have quietly returned to being one of the Southland's most reliable programs."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Southeastern Louisiana has won titles across three different conference affiliations (10 total regional championships) and made multiple FCS playoff appearances. The 2025 season (9-4, FCS playoff bid) is the most recent proof that consistency is the Lions' identity."
+
+the_wound:
+  name: "Decades of conference transitions and quiet success"
+  detail: "Southeastern Louisiana won 10 titles across the LIC, GSC, and now SLC, but each transition seemed to reset the program's status. The Lions have been a constant FCS playoff contender, yet they feel overlooked in the regional conversation against bigger programs. The 2025 run (9-4, playoff bid) is validation, but not vindication."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win a Southland title and prove Southeastern Louisiana is the league's most consistent program — make a sustained playoff run, and force the FCS to acknowledge that Hammond produces football as good as any Gulf Coast town."
+  drought: { since: 2022, unit: conference_title }
+
+the_chip:
+  villain: big_brother  # Texas State, Louisiana, McNeese — programs that loom larger in the regional imagination
+  text: "Fans here believe the chip is invisibility: Southeastern Louisiana has won 10 titles and made a Cure Bowl game, yet when the Southland is discussed, the conversation centers on McNeese's championships-that-got-away and Incarnate Word's recent rise, never on SLU's consistent competence."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the 2025 season (9-4, playoff bid) proves Southeastern Louisiana belongs in every Southland conversation as a matter of right, not surprise — that consistency is just as valid a narrative as resurrection."
+
+the_grudge_texture:
+  rival: northwestern-state
+  texture: blood-feud    # Annual rivalry game; SLU Challenge
+  # Also rivals: Nicholls (River Bell Classic)
+
+the_coach_relationship: legends-shadow  # Coach name not confirmed in research; assume stable tenure
+the_internal_fracture: consistency-pride vs. title-hunger — the faction celebrating the 9-win season vs. those frustrated at the conference title drought
+register: hammond-lions-gulf-coast-steady-hands
+never_use:
+  - "Never won anything"
+  - "Suddenly good in 2025"
+  - "Unknown program"
+  - "Should be grateful for one season"
+
+story_canon:
+  the_unique_thing: "Southeastern Louisiana is the Lions that won 10 regional and conference championships across four different leagues (LIC, GSC, SLC) and have made multiple FCS playoff appearances, representing the most consistent program across a century of transitions."
+  the_origin: "Southeastern Louisiana has competed in college football since the LIC era, winning early regional titles before transitioning through the Gulf South Conference and finally settling in the Southland Conference."
+  golden_ages:
+    - { era: "1946–2025", what: "Sustained success across multiple conference affiliations: LIC title (1946), GSC era (1952–1961), SLC era (2013–2022)" }
+  legends:
+    - { name: "SLU's consistent winning tradition", role: "era", why: "Multiple titles across different leagues and eras, proof of institutional stability" }
+  canonical_moments:
+    - { name: "2020 Cure Bowl win", year: 2020, what: "Southeastern Louisiana wins a bowl game, proof of FCS-level competence", handling: glory }
+    - { name: "Multiple SLC titles", year: 2022, what: "Southeastern Louisiana wins Southland Conference titles (2013, 2014, 2022)", handling: glory }
+  the_place: "Strawberry Stadium in Hammond, Louisiana — home of the Lions, representing a century of regional football."
+  brand_of_football: "Steady, professional, defined by consistent competence rather than flash — Southeastern Louisiana football is about reliability and respect."
+  cultural_footprint: "A program that proves consistency across multiple conference eras is as real as any single dynasty."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Southeastern Louisiana finished the 2025 season 9-4 (7-1 SLC), tied for the best
+    conference record with Stephen F. Austin but missing out on the Southland title on tiebreaker. The Lions earned an FCS
+    playoff bid. The season represents a return to form for a program that has been quietly consistent across decades: 10
+    regional/conference titles, multiple FCS playoff appearances, a Cure Bowl win in 2020. Key roster members include QB
+    Carson Camp (Jr) and DE Kaleb Proctor, who is draft-eligible for 2026 and projected as a mid-round NFL pick. The narrative
+    of 2025: Southeastern Louisiana is back in the playoff conversation where it belongs, the result of institutional steadiness
+    more than narrative resurrection.
+  research_checklist:
+    - 10 regional/conference titles across LIC, GSC, SLC eras
+    - Multiple FCS playoff appearances
+    - 2020 Cure Bowl win
+    - 2025 season (9-4, 7-1 SLC, playoff bid)
+    - Roster depth and NFL draft prospects
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Southeastern_Louisiana_Lions_football_team
+    - https://en.wikipedia.org/wiki/Southeastern_Louisiana_Lions_football
+    - https://sportsteamhistory.com/southeastern-louisiana-lions/

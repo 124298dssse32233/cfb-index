@@ -1,0 +1,91 @@
+# Emotional Core — Penn Quakers (penn)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-14 from live web research — Ivy power, Franklin Field (1895), Ivy dynasty.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: penn
+team_id: null           # non-FBS
+program_name: Penn Quakers
+program_tier: 1         # Ivy power; 18 conference titles tied with Dartmouth
+division: FCS (Ivy)
+
+emotional_core:
+  primary: honor        # the Ivy power that won 18 conference titles
+  secondary: standard   # living the expectation of sustained excellence
+  one_line: "Penn football is the oldest active stadium program (Franklin Field, 1895), a seven-time national champion, and the Ivy League's most successful conference program since joining in 1956 — proof that elite academics and football excellence can coexist."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "College football's most historic program, 888 wins, seven national titles, 18 Ivy League conference championships vs the no-scholarship rule that prevents the Crimson from recapturing their national dominance."
+
+the_wound:
+  name: "The unfinished championship narrative — national titles only before the Ivy League era"
+  detail: "Penn won seven national championships (1894–1924), but all of them came before the Ivy League even existed (1956). Since joining the Ivy, Penn has won 18 conference titles but zero national championships. The program's legacy is pre-Ivy; its present is Ivy-constrained."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Prove that an Ivy League program can stack national-championship-era pedigree with modern conference dominance. Win the Ivy, win consistently, and remind people that Penn is college football's original powerhouse, not just a historical footnote."
+  drought: { since: 1924, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe penn built college football (literally: Franklin Field is the oldest active stadium), but Yale gets the Walter Camp credit and Harvard gets the prestige. Penn has won more Ivy titles than any peer and has a 20-game conference winning streak (2001–2004), but the program is treated like the Ivy League's best-kept secret."
+
+the_delusion:
+  tone: self-aware
+  text: "That Penn could have won national championships in the modern era if the Ivy League had allowed scholarships. The fanbase knows it's impossible under Ivy rules, but the program's pre-1956 record suggests otherwise — and that gap between what-could-have-been and what-is fuels the program."
+
+the_grudge_texture:
+  rival: cornell
+  texture: championship    # the sixth-most played rivalry in college football history
+
+the_coach_relationship: legends-shadow   # Al Bagnoli (1991–2019) won 10 Ivy titles; long shadow
+the_internal_fracture: null
+register: philadelphia-quakers-franklin-field-1895
+never_use:
+  - Never won a championship — 7 national titles (1894, 1895, 1897, 1904, 1907, 1908, 1924)
+  - Ivy League afterthought — 18 conference titles is tied for the most since 1956
+
+story_canon:
+  the_unique_thing: "Franklin Field (1895) — the oldest active college football stadium in the world. Penn didn't just play college football; it built the stadium template that persists 130 years later."
+  the_origin: "Penn started football in the 1870s and won seven national championships by 1924 — the standard of the pre-Ivy era. Joining the Ivy League in 1956 was a strategic choice for an academic-first institution."
+  golden_ages:
+    - { era: "1894–1924 (National Championship Era)", what: "Seven national titles; Penn was a college football power before the Ivy League existed" }
+    - { era: "1991–2019 (Al Bagnoli)", what: "10 Ivy League titles in 29 seasons; the longest coaching tenure in Ivy history" }
+    - { era: "2001–2004 (Winning Streak)", what: "20-game Ivy League winning streak — the longest in conference history" }
+  legends:
+    - { name: Al Bagnoli, role: coach, why: "10 Ivy titles; 94–65 record; the architect of modern Penn football" }
+    - { name: Sid Luckman, role: player, why: "Hall of Famer; Pro Football Hall of Famer; played at Penn before NFL dominance" }
+  canonical_moments:
+    - { name: "Franklin Field opens", year: 1895, what: "The oldest active college football stadium in the world opens; a reinforce-concrete blueprint", handling: glory }
+    - { name: "Penn Joins the Ivy League", year: 1956, what: "A seven-time national champion commits to the Ivy League's no-scholarship philosophy", handling: glory }
+    - { name: "20-game winning streak", year: 2004, what: "Penn goes 20 straight Ivy wins (2001–2004) — the longest streak in Ivy history", handling: glory }
+  the_place: "Franklin Field (1895) in Philadelphia — the oldest active college football stadium in the world."
+  brand_of_football: "The historic standard — Penn football is the original blueprint, the field that taught the world how to build a stadium."
+  cultural_footprint: "Penn invented the college football stadium. Everything that came after Franklin Field is a copy."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-14: Penn competes in the Ivy League as one of the conference's
+    most successful programs. Under coach Mike Schiraldi (hired 2023), the Quakers won the shared 2024 Ivy
+    title with Harvard and Dartmouth, marking Penn's return to championship contention after a multi-year
+    dip. The program continues to balance elite academics with consistent Ivy excellence, a model that
+    proves non-scholarship programs can sustain real competition.
+  research_checklist:
+    - Franklin Field (1895, oldest active stadium)
+    - 7 national championships (1894–1924)
+    - 18 Ivy League titles (tied with Dartmouth)
+    - 888 all-time wins (third oldest program)
+    - 20-game winning streak (2001–2004)
+    - Al Bagnoli (10 Ivy titles, 1991–2019)
+  sources:
+    - https://en.wikipedia.org/wiki/Penn_Quakers_football
+    - https://en.wikipedia.org/wiki/Franklin_Field
+
+briefing:
+  identity_phrase: Penn is college football's oldest active program, a seven-time champion that chose the Ivy League over national ambition.
+  mantra: "From Franklin Field"
+  selfname: the Quakers
+  heritage:
+    national_titles: 7
+    conference_titles: "18 Ivy (tied with Dartmouth)"
+    current_conference: Ivy League (FCS)

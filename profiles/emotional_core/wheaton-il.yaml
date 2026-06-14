@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: wheaton-il
+team_id: null
+program_name: Wheaton College (Illinois)
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Wheaton is the Illinois liberal-arts college that built Billy Graham's campus and produced 11-win seasons, anchoring Division III excellence with institutional integrity."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A prestigious liberal-arts college in suburban Illinois with a football program that has emerged as a consistent CCIW contender in the 2020s."
+
+the_wound:
+  name: "The decades of quiet"
+  detail: "Wheaton football spent the late 20th century as a modest program before rebuilding in the 2010s. The program had to prove it could compete at elite CCIW levels."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win a CCIW title and a Stagg Bowl — prove that Wheaton football belongs in the conversation with North Central and the conference elite."
+  drought: { since: 2000, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Wheaton plays for institutional pride and the legacy of Graham's campus."
+
+the_delusion:
+  tone: earnest
+  text: "That the 2025 playoff season (11-3, quarterfinal loss) signals the beginning of a sustained run to championships — fans believe Wheaton is on the edge of breakthrough."
+
+the_grudge_texture:
+  rival: north-central-il
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "playoff dreams vs realistic assessment of North Central's dominance"
+register: wheaton-illinois-thunder-graham-campus
+never_use:
+  - Invented a Billy Graham playing or coaching history (he was a student who met his wife there)
+  - Confused Red Grange with Wheaton College (Grange grew up in Wheaton town, attended Wheaton High School, then Illinois)
+  - Exaggerated the 11-3 record into "championship-caliber" (it's a strong season, not a title)
+
+story_canon:
+  the_unique_thing: "Wheaton College — the campus where Billy Graham was a student and met his wife Ruth in the 1940s, now home to one of the CCIW's rising football powers."
+  the_origin: "Wheaton College, founded in 1860 in suburban Illinois, has a football program anchored in institutional excellence and the legacy of Billy Graham's campus."
+  golden_ages:
+    - { era: "2015–2025", what: "The rebuild era — Wheaton emerged as a consistent CCIW contender" }
+    - { era: "2025 (current)", what: "11-win season and playoff quarterfinal appearance" }
+  legends:
+    - { name: Billy Graham, role: alumnus, why: "Student at Wheaton in the 1940s, met his wife Ruth Bell there, now memorialized on campus with a center and archives" }
+  canonical_moments:
+    - { name: "2025 playoff season", year: 2025, what: "Wheaton goes 11-3 and reaches the NCAA Division III playoff quarterfinals", handling: glory }
+    - { name: "Billy Graham on campus", year: 1943, what: "Billy Graham graduates from Wheaton College after meeting his wife Ruth Bell", handling: glory }
+  the_place: "Wheaton, Illinois — suburban Chicago, home to Wheaton College, a prestigious liberal-arts institution."
+  brand_of_football: "Disciplined, ambitious, built on institutional values and the work of head coach Jesse Scott."
+  cultural_footprint: "A Division III program that carries the legacy of Billy Graham's campus while building its own football identity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Wheaton College went 11-3 in 2025 (5-4 CCIW) under head coach Jesse Scott (5th year), reaching the NCAA Division III playoff quarterfinals
+    before losing. The Thunder have emerged as a consistent contender in the CCIW and are building toward sustained success. The question in Wheaton: can the Thunder break through
+    the glass ceiling and win the conference title, or is 11 wins the ceiling under current leadership?
+  research_checklist:
+    - Billy Graham's time at Wheaton College (1940–1943)
+    - 2025 season 11-3 record and playoff run
+    - Jesse Scott coaching record and vision
+    - CCIW competitive landscape
+    - Roster strength and recruiting
+  sources:
+    - https://en.wikipedia.org/wiki/Wheaton_College_(Illinois)
+    - https://en.wikipedia.org/wiki/Wheaton_Thunder_football
+    - https://www.d3football.com/schools/wheaton-il
+    - https://wheatonthunder.com/sports/football
+    - https://www.wheaton.edu/about-wheaton/museums-library-and-collections/wheaton-archives-and-special-collections/research/billy-graham-resources/

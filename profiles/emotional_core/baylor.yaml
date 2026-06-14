@@ -1,0 +1,119 @@
+# Emotional Core — Baylor  (baylor)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: baylor
+team_id: 281
+program_name: Baylor
+program_tier: 3
+
+emotional_core:
+  primary: redemption     # a program that nearly died, rebuilt itself on faith, and won a Big 12 title doing it
+  secondary: restoration  # holding the rebuild together through a 5-7 slip back
+  one_line: "Baylor is the program that scaled the mountaintop, collapsed all the way to the bottom, and then climbed back to a Big 12 title — proof in Waco that a faith-rooted rebuild could outlast the era that nearly ended it."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 2013-2015 offensive juggernaut and a 2021 Big 12 title and Sugar Bowl against decades as a Southwest and Big 12 also-ran — a program whose ceiling has only briefly outrun its history."
+
+the_wound:
+  name: "The 2025 regression under Aranda"
+  detail: "Four years after the Big 12 title, Baylor slid to 5-7 in 2025 despite Sawyer Robertson leading the nation in passing yards — a defense that ranked near the bottom of FBS dragged the Bears below .500, reviving the question of whether the Aranda revival had stalled."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get back to the top of the Big 12 — a second conference title in the Aranda era and a New Year's bowl, proof the 2021 championship was a foundation Waco can build on rather than a peak it slid down from."
+  drought: { since: 2021, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Bears fans say the country still files Baylor under one chapter of its past and refuses to look at what the program rebuilt — they say Waco won a Big 12 title the honest way and never got credit for the climb."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Baylor is a sleeping power held back only by bad luck and a thin defense — that the faith-and-culture identity Dave Aranda built means the next title run is always closer than the record suggests."
+
+the_grudge_texture:
+  rival: tcu
+  texture: blood-feud   # the Revivalry — two Waco/Fort Worth private schools 90 miles apart who genuinely loathe it
+the_coach_relationship: total-trust   # Baylor publicly recommitted to Dave Aranda after 2025, citing program stability
+the_internal_fracture: faith in the rebuild vs frustration with the ceiling — the faction that trusts Aranda's culture and the 2021 title vs the faction that sees a 5-7 defense and wonders if the climb has topped out
+register: waco-faith-revival   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Briles-era only — Aranda 2021 Big 12 title + Sugar Bowl proved continuity
+  - Religious-school deflection — faith identity is structural, not pejorative
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The full arc of college football in one program — the world's largest Baptist university went from decades of irrelevance to a Heisman and an offensive revolution, crashed to the very bottom, and rebuilt itself on faith into a Big 12 champion; few programs have lived the entire range of the sport's highs and lows so completely."
+  the_origin: "A private Baptist school in Waco, long a Southwest Conference and Big 12 also-ran, transformed first by Art Briles' record-setting offense and then rebuilt by Dave Aranda's defense-and-culture program after the lowest point in its history."
+  golden_ages:
+    - { era: "2011–2015 (Art Briles)", what: "RG3's 2011 Heisman and a record-shattering offense that won Big 12 titles in 2013 and 2014" }
+    - { era: "2021 (Dave Aranda)", what: "A 12-2 Big 12 championship and a Sugar Bowl win — proof the program could win again on its own terms" }
+  legends:
+    - { name: "Robert Griffin III", role: player, why: "The 2011 Heisman winner who put Baylor on the national map for the first time in generations" }
+    - { name: Dave Aranda, role: coach, why: "Rebuilt the program from the bottom into a 2021 Big 12 champion and Sugar Bowl winner" }
+    - { name: "Mike Singletary", role: player, why: "Two-time All-American linebacker, the Hall of Famer who is the program's all-time defensive icon" }
+  canonical_moments:
+    - { name: "RG3's Heisman", year: 2011, what: "Robert Griffin III wins Baylor's first Heisman Trophy — the moment Waco arrived", handling: glory }
+    - { name: "The 2021 Big 12 title", year: 2021, what: "A goal-line stand seals a 21-16 win over Oklahoma State for the championship, then a 21-7 Sugar Bowl rout of Ole Miss — the redemption complete", handling: glory }
+  the_place: "McLane Stadium on the banks of the Brazos River — sailgaters arriving by boat, the bear claw, and a faith-rooted pregame that makes Baylor unlike anywhere else in the Big 12."
+  brand_of_football: "Two distinct identities fused — the Briles-lineage tempo offense (a quarterback-driven attack that led the nation in passing in 2025) and the Aranda culture-and-defense rebuild; at its best, explosive on offense and disciplined on the other side."
+  cultural_footprint: "The world's largest Baptist university and a program whose faith identity is structural to who it is — a redemption story the rest of college football watched in full, from the heights to the depths and back to a title."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Baylor slid to 5-7 (3-6 Big 12) in 2025 even as quarterback Sawyer
+    Robertson led the nation in passing yards (3,210, 29 TDs); a defense that ranked near the bottom of FBS
+    (31.9 points allowed per game) sank the season. Baylor publicly retained Dave Aranda, citing program
+    stability. He enters 2026 needing to fix the defense and prove the Big 12 title was a foundation rather
+    than a peak the program has slid away from.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Baylor_Bears_football_team
+    - https://www.espn.com/college-football/story/_/id/47049297/baylor-retaining-coach-dave-aranda-cite-athletics-instability
+    - https://en.wikipedia.org/wiki/2021_Big_12_Championship_Game
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Baylor is the program that produced an offensive revolution under Art Briles and rebuilt
+    its identity around faith and the Dave Aranda era.
+  mantra: Sic 'em.
+  cultural_anchors:
+    fan_archetype_dominant: Waco-Faith-Loyalist
+    outsider_archetype_dominant: Briles-Era-Critical-Observer
+    one_sentence: Baylor is the program that produced a 2011 Heisman with RG3, three Big 12 titles under
+      Briles (2013-2015), and a 2021 Big 12 title + Sugar Bowl under Aranda — proving the Briles offensive
+      identity could survive him.
+  selfname: the Bears
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2011 RG3 Heisman
+    - 2013-2015 Art Briles Big 12 titles
+    - 2021 Dave Aranda Big 12 title + Sugar Bowl
+    rituals:
+    - Sic 'em Bears
+    - Live Bear Mascots
+    - Verse-Reading Pre-Game
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (57/100, n=51)
+    voice_profile: absent
+    delusion_premium: absent

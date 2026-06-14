@@ -1,0 +1,82 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Emotional Core — soul file for Northwest Missouri State Bearcats (MIAA)
+
+status: live
+slug: northwest-missouri-state
+team_id: null
+program_name: Northwest Missouri State
+program_tier: 6
+
+emotional_core:
+  primary: redemption
+  secondary: honor
+  one_line: "Northwest Missouri State is the D2 dynasty — six NCAA Division II national championships, a 1998 perfect season, and the standard-bearer of what small-state football excellence looks like."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A program with six national titles (1998, 1999, 2009, 2013, 2015, 2016) that redefined what a small Missouri university could achieve, consistently competing for national championships and proving that D2 programs can carry the weight of sustained excellence."
+
+the_wound:
+  name: "The drought since 2016 — and the hunger to prove the dynasty isn't over"
+  detail: "Northwest Missouri State won six national championships in 23 years (1998–2016), including back-to-back titles in 2015–2016. But it's been nine years without a national crown, the longest drought in the dynasty era. That's the wound: not failure, but the fear that the golden age has passed. The fanbase hungers to prove it hasn't."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a seventh national championship and resurrect the dynasty — prove the Bearcats are still the standard-bearer of D2 football."
+  drought: { since: 2016, unit: national_title }
+
+the_chip:
+  villain: committee
+  text: "The chip is the skepticism — that 2016 was the last hurrah, that NWMSU can't climb back. The Bearcats play to prove the doubters wrong and to reclaim what they built."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes that John McMenamin's first season (hired 2026, first HC after the Mel Tjeerdsma era) could spark a return to championship form — that the institutional knowledge, the stadium, the tradition make another title inevitable, not optional. It's the core belief that carries the program."
+
+the_grudge_texture:
+  rival: missouri-western
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Mel Tjeerdsma's legacy vs. John McMenamin's fresh start — fans divided on whether the new coach can honor the past while building a future"
+register: missouri-bearcat-dynasty-resurrection
+never_use:
+  - "One-time champion (six national titles: 1998, 1999, 2009, 2013, 2015, 2016)"
+  - "No recent success (2025 MIAA co-champions, consistent playoff teams)"
+  - "Couldn't sustain excellence (23 consecutive years competitive/championship-level 1998–2016)"
+
+story_canon:
+  the_unique_thing: "Northwest Missouri State is the D2 dynasty — six NCAA Division II national championships, including the first-ever perfect 15-0 season in D2 history (1998), the proof that a small Missouri university could sustain championship-level football across two decades."
+  the_origin: "Founded as a teachers college, Northwest Missouri State football became a MIAA staple and eventually a national power. The 1998 season — a perfect 15-0 run that won the first D2 national championship — redefined what the program could be. What followed was two decades of excellence."
+  golden_ages:
+    - { era: "1998–1999", what: "Back-to-back national championships (15-0 in 1998, first-ever perfect D2 season)" }
+    - { era: "2009, 2013, 2015–2016", what: "Four more national titles; the Bearcats as the dominant D2 dynasty" }
+    - { era: "2018–2025", what: "Sustained MIAA dominance, multiple playoff appearances, 2025 co-MIAA champions" }
+  legends:
+    - { name: "1998 Championship Team (15-0)", role: "team", why: "The first-ever perfect D2 season and the foundation of the dynasty" }
+    - { name: "Mel Tjeerdsma", role: "coach", why: "Led Northwest Missouri State through the majority of the dynasty era, 6 national titles including 1998, 1999" }
+    - { name: "John McMenamin", role: "coach", why: "New coach in 2026; tasked with resurrecting the championship tradition" }
+  canonical_moments:
+    - { name: "1998 Perfect Season (15-0)", year: 1998, what: "The first-ever 15-0 D2 season; the foundation of the dynasty", handling: glory }
+    - { name: "Back-to-Back Titles (1998–1999)", year: 1999, what: "Two consecutive national championships", handling: glory }
+    - { name: "Four More Titles (2009, 2013, 2015–2016)", year: 2016, what: "Six national championships in 23 years (1998–2016)", handling: glory }
+    - { name: "2025 MIAA Co-Championship", year: 2025, what: "Bearcats co-win the MIAA with Pittsburg State; seeded #4 in NCAA tournament with home field", handling: glory }
+  the_place: "Bearcat Stadium in Maryville, Missouri — capacity 6,500, home to the national championship dynasty and the first nationally televised D2 game (2005, vs Bloomsburg, ESPN-U)."
+  brand_of_football: "Championship-standard, sustained, dominant — football built on institutional excellence and the belief that the Bearcats belong among the elite."
+  cultural_footprint: "The D2 program that proved small schools can win consistently at the highest regional level; the standard-bearer of Division II excellence across two decades."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Northwest Missouri State went 9-3 in 2025, co-won the MIAA with Pittsburg State, and earned the #4 playoff seed with home-field advantage. John McMenamin was hired as new head coach (first season in 2026) after the Mel Tjeerdsma era. The Bearcats have won six national titles (1998, 1999, 2009, 2013, 2015, 2016) and haven't won another since 2016 — a nine-year drought in a program built on championships. The question: can McMenamin spark a return to the national stage, or is the dynasty era over?
+  research_checklist:
+    - Six national championships (1998, 1999, 2009, 2013, 2015, 2016)
+    - 1998 perfect season (15-0, first in D2 history)
+    - Mel Tjeerdsma's 25+ year tenure and legacy
+    - John McMenamin's hire and first-season prospects
+    - 2025 MIAA co-championship and playoff seed
+    - Recent playoff appearances and competitive trends
+  sources:
+    - https://en.wikipedia.org/wiki/Northwest_Missouri_State_Bearcats_football
+    - https://nwmissouri.edu/athletics/
+    - https://themiaa.com/
+    - https://www.d2football.com/
+    - https://pittstategorillas.com/ (reference for D2 rivalries)

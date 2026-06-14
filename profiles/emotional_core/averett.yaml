@@ -1,0 +1,72 @@
+# Emotional Core — Averett University
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III (program_tier: 7) — graceful degradation, canon-first
+# Authored 2026-06-13 from live web research
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live
+slug: averett
+team_id: null
+program_name: Averett University
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: standard
+  one_line: "A small Virginia liberal-arts school that builds character through football, not championships."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "D3 stability and identity as a teaching program, not a national power."
+
+the_wound: {}
+
+the_dream:
+  text: "A competitive ODAC program that develops young men to lead after graduation."
+  drought: null
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: null
+register: virginia-liberal-arts-honor
+never_use: []
+
+story_canon:
+  the_unique_thing: "A Virginia Episcopal school with roots to 1859, building a football program rooted in the institution's character-development mission."
+  the_origin: "Averett University, founded 1859 as an all-male military academy, integrated football into its character-building curriculum. Now coeducational with a D3 ODAC football program."
+  golden_ages: []
+  legends: []
+  canonical_moments: []
+  the_place: "Danville, Virginia — a small liberal-arts campus."
+  brand_of_football: "Character and development, not spectacle."
+  cultural_footprint: "A regional D3 identity tied to a historic Virginia institution."
+  the_ongoing_story: "LIVE 2026: Averett competes in the ODAC as a foundational member, competing regionally."
+  sources:
+    - https://en.wikipedia.org/wiki/Averett_Cougars_football
+    - https://averett.edu/athletics/football/
+
+briefing:
+  identity_phrase: Averett is a small Virginia liberal-arts institution with a character-first football mission.
+  mantra: null
+  cultural_anchors:
+    fan_archetype_dominant: null
+    outsider_archetype_dominant: null
+  selfname: the Cougars
+  story_materials:
+    always_surface: []
+    rituals: []
+    modules_already_rendering: null
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

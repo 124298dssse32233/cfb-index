@@ -1,0 +1,123 @@
+# Emotional Core — Tulsa  (tulsa)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: tulsa
+team_id: 99
+program_name: Tulsa
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the private school that once played in BCS-buster conversations, clawing back to bowl level
+  secondary: grievance    # the smallest-enrollment program in the FBS, perpetually told it doesn't belong
+  core_variant: perpetual-rebuild
+  one_line: "Tulsa is the tiny Oklahoma private school that out-scored everybody for a decade — and is trying, under a first-year coach, to remember how the offense used to feel like a track meet."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "An early-2010s run of double-digit-win seasons and conference titles vs a decade since, mostly spent fighting for bowl eligibility in a reshuffled American."
+
+the_wound:
+  name: "The long slide from the Graham/Blankenship peak"
+  detail: "From the 2010 Conference USA title and Bill Blankenship's 11-3 in 2012, Tulsa has had one truly memorable team since (a 2020 AAC title-game run) and otherwise churned coaches and losing records — a 4-8 (1-7) first year under Tre Lamb in 2025 the latest reminder the offense isn't humming the way it once did."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get the scoreboard spinning again — a winning season, a bowl, the feeling that the smallest school in the league can still out-gun the room."
+  drought: { since: 2016, unit: bowl }
+
+the_chip:
+  villain: national_media
+  text: "Tulsa fans are tired of being the program everyone forgets is in the FBS — the 4,000-student private school nobody schedules out of respect. They'll remind you it has more bowl history than schools five times its size."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the right offensive coach turns Tulsa back into a track meet overnight — that the talent finds its way to Chapman Stadium and the scoreboard does the rest, the way it did under Graham."
+
+the_grudge_texture:
+  rival: smu
+  texture: little-brother   # the in-conference border resentment — SMU left for the ACC, Tulsa stayed; the bigger-money private school next door
+
+the_coach_relationship: hot-seat-churn   # Graham left, then Blankenship/Montgomery/Wilson/now Lamb — a program that can't hold a coach who wins
+the_internal_fracture: patience vs nostalgia — give Tre Lamb time to rebuild a 4-8 roster vs the faction that wants the Graham-era points back now
+register: tulsa-golden-hurricane-graham-era   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always G5 — 2010 + 2012 bowl wins + multiple C-USA championships disprove
+  - No identity — Graham + Reign Cane + Chapman Stadium combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Tulsa is one of the smallest schools in the FBS — a ~4,000-student Oklahoma private university — that spent a decade as one of the most explosive offenses in the country, proof that a tiny enrollment can still light up a scoreboard."
+  the_origin: "A private university in a city that loves its only Division-I football team; the Golden Hurricane built their identity on wide-open, pass-happy offense long before the rest of the sport caught up."
+  golden_ages:
+    - { era: "2007–2010 (Todd Graham)", what: "An up-tempo offense, a 2010 Conference USA title and 10-3 finish — the Air Raid era that put Tulsa on the national radar" }
+    - { era: "2012 (Bill Blankenship)", what: "An 11-3 season capped by a Liberty Bowl win — the program's last truly great year" }
+  legends:
+    - { name: Todd Graham, role: coach, why: "Architected the up-tempo era that defined modern Tulsa football" }
+    - { name: Paul Smith, role: player, why: "The quarterback who ran the record-setting offenses of the late 2000s" }
+  canonical_moments:
+    - { name: "The Liberty Bowl season", year: 2012, what: "11-3 and a Liberty Bowl win under Bill Blankenship — the high-water mark", handling: glory }
+    - { name: "The 2010 Conference USA title", year: 2010, what: "Todd Graham's 10-3 team wins the league and a bowl", handling: glory }
+    - { name: "The 2020 AAC title-game run", year: 2020, what: "A surprise pandemic-year climb to the American championship game", handling: glory }
+  the_place: "Skelly Field at H.A. Chapman Stadium — an intimate on-campus venue in midtown Tulsa where a small school feels its football team up close."
+  brand_of_football: "Track-meet offense — Tulsa's identity, when it's right, is points: tempo, the deep ball, a scoreboard that won't sit still."
+  cultural_footprint: "The third Oklahoma football program — neither Norman nor Stillwater — that gives Tulsa its own Division-I Saturday and a private-school pride that punches above its enrollment."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Tre Lamb arrived from East Tennessee State and went 4-8 (1-7 American) in
+    his first season, 2025 — a hard reset for a roster short on the firepower that once defined the program.
+    The question in Tulsa: can Lamb, a proven FCS turnaround coach, rebuild the offense back to bowl level and
+    end a long stretch of irrelevance for the smallest school in the league.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Tulsa_Golden_Hurricane_football_team
+    - https://collegefootballnews.com/college-football/tulsa-football-2025-preview-tre-lamb-rebuild-golden-hurricane
+    - https://en.wikipedia.org/wiki/Tre_Lamb
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Tulsa is the Oklahoma private university whose Todd Graham 2010 11-3 + 2012 Liberty Bowl
+    + Skelly Field at H.A. Chapman Stadium define what historic-Oklahoma-G5-football looks like outside
+    Norman + Stillwater.
+  mantra: Reign Cane.
+  cultural_anchors:
+    fan_archetype_dominant: Tulsa-Hurricane-Reign-Cane
+    outsider_archetype_dominant: G5-Forever-Diminisher
+    one_sentence: Tulsa is the Oklahoma private university whose Todd Graham Air Raid era + 2012 Liberty
+      Bowl championship + Skelly Field on-campus venue keep the Golden Hurricane in American Athletic competitive
+      cycles.
+  selfname: the Golden Hurricane
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2010 10-3 + Conference USA championship + Hawaii Bowl under Todd Graham
+    - 2012 11-3 + Liberty Bowl championship under Bill Blankenship
+    - Todd Graham 2007-2010 Air Raid era
+    rituals:
+    - Todd Graham Era (2007-2010)
+    - Skelly Field at H.A. Chapman Stadium
+    - Reign Cane Identity
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: cooking (60/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

@@ -1,0 +1,73 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: barton
+team_id: null
+program_name: Barton College
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Barton is the relaunch program six years into recovery — a small liberal arts college in eastern North Carolina that has rebuilt football from a 74-year hiatus and is learning to compete in Conference Carolinas."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small, academically rigorous liberal arts college in Wilson, North Carolina, that restarted football in 2020 after nearly three-quarters of a century without the sport."
+
+the_wound:
+  name: "The 74-year gap"
+  detail: "Barton College's football program was discontinued in the 1940s. The program was restarted in 2020 — a 74-year absence. The wound is not acute pain, but the deep gap of lost tradition. The program has no living connection to the last era of Barton football."
+  handling: never-a-punchline
+  freshness: all-time
+
+the_dream:
+  text: "One season with five conference wins that shows the rebuild is real — proof that bringing football back to Barton was worth the effort."
+  drought: { since: 2020, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Barton is in house-money mode. Every win is a bonus. The team is just happy to be playing."
+
+the_delusion:
+  tone: earnest
+  text: "Fans believe the rebuild is working — that six years in, Barton is getting close to respectability and that the program can find its footing."
+
+the_grudge_texture:
+  rival: chowan
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "None — the program is unified in its mission to rebuild football culture."
+register: north-carolina-bulldog-relaunch-honor
+never_use:
+  - Established program — Barton football was restarted in 2020 after 74 years of absence
+  - Historic powerhouse — the program has no living memory of its pre-1940s era
+  - Title contender — unrealistic given newness and rebuild phase
+
+story_canon:
+  the_unique_thing: "A small liberal arts college that restarted football in 2020 after a 74-year hiatus and is rebuilding the program from the ground up at the Division II level."
+  the_origin: "Barton College, founded in 1902, competed in football for decades before the program was discontinued in the 1940s. The program was restarted in 2020 as part of Barton's commitment to comprehensive student development."
+  golden_ages: []
+  legends: []
+  canonical_moments: []
+  the_place: "Wilson, North Carolina — a small city in eastern North Carolina with a historic liberal arts college at its center."
+  brand_of_football: "Young, learning, rebuilding — the program is in the early stages of establishing identity and culture."
+  cultural_footprint: "Barton represents the bold decision to restart a football program after seven decades of absence and the challenge of rebuilding competitive culture from the ground up."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Barton College finished 3-8 in 2025 (3-3 Conference Carolinas) under
+    head coach Chip Hester (5 seasons). The program is in its sixth year of rebuilding and has not yet reached
+    a winning record or conference competitiveness. The 3-8 season reflects the difficulty of rebuilding from
+    zero, but the continued investment signals that Barton is committed to the long view. The program is
+    learning at every level and building foundation for future success. By 2026-27, a .500 season would
+    represent significant progress.
+  research_checklist:
+    - Football restarted in 2020 (74-year hiatus)
+    - Chip Hester tenure (5 seasons)
+    - 2025 record (3-8, 3-3 CC)
+    - Truist Stadium in Wilson, NC
+    - Conference Carolinas membership
+  sources:
+    - https://bartonbulldogs.com/
+    - https://en.wikipedia.org/wiki/Barton_Bulldogs_football
+    - https://www.conference-carolinas.org/

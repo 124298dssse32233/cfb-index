@@ -1,0 +1,82 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Wittenberg University Tigers
+
+status: live
+slug: wittenberg
+team_id: null
+program_name: Wittenberg University
+program_tier: 7
+
+emotional_core:
+  primary: grievance
+  secondary: restoration
+  one_line: "Wittenberg is the historic D3 power with five national championships, now rebuilding under new leadership after a 4-6 season—the Tigers insist that excellence, not decline, is their identity."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A program with 773 wins (2nd all-time among current D3 members), five national championships, and only one losing season since 1955 vs. a 2025 season (4-6) and coaching transition that challenges the 'Tradition of Excellence' narrative."
+
+the_wound:
+  name: "The 2025 stumble and the shadow of greatness"
+  detail: "Wittenberg went 4-6 in 2025 (3-5 NCAC), breaking the program's historic consistency. More significantly, Jim Collins, the head coach, was let go mid-season (replaced by interim Joe Nemith, then B.J. Coad hired for 2026). The wound is not devastating—Wittenberg has lost before—but it challenges a program brand built on 'Tradition of Excellence' and unbroken winning culture. The Tigers know they are supposed to be dominant, and 2025 felt like a betrayal of that standard."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to NCAC and national playoff contention, proving the Tradition of Excellence is not a slogan but a reality under new leadership."
+  drought: { since: 2025, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is against complacency. Wittenberg's identity is built on consistency and excellence; a down year is an affront to that identity, not a reflection of it."
+
+the_delusion:
+  tone: self-aware
+  text: "That one bad season erases 70 years of dominance. Wittenberg fans know the program has been a national power, and they trust that 4-6 is an anomaly, not a trajectory shift."
+
+the_grudge_texture:
+  rival: denison
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "National power identity (5 titles, 773 wins) vs. 2025 reality (4-6, coaching change)"
+register: springfield-ohio-tigers-tradition-excellence
+never_use:
+  - "Wittenberg is rebuilding after years of failure — only ONE losing season since 1955 (70 years); 2025 is anomaly"
+  - "Small program — 773 all-time wins, 5 national titles, 16 NCAC titles"
+  - "New program identity — Tradition of Excellence is not new; it is historic"
+
+story_canon:
+  the_unique_thing: "Wittenberg is the second all-time winningest current Division III program (773 wins) with five national championships, and has had only one losing season in the past 70 years—a 'Tradition of Excellence' that is not slogan but historical reality."
+  the_origin: "Wittenberg University began playing football in 1892 and quickly became a Midwest power. The program reached national prominence in the mid-20th century, winning national championships in 1962, 1964, and 1969 (under pre-NCAA poll voting) and then 1973 and 1975 (under the NCAA Division III tournament). Three Hall of Famers coached Wittenberg: Bill Edwards, Ernie Godfrey, and Dave Maurer."
+  golden_ages:
+    - { era: "1962–1975 (Peak era)", what: "Five national championships (1962, 1964, 1969 polls; 1973, 1975 NCAA Tournament), establishing Wittenberg as a national D3 power" }
+    - { era: "1955–2024 (Consistency era)", what: "Only one losing season in 70 years, a 'Tradition of Excellence' sustained across generations" }
+    - { era: "2010–2019 (Quiet dominance)", what: "Consistent NCAC titles and tournament appearances, sustained excellence without championships" }
+  legends:
+    - { name: Bill Edwards, role: coach, why: "Hall of Famer who coached Wittenberg in the 1940s-1950s, building early foundation" }
+    - { name: Ernie Godfrey, role: coach, why: "Hall of Famer and architect of the 1962-1964 national championships" }
+    - { name: Dave Maurer, role: coach, why: "Hall of Famer who coached Wittenberg to 1969 championship and 1973-1975 tournaments" }
+  canonical_moments:
+    - { name: "1962 national championship", year: 1962, what: "Wittenberg wins the first national championship in program history", handling: glory }
+    - { name: "1964 national championship", year: 1964, what: "Back-to-back championship, establishing Wittenberg as a national power", handling: glory }
+    - { name: "1973 NCAA D3 tournament championship", year: 1973, what: "Wittenberg wins the first NCAA Division III tournament championship", handling: glory }
+    - { name: "1975 tournament championship", year: 1975, what: "Second tournament title, final national championship for the Tigers", handling: glory }
+  the_place: "Springfield, Ohio, in central Ohio. Wittenberg Stadium is the home. The university is deeply invested in football tradition."
+  brand_of_football: "Tough, disciplined, and consistent. Wittenberg football is built on defense, field position, and not beating yourself. The brand is historic excellence with a three-Hall-of-Famer coaching lineage."
+  cultural_footprint: "A historic national power. Wittenberg football carries the weight of five national championships and 773 wins. Fans expect excellence as a birthright."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Wittenberg had a down 2025 season (4-6 overall, 3-5 NCAC), forcing a mid-season coaching change. Jim Collins was let go, and interim coach Joe Nemith finished 2-1 to close the season. B.J. Coad was hired as the new head coach in December 2025. The Tigers' identity is built on the 'Tradition of Excellence'—only one losing season since 1955—and 2025 tested that identity severely. The question facing Wittenberg in 2026 is whether Coad can restore the program to the playoff-contender status it had held for decades, or if the decline that began in 2025 is the start of a new era.
+  research_checklist:
+    - 773 all-time wins (2nd among current D3 members)
+    - 5 national championships (1962, 1964, 1969, 1973, 1975)
+    - Only 1 losing season since 1955 (70 years)
+    - 16 NCAC titles (verified)
+    - Three Hall of Famer coaches (Edwards, Godfrey, Maurer)
+    - 2025 season 4-6, 3-5 NCAC
+    - Jim Collins mid-season firing; Joe Nemith interim (2-1); B.J. Coad hired (Dec 2025)
+    - Denison as traditional rival (NCAC arch-rival)
+  sources:
+    - https://wittenbergtigers.com
+    - https://en.wikipedia.org/wiki/Wittenberg_Tigers_football
+    - https://wittenbergtigers.com/information/index

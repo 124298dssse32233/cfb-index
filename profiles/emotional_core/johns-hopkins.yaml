@@ -1,0 +1,104 @@
+# Emotional Core — Johns Hopkins (johns-hopkins)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III — program_tier: 7, graceful degradation applies (small school, regional focus, academic mission).
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: johns-hopkins
+team_id: null
+program_name: Johns Hopkins
+program_tier: 7
+
+emotional_core:
+  primary: honor        # the mission outranks the scoreboard; academics first
+  secondary: contentment
+  one_line: "Johns Hopkins is an elite research university where football players are Rhodes Scholars and future Maryland governors — a program where academic excellence is the trophy, and winning is a bonus."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "13 Centennial titles in 24 years (2002–2025) and 10 straight (2002–2018) vs. the deeper truth: Johns Hopkins produces academic All-Americans and world leaders, not NFL draft picks."
+
+the_wound:
+  name: "The 2025 dynasty-end (loss to Franklin & Marshall)"
+  detail: "Johns Hopkins lost the 2025 Centennial Championship in OT to Franklin & Marshall, ending the program's era of dominance. The wound is not losing; it's the recognition that the decade of supremacy has passed."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the tournament and compete for Centennial titles — but only if it doesn't compromise the deeper mission: producing the most Academic All-American players in the nation."
+  drought: { since: 2025, unit: conference_title }  # only one year out from last title
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Johns Hopkins' identity is the opposite of grievance—it's gratitude for the privilege of attending an elite university where football is one of many pursuits."
+
+the_delusion:
+  tone: none
+  text: "The fanbase believes no delusion. Johns Hopkins sees itself clearly: a world-class research institution where football players are Rhodes Scholars first, athletes second."
+
+the_grudge_texture:
+  rival: franklin-marshall
+  texture: championship     # formerly a peer, now the team that beat JHU in 2025 championship OT
+
+the_coach_relationship: total-trust   # academic mission alignment
+the_internal_fracture: academics-vs-winning — between those satisfied with the Rhodes Scholar model and those wanting to reclaim Centennial titles
+register: earnest-academic
+never_use:
+  - "Underperforming (13 Centennial titles in 24 years is elite)"
+  - "Not competitive (2025 loss to F&M in OT proves competitiveness; the wound is losing a title, not being weak)"
+
+story_canon:
+  the_unique_thing: "Johns Hopkins produces the most Academic All-Americans in Division III — 56 all-time, with 44 coming since 2011. The program is renowned for developing Rhodes Scholars and world leaders (Governor Wes Moore) who happened to play football."
+  the_origin: "Founded in 1876, Johns Hopkins University became a world-class research institution with Baltimore biotech prestige. Football joined the Centennial Conference in 1981 and has since become a model of student-athlete excellence balanced with rigorous academics."
+  golden_ages:
+    - { era: "2002–2018 (The Dynasty)", what: "10 consecutive Centennial Conference titles, 13 total titles in the span, establishing Johns Hopkins as the conference power" }
+    - { era: "2002–2025", what: "24 years of consistent excellence—13 conference titles and 56 total Academic All-Americans (56 all-time, 44 since 2011)" }
+  legends:
+    - { name: Wes Moore, role: "player & world leader", why: "Maryland Governor-elect, Rhodes Scholar, 2-year Johns Hopkins wide receiver—the living embodiment of JHU's student-athlete mission" }
+    - { name: "The Academic All-American Program", role: "program identity", why: "56 all-time Academic All-Americans, 44 since 2011—more than any Division III peer—defines what Johns Hopkins values" }
+  canonical_moments:
+    - { name: "10 Straight Centennial Titles (2002–2018)", year: 2018, what: "Johns Hopkins dominates the Centennial Conference for 17 years with 13 titles", handling: glory }
+    - { name: "56 Career Academic All-Americans", year: 2025, what: "The most of any Division III program—Rhodes Scholars, future leaders, the JHU model", handling: glory }
+    - { name: "2025 Centennial Championship loss (OT to F&M)", year: 2025, what: "The end of a dynasty; JHU loses to Franklin & Marshall 33–30 in OT", handling: glory }
+  the_place: "Homewood Field in Baltimore — a world-class university campus where football is one of many academic pursuits; the game is secondary to the institution."
+  brand_of_football: "Elite student-athlete development: Johns Hopkins recruits brilliant kids and makes them better—Rhodes Scholars in uniform, future governors, the academic model of college football."
+  cultural_footprint: "The proof that a world-class research university can field a conference-title team without compromising its mission. Johns Hopkins is the counter-example to the question 'Can academics and football coexist?'"
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Johns Hopkins finished 2025 as Centennial Conference runner-up, losing the title game in OT to Franklin & Marshall. The program has won 13 Centennial titles in 24 years (2002–2025), including 10 straight (2002–2018), but the 2025 loss signals the end of the Centennial dynasty. More significantly, Johns Hopkins continues its Academic All-American factory: 56 all-time Academic All-Americans, 44 since 2011 (most of any Division III program). The program's identity remains tied to producing world leaders—including Maryland Governor-elect Wes Moore (2-year JHU player, Rhodes Scholar)—not championships.
+  research_checklist:
+    - 13 Centennial titles (2002–2025), including 10 straight (2002–2018)
+    - 56 Academic All-Americans all-time (44 since 2011; most of any D3 program)
+    - Wes Moore (Governor-elect, Rhodes Scholar, JHU player)
+    - 2025 Centennial Championship loss to Franklin & Marshall (OT)
+  sources:
+    - https://en.wikipedia.org/wiki/Johns_Hopkins_Blue_Jays
+    - https://centennial.org/news/2025/1/29/jhus-konkol-penders-secured-academic-all-america-football-honors.aspx
+    - https://www.baltimoresun.com/2022/12/15/the-guys-got-a-way-about-him-maryland-gov-elect-wes-moore-honed-leadership-skills-as-johns-hopkins-football-player/
+
+briefing:
+  identity_phrase: Johns Hopkins is the elite research university whose football program produces 56 Academic All-Americans (most of any D3 school) and world leaders like Governor Wes Moore—academics first, football as the development vehicle.
+  mantra: Blue Jay Pride.
+  cultural_anchors:
+    fan_archetype_dominant: Baltimore-Academic-Scholar
+    outsider_archetype_dominant: Ivory-Tower-Egghead
+    one_sentence: Johns Hopkins is the world-class research university with 13 Centennial titles (2002–2025) and 56 Academic All-Americans (most of any D3)—a program where Rhodes Scholars happen to play football.
+  selfname: the Blue Jays
+  heritage:
+    conference: Centennial
+    championships: 13 titles (2002–2025, including 10 straight 2002–2018)
+    academic_distinction: 56 Academic All-Americans (44 since 2011; most of any D3)
+  story_materials:
+    always_surface:
+    - 13 Centennial titles, 10 straight (2002–2018)
+    - 56 Academic All-Americans all-time (44 since 2011)
+    - Wes Moore (Governor-elect, Rhodes Scholar, JHU player)
+    - Elite research university identity
+    rituals:
+    - Academic All-American recognition annual
+    - Rhodes Scholar tradition
+    - World-leader legacy
+    modules_already_rendering: none (D3 module set pending)
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal (canon-only, D3 small program)

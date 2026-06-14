@@ -1,0 +1,108 @@
+# Emotional Core — Maine  (maine)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: maine
+team_id: 1105
+program_name: Maine
+program_tier: 2
+
+emotional_core:
+  primary: restoration
+  secondary: contentment
+  core_variant: perpetual-rebuild
+  one_line: "Maine is the northernmost FCS program, chasing a return to the 2018 playoff magic that put Orono on the national map — the Black Bears have made eight FCS playoff runs and keep building toward the next one."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Eight FCS playoff appearances and a 2018 semifinal run vs a post-2018 drought — the Black Bears know what the ceiling feels like and are working toward it again under Jordan Stevens."
+
+the_wound:
+  name: "Post-2018 drought and the Jordan Stevens rebuild"
+  detail: "Maine's last FCS playoff appearance was 2018, when they advanced to the national semifinals. The program went through a long trough before Jordan Stevens arrived — his 9-25 record in three seasons includes a 6-6 finish in 2025 that suggests a floor has been found but the playoff ceiling remains elusive."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the FCS playoffs and match the 2018 semifinal magic — prove that the northernmost FCS program can compete in the CAA's most competitive era."
+  drought: { since: 2018, unit: relevance }
+
+the_chip:
+  villain: national_media
+  text: "The fanbase says Maine gets dismissed as a geographic outlier — a program in the far corner of New England that national FCS coverage treats as an afterthought — while the Black Bears have eight playoff appearances and a semifinal run to prove they belong."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans say the 2018 semifinal run wasn't a fluke and that Maine's recruiting pipeline from New England and the talent Jordan Stevens is building will carry them back to the postseason — that Orono can produce FCS playoff teams again and the drought is just a detour."
+
+the_grudge_texture:
+  rival: new-hampshire
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: patience-vs-urgency — the faction willing to give Jordan Stevens time to rebuild vs the faction that watched eight playoff seasons vanish into a prolonged trough and wants results now
+
+register: maine-black-bears-orono-new-england-fcs-playoff-contender
+never_use:
+  - "Geographic afterthought — eight FCS playoff appearances and a 2018 national semifinal disprove that"
+  - "Minor FCS program — Maine has competed at the top of the CAA and its predecessors for decades"
+
+story_canon:
+  the_unique_thing: "The northernmost FCS program in the country, playing in Orono, Maine — and the Black Bears have made eight FCS playoff trips anyway, including a 2018 national semifinal run that put a state known for hockey briefly at the center of FCS football."
+  the_origin: "Maine has played football since 1892 and has been an FCS fixture since the divisional split. The Black Bears joined the CAA after long membership in the Yankee Conference and its successors (the Atlantic 10). Their first playoff appearance came in 1987; the 2018 semifinal run under Joe Harasymiak was the program's peak."
+  golden_ages:
+    - { era: "2018 (Harasymiak peak)", what: "Maine advances to the FCS national semifinals, the program's deepest playoff run; finished 11-3" }
+    - { era: "2004-2008 (back-to-back playoff runs)", what: "Maine makes consecutive FCS playoff appearances and establishes itself as a CAA contender" }
+  legends:
+    - { name: Joe Harasymiak, role: coach, why: "Led the 2018 national semifinal run — the best season in modern Maine football history" }
+  canonical_moments:
+    - { name: "2018 FCS national semifinal", year: 2018, what: "Maine advances to the national semifinals, losing to Eastern Washington 50-19 — the program's deepest playoff run ever", handling: heartbreak }
+    - { name: "First FCS playoff appearance", year: 1987, what: "Maine earns its first postseason berth, beginning a playoff tradition across decades", handling: glory }
+  the_place: "Alfond Stadium in Orono, Maine — on campus since 1947, the northernmost FCS playoff venue in the country."
+  brand_of_football: "Tough, physical, New England-identity football — a program that recruits the northeast pipeline and plays with a chip about being dismissed as too far from the center of college football's geography."
+  cultural_footprint: "The proof that a flagship state university in a hockey state can build a legitimate FCS football program — Maine's eight playoff trips are a collective achievement that the state's sports culture treats with genuine pride."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Maine finished 6-6 (5-3 CAA) in 2025 under fourth-year head coach
+    Jordan Stevens — a .500 season that represents progress from the trough but still falls short of the
+    playoff qualification the program wants. Stevens' 9-25 record through three seasons has stabilized
+    with the 6-6 campaign suggesting the foundation is improving. The Battle for the Brice-Cowell Musket
+    against New Hampshire remains the season's emotional anchor; UNH has dominated the rivalry lately,
+    winning 13 of the last 15. Maine enters 2026 needing a 7-plus win season to return to a postseason
+    that hasn't included them since 2018.
+  sources:
+    - https://en.wikipedia.org/wiki/Maine_Black_Bears_football
+    - https://www.ncaa.com/news/football/article/2018-12-13/fcs-football-maine-natives-black-bears-football-team-take-pride
+    - https://www.flofootball.com/articles/11124509-maine-football-in-2023-what-to-know-about-the-black-bears
+
+briefing:
+  identity_phrase: Maine is the northernmost FCS program with eight playoff appearances and a 2018 national semifinal — now rebuilding under Jordan Stevens after a post-2018 drought, anchored by the annual Battle for the Brice-Cowell Musket against New Hampshire.
+  mantra: Go Black Bears.
+  cultural_anchors:
+    fan_archetype_dominant: New-England-FCS-Loyalist
+    outsider_archetype_dominant: Geographic-Dismisser
+    one_sentence: Maine is the northernmost FCS program with eight playoff trips and a 2018 national semifinal, rebuilding under Jordan Stevens after a drought that has tested the patience of a fanbase that knows what the ceiling feels like.
+  selfname: the Black Bears
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Joe Harasymiak
+    era_name_overrides: {}
+    always_surface:
+      - Eight FCS playoff appearances
+      - 2018 national semifinal run (11-3 final record)
+      - Battle for the Brice-Cowell Musket vs New Hampshire
+      - Alfond Stadium since 1947
+    rituals:
+      - Battle for the Brice-Cowell Musket
+      - Alfond Stadium
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

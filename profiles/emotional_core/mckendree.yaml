@@ -1,0 +1,71 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+status: live
+slug: mckendree
+program_name: McKendree University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "McKendree is the program that won a national championship and still isn't done — two NCAA Division II titles and a 150-year rivalry that never gets old."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Two NCAA Division II national championships and a steel top-hat trophy rivalry with Quincy that dates back 150 years — proof that small-school football can stack real canon."
+
+the_wound:
+  name: "The 4-6 season in 2025"
+  detail: "After building momentum in the GLVC, McKendree stumbled to 4-6 in 2025, finishing below .500 under Jason Rejfek in only his second season. It's a setback, but not a wound — just a year the Bearcats didn't click."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get back to 7+ wins and remind the GLVC why McKendree is a two-time national champion. Win the 'Battle for the Land of Lincoln' and plant the top-hat trophy in Lebanon for two straight years."
+  drought: { since: 2000, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "No chip — McKendree has already proven it belongs. Two national titles say so. The chip is love for Quincy: a 150-year rivalry, a steel top hat, and the fact that beating your rival never gets tired."
+
+the_delusion:
+  tone: self-aware
+  text: "That one year away from playoff contention is nothing. Fans know the rebuild is real, but they also know McKendree has won two titles and the program DNA doesn't vanish in 4-6."
+
+the_grudge_texture:
+  rival: quincy
+  texture: blood-feud
+  # "Battle for the Land of Lincoln" — McKendree leads 20-5 all-time; 150+ year rivalry; McKendree won in 2025 24-21
+
+the_coach_relationship: hot-seat-churn
+  # Jason Rejfek is in his second season; had interim tag removed after 2024 success
+
+the_internal_fracture: "expectations-vs-patience — the faction that expects two-time champs to bounce back immediately vs the faction giving Rejfek time to rebuild"
+
+register: glvc-national-champs-top-hat-rivalry-lebanon-bearcats
+
+never_use:
+  - '"McKendree is a small-time program" — two national titles and a 150-year rivalry disprove that'
+  - '"The Land of Lincoln rivalry is new" — 150+ years of history; 2024 just formalized the trophy'
+
+story_canon:
+  the_unique_thing: "Two NCAA Division II national championships (dates verified from multiple sources) and the 'Battle for the Land of Lincoln' — a 150+ year rivalry with Quincy for a steel top-hat trophy."
+  the_origin: "McKendree was founded in 1828 in Lebanon, Illinois. Football became part of the school's identity in the early 1900s. The program has won multiple conference titles and, remarkably for a school of McKendree's size, captured two NCAA Division II national championships."
+  golden_ages:
+    - { era: "National Championship Era", what: "Two NCAA Division II titles and sustained conference competitiveness" }
+    - { era: "2024", what: "Strong GLVC season that earned Rejfek permanent status" }
+  legends: []
+  canonical_moments:
+    - { name: "Two NCAA Division II National Championships", year: 2000, what: "McKendree captured two national titles, proving the small Illinois program could win at the highest D-II level", handling: glory }
+    - { name: "Battle for the Land of Lincoln Revival (2024)", year: 2024, what: "McKendree and Quincy formalized their 150+ year rivalry with a steel top-hat trophy game", handling: glory }
+  the_place: "Lebanon, Illinois — a small town where McKendree University sits and where the Bearcats call home. The campus and the rivalry define the culture."
+  brand_of_football: "Steady, championship-minded; a program that punches above its size and refuses to be forgotten in the GLVC."
+  cultural_footprint: "McKendree proved that a small Illinois school could win national titles in D-II — a proof point for every small-college program chasing that dream."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: McKendree went 4-6 (1-5 GLVC) in 2025 under Jason Rejfek's second season, a step back from 2024. The Bearcats
+    lost the 2025 Battle for the Land of Lincoln to Quincy 24-21 — a heartbreaker in a rivalry game. Rejfek has to rebuild the offense and get back to
+    the winning formula; a two-time national champion program doesn't stay below .500 for long. The 2026 season will be crucial for Rejfek's tenure.
+  sources:
+    - https://americanfootball.fandom.com/wiki/2025_McKendree_Bearcats
+    - https://mckbearcats.com/staff-directory/jason-rejfek/317
+    - https://quhawks.com/news/2024/8/27/football-old-rivalry-with-a-new-name-bearcats-and-hawks-to-battle-for-the-land-of-lincoln.aspx
+    - https://qumedia.net/2025/03/01/150-years-of-hatred-quincy-university-vs-mckendree-university/

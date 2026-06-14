@@ -1,0 +1,122 @@
+# Emotional Core — Fresno State  (fresno-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: fresno-state
+team_id: 294
+program_name: Fresno State
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # "Anyone, Anytime, Anywhere" — a program built on demanding the giants give it a game
+  secondary: restoration  # the Entz turnaround to 9-4 and a bowl title, then the leap into the Pac-12
+  core_variant: the-ceiling
+  one_line: "Fresno State is the Valley program whose whole identity is a dare — Anyone, Anytime, Anywhere — and it just answered a down stretch with a nine-win bowl-winning season and a ticket to the Pac-12."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A Carr-brothers QB factory and a 'we'll play anybody' swagger vs a G5 ceiling that, until the 2026 Pac-12 move, kept the Bulldogs out of the rooms where titles get decided."
+
+the_wound:
+  name: "The post-2018 slide"
+  detail: "After Jeff Tedford's 2018 Mountain West championship, Fresno cooled into ordinary seasons and coaching turnover before Matt Entz's first year in 2025 restored it to 9-4 and an Arizona Bowl win — the live proof that the Valley standard had slipped and then snapped back."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win in the Pac-12, send another quarterback to Sundays, and prove the Valley belongs in a power league after a generation of being told it didn't."
+  drought: { since: 2018, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Bulldog fans built a whole ethos around it: Fresno would drive into anybody's stadium and dare the name-brand programs to schedule them back. They say the giants ducked the Valley for years, and the Pac-12 invite is the door finally cracking open."
+
+the_delusion:
+  tone: earnest
+  text: "Fresno fans believe the Valley quietly out-produces the blue bloods — that the talent coming out of California's Central Valley and the program's QB pipeline mean the Bulldogs were always a power, just stuck in the wrong league waiting for someone to notice."
+
+the_grudge_texture:
+  rival: san-jose-state
+  texture: killed-by-realignment   # the Battle for the Valley — the oldest rival, now stranded in the MW as Fresno leaves for the Pac-12
+
+the_coach_relationship: savior   # Matt Entz arrived and immediately delivered 9-4 and a bowl title
+the_internal_fracture: prove-it vs pride — the faction hungry to win in the Pac-12 and validate the leap now vs the faction that just wants to savor finally getting the power-league seat the program always claimed it deserved
+register: fresno-bulldogs-mountain-west-anchor   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always G5 — 1985 #16 AP + 2018 Mountain West championship reset the ceiling'
+  - No identity — Pat Hill + Carr brothers + Tedford era combine into permanent canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Fresno State is the program that turned a scheduling philosophy into a personality — Pat Hill's 'Anyone, Anytime, Anywhere' meant the Bulldogs would load up the bus and play any blue blood in any stadium, a G5 program that refused to act like one and dared the giants to give it a game."
+  the_origin: "A Central Valley land-grant school that became California's loudest non-power program — built on local Valley talent, a famous quarterback pipeline, and a swaggering willingness to schedule up that defined it for a generation."
+  golden_ages:
+    - { era: "1997–2011 (Pat Hill)", what: "The 'Anyone, Anytime, Anywhere' era — marquee upsets, bowl regularity, and the Carr-brothers QB pipeline" }
+    - { era: "2018 (Jeff Tedford)", what: "A 12-2 Mountain West championship season and a Las Vegas Bowl win — the program's modern peak" }
+  legends:
+    - { name: Pat Hill, role: coach, why: "Defined the program's identity with 'Anyone, Anytime, Anywhere' and made Fresno a feared road test" }
+    - { name: David Carr, role: player, why: "Led the program to national ranking and became the No. 1 overall NFL draft pick in 2002" }
+    - { name: Derek Carr, role: player, why: "The second Carr to star in Fresno and reach the NFL — the pipeline's signature pair" }
+  canonical_moments:
+    - { name: "2001 top-10 run", year: 2001, what: "David Carr's Bulldogs beat ranked opponents on the road and crack the top 10 — the 'Anyone, Anytime, Anywhere' apex", handling: glory }
+    - { name: "2018 Mountain West title", year: 2018, what: "Tedford's 12-2 team wins the conference and the Las Vegas Bowl", handling: glory }
+    - { name: "The 2025 reset", year: 2025, what: "Matt Entz's first year goes 9-4 with an Arizona Bowl win over Miami (OH) ahead of the Pac-12 move", handling: glory }
+  the_place: "Valley Children's Stadium (Bulldog Stadium) — a sunken bowl in the Central Valley heat that packs in one of the most loyal G5 crowds in the West, the 'V' and the red-and-blue a Valley institution."
+  brand_of_football: "Tough, schedule-up, prove-it football — a program that defines itself by punching at blue bloods and producing NFL quarterbacks out of an overlooked corner of California."
+  cultural_footprint: "The football heart of California's Central Valley — an agricultural region with no pro team, where Bulldog Saturdays are the main event and the 'Anyone, Anytime, Anywhere' chip is civic identity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Matt Entz's debut in 2025 went 9-4 (5-3 MW) with an 18-3 Arizona Bowl win
+    over Miami (OH), restoring the program after a post-2018 slide. In 2026 Fresno State leaves the Mountain West
+    for the Pac-12 — a power-league seat that fulfills the 'Anyone, Anytime, Anywhere' ethos — opening at USC and
+    keeping its oldest rivalry with San Jose State, stranded in the MW, alive via a non-conference series.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Fresno_State_Bulldogs_football_team
+    - https://en.wikipedia.org/wiki/2026_Fresno_State_Bulldogs_football_team
+    - https://gobulldogs.com/news/2026/2/11/football-pac-12-announces-2026-football-schedule
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Fresno State is the Mountain West program whose 1980s-2000s Pat Hill era + 'Anyone, Anytime,
+    Anywhere' scheduling + Derek Carr / David Carr QB pipeline define what California-G5-football looks
+    like.
+  mantra: Go Dogs.
+  cultural_anchors:
+    fan_archetype_dominant: Fresno-Bulldog-Loyalist
+    outsider_archetype_dominant: G5-Forever-Diminisher
+    one_sentence: Fresno State is the Mountain West anchor program — 'Anyone, Anytime, Anywhere' Pat Hill
+      era + Carr brothers QB pipeline + 2018 Jeff Tedford Mountain West championship that define G5 ascent
+      identity.
+  selfname: the Bulldogs
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2018 12-2 + Mountain West championship + Las Vegas Bowl under Jeff Tedford
+    - Pat Hill 1997-2011 'Anyone, Anytime, Anywhere' era
+    - David + Derek Carr QB pipeline
+    rituals:
+    - Anyone, Anytime, Anywhere (Pat Hill Era)
+    - Carr Brothers QB Pipeline
+    - Jeff Tedford 2018 Mountain West Championship
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

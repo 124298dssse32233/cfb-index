@@ -1,0 +1,121 @@
+# Emotional Core — Washington State  (washington-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: washington-state
+team_id: 185
+program_name: Washington State
+program_tier: 3
+
+emotional_core:
+  primary: deprival        # the conference left and took the access; WSU was abandoned in Pullman and made to claw back
+  secondary: grievance     # the schools that ran got a soft landing while the loyal ones got cut adrift
+  one_line: "Washington State is the program realignment left for dead — when the Pac-12 collapsed, Pullman got abandoned with Oregon State, and the Cougars spent two years as a conference of two before rebuilding the league themselves."
+
+self_image:
+  archetype: orphaned
+  standard_gap_frame: "A 1997 Rose Bowl team and Mike Leach's Air Raid relevance vs a 2023 abandonment that left the program with two conference games and no league at all."
+
+the_wound:
+  name: "Left behind in the Pac-12 collapse"
+  detail: "In 2023 the Pac-12's biggest names bolted for the Big Ten and Big 12, and Washington State — too remote, too small a market — got no invitation. WSU and Oregon State were the only two left holding the conference's name, forced to schedule against a borrowed league while everyone who ran cashed in."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Make the rebuilt Pac-12 work and get back to a major bowl — to turn survival into a real league and prove the program was worth keeping all along."
+  drought: { since: 2003, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Cougar fans watched the bigger schools sprint to richer leagues and leave the loyal ones behind, and they have not forgotten which neighbor pulled the ladder up. They say the ones who ran abandoned the conference; the Cougs are the ones who kept it alive."
+
+the_delusion:
+  tone: load-bearing
+  text: "Coug fans believe Pullman is a real football town that the powerful simply found inconvenient — that the rebuilt Pac-12 they're anchoring will prove the program belonged at the big-league table the whole time, and that the snub was about geography, not merit."
+
+the_grudge_texture:
+  rival: washington
+  texture: killed-by-realignment   # the Apple Cup — the in-state rival fled to the Big Ten and left WSU behind
+
+the_coach_relationship: savior   # Kirby Moore hired to lead the program into the rebuilt league after a revolving door
+the_internal_fracture: rebuild-the-league vs resent-the-betrayal — the faction energized to make the new Pac-12 thrive vs the faction that can't get past being abandoned and keeps a running list of who left
+register: pullman-air-raid-cougars-holdout   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Disappearing program — 2024 holdout + Mike Leach legacy disprove obituary
+  - Always last in conference — 1997 Rose Bowl + 2018 11-2 disprove the floor
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "When the Pac-12 collapsed in 2023, Washington State and Oregon State were the only two schools left behind — and rather than disband, they held the conference's name and have rebuilt it from scratch, an eight-team Pac-12 launching in 2026. The orphans became the founders."
+  the_origin: "A land-grant university in remote Pullman, in the wheat country of eastern Washington's Palouse — the most isolated major-conference campus in the country, eight hours from anywhere, fiercely proud of being hard to get to."
+  golden_ages:
+    - { era: "1997–2003", what: "Back-to-back Rose Bowl-caliber teams; a 1997 Pac-10 title and Rose Bowl trip, plus quarterbacks Ryan Leaf and later Drew Bledsoe's legacy" }
+    - { era: "2012–2019 (Mike Leach)", what: "The Air Raid era that made WSU nationally relevant and fun — an 11-2 peak in 2018" }
+  legends:
+    - { name: Mike Leach, role: coach, why: "Brought the Air Raid to Pullman and made the program a national must-watch; an enduring cultural figure" }
+    - { name: Ryan Leaf, role: player, why: "Quarterbacked the 1997 Rose Bowl team and became the No. 2 overall NFL pick" }
+    - { name: Gardner Minshew, role: player, why: "The mustachioed face of the Air Raid's 2018 11-win season" }
+  canonical_moments:
+    - { name: "The 1997 Rose Bowl run", year: 1997, what: "A Pac-10 title and the program's most famous season behind Ryan Leaf", handling: glory }
+    - { name: "Left behind in realignment", year: 2023, what: "The Pac-12 dissolves and WSU gets no Power-conference invitation, reduced to a two-team league with Oregon State", handling: wound }
+    - { name: "The 11-2 Leach peak", year: 2018, what: "Washington State wins 11 games and finishes ranked in the Air Raid's best season", handling: glory }
+  the_place: "Martin Stadium on the Palouse — small, loud, and gloriously remote; getting to a Pullman game is itself a statement of devotion."
+  brand_of_football: "Go Cougs — Air Raid heritage, a chip-on-the-shoulder remoteness, and a fanbase whose 'Coug It' self-deprecation hides a fierce loyalty to a place the powerful overlooked."
+  cultural_footprint: "The emotional test case of college realignment — the program that proved a loyal fanbase in a small market would refuse to disappear, and rebuild a conference out of the wreckage."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After two seasons as half of a two-team Pac-12 with Oregon State, Washington
+    State anchors a rebuilt eight-team Pac-12 launching in 2026 (adding Boise State, Colorado State, Fresno State,
+    San Diego State, Utah State, and Texas State). The program went 7-6 in 2025 — winning the Famous Idaho Potato
+    Bowl 34-21 over Utah State — under first-year coach Jimmy Rogers, who then left for Iowa State after one season.
+    WSU hired Missouri offensive coordinator Kirby Moore, a Prosser, Washington native, in December 2025 to lead it
+    into the new league. The question in Pullman: can the orphan turn survival into a real conference?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Washington_State_Cougars_football_team
+    - https://www.cougcenter.com/wsu-cougars-football/48808/breaking-wsu-to-hire-kirby-moore-as-their-next-head-football-coach
+    - https://pac-12.com/news/2026/2/9/general-the-new-pac-12-announces-its-2026-football-schedule.aspx
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Washington State is the Pac-12-collapse holdout — Mike Leach Air Raid legacy + Pullman
+    remoteness + 2024 partnership-with-Oregon-State survival defined the post-conference era.
+  mantra: Go Cougs.
+  cultural_anchors:
+    fan_archetype_dominant: Pullman-Coug-Holdout
+    outsider_archetype_dominant: Conference-Reject-Diminisher
+    one_sentence: Washington State is the Pac-12-collapse holdout — Mike Leach Air Raid legacy + 1997 Rose
+      Bowl + 2024 partnership-with-Oregon-State that kept the program in P5-equivalent competitive cycles.
+  selfname: the Cougars
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1997 10-2 + Rose Bowl +
+    - Mike Leach 2012-2019 Air Raid era
+    - 2024 Pac-12 holdout + legal-entity continuation
+    rituals:
+    - Mike Leach Air Raid Era (2012-2019)
+    - 1997 Rose Bowl Run
+    - Pac-12 Holdout (2024)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (55/100, n=87)
+    voice_profile: absent
+    delusion_premium: absent

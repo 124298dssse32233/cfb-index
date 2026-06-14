@@ -1,0 +1,124 @@
+# Emotional Core — Tulane  (tulane)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: tulane
+team_id: 107
+program_name: Tulane
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the old southern power that nearly died and clawed all the way back to the Playoff
+  secondary: grievance    # a founding SEC member that left, and now beats on the Playoff door from outside the club
+  core_variant: dynasty-restoration
+  one_line: "Tulane helped found the Sugar Bowl and the SEC, then nearly drowned — a hurricane-battered, win-starved program that came back from the dead to make the first 12-team Playoff, becoming the first Louisiana team ever to crash the field."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A founding SEC member that hosted the first Sugar Bowls vs decades of losing seasons and near-extinction after Hurricane Katrina — only recently rebuilt into a back-to-back conference champion."
+
+the_wound:
+  name: "Talent that keeps leaving as soon as it works"
+  detail: "Tulane finally got good again — a 2022 Cotton Bowl run, an 11-3 2025, back-to-back AAC titles — but the success keeps walking out the door: Willie Fritz left for Houston, then Jon Sumrall left for Florida the moment he reached the Playoff, forcing Tulane to promote Will Hall and start the cycle again."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Make the revival permanent — win a Playoff game, keep the next coach long enough to build a dynasty in New Orleans, and turn the program from a stepping-stone back into a destination."
+  drought: { since: 1998, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Across town and up the road sits LSU, the SEC giant that swallowed all of Louisiana's football oxygen after Tulane walked away from the conference. Fans believe the state forgot the Green Wave existed — and that crashing the Playoff was the loudest possible way to remind everyone New Orleans has a team of its own."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes New Orleans can sustain a real winner — that an academically elite private school in a football-mad city can keep reaching the Playoff even as the sport's money tilts toward the giants, and that the program's founding pedigree means it belongs there."
+
+the_grudge_texture:
+  rival: lsu
+  texture: killed-by-realignment   # the Battle for the Rag — dormant since Tulane left the SEC in 1966 and LSU took the state
+
+the_coach_relationship: hot-seat-churn   # not a hot seat but a revolving door — Tulane keeps losing winning coaches to bigger jobs
+the_internal_fracture: stepping-stone vs destination — the faction proud just to be a coach-launching contender again vs the faction desperate to finally keep the coach who wins
+register: new-orleans-green-wave-historic   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always G5 — 2022 Cotton Bowl + #9 AP finish disprove'
+  - Disappearing program — Yulman Stadium return + 2022 ascent reset
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Tulane is the founding southern blue blood that walked away — a charter SEC member that hosted the first Sugar Bowls, then de-emphasized, nearly drowned after Katrina, and improbably rebuilt itself all the way into the first 12-team College Football Playoff."
+  the_origin: "An elite private university in uptown New Orleans with a deep football pedigree — undefeated 1931 and 1934 teams, a founding role in the SEC and the Sugar Bowl — that gradually fell out of the big time and spent decades as a hard-luck program in a pro-sports city."
+  golden_ages:
+    - { era: "1929-1934", what: "Undefeated seasons, a national-title claim, and a founding hand in the SEC and the Sugar Bowl" }
+    - { era: "2022-2025 (Fritz, then Sumrall)", what: "A 12-2 Cotton Bowl run and No. 9 finish in 2022, then back-to-back AAC titles and the program's first Playoff berth in 2025" }
+  legends:
+    - { name: Willie Fritz, role: coach, why: "Engineered the modern revival, culminating in the 2022 Cotton Bowl win over USC" }
+    - { name: Michael Pratt, role: player, why: "The quarterback who led the 2022 worst-to-first turnaround and Cotton Bowl run" }
+    - { name: Shaun King, role: player, why: "The QB of the unbeaten 1998 team — the prior high-water mark before the modern rise" }
+  canonical_moments:
+    - { name: "The 2023 Cotton Bowl", year: 2023, what: "Tulane beats USC 46-45 to cap a 12-2 worst-to-first season — the resurrection's signature win", handling: glory }
+    - { name: "The first Playoff berth", year: 2025, what: "An AAC title and an 11-3 record send Tulane to the first 12-team CFP, the first Louisiana team ever to make it", handling: glory }
+    - { name: "Post-Katrina near-death", year: 2005, what: "Hurricane Katrina scatters the team across the country and nearly ends the program", handling: wound }
+  the_place: "Yulman Stadium — the on-campus home Tulane returned to in 2014 after decades sharing the Superdome, putting football back in the heart of uptown New Orleans."
+  brand_of_football: "New Orleans resilience — physical, opportunistic, defense-and-run football built by program-resurrectors, with a chip earned from coming back from the brink."
+  cultural_footprint: "A symbol of New Orleans's recovery and a founding piece of southern football history — the academically elite private school that proved a G5 program can claw into the Playoff, and a coaching launchpad the sport now raids."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Tulane went 11-3 in 2025, won its second straight AAC title with a
+    34-21 win over North Texas, and became the first Louisiana program to reach the College Football Playoff,
+    entering as the No. 11 seed before losing 41-10 at Ole Miss in the first round. QB Jake Retzlaff, a BYU
+    transfer, ran for 16 TDs and threw for 14. But Jon Sumrall left for Florida the moment the run ended —
+    coaching the Playoff game on his way out the door — and Tulane promoted Will Hall to keep the resurrection
+    going. The question in New Orleans: can the Green Wave finally keep the coach who wins?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Tulane_Green_Wave_football_team
+    - https://www.cbssports.com/college-football/news/tulane-will-hall-jon-sumrall-coach-college-football-playoff/
+    - https://tulanegreenwave.com/news/2025/12/6/no-20-football-wins-american-conference-championship-with-34-21-victory-over-no-24-north-texas
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Tulane is the New Orleans private university whose 1925 Sugar Bowl founding + Willie
+    Fritz 2022 12-2 Cotton Bowl championship + Yulman Stadium urban-campus identity define what historic-southern-football
+    looks like.
+  mantra: Roll Wave.
+  cultural_anchors:
+    fan_archetype_dominant: New-Orleans-Roll-Wave-Loyalist
+    outsider_archetype_dominant: G5-Forever-Diminisher
+    one_sentence: Tulane is the New Orleans private university whose Sugar Bowl founding heritage + Willie
+      Fritz 2022 Cotton Bowl championship + Yulman Stadium on-campus return define what historic-southern-football
+      resurrects can look like.
+  selfname: the Green Wave
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2022 12-2 + AAC championship + Cotton Bowl +
+    - 1925 Sugar Bowl founding heritage
+    - Yulman Stadium 2014 on-campus return
+    rituals:
+    - 1925 Sugar Bowl Founding
+    - Willie Fritz 2022 Cotton Bowl Run
+    - Yulman Stadium On-Campus
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

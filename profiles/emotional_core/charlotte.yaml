@@ -1,0 +1,117 @@
+# Emotional Core — Charlotte  (charlotte)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: charlotte
+team_id: 303
+program_name: Charlotte
+program_tier: 3
+
+emotional_core:
+  primary: restoration     # a brand-new program clawing back from a 1-11 floor toward the bowl team it briefly was
+  secondary: deprival      # the biggest city without a long football history, still waiting for the program to match the metro
+  core_variant: first-ascension
+  one_line: "Charlotte is the youngest program in the Power footprint — football didn't exist here until 2013 — trying to build, almost from scratch, a tradition the rest of the sport had a century-long head start on."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A 2019 bowl bid in just the program's seventh season vs a 2025 collapse to 1-11 that exposed how little foundation a decade-old program really has."
+
+the_wound:
+  name: "The 1-11 first year of the Albin era"
+  detail: "Tim Albin arrived from a MAC-champion Ohio program and went 1-11 (0-8 American) in his debut — a single win that laid bare how far the young 49ers still are from the bowl team they flashed in 2019."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get back to a bowl and stick there — turn a purpose-built stadium and a booming metro into a program that wins in the American and finally outgrows the newcomer label."
+  drought: { since: 2019, unit: bowl }
+
+the_chip:
+  villain: national_media
+  text: "Niner fans say the rest of the sport treats a program this young like it doesn't count — and they point to the biggest, fastest-growing city in the Carolinas and ask why a metro this size shouldn't eventually have a real football team."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the city makes the program inevitable — that a market this big and this rich, with a purpose-built stadium already standing, will sooner or later force Charlotte into a winner, the way the metro forced its way into everything else."
+
+the_grudge_texture:
+  rival: old-dominion
+  texture: little-brother   # two same-aged programs born together in C-USA; the rivalry the 49ers actually grew up with, renewed for 2027
+
+the_coach_relationship: savior   # Tim Albin, the MAC-champion hire the program is betting the rebuild on
+the_internal_fracture: patience-with-the-build vs expect-results-now — the faction that knows a 2013-born program needs time and infrastructure vs the faction that watched a 1-11 year and wants wins from a coach who just won a MAC title
+register: charlotte-49ers-fbs-newcomer-2015
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Still FCS — 2015 FBS reclassification + 2019 bowl ended that frame
+  - No identity — 2013 founding + Jerry Richardson + Forever Niner combine
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Charlotte is football from nothing — a program that didn't exist until 2013, the rare modern startup in a major American city, building a tradition in real time while everyone around it inherited a century of theirs."
+  the_origin: "An urban research university in the country's fast-growing Charlotte metro that launched football in 2013 (in a purpose-built on-campus stadium funded in part by Panthers owner Jerry Richardson), jumped to FBS by 2015, and adopted the '49ers' and 'Forever Niner' identity tied to the city's gold-rush history."
+  golden_ages:
+    - { era: "2019 (Will Healy)", what: "A 7-6 season and the program's first bowl bid (Bahamas Bowl) in just its seventh year of football — the high point so far" }
+  legends:
+    - { name: Will Healy, role: coach, why: "Took the young program to its first bowl in 2019 — the era fans point to" }
+    - { name: Aaron McAllister, role: player, why: "Early-era defensive standout from the program's formative FBS seasons" }
+  canonical_moments:
+    - { name: "First football game", year: 2013, what: "Charlotte plays its inaugural game, a program born from nothing", handling: glory }
+    - { name: "First bowl bid", year: 2019, what: "A 7-6 season earns a Bahamas Bowl berth in only the seventh year of football", handling: glory }
+  the_place: "Jerry Richardson Stadium — a purpose-built, on-campus venue opened with the program in 2013, named for the Panthers owner who helped fund it; one of the newest football homes in the FBS."
+  brand_of_football: "Startup football — a program still defining its style, leaning on transfers and turnover, building an identity from scratch in a pro-sports city that had no college-football habit."
+  cultural_footprint: "The college-football experiment in a big metro — proof of whether a major modern city without football tradition can will a program into being, 'Forever Niner' as a brand built rather than inherited."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Charlotte hired Tim Albin — fresh off a MAC championship at Ohio — and
+    his debut went 1-11 (0-8 American), a brutal floor that exposed how thin the foundation still is for a
+    program barely a decade old. Albin returns for year two in 2026 with a roster heavy on portal turnover and
+    a mandate to rebuild toward the bowl relevance the 49ers briefly tasted in 2019 — the question being
+    whether a proven winner can accelerate a build that has no century of history to lean on.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Charlotte_49ers_football_team
+    - https://en.wikipedia.org/wiki/2026_Charlotte_49ers_football_team
+    - https://charlotte49ers.com/news/2026/2/2/charlotte-and-old-dominion-agree-to-football-series
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Charlotte is the American Athletic program whose 2013 program founding + 2019 first bowl
+    appearance + Jerry Richardson Stadium define what most-recent-FBS-newcomer-ascent looks like.
+  mantra: Forever Niner.
+  cultural_anchors:
+    fan_archetype_dominant: Charlotte-Niner-Forever
+    outsider_archetype_dominant: FBS-Newcomer-Diminisher
+    one_sentence: Charlotte is the 2013-founded FBS-newcomer program — Jerry Richardson Stadium purpose-built
+      + 2019 first bowl appearance + Forever Niner identity that anchor the recent-FBS-ascent arc.
+  selfname: the 49ers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2013 program founding
+    - 2019 7-6 + Bahamas Bowl appearance (first bowl)
+    - Jerry Richardson Stadium 2013 purpose-built venue
+    rituals:
+    - 2013 Program Founding
+    - Jerry Richardson Stadium
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

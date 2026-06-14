@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: gustavus-adolphus
+team_id: null
+program_name: Gustavus Adolphus College
+program_tier: 7
+
+emotional_core:
+  primary: disbelief
+  secondary: restoration
+  one_line: "Gustavus is a program climbing back after decades at the margins—the 2023 MIAC championship game appearance proved it can compete at the top, and 2026 is about proving that wasn't a fluke."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A small Minnesota school that spent 30+ years outside the MIAC elite, then suddenly appeared in a championship game in 2023, leaving the fanbase asking: was that the start, or the peak?"
+
+the_wound:
+  name: "The 36-year drought—last MIAC title before 2023 was 1987"
+  detail: "From 1987 to 2023, Gustavus went 36 years without a conference championship game appearance. The program played solid football, won games, but never quite crested the hill. Then in 2023, everything changed—they reached the MIAC championship game for the first time in over three decades. The question haunting the fanbase ever since: was that the start of something real, or just a moment?"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Make the MIAC championship game a regular occurrence—prove that 2023 was the beginning of a new era, not an anomaly."
+  drought: { since: 1987, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe gustavus's identity is about finally breaking through—proving to itself and the MIAC that a small school on the edge can become a perennial contender."
+
+the_delusion:
+  tone: self-aware
+  text: "Gustavus fans believe 2023 was the inflection point, and 2026 will prove it. They know 5-5 seasons happen, but they also know what their team is capable of now that it's been tested at the championship level."
+
+the_grudge_texture:
+  rival: st-olaf
+  texture: border-war
+
+the_coach_relationship: savior
+the_internal_fracture: "Is 2023 a breakthrough or a fluke?—The fanbase wants to believe the former, but memories of 36 years in the desert make believing hard."
+register: gustavus-adolphus-gusties-st-peter-minnesota-breakout
+never_use:
+  - Historic powerhouse—Gustavus was not elite before 2023
+  - Back-to-back titles—the 2023 championship game appearance is recent and singular
+  - Established MIAC power—this program is proving itself for the first time at the top level
+
+story_canon:
+  the_unique_thing: "The 2023 MIAC championship game appearance—Gustavus's first conference championship game since 1987, ending a 36-year drought and proving that a small Minnesota school can break through to the elite level of the MIAC."
+  the_origin: "Gustavus Adolphus College, a small Lutheran school in St. Peter, Minnesota, has competed in the MIAC since the conference's founding era but spent decades as a middle-tier program, winning games but never quite breaking through to championship contention."
+  golden_ages:
+    - { era: "1980s", what: "Gustavus's last championship era; the program won MIAC titles in the 1980s" }
+    - { era: "2023–present", what: "The modern breakthrough—the 2023 MIAC championship game appearance marks the beginning of a new era" }
+  legends:
+    - { name: Peter Haugen, role: coach, why: "17-year head coach; architect of the 2023 breakthrough and builder of the modern Gustavus winning culture" }
+  canonical_moments:
+    - { name: "The 2023 MIAC championship game", year: 2023, what: "Gustavus reaches the MIAC championship game for the first time in 36 years, proving the program can compete at the elite level", handling: miracle }
+    - { name: "Breaking the 36-year drought", year: 2023, what: "The 2023 season ends that long drought and signals a program with new ceiling", handling: glory }
+  the_place: "St. Peter, Minnesota—a small town, home to Gustavus's intimate campus in the heartland."
+  brand_of_football: "Competitive, fundamental, hungry—Gustavus plays with the energy of a program that knows it has something to prove and is ready to prove it."
+  cultural_footprint: "Gustavus represents the D3 story of persistence: decades of competent but overlooked football, then suddenly a breakthrough that changes the program's identity and possibilities."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Gustavus went 5-5 (5-4 MIAC) in 2025, a down year that raised
+    questions about whether the 2023 breakthrough was sustainable. Peter Haugen (17th year) faced the pressure
+    of a fanbase that had tasted elite-level competition and wasn't ready to return to the desert. The 2026
+    season carries the weight of that question: can Gustavus rebuild and return to championship contention,
+    or was 2023 the anomaly after all?
+  research_checklist:
+    - The 2023 MIAC championship game appearance (first in 36 years)
+    - Peter Haugen's 17-year tenure and the 2025 down year
+    - The fanbase's oscillation between hope and doubt
+    - Small-school identity and breakthrough narrative
+    - The uncertainty of sustainability
+  sources:
+    - https://www.gustavus.edu/athletics/football/
+    - https://miachome.org/sports/football/
+    - https://www.d3football.com/

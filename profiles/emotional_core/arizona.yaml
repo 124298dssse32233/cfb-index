@@ -1,0 +1,119 @@
+# Emotional Core — Arizona  (arizona)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: arizona
+team_id: 326
+program_name: Arizona
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # a program clawing back to relevance — and proving the Big 12 move was no demotion
+  secondary: grievance    # the desert team the sport keeps forgetting, even after a 9-4 bounce-back
+  core_variant: perpetual-rebuild
+  one_line: "Arizona is the desert program that owns one of the great defenses college football ever fielded — the 1990s Desert Swarm — and spent the seasons since trying to feel that feared again, most recently bouncing back from 4-8 to 9-4 in its second Big 12 year."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 1998 12-1 Desert Swarm peak and a 2023 10-3 against long stretches of bowl-less irrelevance — a program with a real ceiling it has only rarely touched."
+
+the_wound:
+  name: "The 2024 crash that nearly cost a coach his job"
+  detail: "After a 10-3 rise under Jedd Fisch, Arizona watched him leave for Washington, then collapsed to 4-8 in Brent Brennan's first season and its debut Big 12 year — the fanbase openly calling for a coaching change before the 2025 rebound made the question moot."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Big 12, make the desert defense feared again the way Desert Swarm was, and turn a one-year bounce-back into a program that contends instead of disappears."
+  drought: { since: 1998, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Wildcat fans say the sport filed Arizona under 'Pac-12 survivor' the day the old league died and never updated the file — they say a 9-4 Big 12 season barely moved the needle, and the desert is tired of being treated as filler."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes Tucson can be a real football town again — that the Desert Swarm magic is dormant, not dead, and the next great Arizona defense is one good staff away; they know the history says otherwise and believe it regardless."
+
+the_grudge_texture:
+  rival: arizona-state
+  texture: border-war   # the Territorial Cup — the oldest rivalry trophy in college football
+the_coach_relationship: hot-seat-churn   # Fisch left for Washington; Brennan survived a 4-8 referendum into a 9-4 reprieve
+the_internal_fracture: patience vs urgency — the faction that says the 9-4 proves Brennan can build a Big 12 contender vs the faction that remembers the 4-8 and wants to win now before the window and the conference move close
+register: tucson-bear-down-wildcats   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Pac-12 forever — 2024 Big 12 entry resolved the question
+  - 'Mid-pack only — 1998 #4 AP finish + 2023 10-3 disprove the ceiling'
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Desert Swarm — the early-1990s Dick Tomey defense that held opponents to barely 30 rushing yards a game and put Arizona on the cover of Sports Illustrated; the program's identity is that for a stretch, the desert fielded one of the most feared defenses in the sport."
+  the_origin: "Football in Tucson since 1899, home of 'Bear Down' — the dying words of a 1926 player-captain that became the university's eternal motto — and lifted to its peak by Dick Tomey, the winningest coach in program history."
+  golden_ages:
+    - { era: "1992–1998 (Dick Tomey / Desert Swarm)", what: "The feared Desert Swarm defense and the 1998 12-1 season, the best in school history" }
+    - { era: "2023 (Jedd Fisch)", what: "A 10-3 rebuild and an Alamo Bowl run that briefly made Arizona a desert force again" }
+  legends:
+    - { name: Dick Tomey, role: coach, why: "Winningest coach in program history; architect of Desert Swarm and the 1998 12-1 team" }
+    - { name: Tedy Bruschi, role: player, why: "Two-time All-American DE, the face of Desert Swarm, future Patriots champion" }
+    - { name: Rob Gronkowski, role: player, why: "The most famous Wildcat in the NFL era, a Tucson product turned all-time tight end" }
+  canonical_moments:
+    - { name: "The 1998 12-1 season", year: 1998, what: "A 23-20 Holiday Bowl win over Nebraska, a #4 final ranking — the high-water mark of Arizona football", handling: glory }
+    - { name: "Desert Swarm on the SI cover", year: 1994, what: "The defense gracing Sports Illustrated — the moment the desert became nationally feared", handling: glory }
+  the_place: "Arizona Stadium in Tucson — desert heat, the ZonaZoo student section, and 'Bear Down' painted across a program that has waited decades to roar again."
+  brand_of_football: "Defense-first identity at its best — the Desert Swarm tradition of swarming, gang-tackling pressure; in the modern era, an Air-Raid-flavored offense layered on top in search of the old ferocity."
+  cultural_footprint: "Tucson's flagship and the desert's defensive standard-bearer — 'Bear Down' as a campus creed, the Territorial Cup as the soul of the in-state rivalry, the NFL pipeline from Bruschi to Gronkowski."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After Jedd Fisch's 10-3 rebuild and departure to Washington, Arizona
+    cratered to 4-8 in Brent Brennan's first season and its debut Big 12 year, with fans openly calling for
+    a change. Brennan answered in 2025 with a 9-4 turnaround (6-3 Big 12), reaching the Holiday Bowl (a 24-19
+    loss to SMU) and earning a contract extension. Entering 2026, the question is whether the bounce-back is
+    a foundation for a Big 12 contender or a one-year reprieve.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Arizona_Wildcats_football_team
+    - https://en.wikipedia.org/wiki/1998_Arizona_Wildcats_football_team
+    - https://tucson.com/sports/college/football/wildcats/article_ac9eadc2-ed99-4bb3-a71f-b2b5c4bc1908.html
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Arizona is the Big 12 newcomer whose 1998 12-1 Holiday Bowl + 2024 10-3 + Jedd Fisch
+    + Brent Brennan transition define what modern desert-football looks like.
+  mantra: Bear Down.
+  cultural_anchors:
+    fan_archetype_dominant: Tucson-Bear-Down-Wildcat
+    outsider_archetype_dominant: Pac-12-Survivor-Diminisher
+    one_sentence: Arizona is the desert-football flagship — Bear Down origin + 1998 Desert Swarm + Jedd
+      Fisch rebuild + 2024 Big 12 entry from Pac-12 collapse.
+  selfname: the Wildcats
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1998 12-1 + Holiday Bowl +
+    - 2023 10-3 + Alamo Bowl appearance under Jedd Fisch
+    - 2024 Big 12 entry from Pac-12 collapse
+    rituals:
+    - Bear Down
+    - 1998 Desert Swarm Era
+    - Cactus Bowl / Territorial Cup
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (54/100, n=53)
+    voice_profile: absent
+    delusion_premium: absent

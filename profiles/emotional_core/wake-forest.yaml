@@ -1,0 +1,121 @@
+# Emotional Core — Wake Forest  (wake-forest)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: wake-forest
+team_id: 31
+program_name: Wake Forest
+program_tier: 4
+
+emotional_core:
+  primary: contentment     # the smallest school in the league quietly does the most with the least — and is fine being underestimated
+  secondary: restoration   # a new coach proving the Clawson development model survived the handoff
+  one_line: "Wake Forest is the smallest school in the Power conferences and the program that keeps winning anyway — the place that turns three-star quarterbacks into NFL draft picks and just won nine games in a brand-new coach's first try."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "An Orange Bowl trip and a 2006 ACC title from a 5,400-student campus vs a league of state schools five times its size — the gap Wake closes with patience instead of talent advantages."
+
+the_wound:
+  name: "The fear the magic walked out the door with Clawson"
+  detail: "Dave Clawson built a decade of development and bowl trips, then stepped away after 2024 — and Winston-Salem braced for the slide that usually follows when a small program loses the coach who made it work. Whether the model was Clawson or the place was the live question entering 2025."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the ACC again and reach a major bowl — to prove the 2006 Orange Bowl wasn't a one-time lightning strike but something the program can build toward on purpose."
+  drought: { since: 2006, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Wake fans are used to being the team analysts forget to mention and the campus visitors can't find. They say being overlooked is a feature — the Deacons recruit the players everyone else passed on and develop them into the picture nobody saw coming."
+
+the_delusion:
+  tone: self-aware
+  text: "Deacon fans believe the slow-developed, redshirt-everyone Wake way beats recruiting-rankings football over time — that the program can keep manufacturing nine-win teams and NFL quarterbacks from the league's smallest pool. They know the math is against them, and they trust the model anyway."
+
+the_grudge_texture:
+  rival: nc-state
+  texture: little-brother   # the in-state Tobacco Road fight Wake plays as the smallest, most overlooked of North Carolina's ACC schools
+
+the_coach_relationship: savior   # Jake Dickert proved the model survives him in year one; the fanbase is sold
+the_internal_fracture: trust-the-model vs fear-the-fall — the faction that saw a 9-win debut as proof the program is bigger than any one coach vs the faction still bracing for the day the development pipeline finally runs dry
+register: winston-salem-quiet-brand   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Small-school program — Orange Bowl + ACC title says otherwise
+  - Always punching above weight — sustained development the structural answer
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Wake Forest is the smallest school in the Power conferences — about 5,400 undergraduates — and it has spent two decades beating bigger programs by developing overlooked recruits, including a quarterback pipeline that has sent Riley Skinner, John Wolford, and Sam Hartman into the pros."
+  the_origin: "A small private Baptist-founded university in Winston-Salem, North Carolina, that for most of its history was the ACC's quiet member — until Jim Grobe, and then Dave Clawson, made development its whole identity."
+  golden_ages:
+    - { era: "2006–2008 (Jim Grobe)", what: "An ACC championship and an Orange Bowl trip in 2006 — the high-water mark, built entirely on player development" }
+    - { era: "2017–2022 (Dave Clawson)", what: "Six straight bowls, an 11-3 peak in 2021, and the redshirt-everyone slow-mesh offense that produced NFL quarterbacks" }
+  legends:
+    - { name: Jim Grobe, role: coach, why: "Coached the 2006 ACC champions and Orange Bowl team — the program's greatest season" }
+    - { name: Dave Clawson, role: coach, why: "Built a decade of bowls and the development model that defines modern Wake Forest" }
+    - { name: Sam Hartman, role: player, why: "The record-setting quarterback who became the face of the Clawson-era offense" }
+  canonical_moments:
+    - { name: "The 2006 ACC championship and Orange Bowl", year: 2006, what: "Wake Forest wins the ACC and reaches the Orange Bowl — the most improbable major-bowl run of its era", handling: glory }
+    - { name: "The 11-3 peak", year: 2021, what: "A program-best modern season behind the slow-mesh offense and a Top-25 finish", handling: glory }
+    - { name: "Dickert's nine-win debut", year: 2025, what: "A new coach goes 9-4 and wins the Duke's Mayo Bowl, proving the model survived Clawson's exit", handling: glory }
+  the_place: "Allegacy Federal Credit Union Stadium in Winston-Salem — a modest, intimate venue that fits the program's quiet, no-fuss identity."
+  brand_of_football: "Go Deacs — patient, development-first football: redshirt early, run the slow-mesh, turn three-star recruits into draft picks, and out-execute schools with deeper talent."
+  cultural_footprint: "The standing proof that the smallest program in a major league can keep winning on patience and player development — the ACC's quietest overachiever."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Jake Dickert, hired from Washington State after Dave Clawson stepped away,
+    went 9-4 (4-4 ACC) in his first season and won the Duke's Mayo Bowl 43-29 over Mississippi State — the most
+    wins ever by a Wake Forest first-year coach — and signed a long-term extension in December 2025. Bowl MVP
+    quarterback Robby Ashford is out of eligibility, and the 2026 starter is unsettled. The question in
+    Winston-Salem: was the dream debut the floor of a Dickert era, or a one-year high?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Wake_Forest_Demon_Deacons_football_team
+    - https://www.espn.com/college-football/story/_/id/47181716/wake-forest-signs-first-year-football-coach-jake-dickert-long-term-contract-extension
+    - https://godeacs.com/news/2025/12/2/general-wake-forest-jake-dickert-sign-long-term-contract
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Wake Forest is the smallest P5 school by enrollment and the program that quietly produces
+    nine-win seasons by ignoring its size.
+  mantra: Go Deacs.
+  cultural_anchors:
+    fan_archetype_dominant: Winston-Salem-Brand-Loyalist
+    outsider_archetype_dominant: Where-Is-Wake-Football
+    one_sentence: Wake Forest is the program that produced an Orange Bowl trip in 2007 + the Mitch Trubisky
+      / Sam Hartman / John Wolford QB pipeline from a 5,400-undergraduate Baptist school — the most-improbable
+      structural fit in the ACC.
+  selfname: the Demon Deacons
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2006-2007 ACC championship + Orange Bowl
+    - Jim Grobe's 2001-2013 development-based program building
+    - Sam Hartman / John Wolford / Riley Skinner QB pipeline
+    rituals:
+    - Demon Deacon Mascot
+    - Old Gold and Black
+    - Brawl of the Wild (vs NC State / UNC)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: cooking (60/100, n=37)
+    voice_profile: absent
+    delusion_premium: absent

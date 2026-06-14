@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: mary-hardin-baylor
+team_id: null
+program_name: Mary Hardin-Baylor University
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: spectacle
+  one_line: "Mary Hardin-Baylor is the Texas Division III dynasty that won national championships in 2018 and 2021, cementing itself as a title contender every year."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 2,500-student liberal-arts college in Belton, Texas with a football program that has become one of Division III's most consistent powerhouses."
+
+the_wound:
+  name: "None — the program is thriving"
+  detail: "Mary Hardin-Baylor won the ASC in 2025 and is one of the strongest programs in Division III. There is no wound — only the joy of sustained excellence."
+  handling: dated-grievance
+  freshness: this-era
+
+the_dream:
+  text: "Win another national championship and cement the legacy as one of the greatest Division III programs of the 2010s-2020s."
+  drought: { since: 2021, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Mary Hardin-Baylor plays with the confidence of a proven champion."
+
+the_delusion:
+  tone: earnest
+  text: "That every year could be a championship run — fans of the Crusaders believe every season is built for a Stagg Bowl, and the program's recent history says they're not wrong."
+
+the_grudge_texture:
+  rival: hardin-simmons
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: "satisfaction with current success vs desire for a third national title"
+register: belton-texas-crusaders-dynasty
+never_use:
+  - Minimized the 2018 and 2021 national championships
+  - Invented additional titles (only 2018 and 2021 verified)
+  - Questioned the program's elite status (it's earned)
+
+story_canon:
+  the_unique_thing: "Two national championships (2018, 2021) in four years — Mary Hardin-Baylor is one of Division III's elite programs, a Stagg Bowl contender every season."
+  the_origin: "Mary Hardin-Baylor University in Belton, Texas has built one of the greatest Division III dynasties in the 2010s-2020s under head coach Larry Harmon."
+  golden_ages:
+    - { era: "2018–2025", what: "The Harmon era: sustained excellence, two national championships, consistent Stagg Bowl contention" }
+  legends:
+    - { name: Larry Harmon, role: coach, why: "The architect of the Mary Hardin-Baylor dynasty — two national titles and sustained elite status" }
+  canonical_moments:
+    - { name: "2018 national championship", year: 2018, what: "Mary Hardin-Baylor wins the Stagg Bowl", handling: glory }
+    - { name: "2021 national championship", year: 2021, what: "Mary Hardin-Baylor wins another Stagg Bowl championship", handling: glory }
+  the_place: "Belton, Texas — the home of Mary Hardin-Baylor University, a liberal-arts college in Central Texas."
+  brand_of_football: "Disciplined, powerful, rooted in coaching excellence and the gold jersey tradition that defines the program."
+  cultural_footprint: "One of the greatest Division III programs, a powerhouse from Central Texas that has proven it can win national championships."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Mary Hardin-Baylor went 9-3 in 2025 (5-1 ASC, tied for 1st place) under head coach Larry Harmon (4th year).
+    The Crusaders won or tied for the ASC championship and remain one of the strongest programs in Division III football. The gold jersey tradition and championship pedigree
+    keep Mary Hardin-Baylor in contention every year. The question in Belton is whether the Crusaders can break the four-year drought and win a third national championship.
+  research_checklist:
+    - 2018 and 2021 national championships
+    - Larry Harmon coaching tenure and success
+    - 2025 season 9-3 record and ASC title
+    - Gold jersey tradition
+    - Roster strength and playoff positioning
+    - Rivalry with Hardin-Simmons
+  sources:
+    - https://en.wikipedia.org/wiki/Mary_Hardin%E2%80%93Baylor_Crusaders_football
+    - https://www.d3football.com/schools/mary-hardin-baylor
+    - https://mhbucrusaders.com/sports/football

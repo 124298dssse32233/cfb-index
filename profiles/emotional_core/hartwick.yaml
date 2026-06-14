@@ -1,0 +1,72 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: hartwick
+team_id: null
+program_name: Hartwick College
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Hartwick is a small Division III program where academics and lacrosse are the identity, and football plays the role of a secondary sport in a tight-knit college community."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small liberal-arts college where football is not the centerpiece, but competing with pride in Empire 8 matters to those who play it."
+
+the_wound:
+  name: "No wound"
+  detail: "Hartwick carries no historic grievance. The program plays for the honor of the college and the camaraderie of student-athletes."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Build consistency in Empire 8 and prove that a small, academically-focused school can compete and improve."
+  drought: { since: 1977, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Hartwick plays for itself."
+
+the_delusion:
+  tone: earnest
+  text: "That Hartwick can be a football-first school when tradition and resources belong to lacrosse and soccer. The fanbase loves football but knows where the college's identity truly lies."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "The academic calendar and small-school constraints vs the demands of competing in Division III football at a high level."
+register: hartwick-college-hawks-liberal-arts
+never_use:
+  - Football power program — Hartwick's identity is lacrosse and soccer
+  - Historic football tradition — football is secondary
+  - 1977 soccer championship was Division I at the time, not part of football legacy
+
+story_canon:
+  the_unique_thing: "A small liberal-arts college where lacrosse and soccer are the primary sports (1977 NCAA Division I soccer championship), and football exists as part of the broader athletic community."
+  the_origin: "Hartwick College founded 1797. Football began in the early 1900s but has always been secondary to other sports on campus."
+  golden_ages:
+    - { era: "1977", what: "NCAA Division I soccer national championship (a college-wide athletic pinnacle)" }
+  legends: []
+  canonical_moments:
+    - { name: "1977 Soccer Championship", year: 1977, what: "Hartwick won the NCAA Division I soccer national championship", handling: glory }
+  the_place: "Hartwick's small campus in Oneonta, New York — a tight-knit academic community where all athletic programs compete."
+  brand_of_football: "A small-school program that competes with honor and pride, knowing the athletic resources and attention flow primarily to lacrosse and soccer."
+  cultural_footprint: "Hartwick represents the Division III ethos where football is a sport played by student-athletes who love the game, not the centerpiece of institutional identity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Hartwick went 4–6 (1–6 Empire 8) in 2025, finishing 7th in the conference. The Hawks remain a
+    secondary program in a college where lacrosse and soccer dominate athletic culture. The football program competes with dedication in Empire 8
+    while existing within a broader athletic mission.
+  research_checklist:
+    - Founded 1797 (historic liberal-arts college)
+    - 1977 NCAA Division I soccer national championship
+    - Lacrosse and soccer are primary sports
+    - 2025 record: 4–6, 1–6 Empire 8 (7th place)
+    - Small enrollment, limited football resources
+  sources:
+    - https://en.wikipedia.org/wiki/Hartwick_College
+    - https://www.d3football.com/teams/hartwick
+    - https://empire8.com

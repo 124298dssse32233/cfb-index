@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Adrian College Bulldogs
+
+status: live
+slug: adrian
+team_id: null
+program_name: Adrian College
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Adrian is the historic Bulldog program with 18 conference titles, now building back under Joe Palka after two strong seasons—the Bulldogs insist that MIAA relevance is not nostalgia but the near future."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A program with 18 MIAA conference titles (most recent 2014) and 133 years of continuous football vs. a modern era (post-2014) of inconsistency and the pressure to prove recent success is not a fluke."
+
+the_wound:
+  name: "The title drought and the slow rebuild"
+  detail: "Adrian won 18 MIAA titles (last in 2014, now 12 years back) but has been unable to reclaim the trophy. Joe Palka took over in 2024 and immediately showed promise: 6-4 in year one, 7-4 in year two (2025), and made the MIAA playoff finals. The wound is not fresh but chronic—Adrian was once a powerhouse, and a decade-long conference title drought is a slow erosion."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win an MIAA title again and prove Adrian is returning to powerhouse status under Palka."
+  drought: { since: 2014, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is internal. Adrian's identity is built on 18 conference titles, and the program wants to add to that number."
+
+the_delusion:
+  tone: earnest
+  text: "That 7-4 and a playoff finals loss is the beginning of a dynasty. Adrian fans believe Palka is the right coach, and they trust that a title is one season away."
+
+the_grudge_texture:
+  rival: alma
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Historic powerhouse image (18 titles) vs. recent mediocrity (only title since 2014)"
+register: adrian-michigan-bulldogs-miaa-power
+never_use:
+  - Small program — Adrian has 18 MIAA titles and 133 years of history
+  - Failed program — 7-4 in 2025 and playoff finals is strong, not failure
+  - Perennial loser — most recent title is only 12 years past
+
+story_canon:
+  the_unique_thing: "Adrian is the Bulldog program with 18 MIAA conference titles—the heritage of a small-college power that dominated the conference in earlier eras and is now building back."
+  the_origin: "Adrian College began playing football in 1892, making it one of the oldest D3 programs (133 years old). The Bulldogs became a MIAA staple in 1937 and accumulated 18 conference titles, most earned in the late 20th century. The program has been a consistent presence in the MIAA for 88 years."
+  golden_ages:
+    - { era: "1970s–2010s", what: "Era of sustained conference competitiveness, earning most of the 18 MIAA titles" }
+    - { era: "2014 (Last title)", what: "Most recent MIAA championship, 12 years back" }
+    - { era: "2024–2025 (Palka era)", what: "Rebuilding with 6-4 and 7-4 seasons, playoff finals appearance" }
+  legends:
+    - { name: Joe Palka, role: coach, why: "Second-year coach (since 2024) rebuilding Adrian with 6-4 and 7-4 seasons" }
+    - { name: Noah Beaudrie, role: player, why: "Senior QB transfer from Mount Union (2025), all-MIAA, 2,734 passing yards, 24 TDs" }
+  canonical_moments:
+    - { name: "1892 first season", year: 1892, what: "Adrian begins football, establishing one of the oldest MIAA programs", handling: glory }
+    - { name: "2014 conference title", year: 2014, what: "Most recent MIAA championship", handling: glory }
+    - { name: "2025 playoff finals", year: 2025, what: "Adrian reaches MIAA playoff finals, losing 35-34 to Alma—strong finish under Palka", handling: glory }
+  the_place: "Adrian, Michigan, a small town in southeastern Michigan. Docking Stadium is the home. The program is a community touchstone."
+  brand_of_football: "Fundamentally sound and competitive. Adrian football is built around the student-athlete model and consistent execution."
+  cultural_footprint: "A quiet but respected MIAA program. Adrian is known for stability and competitive presence without being a media draw."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Adrian went 7-4 in 2025 (strong regular season) and made the MIAA playoff finals, losing 35-34 to Alma on November 15 despite being ranked #24 in the national polls. The loss was heart-breaking—a one-point defeat to a rival for the conference title and automatic playoff bid. Joe Palka's second year showed improvement from his 6-4 inaugural season. The Bulldogs have not won an MIAA title since 2014 (12 years), and that drought motivates the rebuild. The question for 2026 is whether Palka can get Adrian over the hump and into the tournament field as a champion, not a runner-up.
+  research_checklist:
+    - 1892 founding (133 years old)
+    - 18 MIAA conference titles (verified)
+    - 2014 last title (12-year drought)
+    - Joe Palka hired 2024
+    - 2025 season 7-4, playoff finals loss (35-34 to Alma, Nov 15)
+    - Noah Beaudrie QB (24 TDs, 2,734 yards, 1st team All-MIAA)
+    - Docking Stadium home
+  sources:
+    - https://adrianbulldogs.com
+    - https://en.wikipedia.org/wiki/Adrian_Bulldogs_football
+    - https://www.d3football.com/teams/Adrian/2025/index

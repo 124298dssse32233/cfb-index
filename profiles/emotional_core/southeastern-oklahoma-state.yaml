@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: southeastern-oklahoma-state
+team_id: null
+program_name: Southeastern Oklahoma State
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Southeastern Oklahoma State is the Savage Storm—a D2 program in Durant, Oklahoma that plays for the university and the community, building identity through sustained participation."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A regional university in Durant, Oklahoma that has maintained a football program through decades of GAC competition, never dominant but always present."
+
+the_wound:
+  name: "Chronic regional mediocrity"
+  detail: "Southeastern Oklahoma State finished 5-6 in 2025. The program has rarely threatened for a GAC Conference Championship, a steady mid-tier presence that never quite breaks through."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build toward a winning season and establish Southeastern Oklahoma State as a consistent GAC competitor."
+  drought: { since: 1970, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe southeastern Oklahoma State has no chip. The Savage Storm play because Durant matters, and because the program serves the university's mission."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that with the right coaching, the Savage Storm could be a contender. They point to the university's resources and location as foundation for something bigger."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: Multiple coaching transitions; searching for sustained leadership
+register: durant-savage-storm-regional-pride
+
+never_use:
+  - "Southeastern Oklahoma State can't compete"
+  - "The Savage Storm are irrelevant"
+  - "Durant can't support a competitive program"
+  - "D2 football in Oklahoma is minor league"
+
+story_canon:
+  the_unique_thing: "Southeastern Oklahoma State is the Savage Storm—a D2 program that competes in Durant, Oklahoma as a steady presence in the GAC."
+  the_origin: "Southeastern Oklahoma State was founded in 1909 in Durant, Oklahoma. The football program has been part of the university's athletic identity for over a century."
+  golden_ages:
+    - { era: "Pre-2000s", what: "Southeastern Oklahoma State had competitive seasons in earlier eras" }
+  legends:
+    - { name: Bo Atterberry, role: coach, why: "Current head coach tasked with building the Savage Storm program" }
+  canonical_moments:
+    - { name: "Sustained GAC Participation", year: null, what: "Southeastern Oklahoma State continues to compete in the Great American Conference", handling: glory }
+  the_place: "Durant, Oklahoma—home of the Savage Storm, a university town on the Oklahoma-Texas border."
+  brand_of_football: "Regional pride football. The kind where the program represents the university and the community."
+  cultural_footprint: "Southeastern Oklahoma State is a stable presence in Division II, representing Durant and the southern Oklahoma region."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Southeastern Oklahoma State finished 5-6 in 2025 under head coach
+    Bo Atterberry, who was hired in December 2022 as the 21st head coach in program history. The Savage Storm
+    are working to establish stability after multiple coaching transitions. The question for 2026: can Bo Atterberry
+    build sustained success and move the Savage Storm toward a GAC contender status?
+  research_checklist:
+    - Southeastern Oklahoma State's founding and history
+    - Bo Atterberry's coaching tenure and vision
+    - 2025 season results and roster state
+    - recent coaching transitions
+    - conference standings and positioning
+  sources:
+    - https://en.wikipedia.org/wiki/Southeastern_Oklahoma_State_Savage_Storm
+    - https://gosoutheastern.com/sports/football/roster/coaches/bo-atterberry/619
+    - https://greatamericanconference.com/standings.aspx?path=football

@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Emotional Core — soul file for Nebraska-Kearney Lopers (MIAA)
+
+status: live
+slug: nebraska-kearney
+team_id: null
+program_name: Nebraska-Kearney
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Nebraska-Kearney is the Loper program of the prairie — a historic university with deep roots (founded 1905) and 32 conference championships, playing steady football in the heartland without need for national validation."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A program with 32 conference championships across multiple eras and five NCAA D2 playoff appearances, competing reliably in the MIAA since 2012 but never the breakout program the fanbase once hoped for."
+
+the_wound:
+  name: "The post-2012 transition plateau — joining the MIAA with hope, remaining competitive but never special"
+  detail: "Nebraska-Kearney moved to the MIAA in 2012 with ambitions to compete for national attention. The program has been steady (five playoff appearances) but hasn't won a national championship or climbed into the elite tier. That's the wound of the regional power: competent, not dominant."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win a D2 playoff game and climb toward national relevance — prove the Lopers belong among the elite, not the steady middle."
+  drought: { since: 2011, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "No chip — the Lopers are happy to be competitive in the MIAA. The fanbase plays for the Fort Hays rivalry and the conference standing, not national redemption."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that Ryan Held's first season as head coach (hired 2025) could spark a turnaround — that new energy could unlock the program's potential. They know Nebraska-Kearney has been close before, and play the hope that this is different."
+
+the_grudge_texture:
+  rival: fort-hays-state
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "Held era optimism vs. caution about previous rebuilds — fans hopeful but wary after years of near-misses"
+register: nebraska-prairie-loper-heartland
+never_use:
+  - "No history (32 conference championships, program founded 1905)"
+  - "Never made the playoffs (five playoff appearances including 2021)"
+  - "New to the MIAA (joined 2012, established member since)"
+
+story_canon:
+  the_unique_thing: "Nebraska-Kearney is the prairie program with deep historical roots (founded 1905) and 32 conference championships across multiple eras — proof that a small Nebraska university can sustain competitive football across generations."
+  the_origin: "The University of Nebraska at Kearney was founded in 1905 as a teachers college, and football became central to the identity. The Lopers have won 32 conference championships across their history (multiple conferences: CSIC 1976–1989, others) and have remained competitive through numerous transitions."
+  golden_ages:
+    - { era: "Pre-1976 (CSIC Era)", what: "The era of early conference championships and regional prestige" }
+    - { era: "2002–2021", what: "Five NCAA D2 playoff appearances (2002, 2005, 2009, 2011, 2021) — the program's national-stage moments" }
+  legends:
+    - { name: "[Historic Coaches]", role: "coach", why: "Multiple coaches have built Nebraska-Kearney's 32 conference championship tradition" }
+    - { name: "Ryan Held", role: "coach", why: "First season in 2025; tasked with returning the Lopers to playoff contention" }
+  canonical_moments:
+    - { name: "2021 NCAA Playoff Appearance", year: 2021, what: "The program's most recent postseason berth; final of five D2 playoff runs", handling: glory }
+    - { name: "32 Conference Championships", year: 2025, what: "Historic standard across multiple conference eras", handling: glory }
+  the_place: "Foster Field (or Memorial Stadium) in Kearney, Nebraska — home to the Lopers and the center of North Platte valley football."
+  brand_of_football: "Steady, developmental, prairie-rooted — football built on institutional pride and the belief that Nebraska football means something, even at D2 level."
+  cultural_footprint: "A program that proved a small Nebraska university could sustain excellence across generations and multiple conference affiliations."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Nebraska-Kearney went 3-8 in 2025, and the program underwent coaching transition. Ryan Held was hired as the new head coach (first season in 2025), bringing new energy to a program that has been competitive but not contending. The Lopers have made five D2 playoff appearances in their history, with the most recent in 2021. The question: can Held spark a return to the playoff field, or will Nebraska-Kearney remain in the steady-but-unfulfilled category?
+  research_checklist:
+    - Historic 32 conference championships across multiple eras
+    - MIAA membership (since 2012) and competitive record
+    - Five NCAA D2 playoff appearances (2002, 2005, 2009, 2011, 2021)
+    - Ryan Held's hire and first-season impact
+    - Fort Hays rivalry history
+  sources:
+    - https://en.wikipedia.org/wiki/Nebraska-Kearney_Lopers_football
+    - https://www.unk.edu/athletics/
+    - https://themiaa.com/
+    - https://www.d2football.com/

@@ -1,0 +1,172 @@
+# Emotional Core — Michigan  (michigan)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: michigan
+team_id: 320
+program_name: Michigan
+program_tier: 1
+
+emotional_core:
+  primary: standard       # the winningest program measures every year against the whole ledger, not the last one
+  secondary: restoration  # the live work is rebuilding institutional stability after the year off the field went wrong
+  one_line: "Michigan is the sport's winningest program — the keeper of the record book — handing the keys to a 21-year Utah builder and a sophomore phenom to steady a house that just shook from the inside."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "More wins than any program in the sport's history and the 2023 national title vs a 9-4 finish, a Citrus Bowl collapse to Texas, and a coaching change forced by an off-field reckoning rather than a record."
+
+the_wound:
+  name: "The coaching upheaval"
+  detail: "Sherrone Moore was dismissed for cause in December 2025 amid an off-field investigation; Michigan moved quickly to hire Kyle Whittingham, fresh off 21 seasons at Utah, as its 22nd head coach — a hard, sudden reset in a program that prizes order above almost everything."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Convert the deepest history in the sport into a second title of the era — Whittingham's stability plus Underwood's ceiling, back to The Game won and the Playoff entered as expected."
+  drought: { since: 2023, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The fanbase has heard for two years that the 2023 title carries an asterisk and that Michigan is a story the rest of the sport gets to narrate; Michigan Men say the ledger answers all of it, and that the program that has done this longer than anyone doesn't need the panels' permission."
+
+the_delusion:
+  tone: load-bearing
+  text: "Michigan fans believe the institution outlasts any single season — that more all-time wins than anyone means the standard is permanent, the down year is a recalibration, and a sophomore quarterback and a proven coach put the Big House back where it belongs by default."
+
+the_grudge_texture:
+  rival: ohio-state
+  texture: blood-feud   # The Game — the sport's defining rivalry, raw and year-round
+
+the_coach_relationship: savior   # Whittingham arrives as the steady hand brought in to restore order after the upheaval
+the_internal_fracture: patience vs urgency — the room that says a 21-year program-builder needs a season to install his culture vs the room that says Michigan, with the record book and a five-star quarterback, should never schedule a rebuild
+register: proud-institutional   # DRAFT (from voice_register) — confirmed
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - plucky
+  - Cinderella
+  - overachiever
+  - scrappy
+  - underdog
+  - midwestern afterthought
+  - Big Ten-slow as pejorative
+  - sign-stealing scandal as lead reference
+  - cute-Michigan framings of any kind
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Michigan has won more games than any program in the history of college football and owns the highest all-time win percentage among programs with 1,000-plus games — it is, literally, the keeper of the record book, and it plays the sport's defining rivalry in front of the largest crowd in the Western Hemisphere."
+  the_origin: "One of the founding programs of the sport; Fielding Yost's 'point-a-minute' teams (1901-1905) won early national titles and the first Rose Bowl, and the winged helmet and 'The Victors' fixed an identity that has barely changed in a century."
+  golden_ages:
+    - { era: "1901–1926 (Yost)", what: "The 'point-a-minute' dynasty, the first Rose Bowl, and the architecture of the brand" }
+    - { era: "1969–1989 (Bo Schembechler)", what: "The Ten Year War with Ohio State and the modern Michigan identity" }
+    - { era: "2021–2023 (Harbaugh)", what: "Three straight wins over Ohio State capped by the 2023 national title — the first in 26 years" }
+  legends:
+    - { name: Bo Schembechler, role: coach, why: "Defined modern Michigan; 'Those who stay will be champions' and 'The Team, The Team, The Team'" }
+    - { name: Charles Woodson, role: player, why: "1997 Heisman winner and the centerpiece of the last pre-2023 national title" }
+    - { name: Tom Harmon, role: player, why: "1940 Heisman; the early icon of the program's national stature" }
+  canonical_moments:
+    - { name: "The 2023 national title", year: 2024, what: "Michigan beats Washington for its first championship in 26 years, vindicating the Harbaugh era", handling: glory }
+    - { name: "Three straight over Ohio State", year: 2023, what: "Michigan wins The Game three years running (2021-2023) before the title run", handling: glory }
+    - { name: "The punt", year: 2015, what: "A botched snap on a punt hands Michigan State a last-second win; 'the punt' carries weight to this day", handling: heartbreak }
+  the_place: "Michigan Stadium — 'The Big House' — capacity 107,601, the largest stadium in the Western Hemisphere, where the team touches the M Club banner and the crowd sings 'The Victors' after every score."
+  brand_of_football: "Proud-institutional: physical, disciplined, historically run-first; a program that speaks in the register of an alumni magazine and treats winning as the continuation of what it has always done."
+  cultural_footprint: "College football's institutional memory — the program that keeps the records, including the record of having more of them than anyone, and a national alumni diaspora ('Michigan Men') that runs through every major market."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Michigan finished 2025 at 9-4, losing the Citrus Bowl to Texas 41-27 in a
+    fourth-quarter collapse. The bigger story was off the field: Sherrone Moore was dismissed for cause in December
+    2025 amid an off-field investigation, and Michigan hired 21-year Utah coach Kyle Whittingham as its 22nd head
+    coach on a five-year deal. Sophomore quarterback Bryce Underwood — the former No. 1 recruit who threw for 2,229
+    yards with growing pains as a freshman — returns to lead a program betting that a steady, proven coach turns a
+    turbulent year into a fast reset. 2026 is the referendum on whether the standard reasserts itself.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://mgoblue.com/news/2026/1/7/season-review-2025-michigan-football
+    - https://www.cnn.com/2025/12/26/sport/ncaa-college-football-michigan-whittingham
+    - https://www.si.com/college/michigan/football/takeaways-from-michigan-loss-texas-citrus-bowl
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Michigan is the nation's winningest program, and still plays like the total isn't finished.
+  mantra: Go Blue.
+  cultural_anchors:
+    fan_archetype_dominant: Institutional-Memory-Keeper
+    outsider_archetype_dominant: Insufferable-About-History
+    one_sentence: Michigan is the program that treats itself as institutional memory — the keeper of college
+      football's records, including the records of having more of them than anyone.
+  selfname: the Wolverines
+  aspiration_ladder_top: National Championship
+  rivalries:
+  - ohio-state
+  - michigan-state
+  - notre-dame
+  - penn-state
+  - minnesota
+  heritage:
+    national_titles: 12
+    conference_titles: 45
+    current_conference: Big Ten
+  prose_excerpts:
+    taboos: The 2023 sign-stealing investigation is the open wound — handled honestly, not dismissed, not
+      dwelled on. The Rodriguez and Hoke eras (2008–2014) are program wilderness — referenced historically,
+      not dwelt on. The 2015 punt game vs. Michigan State is a recurring painful moment; "the punt" is Michigan
+      shorthand and carries weight. The "khakis" jokes about Harbaugh run close to affection and parody;
+      use carefully. The death of Schembechler in 2006 — one day before The Game —…
+    fans_culture: The fanbase is dense in Michigan state + strong in the Detroit and Chicago corridors +
+      a national alumni diaspora that runs through every major market. "Michigan Men" (Schembechler's term
+      for Michigan alumni) is the fanbase's self-label. The gameday register is "largest-venue-in-America
+      intensity without losing composure" — loud but not rowdy, expectant but not boisterous. The "Hail
+      to the Victors" fight song is played after every score; the crowd sings along with "Hail to…
+    voice_ethos: 'The voice is proud-institutional: confident, historic, allergic to both underdog framings
+      and pageantry. Michigan speaks about itself in the register of "the program that has been doing this
+      longer than anyone" without chest-thumping about it. The specific Michigan register is dry — close
+      to an alumni magazine — and uninterested in performative swagger. Identity phrase: **"Michigan is
+      the nation''s winningest program, and still plays like the total isn''t finished."** Mantra:…'
+    narratives: The 2023 national championship closed a 26-year title drought and vindicated the Harbaugh
+      hire. The 2024 post-Harbaugh transition under Moore was a 7-5 recalibration; 2025 improved to 10-3;
+      2026 is the referendum year on whether Moore is a multi-decade coach or a bridge. The NCAA sign-stealing
+      investigation (centered on the 2023 season) is a real operational cloud. The program and the NCAA
+      reached a finding in 2025 that involved scholarship reductions and a suspension for…
+    in_jokes: '"Those who stay will be champions" — Schembechler, 1969; universally known. "The Team. The
+      Team. The Team." — Schembechler, 1983; deployed as an exhortation or a rebuke. "Beat Ohio" / "Beat
+      Ohio State" — the annual directive. "The Victors" (fight song) — sung after every score. "Maize and
+      blue" — color identity. "M Go Blue" — fanbase shorthand. "Mr. Brightside" — third-quarter crowd tradition.
+      "Harbaugh khakis" — the specific beige pants Harbaugh wore on the sideline; an…'
+  story_materials:
+    legendary_coach: Bo Schembechler
+    era_name_overrides:
+      1879-1900: The Founding Years
+      1901-1926: The Yost Dynasty
+      1927-1959: The Crisler / Oosterbaan Years
+      1969-1989: The Bo Era
+      2008-2014: The Rich Rod / Hoke Wilderness
+      2015-2023: The Harbaugh Return
+      2024-: The Moore Era
+    always_surface:
+    - Most all-time wins in college football history (1,020+ through 2024)
+    - Highest all-time win percentage (.728) among programs with 1,000+ games
+    - 12 claimed national championships (most recent: 2023)
+    - 3 Heisman winners (Tom Harmon 1940, Desmond Howard 1991, Charles Woodson 1997)
+    - Michigan Stadium ("The Big House") — 107,601 capacity, largest in the Western Hemisphere
+    - Leaders and Best — the alma mater's signature line
+    - Those who stay will be champions — Bo Schembechler's recruiting promise
+    - Three-game winning streak over Ohio State (2021-2023) preceding the 2023 title run
+    rituals:
+    - Hail to the Victors
+    - M Club Banner Touch
+    - The Victors Walk
+    - Winged Helmet
+    - The Game (vs Ohio State)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

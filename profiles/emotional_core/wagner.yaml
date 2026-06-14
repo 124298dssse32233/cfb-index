@@ -1,0 +1,90 @@
+# Emotional Core — Wagner (wagner)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# status: live (web-researched 2026-06-13)
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: wagner
+team_id: null
+program_name: Wagner
+program_tier: 3
+
+emotional_core:
+  primary: contentment      # holding your own in the NEC year after year
+  secondary: standard
+  one_line: "Wagner is the Seahawks grinding away in the Northeast Conference — a program that shows up, competes, and earns respect through consistency and tough NEC football."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A Northeast Conference program that wins just enough games to feel competitive but not enough to break through to the tournament consistently — the definition of a middle-tier NEC member."
+
+the_wound:
+  name: "The ceiling in the NEC"
+  detail: "Wagner's 2025 record of 5-7 (4-3 NEC) is respectable, but it's the same story year after year — win some games, miss the tournament, reset. The fanbase wants more from Tom Masella's steady-but-not-soaring approach."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win enough games in the NEC to make a tournament run — break the middle-tier ceiling and prove Wagner can compete in the postseason conversation."
+  drought: { since: 2015, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Wagner competes hard and earns respect in the NEC with games like the 4-3 conference record. But the fanbase knows that respectable isn't the same as making noise — the Seahawks need to break through."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that Wagner is on the verge of a breakthrough — that one more recruiting class, one more year of Tom Masella's system will finally get them over the NEC hump. It might be true, but it's been five years of incremental improvement."
+
+the_grudge_texture:
+  rival: ""
+  texture: none
+
+the_coach_relationship: total-trust   # Tom Masella has six years of consistent work
+the_internal_fracture: ""
+register: wagner-seahawks-nec-grinder
+never_use:
+  - Irrelevant program (Wagner earns NEC respect; 4-3 conference is solid work)
+  - Always loses big games (4-3 conference record is competitive; reframe as middle-tier player)
+
+# ── STORY CANON (doc 64) ──
+
+story_canon:
+  the_unique_thing: "Wagner as the Northeast Conference grinder — a program that shows up every year, competes in the NEC with 4-3 conference records, and builds respect through consistency without breaking through to the tournament."
+  the_origin: "A New York-based program that has built a foundation in the Northeast Conference as a competitive, if not elite, FCS member."
+  golden_ages:
+    - { era: "Masella era (2020–present)", what: "Consistent NEC competitor under steady coaching leadership" }
+    - { era: "2025 season", what: "5-7 record (4-3 NEC) maintains competitive standing in the conference" }
+  legends:
+    - { name: Tom Masella, role: coach, why: "Six years of consistent, tough NEC football and gradual program building" }
+  canonical_moments:
+    - { name: "2025 NEC competitiveness", year: 2025, what: "Wagner goes 5-7 overall (4-3 NEC), maintaining middle-tier standing", handling: glory }
+  the_place: "Gaelic Park in Staten Island, New York — home of the Seahawks' tough NEC play."
+  brand_of_football: "Tough, defensive NEC football — grinding out wins through discipline and effort."
+  cultural_footprint: "A program that competes with respect in the Northeast Conference, valued for showing up and competing hard every year."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Wagner finished 5-7 overall (4-3 NEC) in 2025 under
+    Tom Masella in his sixth season as head coach. The Seahawks maintain competitive standing in
+    the conference year after year without breaking through to consistent tournament play. Year
+    seven for Masella will be pivotal — can the coaching staff finally crack the formula to get
+    Wagner from middle-tier to NEC contender?
+  research_checklist:
+    - the NEC competitor identity
+    - Tom Masella's coaching tenure and consistency
+    - the New York footprint (Staten Island)
+    - the middle-tier ceiling story
+    - the current-era stability
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Wagner_Seahawks_football_team
+    - https://www.wagnersports.com/sports/football
+
+# ── BRIEFING ──
+briefing:
+  identity_phrase: Wagner is the Northeast Conference grinder that shows up and competes
+    every year without breaking through to the tournament.
+  mantra: Compete. Grind. Respect.
+  cultural_anchors:
+    fan_archetype_dominant: NEC-Lifer
+    outsider_archetype_dominant: Middle-Tier-Skeptic
+    one_sentence: Wagner is the Seahawks earning NEC respect through consistent, tough
+      middle-tier competition year after year.
+  selfname: the Seahawks

@@ -1,0 +1,118 @@
+# Emotional Core — UW-Whitewater  (wisconsin-whitewater)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Researched 2026-06-13 from live web research — see story_canon.sources.
+#
+# The D3 dynasty that owned the 2000s-2010s: six national titles in eight years (2007–2014).
+# Now a living-up blue blood carrying the weight of that standard.
+
+status: live
+slug: wisconsin-whitewater
+team_id: null
+program_name: UW-Whitewater
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  core_variant: dynasty-restoration
+  one_line: "The D3 dynasty that won six national titles in eight years — now reclaiming what the standard demands."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Whitewater is the program that defined D3 excellence for a generation — six Stagg Bowls, a 79-game winning streak, back-to-back-to-back titles. The standard is not 'win bowl games.' The standard is 'be the most dominant Division III program in America.' Any season that isn't a national-title race is a down year."
+
+the_wound:
+  name: "The post-dynasty stillness"
+  detail: "After the 2014 national title, Whitewater hasn't returned to a Stagg Bowl in a decade — no titles since. The dynasty was real, is still real in the culture, but the WIAC is no longer a coronation coronation; other programs (Platteville, River Falls) are knocking. The fanbase knows the standard hasn't changed, even if the scoreboard has."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Get back to a Stagg Bowl. Plant the Warhawks back in the national conversation — prove it wasn't just 2007-2014 but a sustainable blue-blood identity."
+  drought: { since: 2014, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe there's no villain in dynasty restoration — just the knowledge that Whitewater owns the Stagg Bowl standard and every other D3 program is measuring themselves against what the Warhawks used to do. That's the fuel."
+
+the_delusion:
+  tone: load-bearing
+  text: "That Whitewater football is still what it was — that the dynasty wasn't a 2007-2014 peak but proof of institutional excellence. The fanbase believes this program is built to win national titles, and anything else is a detour."
+
+the_grudge_texture:
+  rival: wisconsin-oshkosh
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: dynasty-nostalgia vs rebuild-patience — the faction that wants Whitewater back in Stagg Bowls immediately vs the faction giving Jace Rindahl (3rd year) time to rebuild from within the standard
+register: wiac-dynasty-stagg-bowl-blue-blood
+never_use:
+  - Mid-tier D3 program (six national titles is not mid-tier; 79-game streak proves institutional excellence)
+  - The 2000s-2010s were lightning in a bottle (dynasty was built on institutional excellence, not luck)
+
+story_canon:
+  the_unique_thing: "The program that won six Stagg Bowl national championships in eight years (2007-2014) and produced a 79-game winning streak — the most sustained dynasty in Division III football history."
+  the_origin: "A Wisconsin-Whitewater program that became a blue-blood powerhouse under head coach Lance Leipoa (2005-2014), who inherited a winning tradition and turned it into a national dynasty. The Warhawks won their first national title in 2007 and dominated the Stagg Bowl for the next eight seasons."
+  golden_ages:
+    - { era: "2007–2014 (Lance Leipoa)", what: "Six Stagg Bowl national championships (2007, 2009, 2010, 2011, 2012, 2014) and a 79-game winning streak — the most dominant D3 era in history" }
+    - { era: "2006–2008", what: "Back-to-back-to-back national titles — the core of the dynasty" }
+  legends:
+    - { name: Lance Leipoa, role: coach, why: "Built and sustained the six-title dynasty; defined D3 excellence for a generation" }
+    - { name: Matt Behrendt, role: player, why: "Quarterback who led multiple Stagg Bowl runs" }
+  canonical_moments:
+    - { name: "First Stagg Bowl (2007)", year: 2007, what: "Whitewater wins its first national championship, beginning an eight-year Stagg Bowl dominance", handling: glory }
+    - { name: "79-game winning streak", year: 2011, what: "Whitewater's winning streak spans 2010-2012, proof of institutional excellence", handling: glory }
+    - { name: "Six Stagg Bowls in eight years", year: 2014, what: "The 2014 national title capped the most sustained dynasty in D3 history", handling: glory }
+  the_place: "Perkins Stadium — the home of Warhawk football and the standard that every D3 program measures itself against."
+  brand_of_football: "Blue-blood D3 excellence — a program built to win national titles, not just games. Whitewater football is about discipline, execution, and the expectation of Stagg Bowls."
+  cultural_footprint: "The program that proved Division III football could have a true dynasty — Whitewater's six titles in eight years remain the gold standard for sustained excellence at the FCS level and below."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Whitewater went 8-3 in 2025 (2-5 WIAC) under third-year coach Jace Rindahl.
+    The Warhawks made the WIAC tournament but did not earn an NCAA playoff bid — the first time in the dynasty era
+    that Whitewater wasn't a championship contender. Rindahl is rebuilding but carries the weight of the
+    2007-2014 standard. The question in Whitewater: can the program reclaim Stagg Bowl contention under new leadership,
+    or is the dynasty giving way to a longer, harder climb back?
+  research_checklist:
+    - six Stagg Bowl championships 2007-2014
+    - 79-game winning streak era
+    - Lance Leipoa coaching legacy
+    - current-year rebuilding arc (Jace Rindahl era)
+    - WIAC rivalry with UW-Oshkosh (79-31-5 all-time series)
+  sources:
+    - https://en.wikipedia.org/wiki/Wisconsin-Whitewater_Warhawks_football
+    - https://uww-athletics.com/sports/m-footbl/
+    - https://www.d3football.com/conf/WIAC/2025/standings
+    - https://en.wikipedia.org/wiki/Lance_Leipoa
+
+briefing:
+  identity_phrase: UW-Whitewater is the D3 dynasty that won six Stagg Bowl national championships in eight years
+    and defined Division III excellence for a generation. The standard is national titles. Anything else
+    is a year in waiting.
+  mantra: Go Warhawks
+  cultural_anchors:
+    fan_archetype_dominant: Blue-Blood-D3-Believer
+    outsider_archetype_dominant: Dynasty-Worshipper
+    one_sentence: UW-Whitewater is the D3 blue blood whose six Stagg Bowl national championships in eight years
+      (2007-2014) proved that Division III could produce a sustained institutional dynasty.
+  selfname: the Warhawks
+  aspiration_ladder_top: ''
+  rivalries:
+    - wisconsin-oshkosh
+  heritage:
+    national_titles: 6 (2007, 2009, 2010, 2011, 2012, 2014)
+    conference_titles: 11 WIAC titles
+    current_conference: WIAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Lance Leipoa
+    era_name_overrides: {}
+    always_surface:
+      - Six Stagg Bowl national titles (2007-2014)
+      - 79-game winning streak (2010-2012)
+      - WIAC dynasty — most dominant D3 program of the 2000s-2010s
+    rituals: []
+    modules_already_rendering: []
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

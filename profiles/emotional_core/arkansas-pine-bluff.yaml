@@ -1,0 +1,107 @@
+# Emotional Core — Arkansas-Pine Bluff  (arkansas-pine-bluff)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: arkansas-pine-bluff
+team_id: 11
+program_name: Arkansas-Pine Bluff
+program_tier: 3
+
+emotional_core:
+  primary: restoration   # rebuilding under Alonzo Hampton in year 3 after a 9-26 record across three seasons
+  secondary: redemption  # the program is searching for stability and identity after roster turnover
+  core_variant: perpetual-rebuild
+  one_line: "Arkansas-Pine Bluff is the Arkansas HBCU rebuilding under Alonzo Hampton in year three — a program in transition searching for consistency and SWAC identity after resource constraints."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "An HBCU with a SWAC membership and competitive history vs a 9-26 record across three seasons under Alonzo Hampton, suggesting deep structural challenges and the resource constraints of a Group-of-Five HBCU program."
+
+the_wound:
+  name: "The three-year rebuilding struggle"
+  detail: "Arkansas-Pine Bluff has gone 9-26 (.257) across three seasons under Alonzo Hampton (third year), with limited improvement trajectory. The program is searching for the formula that generates SWAC competitiveness and sustainable wins."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Find a coaching formula that generates SWAC competitiveness; prove Arkansas-Pine Bluff can compete in the West Division; stabilize the roster and build toward a winning record; restore the program's competitive standing."
+  drought: { since: joining, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The program faces the fundamental constraint of being an HBCU with limited funding and recruiting resources compared to Power Conference peers. The fanbase refuses to accept mediocrity despite the constraints; the next chapter is about proving competitiveness is possible."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that a program with SWAC membership and HBCU pride is capable of building a competitive roster — that the next hire or the next portal class could unlock sustained winning, even with resource constraints."
+
+the_grudge_texture:
+  rival: texas-southern
+  texture: little-brother   # SWAC West neighbor; competitive dynamic
+
+the_coach_relationship: hot-seat-churn   # Alonzo Hampton is year three with a 9-26 record; the program may be searching for a new direction
+the_internal_fracture: patience with hampton vs new-direction — the faction that says rebuilding takes time vs the faction that says 9-26 over three years is too long
+register: rebuilding-program — searching for identity and stability
+never_use:   # LAW — do not violate in any authored line
+  - doormat framing
+  - scrappy as self-deprecation (competitive is the goal)
+  - just trying to have fun
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep canon ──
+story_canon:
+  the_unique_thing: "Arkansas-Pine Bluff is a SWAC member HBCU located in Pine Bluff, Arkansas. The program competes in the SWAC West Division and is working to establish itself as a competitive HBCU program. Despite resource constraints typical of HBCU programs, Arkansas-Pine Bluff maintains its SWAC membership and is rebuilding toward competitiveness."
+  the_origin: "A historically black university in Pine Bluff, Arkansas that joined the SWAC and has been part of the HBCU competitive landscape. The program maintains a presence in the SWAC West Division."
+  golden_ages:
+    - { era: "past competitive eras", what: "The program has had periods of competitiveness within the SWAC" }
+  legends:
+    - { name: Golden Lions, role: mascot, why: "The program's identity in SWAC competition" }
+  canonical_moments:
+    - { name: "SWAC membership", year: joining, what: "Arkansas-Pine Bluff maintains its place in the SWAC", handling: glory }
+  the_place: "Simmons Bank Field in Pine Bluff, Arkansas (cap 16,000); home of the Golden Lions."
+  brand_of_football: "Rebuilding-and-searching: a program in transition working toward stability and SWAC competitiveness."
+  cultural_footprint: "Arkansas-Pine Bluff is a SWAC member HBCU working to establish competitive footing and build a sustainable program within HBCU constraints."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Arkansas-Pine Bluff is in year three under head coach Alonzo Hampton with a
+    career record of 9-26 (.257 winning percentage). The program is rebuilding and searching for the coaching formula
+    that generates SWAC competitiveness. Limited resources and roster stability have constrained the program's
+    development, and the next phase will determine whether Hampton continues or a new direction is pursued.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Arkansas%E2%80%93Pine_Bluff_Golden_Lions_football
+    - https://en.wikipedia.org/wiki/2025_Arkansas%E2%80%93Pine_Bluff_Golden_Lions_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Arkansas-Pine Bluff is a SWAC member HBCU rebuilding toward competitiveness.
+  mantra: Go Golden Lions.
+  cultural_anchors:
+    fan_archetype_dominant: Rebuilding-Believer
+    outsider_archetype_dominant: Program-In-Transition
+    one_sentence: Arkansas-Pine Bluff is a SWAC member HBCU working to establish stable competitive footing.
+  selfname: the Golden Lions
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: SWAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - SWAC West Division membership
+    - Rebuilding era
+    rituals:
+    - Annual SWAC competition
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

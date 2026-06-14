@@ -1,0 +1,82 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: idaho
+team_id: 332
+program_name: Idaho
+program_tier: 5
+
+emotional_core:
+  primary: redemption
+  secondary: grievance
+  one_line: "Idaho is the Palouse Valley program that spent 30 years in the FBS tower before crashing back to FCS in 2025, carrying a 131-year-old rivalry with Washington State and a mandate to prove the exile was temporary."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A formerly-relevant FBS program stripped of status and resources, now rebuilding in FCS with the psychological weight of former conference membership and the unresolved rivalry with its FBS neighbor."
+
+the_wound:
+  name: "The 30-year FBS exile and the humiliation of the return"
+  detail: "Idaho moved to FBS in 1996 with hopes of sustained major-conference relevance; instead it endured two decades of Sun Belt and Conference USA mediocrity, finally collapsing to 4–8 and being deemed FCS-suitable in 2025. The return to FCS in 2025 is not a homecoming — it's an admission of failure."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Dominate Big Sky, return to FCS prominence, prove the FBS era was an aberration, not the program's true level."
+  drought: { since: 1996, unit: relevance }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe washington State plays in the Pac-12 (sorta); Idaho is in FCS. That chip is 131 years old and now carved deeper by the realignment gap."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Idaho's FBS resources (Stadium, facilities, recruiting) are not gone — that the program can use them to dominate FCS and reclaim the Palouse, showing Washington State that Vandals football is alive again."
+
+the_grudge_texture:
+  rival: washington-state
+  texture: border-war
+
+the_coach_relationship: savior
+the_internal_fracture: "FBS loyalists vs FCS rebuilders — should we invest in returning to FBS, or accept FCS and optimize for Big Sky dominance?"
+register: moscow-idaho-vandals-palouse-rivalry
+never_use:
+  - Idaho is an FCS program — it spent 30 years in FBS; the 2025 move is a demotion, not a reclassification
+  - The rivalry with Washington State is equal — Washington State is FBS; Idaho is now FCS, a permanent sub-tier
+  - Idaho will quickly return to FBS — the economic and conference landscape has shrunk; there is no natural FBS home
+  - Idaho never had FCS success before — the Vandals played I-AA 1978–95 and made the FCS semis twice (1988, 1993)
+
+story_canon:
+  the_unique_thing: "The Battle of the Palouse — a 131-year-old border rivalry with Washington State (first played 1894) that survived both schools' conference changes and is now defined by an FBS-FCS gap that makes it asymmetrical and unequal."
+  the_origin: "Idaho territory's flagship university in Moscow, 80 miles from Spokane, established football in 1894 by playing neighbor Washington State. The program entered I-AA in 1978 and competed for four decades before climbing to FBS in 1996."
+  golden_ages:
+    - { era: "1988–1995 (I-AA)", what: "The Vandals reached the FCS semifinals twice (1988, 1993) and competed for national relevance in the lower subdivision" }
+    - { era: "2007–2009", what: "Peak FBS years under coach Robb Akey, with 3 consecutive bowl appearances and 4-year runs of relevance in the WAC" }
+  legends:
+    - { name: Robb Akey, role: coach, why: "Only coach to make Idaho relevant in FBS (2007–2009); 3 consecutive bowl teams, the program's FBS high-water mark" }
+    - { name: John Smith, role: player, why: "Played QB in the 1988 semifinal run when Idaho briefly mattered in I-AA" }
+  canonical_moments:
+    - { name: "1988 FCS Semifinals", year: 1988, what: "Idaho reached the I-AA national semifinals under coach Jim Walden, the program's deepest playoff run", handling: glory }
+    - { name: "1993 FCS Semifinals", year: 1993, what: "Idaho returned to the I-AA semifinals, proving the 1988 run was not a fluke", handling: glory }
+    - { name: "2007 FBS Bowl", year: 2007, what: "Idaho made its first bowl game in FBS under Robb Akey, playing in the uDrove Humanitarian Bowl", handling: glory }
+  the_place: "Kibbie Dome in Moscow, Idaho — a geographic oddity in the Palouse Valley, 80 miles from the nearest major city"
+  brand_of_football: "Border-country pragmatism — Idaho has always played a smaller-footprint game, constrained by geography and recruiting distance from major metros."
+  cultural_footprint: "Idaho's story is a cautionary tale: a program that climbed to FBS and never found its footing, forced back to FCS as a humbling reminder that ambition without resources is futile."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Idaho went 4–8 (2–6 Big Sky) in its 2025 return to FCS, under first-year coach Thomas
+    Ford Jr. (hired December 2024). The Vandals were in full rebuild mode: transferring players, resetting culture, and attempting
+    to establish FCS baseline. The 2025 season was expected to be brutal, and it was. Ford now enters 2026 with the hard work ahead:
+    proving that Idaho's FBS infrastructure and recruiting advantage can dominate Big Sky, not just compete. The fanbase watches
+    carefully — if Idaho goes 4–8 again, the Palouse narrative shifts from "redemption" to "permanent decline."
+  research_checklist:
+    - The 131-year Battle of the Palouse with Washington State as the emotional anchor
+    - The 1988 and 1993 FCS semifinal runs as proof of I-AA competitiveness
+    - The 30-year FBS exile and its psychological cost
+    - The 2007–2009 Robb Akey era as the FBS peak
+    - The 2025 return as a humbling reset
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Idaho_Vandals_football_team
+    - https://en.wikipedia.org/wiki/Battle_of_the_Palouse
+    - https://en.wikipedia.org/wiki/Idaho_Vandals_football
+    - https://en.wikipedia.org/wiki/1988_Idaho_Vandals_football_team
+    - https://en.wikipedia.org/wiki/1993_Idaho_Vandals_football_team

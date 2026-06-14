@@ -1,0 +1,68 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Whitworth Pirates — NWC legacy with 12 straight McIlroy-Lewis All-Sports Trophies and Pine Bowl home
+
+status: live
+slug: whitworth
+team_id: null
+program_name: Whitworth University
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Whitworth is a Christian liberal arts school in Spokane whose Pirates have fielded football since 1904 — a program rooted in faith and sustained NWC excellence."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A program that has defined NWC all-sports excellence (13 McIlroy-Lewis trophies, including 12 straight) — a Christian institution living up to a standard of balanced athletic achievement."
+
+the_wound:
+  name: "Maintaining the standard"
+  detail: "After 12 consecutive McIlroy-Lewis All-Sports Trophies (2008–2019), the streak ended — the challenge now is maintaining Whitworth's reputation as an all-sports powerhouse in a changing NWC."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to another all-sports trophy run, compete for NWC football excellence, and reestablish Whitworth as the Pirates flagship program."
+  drought: { since: 2019, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Whitworth competes to honor the institution and the conference."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 12-trophy streak can be rebuilt. Whitworth fans know the landscape has shifted, but believe the foundation is there to compete again."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: all-sports-dominance vs football-focus — balancing tradition as an all-sports powerhouse vs investing in football specifically
+register: spokane-pirates-nwc-all-sports
+never_use:
+  - "Current powerhouse — the all-sports streak is behind them"
+  - "National contender — NWC is the right home"
+  - "Invincible — 12 trophies is impressive, but not eternal"
+  - "One-sport dominant — Whitworth's identity is all-sports balance"
+
+story_canon:
+  the_unique_thing: "A Christian liberal arts program in Spokane that dominated NWC all-sports competition (13 McIlroy-Lewis trophies, 12 consecutive 2008–2019) — the Pirates represent sustained excellence across the entire athletic department."
+  the_origin: "Whitworth University, founded 1890, is a Christian liberal arts university in Spokane, Washington. The Pirates football program began in 1904 and has maintained continuous play except for two world wars (1917-1919, 1942-1945)."
+  golden_ages:
+    - { era: "2008–2019", what: "12 consecutive NWC McIlroy-Lewis All-Sports Trophies — the defining achievement in Whitworth athletic history" }
+  legends: []
+  canonical_moments:
+    - { name: "12 consecutive all-sports trophies", year: 2019, what: "Whitworth wins the McIlroy-Lewis All-Sports Trophy for 12 straight years (2008–2019), an NWC dynasty", handling: glory }
+    - { name: "Football since 1904", year: 1904, what: "Whitworth begins football and maintains continuous play for 122 years minus two World War gaps", handling: glory }
+  the_place: "Spokane, Washington — a Christian liberal arts campus in the inland Pacific Northwest, home to Pine Bowl stadium since the 1930s."
+  brand_of_football: "Christian mission and balanced excellence — Whitworth football is part of a commitment to all-sports leadership."
+  cultural_footprint: "A Spokane institution with regional prestige; Whitworth's athletic tradition is central to the city's identity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Whitworth competes in the Northwest Conference as part of a storied athletic department. The Pirates have
+    fielded football since 1904 (with only World War gaps) and call Pine Bowl home (modernized to artificial turf in 2017). The program's defining
+    achievement is 13 McIlroy-Lewis All-Sports Trophies, including 12 consecutive (2008–2019). Whitworth football represents the university's
+    commitment to Christian values and athletic excellence in NWC.
+  sources:
+    - https://en.wikipedia.org/wiki/Whitworth_University

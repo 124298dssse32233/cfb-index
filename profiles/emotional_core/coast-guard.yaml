@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — Coast Guard Academy (coast-guard)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: coast-guard
+team_id: null
+program_name: United States Coast Guard Academy
+program_tier: 7
+
+emotional_core:
+  primary: honor      # the service mission is the core
+  secondary: spectacle  # 2025 NEWMAC near-miss (tied 2nd place)
+  one_line: "Coast Guard is the service academy Bears program — officers in training playing football for the discipline, camaraderie, and honor of the service, and who in 2025 nearly captured the NEWMAC title before falling just short."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A federal service academy where football is subordinate to the mission of officer training, but where competitive NEWMAC football proves Coast Guard athletes reach the elite level of the sport."
+
+the_wound:
+  name: "2025 NEWMAC title chase"
+  detail: "Coast Guard finished tied for 2nd place in NEWMAC in 2025 (7-3, 5-2 conference) — a near-miss that showed the Bears belong at the championship table but came up just short of the crown."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a NEWMAC championship while honoring the Coast Guard officer-training mission — prove that service duty and athletic excellence are not mutually exclusive."
+  drought: { since: 1950, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Coast Guard plays for honor: the honor of service, the honor of athleticism, the honor of representing the United States Coast Guard at the highest amateur level."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes that 2025's 7-3 season and near-NEWMAC title is proof that Coast Guard athletes can compete at the national level while remaining officers first — that the service mission and competitive excellence feed each other."
+
+the_grudge_texture:
+  rival: merchant-marine
+  texture: blood-feud   # fellow service academy rivals; military college connection
+
+the_coach_relationship: forever-ours   # C.C. Grant since 2020, providing stability
+the_internal_fracture: competition drive vs. primary service-mission commitment
+register: coast-guard-honor-service-elite
+never_use:
+  - Coast Guard is a small, uncompetitive program — 7-3, tied for 2nd NEWMAC in 2025 proves otherwise
+  - Service academies cannot field elite football — Coast Guard's NEWMAC contention and 2025 near-title disprove this
+  - The service mission overshadows athletics — both matter equally; athletes who are officers train for leadership through football
+
+story_canon:
+  the_unique_thing: "The United States Coast Guard Academy Bears are the only D3 program composed entirely of federal service academy officer-trainees — and they proved in 2025 that service duty and NEWMAC competitiveness coexist, finishing tied for 2nd place with a 7-3 record."
+  the_origin: "The Coast Guard Academy, founded 1876, integrated football as a leadership-building and officer-development tool."
+  golden_ages:
+    - { era: "2020s", what: "C.C. Grant era of NEWMAC competitiveness" }
+    - { era: "2025", what: "7-3 season, tied 2nd place NEWMAC finish, NEWMAC runner-up finish" }
+  legends:
+    - { name: C.C. Grant, role: coach, why: "Rebuilt Coast Guard to NEWMAC competitiveness; 5 seasons establishing Coast Guard as a top-tier NEWMAC program" }
+    - { name: Douglas Munro, role: historical, why: "Medal of Honor recipient (1942); adopted as the spirit of Coast Guard Bears honor culture" }
+  canonical_moments:
+    - { name: "Petty Officer Douglas Munro tribute", year: 1926, what: "Black bear mascot adopted; Munro Medal of Honor influence on program culture", handling: glory }
+    - { name: "2025 NEWMAC near-title", year: 2025, what: "7-3 record, tied 2nd place NEWMAC, runner-up finish", handling: miracle }
+  the_place: "United States Coast Guard Academy in New London, Connecticut — where future Coast Guard officers build character through football."
+  brand_of_football: "Disciplined, officer-focused football — excellence in service of leadership development."
+  cultural_footprint: "Proof that federal service academies produce elite amateur athletes — Coast Guard represents the intersection of duty, honor, and athletic excellence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: The United States Coast Guard Academy posted a 7-3 overall record and 5-2 NEWMAC mark
+    in 2025, finishing tied for 2nd place in the league. Under C.C. Grant's leadership (since 2020), the Bears have established
+    themselves as NEWMAC contenders despite the demands of officer training. The 2025 season showed that Coast Guard can compete
+    for NEWMAC titles while maintaining the primary mission of training officers. The question: can the Bears break through
+    for a conference championship in 2026, or is the 7-3, tied-2nd-place equilibrium the program's sustainable ceiling under
+    the service-academy model?
+  research_checklist:
+    - 1876 Coast Guard Academy founding
+    - 2025 record (7-3 overall, 5-2 NEWMAC, tied 2nd place)
+    - C.C. Grant coaching tenure since 2020
+    - Douglas Munro Medal of Honor connection to Bears identity
+    - Service-academy officer-training mission
+  sources:
+    - https://en.wikipedia.org/wiki/United_States_Coast_Guard_Academy_Bears_football
+    - https://www.ncaa.org/sports/2025/d3/football/coast-guard-academy/schedule
+    - https://www.ncollegefootball.com/teams/coast-guard-bears

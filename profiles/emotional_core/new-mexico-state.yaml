@@ -1,0 +1,118 @@
+# Emotional Core — New Mexico State  (new-mexico-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: new-mexico-state
+team_id: 324
+program_name: New Mexico State
+program_tier: 3
+
+emotional_core:
+  primary: deprival       # the program that waited 57 years for a bowl; survival itself is the achievement
+  secondary: house-money  # the Jerry Kill miracle proved it could happen — anything good is found money
+  one_line: "New Mexico State is the program that went 57 years between bowl games and survived everything college football could throw at it — a borderland school whose triumph is that it's still standing at all."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "An undefeated 1960 Sun Bowl team and Jerry Kill's stunning 2023 run against a half-century of the longest bowl drought in the sport and years stranded without a conference to call home."
+
+the_wound:
+  name: "The post-Kill regression"
+  detail: "Jerry Kill took the Aggies to 10 wins and a Conference USA title game in 2023, then stepped away. Tony Sanchez went 3-9 in 2024 and 4-8 in 2025 — proof of how fragile the program's good years are, and how quickly the floor returns."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build something that lasts longer than one coach — a settled conference home and a bowl run that doesn't take half a century to repeat, the way Jerry Kill briefly made everyone believe."
+  drought: { since: 2017, unit: bowl }
+
+the_chip:
+  villain: national_media
+  text: "Fans are tired of being college football's punchline for losing — the program everyone schedules as a guaranteed win — and remember that Jerry Kill's 2023 team walked into that reputation and won ten games anyway."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Las Cruces can be a real football town again — that the 1960 perfect season and the 2023 miracle weren't flukes but proof, and that the right coach and a stable league turn the borderland Aggies into a program nobody pencils in as an easy win."
+
+the_grudge_texture:
+  rival: new-mexico
+  texture: border-war   # the Rio Grande Rivalry / Battle of I-25 — the in-state war with the Lobos
+
+the_coach_relationship: hot-seat-churn   # post-Kill churn; Sanchez under pressure after two losing years
+the_internal_fracture: survival vs ambition — the faction grateful the program exists at all after decades of chaos vs the faction that tasted 2023 and refuses to accept the floor as normal again
+register: las-cruces-aggies-borderland   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always G5-bottom — 2023 Jerry Kill bowl championship + 1960 Sun Bowl disprove
+  - No identity — Kill + Aggie Memorial + borderland combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The 57-year bowl drought — from the 1960 Sun Bowl to the 2017 Arizona Bowl, the longest in FBS history. New Mexico State's identity is endurance itself: a program that outlasted conference homelessness, losing decades, and near-extinction, and is still playing."
+  the_origin: "A land-grant university in Las Cruces, founded 1888 in the high Chihuahuan desert near the Mexican border — the borderland Aggies, defined by isolation, scarcity, and stubborn persistence."
+  golden_ages:
+    - { era: "1958–1960 (Warren Woodson)", what: "An undefeated 11-0 1960 season and back-to-back Sun Bowl wins — the program's lone historic peak" }
+    - { era: "2022–2023 (Jerry Kill)", what: "A 10-win 2023, a Conference USA championship-game appearance, and a bowl win — the best modern stretch" }
+  legends:
+    - { name: Warren Woodson, role: coach, why: "Led the unbeaten 1960 team; College Football Hall of Famer and the architect of the program's golden age" }
+    - { name: Jerry Kill, role: coach, why: "Engineered the 2023 miracle — 10 wins and a conference title game — out of one of the sport's hardest jobs" }
+  canonical_moments:
+    - { name: "The 1960 perfect season", year: 1960, what: "New Mexico State goes 11-0 and wins the Sun Bowl — the last bowl it would see for 57 years", handling: glory }
+    - { name: "The drought ends", year: 2017, what: "The Aggies win the Arizona Bowl, ending the longest bowl drought in FBS history at 57 years", handling: glory }
+  the_place: "Aggie Memorial Stadium in Las Cruces — desert heat, the Organ Mountains on the horizon, and a fanbase that kept showing up through decades that gave them almost nothing back."
+  brand_of_football: "Scrappy and opportunistic — a program that has never had the resources to dictate terms, winning when it wins through grit, a hot quarterback, and sheer refusal to fold."
+  cultural_footprint: "The endurance story of college football — a program that survived being left without a conference, near the bottom of the sport, and never stopped fielding a team; proof that simply persisting is its own kind of canon."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After Jerry Kill's 10-win 2023 and a Conference USA title-game run,
+    Tony Sanchez went 3-9 in 2024 and 4-8 in 2025 (2-6 Conference USA), a hard fall back toward the floor.
+    Las Cruces is asking whether 2023 was a one-coach miracle or a foundation — and whether the borderland
+    Aggies can finally build something that survives a coaching change.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_New_Mexico_State_Aggies_football_team
+    - https://tucson.com/sports/arizonawildcats/football/new-mexico-state-has-been-waiting-years-for-friday-s/article_69dcfe29-3ca0-59ff-acf7-a8b7ae057a24.html
+    - https://www.seattletimes.com/sports/kill-steps-down-at-new-mexico-state-sanchez-elevated-to-head-coach/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: New Mexico State is the Conference USA program whose 2023 10-5 + Conference USA championship
+    game appearance + Aggie Memorial Stadium + Jerry Kill era define what historic-Southwest-borderland-football
+    looks like.
+  mantra: Aggie Up.
+  cultural_anchors:
+    fan_archetype_dominant: Las-Cruces-Aggie-Borderland
+    outsider_archetype_dominant: G5-Mid-Pack-Diminisher
+    one_sentence: New Mexico State is the Las Cruces borderland program — Jerry Kill 2023 Conference USA
+      championship game + 1960 Sun Bowl championship + Aggie Memorial Stadium that anchor the historic Southwest
+      arc.
+  selfname: the Aggies
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2023 10-5 + Conference USA championship game + Quick Lane Bowl under Jerry Kill
+    - 1960 11-0 + Sun Bowl championship under Warren Woodson
+    - 2023 Conference USA entry
+    rituals:
+    - Jerry Kill 2023 Run
+    - Aggie Memorial Stadium
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

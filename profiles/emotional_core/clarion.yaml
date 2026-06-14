@@ -1,0 +1,81 @@
+# Emotional Core — PennWest Clarion Golden Eagles (clarion)
+# AUTHORED 2026-06-13 — web-verified Clarion-Edinboro rivalry dominance, Raymond Monica era
+# program_tier: 6 (PSAC Division II)
+
+status: live
+slug: clarion
+team_id: null          # PSAC, not FBS-indexed
+program_name: Pennsylvania Western University–Clarion
+program_tier: 6
+
+emotional_core:
+  primary: grievance        # The chronic Clarion-Edinboro rivalry that Clarion NOW LEADS after decades of frustration
+  secondary: restoration    # Clawing back home victories and reasserting the Golden Eagles as the Clarion Valley power
+  one_line: "Clarion is the Golden Eagle program whose 50-year rivalry with Edinboro went from a wound to a weapon — they lead the all-time series and are winning it again."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A PSAC West program defined entirely by the Clarion-Edinboro rivalry (1926–present, 50–42–2 all-time, Clarion leads). That rivalry IS the identity; winning it is the mandate."
+
+the_wound:
+  name: "The Edinboro dominance (1960s–2010s) — decades of losing the one game that mattered"
+  detail: "Edinboro led the all-time series 36–24–1 before Clarion's recent resurgence. The last Clarion home victory over Edinboro was October 14, 2000 (7–0). Clarion then lost 11 of 13 matchups through the early 2020s. The wound was specifically the home-field failure — unable to protect their own stadium from a regional rival."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Sweep the Edinboro rivalry series, build a sustained home-field superiority (the first 2+ straight home wins since 1998), and establish Clarion as the Clarion Valley power regardless of the PennWest consolidation."
+  drought: { since: 2000, unit: relevance }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe the chip is surgically precise: Clarion beat Edinboro in back-to-back games (2024–2025) for the first time since the 1997–1998 seasons. That breakthrough rewired the entire rivalry narrative. Now the question is whether back-to-back wins become a sustained run, or revert to the long drought."
+
+the_delusion:
+  tone: self-aware
+  text: "That Clarion has permanently reclaimed the Clarion-Edinboro rivalry — that the back-to-back 2024–2025 wins reset the historical ledger and establish the Golden Eagles as the Clarion Valley's dominant program. The fanbase wants to believe the wound is healed."
+
+the_grudge_texture:
+  rival: edinboro
+  texture: blood-feud   # 50-year rivalry (1926–present); same consolidated university; the entire program identity hinges on this one matchup
+
+the_coach_relationship: savior
+the_internal_fracture: skeptics-of-sustained-dominance vs believers-in-the-turnaround — those who remember decades of losing Edinboro games vs those who think the 2024–2025 wins are proof of structural change
+register: clarion-golden-eagle-clarion-valley-pennsylvania
+never_use:
+  - Small program — Clarion is a PSAC anchor with a 50-year defining rivalry
+  - Struggling with identity — the Edinboro rivalry IS the identity
+  - Trying to break through — Clarion has won two straight for the first time in 27 years; they've broken through
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The Clarion-Edinboro rivalry (1926–present, 50–42–2 all-time, Clarion leads) — the oldest continuous rivalry in the PSAC, recently swung from Clarion's historical deficit to current dominance."
+  the_origin: "Clarion became a normal school in 1889 and joined the PSAC at its 1951 foundation. The rivalry with Edinboro began in 1926 and has defined the program's identity for a century."
+  golden_ages:
+    - { era: "1926–1958", what: "Clarion led the series 18–14–1, dominated the early rivalry decades" }
+    - { era: "1960–2000", what: "Edinboro dominated (36–24–1); Clarion's last home win came October 14, 2000" }
+    - { era: "2024–2025", what: "Clarion wins back-to-back games (first time since 1997–1998), reclaiming the rivalry narrative" }
+  legends:
+    - { name: Raymond Monica, role: coach, why: "Fourth season as head coach (2022–present); back-to-back Edinboro victories represent the peak of his tenure and the program's resurgence" }
+    - { name: The Golden Eagle Rivalry with Edinboro, role: institutional anchor, why: "The Clarion-Edinboro matchup defines the entire program's emotional core; it's bigger than any single season or coach" }
+  canonical_moments:
+    - { name: "The 1926 Rivalry Begins", year: 1926, what: "First Clarion-Edinboro game; began the longest continuous PSAC rivalry", handling: glory }
+    - { name: "Clarion's Last Home Victory (2000)", year: 2000, what: "October 14, 2000, 7–0 win — the drought's starting point; 24 years without a home win", handling: wound }
+    - { name: "Back-to-Back Edinboro Wins (2024–2025)", year: 2025, what: "Clarion defeats Edinboro in consecutive seasons for the first time since 1997–1998; the wound begins to heal", handling: glory }
+  the_place: "Memorial Stadium in Clarion, PA — the home of Golden Eagle football since the program's founding."
+  brand_of_football: "Rivalry-driven, emotionally intense — a program that plays its biggest games against Edinboro and measures seasons by that single outcome."
+  cultural_footprint: "Proof that a 50-year regional rivalry can define an entire program's identity; the Clarion-Edinboro game is college football's longest-running small-school blood feud."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Raymond Monica enters his fifth season (2026) with a 2–0 Edinboro record over the past two years — the best such streak since 1997–1998, a 27-year gap. The program's narrative is now about sustaining that dominance: can Clarion make it 3–0 against Edinboro and establish permanent home-field superiority? Or will the 2024–2025 wins revert to the long historical drought? The entire fanbase is watching this season's Edinboro matchup with intensity that transcends normal rivalry football.
+  research_checklist:
+    - The 1926 rivalry origin and its 50-year unbroken history
+    - Clarion's 1926–1958 dominance and the series reversal
+    - Edinboro's 1960–2000 dominance and the 24-year Clarion home drought
+    - The 2024–2025 back-to-back Clarion victories and their historical significance
+    - Raymond Monica's tenure and the program's current trajectory
+  sources:
+    - https://clariongoldeneagles.com/sports/football/opponent-history/edinboro-university-of-pennsylvania/7
+    - https://gofightingscots.com/sports/football/opponent-history/clarion-university/12
+    - https://en.wikipedia.org/wiki/Clarion_Golden_Eagles
+    - https://triblive.com/sports/clarion-hires-raymond-monica-as-football-coach/
+    - https://clariongoldeneagles.com/news/2025/2/5/football-welcomes-37-on-national-signing-day.aspx

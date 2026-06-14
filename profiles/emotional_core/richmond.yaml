@@ -1,0 +1,108 @@
+# Emotional Core — Richmond Spiders (richmond)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — FCS Patriot League
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: richmond
+team_id: null
+program_name: Richmond Spiders
+program_tier: 2
+
+emotional_core:
+  primary: restoration      # the CAA power coming home to the Patriot League
+  secondary: disbelief
+  core_variant: first-ascension
+  one_line: "The Virginia power returning to regional alignment after 17 years, reuniting with old rivals in a new conference home."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "CAA back-to-back champions (2023-2024) entering a new conference trying to establish regional dominance."
+
+the_wound:
+  name: "The uncertainty of conference transition"
+  detail: "Leaving the CAA after 17 years (2007-2024) where Richmond dominated as a back-to-back conference champion carries a hidden wound: what if the Patriot League move was a step down instead of a step forward? The fanbase won't admit it, but there's anxiety about whether this transition proves visionary or foolish."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Dominate the Patriot League the way Richmond dominated the CAA — prove the move was about ambition, not retreat."
+  drought: { since: null, unit: relevance }
+
+the_chip:
+  villain: blue_bloods
+  text: "Richmond fans don't admit it, but they carry a quiet chip: did we move to the Patriot League to climb or to run? The fanbase believes the move is about geographic alignment and reconnecting with Virginia rivals (William & Mary especially), but there's a faint anxiety underneath."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that Richmond's CAA dominance translates directly to Patriot League success. (The reality: moving to a new conference always requires adjustment, even for a strong program.)"
+
+the_grudge_texture:
+  rival: william-mary
+  texture: championship
+
+the_coach_relationship: total-trust   # Russ Huesman in his ninth season
+the_internal_fracture: conference-optimism vs. adjustment-anxiety — the faction confident the move elevates Richmond vs. those nervous about unknown competition
+register: virginia-earnest
+never_use:
+  - scrappy
+  - overachieving
+  - mid-tier
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. ──
+story_canon:
+  the_unique_thing: "The Spider name (since 1919) and the 1881 founding make Richmond one of the oldest FCS programs. The program is known for consecutive CAA dominance in 2023-2024 and rejoining the Patriot League in 2025 after 17 years in the CAA."
+  the_origin: "Richmond football was founded in 1881, making it one of the oldest FCS programs. The Spiders name dates to 1919. The program became a CAA founding member in 2007 and dominated that conference for two decades."
+  golden_ages:
+    - { era: "2007-2024", what: "CAA membership and consistent competitiveness, including back-to-back conference titles 2023-2024" }
+    - { era: "2024", what: "Perfect 8-0 CAA record, undefeated before the conference transition" }
+  legends:
+    - { name: "Coach Russ Huesman", role: "coach", why: "Ninth-year coach leading Richmond through the CAA dominance and now into Patriot League, built a sustained competitive program" }
+  canonical_moments:
+    - { name: "2024 CAA Dominance", year: 2024, what: "Richmond finished 8-0 in the CAA, back-to-back conference champions before moving to the Patriot League", handling: glory }
+    - { name: "Patriot League Transition", year: 2025, what: "Richmond joined the Patriot League as an associate member (other sports remain CAA), reuniting with William & Mary rivalry", handling: glory }
+  the_place: "Robins Stadium in Richmond, Virginia — home of a program rejoining regional alignment."
+  brand_of_football: "Sustained excellence — a program that built 17 years of CAA consistency and is now proving that translates to the Patriot League."
+  cultural_footprint: "Richmond represents a new era of Patriot League growth, bringing in a CAA powerhouse that chose to move based on geographic and competitive fit."
+  the_ongoing_story: >
+    LIVE ARC — 2026-06-13: Richmond finished its final CAA season (2024) with an 8-0 record and back-to-back conference titles, then joined the Patriot League in 2025 as an associate member in football. Coach Russ Huesman (ninth season) is leading the transition. The program opened the home slate September 20 vs. VMI and hosted Holy Cross October 18 for the first Patriot League home game. The question in Richmond: can the program establish the same dominance in the Patriot League that it had in the CAA?
+  research_checklist:
+    - The 2024 perfect 8-0 CAA record and back-to-back titles
+    - The 17-year CAA membership and what it meant
+    - The William & Mary rivalry (120 meetings since 1898) and the reunion
+    - Russ Huesman's coaching philosophy and track record
+    - The Virginia Tech rivalry (since 1897) and its significance
+  sources:
+    - https://richmondspiders.com/news/2024/5/14/richmond-football-to-move-to-patriot-league-following-2024-season
+    - https://richmondfreepress.com/news/2025/jun/12/richmond-football-unveils-2025-home-schedule-as-new-patriot-league-era-begins/
+    - https://en.wikipedia.org/wiki/2024_Richmond_Spiders_football_team
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Richmond is the CAA power transitioning to the Patriot League in 2025 as an associate member, carrying back-to-back conference titles and reuniting with Virginia rivals.
+  mantra: "Regional Alignment + Competitive Excellence"
+  cultural_anchors:
+    fan_archetype_dominant: Virginia Pride
+    outsider_archetype_dominant: "The Strong Transfer"
+    one_sentence: Richmond is a sustained CAA powerhouse (2023-2024 back-to-back titles, 8-0 in 2024) moving to the Patriot League as an associate member to reunite with regional rivals like William & Mary.
+  selfname: Spiders
+  aspiration_ladder_top: "Patriot League championship + regional dominance"
+  rivalries:
+    - william-mary
+    - virginia-tech
+  heritage:
+    national_titles: "None"
+    conference_titles: "2 CAA (2023-2024 back-to-back)"
+    current_conference: "Patriot League (associate, football only; CAA for other sports)"
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: "Russ Huesman (current, ninth season)"
+    era_name_overrides: {}
+    always_surface:
+      - "2024 CAA dominance (8-0 record, back-to-back conference titles)"
+      - "Patriot League transition (2025)"
+      - "William & Mary rivalry reunion (120 meetings since 1898)"
+    rituals: []
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    signal: "no live signal yet (canon-only) — FCS program not covered by discourse fingerprint"

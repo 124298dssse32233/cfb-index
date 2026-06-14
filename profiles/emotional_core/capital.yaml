@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Capital University Comets — The Turnaround in Progress
+
+status: live
+slug: capital
+team_id: null
+program_name: Capital
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: house-money
+  one_line: "Capital is the OAC rebuilder trying to snap a 15-year winning drought — 1-9 in 2024, but Head Coach Brian Foos is betting 2025 and beyond are the turnaround years."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A small Columbus university that fell to 1-9 in 2024 vs the belief that the talent is there and the turnaround is now."
+
+the_wound:
+  name: "The 15-year irrelevance"
+  detail: "Capital hasn't had a winning season in over 15 years. The Comets have been competitive at times, but consistency and championships have eluded the program. 2024's 1-9 season was rock bottom."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Snap the losing streak and win the OAC — to prove the Comets belong in the conversation again."
+  drought: { since: 2010, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Capital is climbing out of a hole of its own making and focused on the next step."
+
+the_delusion:
+  tone: earnest
+  text: "That a strong recruiting class and a new group of veterans could deliver a winning season for the first time in 15 years — the fanbase is hopeful and knows anything is possible."
+
+the_grudge_texture:
+  rival: mount-union
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: "Impatient alumni who want results immediately vs a coaching staff building a sustainable foundation."
+register: capital-comets-oac-rebuild
+never_use:
+  - "Capital is too small to compete — other OAC schools prove size is not the issue"
+  - "The 1-9 season defines the program — it's a data point, not a trajectory"
+  - "Foos is the wrong hire — he is in year 6 and believes in the rebuild"
+
+story_canon:
+  the_unique_thing: "A small private university in Columbus that has struggled for 15 years but is betting on Head Coach Brian Foos (year 6) and a growing roster of veterans to deliver a turnaround."
+  the_origin: "Founded as Capital University, a small private school in Columbus with a modest football tradition trying to climb back into OAC relevance."
+  golden_ages:
+    - { era: "Pre-2010", what: "The last winning seasons before the drought began" }
+    - { era: "2021–2025", what: "The Foos era and the slow climb back toward respectability" }
+  legends:
+    - { name: Brian Foos, role: coach, why: "The architect of the Comets turnaround, entering year six with a mandate to win" }
+  canonical_moments:
+    - { name: "2024 season (1-9)", year: 2024, what: "Rock bottom, but the start of the turnaround narrative", handling: heartbreak }
+  the_place: "Capital University in Columbus, Ohio — a small private campus in the state capital with a working-class ethos."
+  brand_of_football: "Hunger, resilience, and the determination to prove doubters wrong — Capital football is building from the foundation up."
+  cultural_footprint: "A small-school turnaround story in progress. Every win in 2025 and 2026 will feel like a championship for a program climbing out of the depths."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Capital University is in the midst of a rebuild under sixth-year Head Coach Brian Foos.
+    After a 1-9 2024 season, Foos has recruited 35 transfers from the portal and is banking on a core of growing veterans to
+    deliver the program's first winning season in over 15 years. The Comets' 2025 schedule was designed to build confidence,
+    and the goal is to return to OAC relevance in 2026.
+  research_checklist:
+    - "1-9 in 2024"
+    - "15-year winning drought"
+    - "Coach Brian Foos in year 6"
+    - "35 portal transfers in 2025 recruiting"
+  sources:
+    - https://www.flofootball.com/articles/14395807-capital-comets-football-2025-schedule-preview-and-more-oac-football
+    - https://athletics.capital.edu/sports/football/schedule/2025

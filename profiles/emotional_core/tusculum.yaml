@@ -1,0 +1,115 @@
+# Emotional Core — Tusculum  (tusculum)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: tusculum
+team_id: 999  # Placeholder — may need D2 DB assignment
+program_name: Tusculum
+program_tier: 6
+
+emotional_core:
+  primary: restoration  # Jerry Odom era (2020 SAC Championship) ended; Billy Taylor beginning rebuild
+  secondary: standard
+  core_variant: regime-reset
+  one_line: "Tusculum reinstituted football in 1991 and built a SAC Championship in 2020 under Jerry Odom, then transitioned to Billy Taylor — a program learning that championships don't last forever and building the next chapter."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A 2020 SAC Championship and SAC Mountain Division titles (2020, 2023) vs a program rebuilding after the Jerry Odom era ended."
+
+the_wound:
+  name: "The transition after success"
+  detail: "Tusculum won the 2020 SAC Championship and the SAC Mountain Division titles in 2020 and 2023 under Jerry Odom. When Odom's era ended, Billy Taylor took over in December 2023 and is navigating the program through a new cycle. The question in Greeneville: can the next era match what Odom built?"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the 2020 SAC Championship form — make another run at the conference title and the bowl game that puts Tusculum back on the regional map."
+  drought: { since: 2023, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe tusculum's chip is knowing it can win the SAC (did it in 2020) and now having to prove it again. The program carries the weight of success and the burden of matching it."
+
+the_delusion:
+  tone: self-aware
+  text: "Tusculum fans believe Billy Taylor can walk in and replicate what Jerry Odom built; that the 2020 championship DNA is still in Pioneer Field and just needs a new voice to activate it."
+
+the_grudge_texture:
+  rival: ""
+  texture: none
+
+the_coach_relationship: savior   # Billy Taylor took over in December 2023, tasked with restoring the program
+the_internal_fracture: ""
+register: tusculum-pioneers-odom-sac-champs
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - "Never won SAC title — won 2020 SAC Championship + 2020, 2023 SAC Mountain Division titles"
+  - "Program never reinstated football — reinstated in 1991 after being discontinued"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Odom era SAC Championship: Tusculum reinstituted football in 1991 and built a SAC Championship under Jerry Odom (2020) plus SAC Mountain Division titles (2020, 2023). A program reborn in the 1990s became a conference champion by 2020."
+  the_origin: "Tusculum University was founded in 1794 in Greeneville, Tennessee. Football was discontinued at some point and then reinstituted in 1991. Under Jerry Odom, the program climbed from SAC newcomer to conference champion."
+  golden_ages:
+    - { era: "2020–2023 (Jerry Odom)", what: "SAC Championship (2020), SAC Mountain Division titles (2020, 2023); the program's competitive peak" }
+  legends:
+    - { name: Jerry Odom, role: coach, why: "Built the 2020 SAC Championship team and established Tusculum as a conference power" }
+  canonical_moments:
+    - { name: "2020 SAC Championship", year: 2020, what: "Tusculum wins the SAC Championship under Jerry Odom", handling: glory }
+    - { name: "SAC Mountain Division titles", year: 2023, what: "Tusculum wins the SAC Mountain Division title in 2023 under Odom", handling: glory }
+  the_place: "Pioneer Field in Greeneville, Tennessee (opened 1991, renovated 2000) — home of the Pioneers and a restored monument to reinstituted football."
+  brand_of_football: "Odom's winning formula — competitive East Tennessee football built on institutional stability and SAC-level competence."
+  cultural_footprint: "A program reborn (1991) that reached conference championship status in three decades proves second starts can work."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Jerry Odom's era ended in 2023, and Billy Taylor took over in December 2023.
+    Taylor is in his second season as head coach and is rebuilding the program after the 2020 SAC Championship and
+    2023 SAC Mountain Division success. Tusculum is transitioning to a new coaching cycle and searching for a return
+    to conference contention.
+  research_checklist:   # what to look up (web) when we author this team together
+    - Jerry Odom's coaching tenure and the 2020 championship run
+    - Key players from the 2020 SAC Championship team
+    - Billy Taylor's background and coaching philosophy
+    - Current 2025 season performance and roster composition
+    - Timeline for the next conference title contention
+  sources:
+    - https://en.wikipedia.org/wiki/Tusculum_Pioneers_football
+    - https://en.wikipedia.org/wiki/Pioneer_Field_(Tusculum)
+    - Tusculum University Athletics official site
+    - WCYB / WCYB.com (2023-2024) — coaching changes
+    - Stadium Journey (Pioneer Field)
+    - FloFootball (2024-2025)
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Tusculum is the East Tennessee program whose 1991 football reinstitution + 2020 SAC Championship
+    under Jerry Odom define the reborn-program arc.
+  mantra: ''
+  cultural_anchors:
+    fan_archetype_dominant: Tusculum-Pioneers-Odom-SAC
+    outsider_archetype_dominant: Reborn-Program-Climber
+    one_sentence: Tusculum is the Pioneers — 1991 football reinstitution + 2020 SAC Championship + SAC Mountain Division
+      titles that anchor the reborn-to-champion arc.
+  selfname: the Pioneers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: "1 SAC (2020)"
+    current_conference: SAC (South Atlantic Conference)
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1991 football reinstitution
+    - 2020 SAC Championship (Jerry Odom)
+    - 2020, 2023 SAC Mountain Division titles
+    rituals: []
+    modules_already_rendering: ''
+  live_fingerprint:
+    backometer: ''
+    voice_profile: absent
+    delusion_premium: absent

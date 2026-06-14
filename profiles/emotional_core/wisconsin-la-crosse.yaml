@@ -1,0 +1,116 @@
+# Emotional Core — UW-La Crosse  (wisconsin-la-crosse)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Researched 2026-06-13 from live web research — see story_canon.sources.
+#
+# The respected program in transition: Matt Janus era (WIAC contender) → Michael Zweifel rebuild
+# La Crosse is proving it can compete even as it turns the page on a legendary coach.
+
+status: live
+slug: wisconsin-la-crosse
+team_id: null
+program_name: UW-La Crosse
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  core_variant: regime-reset
+  one_line: "The program turning the page: UW-La Crosse just lost Matt Janus to Northern Michigan but is building under new coach Michael Zweifel — the Eagles prove transitions don't have to mean collapse."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "La Crosse is the program with a history of WIAC excellence and a culture that goes deeper than one coach. An 8-3 record and WIAC contention in 2025 (under Janus, who departed for Northern Michigan) proved the Eagles aren't defined by personnel — they're defined by a standard that survives transitions."
+
+the_wound:
+  name: "The coach transition anxiety"
+  detail: "Matt Janus, who built La Crosse into a WIAC contender, left for Northern Michigan in early 2026. The transition is clean (Michael Zweifel hired quickly), but the wound is the risk that Janus was the program, and without him, La Crosse reverts. The Eagles have 15 years of history to prove they're bigger than one era, but the question is alive."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that La Crosse football is institutional, not coach-dependent. The Eagles want to win a Stagg Bowl and show that the standard survives the transition from Janus to Zweifel — that WIAC excellence is built-in to the program."
+  drought: { since: 1985, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans believe La Crosse belongs among WIAC powers, and the Zweifel era proves the program is bigger than any single coach."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that Michael Zweifel will seamlessly continue the success Matt Janus built. That La Crosse football, with the right hiring, can stay a WIAC contender and prove that the Eagles' standard is institutional, not personnel."
+
+the_grudge_texture:
+  rival: wisconsin-oshkosh
+  texture: none
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: honor-for-janus vs optimism-for-zweifel — the faction celebrating Matt Janus's successful tenure (and understanding his departure) vs the faction believing Zweifel will write his own chapter in La Crosse football
+register: la-crosse-transition-eagles-wiac-contender
+never_use:
+  - Mid-tier WIAC program (8-3 record and WIAC contention proves elite-tier conference play)
+  - Lost everything when Janus left (La Crosse standard predates Janus and survives him)
+
+story_canon:
+  the_unique_thing: "The program's ability to sustain WIAC contention through a major coaching transition — from Matt Janus's successful tenure to a new era under Michael Zweifel, proving institutional excellence."
+  the_origin: "A Wisconsin-La Crosse program with deep WIAC roots, modernized through successful coaching tenures. The Eagles have built a culture of winning and respect that outlasts individual leaders."
+  golden_ages:
+    - { era: "2010s-2025 (Matt Janus)", what: "Era of WIAC contention and consistent winning; built the Eagles into a conference power before departing for Northern Michigan" }
+  legends:
+    - { name: Matt Janus, role: coach, why: "Built La Crosse into a WIAC contender; departed for Northern Michigan in 2026 after successful tenure" }
+    - { name: Michael Zweifel, role: coach, why: "Hired in early 2026 to lead the next La Crosse era and prove the program's standard survives transitions" }
+  canonical_moments:
+    - { name: "Matt Janus era success", year: 2025, what: "La Crosse went 8-3 and competed in the WIAC under Janus's leadership", handling: glory }
+    - { name: "2025 win over Oshkosh", year: 2025, what: "Eagles defeated Wisconsin-Oshkosh 44-13 in conference play, proof of dominance", handling: glory }
+    - { name: "Michael Zweifel hire", year: 2026, what: "La Crosse names new coach to lead the Eagles into a new era", handling: glory }
+  the_place: "Bob Christiansen Stadium — home of La Crosse football and the standard the Eagles are built to maintain."
+  brand_of_football: "Disciplined, winning-culture football — La Crosse football is about maintaining a standard through transitions and proving that WIAC contention is institutional."
+  cultural_footprint: "The program that proves coaching transitions don't have to mean collapse — La Crosse represents a culture deep enough to survive losing a successful coach and thrive with a new one."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UW-La Crosse went 8-3 in 2025 (5-2 WIAC) under Matt Janus, who departed for
+    Northern Michigan in early 2026 after building the Eagles into a conference contender. Michael Zweifel was hired
+    to lead the next era. The question in La Crosse is whether the standard that Janus built is institutional —
+    whether Zweifel can maintain WIAC contention and prove the Eagles belong among the elite programs in the
+    conference. The transition is clean, but execution will define whether La Crosse stays a power or reverts.
+  research_checklist:
+    - Matt Janus tenure and departure (to Northern Michigan)
+    - Michael Zweifel hire and early tenure (2026)
+    - 8-3 record in 2025, 5-2 WIAC
+    - historic rivalry with Oshkosh (44-13 win in 2025)
+    - last WIAC championship 1985
+    - WIAC contention sustainability
+  sources:
+    - https://en.wikipedia.org/wiki/Wisconsin-La_Crosse_Eagles_football
+    - https://uwlathletics.com/sports/m-footbl/
+    - https://www.d3football.com/conf/WIAC/2025/standings
+
+briefing:
+  identity_phrase: UW-La Crosse is the WIAC program that just transitioned from Matt Janus (who departed for Northern
+    Michigan) to new coach Michael Zweifel, proving that institutional standards survive coaching changes.
+  mantra: Go Eagles
+  cultural_anchors:
+    fan_archetype_dominant: Tradition-Keeper
+    outsider_archetype_dominant: Stable-Conference-Power
+    one_sentence: UW-La Crosse is the D3 program that maintained WIAC contention through a major coaching transition
+      from Matt Janus to Michael Zweifel, proving its standard is institutional.
+  selfname: the Eagles
+  aspiration_ladder_top: ''
+  rivalries:
+    - wisconsin-oshkosh
+  heritage:
+    national_titles: null
+    conference_titles: 1 (1985)
+    current_conference: WIAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Matt Janus
+    era_name_overrides: {}
+    always_surface:
+      - 8-3 record in 2025, 5-2 WIAC
+      - Matt Janus era success and departure
+      - Michael Zweifel transition
+    rituals: []
+    modules_already_rendering: []
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

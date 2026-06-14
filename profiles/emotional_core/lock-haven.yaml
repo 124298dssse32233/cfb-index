@@ -1,0 +1,89 @@
+# Emotional Core — Commonwealth University–Lock Haven  (lock-haven)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Status: live | Tier: 6 (Division II PSAC) | Authored 2026-06-13
+
+status: live             # todo | drafted | authored | reviewed | live
+slug: lock-haven
+team_id: 229            # placeholder; verify against CFBD ID mapping
+program_name: Commonwealth University–Lock Haven
+program_tier: 6         # Division II PSAC
+
+emotional_core:
+  primary: redemption         # clawing out of a 44-year drought, breaking a decades-long curse
+  secondary: standard         # emerging from dormancy after 44 years of losing
+  one_line: "Lock Haven is the PSAC program reborn — a 6-5 first winning season in 44 years under Joe Battaglia proves that even the longest droughts can break."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "44 years of losing seasons (1981–2025) vs a 6-5 winning record and the first three-game winning streak since 1981 — the arc of awakening."
+
+the_wound:
+  name: "44 years of losing"
+  detail: "From 1981 to 2025, Lock Haven football did not have a winning season — the longest active drought in PSAC history. The program had become synonymous with futility."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Sustain winning — prove the 2025 turnaround was the start of a new era, not a fluke. Build Lock Haven into a consistent PSAC East contender."
+  drought: { since: 1980, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Lock Haven fans watched 44 years of heartbreak and losing seasons. Now, Joe Battaglia's 2025 team proved the program is alive. Every win in 2026 and beyond is a middle finger to the decades of dismissal."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase dares to believe this is different — that Joe Battaglia isn't a fluke, that the 6-5 season unlocks something deeper, that Lock Haven's winning years are about to become the norm instead of the exception."
+
+the_grudge_texture:
+  rival: gannon
+  texture: border-war       # Lock Haven and Gannon are both rebuilding PSAC West/East programs learning to win again
+
+the_coach_relationship: savior        # Joe Battaglia is the coach who broke the curse
+the_internal_fracture: null           # program unified around breaking the drought
+register: lock-haven-bald-eagle-believer
+never_use:
+  - "Hopeless program — 6-5 record and a winning season prove it's not"
+  - "Perennial loser — 44-year drought ended in 2025"
+  - "Small-time PSAC — a drought-breaking season changes the narrative"
+
+# ── STORY CANON (doc 64) ────────────────────────────────────────────────────
+story_canon:
+  the_unique_thing: "Lock Haven broke the longest active losing streak in Division II — 44 years without a winning season until Joe Battaglia's 2025 redemption season, a drought-breaking moment that rewrote the program's entire identity."
+  the_origin: "Lock Haven University (1870–), now Commonwealth University–Lock Haven (merged 2023), a public regional university in central Pennsylvania, fielding Bald Eagles football."
+  golden_ages:
+    - { era: "Pre-1981 Era", what: "Lock Haven had winning seasons through 1980, competitive PSAC football in the program's early years." }
+    - { era: "Battaglia Era (2025–)", what: "Joe Battaglia's first year as head coach broke the 44-year drought with a 6-5 season and Lock Haven's first winning record since 1981." }
+  legends:
+    - { name: Joe Battaglia, role: coach, why: "The head coach who broke the 44-year losing drought and restored winning football to Lock Haven in his debut year." }
+  canonical_moments:
+    - { name: "First Winning Season Since 1981 (6-5)", year: 2025, what: "Lock Haven achieved a winning record for the first time in 44 years, breaking the longest active NCAA D2 drought.", handling: glory }
+    - { name: "49-28 Victory Over Gannon (Season Finale)", year: 2025, what: "The Bald Eagles clinched a winning season with a dominant home victory in front of a celebrating fanbase.", handling: glory }
+    - { name: "First Three-Game Winning Streak Since 1981", year: 2025, what: "Late-season wins over West Chester, Shippensburg, and Millersville proved the turnaround was real.", handling: glory }
+  the_place: "Grove Stadium — Lock Haven's home in central Pennsylvania, a venue that watched 44 years of losing before 2025 rewrote its history."
+  brand_of_football: "Battling, physical football — Joe Battaglia's teams came from behind and won the games that mattered most."
+  cultural_footprint: "A program that proved no drought is permanent — Lock Haven's 2025 season will echo through college football history as proof that redemption is always possible."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Joe Battaglia returns for his second season as Lock Haven head coach with the
+    massive task of sustaining the 2025 breakthrough. The Bald Eagles must prove the winning season wasn't a one-year
+    fluke but the foundation of a new era. With returning talent and a fanbase that finally believes, Lock Haven aims
+    to establish consecutive winning seasons and climb toward PSAC East contention.
+  research_checklist:
+    - Joe Battaglia's background and why he was hired to break the drought
+    - Lock Haven's 44-year losing streak (1981–2025) and its causes
+    - The 2025 season breakdown: 6-5 record, late-season surge, key wins
+    - Lock Haven's merger into Commonwealth University and program continuity
+  sources:
+    - https://www.lockhavenathletics.com/news/2025/11/15/football-secures-first-winning-season-in-44-years-with-victory-over-gannon-in-season-finale.aspx
+    - https://www.lockhaven.com/sports/local-sports/2025/11/lock-haven-football-clinches-first-winning-season-since-1981-routs-gannon-in-finale/
+    - https://www.lockhavenathletics.com/sports/football/roster/coaches/joe-battaglia/1143
+
+# ── BRIEFING (read-only context; NOT part of published core) ──
+briefing:
+  identity_phrase: "Lock Haven is the program reborn — Joe Battaglia broke the 44-year drought with a 6-5 winning season in 2025, restoring Bald Eagles football to winning ways."
+  mantra: "Go, Bald Eagles!"
+  cultural_anchors:
+    fan_archetype_dominant: "Lock-Haven-Drought-Breaker-Believer"
+    outsider_archetype_dominant: "College-Football-Redemption-Witness"
+    one_sentence: "Lock Haven is the PSAC program that broke its 44-year losing drought in 2025 under Joe Battaglia, proving that even the longest droughts can end."
+  selfname: "the Bald Eagles"

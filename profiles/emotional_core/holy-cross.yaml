@@ -1,0 +1,109 @@
+# Emotional Core — Holy Cross Crusaders (holy-cross)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — FCS Patriot League
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: holy-cross
+team_id: null
+program_name: Holy Cross Crusaders
+program_tier: 2
+
+emotional_core:
+  primary: restoration      # the dynasty in transition, a new coach inheriting six consecutive titles
+  secondary: redemption
+  core_variant: perpetual-rebuild
+  one_line: "The Patriot League dynasty learning to win without the coach who built it."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Six consecutive Patriot League championships (2019-2024) vs. the challenge of sustaining success under new leadership."
+
+the_wound:
+  name: "The coaching transition from the dynasty builder"
+  detail: "Holy Cross won six consecutive Patriot League championships (2019-2024) — the most in conference history — under a coaching regime. The wound is not failure but succession: new coach Dan Curran took over in 2025, and the program faces the immediate test of whether the dynasty survives the transition. Early returns: 3-9 (3-4 Patriot League) in Curran's first full season."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Keep the championship streak alive under new leadership — prove the Holy Cross culture transcends any single coach."
+  drought: { since: null, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Holy Cross owns the pride. The program dominated the Patriot League in a way few others have. The chip isn't external; it's the internal drive to maintain an elite standard."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans believe the six consecutive titles were built on something that can be coached into any replacement — that continuity guarantees success. The reality many accept but won't admit: dynasties have different half-lives; Holy Cross is discovering what theirs will be."
+
+the_grudge_texture:
+  rival: lehigh
+  texture: championship
+
+the_coach_relationship: legends-shadow   # Curran following the dynasty coach
+the_internal_fracture: dynasty-faith vs. rebuilding-patience — the faction convinced the dynasty is forever vs. those accepting the new coach needs time
+register: new-england-jesuit-earnest
+never_use:
+  - Ivy
+  - overachieving
+  - small
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. ──
+story_canon:
+  the_unique_thing: "The most consecutive Patriot League championships in conference history (six straight, 2019-2024) — a dynasty that defined an era of FCS football in the Northeast."
+  the_origin: "Holy Cross football was founded in 1884, the same year the Lafayette-Lehigh rivalry began. Based in Worcester, Massachusetts, at Fitton Field, the program is a Jesuit institution with deep New England roots."
+  golden_ages:
+    - { era: "2019-2024", what: "Six consecutive Patriot League championships — the most in conference history" }
+    - { era: "2024", what: "12 players named to All-Patriot League teams, co-championship with Lehigh" }
+  legends:
+    - { name: "Justin Shorter", role: "player", why: "WR who caught four TDs for 140 yards vs. Colgate (38-7 win) and was named All-Patriot League" }
+  canonical_moments:
+    - { name: "Six Consecutive Patriot League Championships", year: 2024, what: "Holy Cross won six straight Patriot League titles (2019-2024), the most in conference history", handling: glory }
+    - { name: "2024 Co-Championship", year: 2024, what: "Holy Cross shared the Patriot League title with Lehigh and earned 12 All-Patriot League selections", handling: glory }
+  the_place: "Fitton Field in Worcester, Massachusetts — a New England Catholic stadium that hosted a dynasty."
+  brand_of_football: "Disciplined Jesuit football — the program that proved consistent culture beats talent arms races in the Patriot League."
+  cultural_footprint: "Holy Cross proved the Patriot League could have a dynasty. That legacy is both the program's crown and now the burden of the transition."
+  the_ongoing_story: >
+    LIVE ARC — 2026-06-13: Holy Cross finished 3-9 (3-4 Patriot League) in 2025 under new coach Dan Curran, a dramatic decline from the six consecutive championship era. Curran came from Merrimack (53 wins in 11 seasons, a respected builder) and took over a program at peak height. The question in Worcester: is this a transition valley or the beginning of a new normal? The dynasty built something; the test is whether it survives the change.
+  research_checklist:
+    - The six consecutive Patriot League championships (2019-2024) and what built them
+    - The 2024 All-Patriot League selections (12 players) and the depth of the dynasty
+    - Dan Curran's background at Merrimack and what he brings
+    - The 2025 decline to 3-9 and what went wrong
+    - The Fitton Field tradition and the Jesuit identity
+  sources:
+    - https://en.wikipedia.org/wiki/Holy_Cross_Crusaders_football
+    - https://goholycross.com/news/2024/11/26/football-crusaders-place-12-on-2024-all-patriot-league-football-teams.aspx
+    - https://en.wikipedia.org/wiki/2025_Holy_Cross_Crusaders_football_team
+    - https://patriotleague.org/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Holy Cross is the Patriot League dynasty program that won six consecutive conference championships (2019-2024) and now faces the test of sustaining success under new coaching leadership.
+  mantra: "One for All; All for One (Jesuit discipline)"
+  cultural_anchors:
+    fan_archetype_dominant: New England Jesuit Pride
+    outsider_archetype_dominant: "The Dynasty in Decline"
+    one_sentence: Holy Cross dominated the Patriot League with six straight championships (2019-2024), proving consistent culture could beat talent-rich competitors, and now faces the test of sustaining that dominance under new coaching.
+  selfname: Crusaders
+  aspiration_ladder_top: "Continued Patriot League championships"
+  rivalries:
+    - lehigh
+    - colgate
+  heritage:
+    national_titles: "None"
+    conference_titles: "13+ (6 consecutive 2019-2024)"
+    current_conference: Patriot League
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: "The dynasty builder (unnamed, departed after 2024)"
+    era_name_overrides: {}
+    always_surface:
+      - "Six consecutive Patriot League championships (2019-2024)"
+      - "2024 co-championship with Lehigh"
+      - "12 All-Patriot League selections (2024)"
+    rituals: []
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    signal: "no live signal yet (canon-only) — FCS program not covered by discourse fingerprint"

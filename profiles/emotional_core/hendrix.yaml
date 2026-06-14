@@ -1,0 +1,91 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: hendrix
+team_id: null
+program_name: Hendrix College
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: spectacle
+  one_line: "Hendrix is a program resurrected—dormant for 32 years (1941-1973), the Warriors returned and are now ascending, with a brand-new coach in year one proving the revival is real."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A historic small college reborn: Hendrix went dormant after 1941, remained so for 32 years, then returned to the field in 1973. The modern era represents a program climbing from obscurity back to SCAC relevance, with 2025 marking a decisive step forward."
+
+the_wound:
+  name: "The dormancy—1941-1973 (32 years without football)"
+  detail: "Hendrix played football from 1906 until 1941, then the program went dormant. For 32 years, there was no football. The program's identity carries that gap—it is a resurrection story, not a continuous legacy. The wound is institutional forgetting and the work required to rebuild from zero."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Build a sustained SCAC championship program—prove that Hendrix football is not a novelty or a return-to-water experiment, but a permanent institution capable of competing for conference titles and beyond."
+  drought: { since: 1933, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Hendrix's identity is about proving resurrection is real. The fanbase is driven not by revenge against anyone else but by the deep commitment to showing that football belongs at Hendrix, that the 1906-1941 era can be honored and extended into the modern era."
+
+the_delusion:
+  tone: earnest
+  text: "Hendrix fans believe the program is on an upward trajectory, that a successful 2025 (6-4, 4-2 SCAC) under Buck Buchanan is the start of a new era, not a fluke. They believe the Warriors belong in SCAC contention."
+
+the_grudge_texture:
+  rival: ozarks
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "Building sustainable success vs riding the high of a breakthrough year—should Hendrix push for immediate championship contention or accept the long rebuild?"
+register: hendrix-warriors-conway-arkansas-resurrection-dormancy
+never_use:
+  - Continuous tradition—Hendrix was dormant 1941-1973 (32 years)
+  - Historic power—the program was killed in 1941 and didn't return until 1973
+  - Established SCAC program—Hendrix is very recent to the conference (returned 2025 after 13-year absence)
+
+story_canon:
+  the_unique_thing: "Hendrix football is a resurrection story: the program began in 1906, played through the 1930s-1940s era, then went dormant in 1941. For 32 years, there was no football at Hendrix. The program returned in 1973 and has been climbing ever since. In 2025, Hendrix returned to the SCAC after a 13-year absence with a 6-4 record and a 4-2 conference mark—proof that resurrection is real and the Warriors belong."
+  the_origin: "Hendrix College, a small Methodist-affiliated liberal-arts college in Conway, Arkansas, began playing football in 1906, competed through the 1930s-1940s (renamed from Bulldogs to Warriors in 1933 after a merger with Henderson-Brown), then the program went dormant in 1941. It remained dormant until 1973, when football returned to Hendrix. The program has been rebuilding ever since, competing in various conferences, and recently returned to the SCAC."
+  golden_ages:
+    - { era: "1906–1941 (the original program)", what: "Hendrix's first era, playing football from the program's inception until dormancy in 1941" }
+    - { era: "1973–present (the resurrection)", what: "Hendrix's football program returns and climbs toward relevance" }
+    - { era: "2025–present (the modern ascent)", what: "Hendrix returns to the SCAC and immediately proves competitive with 6-4 record and 4-2 conference mark" }
+  legends:
+    - { name: Buck Buchanan, role: coach, why: "1st year head coach, first coach in 52 years (since 1973); architect of the 2025 breakthrough and builder of the modern Warriors identity" }
+    - { name: Jake Blice, role: player, why: "Junior QB, 13 pass TD in 2025; leader of the new era Warriors" }
+    - { name: Auvic White, role: player, why: "WR, 1st-Team All-SCAC, led league in TD receptions; embodiment of Hendrix's rising talent" }
+  canonical_moments:
+    - { name: "Football at Hendrix begins", year: 1906, what: "Hendrix's first intercollegiate football game (lost 26-0 to Henderson)", handling: glory }
+    - { name: "Renamed to Warriors", year: 1933, what: "After Henderson-Brown merger, Hendrix becomes the Warriors (previously Bulldogs)", handling: glory }
+    - { name: "Dormancy", year: 1941, what: "Hendrix football goes dormant after the 1941 season; will not return until 1973", handling: wound }
+    - { name: "Football returns", year: 1973, what: "After 32 years dormant, Hendrix football returns and the resurrection begins", handling: miracle }
+    - { name: "2025 SCAC return and breakthrough", year: 2025, what: "Hendrix returns to the SCAC after 13-year absence and immediately posts 6-4 record (4-2 SCAC)", handling: glory }
+    - { name: "2026 SCAC Championship game host", year: 2026, what: "Hendrix hosts the SCAC championship game at War Memorial Stadium, Little Rock (November 14, 2026)—a validation of the program's competitive return", handling: glory }
+  the_place: "Conway, Arkansas—a small college town, home to Hendrix College and the Warriors' identity, with War Memorial Stadium in nearby Little Rock as the program's flagship venue."
+  brand_of_football: "Ascending, competitive, resilient—Hendrix plays with the confidence of a program that has proven it can return from dormancy and immediately compete. The Warriors play like they have nothing to lose and something urgent to prove."
+  cultural_footprint: "Hendrix represents the ultimate D3 resurrection story: a program that died, returned, and is now climbing toward relevance. Every win is validation that football belongs at Hendrix, that the 1906-1941 era matters, and that the 2025 return is the start of a new dynasty."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Hendrix went 6-4 (4-2 SCAC) in 2025, the Warriors' first
+    season back in the SCAC after 13 years away. Buck Buchanan, hired as head coach, was the first coach
+    in 52 years (since 1973), a major institutional change. Jake Blice (Jr QB, 13 pass TD), Auvic White
+    (WR, 1st-Team All-SCAC, led league in TD receptions), and 15 total All-SCAC honorees represent the
+    rising talent. The 2026 question is whether Hendrix can build on 2025, climb toward conference contention,
+    and establish the Warriors as a permanent SCAC fixture. The validation is clear: Hendrix is hosting the
+    2026 SCAC championship game on November 14 at War Memorial Stadium, Little Rock—a major honor for the
+    program.
+  research_checklist:
+    - 1906-1941 original era (founded in 1906, dormant after 1941)
+    - 32-year dormancy (1941-1973)
+    - 1973 resurrection and return to football
+    - 2025 SCAC return after 13-year absence
+    - 6-4 record (4-2 SCAC) in 2025 breakthrough
+    - Buck Buchanan as 1st-year head coach
+    - 15 All-SCAC honorees (sign of talent level)
+    - 2026 SCAC championship game hosting
+  sources:
+    - https://www.hendrix.edu/athletics/football/
+    - https://www.scacathletics.org/sports/football/
+    - https://www.d3football.com/
+    - https://en.wikipedia.org/wiki/Hendrix_College_Warriors_football

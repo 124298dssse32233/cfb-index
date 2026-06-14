@@ -1,0 +1,73 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Millsaps College — Majors (Southern Athletic Association, Division III)
+
+status: live
+slug: millsaps
+team_id: null
+program_name: Millsaps College
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Millsaps is the oldest continuously operating football program in Mississippi — a D3 college that carries 160 years of tradition in one of the South's toughest states."
+
+self_image:
+  archetype: orphaned
+  standard_gap_frame: "A Methodist institution in Jackson, Mississippi, where Millsaps football is an anchor of local pride and academic mission, playing in D3 by design."
+
+the_wound:
+  name: "The long fade from small-school relevance to purely local standing"
+  detail: "Millsaps went 2-8 in 2025 under new coach Trey Wilhite, a year that reminds the Majors of how small their footprint has become — no longer even a state power, just a Jackson tradition."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Win the SAA, restore Millsaps' name as a Mississippi college that can build a football tradition again, and do it with honor."
+  drought: { since: 1963, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "No chip — the fanbase plays for Jackson pride and their own heritage, not against anyone."
+
+the_delusion:
+  tone: self-aware
+  text: "That Millsaps can reclaim its mid-century standing as a small-college power. The fanbase knows that era is gone, but every new coach's hire brings the old hope back."
+
+the_grudge_texture:
+  rival: southern-mississippi
+  texture: killed-by-realignment
+
+the_coach_relationship: total-trust
+the_internal_fracture: preservation-of-tradition vs acceptance-of-small-status — does Millsaps invest in competing, or accept its role as a cultural anchor?
+register: jackson-mississippi-methodist-majors-160-years
+never_use:
+  - Millsaps is a major program — it is D3 and chose to stay there
+  - Millsaps has multiple national titles — it does not; 1963 Liberty Bowl was its peak
+  - Millsaps competes statewide — it competes locally, and that is enough
+
+story_canon:
+  the_unique_thing: "160 years of continuous football — Millsaps is the oldest continuously operating football program in Mississippi, a red-brick Methodist college in the state capital that has never stopped playing."
+  the_origin: "Founded 1865 as a Methodist college, Millsaps began football in the 1880s and has fielded a team every year since — a rare continuous thread through Mississippi history."
+  golden_ages:
+    - { era: "1950s-1960s", what: "Millsaps was a small-college contender, capped by the 1963 Liberty Bowl appearance" }
+  legends:
+    - { name: "The 1865 Methodist founders", role: "institution builders", why: "Established Millsaps as a Jackson fixture that would include football" }
+  canonical_moments:
+    - { name: "The 1963 Liberty Bowl", year: 1963, what: "Millsaps reached the Liberty Bowl, the program's peak bowl appearance", handling: glory }
+    - { name: "160 years of continuous football", year: 2025, what: "Millsaps has fielded a team every year since the 1880s", handling: glory }
+  the_place: "Jackson, Mississippi — the state capital, where Millsaps sits in the heart of the Deep South."
+  brand_of_football: "Steady tradition — Millsaps football is a Jackson institution, more tied to the college's civic presence than to national relevance."
+  cultural_footprint: "A symbol of Methodist higher education and persistence in Mississippi, where Millsaps' football team represents a commitment to staying present, not to winning at all costs."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Millsaps went 2-8 in 2025 under first-year coach Trey Wilhite (hired December 2024). The program is trying to stabilize after years of struggle. Wilhite brings a fresh start, but Millsaps remains a D3 program in a state where big-time football has moved far away. The 2026 season will test whether the new coach can build something, but the bar is honest: just be competitive in the SAA and keep the 160-year tradition alive.
+  research_checklist:
+    - 1865 founding and Methodist heritage — verified
+    - 1963 Liberty Bowl appearance — verified peak
+    - Oldest continuous program in Mississippi — verified claim
+    - 2025 record and new coach Trey Wilhite — verified 2-8
+    - Historical standing in state — verified mid-century power, now local
+  sources:
+    - https://en.wikipedia.org/wiki/Millsaps_College_Majors_football
+    - https://en.wikipedia.org/wiki/Millsaps_College
+    - https://en.wikipedia.org/wiki/1963_Liberty_Bowl

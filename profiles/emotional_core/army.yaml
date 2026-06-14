@@ -1,0 +1,120 @@
+# Emotional Core — Army  (army)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: army
+team_id: 125
+program_name: Army
+program_tier: 3
+
+emotional_core:
+  primary: honor          # West Point first; the season is measured by one game in December against Navy
+  secondary: restoration  # win the Trophy back, get the option humming again after a step back from 12-2
+  one_line: "Army's whole season bends toward one Saturday in December — Beat Navy — and in 2025 the Black Knights lost it 17-16, surrendering the Commander-in-Chief's Trophy and the only standard West Point truly keeps."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A 2024 breakthrough — 12-2, the Commander-in-Chief's Trophy, a top-25 finish — against a 2025 reset to 7-6 in a new conference, the recurring service-academy ceiling that no roster of cadets can fully outrun."
+
+the_wound:
+  name: "The 2025 step back and a Navy loss that cost the Trophy"
+  detail: "A year after a 12-2 dream season, Army fell to 7-6 in its first year in the American Conference, and lost to Navy 17-16 in December — handing Annapolis back-to-back Commander-in-Chief's Trophies and stinging the one result West Point cares about most."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Beat Navy, reclaim the Commander-in-Chief's Trophy, and prove the 12-2 season was a foundation and not a fluke — sustained relevance for the option in a Power-adjacent league."
+  drought: { since: 2024, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Black Knights fans say the sport treats Army as a quaint December novelty — a parade of cadets and a salute — and forgets that those same cadets went 12-2 and won the Trophy a year ago; they say the respect never arrives until the scoreboard forces it."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the Corps of Cadets — drilled, disciplined, every man bound for service — can out-execute and out-condition any roster of bigger, faster recruits, that West Point's standard of duty translates straight to the fourth quarter."
+
+the_grudge_texture:
+  rival: navy
+  texture: championship   # America's Game — the Commander-in-Chief's Trophy decided in the most storied rivalry in the sport
+the_coach_relationship: forever-ours   # Jeff Monken rebuilt Army from irrelevance; the program is his
+the_internal_fracture: keep-the-option-pure vs modernize — the faction that wants the triple option run as identity and Navy beaten above all else vs the faction that says a new conference and the portal demand a more flexible offense
+register: west-point-service-academy-triple-option   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Old-fashioned program — 2024 12-2 + Commander-in-Chief's win disprove the frame
+  - Triple-option doesn't work modern — 2024 records prove it does
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Army's season is organized around one game — Beat Navy — played in an NFL stadium with the entire Corps of Cadets in the stands and the President often in attendance; no other program in the sport subordinates everything to a single rivalry the way West Point does."
+  the_origin: "Football at West Point since 1890, a national power in the 1910s-40s, then forged into the modern era by the wartime Blanchard-Davis teams — two Heisman winners on the same backfield and consecutive national titles in 1944 and 1945."
+  golden_ages:
+    - { era: "1944–1946 (Blaik / Blanchard & Davis)", what: "Mr. Inside and Mr. Outside, two Heismans, and back-to-back national championships" }
+    - { era: "2014–present (Jeff Monken)", what: "From the depths to repeated bowl wins, a 2018 11-2, and a 2024 12-2 American Conference title and Trophy season" }
+  legends:
+    - { name: "Doc Blanchard & Glenn Davis", role: player, why: "Mr. Inside and Mr. Outside — back-to-back Heisman winners on the 1944-45 national champions" }
+    - { name: Earl "Red" Blaik, role: coach, why: "Built the wartime dynasty; the architect of Army's golden age" }
+    - { name: Jeff Monken, role: coach, why: "Rebuilt a moribund program into a consistent winner and the 2024 12-2 Trophy team" }
+  canonical_moments:
+    - { name: "Back-to-back national titles", year: 1945, what: "Blanchard and Davis lead Army to consecutive national championships at the peak of the war years", handling: glory }
+    - { name: "The 2024 breakthrough", year: 2024, what: "12-2, a conference championship, the Commander-in-Chief's Trophy, and a top-25 finish — the best modern Army season", handling: glory }
+    - { name: "The 2025 Navy loss", year: 2025, what: "A 17-16 defeat to Navy hands Annapolis the Trophy and ends the season on the wound West Point feels most", handling: heartbreak }
+  the_place: "Michie Stadium above the Hudson at West Point — the gray stone, the cadet wing marching on, and the Army-Navy game itself staged on the sport's biggest neutral stages, a national civic ritual."
+  brand_of_football: "Disciplined triple-option — clock-eating, assignment-perfect, built on conditioning and ball control by a roster of future officers; football as an extension of the academy's standard of execution."
+  cultural_footprint: "America's Game — the Army-Navy rivalry as the sport's most patriotic institution, every player headed to active-duty service, the season a salute that transcends the standings."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After a breakthrough 12-2 in 2024, Army reset to 7-6 (4-4) in 2025,
+    its first year in the American Conference, and beat UConn 41-16 in the Fenway Bowl. But the season's
+    defining result was a 17-16 loss to Navy that handed Annapolis the Commander-in-Chief's Trophy.
+    Jeff Monken, now in his 12th year and 19-8 since 2024, enters 2026 trying to prove the 12-2 was a
+    floor rather than a peak — and to take the Trophy back.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Army_Black_Knights_football_team
+    - https://goarmywestpoint.com/sports/football/roster/coaches/jeff-monken/2384
+    - https://en.wikipedia.org/wiki/Commander-in-Chief's_Trophy
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Army is the West Point service academy whose triple-option offense and Commander-in-Chief's
+    Trophy chase make every Saturday a salute to a different version of college football.
+  mantra: Go Army. Beat Navy.
+  cultural_anchors:
+    fan_archetype_dominant: West-Point-Corps-Loyalist
+    outsider_archetype_dominant: Triple-Option-Diminisher
+    one_sentence: Army is the West Point service academy whose triple-option offense, Army-Navy game, and
+      2024 12-2 + Commander-in-Chief's Trophy make the program a permanent fixture of every December's CFB
+      calendar.
+  selfname: the Black Knights
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1944-1946 Doc Blanchard + Glenn Davis era (two Heisman winners)
+    - 2024 12-2 + Commander-in-Chief's Trophy under Jeff Monken
+    - Army-Navy game institutional anchor
+    rituals:
+    - Army-Navy Game
+    - Triple-Option Offense
+    - Commander-in-Chief's Trophy
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (42/100, n=54)
+    voice_profile: absent
+    delusion_premium: absent

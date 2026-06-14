@@ -1,0 +1,80 @@
+# AUTHORED (D3/NESCAC) 2026-06-13 — web-verified
+
+status: live
+slug: amherst
+team_id: null
+program_name: Amherst College
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Amherst is the aristocrat of New England small-college football—disciplined excellence through systematic coaching and gentleman athletics, seven perfect seasons across generations."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "Perfect seasons in 1964, 1984, 2009, 2011, 2014, 2015 vs. post-Siedlecki rebuilding"
+
+the_wound:
+  name: "The Siedlecki transition"
+  detail: "Jack Siedlecki's 19-year dynasty (1997–2016) ended with three perfect seasons (2009, 2011, 2014); his departure left Amherst in rebuilding mode. The 6–4 (2025) record is a step-down from the institution's dynasty ceiling."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the perfect-season standard that defined Amherst football across eras—another 11–0 campaign, another Little Three title."
+  drought: { since: 2015, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the Little Three knows Amherst belongs at the mountaintop. Seven perfect seasons across 50+ years is not a fluke; the current rebuild is a cycle, not a ceiling."
+
+the_delusion:
+  tone: self-aware
+  text: "Amherst fans believe the next coach will find the formula that E.J. Mills and Jack Siedlecki discovered—that disciplined, reproducible excellence is the program's true identity, and the rebuild is temporary."
+
+the_grudge_texture:
+  rival: williams
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: process-vs-results — the question of whether new-era coaching can recapture Siedlecki-era standards or whether post-Siedlecki is a permanent step-down
+
+register: disciplined-content-academic-gentleman
+
+never_use:
+  - "One-hit wonder (seven perfect seasons across multiple eras disprove)"
+  - "Never elite (the dynasty standard is indisputable; current rebuild ≠ historical baseline)"
+  - "Second-tier NESCAC (Amherst is and has been a power)"
+
+story_canon:
+  the_unique_thing: "Seven perfect seasons (1942, 1964, 1984, 2009, 2011, 2014, 2015) across multiple coaching eras—the discipline-and-system identity that reproduces excellence."
+  the_origin: "Amherst College (founded 1825) built a football tradition on disciplined coaching legacies. E.J. Mills (27 years, 1953–1980) anchored the identity; Jack Siedlecki (19 years, 1997–2016) resurrected it."
+  golden_ages:
+    - { era: "1964 (E.J. Mills)", what: "Perfect season under legendary coach Mills, undefeated and unscored-upon" }
+    - { era: "2009–2015 (Jack Siedlecki)", what: "Modern dynasty: three perfect seasons (2009, 2011, 2014) and a fourth (2015), four NESCAC titles, consistent NCAA D3 tournament contention" }
+  legends:
+    - { name: E.J. Mills, role: coach, why: "27 years (1953–1980); 192 wins; four perfect seasons (1964, 1972, 1976, 1978); architect of the dynasty identity" }
+    - { name: Jack Siedlecki, role: coach, why: "19 years (1997–2016); 152 wins; rebuilt modern dynasty with three perfect seasons; Amherst football's last peak" }
+    - { name: William H. Lewis, role: player, why: "First African-American All-America football player (1892); Amherst to Harvard Law; Hall of Famer" }
+    - { name: Jack Hubbard, role: player, why: "Four-time All-America (1903–1906); College Football Hall of Fame 1966" }
+  canonical_moments:
+    - { name: "1964 perfect season", year: 1964, what: "E.J. Mills-era peak; 9–0 undefeated, unscored-upon dominance", handling: glory }
+    - { name: "2009 dynasty begins", year: 2009, what: "Siedlecki's 10–1 NESCAC championship marks modern dynasty start", handling: glory }
+    - { name: "2011 undefeated season", year: 2011, what: "11–0 record; modern dynasty peak; NCAA D3 tournament berth after 30-year drought", handling: glory }
+    - { name: "2015 final perfect season", year: 2015, what: "11–0 Siedlecki-era coda; institution at apex", handling: glory }
+  the_place: "Amherst, Massachusetts—a New England liberal-arts town anchored by a 200+ year old institution; football tradition rooted in scholar-athlete values."
+  brand_of_football: "Disciplined, systematic excellence—a program that reproduces perfection through long-tenured coaching and organizational stability."
+  cultural_footprint: "The standard-bearer of New England small-college football; seven perfect seasons across eras prove that excellence is reproducible, not lucky."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Post-Siedlecki (2017–present), Amherst entered rebuilding phase.
+    The 2025 record (6–4) represents NESCAC middle tier—competitive but non-dynasty. The program retains
+    the infrastructure and culture that produced back-to-back perfect seasons; the question is whether the
+    new coaching regime will rediscover the formula or whether the 2009–2015 dynasty was Siedlecki-specific.
+    Amherst fans believe in the system; the rebuild is temporary.
+  sources:
+    - https://www.amherst.edu/offices/athletics/sports/football
+    - https://www.nescac.org/sports/fball/standings
+    - https://en.wikipedia.org/wiki/E.J._Mills
+    - https://www.ncaa.org/sports/football/d3
+    - https://www.collegefootball.org/hall-of-fame/

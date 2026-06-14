@@ -1,0 +1,119 @@
+# Emotional Core — Sam Houston  (sam-houston)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: sam-houston
+team_id: 274
+program_name: Sam Houston
+program_tier: 3
+
+emotional_core:
+  primary: grief          # the man who built everything left, and the program he handed off fell apart in a single season
+  secondary: deprival     # the call-up that reached the big leagues just in time to feel how far the floor really is
+  one_line: "Sam Houston won a national championship as recently as 2020, jumped to the FBS, won its first bowl in 2024 — and then the coach who did all of it left for Temple and the whole thing came apart at 2-10."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 2020 FCS national title and a 10-3 bowl-winning FBS arrival, against a 2-10 first year without the coach who built it — the gap between what K.C. Keeler made and what's left behind."
+
+the_wound:
+  name: "Keeler leaves, and the bottom drops out"
+  detail: "K.C. Keeler took the Bearkats from FCS champions (2020) to a 10-3 FBS season and the program's first bowl win (Georgia Southern, New Orleans Bowl, 2024) — then left for Temple. First-year successor Phil Longo went 2-10 (1-7 Conference USA) amid a public culture crisis. The fanbase learned, fast, how much of the rocket ride was one man."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the program is real without its architect — climb back to a Conference USA contender and show the 2024 bowl run wasn't the ceiling, just the start."
+  drought: { since: 2024, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Bearkat fans don't carry a grudge so much as a quiet 'we were just there' — a 2020 ring and a 2024 bowl trophy that no 2-10 season can take back. They know what this program is capable of because they watched it happen."
+
+the_delusion:
+  tone: earnest
+  text: "Huntsville fans believe the championship DNA travels — that a program that went undefeated for an FCS title and won its first FBS bowl can't really be a 2-10 team, and that the right coach turns it right back on. They're sure last year was the aberration, not the truth."
+
+the_grudge_texture:
+  rival: stephen-f-austin
+  texture: blood-feud   # the Battle of the Piney Woods — the oldest, fiercest rivalry in East Texas
+
+the_coach_relationship: hot-seat-churn   # Keeler built it and left for Temple; Phil Longo's 2-10 debut put the new era under immediate fire
+the_internal_fracture: patience vs alarm — the faction that says one bad year doesn't erase a national title and a bowl win vs the faction that saw the 2-10 culture mess and fears the program peaked the day Keeler left
+register: huntsville-tx-bearkats-fbs-newcomer   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Still FCS — 2023 FBS reclassification + 2024 8-4 ended that frame
+  - Just a regional school — 2020 FCS championship + sustained K.C. Keeler era reset
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Sam Houston is the fastest riser in the modern sport: FCS national champions in 2020, a jump to the FBS in 2023, and a bowl win in 2024 — four years from a championship at one level to a trophy at the next. No program in recent memory climbed that ladder that quickly."
+  the_origin: "A state school in Huntsville, Texas, deep in the Piney Woods, that lived for decades as a regional FCS program before K.C. Keeler turned it into a national champion and then walked it up to major-college football."
+  golden_ages:
+    - { era: "2020 (the FCS title)", what: "An undefeated run to the FCS national championship, won 23-21 over South Dakota State in the spring-2021 final" }
+    - { era: "2024 (FBS arrival)", what: "A 10-3 season and the program's first FBS bowl win, 31-26 over Georgia Southern in the New Orleans Bowl" }
+  legends:
+    - { name: "K.C. Keeler", role: coach, why: "The architect of all of it — the FCS title and the leap to FBS — before leaving for Temple" }
+  canonical_moments:
+    - { name: "FCS national championship", year: 2020, what: "Sam Houston caps an undefeated season with a 23-21 win over South Dakota State in the spring-2021 title game — the program's first national title", handling: glory }
+    - { name: "First FBS bowl win", year: 2024, what: "A 31-26 New Orleans Bowl win over Georgia Southern in just the second FBS season — the trophy that said the jump worked", handling: glory }
+    - { name: "Keeler leaves for Temple", year: 2025, what: "The coach who built the championship and the FBS leap departs; the Longo era opens 2-10 amid a culture crisis", handling: wound }
+  the_place: "Elliott T. Bowers Stadium in Huntsville — a tight, loud FCS-era home now hosting major-college football; and NRG Stadium in Houston, the neutral-site home of the old Battle of the Piney Woods."
+  brand_of_football: "Up-tempo and opportunistic — built under Keeler on a relentless offense and turnover-hunting defense; the identity the new staff is trying to recover after a 2-10 reset."
+  cultural_footprint: "The poster program for the FCS-to-FBS dream — proof that a small Texas school can win a national title and then climb to the big leagues; a case study every aspiring mid-major points to."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After K.C. Keeler left for Temple following the 2024 bowl-winning season,
+    Sam Houston hired Phil Longo, whose first year cratered to 2-10 (1-7 Conference USA) amid a publicly reported
+    culture crisis. The Battle of the Piney Woods with Stephen F. Austin has been dormant since the 2022 FBS move.
+    Entering 2026, the program is trying to prove the championship foundation outlasted the man who poured it.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Sam_Houston_Bearkats_football_team
+    - https://www.ncaa.com/live-updates/football/fcs/sam-houston-wins-2020-21-fcs-championship-over-south-dakota-state
+    - https://www.espn.com/college-football/recap/_/gameId/401677082
+    - https://brobible.com/sports/article/sam-houston-state-phil-longo-culture-problem-college-football/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Sam Houston is the Conference USA newcomer whose 2020 FCS national championship + 2023
+    FBS reclassification + K.C. Keeler era make them the most-recent FCS-to-FBS-conference ascent in CFB.
+  mantra: Eat 'em up Kats.
+  cultural_anchors:
+    fan_archetype_dominant: Huntsville-Bearkat-Loyalist
+    outsider_archetype_dominant: FCS-Refugee-Diminisher
+    one_sentence: Sam Houston is the most-recent FCS-to-FBS-conference ascent — 2020 FCS championship +
+      2023 FBS reclassification + K.C. Keeler era that turned Huntsville-TX football into a Conference USA
+      contender in three years.
+  selfname: the Bearkats
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2020 FCS national championship under K.C. Keeler
+    - 2023 FBS reclassification + Conference USA entry
+    - K.C. Keeler 2014-present tenure
+    rituals:
+    - 2020 FCS National Championship
+    - 2023 FBS Reclassification + Conference USA Entry
+    - K.C. Keeler Era (2014-present)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (54/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

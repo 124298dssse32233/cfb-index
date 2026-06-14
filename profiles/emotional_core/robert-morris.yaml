@@ -1,0 +1,89 @@
+# Emotional Core — Robert Morris (robert-morris)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# status: live (web-researched 2026-06-13)
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: robert-morris
+team_id: null
+program_name: Robert Morris
+program_tier: 3
+
+emotional_core:
+  primary: restoration      # seeking a way back to competitive form
+  secondary: standard
+  core_variant: perpetual-rebuild
+  one_line: "Robert Morris is the Northeast Conference program fighting to reverse a difficult stretch — a storied colonial-era school looking to rebuild from a 3-9 season under established leadership."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A program with history and discipline in the Northeast Conference, but stuck in a multi-year struggle to win games consistently in a competitive NEC landscape."
+
+the_wound:
+  name: "The 2025 collapse"
+  detail: "A 3-9 season (2-5 NEC) under Bernard Clark's leadership signals that the rebuild isn't fast enough. A program used to being competitive in its region is watching the NEC pass it by."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a Northeast Conference title and prove that Robert Morris still belongs in the upper tier of FCS football, not as a perennial also-ran."
+  drought: { since: 2015, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Robert Morris has the structure and the coach in place — what's missing is the winning consistency to prove the program deserves respect in the NEC. The fanbase is waiting for the breakthrough year."
+
+the_delusion:
+  tone: self-aware
+  text: "That Bernard Clark's veteran leadership will suddenly reverse a multi-year losing trend. The fans hope for it, but know that the rebuild takes time — and time may be running out for patience."
+
+the_grudge_texture:
+  rival: ""
+  texture: none
+
+the_coach_relationship: legends-shadow   # Bernard Clark has been leading rebuilds through eight years
+the_internal_fracture: ""
+register: robert-morris-colonials-nec-rebuild
+never_use:
+  - Historic powerhouse (Robert Morris was never a national powerhouse — reframe as NEC stalwart)
+  - Program is dead (the rebuild is real; Clark has stayed the course)
+
+# ── STORY CANON (doc 64) ──
+
+story_canon:
+  the_unique_thing: "Robert Morris as a Northeast Conference stalwart — a program trying to climb out of a multi-year difficult stretch under long-tenured coach Bernard Clark, proving that veteran leadership can reverse a slide."
+  the_origin: "A Pennsylvania-based program with a presence in the Northeast Conference for decades, building its reputation as a competitive mid-tier FCS member."
+  golden_ages:
+    - { era: "2010s NEC success", what: "Periods of competitive NEC play and playoff appearance" }
+    - { era: "Clark era (2018–present)", what: "Established coach leading the program through rebuilding phases" }
+  legends:
+    - { name: Bernard Clark, role: coach, why: "Eight years of leadership trying to rebuild the program back to NEC competitiveness" }
+  canonical_moments:
+    - { name: "2025 struggle", year: 2025, what: "Robert Morris fights through a 3-9 season searching for the next winning phase", handling: wound }
+  the_place: "Moon Township, Pennsylvania — home of the Colonials' Northeast Conference presence."
+  brand_of_football: "Tough, defensive-minded NEC football — the blue-collar approach to competing in the conference."
+  cultural_footprint: "A program that competes with consistency in the Northeast, valued for its presence and work ethic in a regional conference."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Robert Morris finished 3-9 overall (2-5 NEC) in 2025,
+    struggling in Bernard Clark's eighth season as head coach. Clark has been tasked with multiple
+    rebuilds over his tenure — the question is whether year nine brings a turnaround or signals
+    that change is needed. The Colonials need to win in the NEC to regain regional respect.
+  research_checklist:
+    - the program's NEC identity
+    - Bernard Clark's tenure and rebuild challenges
+    - the regional footprint (Pennsylvania/Northeast)
+    - the current-era struggle
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Robert_Morris_Colonials_football_team
+    - https://www.rmucolonials.com/sports/football
+
+# ── BRIEFING ──
+briefing:
+  identity_phrase: Robert Morris is the Northeast Conference program fighting through a difficult stretch
+    under established coach Bernard Clark.
+  mantra: Climb back. Compete. Belong.
+  cultural_anchors:
+    fan_archetype_dominant: Northeast-Lifer
+    outsider_archetype_dominant: Rebuild-Doubter
+    one_sentence: Robert Morris is the NEC stalwart testing whether Bernard Clark's veteran leadership
+      can reverse a multi-year slide.
+  selfname: the Colonials

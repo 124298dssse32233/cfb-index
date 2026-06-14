@@ -1,0 +1,110 @@
+# Emotional Core — New Hampshire  (new-hampshire)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: new-hampshire
+team_id: 1107
+program_name: New Hampshire
+program_tier: 2
+
+emotional_core:
+  primary: standard
+  secondary: contentment
+  one_line: "New Hampshire is the Walter Payton Award program that put Durham on the FCS map with 14 straight playoffs, and Ricky Santos — the award winner himself — is now the head coach proving the standard was never an accident."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "Fourteen consecutive FCS playoff appearances (2004-2017), two national semifinal runs, and a Walter Payton Award-winning head coach vs a stretch where the program has been good but not elite — UNH knows what the standard looks like and is rebuilding toward it."
+
+the_wound:
+  name: "The 14-year playoff streak that ended in 2018"
+  detail: "New Hampshire made 14 consecutive FCS playoff appearances from 2004 to 2017 — one of the longest streaks in FCS history. The streak ended in 2018. Ricky Santos, now head coach, has restored playoff appearances in 2022 and 2024, but the program has not returned to the sustained dominance of the run that defined it."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Restore the 14-year standard — an era of sustained FCS playoff appearances and a national semifinal run that proves Durham is still one of FCS's elite addresses."
+  drought: { since: 2008, unit: relevance }
+
+the_chip:
+  villain: national_media
+  text: "The room says New Hampshire made 14 straight FCS playoffs, won the Walter Payton Award twice, and still gets called a cold-weather afterthought — that the Granite State program has earned its place at the FCS top table and national media has been slow to acknowledge it."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans believe Ricky Santos coaching his alma mater is the narrative arc the program needed — that having the 2006 Walter Payton Award winner running the sideline guarantees the standard comes back, and that the 14-year run proves it's the default state, not the exception."
+
+the_grudge_texture:
+  rival: maine
+  texture: blood-feud
+
+the_coach_relationship: forever-ours
+the_internal_fracture: nostalgia-for-the-streak vs confidence-in-the-Santos-rebuild — the faction that measures everything against the 14-year run vs the faction fully bought in on Santos and the 8-5 trajectory as proof the standard is returning
+
+register: unh-wildcats-durham-fcs-playoff-standard-ricky-santos
+never_use:
+  - "Cold-weather also-ran — 14 consecutive FCS playoff appearances and two national semifinal runs make UNH one of the FCS's elite programs of the 2000s and 2010s"
+  - "Small New England program — two Walter Payton Award winners from the same school is a recruiting and development achievement, not an accident"
+
+story_canon:
+  the_unique_thing: "New Hampshire made 14 consecutive FCS playoff appearances from 2004 to 2017 — one of the sport's great sustained runs — and produced two Walter Payton Award winners, including Ricky Santos (2006), who is now the head coach bringing the standard back to Durham."
+  the_origin: "New Hampshire has played football since 1893 and was a Yankee Conference/Atlantic 10 power before joining the CAA. The program's modern identity was built through the late 1990s and early 2000s playoff consistency, peaking with the 14-year streak and national semifinal appearances in 2013 and 2014."
+  golden_ages:
+    - { era: "2004-2017 (14-year playoff streak)", what: "Fourteen consecutive FCS playoff appearances — one of the longest streaks in FCS history — with national semifinal runs in 2013 and 2014" }
+    - { era: "2022 and 2024 (Santos restoration)", what: "Ricky Santos returns the program to the playoffs in his first two seasons with bids, reestablishing the postseason expectation" }
+  legends:
+    - { name: Ricky Santos, role: coach/player, why: "2006 Walter Payton Award winner as a player; now the head coach bringing the standard back as the 20th coach in program history" }
+    - { name: Jerry Azumah, role: player, why: "Walter Payton Award winner and NFL running back — the first great player in the modern UNH era" }
+  canonical_moments:
+    - { name: "14-year playoff streak begins", year: 2004, what: "New Hampshire begins the longest sustained FCS playoff run in the program's history — a streak that would last through 2017", handling: glory }
+    - { name: "2013-2014 national semifinals", year: 2014, what: "New Hampshire reaches the FCS national semifinals in back-to-back years — the peak of the program's modern era", handling: glory }
+    - { name: "Ricky Santos wins Walter Payton Award", year: 2006, what: "Santos wins the top offensive award in FCS — the defining individual moment from the streak era", handling: glory }
+    - { name: "2025 season — 8-5, FCS first round", year: 2025, what: "New Hampshire goes 8-5 (6-2 CAA) and earns an FCS playoff bid, losing to South Dakota State 3-41 in the first round", handling: heartbreak }
+  the_place: "Wildcat Stadium in Durham, New Hampshire — the home of one of FCS football's great sustained programs, on the campus of the state's flagship university."
+  brand_of_football: "New England tough, system-smart, standard-bearing — a program that defined what consistent FCS playoff football looks like and is rebuilding that identity under the quarterback who embodied it."
+  cultural_footprint: "The FCS program that made the Granite State a football address — 14 straight playoffs, two national semifinals, two Walter Payton Award winners, and now the full-circle story of the award winner coming home to coach."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: New Hampshire went 8-5 (6-2 CAA) in 2025 — fifth-year head coach
+    Ricky Santos' best season yet, earning an FCS playoff bid before a 3-41 first-round loss to South
+    Dakota State. The 2025 result matches the 2024 record (8-5, 6-2 CAA) identically, confirming Santos
+    has stabilized the program at a competitive plateau. The Battle for the Brice-Cowell Musket against
+    Maine remains the emotional anchor of the season — UNH has won 13 of the last 15 in the rivalry.
+    The program's next step is converting consistent 8-win regular seasons into a deep FCS playoff run
+    that recalls the 2013-2014 semifinal era.
+  sources:
+    - https://en.wikipedia.org/wiki/2025_New_Hampshire_Wildcats_football_team
+    - https://en.wikipedia.org/wiki/Ricky_Santos
+    - https://www.flofootball.com/articles/14367885-new-hampshire-football-2025-season-preview-caa-football
+
+briefing:
+  identity_phrase: New Hampshire is the 14-consecutive-FCS-playoff program (2004-2017) that produced two Walter Payton Award winners — including current head coach Ricky Santos — and is restoring the standard from Durham.
+  mantra: Go Wildcats.
+  cultural_anchors:
+    fan_archetype_dominant: Granite-State-FCS-Loyalist
+    outsider_archetype_dominant: New-England-Cold-Weather-Dismisser
+    one_sentence: New Hampshire is the 14-year playoff streak program that produced two Walter Payton Award winners and now has one of them coaching — the full-circle FCS story of a standard setter rebuilding the standard.
+  selfname: the Wildcats
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Ricky Santos
+    era_name_overrides: {}
+    always_surface:
+      - 14 consecutive FCS playoff appearances (2004-2017)
+      - 2013 and 2014 national semifinal runs
+      - Ricky Santos 2006 Walter Payton Award winner and now head coach
+      - Battle for the Brice-Cowell Musket vs Maine
+    rituals:
+      - Battle for the Brice-Cowell Musket
+      - Wildcat Stadium
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

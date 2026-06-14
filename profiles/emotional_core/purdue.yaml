@@ -1,0 +1,124 @@
+# Emotional Core — Purdue  (purdue)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: purdue
+team_id: 141
+program_name: Purdue
+program_tier: 3
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+emotional_core:
+  primary: restoration    # back-to-back rock-bottom seasons; year one of a from-scratch rebuild
+  secondary: honor        # the Cradle of Quarterbacks identity that outlasts any single bad year
+  core_variant: perpetual-rebuild
+  one_line: "Purdue is the Cradle of Quarterbacks — the West Lafayette program that put Brees, Griese, and Dawson in the NFL — now digging out of back-to-back two-win seasons with Barry Odom hired to rebuild it from the studs."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A legendary quarterback pipeline and the 2022 Big Ten West Division title vs back-to-back winless conference seasons that bottomed the program out."
+
+the_wound:
+  name: "Back-to-back two-win bottom"
+  detail: "Purdue went 1-11 in 2024 and fired Ryan Walters, then hired Barry Odom from UNLV — and the first rebuild year produced another 2-10 (0-9 Big Ten), the program's two wins coming over Ball State and an FCS opponent. Two straight winless conference seasons left a once-respectable Big Ten program scraping the floor."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get back to bowl season and let the next great Purdue quarterback emerge — turn Odom's rebuild into a return to the 2022 ceiling, when a Big Ten West title and a Championship Game trip made West Lafayette matter again."
+  drought: { since: 2000, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Indiana spent a century as the easy in-state laughingstock — until the Hoosiers surged and Purdue cratered, and the Old Oaken Bucket started living on the wrong side of West Lafayette. The fanbase wants the rivalry's natural order restored before it becomes a permanent humbling."
+
+the_delusion:
+  tone: earnest
+  text: "Boilermaker fans believe the Cradle of Quarterbacks never really closes — that the next Drew Brees is always one recruiting class away, and the right quarterback can pull Purdue out of any hole the way the position always has."
+
+the_grudge_texture:
+  rival: indiana
+  texture: little-brother   # the Old Oaken Bucket — the in-state rivalry whose order has inverted
+
+the_coach_relationship: savior   # Barry Odom, hired to rebuild a program at rock bottom
+the_internal_fracture: trust-the-rebuild patience vs been-here-before exhaustion — the room split between giving Odom time after a gutted roster and the fatigue of a fanbase that has watched too many resets
+register: west-lafayette-cradle-of-quarterbacks   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always last in conference — 2022 Big Ten East title disproves
+  - Just engineering school — Cradle of QBs is core program identity
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Cradle of Quarterbacks. No school has sent more signal-callers to the NFL with more distinction — Bob Griese, Len Dawson, and Drew Brees all came through West Lafayette, three of the most accomplished quarterbacks the college game has produced. Purdue's identity is a position, and the position is the most important one in the sport."
+  the_origin: "A land-grant engineering university in West Lafayette, Indiana, whose football program made its name not through dynasties but through the quarterbacks it developed — a pipeline of NFL passers that became the program's brand."
+  golden_ages:
+    - { era: "1966–1967 (Griese)", what: "A Rose Bowl win to cap the 1966 season and a share of the 1967 Big Ten title behind Bob Griese" }
+    - { era: "1997–2000 (Joe Tiller / Drew Brees)", what: "Tiller's 'basketball on grass' offense, Brees's records, and the 2000 Big Ten title and Rose Bowl trip" }
+  legends:
+    - { name: Drew Brees, role: player, why: "The Tiller-era record-setter who became a Super Bowl MVP and Hall-of-Fame-track passer — the face of the Cradle of Quarterbacks" }
+    - { name: Bob Griese, role: player, why: "1960s star who led Purdue to the Rose Bowl and won two Super Bowls — a Pro Football Hall of Famer" }
+    - { name: Joe Tiller, role: coach, why: "Brought the spread 'basketball on grass' to the Big Ten and the 2000 conference title — the program's modern architect" }
+  canonical_moments:
+    - { name: "2000 Big Ten title and Rose Bowl", year: 2000, what: "Drew Brees led Purdue to a share of the Big Ten and its first Rose Bowl since 1967 — the modern peak", handling: glory }
+    - { name: "1967 Rose Bowl win", year: 1967, what: "Bob Griese's Boilermakers won the Rose Bowl to cap the 1966 season — the historic high point", handling: glory }
+    - { name: "2022 Big Ten West title", year: 2022, what: "A West Division crown and a Championship Game appearance under Jeff Brohm — the last time Purdue mattered in the league", handling: glory }
+  the_place: "Ross-Ade Stadium in West Lafayette — where the Boilermaker Special, the world's largest drum, and an engineering-school crowd give the program its distinctly Midwestern, mechanical identity."
+  brand_of_football: "Quarterback-driven and pass-happy by tradition — a program that wins, when it wins, by throwing it, in the lineage of Tiller's spread and the passers it has always produced."
+  cultural_footprint: "The school that proved a non-dynasty can build a permanent identity around one position — the Cradle of Quarterbacks, a brand that survives even the leanest seasons."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Purdue bottomed out with a second straight disastrous season, going 2-10
+    (0-9 Big Ten) in 2025 — Barry Odom's first year after Purdue hired him from UNLV to replace the fired Ryan
+    Walters (whose 2024 team went 1-11). The Boilermakers' only wins came over Ball State and FCS Southern Illinois;
+    QB Ryan Browne started before transferring to North Carolina afterward. Two straight winless conference seasons
+    have left Odom rebuilding from the studs, with the Cradle-of-Quarterbacks identity and the 2022 Big Ten West
+    ceiling as the targets to climb back toward.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Purdue_Boilermakers_football_team
+    - https://purduesports.com/staff/barry-odom
+    - https://purduesports.com/big-ten-championships
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Purdue is the Big Ten 'Cradle of Quarterbacks' — 14 NFL starting QBs developed, Drew
+    Brees' 2000 8-1 + Rose Bowl run, and the 2022 9-4 + Big Ten title game under Jeff Brohm.
+  mantra: Boiler Up.
+  cultural_anchors:
+    fan_archetype_dominant: West-Lafayette-Engineering-Loyalist
+    outsider_archetype_dominant: Always-Mid-Pack-Diminisher
+    one_sentence: Purdue is the Cradle of Quarterbacks — Drew Brees, Bob Griese, Len Dawson on the historical
+      canon + the 2022 Big Ten East division as the modern-era ceiling reset.
+  selfname: the Boilermakers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Drew Brees 2000 Heisman finalist + Rose Bowl run
+    - Cradle of Quarterbacks 14-NFL-starter pipeline
+    - 2022 9-4 + Big Ten East division under Jeff Brohm
+    rituals:
+    - Cradle of Quarterbacks
+    - Old Oaken Bucket (vs Indiana)
+    - Boilermaker Special
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: cooking (67/100, n=52)
+    voice_profile: absent
+    delusion_premium: absent

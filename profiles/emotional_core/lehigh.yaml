@@ -1,0 +1,109 @@
+# Emotional Core — Lehigh Mountain Hawks (lehigh)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — FCS Patriot League
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: lehigh
+team_id: null
+program_name: Lehigh Mountain Hawks
+program_tier: 2
+
+emotional_core:
+  primary: restoration      # the Patriot League power ascending, finally beating the rival
+  secondary: standard
+  core_variant: dynasty-restoration
+  one_line: "The half of The Rivalry that was born behind but is now leading, the mountain program that climbed."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Trailing the all-time series to Lafayette (74-82-5) yet Lehigh is dominating the modern Patriot League and won the 2024-2025 titles."
+
+the_wound:
+  name: "The 56-0 loss that started everything"
+  detail: "Lehigh was born losing 56-0 to Lafayette in 1884. The program has spent 140+ years climbing out of that hole, trailing in the all-time series 74-82-5. The wound is foundational: the Mountain Hawks can beat Lafayette now, but the first game will always have been a loss."
+  handling: referenceable
+  freshness: all-time
+
+the_dream:
+  text: "Dominate The Rivalry as a program — prove Lehigh is the better team now and build on 14 Patriot League titles."
+  drought: { since: null, unit: relevance }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe the chip is the starting scoreboard. Lafayette won 56-0 in 1884 and has held the all-time series advantage (74-82-5) for 140 years. Lehigh has to wake up every Rivalry week knowing it's chasing a ghost score from 1884. The chip is: we're better now, and we have to prove it every year."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that Lehigh's recent dominance (won the last Rivalry game 38-14, claiming the 2024 Patriot League title) means the mountain is forever. (The reality: Lehigh is ascending now, but The Rivalry is volatile; Lafayette has the history.)"
+
+the_grudge_texture:
+  rival: lafayette
+  texture: blood-feud
+
+the_coach_relationship: total-trust   # Coach Kevin Cahill in third season, 12-0 record in 2025, Patriot League champions
+the_internal_fracture: ascension-belief vs. rivalry-pressure — the faction confident in the rising culture vs. those nervous Lafayette will reclaim the title
+register: mountain-humble-pride
+never_use:
+  - underdog
+  - scrappy
+  - FCS second-tier
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. ──
+story_canon:
+  the_unique_thing: "The half of The Rivalry that started losing 56-0 in 1884 and is now winning — a program that has transformed from The Rivalry's footnote to its protagonist."
+  the_origin: "Lehigh football began in 1884, the same year Lafayette defeated it 56-0. The program is embedded in Bethlehem, Pennsylvania, part of the Lehigh Valley identity. The mountain theme is central: 'Take the Stairs' is a cultural phrase."
+  golden_ages:
+    - { era: "2014-2019", what: "Lehigh began consistent Patriot League competitiveness" }
+    - { era: "2024-2025", what: "Perfect 12-0 regular season (2025) and dominant Patriot League championship era" }
+  legends:
+    - { name: "Coach Kevin Cahill", role: "coach", why: "Third-year coach who led Lehigh to a perfect 12-0 regular season in 2025 and claimed the 14th Patriot League title" }
+  canonical_moments:
+    - { name: "2024 Rivalry Victory", year: 2024, what: "Lehigh defeated Lafayette 38-14 in the 160th Rivalry game (November 23, 2024), securing the Patriot League title while Lafayette finished 2-4 in conference", handling: glory }
+    - { name: "2025 Perfect Season", year: 2025, what: "Lehigh completed a perfect 12-0 regular season (7-0 Patriot League) and earned the #5 FCS playoff seed", handling: glory }
+  the_place: "Goodman Stadium in Bethlehem, Pennsylvania — a mountain town stadium that hosted a dynasty's rise."
+  brand_of_football: "The mountain climber — a program that was born losing 56-0 to its rival and has spent 140 years climbing to dominance."
+  cultural_footprint: "Lehigh proved the Patriot League could have a modern champion. The program's rise from being The Rivalry's junior partner to its dominant force is the story of FCS realignment and ascension."
+  the_ongoing_story: >
+    LIVE ARC — 2026-06-13: Lehigh finished 12-0 (7-0 Patriot League) in 2025 under third-year coach Kevin Cahill, claiming the 14th Patriot League title in program history and earning the #5 FCS playoff seed. The Mountain Hawks defeated Lafayette 38-14 in the 160th Rivalry game and are now the dominant program in the conference. The question in Bethlehem: is this a dynasty, or a peak? Lehigh is ascending, and the fanbase believes the mountain era is just beginning.
+  research_checklist:
+    - The Rivalry origin (1884, Lafayette's 56-0 win) and Lehigh's climb out of that hole
+    - The 2024 Rivalry victory (38-14) and what it means for the program
+    - The 2025 perfect 12-0 season and Kevin Cahill's philosophy
+    - The 14 Patriot League titles and the recent concentration (2024-2025)
+    - The mountain identity and "Take the Stairs" culture
+  sources:
+    - https://lehighsports.com/news/2024/11/23/football-lehigh-rolls-to-38-14-win-in-rivalry160-secures-13th-patriot-league-title
+    - https://patriotleague.org/news/2024/11/23/lehigh-and-holy-cross-share-patriot-league-football-title-lehigh-claims-playoff-bid.aspx
+    - https://en.wikipedia.org/wiki/2025_Lehigh_Mountain_Hawks_football_team
+    - https://en.wikipedia.org/wiki/The_Rivalry_(Lafayette%E2%80%93Lehigh)
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Lehigh is The Rivalry's climbing half, born losing 56-0 in 1884 and now dominating the modern Patriot League with 14 titles and a perfect 2025 season.
+  mantra: "Take the Stairs (the mountain climb)"
+  cultural_anchors:
+    fan_archetype_dominant: Mountain Pride
+    outsider_archetype_dominant: "The Rising Power"
+    one_sentence: Lehigh is defined by The Rivalry — losing the first game 56-0 in 1884, trailing the all-time series 74-82-5 to Lafayette, yet now dominating the modern Patriot League with 14 titles and a perfect 2025 season.
+  selfname: Mountain Hawks
+  aspiration_ladder_top: "National FCS championship + sustained Patriot League dominance"
+  rivalries:
+    - lafayette
+  heritage:
+    national_titles: "None"
+    conference_titles: "14 (including 2025, 2024 co-championship)"
+    current_conference: Patriot League
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: "Kevin Cahill (current, third season)"
+    era_name_overrides: {}
+    always_surface:
+      - "The Rivalry (160 games since 1884, most-played in college football)"
+      - "2024 Rivalry victory (38-14 vs. Lafayette, securing Patriot League title)"
+      - "2025 perfect 12-0 regular season, #5 FCS playoff seed"
+    rituals:
+      - "Take the Stairs"
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    signal: "no live signal yet (canon-only) — FCS program not covered by discourse fingerprint"

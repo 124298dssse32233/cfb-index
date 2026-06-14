@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: washington-jefferson
+team_id: null
+program_name: Washington & Jefferson
+program_tier: 7
+
+emotional_core:
+  primary: grievance
+  secondary: contentment
+  one_line: "Washington & Jefferson is the Presidents' Athletic Conference powerhouse with a 1921 national championship and a 1922 Rose Bowl appearance — a small Pennsylvania college that peaked at the absolute height of college football and has spent a century proving that title was real."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "The 1921 national championship and 1922 Rose Bowl are genuine — W&J truly was at the nation's elite level. The wound is that nobody remembers anymore, and the program has spent a century being underestimated."
+
+the_wound:
+  name: "The world forgot about 1921-1922"
+  detail: "Washington & Jefferson went 10-0 in 1921 and was crowned national champions, then went to the 1922 Rose Bowl and tied California. Those achievements were real. But the modern world doesn't know, and the program has never returned to that height."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the PAC championship and return to national relevance, proving that a small Pennsylvania college can still compete at the highest level — a second golden age for the Presidents."
+  drought: { since: 1922, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe the chip is historical vindication: Washington & Jefferson was there in 1921-22. The big schools don't acknowledge it now, but it happened. The program carries the burden of proof — prove the championship was real by winning another."
+
+the_delusion:
+  tone: self-aware
+  text: "That with Kellan Stahl at QB and eight-time PAC Coach of the Year Mike Sirianni, Washington & Jefferson is closer to another title run than it looks — the fanbase knows 1921 was special and believes the formula can work again."
+
+the_grudge_texture:
+  rival: bethany-wv
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: "Pride in historical excellence vs. acceptance of modern small-school reality"
+register: washington-jefferson-presidents-1921-national-champs-forgotten-giant
+
+never_use:
+  - Multiple national championships — one in 1921
+  - Perennial title contender — 1921-22 were the peak years
+  - Powerhouse of the modern era — haven't been that since the 1920s
+
+story_canon:
+  the_unique_thing: "Washington & Jefferson went 10-0 in 1921 and was crowned the national champion, then went to the 1922 Rose Bowl and tied California in a scoreless defensive masterpiece — the program's singular defining achievement that elevated it to the nation's elite."
+  the_origin: "A small liberal-arts college in Washington, Pennsylvania (founded 1781), home to the Presidents football program. W&J has deep roots in American higher education and was a serious national football power in the early 20th century."
+  golden_ages:
+    - { era: "1915–1925", what: "The golden era culminating in the 1921 national championship and 1922 Rose Bowl appearance" }
+  legends:
+    - { name: "W&J's 1921 Team", role: "national champions", why: "Won the national championship with a perfect 10-0 record and faced California in the 1922 Rose Bowl" }
+    - { name: "Mike Sirianni", role: "coach", why: "Eight-time Presidents' Athletic Conference Coach of the Year, the architect of modern W&J excellence" }
+  canonical_moments:
+    - { name: "1921 National Championship", year: 1921, what: "Washington & Jefferson goes 10-0 and is crowned the NCAA national champion", handling: glory }
+    - { name: "1922 Rose Bowl", year: 1922, what: "W&J ties California 0-0 in a defensive slugfest at the Rose Bowl in Pasadena", handling: glory }
+  the_place: "Washington, Pennsylvania — a small college town outside Pittsburgh, home to a historic liberal-arts college with deep American educational roots."
+  brand_of_football: "Disciplined, fundamental football rooted in small-school excellence. W&J plays the game with the pride of 1921 and the belief that smart, tough football can compete at any level."
+  cultural_footprint: "Proof that a small college can reach the nation's elite. Washington & Jefferson's 1921-22 achievement stands as evidence that D3 schools once competed at the highest level and can again."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Washington & Jefferson went 8-2 overall (8-0 PAC) in 2025, the top team in the
+    Presidents' Athletic Conference. QB Kellan Stahl (senior) has emerged as a college football talent, and Mike Sirianni
+    (eight-time PAC COTY) continues building championship culture. W&J sits at the threshold of possibility: one more great
+    season and the program could be playing for a national championship, a story that would echo the 1921 glory.
+
+  research_checklist:
+    - 1921 national championship (10-0) verified
+    - 1922 Rose Bowl (0-0 tie vs. California)
+    - Mike Sirianni (8-time PAC COTY, verified)
+    - Kellan Stahl QB (senior, 2025 season, verified)
+    - 2025 record (8-2 overall, 8-0 PAC) verified
+    - W&J founded 1781
+
+  sources:
+    - https://en.wikipedia.org/wiki/Washington_%26_Jefferson_Presidents_football
+    - https://wjuathletics.com/sports/football
+    - https://en.wikipedia.org/wiki/1921_Washington_%26_Jefferson_Presidents_football_team

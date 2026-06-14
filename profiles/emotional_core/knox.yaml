@@ -1,0 +1,86 @@
+# Emotional Core — Knox College (knox)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: knox
+team_id: null
+program_name: Knox College
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: standard
+  one_line: "The Galesburg school that has been playing Eureka in the Lincoln Trophy since 1893 — America's oldest continuous rivalry, still burning after 132 years."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A historic Illinois liberal-arts school whose entire identity is tethered to the nation's oldest active rivalry (1893–present) and the regional honor it carries."
+
+the_wound:
+  name: ""
+  detail: ""
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Lincoln Trophy every year; honor the 132-year blood feud with Eureka; keep the oldest rivalry in American college football alive and fierce."
+  drought: { since: null, unit: "" }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe the Lincoln Trophy game is the only thing that matters — one game, 132 years of regional honor, no other context needed."
+
+the_delusion:
+  tone: self-aware
+  text: "That winning Eureka in November proves a whole season — Knox fans know it doesn't, but they live for November anyway."
+
+the_grudge_texture:
+  rival: eureka
+  texture: blood-feud
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "Pride in the oldest rivalry vs. the reality of playing it every year in a small Midwest Conference"
+register: prairie-fire-lincoln-trophy
+never_use:
+  - "New rivalry — Lincoln Trophy game since October 14, 1893 (132+ years, oldest active rivalry)"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "The Lincoln Trophy — Knox vs. Eureka since October 14, 1893 (132+ years). America's oldest continuous college football rivalry, older than Notre Dame–Navy (1894), older than Army–Navy (1890). Lincoln spoke at both schools in the 1850s and debated Stephen Douglas at Knox in 1858; the rivalry is as old as American politics."
+  the_origin: "Knox College, Galesburg, Illinois — founded 1837. Lincoln spoke there; Stephen Douglas was Knox alumnus. The football rivalry with neighboring Eureka began in 1893 and never stopped."
+  golden_ages:
+    - { era: "1893–present", what: "132+ consecutive years of Lincoln Trophy football, never a break in the series" }
+  legends:
+    - { name: "Clay McClelland", role: player, why: "2025 QB, current keeper of the Prairie Fire legacy" }
+    - { name: "Mario Byrd", role: player, why: "2025 WR, current Prairie Fire receiver corps" }
+  canonical_moments:
+    - { name: "Lincoln Trophy rivalry begins", year: 1893, what: "October 14, 1893: Knox plays Eureka; the oldest active college football rivalry in America begins", handling: glory }
+    - { name: "Lincoln's legacy at Knox", year: 1858, what: "Abraham Lincoln debated Stephen Douglas at Knox College in 1858; both schools carry his name in the trophy", handling: glory }
+  the_place: "Galesburg, Illinois — Knox College's home, where Lincoln spoke and the oldest rivalry was born."
+  brand_of_football: "Regional, historic football — every season culminates in one game that has mattered for 132 years."
+  cultural_footprint: "Keeper of America's oldest college football rivalry (1893–present); the Lincoln Trophy is the entire identity."
+  the_ongoing_story: "LIVE as of 2025: Knox began 0–1 in 2025 with a 14–13 loss to rival Eureka in the Lincoln Trophy Game — a heartbreaking loss in the only game that truly matters. Head Coach Clay McClelland and WR Mario Byrd carry the banner into a season anchored by November's rivalry. The Lincoln Trophy has been played every year since 1893; that continuity is the only truth that matters in Galesburg."
+  sources:
+    - https://en.wikipedia.org/wiki/Lincoln_Trophy
+    - https://en.wikipedia.org/wiki/Knox_College_Prairie_Fire_football
+    - https://en.wikipedia.org/wiki/Abraham_Lincoln_at_Knox_College
+    - https://www.knox.edu/about/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Knox College is keeper of the Lincoln Trophy — America's oldest active college football rivalry (vs. Eureka, since October 14, 1893, 132+ years).
+  mantra: The Trophy.
+  cultural_anchors:
+    fan_archetype_dominant: Galesburg-Trophy-Heir
+    outsider_archetype_dominant: Oldest-Rivalry-Keeper
+    one_sentence: Knox College plays host to America's oldest continuous college football rivalry (Lincoln Trophy vs. Eureka, since 1893, 132+ years), named for Lincoln's speeches at both schools.
+  selfname: the Prairie Fire
+  rituals:
+    - Lincoln Trophy (since 1893)
+    - Lincoln's Galesburg speeches (1850s)
+    - Stephen Douglas debate (1858)
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

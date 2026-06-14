@@ -1,0 +1,82 @@
+# AUTHORED (D3 MAC) 2026-06-13 — web-verified
+# Middle Atlantic Conference | Reading, PA | Young Golden Wolves
+# GRACEFUL DEGRADATION: New program (2018); no national championship; no conference titles yet; season-by-season learning arc
+
+status: live
+slug: alvernia
+team_id: null
+program_name: Alvernia University
+program_tier: 7
+
+emotional_core:
+  primary: restoration      # a young program in its second major cycle; rebuilding from a winless 2025
+  secondary: house-money    # competing at all despite minimal resources and newness
+  core_variant: first-ascension
+  one_line: "Alvernia is the young Golden Wolf proving that a Catholic program can build something real in Reading, learning Division III one season at a time despite growing pains."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A Division III program only six seasons old, playing against institutions with decades of history, betting that institutional commitment and student-athlete pride can bridge the experience gap."
+
+the_wound:
+  name: "The 2025 winless season and the question of viability"
+  detail: "Alvernia finished 0-9 overall (0-8 MAC) in 2025—a season that tested whether a young Catholic program could survive the early struggles of building a credible Division III football identity. The Golden Wolves faced the hardest question any new program confronts: is this worth continuing to invest in?"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build the first generation of Alvernia football tradition—a winning program, a bowl game, a conference title that proves the Catholic identity and Reading roots are strengths, not limitations."
+  drought: { since: 2018, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no villain—just the Golden Wolves' internal drive to prove that Alvernia football is not a mistake, to silence any doubt that a newer program with fewer resources can hang in Division III."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 2025 season is just a valley in a multi-year climb, not a sign of permanent trouble—that the next coaching hire and recruiting class could shift trajectory overnight. Alvernia knows it's early; it believes anyway."
+
+the_grudge_texture:
+  rival: albright
+  texture: blood-feud   # crosstown Reading rivals; despite Alvernia's newness, the rivalry burns hot
+
+the_coach_relationship: hot-seat-churn      # Steve Devlin set to coach starting 2026; leadership change
+the_internal_fracture: patience-vs-urgency — supporters demanding winning now vs those accepting the long rebuild timeline
+register: reading-golden-wolf-catholic-newcomer-faith
+never_use:
+  - "Program is failing — Alvernia is in its second major program rebuild; 2025 is a valley, not the summit"
+  - "Always bottom-of-the-MAC — Alvernia is six years old; the reference class is other young programs, not 50-year institutions"
+  - "Catholic schools don't belong in Division III football — Misericordia, Widener, and others prove otherwise"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The young Catholic Golden Wolf—a six-year-old program betting that institutional pride, faith, and Reading roots can build real Division III tradition despite starting with zero experience and minimal resources."
+  the_origin: "Alvernia University, a Catholic liberal arts college in Reading, PA, began fielding a Division III football team in 2018 as part of a strategic expansion into new athletic conferences."
+  golden_ages:
+    - { era: "The inaugural seasons (2018-2022)", what: "Early competitiveness and learning, competing in the Colonial State Athletic Association before joining the MAC" }
+    - { era: "MAC entry and early results (2023-2024)", what: "Transitioning into a larger, more competitive conference and proving Alvernia could compete" }
+  legends:
+    - { name: "Alvernia institutional faith", role: institution, why: "The decision to invest in Division III football despite starting from zero represents a commitment to student-athletes and athletics at the Catholic liberal arts level" }
+  canonical_moments:
+    - { name: "2018 inaugural season", year: 2018, what: "Alvernia begins Division III football, entering the CSAA with minimal experience", handling: glory }
+    - { name: "2023 MAC debut", year: 2023, what: "Alvernia joins the Middle Atlantic Conference, competing against larger, more established programs", handling: glory }
+  the_place: "Alvernia University Stadium in Reading, PA—the home of the Golden Wolves, representing the university's commitment to athletics on the Catholic campus."
+  brand_of_football: "The faithful builder—a young program competing with conviction despite lacking the resources or history of peers, betting that persistence and institutional support will compound into real tradition."
+  cultural_footprint: "Alvernia represents the possibility of building something real in Division III from scratch—proof that Catholic identity and Reading roots can be strengths, not limitations, in college football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Alvernia finished 0-9 overall (0-8 MAC) in 2025—a winless season that marked
+    the program's deepest valley since joining the MAC in 2023. Steve Devlin was named head coach for the 2026 season,
+    representing a new leadership era for the young Golden Wolves. Despite 2025's struggles, Alvernia's leadership reaffirmed
+    commitment to the program, framing the loss as a learning year in a multi-year rebuild. The question facing Reading now
+    is whether a new coaching staff can reverse trajectory and prove that institutional faith in a young program yields dividends.
+  research_checklist:
+    - Founded 2018 (six-year-old program)
+    - Alvernia University Stadium, Reading, PA
+    - Crosstown rival: Albright (since 2018)
+    - 2025: 0-9 overall, 0-8 MAC
+    - 2026 coach: Steve Devlin
+  sources:
+    - https://auwolves.com/
+    - https://www.d3football.com/teams/alvernia
+    - https://gomacsports.com/
+    - https://en.wikipedia.org/wiki/Alvernia_Golden_Wolves_football

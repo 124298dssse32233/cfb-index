@@ -1,0 +1,80 @@
+# Emotional Core — South Dakota State  (south-dakota-state)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: south-dakota-state
+team_id: null
+program_name: South Dakota State
+program_tier: 5
+
+emotional_core:
+  primary: spectacle
+  secondary: restoration
+  one_line: "South Dakota State is the FCS giant-killer that won back-to-back national titles and left the Dakotas humiliated, and now owns the sport's most famous state rivalry."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "Two straight national championships and a 29-game win streak — then a 9-5 stumble in 2025 amid questions about whether the Jackrabbits can stay on top."
+
+the_wound:
+  name: "The 2025 descent"
+  detail: "After winning national titles in 2022 and 2023, South Dakota State went 9-5 in 2025 under new head coach Dan Jackson, signaling a step backward from the dynasty era. The question haunting Brookings: can a program that defined itself by winning at the highest level accept competing for conference titles instead?"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Three straight FCS championships — to embed South Dakota State not as a one-era wonder but as the defining dynasty of the 2020s FCS."
+  drought: { since: 2023, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The national media narrative is that South Dakota State got lucky, that it was a flash — a small-school anomaly in the FCS. But the fanbase knows better: they were the best, and they proved it twice."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes they can win any game on any Saturday, that the Dakotas belong in the conversation with the FBS bluebloods, that the national-championship pedigree is a permanent calling card — and they're half right."
+
+the_grudge_texture:
+  rival: north-dakota-state
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: championship-window or rebuild-patience — the faction that wants another title now vs the faction building for 2026-27
+register: brookings-south-dakota-jackrabbit-dynasty
+never_use:
+  - Always FCS (won national titles, the sport's most prestigious FCS achievement)
+  - Small-school fluke (back-to-back national championships are not flukes)
+  - Up-and-coming (they've already arrived)
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "South Dakota State won back-to-back FCS national championships in 2022 and 2023 — the first team to accomplish the feat in the modern era — defeating North Dakota State in the 2022 title game in the Dakota Marker showdown. The Jackrabbits established themselves as the clear standard-bearer of FCS football, not an outlier."
+  the_origin: "A state school in Brookings that had toiled in the Valley for decades, building a program piece by piece, gradually becoming a postseason regular under coach John Stiegelmeier, who laid the foundation for a dynasty."
+  golden_ages:
+    - { era: "2022-2023 (National Championship Era)", what: "Back-to-back FCS national championships, capped by a 29-game winning streak; the most dominant two-year stretch in FCS history" }
+    - { era: "2019-2021 (Stiegelmeier ascent)", what: "Three consecutive playoff appearances and conference titles, building toward the dynasty" }
+  legends:
+    - { name: John Stiegelmeier, role: coach, why: "Built the foundation for the dynasty, three consecutive conference titles and playoff appearances before the championships" }
+    - { name: Pierre Strong Jr., role: player, why: "Heisman finalist in 2021, led the FCS in rushing and defined the Jackrabbits' power-run identity" }
+  canonical_moments:
+    - { name: "2022 National Championship vs NDSU", year: 2022, what: "South Dakota State defeats North Dakota State to win the 2022 FCS national championship, the Dakota Marker showdown at its peak", handling: glory }
+    - { name: "2023 National Championship", year: 2023, what: "Repeat national championship, establishing back-to-back titles and cementing dynasty status", handling: glory }
+    - { name: "29-game winning streak", year: 2023, what: "The Jackrabbits' winning streak stretched across 2022-2023, the longest in program history", handling: glory }
+  the_place: "Coughlin Alumni Stadium in Brookings, South Dakota, on the Great Plains — a place where the Jackrabbits have built a championship culture in a small college town."
+  brand_of_football: "Power-run, defense-first FCS football — a program that believes in dominating the line of scrimmage and outslugging opponents in conference play. The Jackrabbits made themselves a national power by out-working everybody."
+  cultural_footprint: "South Dakota State proved the small-state school could win at the highest level of FCS football and sustain it — a program that has become the standard-bearer for the entire FCS."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: South Dakota State went 9-5 in 2025 under new head coach Dan Jackson in his first season, a step back from the national-championship teams of 2022-23. The Jackrabbits remain a program on the rise but face questions about whether back-to-back titles were the peak or whether they can climb back to championship contention. The Dakota Marker rivalry with North Dakota State remains the most heated in the FCS, but South Dakota State's narrative has shifted from defending champions to a program resetting expectations.
+  research_checklist:
+    - Back-to-back national championships 2022-23 (verified)
+    - Dakota Marker rivalry with North Dakota State (verified)
+    - 29-game winning streak across 2022-23 (verified)
+    - John Stiegelmeier legacy and coaching era (verified)
+    - Pierre Strong Jr. and other star players (verified)
+    - 2025 season under Dan Jackson (verified)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_South_Dakota_State_Jackrabbits_football_team
+    - https://en.wikipedia.org/wiki/2022_FCS_National_Championship_Game
+    - https://www.ncaa.com/live-updates/football/fcs/south-dakota-state-wins-second-straight-fcs-championship
+    - https://www.espn.com/college-football/team/stats/_/type/team/id/2571

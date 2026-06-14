@@ -1,0 +1,120 @@
+# Emotional Core — UTEP  (utep)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: utep
+team_id: 200
+program_name: UTEP
+program_tier: 3
+
+emotional_core:
+  primary: deprival       # the most isolated program in the FBS, football glory always just out of reach
+  secondary: restoration  # a young coach and a new conference — a fresh start after a brutal stretch
+  one_line: "UTEP is the desert outpost on the far western tip of Texas — the most isolated program in major-college football, whose proudest banner is a basketball one, and whose football team keeps reaching for a winning season it can't quite hold."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Mike Price's mid-2000s bowl teams and a fiercely loyal borderland fanbase vs long stretches of losing — including a 2-10 finish in 2025 — and a football history thinner than the program's mining-town pride."
+
+the_wound:
+  name: "The football glory that never lasts"
+  detail: "UTEP's best football is decades old — Mike Price's 2004-2005 bowl teams the last sustained success — and the recent years have been grim. A 2-10 (1-7 Conference USA) finish in 2025, Scotty Walden's second season, was the latest in a long run of losing for a program that has never been able to keep a winning era going."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build a winner that sticks — a bowl, a winning season, a reason for El Paso to pack the Sun Bowl for its own team and not just the game it hosts."
+  drought: { since: 2021, unit: bowl }
+
+the_chip:
+  villain: national_media
+  text: "Miners fans know their program is the one the rest of the country forgets exists — 600 miles from the nearest power program, in a city the maps put in the corner. They'll tell you El Paso shows up anyway, and that the isolation is a badge, not an excuse."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the borderland is an untapped recruiting goldmine — that the right young coach mines El Paso and Juárez and west Texas for talent the bigger programs ignore, and turns the most isolated job in the country into an advantage."
+
+the_grudge_texture:
+  rival: new-mexico-state
+  texture: border-war   # the Battle of I-10 — the desert rivalry with NMSU, the only real neighbor for hundreds of miles
+
+the_coach_relationship: savior   # Scotty Walden — the young hire brought in to mine the borderland and rebuild from the bottom
+the_internal_fracture: patience vs exhaustion — give Scotty Walden time to build through the Mountain West move vs a fanbase worn down by years of losing
+register: el-paso-miners-mike-price-sun-bowl   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always G5-bottom — Mike Price era + 2005 Houston Bowl reset
+  - No identity — Sun Bowl venue + Picks Up + Mike Price combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "UTEP is the most geographically isolated program in major-college football — a mining-heritage university on the far western corner of Texas, where El Paso meets Juárez — and its proudest sports moment is a basketball one: the 1966 Texas Western title with the first all-Black starting five to win an NCAA championship, a landmark of the civil-rights era."
+  the_origin: "Founded as the Texas State School of Mines, the program carries a literal mining identity — the Miners, the orange and blue, the 'Picks Up' hand sign — football grown in a borderland city closer to four other state capitals than to most of Texas."
+  golden_ages:
+    - { era: "2004–2005 (Mike Price)", what: "Back-to-back bowl seasons and an 8-win year — the program's last sustained football success" }
+    - { era: "1965–1966 (basketball, Don Haskins)", what: "Texas Western wins the NCAA basketball title with the first all-Black starting five — the program's most important moment in any sport" }
+  legends:
+    - { name: Mike Price, role: coach, why: "Led the mid-2000s bowl teams — the last era of real UTEP football success" }
+    - { name: Don Haskins, role: coach, why: "The basketball coach of the 1966 title team; the towering figure in UTEP/Texas Western sports history" }
+  canonical_moments:
+    - { name: "The 1966 Texas Western championship", year: 1966, what: "The first all-Black starting five wins the NCAA basketball title — a civil-rights landmark and UTEP's defining moment", handling: glory }
+    - { name: "Mike Price's bowl run", year: 2005, what: "Back-to-back bowl seasons restore football pride to El Paso", handling: glory }
+  the_place: "Sun Bowl Stadium — carved into a Franklin Mountains hillside, a dual-use venue that hosts the Sun Bowl every December and the Miners every fall."
+  brand_of_football: "Borderland grind — hard-nosed, isolated, underdog football from a city that has to want it on its own, hundreds of miles from anywhere else."
+  cultural_footprint: "El Paso's team and a binational point of pride on the Texas-Mexico border — a program whose 1966 basketball title gave the whole city a place in American sports history that its football has never quite matched."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UTEP went 2-10 (1-7 Conference USA) in 2025, Scotty Walden's second
+    season — a brutal year for the young coach. 2025 was the program's last in Conference USA; UTEP moves to
+    the Mountain West in 2026. The question in El Paso: can Walden mine the borderland for talent and build a
+    winner at the most isolated job in the country, in a tougher new league.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_UTEP_Miners_football_team
+    - https://collegefootballnews.com/college-football/utep-football-preview-2025-miners-conference-usa-contender
+    - https://en.wikipedia.org/wiki/Texas_Western_Miners_basketball
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: UTEP is the Conference USA program whose Sun Bowl hosting heritage + Mike Price 2004-2012
+    era + 1956 NCAA basketball title + Don Haskins legacy define what historic-El-Paso-football looks like.
+  mantra: Picks Up.
+  cultural_anchors:
+    fan_archetype_dominant: El-Paso-Miner-Picks-Up
+    outsider_archetype_dominant: G5-Forever-Diminisher
+    one_sentence: UTEP is the El Paso mining-heritage Conference USA program — Sun Bowl Stadium dual-use
+      venue + Mike Price 2004-2012 era + Picks Up hand-sign that anchor the historic-borderland-football
+      identity.
+  selfname: the Miners
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Sun Bowl Stadium dual-use heritage (since 1963)
+    - Mike Price 2004-2012 era + 2005 Houston Bowl
+    - '''Picks Up'' fan-identity hand sign'
+    rituals:
+    - Sun Bowl Stadium / Sun Bowl Hosting
+    - Mike Price Era (2004-2012)
+    - Picks Up Hand Sign
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

@@ -1,0 +1,82 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: uc-davis
+team_id: 340
+program_name: UC Davis
+program_tier: 5
+
+emotional_core:
+  primary: standard
+  secondary: restoration
+  one_line: "UC Davis is the Big Sky Aggies that own the 70-year-old Causeway Classic with Sacramento State — one of the oldest continuous rivalries in FCS, still playing annually despite Sacramento's move to FCS independence."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A consistent FCS competitor with recent playoff success but no championship history, building identity through sustained competitiveness and a rivalry that predates modern FCS by decades."
+
+the_wound:
+  name: "The Causeway Classic asymmetry: Sacramento State left but the rivalry lives"
+  detail: "Sacramento State, UC Davis's fiercest rival (played since 1956, 70 years), moved to FCS independence in 2024. UC Davis still faces the existential question: does a rivalry survive when one team chooses a different conference path? The Thundercats are away, but the rivalry remains the emotional center of UC Davis football."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Big Sky, make consistent FCS playoff runs, eventually reach an FCS Finals — prove the Aggies are more than a rivalry team."
+  drought: { since: 2018, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe uC Davis carries no resentment — the Aggies are confident in their Big Sky standing."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: sacramento-state
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "None; the program is unified and moving forward."
+register: davis-california-aggies-causeway-classic
+never_use:
+  - UC Davis never won an FCS national championship — the program has never reached an FCS Finals
+  - The Causeway Classic ended when Sacramento State left — the rivalry is being maintained despite the conference split
+
+story_canon:
+  the_unique_thing: "The Causeway Classic — the 70-year rivalry (since 1956) with Sacramento State, one of the oldest continuous rivalries in FCS. The trophy is named after US Route 50, the causeway connecting Davis and Sacramento. UC Davis leads the all-time series 42–18."
+  the_origin: "UC Davis is a land-grant university in the Central Valley of California that became an FCS program in 1992, competing in Big Sky and establishing the Causeway Classic as its primary identity."
+  golden_ages:
+    - { era: "2018 (FCS Playoff Win)", what: "UC Davis won its first FCS playoff game in 2018, the first major postseason victory in program history" }
+    - { era: "2025 (Playoff Return)", what: "UC Davis returned to the FCS playoffs as an 8-seed (9–4 record, 6–2 Big Sky), beating Rhode Island in the second round before losing to Illinois State in the quarterfinals" }
+  legends:
+    - { name: Tim Plough, role: coach, why: "Third-year coach (2025) leading UC Davis to playoff return after 2018 breakthrough; architect of modern competitiveness" }
+  canonical_moments:
+    - { name: "2018 FCS Playoff Win", year: 2018, what: "UC Davis wins its first FCS playoff game, a landmark moment after decades of playoff futility", handling: glory }
+    - { name: "1956 Causeway Classic founding", year: 1956, what: "UC Davis and Sacramento State play their first game, establishing the oldest continuous rivalry in the Big Sky", handling: glory }
+    - { name: "2025 FCS Playoff Return", year: 2025, what: "UC Davis (9–4) returns to the FCS playoffs as an 8-seed, beats Rhode Island before losing to Illinois State in QF", handling: glory }
+  the_place: "Aggie Stadium in Davis, California — a compact, intimate facility in a small college town"
+  brand_of_football: "Consistent, competitive mid-tier FCS football — not dominant, but reliable"
+  cultural_footprint: "UC Davis proves that a land-grant university in a small town can build sustainable FCS competitiveness and create a 70-year-old rivalry that outlasts conference realignment."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UC Davis went 9–4 (6–2 Big Sky) in 2025 under third-year coach Tim Plough.
+    The Aggies were a Big Sky contender (won 6 conference games) and earned an 8-seed in the FCS playoffs.
+    UC Davis beat Rhode Island in the second round before losing to Illinois State in the quarterfinals.
+    QB Caden Pinnick threw 32 TDs in 2025 but has entered the transfer portal, a critical loss. Plough enters 2026 with the challenge
+    of replacing his star QB while maintaining Big Sky competitiveness and building toward another playoff run.
+    Sacramento State is now gone to FCS independence, but the Causeway Classic is still on the schedule. The question is whether
+    UC Davis can sustain the 2025 playoff momentum or if the QB loss stalls the program's ascent.
+  research_checklist:
+    - Causeway Classic vs Sacramento State (since 1956, 70 years)
+    - UC Davis 42–18 all-time vs Sacramento State
+    - 2018 FCS playoff win as first in program history
+    - 2025 record 9–4 (6–2 Big Sky)
+    - 2025 playoff: beat Rhode Island, lost to Illinois State in QF
+    - Caden Pinnick 32 TDs (now portal)
+    - Sacramento State move to FCS independence 2024
+  sources:
+    - https://en.wikipedia.org/wiki/2025_UC_Davis_Aggies_football_team
+    - https://en.wikipedia.org/wiki/Causeway_Classic
+    - https://www.ucdavis.edu/news/causeway-classic-rivalry-football-field-chancellors-office
+    - https://en.wikipedia.org/wiki/UC_Davis_Aggies_football

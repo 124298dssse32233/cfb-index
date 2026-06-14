@@ -1,0 +1,68 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: albany-state
+team_id: null
+program_name: Albany State
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: restoration
+  one_line: "Albany State is the HBCU that won the SIAC crown in 2025 after 41 years, crowning a program that always belonged at the mountaintop but had to walk the valley to earn it."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small Georgia HBCU that clawed its way back from mediocrity to become the winningest team in Division II in 2025, proving the Golden Rams could play with anybody."
+
+the_wound:
+  name: "Four decades of near-misses"
+  detail: "From 1984 (first SIAC championship) to 2025, Albany State went to war every season but couldn't quite get back to the summit. The program lived on the edge of greatness, hungry and never quite satisfied, until 2025 when that hunger finally paid off."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Make a run at the D2 National Championship — prove that a program from a town most college football fans have never heard of belongs on the national stage."
+  drought: { since: 2025, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The fanbase believes: Nobody outside the SIAC knows Albany, Georgia. The Golden Rams had to win a ring just to be noticed. 2025 is the year nobody can ignore them anymore."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that SIAC dominance can translate into a D2 national championship — that the Golden Rams are built differently and the 12-1 season wasn't a flash, but the start of a dynasty."
+
+the_grudge_texture:
+  rival: benedict-college
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: mid-season euphoria vs. realistic ceiling — the question of whether one championship run is the program's peak or the foundation of something larger
+
+register: golden-rams-alba-ny-siac-champions
+never_use:
+  - "Always been powerhouses. The 41-year drought between SIAC titles tells the real story."
+  - "National contenders. No D2 national title yet; D2 Regional Final was the 2025 ceiling."
+
+story_canon:
+  the_unique_thing: "2025 SIAC Champions — 12–1 record, the winningest D2 team in the country that year, advancing to the D2 Regional Final. A program that had waited 41 years to hoist a conference championship."
+  the_origin: "Founded 1903 as Albany Normal and Industrial School; Albany State University traces its roots to the dawn of Black higher education in the rural South. Football returned to the program in the 1970s and found its footing by the 1980s."
+  golden_ages:
+    - { era: "1984 (First SIAC Championship)", what: "The Golden Rams' first conference title, establishing the program's legitimate claim to SIAC contention" }
+    - { era: "2010 (SBN Black College National Champions)", what: "One of two national recognition years in program history, proof of national-level talent" }
+    - { era: "2025 (SIAC Dynasty Year)", what: "12–1 regular season, SIAC Champions, advanced to D2 Regional Final" }
+  legends:
+    - { name: "David Bowser", role: "Coach (2025–)", why: "Led Albany State to the 2025 SIAC championship after the program's 41-year drought" }
+  canonical_moments:
+    - { name: "2025 SIAC Championship Victory", year: 2025, what: "Albany State defeats Benedict 22–16 in the SIAC Championship Game, claiming the first title since 1984", handling: glory }
+    - { name: "2010 Black College National Recognition", year: 2010, what: "SBN crowns Albany State as Black College National Champions", handling: glory }
+  the_place: "Albany, Georgia — a small town in South Georgia whose university punches well above its population weight. Stadium: facilities that reflect the program's late-era investment and growth."
+  brand_of_football: "Disciplined, hard-nosed SIAC football — a program that does not beat itself and relies on defensive stability and ball control."
+  cultural_footprint: "A program that stayed true during the lean years and is now beginning to write larger chapters. Proof that patience and commitment can redeem a legacy."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Albany State won the 2025 SIAC Championship (12–1) and advanced to the D2 Regional Final, bringing the program's 41-year drought between SIAC titles to an end. Returning coach David Bowser (hired December 2024, permanent 2025) enters 2026 as the defending SIAC champion, inheriting a roster that proved capable of winning a conference. The question now is whether the Golden Rams can sustain the excellence and make a deeper D2 playoff run, or if 2025 was the peak of a cycle.
+  sources:
+    - https://thesiac.com/news/2025/11/16/albany-state-claims-2025-siac-football-title-with-22-16-victory-over-benedict.aspx
+    - https://www.asurams.edu/news/athletic-programs/football/
+    - https://www.ncaa.org/sports/2025/d2-football-tournament

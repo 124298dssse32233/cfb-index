@@ -1,0 +1,70 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+status: live
+slug: north-carolina-central
+team_id: null
+program_name: North Carolina Central University
+program_tier: 5
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "North Carolina Central is the Aggie-Eagle Classic home—a 100+-year HBCU rivalry so old it predates modern conference structure, and the Eagles' identity is bound to that annual battle for state pride."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A historically stable HBCU with a 100+-year rivalry legacy and recent regular-season success (8–4, 2025) vs. the dominant rival North Carolina A&T in the Aggie-Eagle Classic—where regular-season achievement feels secondary to the rivalry's narrative."
+
+the_wound:
+  name: "The Aggie Classic deficit"
+  detail: "Despite owning a 4-game win streak (2022–present) in the Aggie-Eagle Classic, North Carolina Central trails 54–38–5 all-time. The Eagles are in a better era now (8–4 in 2025), but the historical weight of A&T dominance lingers. Winning the rivalry is the true measure of success; regular-season records feel hollow without it."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Extend the win streak to five, cement NCCU as the modern Aggie-Eagle Classic favorite, and prove the Eagles belong in North Carolina's HBCU conversation as equals to A&T."
+  drought: { since: 1980, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "The fanbase lives with the knowledge that A&T leads all-time 54–38–5, and every Aggie-Eagle Classic is a referendum on whether the Eagles have finally claimed state bragging rights. The chip is one game deep and a rivalry long."
+
+the_delusion:
+  tone: self-aware
+  text: "That four consecutive wins proves NCCU has permanently flipped the rivalry—that the Eagles believe they're the better team now, and the all-time record will eventually favor Durham. Time will tell."
+
+the_grudge_texture:
+  rival: north-carolina-a-t
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Rivalry obsession vs. conference ambition—the faction that measures success by the Aggie-Eagle Classic result vs. those demanding a MEAC title to validate recent improvements"
+register: durham-eagles-aggie-eagle-classic-nc-pride
+never_use:
+  - "A minor program" # 8–4 in 2025; MEAC contender
+  - "No rivalry tradition" # Aggie-Eagle Classic began 1922; 100+ years continuous
+  - "Outshadowed by A&T" # NCCU owns 4-game win streak and recent football dominance
+
+story_canon:
+  the_unique_thing: "The Aggie-Eagle Classic—one of the oldest continuous college football rivalries in America, beginning in 1922 (100+ years). North Carolina Central vs. North Carolina A&T is the most storied HBCU rivalry in the state and one of the most heated. The rivalry predates modern conference alignment and is central to North Carolina Black college identity."
+  the_origin: "North Carolina Central University was founded in 1910 in Durham, North Carolina, as an HBCU. The football program was established to compete in the growing HBCU football landscape. The Aggie-Eagle Classic rivalry with North Carolina A&T began in 1922 and has been contested continuously for over a century."
+  golden_ages:
+    - { era: "1922–1970s", what: "NCCU and A&T build a legendary rivalry that becomes the centerpiece of North Carolina Black college football" }
+    - { era: "2022–present", what: "NCCU wins four straight Aggie-Eagle Classics (2022, 2023, 2024, 2025), signaling a potential era shift in the rivalry" }
+    - { era: "2025 MEAC Competitiveness", what: "NCCU goes 8–4 (3–2 MEAC), positioning the Eagles as a conference contender" }
+  legends:
+    - { name: Trei Oliver, role: coach, why: "Six-season head coach (2020-present) stabilizing the program and delivering consistent 7–8 win seasons" }
+    - { name: The Aggie-Eagle Classic, role: rivalry, why: "One of America's oldest continuous rivalries; defines the program's identity and measures true success" }
+  canonical_moments:
+    - { name: "Aggie-Eagle Classic Inception", year: 1922, what: "NCCU vs. A&T play the first Aggie-Eagle Classic, beginning a 100+-year rivalry", handling: glory }
+    - { name: "Four-Game Win Streak (2022–2025)", year: 2025, what: "NCCU defeats A&T in four consecutive Aggie-Eagle Classics, claiming recent dominance in the rivalry", handling: glory }
+  the_place: "O'Kelly-Riddick Stadium in Durham, North Carolina—the home of the Eagles and the stage for every Aggie-Eagle Classic, where the stands are packed regardless of record."
+  brand_of_football: "Rivalry pride tied to state identity—NCCU plays for Durham, for North Carolina Black college bragging rights, and for the annual redemption of the all-time series vs. A&T."
+  cultural_footprint: "North Carolina Central's contribution to HBCU football is the Aggie-Eagle Classic—a rivalry so old and so heated that it transcends modern conference structure and remains the true measure of success."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: North Carolina Central finished 2025 at 8–4 (3–2 MEAC), a solid season that included a win in the Aggie-Eagle Classic (extending the streak to four straight). Head coach Trei Oliver returns for his sixth season with new offensive and defensive coordinators (Chris Barnette and Tommy Thigpen), signaling institutional investment in improvement. QB Walker Harris leads the offense, with talented RB Chris Mosley in the backfield. The challenge: can the Eagles translate recent Aggie-Eagle Classic dominance into MEAC title contention? The rivalry remains the emotional center, but NCCU's football trajectory suggests bigger ambitions are possible.
+  sources:
+    - https://en.wikipedia.org/wiki/2025_North_Carolina_Central_Eagles_football
+    - https://en.wikipedia.org/wiki/Aggie-Eagle_Classic
+    - https://www.espn.com/college-football/team/_/id/2388/north-carolina-central-eagles
+    - https://www.meacsports.com/sports/football/2025/north-carolina-central-schedule
+

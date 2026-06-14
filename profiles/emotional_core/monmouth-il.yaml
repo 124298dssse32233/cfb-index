@@ -1,0 +1,89 @@
+# Emotional Core — Monmouth College (monmouth-il)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: monmouth-il
+team_id: null
+program_name: Monmouth College
+program_tier: 7
+
+emotional_core:
+  primary: disbelief
+  secondary: standard
+  one_line: "The Fighting Scots went 9–0 in 2025 and won the Midwest Conference championship — the perfect season that proves the small Illinois program belongs with the giants of the league."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A historic Illinois program that climbed from mid-tier to MWC championship contender, proving excellence is built on consistent preparation and dominance."
+
+the_wound:
+  name: ""
+  detail: ""
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win Midwest Conference titles year after year; honor the 2025 perfect season as the baseline, not the peak; climb higher in the national rankings."
+  drought: { since: 1972, unit: national_title }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: ripon
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: ""
+register: scot-warrior-dominance
+never_use:
+  - "Small program ceiling — 2025 perfect 9–0 regular season, 48.3 PPG average, MWC Championship"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "The 2025 perfect season — 9–0 regular (9–2 overall with playoffs), 48.3 PPG scoring average, Midwest Conference Championship, 20 All-MWC honors (school record), and Head Coach Chad Braun's unprecedented 6 Coach of the Year awards (prior record was 5)."
+  the_origin: "Monmouth College, Monmouth, Illinois — a historic Illinois institution competing in the Midwest Conference."
+  golden_ages:
+    - { era: "1906", what: "Perfect 11–0 vs. Beloit" }
+    - { era: "1972", what: "Perfect 9–0 regular season, MWC Championship (the prior modern peak before 2025)" }
+    - { era: "2025", what: "Perfect 9–0 regular season, 48.3 PPG, MWC Championship, 20 All-MWC honors, 9–2 overall with playoffs" }
+  legends:
+    - { name: "Chad Braun", role: coach, why: "6 MWC Coach of the Year awards (unprecedented; prior record was 5); architect of 2025 perfection" }
+  canonical_moments:
+    - { name: "1972 perfect season", year: 1972, what: "9–0 regular, MWC Championship", handling: glory }
+    - { name: "2025 perfect season", year: 2025, what: "9–0 regular (9–2 overall), 48.3 PPG, MWC Championship, 20 All-MWC honors, Chad Braun 6th COTY", handling: glory }
+    - { name: "69–0 victory over Knox (2025)", year: 2025, what: "Dominant turkey bowl shutout in conference play", handling: glory }
+    - { name: "MWC championship 58–3 over Ripon (2025)", year: 2025, what: "Championship clincher showcasing dominance", handling: glory }
+  the_place: "Monmouth College Stadium — home of the Fighting Scots."
+  brand_of_football: "Dominant, efficient football — 48.3 PPG in 2025 proves the Scots out-prepare and out-execute every opponent."
+  cultural_footprint: "A historic Illinois program that reached its peak in 2025 with a perfect regular season, 6 Coach-of-the-Year awards (unprecedented), and Midwest Conference dominance."
+  the_ongoing_story: "LIVE as of 2026-06: Monmouth College went 9–0 regular (9–2 overall with playoffs) in 2025, won the Midwest Conference Championship, and delivered a career-high season under Head Coach Chad Braun (6 MWC Coach of the Year awards, unprecedented). The Fighting Scots averaged 48.3 PPG and earned 20 All-MWC honors (school record). This is the ceiling of Monmouth football — and now the question is whether it's a peak moment or the baseline of a new era."
+  sources:
+    - https://en.wikipedia.org/wiki/Monmouth_College_Fighting_Scots_football
+    - https://www.monmouthcollege.edu/athletics/football/
+    - https://www.monmouthcollege.edu/about/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Monmouth College is the Fighting Scots that went 9–0 in 2025, won the Midwest Conference Championship, and produced 6 Coach-of-the-Year awards (unprecedented) under Chad Braun.
+  mantra: Scot dominance.
+  cultural_anchors:
+    fan_archetype_dominant: Monmouth-Perfect-Season-Witness
+    outsider_archetype_dominant: MWC-Championship-Power
+    one_sentence: Monmouth College is the Illinois Fighting Scots that achieved a perfect 9–0 regular season in 2025, won the Midwest Conference Championship, and delivered Head Coach Chad Braun's unprecedented 6th Coach-of-the-Year award.
+  selfname: the Fighting Scots
+  rituals:
+    - 2025 perfect 9–0 regular season
+    - 48.3 PPG scoring average
+    - 20 All-MWC honors (school record)
+    - Chad Braun 6 COTY
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+# Lincoln University (Pennsylvania) Lions (CIAA Division II)
+
+status: live
+slug: lincoln-pa
+team_id: null
+program_name: Lincoln University (Pennsylvania)
+program_tier: 6
+
+emotional_core:
+  primary: honor             # the historic mission transcends football results
+  secondary: house-money     # every game is a bonus in the season of rebuilding
+  one_line: "Lincoln University is the oldest degree-granting HBCU in America, founded in 1854, where football is a small chapter in a 172-year educational legacy."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A pioneering African American institution whose historic mission predates modern college football, now navigating a rebuilding era with modest football resources."
+
+the_wound:
+  name: "A 0-10 season and systemic collapse"
+  detail: "Lincoln went winless in 2025 (0-10 overall, 0-10 CIAA), a complete collapse that signals deep structural issues beyond coaching. The wound is real, but it is not the defining story of Lincoln — the 172-year institutional mission is."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to competitive CIAA football, but the dream is modest and real: Lincoln plays for pride, for the alumni, for the students who chose to wear the Lions uniform. Wins are secondary to rebuilding the culture."
+  drought: { since: 2020, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe lincoln has no chip against anyone. The Lions play for themselves and their history — a school founded before the Civil War to educate African Americans, a mission that football serves but does not define."
+
+the_delusion:
+  tone: earnest
+  text: "That a winning season is around the corner if the fanbase just believes hard enough. The reality is harder: Lincoln needs a multi-year rebuild, new resources, and time. The fanbase is patient because the institution's story spans 172 years, not 16 weeks."
+
+the_grudge_texture:
+  rival: null
+  texture: none               # No traditional blood rival identified
+
+the_coach_relationship: legends-shadow          # Josh Dean arrives to rebuild after institutional collapse; following a long line of coaches
+the_internal_fracture: institutional pride vs. football mediocrity — the tension between Lincoln's towering history and the current state of the program
+register: lincoln-lions-oldest-hbcu-1854-rebuilding
+never_use:
+  - Lincoln is a SWAC or other major conference power — Lincoln is CIAA Division II
+  - Lincoln football has historic CIAA titles — Lincoln competes but is not a traditional power
+  - The 2025 season is an aberration — winning records are rare in recent memory; 0-10 is the natural conclusion of a longer decline
+  - Lincoln is a football factory — resources are limited; the mission is educational first
+
+story_canon:
+  the_unique_thing: "Lincoln University is the oldest degree-granting HBCU in America, founded in 1854 (before the Civil War, before Morehouse, before any other HBCU). Football is one activity in a 172-year legacy of African American education and excellence. It is the institution, not the football program, that defines Lincoln's place in history."
+  the_origin: "Lincoln University was founded in 1854 as the Ashmun Institute in Oxford, Pennsylvania, specifically to provide higher education to African American students. It became Lincoln University in 1866. Football was added later, in 1898. The institution predates modern HBCU football by 44 years."
+  golden_ages:
+    - { era: "Founding era (1854)", what: "Lincoln established as the oldest HBCU with a mission to educate African Americans in a segregated America" }
+    - { era: "Early CIAA membership (1912)", what: "Lincoln was a co-founding member of the CIAA conference alongside Howard, Hampton, Shaw, and Virginia Union" }
+    - { era: "Early football era (1898-1921)", what: "Football established as a program; played in early HBCU football era" }
+  legends:
+    - { name: Lincoln University Institution, role: school, why: "Founded 1854, the oldest degree-granting HBCU in America; co-founding CIAA member in 1912" }
+    - { name: Zyaire Tart, role: player, why: "Return specialist and 2024 CIAA Special Teams Player of the Year; symbol of individual excellence amid program struggle" }
+  canonical_moments:
+    - { name: "Founding as the Ashmun Institute", year: 1854, what: "Lincoln founded in Oxford, PA to educate African Americans", handling: glory }
+    - { name: "Co-founding CIAA member", year: 1912, what: "Lincoln becomes founding member of the CIAA conference", handling: glory }
+    - { name: "Football established", year: 1898, what: "Football program added to campus activities", handling: glory }
+  the_place: "Oxford, Pennsylvania — a small town in southeast Pennsylvania where Lincoln University was founded in 1854, predating the surrounding community's development."
+  brand_of_football: "Humble, resource-constrained HBCU football played by students for whom the degree is more important than the football scholarship. A program built on pride, not prestige."
+  cultural_footprint: "Lincoln's cultural footprint is institutional and historical, not athletic. The Lions are part of a larger HBCU heritage that includes Frederick Douglass, Langston Hughes, and generations of educated African American leaders."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Lincoln University went 0-10 overall and 0-10 in CIAA in 2025, a complete winless season that represents systemic collapse. Head Coach Josh Dean, hired in 2024, enters a multi-year rebuild with a roster in need of fundamental investment. Zyaire Tart returns as a special teams standout (2024 CIAA Special Teams POY), but roster talent is thin. The 2026 season begins with a simple goal: compete and build. Wins are secondary to restoring the program's foundation. Lincoln's greatest asset is its 172-year history; the Lions will lean on that heritage as they rebuild.
+  research_checklist:
+    - Lincoln founding history (1854 as Ashmun Institute)
+    - CIAA co-founding member history (1912)
+    - Early football program history (1898-1921)
+    - Josh Dean's coaching plan and philosophy
+    - Roster composition and recruiting pipeline
+    - Special teams excellence (Zyaire Tart) amid overall collapse
+  sources:
+    - https://lulions.com
+    - https://theciaa.com/sports/fball/index
+    - https://hbcugameday.com/lincoln-university-lions
+    - https://en.wikipedia.org/wiki/Lincoln_University_Lions_football
+    - https://en.wikipedia.org/wiki/Lincoln_University_(Pennsylvania)

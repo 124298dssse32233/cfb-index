@@ -1,0 +1,122 @@
+# Emotional Core — Oregon State  (oregon-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: oregon-state
+team_id: 255
+program_name: Oregon State
+program_tier: 3
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+emotional_core:
+  primary: deprival       # the conference left without them — a P5 program stranded by realignment
+  secondary: grievance    # everybody else got a life raft; Corvallis got told to fend for itself
+  one_line: "Oregon State is the program the Pac-12 left behind — ten schools sprinted for the exits and the Beavers were handed the keys to the wreckage, then went 2-10 trying to rebuild a league from two."
+
+self_image:
+  archetype: orphaned
+  standard_gap_frame: "A 2000 Fiesta Bowl team and the 2024 holdout that refused to fold vs a 2025 collapse and the long climb back to a conference that doesn't fully exist yet."
+
+the_wound:
+  name: "Left behind in the Pac-12 collapse"
+  detail: "When ten Pac-12 schools announced departures for 2024, only Oregon State and Washington State were left holding a 108-year-old conference with no other members. The Beavers won the legal fight to keep the brand, then spent 2025 paying the football cost: a 2-10 season, a 0-7 start, and Trent Bray fired seven games in."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Rebuild the league and the team at once — restock a rebuilt Pac-12, win it, and prove a program nobody wanted is still a program."
+  drought: { since: 2008, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Oregon walked into the Big Ten and left the Civil War behind without a backward glance. The fanbase in Corvallis hasn't forgotten which neighbor abandoned the rivalry — or that the Beavers stayed when staying was the hard thing."
+
+the_delusion:
+  tone: load-bearing
+  text: "Beaver Believers say the program that refused to die in 2023 can't be killed by anyone — that surviving the conference's collapse was the hard part, and the wins are just a matter of time now that the worst is behind them."
+
+the_grudge_texture:
+  rival: oregon
+  texture: killed-by-realignment   # the Civil War, severed when Oregon left for the Big Ten
+
+the_coach_relationship: savior   # JaMarcus Shephard inherits the rebuild after Bray's firing
+the_internal_fracture: stay-the-course patience with the rebuilt-Pac-12 plan vs the fear that orphan status is permanent — that a two-team conference and a 2-10 roster can't recruit its way back to relevance
+register: corvallis-beaver-believers-pac-12-survivor   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Disappearing program — 2024 holdout + 2022 10-win season disprove the obituary
+  - Always last in conference — 2000 Fiesta Bowl + Erickson era reset the ceiling
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Oregon State refused to disappear. When the Pac-12 emptied out, the Beavers and Washington State were the only two schools left — and instead of folding, they sued, kept the conference's name and assets, and started rebuilding a league from scratch. No program in modern college football has had to survive its own conference dying around it."
+  the_origin: "A land-grant school in Corvallis, Oregon, long the smaller sibling in a state dominated by its Eugene rival — a program defined for decades by 'the Civil War' and by stretches of losing, until a turn-of-the-century resurgence put it briefly among the nation's best."
+  golden_ages:
+    - { era: "1999–2001 (Dennis Erickson)", what: "An 11-1 season in 2000 capped by a 41-9 Fiesta Bowl rout of Notre Dame and a No. 4 final ranking" }
+    - { era: "2021–2022 (Jonathan Smith)", what: "A return to 10 wins in 2022 and bowl relevance before realignment hit" }
+  legends:
+    - { name: Dennis Erickson, role: coach, why: "Engineered the 2000 Fiesta Bowl season — the program's modern high-water mark" }
+    - { name: Chad Johnson, role: player, why: "The future NFL star receiver of the Fiesta Bowl team — Oregon State's most famous football alum" }
+    - { name: Jonathan Smith, role: coach, why: "Alum who rebuilt the Beavers to 10 wins before leaving for Michigan State as realignment loomed" }
+  canonical_moments:
+    - { name: "2000 Fiesta Bowl rout of Notre Dame", year: 2001, what: "Oregon State 41, Notre Dame 9 — the 11-1 season's exclamation point and the program's modern peak", handling: glory }
+    - { name: "The Pac-12 holdout", year: 2024, what: "Left with only Washington State, Oregon State sued, kept the conference, and refused to fold", handling: glory }
+    - { name: "The 2025 collapse", year: 2025, what: "A 2-10 season and an 0-7 start that cost Trent Bray his job — the football price of survival", handling: wound }
+  the_place: "Reser Stadium in Corvallis — a rebuilt west grandstand and a fanbase that filled it through the holdout years, when showing up was itself the statement."
+  brand_of_football: "Corvallis-tough — a blue-collar, run-first, defense-minded identity built on out-working programs with more resources, now stretched thin by a roster that has to be rebuilt twice over."
+  cultural_footprint: "The realignment era's defining survivor story — proof that a program can be abandoned by its conference and still refuse to vanish, a rallying point for every school that fears being left behind."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Oregon State went 2-10 (1-1) in 2025 after an 0-7 start; head coach Trent
+    Bray was fired seven games in, with Robb Akey finishing as interim. On December 3, the Beavers hired Alabama
+    co-offensive coordinator JaMarcus Shephard as head coach — his first head job. Off the field, Oregon State and
+    Washington State are rebuilding the Pac-12 with new members slated to join, meaning Shephard inherits two
+    rebuilds at once: a 2-10 roster and a conference that doesn't fully exist yet.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Oregon_State_Beavers_football_team
+    - https://www.espn.com/college-football/story/_/id/46572090/sources-oregon-state-fires-coach-trent-bray-0-7-start
+    - https://www.kptv.com/2025/12/03/beavers-introduce-jamarcus-shephard-new-coach/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Oregon State is the Pac-12-collapse survivor — Reser Stadium, 2024 transitional independent
+    schedule, and Jonathan Smith / Trent Bray rebuild that proved a P5 program can refuse to disappear.
+  mantra: Go Beavs.
+  cultural_anchors:
+    fan_archetype_dominant: Corvallis-Beaver-Holdout
+    outsider_archetype_dominant: Conference-Reject-Diminisher
+    one_sentence: Oregon State is the Pac-12-collapse survivor — 2000 Fiesta Bowl + Civil War + 2024 holdout
+      that proved a P5 program can refuse to disappear, even when the conference does.
+  selfname: the Beavers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2000 11-1 + Fiesta Bowl +
+    - 2024 Pac-12 holdout + legal-entity continuation
+    - Civil War rivalry vs Oregon (since 1894)
+    rituals:
+    - 2000 Fiesta Bowl Run
+    - Civil War (Oregon Rivalry)
+    - Pac-12 Holdout (2024)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

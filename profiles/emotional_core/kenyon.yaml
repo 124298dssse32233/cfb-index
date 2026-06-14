@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Kenyon College Owls
+
+status: live
+slug: kenyon
+team_id: null
+program_name: Kenyon College
+program_tier: 7
+
+emotional_core:
+  primary: redemption
+  secondary: contentment
+  one_line: "Kenyon is the historic program that played Ohio State and beat it in 1890, then lived with that glory—the Owls now rebuild with academic pride and the hope that stability can return."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A program with 358 all-time wins, an 1890 victory over Ohio State, and a 1950 undefeated season vs. a brutal 2025 season (1-9) and the question of whether the Owls can wake."
+
+the_wound:
+  name: "The 2025 collapse and the long shadow of past glory"
+  detail: "Kenyon went 1-9 in 2025 (1-7 NCAC), finishing last in the conference. The Owls have been rebuilding under Ian Good for four seasons with limited results (10 wins in four years). The wound is not fresh but chronic—Kenyon has been struggling to reclaim relevance since the 1990s."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to .500 football and prove the Owls can compete in the NCAC again—not dominance, but dignity."
+  drought: { since: 2017, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is against time. Kenyon's best days were the early era—beating Ohio State in 1890, the undefeated 1950 season—and the program carries the weight of history without the results to match."
+
+the_delusion:
+  tone: earnest
+  text: "That the right coaching hire will unlock the program's potential and return Kenyon to NCAC relevance. Fans point to the talent and the academics and believe the Owls are close."
+
+the_grudge_texture:
+  rival: oberlin
+  texture: blood-feud
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Academic prestige (Kenyon is elite) vs. athletic suffering (1-9 seasons repeatedly)"
+register: gambier-ohio-owls-historic-mid-field
+never_use:
+  - "Consistently competitive D3 program — 1-9 in 2025 contradicts this; rebuilding after decade-long decline"
+  - "Beat Ohio State regularly — single 1890 victory, not a tradition"
+  - "Modern power — last winning season was 2015 (10 years ago)"
+
+story_canon:
+  the_unique_thing: "The Owls beat Ohio State 18-10 in Kenyon's first intercollegiate game (1890), a stunning victory that haunts the program's identity—proof they belonged at a higher level, once."
+  the_origin: "Kenyon College, founded in 1824 in Gambier, Ohio, began playing football in 1890. In that inaugural season, the Owls played Ohio State and won 18-10, a shockingly successful start. The program went on to accumulate 358 all-time wins and compete at a small-college level."
+  golden_ages:
+    - { era: "1890–1915", what: "Early era of competing with major schools; 1890 Ohio State victory, multiple wins vs. larger programs" }
+    - { era: "1950", what: "First undefeated season (5-0-1) under coach Irvine Wile" }
+    - { era: "1990–2000", what: "Consistent NCAC contender; last extended run of competitive football before 2000s decline" }
+  legends:
+    - { name: Irvine Wile, role: coach, why: "Coach of the 1950 undefeated season (5-0-1), Kenyon's highest achievement in the modern era" }
+    - { name: Ian Good, role: coach, why: "Current coach (4 seasons), inheriting a struggling program and attempting to rebuild Owl culture" }
+  canonical_moments:
+    - { name: "1890 Ohio State victory", year: 1890, what: "Kenyon defeats Ohio State 18-10 in inaugural game, shocking start to program history", handling: glory }
+    - { name: "1950 undefeated season", year: 1950, what: "5-0-1 record, Kenyon's only undefeated season in modern era", handling: glory }
+  the_place: "Gambier, Ohio, a small college town in central Ohio. Kenyon Stadium is the home. The town is defined by the college, and football is a small but meaningful part of Kenyon life."
+  brand_of_football: "Academic-first. Kenyon football is built around the student-athlete identity and rigorous academics. The program does not recruit like larger D3 schools; it builds from within."
+  cultural_footprint: "A historic but struggling program. Kenyon has the pedigree—358 all-time wins, an 1890 victory over Ohio State—but has been unable to translate that history into sustained competitive success."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Kenyon went 1-9 in 2025 (1-7 NCAC), finishing in last place for the second consecutive season. Ian Good, in his fourth season as head coach, has a 9-31 record at Kenyon (9 wins in four years). The Owls lost 35-0 to Wittenberg in the season finale and 57-2 to Oberlin, both crushing defeats. The question facing the program is whether Good can stabilize the roster and culture, or whether Kenyon has become a permanent fixture at the bottom of the NCAC. The path forward requires patience and a rebuild—not an easy sell in a competitive conference.
+  research_checklist:
+    - 1890 Ohio State victory (18-10)
+    - 1950 undefeated season (5-0-1)
+    - 358 all-time wins in program history
+    - Ian Good 4 seasons, 9-31 record
+    - Oberlin as traditional rival (since 1892, longest NCAC rivalry)
+    - 2025 season 1-9, 1-7 NCAC (last place)
+    - Losses: 57-2 Oberlin, 35-0 Wittenberg
+  sources:
+    - https://athletics.kenyon.edu
+    - https://kenyoncollegian.com
+    - https://en.wikipedia.org/wiki/Kenyon_Lords_football
+    - https://www.elevenwarriors.com/ohio-state-football/2023/11/143302/a-look-back-at-ohio-states-rivalry-with-kenyon-college-the-buckeyes-first-thanksgiving-rival

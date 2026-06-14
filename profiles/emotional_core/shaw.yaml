@@ -1,0 +1,83 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+# Shaw University Bears (CIAA Division II)
+
+status: live
+slug: shaw
+team_id: null
+program_name: Shaw University
+program_tier: 6
+
+emotional_core:
+  primary: redemption        # climbing back from a 2-8 season under new leadership
+  secondary: honor           # the "Golden Days" of Shaw football and CIAA championship history
+  one_line: "Shaw University is a historic HBCU in Raleigh whose football program is rebuilding after 2025, led by new coach Lamar Manigo who vows 'we don't want a rebuilding process' but faces years of work."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A historic co-founding CIAA member with multiple championships (2004, 2007-08, 2010), now fallen to 2-8 and searching for the 'Golden Days' that alumni remember."
+
+the_wound:
+  name: "Five seasons of decline and a program at the crossroads"
+  detail: "Shaw went 2-8 in 2025 under new coach Lamar Manigo, capped by a 55-7 loss to Emory & Henry in the season finale. The Bears haven't been competitive in conference for years. The wound is institutional: a proud program reduced to hoping for 4-6 seasons, let alone 10-0."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the championship era of 2004, 2007-08, and 2010. The dream is for Shaw to be named as a threat in CIAA preseason predictions, not a projected 8th seed. Lamar Manigo says the program doesn't want rebuilding — it wants to win now."
+  drought: { since: 2010, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe a quiet chip against the indifference of a Raleigh basketball town where Shaw basketball overshadows football. The chip is also generational: coaches and players who want to return Shaw to the status it held in the 2000s."
+
+the_delusion:
+  tone: earnest
+  text: "That a new coach and quarterback can turn a 2-8 team into a contender overnight. The fanbase knows Shaw has talent, knows Manigo came from a strong Virginia State coordinator position, and believes it can happen — but the evidence suggests a multi-year rebuild."
+
+the_grudge_texture:
+  rival: saint-augustines
+  texture: border-war         # Raleigh Classic neighborhood rivalry
+
+the_coach_relationship: savior           # Lamar Manigo hired January 2025, stated 'we don't want a rebuilding process' but 2-8 result suggests otherwise
+the_internal_fracture: championship expectations vs. roster reality — the gap between what Shaw wants to achieve and what the roster can actually do
+register: shaw-bears-golden-days-raleigh-classic-rebuilding
+never_use:
+  - Shaw is a perennial CIAA power — last title 2010 (15 years ago); the 2-8 record disproves current standing
+  - Multiple consecutive championship contenders — not true in recent years; scattered titles with long gaps
+  - A top-tier football program — Shaw is struggling and faces multi-year rebuild
+  - Lamar Manigo is a proven head coach — he has never been a head coach; he was Virginia State's offensive coordinator
+
+story_canon:
+  the_unique_thing: "The historic 'Golden Days' of Shaw football in the 2000s — when the Bears won multiple CIAA titles (2004, 2007-08, 2010) and were a consistent power in Black college football. The memory of that era is what drives the program now."
+  the_origin: "Shaw University was founded in 1865 and co-founded the CIAA in 1912 alongside Howard, Hampton, Lincoln, and Virginia Union. Football has been central to Shaw's identity for over a century."
+  golden_ages:
+    - { era: "CIAA founding (1912)", what: "Shaw is a co-founding member of the CIAA conference" }
+    - { era: "1947 perfect season", what: "Shaw goes 10-0 (6-0 CIAA) in a perfect season" }
+    - { era: "2000s championship era", what: "Shaw wins CIAA titles in 2004, 2007-08, and 2010, establishing the most recent dynasty" }
+    - { era: "2007-2010 NCAA playoffs", what: "Shaw makes the NCAA Division II playoffs in 2007 and 2010, reaching the national conversation" }
+  legends:
+    - { name: Shaw University Institution, role: school, why: "Founded 1865, co-founding CIAA member in 1912, historic Black college in Raleigh" }
+    - { name: 2004-2010 championship teams, role: teams, why: "The 'Golden Days' era when Shaw won four CIAA titles in a seven-year span" }
+  canonical_moments:
+    - { name: "CIAA co-founding member", year: 1912, what: "Shaw becomes a founding member of the CIAA conference", handling: glory }
+    - { name: "1947 perfect season", year: 1947, what: "Shaw goes 10-0 (6-0 CIAA) undefeated", handling: glory }
+    - { name: "2004 CIAA Championship", year: 2004, what: "Shaw wins a CIAA title in the modern era", handling: glory }
+    - { name: "2007-2008 back-to-back titles", year: 2008, what: "Shaw wins two straight CIAA championships", handling: glory }
+    - { name: "2010 championship and NCAA playoff", year: 2010, what: "Shaw wins the CIAA and advances to the NCAA Division II playoffs", handling: glory }
+  the_place: "Raleigh, North Carolina — home to Shaw University in the state capital, where Shaw competes in the Raleigh Classic against nearby Saint Augustine's."
+  brand_of_football: "Historic conference power seeking to reclaim championship identity. The 2000s brand was competitive, hard-nosed CIAA football. The current program is rebuilding toward that standard."
+  cultural_footprint: "Shaw's football tradition is woven into the Raleigh HBCU culture. The Raleigh Classic rivalry with Saint Augustine's and the memory of the 2000s championship era are central to campus identity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Shaw went 2-8 overall and 2-5 in CIAA in 2025, a disastrous season under new coach Lamar Manigo (hired January 2025, his first head coaching job). The season culminated in a 55-7 loss to Emory & Henry. Manigo is tasked with building a program that hasn't won a CIAA title since 2010. Quarterback Justin Wheeler (redshirt freshman) leads a young roster. The 2026 season begins with Manigo's second year and a stated determination to win now — but the roster and conference competition suggest a multi-year rebuild is necessary.
+  research_checklist:
+    - Shaw co-founding CIAA member history (1912)
+    - 2004, 2007-08, 2010 championship era details
+    - NCAA Division II playoff appearances (2007, 2010)
+    - Lamar Manigo's background (Virginia State OC 2022-2024)
+    - Current roster composition and key players
+    - Raleigh Classic rivalry with Saint Augustine's
+  sources:
+    - https://shawbears.com
+    - https://theciaa.com/sports/fball/index
+    - https://hbcugameday.com/shaw-bears
+    - https://en.wikipedia.org/wiki/Shaw_Ramblers_football

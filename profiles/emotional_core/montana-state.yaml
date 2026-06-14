@@ -1,0 +1,85 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: montana-state
+team_id: 335
+program_name: Montana State
+program_tier: 5
+
+emotional_core:
+  primary: spectacle
+  secondary: disbelief
+  one_line: "Montana State is the 2025 FCS national champion that just buried a 41-year trophy drought, the defending Bobcats who turned the Brawl of the Wild from Montana's coronation into a statement: the mountain has a new king."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program that lived 41 years in the shadow of Montana's two national titles (1995, 2001) and decided to write its own championship story instead of waiting for permission."
+
+the_wound:
+  name: "41 years without a national title (1984–2025)"
+  detail: "Montana State's last national championship was 1984 (over LSU 19–17 in the I-AA Finals). For 41 years, the Bobcats watched Montana hoist the Brawl trophy and the FCS trophy. The wound was not one of failure — it was of waiting, of being good enough to matter but not good enough to win it all, of watching a rival own the narrative. That wound is now healed."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win another national championship, prove 2025 was not a one-time miracle, establish Montana State as the new era's Brawl king."
+  drought: { since: 1984, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe montana State has spent four decades proving that a small-school Bobcat football program can beat anyone on a neutral field. The chip is that the world expected the national championship to belong to Montana, not Bozeman."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes the 2025 national championship is not a miracle — it's proof that the Bobcats built a program that was always championship-caliber, just waiting for the moment. The fanbase believes more titles are coming; the 2025 team was the beginning, not a fluke."
+
+the_grudge_texture:
+  rival: montana
+  texture: blood-feud
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "None; the program is unified by the championship."
+register: bozeman-montana-bobcats-brawl-champions
+never_use:
+  - Montana State never won an FCS championship before 2025 — the 1984 title is real (defeated LSU 19–17 in the I-AA Finals)
+  - The Bobcats are in their first year of contention — they made multiple Big Sky championships and playoffs (2017–2020)
+  - Brent Vigen is a new coach — he was in his 6th season in 2025 (61–12 record), making the 2025 championship a team-builder's capstone
+  - The 2025 championship is a one-year upset — the Bobcats went 8–0 Big Sky (undefeated conference) before the national tournament
+
+story_canon:
+  the_unique_thing: "The 2025 FCS National Championship — Montana State defeated Illinois State 35–34 in overtime on January 4, 2026, in the Severe Weather Overtime thriller that broke a 41-year championship drought. QB Justin Lamson won the Consensus All-America honors and FCS Championship Game MVP. The Bobcats went 14–2 (8–0 Big Sky) and proved a small-school program from Bozeman could dominate the national stage."
+  the_origin: "Montana State in Bozeman was established as a land-grant university and played football since the 1890s. The program's first national championship was 1984 (defeating LSU), followed by 41 years of being a consistent Big Sky competitor but never returning to the Finals."
+  golden_ages:
+    - { era: "1984 (I-AA National Championship)", what: "Montana State defeated LSU 19–17 in the I-AA Finals, the program's first national title" }
+    - { era: "2017–2020 (Jay Hill Era)", what: "Coach Jay Hill won four consecutive Big Sky championships (2017–2020), establishing modern playoff consistency" }
+    - { era: "2024–2025 (Brent Vigen Ascendancy)", what: "After earning the 2024 runner-up (loss to JMU), Vigen's team went 8–0 Big Sky and 14–2 nationally, winning the 2025 national championship" }
+  legends:
+    - { name: Brent Vigen, role: coach, why: "Took Montana State from consistent Big Sky contender to 2025 FCS national champion in 6 seasons; the architect of the modern championship" }
+    - { name: Justin Lamson, role: player, why: "2025 FCS Championship Game MVP, leading the Bobcats to the national title; consensus All-American" }
+  canonical_moments:
+    - { name: "1984 National Championship", year: 1984, what: "Montana State defeats LSU 19–17 in the I-AA Finals, the program's first national title", handling: glory }
+    - { name: "2025 National Championship", year: 2025, what: "Montana State defeats Illinois State 35–34 in overtime in the Severe Weather Overtime thriller; Lamson wins Championship Game MVP", handling: glory }
+    - { name: "2024 FCS Runner-Up", year: 2024, what: "Montana State reached the 2024 FCS Finals but lost to James Madison, one year before the championship", handling: miracle }
+  the_place: "Bobcat Stadium (now Bobcat Stadium & Events Center) in Bozeman, Montana — a small-town venue that just hosted a national championship program"
+  brand_of_football: "Disciplined, physical, defense-first football under Brent Vigen — not flashy, but relentless and championship-caliber"
+  cultural_footprint: "Montana State proved that 41 years of near-misses can be erased by one perfect season and a championship game won in overtime. The 2025 national title is proof that small-town college football can compete at the highest level."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Montana State won the 2025 FCS national championship, defeating Illinois State 35–34 in overtime on
+    January 4, 2026. The Bobcats went 14–2, with an undefeated 8–0 Big Sky season led by coach Brent Vigen (6th season, 61–12 record).
+    QB Justin Lamson won the Championship Game MVP. The program has now broken a 41-year trophy drought (last title 1984) and established
+    itself as the Brawl of the Wild's new king, having defeated Montana 48–23 in the Big Sky championship game and again in the FCS playoff
+    semifinal. In 2026, Montana State enters as the defending national champion: Vigen must prove the championship was not a miracle, the
+    fanbase expects another run, and the pressure is immense. The question is whether Bozeman can sustain it.
+  research_checklist:
+    - 2025 national championship victory over Illinois State (35–34 OT)
+    - Justin Lamson as Championship MVP and consensus All-American
+    - Brent Vigen as 6-season architect (61–12 record through 2025)
+    - 1984 national championship over LSU (19–17)
+    - 2024 runner-up finish to James Madison
+    - 8–0 Big Sky 2025 (undefeated conference season)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Montana_State_Bobcats_football_team
+    - https://www.ncaa.com/news/football/article/2026-01-05/montana-state-clinches-2025-fcs-national-championship
+    - https://en.wikipedia.org/wiki/Montana_State_Bobcats_football
+    - https://en.wikipedia.org/wiki/1984_Montana_State_Bobcats_football_team
+    - https://en.wikipedia.org/wiki/Brent_Vigen

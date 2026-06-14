@@ -1,0 +1,88 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: gallaudet
+team_id: null
+program_name: Gallaudet University
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: spectacle
+  one_line: "Gallaudet is the world's only deaf university—the birthplace of the huddle, the home of American Sign Language, and a football program that represents possibility, innovation, and the triumph of communication over silence."
+
+self_image:
+  archetype: orphaned
+  standard_gap_frame: "A singular institution where deaf and hard-of-hearing students thrive in an academic and athletic community designed by and for them—a university where football is not just a sport but a statement of belonging and excellence."
+
+the_wound:
+  name: "Transitioned conferences and the 2025 struggle (1-8)"
+  detail: "Gallaudet went 1-8 (1-7 ODAC) in 2025, transitioning from the ODAC to the SCAC, starting from square one with a new head coach (Stefan LeFors, hired April 2025). The program is rebuilding, finding its place in a new conference, and proving that deaf athletes belong at the highest levels of college football competition."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Establish Gallaudet as a competitive SCAC member and prove that deaf and hard-of-hearing athletes can compete and win at the highest levels of Division III. The 2026 goal: build a winning culture that honors the university's unique identity."
+  drought: { since: 2000, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe gallaudet's identity is not about what it lacks—it's about what it uniquely offers: a program where deaf athletes lead, where innovation is encoded in the DNA (the huddle, ASL, video-screen helmet technology), where communication is the competitive advantage."
+
+the_delusion:
+  tone: earnest
+  text: "Gallaudet fans believe that deaf athletes ARE elite athletes, that the university's innovations (video-screen helmet technology for coach-to-player communication) represent the future of football. They believe the program will compete and win in the SCAC."
+
+the_grudge_texture:
+  rival: howard-university
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "Building competitive football vs representing the deaf community—balancing athletic ambition with the deeper mission of proving deaf excellence."
+register: gallaudet-bisons-washington-dc-deaf-university-innovations-huddle
+never_use:
+  - Only deaf people play—Gallaudet is a CODA-friendly environment; families and hearing allies are central
+  - Never competitive—the program is rebuilding; prior record was respectable before 2025 transition
+  - Segregated or limiting—Gallaudet's mission is creating access and opportunity for deaf excellence
+
+story_canon:
+  the_unique_thing: "Gallaudet University is the world's only university where all academic programs and services are designed for deaf and hard-of-hearing students. It is the birthplace of American Sign Language (ASL). And its football program invented the huddle in 1894 when deaf QB Paul D. Hubbard realized that his signed play-calls were readable by the opposing sideline—he invented the circular formation to conceal his signals, and the innovation became universal by the 1920s and is now standard in all football at all levels."
+  the_origin: "Gallaudet University, founded 1864 in Washington, DC, is the world's only institution where all academic and residential programs are designed for deaf and hard-of-hearing students. The football program dates to the 1880s and has competed continuously, serving as a proof point that deaf athletes are elite athletes."
+  golden_ages:
+    - { era: "1894 (the huddle invention)", what: "Paul D. Hubbard invents the huddle to protect his signed play-calls from opponent sidelines—a solution that became universal in football" }
+    - { era: "1990s–2010s", what: "Gallaudet maintains competitive football at the ODAC level" }
+  legends:
+    - { name: Paul D. Hubbard, role: player/coach, why: "Deaf QB (1871-1946) who invented the huddle in 1894—the most important tactical innovation in football history" }
+    - { name: Stefan LeFors, role: coach, why: "Hired April 2025 as the new head coach; fluent in ASL (CODA—Child of Deaf Adults); former University of Louisville QB and 2005 Carolina Panthers 4th-round draft pick; from three-generation deaf family" }
+  canonical_moments:
+    - { name: "The huddle invention (1894)", year: 1894, what: "Paul D. Hubbard invents the huddle when deaf players' signed play-calls are readable by opposing sidelines. The circular formation conceals hand signals and becomes universal by the 1920s—the most important tactical innovation in football history", handling: miracle }
+    - { name: "Gallaudet as deaf university centerpiece", year: 1864, what: "Gallaudet is founded as the world's only university designed for deaf students; football becomes part of that identity", handling: glory }
+    - { name: "2025 Stefan LeFors hiring", year: 2025, what: "Gallaudet hires Stefan LeFors as head coach—fluent ASL, CODA, former NFL-caliber QB, committed to building a winning culture", handling: glory }
+    - { name: "2026 SCAC membership begins", year: 2026, what: "Gallaudet becomes an affiliate member of the SCAC, the first time the conference receives an automatic NCAA Division III playoff bid", handling: glory }
+  the_place: "Washington, DC—the home of Gallaudet University, the world's only deaf university, a campus where deaf excellence is the default, not the exception."
+  brand_of_football: "Innovative, determined, pioneering—Gallaudet plays football with the knowledge that every win represents possibility for deaf athletes everywhere. The program is proof that deafness is not a limitation but a difference that yields unique innovations (the huddle, ASL communication, video-screen helmet technology for silent coach-to-player transmission)."
+  cultural_footprint: "Gallaudet represents the profound truth that elite athletics and deaf excellence are not contradictory—the program's greatest gift to football is not just the huddle, but the proof that deaf athletes belong at the highest levels of competition and that inclusion strengthens the game."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Gallaudet went 1-8 (1-7 ODAC) in 2025, a difficult first
+    season under Stefan LeFors (hired April 2025), as the program transitioned from the ODAC to the SCAC.
+    LeFors brings elite credentials—former University of Louisville QB, 2005 Carolina Panthers 4th-round pick,
+    fluent in ASL, CODA (Child of Deaf Adults) from a three-generation deaf family—and a clear mission: build
+    a winning culture at Gallaudet that proves deaf athletes compete at the highest levels. In 2026, Gallaudet
+    becomes an affiliate member of the SCAC (which gains its first automatic NCAA Division III playoff bid),
+    marking a major institutional achievement. The Bisons are positioned to grow from a 1-win foundation into
+    a competitive SCAC program. The deeper narrative is that every win at Gallaudet is a statement about deaf
+    excellence and the future of inclusive athletics.
+  research_checklist:
+    - Gallaudet as world's only deaf university (verified)
+    - Paul D. Hubbard inventing the huddle in 1894 (verified)
+    - American Sign Language birthplace (verified)
+    - Stefan LeFors as new head coach (April 2025, CODA, fluent ASL, former Louisville QB)
+    - 2025 inaugural SCAC membership (2026 affiliates the program)
+    - Video-screen helmet technology for coach-player communication (2025 innovation)
+    - The cultural significance of deaf athletic excellence
+  sources:
+    - https://www.gallaudet.edu/athletics/football/
+    - https://en.wikipedia.org/wiki/Gallaudet_University_Bisons_football
+    - https://www.smithsonianmag.com/smart-news/deaf-football-huddle-paul-d-hubbard/
+    - https://www.scacathletics.org/sports/football/
+    - https://www.d3football.com/

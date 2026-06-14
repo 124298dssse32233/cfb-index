@@ -1,0 +1,124 @@
+# Emotional Core — Ole Miss  (ole-miss)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: ole-miss
+team_id: 145
+program_name: Ole Miss
+program_tier: 3
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+emotional_core:
+  primary: disbelief      # the best season in 60 years, won without the coach who built it
+  secondary: grievance    # the man who finally took them there walked to LSU mid-run
+  one_line: "Ole Miss reached its first College Football Playoff and came within four points of the semifinal — then watched Lane Kiffin leave for LSU before the snow had melted, and finished the run anyway."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A 13-2 season, a top-3 finish, the best year since the early 1960s — and the haunting question of whether the program can ever keep the coach who finally got it there."
+
+the_wound:
+  name: "Kiffin walked to LSU mid-Playoff"
+  detail: "Lane Kiffin took Ole Miss to its first-ever Playoff in 2025, then accepted the LSU job on November 30 — asking to coach through the postseason, getting told no, and leaving defensive coordinator Pete Golding to carry the program's best team in six decades to the Fiesta Bowl. The Rebels lost 31-27 to Miami one round from the title game."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Hold the altitude Kiffin reached — return to the Playoff under Golding and prove the breakthrough was the program, not the man who left."
+  drought: { since: 1962, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "For decades the fanbase heard that Oxford was a tailgate with a football team attached — a beautiful place that didn't win enough to deserve the Grove. They point now at a 13-2 Playoff team and dare anyone to say it again."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes Oxford is the best place in America to spend a Saturday whether the Rebels win or not — that the Grove would still be worth the trip at 6-6, and 2025 just proved they can have both."
+
+the_grudge_texture:
+  rival: mississippi-state
+  texture: blood-feud   # the Egg Bowl — the in-state hatred that defines both programs
+
+the_coach_relationship: savior   # Golding inherits a program that finally tasted the top, and must hold it
+the_internal_fracture: keep-Golding faith vs the fear that Ole Miss is a stepping-stone job — that any coach who wins here leaves, and the breakthrough was a borrowed season
+register: aristocratic-southern-with-portfolio   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Plantation — historical baggage, not the brand
+  - Confederate — definitively removed from program identity
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Grove — ten acres of oak-shaded tents, chandeliers, and Sunday dress that ESPN has called the best tailgate in America. For most of the program's life the party outshone the team; 2025 was the first year the football finally matched the setting."
+  the_origin: "A Mississippi land-grant school in Oxford whose football peaked under Johnny Vaught in the 1950s-60s — SEC titles and a claimed national championship in 1960 — then spent half a century chasing that ghost while the Grove became the program's true brand."
+  golden_ages:
+    - { era: "1947–1970 (Johnny Vaught)", what: "Six SEC titles and the 1960 claimed national championship — the program's untouchable peak" }
+    - { era: "2020–2025 (Lane Kiffin)", what: "The modern resurgence: 11 wins in 2024, then a 13-2 first Playoff team in 2025" }
+  legends:
+    - { name: Johnny Vaught, role: coach, why: "Built the only era of sustained dominance — 190 wins, six SEC titles, the 1960 title" }
+    - { name: Archie Manning, role: player, why: "The quarterback the speed limit on campus is named for (18 mph for his jersey); the face of Ole Miss football" }
+    - { name: Lane Kiffin, role: coach, why: "Took the Rebels to their first Playoff before leaving for LSU — the modern resurrection and the modern wound" }
+  canonical_moments:
+    - { name: "The 1960 claimed national title", year: 1960, what: "Vaught's undefeated peak — the championship the program still measures itself against", handling: glory }
+    - { name: "First College Football Playoff berth", year: 2025, what: "Beat Tulane 41-10 and Georgia 39-34 before falling to Miami 31-27 in the Fiesta Bowl semifinal", handling: glory }
+    - { name: "Kiffin leaves for LSU mid-run", year: 2025, what: "The coach who finally broke through departs before the Playoff ends", handling: heartbreak }
+  the_place: "Vaught-Hemingway Stadium and, beside it, the Grove — where the Walk of Champions brings the team through a corridor of fans before kickoff, and the tailgate is the institution the football has spent decades trying to deserve."
+  brand_of_football: "Aristocratic-Southern with a portfolio now — the program that long sold the experience finally pairing it with a 13-win product; under Kiffin it ran a fast, fearless, points-first offense."
+  cultural_footprint: "The Grove made Ole Miss a national brand independent of wins — a Southern gameday ideal televised every fall, the rare program whose tailgate is more famous than any single victory."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Ole Miss finished 2025 at 13-2, ranked No. 3 in both polls — its best
+    season since the early 1960s — and made the program's first College Football Playoff (beat Tulane 41-10,
+    beat Georgia 39-34 in the Sugar Bowl quarterfinal, lost to Miami 31-27 in the Fiesta Bowl semifinal). Lane
+    Kiffin accepted the LSU job on November 30, was denied his request to coach through the Playoff, and
+    defensive coordinator Pete Golding was promoted to permanent head coach, carrying the team through the
+    postseason. Golding now enters 2026 trying to prove Oxford can keep a winner — that the breakthrough belonged
+    to the program, not just the man who left.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Ole_Miss_Rebels_football_team
+    - https://www.espn.com/college-football/story/_/id/47154312/lane-kiffin-hired-lsu-coach-finish-season-ole-miss
+    - https://sports.yahoo.com/articles/ole-miss-football-coaches-following-110408976.html
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Ole Miss is the program that finally figured out how to win the SEC by not pretending
+    to be Alabama.
+  mantra: Hotty Toddy.
+  cultural_anchors:
+    fan_archetype_dominant: Aristocratic-Southern-Loyalist
+    outsider_archetype_dominant: Grove-Envious
+    one_sentence: Ole Miss is the program that turned The Grove tailgate into a national tradition while
+      spending most decades not winning enough games to justify it — until 2024.
+  selfname: the Rebels
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2014
+    - 2024 SEC West run + 11-2 finish under Kiffin
+    - The Grove as cultural artifact
+    rituals:
+    - The Walk of Champions
+    - Hotty Toddy Cheer
+    - Egg Bowl (vs Mississippi State)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (48/100, n=52)
+    voice_profile: absent
+    delusion_premium: absent

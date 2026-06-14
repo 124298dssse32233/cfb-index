@@ -1,0 +1,97 @@
+# Emotional Core — Wilkes University (wilkes)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III — program_tier: 7, graceful degradation applies (small school, regional focus, academic mission).
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: wilkes
+team_id: null
+program_name: Wilkes University
+program_tier: 7
+
+emotional_core:
+  primary: restoration   # climbing to sustained contention
+  secondary: spectacle   # the high-level play under Biever
+  one_line: "Wilkes is the Landmark program that finished second in back-to-back years (2023, 2024)—a rising team just below the Susquehanna juggernaut, playing championship-level football with resources of a small school."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Back-to-back second-place Landmark finishes (2023, 2024) vs. the ceiling: even Wilkes' best runs come just short of the Susquehanna dominance."
+
+the_wound:
+  name: "The Susquehanna ceiling (always #2)"
+  detail: "Wilkes finished 2nd in Landmark both 2023 and 2024, right behind the unstoppable Susquehanna. The wound is not losing; it's the reality that Susquehanna is unbeatable."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a Landmark title and prove that Wilkes can compete with Susquehanna — establish the program as a co-powerhouse in the conference."
+  drought: { since: 2023, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe wilkes' chip is Susquehanna—the program that has won four straight titles and left Wilkes as the eternal runner-up."
+
+the_delusion:
+  tone: earnest
+  text: "Wilkes fans believe the 2023–2024 back-to-back second-place finishes are the foundation for future titles — that one more year of Biever's formula and Wilkes breaks through."
+
+the_grudge_texture:
+  rival: susquehanna
+  texture: blood-feud     # bitter rivalry developing; Wilkes consistently #2 behind Susquehanna
+
+the_coach_relationship: total-trust    # David Biever built the program
+the_internal_fracture: patience-vs-now — between those giving Biever time to break through and those frustrated by the Susquehanna dominance
+register: earnest-ambitious
+never_use:
+  - "Irrelevant (back-to-back second-place finishes prove otherwise)"
+  - "Lucky (consistent NCAA tournament appearances show program strength)"
+
+story_canon:
+  the_unique_thing: "Wilkes is the Landmark's perpetual bridesmaid—finishing second in both the 2023 and 2024 Landmark championships, just below the dominant Susquehanna. The program plays championship-level football and consistently fails to win it all."
+  the_origin: "Wilkes University was founded in 1933 in Wilkes-Barre, Pennsylvania. The football program joined the Landmark Conference in 2023 alongside Lycoming and has since established itself as the conference's second-best team."
+  golden_ages:
+    - { era: "2023–2025 (Landmark Era)", what: "Back-to-back second-place finishes (2023, 2024) and NCAA tournament appearances; established as a consistent Landmark contender" }
+  legends:
+    - { name: David Biever, role: coach, why: "Built Wilkes into a consistent Landmark contender with back-to-back second-place finishes" }
+  canonical_moments:
+    - { name: "Back-to-Back Second-Place Finishes (2023, 2024)", year: 2024, what: "Wilkes establishes as Landmark's #2 team, right behind Susquehanna", handling: glory }
+    - { name: "NCAA Tournament Appearances (2023, 2024)", year: 2024, what: "Consistent postseason qualification in new conference", handling: glory }
+  the_place: "Wilkes-Barre, Pennsylvania — a working-class Northeast PA town where Wilkes University represents regional pride and blue-collar football culture."
+  brand_of_football: "Competitive, well-coached Landmark football—Wilkes plays with intensity and discipline, just slightly below Susquehanna's championship level."
+  cultural_footprint: "The proof that a mid-tier program can play championship-level football and still fall short—Wilkes is the eternal runner-up to Susquehanna."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Wilkes finished second in the Landmark Conference in both 2023 and 2024, missing the Landmark championship each year to Susquehanna. The program made the NCAA Division III tournament both years and has established itself as a consistent contender. Head coach David Biever has built a competitive program that competes at high level but falls just short of Susquehanna's dominance. The 2026 question: can Wilkes break through and win a Landmark title, or does the program remain Susquehanna's perpetual runner-up?
+  research_checklist:
+    - Back-to-back second-place Landmark finishes (2023, 2024)
+    - NCAA Tournament appearances both years
+    - David Biever coaching tenure
+  sources:
+    - https://landmarkconference.org/index.aspx?path=wilkes
+    - https://www.flofootball.com/articles/14439666-how-to-watch-wilkes-university-football-in-2025
+
+briefing:
+  identity_phrase: Wilkes is the Landmark's perpetual bridesmaid—back-to-back second-place finishes (2023, 2024) behind dominant Susquehanna; championship-level play, no titles.
+  mantra: Colonel Pride.
+  cultural_anchors:
+    fan_archetype_dominant: Wilkes-Barre-Colonel-Ambitious
+    outsider_archetype_dominant: Overlooked-Contender
+    one_sentence: Wilkes is the Landmark program with back-to-back second-place finishes (2023, 2024) and NCAA tournament appearances, playing just below Susquehanna's dominance.
+  selfname: the Colonels
+  heritage:
+    conference: Landmark
+    championships: None (2023, 2024 runner-up)
+  story_materials:
+    always_surface:
+    - Back-to-back second-place finishes (2023, 2024)
+    - NCAA Tournament appearances both years
+    - Wilkes-Barre working-class identity
+    - Susquehanna rivalry developing
+    rituals:
+    - Annual Landmark contention
+    - NCAA tournament qualification
+    modules_already_rendering: none (D3 module set pending)
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal (canon-only, D3 small program)

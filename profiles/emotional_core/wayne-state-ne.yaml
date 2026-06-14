@@ -1,0 +1,70 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: wayne-state-ne
+team_id: null
+program_name: Wayne State (Nebraska)
+program_tier: 6        # Division II
+
+emotional_core:
+  primary: restoration    # rising power under Logan Masters; defeated #13 Augustana in Egg Bowl
+  secondary: contentment  # small Nebraska program celebrating regional rivalry wins
+  one_line: "Wayne State is a Nebraska regional program that has climbed into NSIC South contention under coach Logan Masters — and proved it in 2025 by defeating #13 Augustana 38-31 in the historic Egg Bowl rivalry."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A small Nebraska program that has built 7-4 records and division co-titles under modern leadership vs historical underdog status."
+
+the_wound:
+  name: "Historical underdog status in a regional NSIC power landscape"
+  detail: "Wayne State is a small Nebraska school that has traditionally been overshadowed by larger NSIC programs like Augustana (back-to-back NSIC champs), Minnesota Duluth (D2 power), and Minnesota State Mankato (playoff contender). For decades, Wayne State was a regional also-ran. But under head coach Logan Masters (since 2022), the Wildcats have risen to NSIC South co-championship status (7-4, 5-1 NSIC South in 2025), proving they belong at the table. The 2025 Egg Bowl victory over #13 Augustana (38-31) was a signature moment — the small-school underdog finally beating the preseason favorite."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Sustain the rising-program trajectory; win the NSIC South outright and prove Wayne State is a permanent power, not a one-year surprise."
+  drought: { since: 2015, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe wayne State carries no external chip. The wound is internal self-doubt; the rising underdog is proving it belongs."
+
+the_delusion:
+  tone: earnest
+  text: "That the 2025 co-title and Egg Bowl victory over Augustana signal the beginning of a dynasty, not just a breakthrough season. Wayne State fans believe Logan Masters can build a sustained power."
+
+the_grudge_texture:
+  rival: augustana-sd
+  texture: blood-feud   # the Egg Bowl — series since 1924, 36th edition 2025, Wayne State won 38-31
+
+the_coach_relationship: savior    # Logan Masters 4th season (since 2022); elevated the program from regional also-ran to South Division co-champion
+the_internal_fracture: breakthrough-excitement vs sustainability-doubt — the faction riding the 2025 success believing dynasty is possible vs skeptics wondering if Wayne State will revert to form
+register: wayne-nebraska-wildcats-egg-bowl-upset-rising-power
+never_use:
+  - "Wayne State is a traditional power: the program's rise is recent (Masters era); historical identity is underdog"
+  - "Egg Bowl is Wayne State's rivalry: the rivalry is 1924-rooted, but Wayne State's dominance in it is new"
+
+story_canon:
+  the_unique_thing: "Wayne State is a small Nebraska program that has risen from regional underdog status to NSIC South co-champion under coach Logan Masters, highlighted by a stunning 2025 Egg Bowl victory over #13 Augustana."
+  the_origin: "Wayne State is a small Nebraska school that has competed in the NSIC as a modest regional program for decades; the modern rise is a recent development."
+  golden_ages:
+    - { era: "2022–2025 (Logan Masters)", what: "Rising power arc from underdog to division co-champion" }
+  legends:
+    - { name: Logan Masters, role: coach, why: "Elevated Wayne State from regional also-ran to NSIC South co-champion in four seasons" }
+  canonical_moments:
+    - { name: "2025 Egg Bowl vs Augustana", year: 2025, what: "Wayne State defeats #13 Augustana 38-31 in the 36th edition of the historic rivalry (series since 1924)", handling: glory }
+    - { name: "2025 NSIC South Co-Title", year: 2025, what: "Wayne State finishes 7-4, 5-1 NSIC South; division co-champion", handling: glory }
+  the_place: "Wayne, Nebraska; a small Nebraska regional program."
+  brand_of_football: "The rising underdog — a small-school program that has climbed into contention through disciplined coaching and incremental team building."
+  cultural_footprint: "Wayne State is a modest Nebraska program with recent success in the NSIC South; the program's 2025 rise proves small schools can compete at D2 level."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Wayne State went 7-4 overall and 5-1 in the NSIC South Division in 2025, earning a
+    share of the division title. Coach Logan Masters (4th season since 2022) has elevated the program from regional underdog
+    to South Division contender. The signature 2025 moment was a 38-31 victory over #13 Augustana in the Egg Bowl (36th edition,
+    series dating to 1924) — a statement win proving Wayne State can beat the region's best programs. The Wildcats also renewed
+    the in-state series with Nebraska-Kearney, adding another regional rivalry dimension. The question for Wayne State is whether
+    the 2025 success is a breakthrough toward sustained contention or a one-year peak.
+  sources:
+    - https://wscwildcats.com/news/2025/11/15/football-wildcats-outlast-13-augustana-38-31
+    - https://wscwildcats.com/news/2025/8/26/football-wayne-state-hosts-nebraska-kearney
+    - https://northernsun.org/schedule.aspx?schedule=3876

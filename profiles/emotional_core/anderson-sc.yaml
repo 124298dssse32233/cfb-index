@@ -1,0 +1,105 @@
+# Emotional Core — Anderson (SC)  (anderson-sc)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: anderson-sc
+team_id: 999  # Placeholder — may need D2 DB assignment
+program_name: Anderson
+program_tier: 6
+
+emotional_core:
+  primary: house-money      # a brand-new program starting from zero, playing its first games in 2024
+  secondary: standard
+  one_line: "Anderson is the newest voice in college football — a university that fielded its first-ever team in 2024 and is writing its own origin story from day one in the South Atlantic Conference."
+
+self_image:
+  archetype: orphaned
+  standard_gap_frame: "No history, no baggage, no asterisks — just a football program born in 2024 that gets to build its own legend from scratch in Division II."
+
+the_wound:
+  name: "Starting from zero"
+  detail: "Anderson didn't have a football history to lean on when it took the field in 2024. No championship runs to remember, no rivals to hate, no traditions to build on. It's a blank slate in a sport where everyone else arrived with blueprints."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that a brand-new program can compete in Division II from day one — make SAC rivals take notice, build a rivalry, win the kind of games that make people show up to Spero Financial Field on Saturday."
+  drought: { since: 2024, unit: relevance }
+
+the_chip:
+  villain: blue_bloods
+  text: "Anderson walks into every locker room knowing that every other school has years of tradition, recruiting networks, and institutional memory. The Trojans' chip is that they get to write something nobody wrote before — and they're doing it right now."
+
+the_delusion:
+  tone: self-aware
+  text: "Anderson fans believe their brand-new program has an advantage because it has no bad history to escape, no legendary coach to live up to, and no 40-year-old regret to nurse. They're writing the canon as they play, not living in someone else's shadow."
+
+the_grudge_texture:
+  rival: ""
+  texture: none
+
+the_coach_relationship: savior   # Bobby Lamb brought the program to life in 2024, the architect of its very first games
+the_internal_fracture: ""
+register: anderson-trojans-day-one
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Program history before 2024
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "A brand-new college football program that took the field for the first time in 2024, building its identity from day one in the South Atlantic Conference. Anderson is the sport's newest origin story."
+  the_origin: "Anderson University committed to football in 2023 and fielded its inaugural team in 2024 under head coach Bobby Lamb, a former Furman coach (2002–2010). The university backed it with a $3M challenge gift from the Yount family and 25-year naming rights at Spero Financial Field."
+  golden_ages: []
+  legends: []
+  canonical_moments:
+    - { name: "First game ever", year: 2024, what: "Anderson takes the field for the very first time in program history as an NCAA Division II program", handling: glory }
+  the_place: "Spero Financial Field at Melvin & Dollie Younts Stadium in Anderson, South Carolina — a brand-new home for a brand-new program, backed by family philanthropy and built for the future."
+  brand_of_football: "Foundational — a program being built one game at a time, with the freedom to experiment and the mission to establish what Anderson football means."
+  cultural_footprint: "A symbol of mid-major growth — evidence that new universities can plant their flag in college football and make it count."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Anderson fielded its inaugural football team in 2024 under Bobby Lamb, a former
+    Furman head coach. The Trojans played an 11-game schedule in their first year and are building the program from
+    the ground up. In 2025-26, Anderson enters its second season in the South Atlantic Conference still establishing
+    its identity, recruiting its first true roster cohort, and turning the Spero Financial Field into a home-field
+    advantage. The question in Anderson: how fast can a brand-new program climb the SAC?
+  research_checklist:   # what to look up (web) when we author this team together
+    - Bobby Lamb's background and why he was chosen for this project
+    - The 2024 inaugural season performance and key early wins
+    - The Yount family gift and the stadium naming ceremony
+    - The recruiting pipeline for a brand-new program
+  sources:
+    - https://www.anderson.edu/athletics/football/
+    - Anderson University Athletics official site
+    - Post & Courier (2024)
+    - FloFootball (2024)
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Anderson is the brand-new Division II program that took the field for the first time in 2024
+    and is writing its origin story in the South Atlantic Conference.
+  mantra: ''
+  cultural_anchors:
+    fan_archetype_dominant: Anderson-Trojans-Day-One
+    outsider_archetype_dominant: D2-Newcomer
+    one_sentence: Anderson is the newest college football program — formed in 2024, competing in the South Atlantic
+      Conference at NCAA Division II.
+  selfname: the Trojans
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: SAC (South Atlantic Conference)
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface: []
+    rituals: []
+    modules_already_rendering: ''
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no signal yet (program < 2 years old) — enrich as sources expand

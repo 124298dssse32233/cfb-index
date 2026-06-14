@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: glenville-state
+team_id: null
+program_name: Glenville State University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Glenville State's identity is Pioneer Pete, the live-coonskin-cap-and-rifle-toting senior tradition, and the West Virginia frontier heritage that the school has defended since 1927 — football is secondary to the legend."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small West Virginia college whose cultural identity is woven entirely into Pioneer Pete and Appalachian heritage, where football is the field the tradition plays on, not the reason the tradition exists."
+
+the_wound:
+  name: "The 1993 national-championship heartbreak"
+  detail: "Glenville reached the NAIA D1 National Championship Game in 1993, their highest point in modern history, but lost to East Central 49-35. It was the closest the Pioneers have ever come to a national title, and the loss has haunted the program for 33 years."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to a national playoff appearance and complete what 1993 started — win an actual championship and restore Glenville's place as a regional power."
+  drought: { since: 1993, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Glenville's identity is built on continuity and frontier heritage, not grievance. The Pioneer Pete tradition is older and more important than any football game."
+
+the_delusion:
+  tone: self-aware
+  text: "That a small West Virginia school playing for regional pride can compete with larger state programs for conference titles and playoff spots — fans know the odds, but they believe in Pioneer Pete anyway."
+
+the_grudge_texture:
+  rival: fairmont-state
+  texture: blood-feud
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: tradition-preservation vs new-era-coaching — the tension between preserving Pioneer Pete as sacred and the practical need to modernize the program under new coach Mike Kellar
+register: glenville-pioneer-pete-frontier-coonskin-cap-rifle
+never_use:
+  - A powerhouse regional program (Glenville has one NAIA championship appearance; it is not sustained dominance)
+  - Historic national contenders (the 1993 final is an outlier, not a pattern)
+  - Consistently competitive in D2 (Glenville is rebuilding and inconsistent)
+
+story_canon:
+  the_unique_thing: "Pioneer Pete, the live male senior dressed in full frontier regalia (coonskin cap, buckskin, rifle) who represents West Virginia's Appalachian heritage. The tradition has run since 1933 and is non-negotiable to Glenville's identity. A woman first played Pioneer Pete in 1990-91. The football program orbits this mascot, not the other way around."
+  the_origin: "A small West Virginia liberal-arts college founded 1872. The 'Pioneers' nickname was adopted in 1927-28 by coach John L. 'Bugs' Teets to evoke the frontier spirit of West Virginia. The live Pioneer Pete mascot debuted 1933 and has been the heart of Glenville identity ever since."
+  golden_ages:
+    - { era: "1990s", what: "NAIA D1 success, including the 1993 National Championship Game appearance against East Central" }
+    - { era: "2000s–2010s", what: "Regional WVIAC and conference competitiveness" }
+  legends:
+    - { name: John L. Teets, role: coach, why: "Created the 'Pioneers' nickname (1927-28) to encapsulate West Virginia frontier heritage — the architect of Glenville's identity" }
+    - { name: Pioneer Pete tradition, role: mascot, why: "The live coonskin-capped senior carrying a rifle, debuted 1933, is more important to Glenville identity than any football coach or player" }
+  canonical_moments:
+    - { name: "1993 NAIA D1 National Championship Game", year: 1993, what: "Glenville reached the NAIA D1 National Championship Game but lost to East Central 49-35, the program's highest achievement in modern history", handling: heartbreak }
+    - { name: "Pioneer Pete Tradition", year: 1933, what: "The live Pioneers mascot in full frontier regalia, representing Glenville's Appalachian heritage — a tradition older and more sacred than any football season", handling: glory }
+  the_place: "Glenville, West Virginia, a small Appalachian town in the heart of West Virginia coal country."
+  brand_of_football: "Secondary to the Pioneer Pete tradition — football is the venue where Glenville's frontier identity plays out, but the tradition transcends winning or losing."
+  cultural_footprint: "Glenville is known in Appalachia for Pioneer Pete and the commitment to West Virginia frontier heritage, not for football championships. The football program is embedded in that larger cultural identity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Glenville finished 6-5 overall in 2025 under now-departed coach (replaced by Mike Kellar in November 2025, who
+    returned to the program). Freshman QB Liam McGuire is part of the transition. The bigger story is the coaching change and whether Kellar can stabilize the
+    Pioneers in the Mountain East. For Glenville, football is always secondary to the Pioneer Pete tradition and Appalachian identity.
+  research_checklist:
+    - Pioneer Pete mascot tradition (live, since 1933)
+    - 1993 NAIA D1 National Championship Game appearance
+    - Appalachian/frontier heritage
+    - Current coaching transition (Kellar hired November 2025)
+  sources:
+    - https://en.wikipedia.org/wiki/Glenville_State_University
+    - https://en.wikipedia.org/wiki/1993_NAIA_Division_I_football_season
+    - https://www.glenville.edu/athletics/

@@ -1,0 +1,118 @@
+# Emotional Core — Georgia State  (georgia-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: georgia-state
+team_id: 321
+program_name: Georgia State
+program_tier: 3
+
+emotional_core:
+  primary: deprival       # the youngest program in a pro city that has never had to care about it
+  secondary: restoration  # year three of the McGee build after a 1-11 floor caved in
+  one_line: "Georgia State plays its home games inside the stadium where the Braves won pennants, a 2010 startup still trying to convince its own enormous city that a downtown-Atlanta college team is worth a Saturday."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A football program younger than its players, building from zero in a metro that already has the Falcons, the Bulldogs and the Yellow Jackets vs the simple goal of mattering at all."
+
+the_wound:
+  name: "The 1-11 floor"
+  detail: "After Shawn Elliott got the Panthers to four bowls, Dell McGee's second year collapsed to 1-11 (0-8), the lone win over an FCS team, nine of eleven losses by double digits — a reminder of how thin the foundation still is when a young program loses its footing."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "A Sun Belt title and a downtown crowd loud enough that Atlanta finally claims the Panthers as its own team, not its fourth option."
+  drought: { since: 2010, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Everyone in the metro grew up a Georgia or Georgia Tech fan; Panther fans are the ones who chose the new thing, and they're tired of being told a 2010 startup downtown can't be anybody's real team."
+
+the_delusion:
+  tone: earnest
+  text: "Panther fans believe the largest university in Georgia, dropped in the middle of the Southeast's biggest recruiting city, is a sleeping giant — that the talent is walking past Center Parc every day and one right staff turns proximity into a program."
+
+the_grudge_texture:
+  rival: georgia-southern
+  texture: little-brother   # the in-state Eagles have the rings and the history; the Modern Day Hate series is GS's to lord over
+
+the_coach_relationship: hot-seat-churn   # Curry to Elliott to McGee, and McGee already remaking his staff after 1-11
+the_internal_fracture: build-the-base vs win-now-or-bust — fans who want patience for a young program vs fans who fear a 1-11 floor means the whole project is stalling
+register: atlanta-panthers-fbs-newcomer-2013
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Still FCS — 2013 FBS reclassification + 2017 Cure Bowl ended that frame
+  - No identity — 2010 founding + Center Parc + Elliott combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Georgia State plays football inside a baseball cathedral — Center Parc Stadium is the converted Turner Field, where the Atlanta Braves won the 1995 World Series, reborn as a college football venue in the heart of downtown Atlanta."
+  the_origin: "One of the youngest FBS programs in the country: Georgia State played its first game in 2010 under Bill Curry, climbed from FCS to the Sun Belt in 2013, and went looking for an identity from a standing start."
+  golden_ages:
+    - { era: "2017–2021 (Shawn Elliott)", what: "From doormat to bowl regular — the 2017 Cure Bowl win and a 2019 upset of Tennessee in Knoxville" }
+  legends:
+    - { name: Shawn Elliott, role: coach, why: "Took a young program to four bowls and its first real respect" }
+    - { name: Penny Hart, role: player, why: "The undersized receiver who became the program's first true star and an NFL contributor" }
+  canonical_moments:
+    - { name: "Upset at Tennessee", year: 2019, what: "Georgia State walks into Neyland and beats the SEC's Vols 38-30 in the season opener", handling: glory }
+    - { name: "First bowl win, the Cure Bowl", year: 2017, what: "27-17 over Western Kentucky — a young program's first piece of hardware", handling: glory }
+    - { name: "The 1-11 collapse", year: 2025, what: "McGee's second year bottoms out, the lone win over an FCS team", handling: wound }
+  the_place: "Center Parc Stadium — the former Turner Field / 1996 Olympic Stadium, retrofitted for football, a literal monument to Atlanta sports history that the Panthers now call home."
+  brand_of_football: "Scrappy, transfer-heavy, urban-recruiting modern football — a young program mining the deepest talent metro in the South for players the blue bloods passed on."
+  cultural_footprint: "The college football team of downtown Atlanta — a commuter-and-urban student body's bid to plant a flag in a pro-sports city that already had its loyalties."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Georgia State cratered to 1-11 (0-8 Sun Belt) in Dell McGee's second season,
+    losing its final nine games. McGee enters year three overhauling his staff — reported moves on at defensive
+    coordinator and special teams — and trying to rebuild a foundation that the 1-11 floor exposed as fragile.
+    The question downtown: can the youngest program in the state climb back to the bowl level Elliott reached?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Georgia_State_Panthers_football_team
+    - https://www.footballscoop.com/2025/12/26/sources-georgia-state-dell-mcgee-making-major-staff-changes
+    - https://en.wikipedia.org/wiki/Georgia_State_Panthers_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Georgia State is the Sun Belt program whose 2010 program founding + Center Parc Stadium
+    (former Turner Field) + Shawn Elliott era define what Atlanta-FBS-newcomer-football looks like.
+  mantra: Light It Up.
+  cultural_anchors:
+    fan_archetype_dominant: Atlanta-Panther-Light-It-Up
+    outsider_archetype_dominant: FBS-Newcomer-Diminisher
+    one_sentence: Georgia State is the 2010-founded Atlanta Sun Belt program — Center Parc Stadium (former
+      Turner Field) + Shawn Elliott 2017 Cure Bowl + Light It Up identity that anchor the recent FBS-newcomer
+      ascent.
+  selfname: the Panthers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2010 program founding (most-recent FBS-aspiring start)
+    - 2017 7-5 + Cure Bowl championship under Shawn Elliott
+    - Center Parc Stadium (former Turner Field) adaptive-reuse venue
+    rituals:
+    - 2010 Program Founding
+    - Center Parc Stadium (Former Turner Field)
+    - Shawn Elliott 2017 Cure Bowl
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (55/100, n=1)
+    voice_profile: absent
+    delusion_premium: absent

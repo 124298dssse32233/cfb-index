@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: pace
+team_id: null
+program_name: Pace University
+program_tier: 6
+
+emotional_core:
+  primary: contentment      # a program finding its identity in the Northeast-10, weathering the storm
+  secondary: house-money    # every step forward is earned through grinding work
+  one_line: "Pace is the Setter that finished winless in 2025 (0-11, 0-7 NE10) but is competing year-to-year with pride, knowing that Division II football at Pace is a long-term project, not a quick fix."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A program record for wins in 2018 (7-3 under Andy Rondeau, 30+ years past) vs sustained struggles in recent years, building from scratch with limited resources."
+
+the_wound:
+  name: "The winless 2025 and the reality check of Division II football"
+  detail: "Pace moved to the Northeast-10 in 2024 as an associate member and spent 2025 at 0-11 (0-7 NE10), the hardest year of a program trying to find its footing in a competitive conference. After 30+ years at the Empire State Conference and NYCAC levels, Division II proved brutally difficult in year two of the transition."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Climb back to the 2018 standard of 7-3 and prove the Setters can compete in the Northeast-10."
+  drought: { since: 2018, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — just the determination to prove Pace belongs in Division II soccer-strong programs know you can compete in football if you commit."
+
+the_delusion:
+  tone: none
+  text: null
+
+the_grudge_texture:
+  rival: none
+  texture: none
+
+the_coach_relationship: total-trust       # Chad Walker brought in for the rebuild, team needs continuity
+the_internal_fracture: patience vs urgency — the faction giving the new coaching staff time vs those wanting immediate results
+register: pleasantville-setters-northeast-ascent
+never_use:
+  - "Pace football is not real — Division II status and NE10 membership are confirmed"
+  - "Always been winning — 7-3 in 2018 was an outlier; most years are difficult"
+  - "One terrible year ends the program — 0-11 in 2025 is a speed bump, not permanent identity"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "A program transitioning from regional-conference comfort (Empire State, NYCAC) to the fiercely competitive Northeast-10 Division II. Pace is learning the difference between mid-major success and D2 power-program reality — a scrappy New York program refusing to quit despite the gap."
+  the_origin: "Pace entered Division II in 1983, competed in the Empire State Conference through 1989, then moved to the NYCAC/ECC and finally joined the Northeast-10 in 2024 as an associate member. The program has been in transition for 40+ years."
+  golden_ages:
+    - { era: "2018", what: "7-3 record under head coach Andy Rondeau, a program high for wins in recent memory" }
+  legends:
+    - { name: Carlton Aiken, role: quarterback, why: "Set program record with 42 touchdown passes, first-ever Pace player to win NE10 MVP award" }
+  canonical_moments:
+    - { name: "2018 season (7-3)", year: 2018, what: "Pace achieves program record for wins under Andy Rondeau", handling: glory }
+  the_place: "Finnerty Field in Pleasantville, New York — the home of the Setters, where a small program builds slowly and deliberately."
+  brand_of_football: "The Westchester program with regional pride — not flashy, not wealthy, just committed to competing at the level they're asked to play."
+  cultural_footprint: "A business school in the New York suburbs trying to build something real in Division II football. If they succeed, Pace proves that regional programs can transition to power-conference-style competition with patience."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Pace finished the 2025 season 0-11 overall and 0-7 in Northeast-10 Conference play under first-year
+    head coach Chad Walker. The Setters' only close game was a 24-10 loss to Franklin Pierce. Despite the winless record, five Pace players earned
+    postseason honors on the NE10 All-Conference Teams, including graduate WR Elizjah Lewis (First Team), sophomore punter Decker McNally (First Team),
+    and junior return specialist Jhamier Howard (First Team). The program's best result came against non-conference foe, but the 0-7 NE10 record
+    underscores the challenge Pace faces against power-D2 programs. The focus for 2026 is incremental improvement and proving the coaches can
+    develop this roster into a competitive conference team.
+  research_checklist:
+    - Division II since 1983
+    - Empire State Conf (1983-89) → NYCAC/ECC → NE10 (2024+)
+    - 2018: 7-3 record (recent high)
+    - 2025: 0-11, 0-7 NE10
+    - Carlton Aiken: 42 TDs, NE10 MVP
+  sources:
+    - https://northeast10.org/news/2024/9/6/general-division-ii-history-pace-university-aspx
+    - https://paceuathletics.com/news/2025/11/20/five-setters-named-to-ne10-all-conference-football-team.aspx
+    - https://www.pace.edu/news/touching-down-paces-record-books

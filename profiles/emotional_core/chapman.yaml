@@ -1,0 +1,65 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Chapman — SCIAC football champions with baseball tradition and the Panthers roar
+
+status: live
+slug: chapman
+team_id: null
+program_name: Chapman University
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: spectacle
+  one_line: "Chapman is an Orange County university whose football team has won five SCIAC titles — the Panthers are proving small-school prestige can build hardware."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A private liberal arts school building athletic excellence to match its academic reputation, competing for SCIAC championships with sustained success."
+
+the_wound:
+  name: "Emerging from mid-pack SCIAC status"
+  detail: "Chapman has built recent success after years of SCIAC competition — five conference championships (2014, 2017, 2019, 2023, 2025) represent a rising arc, not a fallen giant."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build a national Division III contender and repeat as SCIAC champions — prove Chapman belongs among the elite small-school programs."
+  drought: { since: 2025, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Chapman's story is about rising, not resenting."
+
+the_delusion:
+  tone: self-aware
+  text: "That an Orange County school with resources can become a true D3 power. The Panthers fanbase knows the ceiling, but believes they can keep building it."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: none — the program is unified around success
+register: orange-county-panthers-sciac-champions
+never_use:
+  - "Historic power — Chapman is new to prominence"
+  - "Perennial contender — the rise is recent"
+  - "Legacy program — built it fast, no legacy required"
+
+story_canon:
+  the_unique_thing: "Five SCIAC football championships in 12 years — Chapman is the program that figured out how to win in SCIAC and kept doing it."
+  the_origin: "Chapman University, founded 1861, is a private liberal arts university in Orange County, California. The Panthers athletic program has grown in recent decades alongside the university's academic expansion."
+  golden_ages:
+    - { era: "2014–2025", what: "Five SCIAC football championships (2014, 2017, 2019, 2023, 2025) establishing Chapman as a SCIAC power" }
+  legends: []
+  canonical_moments:
+    - { name: "Five SCIAC titles", year: 2025, what: "Chapman wins championships in 2014, 2017, 2019, 2023, and 2025, becoming a SCIAC dynasty", handling: glory }
+  the_place: "Orange County, California — a small liberal arts campus in the heart of Southern California."
+  brand_of_football: "Competitive excellence — the Panthers play to win SCIAC, and they know how."
+  cultural_footprint: "Rising prestige; Chapman's athletic success mirrors the university's growth in academic reputation."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Chapman won the SCIAC football championship in 2025, their fifth in the past 12 years. The Panthers represent
+    a program on the rise, with recent sustained SCIAC success and building national profile. The 2026 season continues Chapman's pursuit of
+    Division III relevance.
+  sources:
+    - https://en.wikipedia.org/wiki/Chapman_University

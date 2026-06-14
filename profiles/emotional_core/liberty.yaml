@@ -1,0 +1,122 @@
+# Emotional Core — Liberty  (liberty)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: liberty
+team_id: 246
+program_name: Liberty
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # two years after a Fiesta Bowl, the program just had its first losing season in 20 years
+  secondary: disbelief    # both that the rise happened at all, and that it cratered this fast
+  core_variant: perpetual-rebuild
+  one_line: "Liberty went undefeated into a Fiesta Bowl in 2023 — and two years later posted its first losing season in two decades, a young FBS program suddenly trying to climb back to a peak it only just reached."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 13-1 Conference USA champion that crashed a New Year's Six bowl in 2023 vs a 4-8 collapse in 2025 — proof of how far the program rose, and how quickly the floor can reappear."
+
+the_wound:
+  name: "The 4-8 collapse after the Fiesta Bowl"
+  detail: "Liberty's 2025 team went 4-8, its first losing season in 20 years, just two seasons after a 13-1 run to the Fiesta Bowl. For a program that ascended so fast, the sudden drop fed the oldest doubt about a young FBS team: that the rise was the exception and the fall is the regression."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Climb back to where 2023 stood — a Conference USA title and a New Year's Six bowl that announced Liberty had arrived — and prove the Fiesta Bowl was a foundation, not a fluke that the program is now sliding away from."
+  drought: { since: 2023, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans bristle at being dismissed as a young regional program that overachieved once and is now reverting — they remember the unbeaten regular season and the New Year's Six stage, and they refuse to let a 4-8 year erase what the program proved it could do."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the resources and the recruiting that built a Fiesta Bowl team are still there — that 2025 was a stumble, not a ceiling, and Lynchburg can be a Group-of-Five power again. They saw the top of the mountain once, and they believe the path back is shorter than the doubters think."
+
+the_grudge_texture:
+  rival: new-mexico-state
+  texture: championship   # the 2023 Conference USA title-game opponent, the rivalry forged on the league's biggest stage
+
+the_coach_relationship: hot-seat-churn   # Hugh Freeze to Auburn, then Jamey Chadwell's peak-and-stumble — the program has churned through its risers
+the_internal_fracture: patience-vs-panic — the faction giving Jamey Chadwell time to rebuild after a 4-8 year vs the faction that thinks a Fiesta Bowl program should never sink this low
+register: lynchburg-flames-hugh-freeze-conference-usa   # earnest, ambitious, well-funded newcomer pride still learning the FBS ladder
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Still FCS — 2018 FBS reclassification ended that frame; 2023 C-USA championship
+    confirmed
+  - 'Just regional school — Fiesta Bowl + #18 AP finish disprove'
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Liberty is the program that went from FCS to a New Year's Six bowl in five years — a 13-1, undefeated-regular-season 2023 that made it the first Conference USA team ever to reach a NY6 game, the fastest rise of the well-funded newcomer era."
+  the_origin: "A large private Christian university in Lynchburg, Virginia that reclassified to the FBS in 2018, spent its first years as an independent, and used deep institutional resources to build a winner faster than almost any program in memory."
+  golden_ages:
+    - { era: "2019–2022 (Hugh Freeze)", what: "Four straight bowl appearances and the early rise that legitimized the FBS jump" }
+    - { era: "2023 (Jamey Chadwell)", what: "A 13-1 season, a Conference USA title in the program's first year in the league, and the Fiesta Bowl" }
+  legends:
+    - { name: Hugh Freeze, role: coach, why: "Built the early FBS-era winner before leaving for Auburn" }
+    - { name: Jamey Chadwell, role: coach, why: "Led the 13-1 Fiesta Bowl season — the program's high-water mark" }
+    - { name: Kaidon Salter, role: player, why: "The dual-threat QB who drove the undefeated 2023 regular season" }
+  canonical_moments:
+    - { name: "Undefeated 2023 regular season", year: 2023, what: "Liberty runs the table and wins Conference USA in its first year in the league", handling: glory }
+    - { name: "2023 Fiesta Bowl berth", year: 2023, what: "The first Conference USA team ever to reach a New Year's Six bowl, falling to No. 8 Oregon", handling: glory }
+    - { name: "2025 losing season", year: 2025, what: "A 4-8 finish — the program's first losing record in 20 years, two years removed from the Fiesta Bowl", handling: wound }
+  the_place: "Williams Stadium in Lynchburg, Virginia — a steadily expanded home in the Blue Ridge foothills, built up alongside one of the most resourced athletic departments in the Group of Five."
+  brand_of_football: "Up-tempo, dual-threat-QB offense — the explosive, score-fast identity that powered the 2023 unbeaten run."
+  cultural_footprint: "The model of the deep-pocketed FBS newcomer — proof that institutional resources can fast-track a program from FCS to a New Year's Six bowl, and a cautionary tale about how quickly that altitude can slip."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Liberty went 4-8 (3-5 Conference USA) in 2025 — its first losing season
+    in 20 years — just two years after a 13-1 run to the Fiesta Bowl. Head coach Jamey Chadwell enters 2026 under
+    pressure to rebuild a program that fell off fast. The question in Lynchburg: was the Fiesta Bowl the floor of
+    a new power, or the ceiling of a rise the program is now sliding back down from?
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Liberty_Flames_football_team
+    - https://libertyflames.com/news/2024/1/1/football-second-quarter-surge-lifts-no-8-oregon-over-no-23-liberty-in-vrbo-fiesta-bowl
+    - https://herosports.com/fbs-liberty-head-coach-jamey-chadwell-career-record-contract-cpcp/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Liberty is the Conference USA program whose Hugh Freeze rebuild + 2023 13-1 + Fiesta
+    Bowl appearance + Jamey Chadwell-era ascent answer what FBS-newcomer-ascent looks like.
+  mantra: Burn it.
+  cultural_anchors:
+    fan_archetype_dominant: Lynchburg-Flames-Loyalist
+    outsider_archetype_dominant: FCS-Refugee-Diminisher
+    one_sentence: Liberty is the FBS-newcomer-ascent program — Hugh Freeze rebuild + Jamey Chadwell 2023
+      Fiesta Bowl + 2023 Conference USA championship that turned an FCS program into a CFP-buzz contender
+      in five years.
+  selfname: the Flames
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2023 13-1 + C-USA championship + Fiesta Bowl +
+    - Hugh Freeze 2019-2022 rebuild era + four straight bowl appearances
+    - 2018 FBS reclassification + 2023 Conference USA entry
+    rituals:
+    - FBS Independent → C-USA Entry (2018-2023)
+    - Hugh Freeze Rebuild (2019-2022)
+    - 2023 Fiesta Bowl Run
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (55/100, n=3)
+    voice_profile: absent
+    delusion_premium: absent

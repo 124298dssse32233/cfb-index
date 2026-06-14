@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Bridgewater State University Division III emotional core
+
+status: live
+slug: bridgewater-state
+team_id: null
+program_name: Bridgewater State University
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Bridgewater State is the Massachusetts Bear that has built institutional football credibility through Peter Mezzoferro's legendary 37-year coaching tenure (1968–2004, 195 wins) and 40+ years of sustained competitive football."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A Massachusetts state university with 131 years of football history (since 1894), consistent tournament appearances, and a 335–238–7 all-time record, anchored by Peter Mezzoferro's 195-win legend but struggling to define identity beyond his shadow."
+
+the_wound:
+  name: "The Mezzoferro shadow — building beyond a legend"
+  detail: "Peter Mezzoferro coached Bridgewater State from 1968–2004, 37 years and 195 wins. Every coach since has worked in his shadow. The program is competent but not transformative. The 2023 field dedication to Mezzoferro signals both respect and the weight of history."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "A national championship. A moment that belongs to the post-Mezzoferro era, proving Bridgewater State football exists independent of legend."
+  drought: { since: 1974, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no real chip — Bridgewater State's identity is too rooted in Mezzoferro's stability and MASCAC competence to carry a grievance."
+
+the_delusion:
+  tone: self-aware
+  text: "That the next successful coach can build a Mezzoferro-length tenure. The fanbase knows it's rare, knows Mezzoferro was exceptional, but believes institutional stability attracts and retains great coaches."
+
+the_grudge_texture:
+  rival: framingham-state
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: legacy-vs-innovation — Joe Verria (10th season, since 2016) maintains competence but has not transcended the Mezzoferro legacy; the question is whether another coach can build a comparable dynasty
+register: bridgewater-bear-massachusetts-mezzoferro
+
+never_use:
+  - Bridgewater State is a new program (football since 1894, 132 years old)
+  - The program has collapsed (only 2 losing seasons since 1985; sustained competence across decades)
+  - Peter Mezzoferro is a recent coach (1968–2004, 37 years, legacy ended 22 years ago)
+  - MASCAC is new (Bridgewater joined 2013 after 48 years in NEFC)
+
+story_canon:
+  the_unique_thing: "Peter Mezzoferro's 37-year coaching tenure (1968–2004, 195 wins) — one of the longest and winningest coaching legacies in college football history, whose field was dedicated in his honor in 2023."
+  the_origin: "Bridgewater State University, founded 1840 as a teachers college, began football in 1894. A core New England regional competitor for 132 years, the Bears have never played outside New England but have built sustainable excellence."
+  golden_ages:
+    - { era: "1968–2004 (Peter Mezzoferro)", what: "37 years, 195 wins, tournament appearances across four decades, the defining era of Bridgewater State football" }
+    - { era: "1985–2004 and beyond", what: "Only 2 losing seasons from 1985 forward, sustained tournament competence across eras" }
+  legends:
+    - { name: Peter Mezzoferro, role: coach, why: "37-year tenure (1968–2004), 195 wins, field dedicated in his honor (2023), the defining legend in program history" }
+  canonical_moments:
+    - { name: "Peter Mezzoferro Coaching Era (1968–2004)", year: 2004, what: "37 years of coaching, 195 wins, unmatched institutional stability and competitive success", handling: glory }
+    - { name: "Only 2 Losing Seasons Since 1985", year: 2025, what: "Bridgewater State has built a 40-year streak of sustained competence, with only 2 losing seasons in four decades", handling: glory }
+    - { name: "Field Dedicated to Mezzoferro (2023)", year: 2023, what: "Bridgewater State honors its legendary coach with a field dedication, cementing his legacy", handling: glory }
+  the_place: "Bridgewater, Massachusetts — a small New England college town where the Bears represent institutional stability."
+  brand_of_football: "Steady, regionally competitive football built on coaching continuity and organizational consistency."
+  cultural_footprint: "Bridgewater State football is a New England institution, known for competence and sustained excellence more than breakthrough moments."
+  the_ongoing_story: >
+    LIVE MASCAC — researched 2026-06-13: Bridgewater State continues as a consistent MASCAC competitor under
+    Joe Verria's tenth season (since 2016). The Bears remain competent, sustained, and competitive. The fanbase
+    accepts the Mezzoferro legacy as something to honor, not overcome — Bridgewater State football is stable,
+    reliable, and defined by institutional excellence rather than individual championship moments.
+  research_checklist:
+    - Peter Mezzoferro (1968–2004, 195 wins, 37 seasons)
+    - Field dedication (2023)
+    - Only 2 losing seasons since 1985
+    - All-time record: 335–238–7
+    - MASCAC membership (2013–present, prior NEFC 1965–2012)
+    - Joe Verria tenure (2016–present, 10 seasons)
+  sources:
+    - https://en.wikipedia.org/wiki/Bridgewater_State_Bears_football
+    - https://www.bridgew.edu/athletics/football
+    - https://mascac.com/sports/fball/index

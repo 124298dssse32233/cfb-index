@@ -1,0 +1,85 @@
+# Emotional Core — Valparaiso  (valparaiso)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: valparaiso
+team_id: null
+program_name: Valparaiso
+program_tier: 5
+
+emotional_core:
+  primary: restoration      # climbing back from a down year after decades of drought
+  secondary: standard       # honest mid-tier competition in an honest league
+  one_line: "Valparaiso is the Indiana program that competed for FCS playoff bids in the 2000s and 2010s but went 2–10 in 2025 — now rebuilding under new coach Andy Waddle with the Hoosier Helmet Trophy rivalry against Butler anchoring the annual conversation."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Three playoff runs in 2008–2010 vs a down 2025 season and a 407–552–27 all-time record — the program that was once respectable is now fighting to find its baseline again."
+
+the_wound:
+  name: "The name change that nobody asked for (2021)"
+  detail: "Valparaiso dropped the Crusaders name in 2021 and rebranded as the Beacons — a necessary decision but one that severed the program's 100-year identity. The wound is loss of continuity: a century of tradition, gone, not because of failure but because the program had to choose ethics over history."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Climb back to the Dave Cecchini era (2008–2010) standard — three playoff runs in three years, proof that Valparaiso can compete at the highest FCS tier. A 6–6 or 7–5 season would announce that Waddle can rebuild the program."
+  drought: { since: 2010, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe valparaiso has no chip. The program is struggling to find its footing after the 2021 rebranding and two decades removed from its last playoff run."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the 2008–2010 playoff runs mean the program has the blueprint to compete again. They know Waddle is year one and the 2–10 season is real, but they believe the infrastructure for respectability still exists — it just needs time."
+
+the_grudge_texture:
+  rival: butler
+  texture: championship   # the Hoosier Helmet Trophy since 2006; annual conference rivalry
+
+the_coach_relationship: total-trust   # Andy Waddle in year one; program gives new coaches time to build
+the_internal_fracture: crusaders-nostalgia vs beacon-future — the faction mourning the pre-2021 identity vs the faction committed to the rebranding
+register: valparaiso-beacons-formerly-crusaders-hoosier-helmet-2008-2010-playoff-runs
+never_use:   # LAW — do not violate in any authored line
+  - "Was always Crusaders — rebranded to Beacons in 2021 (ethical necessity)"
+  - "Competes with Bowl-win frequency — last bowl 2010; no FCS playoff since"
+  - "Has recent stability — 2–10 in 2025 after years of instability"
+  - "Will return to 2008–2010 playoff form — that three-year run is 15 years removed; eras don't repeat"
+  - "Andy Waddle guaranteed success — year one is tough; rebuild is multi-year"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Valparaiso made three FCS playoff runs in three consecutive years (2008–2010) under legendary coach Dave Cecchini — proof that a small Indiana school could compete at the highest FCS tier — then the program fell silent for 15 years."
+  the_origin: "A private Jesuit university in Valparaiso, Indiana founded in 1859 that started football in 1919. The program competed through multiple NCAA divisions and joined the Pioneer League in 1993. It reached its FCS peak under Dave Cecchini."
+  golden_ages:
+    - { era: "2008–2010 (Dave Cecchini)", what: "Three consecutive FCS playoff runs — the program's high-water mark at the FCS level" }
+  legends:
+    - { name: Dave Cecchini, role: coach, why: "The architect of the three-year playoff run — the only coach to take Valparaiso to multiple FCS postseasons" }
+  canonical_moments:
+    - { name: "2008 FCS playoff run", year: 2008, what: "Valparaiso makes the FCS playoffs for the first time", handling: glory }
+    - { name: "2009 FCS playoff run", year: 2009, what: "Valparaiso repeats as an FCS playoff team", handling: glory }
+    - { name: "2010 FCS playoff run", year: 2010, what: "Valparaiso makes it three straight FCS playoff appearances", handling: glory }
+    - { name: "2021 Crusaders → Beacons rebrand", year: 2021, what: "Valparaiso rebrands from Crusaders to Beacons — a necessary ethical decision that severs 100+ years of tradition", handling: wound }
+  the_place: "Brown Field in Valparaiso, Indiana — the on-campus home where the Beacons (formerly Crusaders) built the 2008–2010 playoff runs."
+  brand_of_football: "Indiana small-school respectability — the program that proved a Valparaiso Jesuit university could reach the FCS playoffs and compete with programs three times its size."
+  cultural_footprint: "Valparaiso is proof that FCS playoff success is possible for non-scholarship programs — the 2008–2010 run made the school a brief national FCS story, and the program is still measured against that standard."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Valparaiso went 2–10 (1–7 PFL) in 2025 under new coach Andy Waddle, who arrived after the
+    program spent years in rebuilding mode. Waddle's inaugural season was rough, reflecting the program's competitive position after 15 years
+    removed from FCS playoff relevance. The 2–10 finish is one of the worst records in recent program history. Waddle enters 2026 with a
+    mandate to stabilize and climb back toward the 5–6 or 6–5 range. The question in Valparaiso: can Waddle recover from a down year and
+    return the program to the baseline respectability that the 2008–2010 Cecchini era proved was possible?
+  research_checklist:
+    - the program's 3–7 most iconic games/plays (2008–2010 playoff games, Hoosier Helmet wins)
+    - the legendary coaches + players (Dave Cecchini, 2008–2010 team leaders)
+    - the unique tradition / identity / the one amazing thing (2008–2010 three-year playoff run, Hoosier Helmet rivalry, 1919 founding)
+    - the origin + the golden-age dynasty eras (1919 founding, 1993 Pioneer League entry, 2008–2010 playoff era)
+    - the current-era storyline (Waddle's first year and the climb back from 2–10)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Valparaiso_Beacons_football_team
+    - https://en.wikipedia.org/wiki/Valparaiso_Beacons_football
+    - https://valpoathletics.com/sports/football
+    - https://en.wikipedia.org/wiki/Hoosier_Helmet_Trophy

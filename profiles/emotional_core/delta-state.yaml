@@ -1,0 +1,71 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+status: live
+slug: delta-state
+program_name: Delta State University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: restoration
+  one_line: "Delta State is the Gulf South powerhouse that won an NCAA Division II national championship in 2000 and plays every season to get back there — the Statesmen are football royalty in Mississippi."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 2000 NCAA D-II National Champion (14-1 record, defeated Bloomsburg) with 11 NCAA playoff appearances and a 7-3 season in 2025 — the Statesmen remain one of the Gulf South's most dangerous programs."
+
+the_wound:
+  name: "The 26-year drought since the 2000 national title"
+  detail: "Delta State won the national championship in 2000, but that glory remains unmatched. Eleven playoff appearances since then (1998, 2000, 2006-08, 2010-11, 2014, 2017, 2022-23), including a runner-up finish in 2010, prove the program stays competitive, but also prove that one championship in 26 years feels like an unrequited hunger."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Get back to the national title game. Win another championship and prove that 2000 wasn't the ceiling — it was the standard."
+  drought: { since: 2000, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe the chip is that a Mississippi university won a national championship and the national media still doesn't know. Delta State is a Gulf South power, a proven playoff program, and a sleeping giant that deserves respect on the national stage."
+
+the_delusion:
+  tone: earnest
+  text: "That Delta State could be playing for back-to-back national titles within a few years. Fans know the Gulf South is tougher than it was in 2000, but they also remember the 2000 champion and believe it's possible again."
+
+the_grudge_texture:
+  rival: mississippi-valley-state
+  texture: championship
+  # Delta State leads 5-1 in modern matchups; next scheduled 2026
+
+the_coach_relationship: legends-shadow
+  # Todd Cooley (13th season); one of the longest-tenured coaches in D-II, but in the shadow of a 2000 national championship
+
+the_internal_fracture: "legacy-pride-vs-current-reality — the faction proud of the 2000 national title and 11 playoff appearances vs the faction wanting more sustained success"
+
+register: gulf-south-champion-statesmen-mississippi-royalty
+
+never_use:
+  - '"Delta State is a one-hit wonder" — 11 playoff appearances and a runner-up finish in 2010 disprove that'
+  - '"Delta State will never win another national title" — the program has proven playoff consistency'
+
+story_canon:
+  the_unique_thing: "The 2000 NCAA Division II National Champions (14-1 record, defeated Bloomsburg) — Delta State won the title on the national stage and remains a Gulf South powerhouse with 11 NCAA playoff appearances."
+  the_origin: "Delta State University was founded in 1924 in Cleveland, Mississippi. Football became part of the university's identity early, and the Statesmen built a steady regional presence. By the 1990s, Delta State had emerged as a Gulf South power."
+  golden_ages:
+    - { era: "National Championship Era (2000)", what: "Delta State won the NCAA Division II national championship with a 14-1 record, defeating Bloomsburg" }
+    - { era: "Playoff Consistent Era (2006–2023)", what: "11 NCAA playoff appearances (1998, 2000, 2006-08, 2010-11, 2014, 2017, 2022-23), including a 2010 runner-up finish" }
+  legends: []
+  canonical_moments:
+    - { name: "2000 NCAA D-II National Championship", year: 2000, what: "Delta State defeated Bloomsburg 14-1 to win the national title", handling: glory }
+    - { name: "2010 National Championship Runner-Up", year: 2010, what: "Delta State made the national title game but fell short", handling: heartbreak }
+  the_place: "Cleveland, Mississippi — the home of Delta State University and the Statesmen, where Gulf South football royalty plays."
+  brand_of_football: "Methodical, scoring-oriented offense (36.04 PPG average in 2025, 364 total points); the Statesmen play to win championships and dominate the Gulf South."
+  cultural_footprint: "Delta State proved that a Mississippi university could win a national championship and sustain playoff competitiveness for over two decades — a statement that talent and winning can exist anywhere."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Delta State went 7-3 in 2025 (1-2 GSC) with a high-scoring offense (36.04 PPG, 364 total points, 27 rushing TDs + 20 passing TDs).
+    Head coach Todd Cooley is in his 13th season and has maintained Delta State's competitive standard. The Statesmen are a perennial Gulf South contender and playoff threat,
+    but the 2000 national championship remains the program's only title. The 2026 season is another chance to chase back to the championship game. The rivalry with
+    Mississippi Valley State is renewed (Delta State leads 5-1 in modern meetings; next game scheduled 2026).
+  sources:
+    - https://gostatesmen.com/news/2025/9/23/athletic-department-a-century-of-champions-delta-state-football.aspx
+    - https://gostatesmen.com/sports/2008/8/30/dsu-championships.aspx
+    - https://gostatesmen.com/sports/football/opponent-history/mississippi-valley-state/22

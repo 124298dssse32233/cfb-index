@@ -1,0 +1,99 @@
+# Emotional Core — Catholic University (catholic)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III — program_tier: 7, graceful degradation applies (small school, regional focus, academic mission).
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: catholic
+team_id: null
+program_name: Catholic University
+program_tier: 7
+
+emotional_core:
+  primary: house-money    # new conference, new chapter, modest ambitions
+  secondary: honor           # Jesuit university mission
+  one_line: "Catholic University joined the Landmark Conference in 2023 and is finding its footing in a new home — a Washington, DC program defining itself through community development, not championships."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A modest Washington, DC Catholic university navigating its first years in the Landmark Conference (5–5 both seasons) vs. the coaching staff recognition that transcends wins and losses."
+
+the_wound:
+  name: "Conference transition instability (NEWMAC to Landmark, 2023)"
+  detail: "Catholic left the NEWMAC in 2023 to join the newly formed Landmark Conference. The transition is fresh; the program is finding identity in a new conference."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Establish credibility in the Landmark Conference and build toward consistent bowl appearances — prove that Catholic belongs in this new home."
+  drought: { since: 2023, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip; Catholic is focused on community and development, not vindication against anyone."
+
+the_delusion:
+  tone: none
+  text: "The fanbase believes no delusion. Catholic sees itself clearly: a Jesuit university in DC where football is one of many missions, and winning is secondary to development."
+
+the_grudge_texture:
+  rival: susquehanna
+  texture: border-war    # no historic blood feud; developing Landmark rivalry
+
+the_coach_relationship: savior      # coaching staff recognized for development trajectory
+the_internal_fracture: none             # young program, consensus around building
+register: earnest-communal
+never_use:
+  - "Irrelevant (Landmark Coaching Staff of the Year 2024 proves otherwise)"
+  - "Failing (5–5 both years shows baseline competence in new conference)"
+
+story_canon:
+  the_unique_thing: "Catholic University is the only Landmark Conference school in the Washington, DC metro area—a Jesuit university where football is part of a broader Catholic mission."
+  the_origin: "Founded in 1887 as a Jesuit university in Washington, DC, Catholic played football in the NEWMAC Conference until joining the Landmark Conference in 2023. The program transitioned to the Landmark as a founding year member and has competed modestly (5–5 both seasons)."
+  golden_ages:
+    - { era: "2024 Coaching Staff of the Year", what: "Despite modest 5–5 record, the coaching staff was recognized by Landmark for development and trajectory" }
+  legends:
+    - { name: "The Jesuit Mission", role: "program identity", why: "Catholic University's identity is rooted in Catholic education; football is secondary to that mission" }
+  canonical_moments:
+    - { name: "Landmark Conference transition (2023)", year: 2023, what: "Catholic joins Landmark as a founding member, leaving NEWMAC behind", handling: glory }
+    - { name: "2024 Landmark Coaching Staff of the Year", year: 2024, what: "Recognition for development despite 5–5 record", handling: glory }
+  the_place: "Cardinal Stadium in Washington, DC — a small urban campus where Catholic football is integrated into a larger Jesuit mission."
+  brand_of_football: "Development-focused, community-oriented football—the program emphasizes building young men and leaders, not just winning games."
+  cultural_footprint: "A Jesuit presence in DC college football; Catholic represents the integration of faith-based higher education with athletic development."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Catholic University is in its second year of Landmark Conference membership (2024–2025) and maintains a 5–5 record in each season. The coaching staff was recognized with Landmark Coaching Staff of the Year in 2024, signaling institutional faith in the development trajectory despite modest wins. The 2026 question: can Catholic establish consistent .500+ records and position itself for Landmark bowl contention, or does the program settle into mid-tier existence?
+  research_checklist:
+    - Landmark Conference transition (2023, from NEWMAC)
+    - 5–5 record both seasons (2023, 2024)
+    - 2024 Landmark Coaching Staff of the Year
+    - Jesuit university mission identity
+  sources:
+    - https://communications.catholic.edu/news/2022/02/cardinal-football-joins-landmark-conference.html
+    - https://en.wikipedia.org/wiki/Catholic_University_Cardinals_football
+    - https://catholicathletics.com/news/2023/8/21/catholic-picked-to-finish-third-in-inaugural-landmark-football-poll.aspx
+
+briefing:
+  identity_phrase: Catholic University is the Washington, DC Jesuit university in the Landmark Conference (joined 2023)—a program building through development and coaching recognition despite modest 5–5 records.
+  mantra: Cardinal Pride.
+  cultural_anchors:
+    fan_archetype_dominant: Washington-Jesuit-Builder
+    outsider_archetype_dominant: Academic-Mission-Focused
+    one_sentence: Catholic University is the DC-based Jesuit program in the inaugural Landmark Conference (2023+), building through coaching development (2024 Landmark Coaching Staff of Year) despite 5–5 baseline.
+  selfname: the Cardinals
+  heritage:
+    conference: Landmark
+    championships: None (2024 Coaching Staff of the Year only recognition)
+  story_materials:
+    always_surface:
+    - Landmark Conference transition (2023, from NEWMAC)
+    - 2024 Landmark Coaching Staff of the Year
+    - Jesuit mission identity
+    - Washington, DC location
+    rituals:
+    - Jesuit mission emphasis
+    - Coaching development focus
+    modules_already_rendering: none (D3 module set pending)
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal (canon-only, D3 small program)

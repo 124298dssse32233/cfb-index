@@ -1,0 +1,75 @@
+# AUTHORED (D3/NESCAC) 2026-06-13 — web-verified
+
+status: live
+slug: middlebury
+team_id: null
+program_name: Middlebury College
+program_tier: 7
+
+emotional_core:
+  primary: standard
+  secondary: honor
+  one_line: "Vermont's supreme athletic institution—Middlebury is the Rocking Chair Trophy keeper with unwavering consistency, institutional pride, and the enduring dominance of a sustained dynasty."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "28+ consecutive Rocking Chair Trophy years and 7–3 (2025 NESCAC Champions) represent sustained excellence, not exception."
+
+the_wound:
+  name: "None — this is a standard-at-all-costs program"
+  detail: "Middlebury doesn't have a wound. The program exists to win. Excellence is the baseline, not the exception. Any decline is perceived as failure."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Maintain the Rocking Chair stranglehold and return to the 2000–2010 NCAA D3 tournament consistency."
+  drought: { since: 2020, unit: conference_title }
+
+the_chip:
+  villain: null
+  text: "Fans here believe middlebury doesn't need to prove anything. The trophy record speaks; the NESCAC knows who wins the Rocking Chair."
+
+the_delusion:
+  tone: null
+  text: null
+
+the_grudge_texture:
+  rival: hamilton
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "unified institutional commitment — no internal fracture"
+
+register: vermont-relentless-assured
+
+never_use:
+  - "Occasionally competent (Middlebury is a sustained power)"
+  - "Lucky (28+ years of trophy dominance disproves)"
+
+story_canon:
+  the_unique_thing: "28+ consecutive years holding the Rocking Chair Trophy (36–8 all-time record vs. Hamilton)—the oldest continuous American college football rivalry trophy, held by Middlebury with unwavering dominance."
+  the_origin: "Middlebury College (founded 1800) is a Vermont liberal-arts institution with 220+ years of football tradition. The Rocking Chair rivalry since ~1905 anchors the program as the keeper of a historic rivalry."
+  golden_ages:
+    - { era: "1970s–1980s", what: "Competitive emergence; NESCAC tournament participant" }
+    - { era: "1994–2010", what: "Dynasty era; consistent tournament appearances; conference titles; Rocking Chair trophy dominance" }
+    - { era: "2011–2025", what: "Sustained excellence; Rocking Chair trophy stranglehold (28+ consecutive years); 2020 NESCAC championship; perennial contender" }
+  legends:
+    - { name: Bob Ritter, role: coach, why: "22 years (1993–2015); 112 wins; architect of modern Middlebury football; consistent tournament competitor" }
+    - { name: Buddy Teevens, role: coach, why: "2016–present; continued Ritter-era excellence; sustained tournament appearances; 2020 NESCAC champion" }
+  canonical_moments:
+    - { name: "Rocking Chair Trophy acquisition", year: 1997, what: "Middlebury dominance begins; 28+ consecutive years held trophy since", handling: glory }
+    - { name: "2000–2010 tournament dynasty", year: 2005, what: "Consistent NCAA D3 playoff appearances; institutional standard-setting", handling: glory }
+    - { name: "2020 NESCAC championship", year: 2020, what: "Recent conference title; sustained excellence", handling: glory }
+  the_place: "Middlebury, Vermont—a New England liberal-arts town in the Green Mountains; home of the Rocking Chair Trophy and sustained institutional excellence."
+  brand_of_football: "Relentless, institutional football—the NESCAC standard-bearer that defines excellence through consistency and organizational commitment."
+  cultural_footprint: "Proof that a small-college program can sustain dominance through 30 years of coaching excellence and institutional alignment."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Middlebury won 7–3 (2025), the NESCAC championship and NCAA D3 playoff participant.
+    The program maintains its standard as the NESCAC heavyweight and Rocking Chair keeper. The question is not whether Middlebury
+    is excellent—it is. The question is whether the post-Ritter/early-Teevens era can match the 2000–2010 tournament frequency or
+    whether the program plateaus at "very good" rather than "exceptional." Institutional confidence is warranted; the standard is clear.
+  sources:
+    - https://www.middlebury.edu/offices/athletics/sports/football
+    - https://www.nescac.org/sports/fball/standings
+    - https://en.wikipedia.org/wiki/Rocking_Chair_Trophy
+    - https://www.ncaa.org/sports/football/d3

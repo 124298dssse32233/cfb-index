@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Northwood University — G-MAC renaissance team, 2025 NCAA D2 playoff returnee, Riepma Cup inaugural champion
+
+status: live
+slug: northwood
+team_id: null
+program_name: Northwood University
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Northwood is the Wildcat program resurrected from a 19-year playoff drought — winning the inaugural Riepma Cup vs. Hillsdale in 2025 and returning to the NCAA D2 playoffs for the first time since 2006."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program with a glorious 2004-2006 era under Pat Riepma vs. a long playoff drought that ended with a 2025 9-3 season and historic playoff return."
+
+the_wound:
+  name: "The 19-year playoff drought"
+  detail: "Northwood reached the NCAA D2 playoffs in 2004, 2005, and 2006 under legendary coach Pat Riepma, then spent 19 seasons without a playoff appearance. The program had to rebuild its identity as something other than a perennial contender, learning to compete in a regional conference with limited national visibility."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build on the 2025 playoff return and establish sustained playoff contention, proving that the Riepma era's standard of excellence can be replicated by a new generation of Wildcats."
+  drought: { since: 2006, unit: bowl }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe hillsdale dominated the 53-year series with a 36-16 lead, but the Riepma Cup victory in 2025 (48-19) proved that Northwood had closed the gap. The rivalry is now about proving the Wildcats belong as equals."
+
+the_delusion:
+  tone: self-aware
+  text: "Northwood fans believe that the 2025 season and Riepma Cup win prove the program is back to its 2004-2006 standard — and they know that sustaining it requires more than one season of success."
+
+the_grudge_texture:
+  rival: hillsdale
+  texture: blood-feud
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "Playoff ambition vs. realistic expectations — the 2025 season restored hope, but Northwood must prove consistency, not just one magical season."
+register: wildcats-northwood-michigan-riepma-legacy
+
+never_use:
+  - "Failed program with no history: Northwood's 2004-2006 era with Pat Riepma and back-to-back 10-win seasons are real"
+  - "Irrelevant small program: 2025 playoff return breaks a 19-year drought and reestablishes Northwood as a G-MAC power"
+  - "Always a cellar-dweller: the program went through a period of mediocrity but is now resurgent"
+
+story_canon:
+  the_unique_thing: "The Riepma Cup win and 2025 playoff return — Northwood's 9-3 season and first NCAA D2 playoff appearance since 2006 marked a 19-year drought's end, and the victory over Hillsdale in the inaugural Riepma Cup proved the Wildcats could compete at the highest G-MAC level."
+  the_origin: "Northwood University built its football program under legendary coach Pat Riepma, who established the Wildcats as a regional power from the 1980s onward. Riepma's 95-74-2 record over 16 seasons created a culture of excellence and playoff contention that defined Northwood football."
+  golden_ages:
+    - { era: "2004–2006 (Pat Riepma)", what: "Back-to-back 10-win seasons, GLIAC titles, and NCAA D2 playoff appearances that established Northwood as a power program" }
+    - { era: "2025–present", what: "9-3 season and return to NCAA D2 playoffs after 19-year drought; Riepma Cup inaugural championship" }
+  legends:
+    - { name: Pat Riepma, role: coach, why: "Legendary Northwood coach (95-74-2 in 16 seasons) with three GLIAC titles and four NCAA D2 playoff appearances; the Riepma Cup is named in his honor" }
+    - { name: Cole Simpson, role: player, why: "Senior defensive back with 93 tackles and 6 interceptions, 5th nationally in D2 INT/game rate in 2025" }
+    - { name: Dustin Beurer, role: coach, why: "Third-year head coach who turned the program around from 11-11 in first two years to 9-3 in 2025" }
+  canonical_moments:
+    - { name: "2004-2006 Playoff Era", year: 2006, what: "Back-to-back 10-win seasons and three consecutive NCAA D2 playoff appearances under Pat Riepma", handling: glory }
+    - { name: "2025 Riepma Cup Victory", year: 2025, what: "Northwood defeats Hillsdale 48-19 in the inaugural Riepma Cup game, honoring the legendary coach", handling: glory }
+    - { name: "2025 Playoff Return", year: 2025, what: "First NCAA D2 playoff appearance since 2006 ends a 19-year drought with a 9-3 regular season", handling: glory }
+  the_place: "Midland, Michigan — home of Northwood University, a small Michigan school with deep football tradition and Wildcat pride."
+  brand_of_football: "Physical, defense-first football rooted in the Pat Riepma tradition of excellence and playoff contention."
+  cultural_footprint: "Northwood represents the program that honors its legends while building toward the future: a small school that had a glorious era, fell into a long drought, and is now proving it can return to the standard set by Pat Riepma."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Northwood enters 2026 riding the momentum of a 2025 breakthrough season. After 19 years without a playoff appearance, Coach Dustin Beurer (third year) guided the Wildcats to a 9-3 regular season, an NCAA D2 playoff berth, and the inaugural Riepma Cup victory over Hillsdale (48-19). Senior defensive back Cole Simpson led the defense with 93 tackles and 6 interceptions. The question in Midland: can the Wildcats sustain this rise and prove the 2025 season is the beginning of a new era, not a one-year anomaly? The Riepma Cup is now a permanent rivalry trophy, and Northwood intends to claim it regularly.
+  research_checklist:
+    - Pat Riepma era (2004-2006): 28-7 record, back-to-back 10-win seasons, GLIAC titles, 4 NCAA D2 playoff apps
+    - 2025: 9-3 overall, 7-2 G-MAC, NCAA D2 playoffs (first since 2006)
+    - Riepma Cup inaugural win vs. Hillsdale 48-19
+    - Cole Simpson (Sr DB, 93 tkls, 6 INTs, 5th nationally)
+    - Coach Dustin Beurer (3rd year)
+    - 19-year playoff drought (2007-2025)
+  sources:
+    - https://www.northwood.edu/athletics/football
+    - https://d2football.com/2025-season-preview
+    - https://www.gmacports.com/news/

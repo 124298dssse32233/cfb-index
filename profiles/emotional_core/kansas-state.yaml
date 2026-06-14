@@ -1,0 +1,120 @@
+# Emotional Core — Kansas State  (kansas-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: kansas-state
+team_id: 275
+program_name: Kansas State
+program_tier: 3
+
+emotional_core:
+  primary: contentment    # the patience Snyder taught is the identity — grit, not glamour
+  secondary: restoration  # a 6-6 stumble and a coaching handoff to bring the bloodline home
+  one_line: "Kansas State is the program Bill Snyder dragged out of the sport's deepest hole and built on patience — and after a sideways 6-6 year and Chris Klieman's retirement, it just handed the keys to one of its own, Collin Klein."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Snyder's two Big 12 titles and a reputation as the sport's greatest rebuild vs a program that has never reached the mountaintop and just stumbled to 6-6 a year after starting ranked."
+
+the_wound:
+  name: "The 2025 stumble and Klieman's exit"
+  detail: "K-State opened 2025 ranked No. 17, then went 6-6 and declined a bowl amid a coaching change, injuries and portal losses. Chris Klieman retired after the regular season — an unexpected handoff that left Manhattan steadying itself rather than contending, the program's first bowl-less year since 2020."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Big 12 again and, someday, more — to prove the patience Snyder taught still compounds into something bigger than survival, and that a grit program can finally break through a ceiling it has never cleared."
+  drought: { since: 2012, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans have heard their program called a Snyder-only fluke for thirty years — that without one coach K-State reverts to the bottom. They believe the patience and the toughness are the program, not the man, and the 6-6 year just gave the doubters their opening again."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes patience is a competitive edge — that if Manhattan stays steady and hires its own (a former Wildcat QB in Collin Klein), the grit always pays off in the end. It is load-bearing because the whole identity rests on it: out-work, out-last, and trust the rebuild."
+
+the_grudge_texture:
+  rival: kansas
+  texture: border-war   # the Sunflower Showdown — the in-state game K-State has long owned on the field
+
+the_coach_relationship: legends-shadow   # every K-State coach lives under Snyder, statue and stadium-name and all; Klein most of all
+the_internal_fracture: trust-the-process vs fear-the-reversion — the faction that says the program's patience survives any coaching change vs the faction that fears 6-6 and a retirement is the start of the slide back
+register: manhattan-purple-wabash-grit   # plainspoken, hard-nosed, allergic to flash; the Wabash Cannonball and a chip the size of the prairie
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Worst program in history — Snyder ended that 30+ years ago
+  - Small-school school — Power 5 since the Big 8 merger
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Kansas State is the greatest rebuild in college football history — Bill Snyder took a program widely called the worst in the sport's history and built it into a Big 12 champion, twice, on patience and toughness rather than talent. The stadium and the statue both bear his name."
+  the_origin: "A land-grant school in Manhattan, Kansas whose football was a national punchline for most of a century — until Snyder arrived in 1989 and, brick by brick, made 'The Wabash Cannonball' and EMAW the soundtrack of a genuine contender."
+  golden_ages:
+    - { era: "1993–2003 (Snyder I)", what: "The rebuild peaks — top-ranked seasons, a Sugar Bowl, and the 2003 Big 12 title with a stunning upset of No. 1 Oklahoma" }
+    - { era: "2009–2018 (Snyder II)", what: "Snyder returns and wins again — a 2012 Big 12 title behind Collin Klein's Heisman-finalist season" }
+  legends:
+    - { name: Bill Snyder, role: coach, why: "Built the worst job in the sport into a two-time Big 12 champion; the stadium and statue carry his name" }
+    - { name: Collin Klein, role: player, why: "Heisman-finalist QB of the 2012 Big 12 title team — and now the program's head coach, the bloodline come home" }
+    - { name: Darren Sproles, role: player, why: "The electric back of the Snyder peak years, a program-defining talent" }
+  canonical_moments:
+    - { name: "Upset of No. 1 Oklahoma", year: 2003, what: "K-State stuns top-ranked Oklahoma 35-7 to win its first Big 12 title", handling: glory }
+    - { name: "2012 Big 12 Championship", year: 2012, what: "Snyder's second title behind Collin Klein's Heisman-finalist year", handling: glory }
+    - { name: "Klieman retires; Klein hired", year: 2025, what: "After a 6-6 season Chris Klieman retires and former QB Collin Klein returns to lead the program", handling: wound }
+  the_place: "Bill Snyder Family Stadium in Manhattan — a stadium named for the man who built the program, where 'The Wabash Cannonball' plays and EMAW (Every Man A Wildcat) is the creed."
+  brand_of_football: "Grit-and-patience football — disciplined, low-mistake, tougher-than-you ball; the program that out-lasts opponents rather than out-dazzling them."
+  cultural_footprint: "The sport's proof that patience and toughness can build a contender from nothing — a fanbase whose entire identity is loyalty and grit, the antithesis of the blue-blood shortcut."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Kansas State opened 2025 ranked No. 17 but finished 6-6 (5-4 Big 12) and
+    declined a bowl amid a coaching change, injuries and transfers — its first bowl-less season since 2020. Chris
+    Klieman retired after the regular season, and former Wildcat quarterback Collin Klein, the 2012 Big 12 title
+    team's Heisman finalist, left Texas A&M to come home as head coach. Star QB Avery Johnson is set to return for
+    2026. Manhattan's question: does the patience pay off again under one of its own?
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Kansas_State_Wildcats_football_team
+    - https://www.kstatesports.com/news/2025/12/3/football-chris-klieman-announces-retirement
+    - https://www.cbssports.com/college-football/news/kansas-state-chris-klieman-retire-with-texas-a-m-collin-klein
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Kansas State is the program Bill Snyder built from worst-in-FBS-history into Big 12 power
+    — and the patience that legacy still rewards.
+  mantra: EMAW.
+  cultural_anchors:
+    fan_archetype_dominant: Manhattan-Purple-Patient-Loyalist
+    outsider_archetype_dominant: Snyder-Was-The-Program-Diminisher
+    one_sentence: Kansas State is the program Bill Snyder transformed from football's worst job into Big
+      12 contender — and whose modern identity is still built on the patience that took.
+  selfname: the Wildcats
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Bill Snyder's 1989-2005 + 2009-2018 dual tenures
+    - 2003 + 2012 Big 12 titles
+    - Snyder's $1M salary donation back to the program
+    rituals:
+    - EMAW (Every Man A Wildcat)
+    - Wabash Cannonball
+    - Bill Snyder Statue
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

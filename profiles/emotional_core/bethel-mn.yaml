@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: bethel-mn
+team_id: null
+program_name: Bethel University (Minnesota)
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: restoration
+  one_line: "Bethel is a program that shows up undefeated and plays to win it all—a small Minnesota school proving excellence is possible anywhere."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A perennially strong Division III program that operates with quiet confidence, year after year competing for the national championship without the fanfare of legacy powers."
+
+the_wound:
+  name: "The small-school invisibility"
+  detail: "Bethel wins 10 games, goes undefeated, and the national conversation moves on—a program that delivers excellence without recognition, overshadowed by programs with more traditional prestige and media attention."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a national championship and prove that a Minnesota school outside the Saint John's dynasty can claim the crown—to be seen and celebrated as elite, not just solid."
+  drought: { since: 1997, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe bethel's chip is that the national spotlight rarely finds its way to St. Paul—the Royals can go undefeated and still be the team no one outside Minnesota knows about."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase knows Bethel is elite—5 straight NCAA playoff appearances, a 10-0 season in 2025—but also knows the football world doesn't care until there's a ring."
+
+the_grudge_texture:
+  rival: hamline
+  texture: border-war
+
+the_coach_relationship: savior
+the_internal_fracture: "Excellence without recognition vs the pull of just accepting the MIAC throne."
+register: bethel-royals-st-paul-minnesotan-excellence
+never_use:
+  - One-hit wonder—Bethel's been elite for five straight years
+  - Unknown outside Minnesota—they've made the NCAA tournament five times
+  - Lacking tradition—the Royals have built a dynasty of their own
+
+story_canon:
+  the_unique_thing: "Bethel went 10-0 in 2025 (9-0 MIAC), marked the third undefeated regular season in program history, and made the fifth consecutive NCAA Division III playoff appearance—relentless excellence from a small St. Paul school."
+  the_origin: "Bethel University, a small private school in St. Paul, has built a modern football powerhouse in the MIAC, competing year after year without the name recognition of Saint John's but with the same level of excellence."
+  golden_ages:
+    - { era: "1995-1997", what: "Bethel's golden age—national runner-up finishes and a national championship game appearance" }
+    - { era: "2021-2025", what: "The modern dynasty—five straight playoff appearances, undefeated seasons, and MIAC dominance" }
+  legends:
+    - { name: Mike McElroy, role: coach, why: "Built Bethel into a consistent national-level competitor; 2nd year as head coach, leading an undefeated season" }
+    - { name: Devin Williams, role: player, why: "Senior defensive back, 2025 MIAC Defensive Player of the Year, 1st-Team All-America—the definition of Bethel excellence" }
+  canonical_moments:
+    - { name: "The 10-0 2025 season", year: 2025, what: "Bethel went undefeated in the regular season (9-0 MIAC), the third such season in program history, and earned an NCAA playoff spot", handling: glory }
+    - { name: "Five straight playoff berths", year: 2025, what: "2021-2025 represents the most consistent period of national relevance in program history", handling: glory }
+  the_place: "Bethel's home in St. Paul, a small private campus in the heartland where quiet excellence is the standard."
+  brand_of_football: "Efficient, fundamental, competitive—Bethel plays winning football without the flash, built on fundamentals and elite defense."
+  cultural_footprint: "Bethel represents the D3 ideal: small school, big commitment, consistent excellence—proof that size doesn't determine ceiling."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Bethel went 10-0 (9-0 MIAC) in 2025 and made the fifth straight
+    NCAA playoff appearance, marking the Royals as the most consistent national-level competitor in the modern
+    MIAC. The 2026 question: can head coach Mike McElroy (2nd year) keep the winning machine running, or was
+    2025 the peak? Cooper Drews (Jr QB) and elite defense under Devin Williams's shadow will determine the arc.
+  research_checklist:
+    - Bethel's five-year playoff streak and undefeated seasons
+    - Modern era dominance vs historic achievement (1997 runner-up)
+    - Elite defense and Devin Williams legacy
+    - Small-school excellence and national invisibility
+    - Quiet, consistent identity
+  sources:
+    - https://www.bethel.edu/athletics/football/
+    - https://miachome.org/sports/football/
+    - https://www.d3football.com/
+    - https://www.ncaa.org/

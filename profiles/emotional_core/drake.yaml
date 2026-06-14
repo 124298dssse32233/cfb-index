@@ -1,0 +1,87 @@
+# Emotional Core — Drake  (drake)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: drake
+team_id: null
+program_name: Drake
+program_tier: 5
+
+emotional_core:
+  primary: restoration      # the defending champions rebuilding after a shock coaching departure
+  secondary: disbelief      # that the dynasty just lost its architect mid-stride
+  one_line: "Drake is the Des Moines powerhouse that won three straight Pioneer League titles and just crowned its champion — before its head coach resigned after one season for a Big Ten job, leaving the dynasty to rebuild."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "The nation's most successful FCS non-scholarship program with eight conference titles and three consecutive crowns (2023–2025) vs a head coach (Joe Woodley) who arrives, wins a championship, then leaves for Rutgers after one year."
+
+the_wound:
+  name: "The Woodley departure shock (February 2026)"
+  detail: "Drake won the 2025 PFL championship under Joe Woodley, then Woodley resigned in February 2026 to take the Rutgers coordinator role — a gut-punch that left the defending champions without their architect, mid-offseason, three weeks before spring practice. The wound is not slow decline; it's sudden amputation of stability."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that Matt Walker (the new coach, a D-III national champion) can sustain the three-year dynasty. A fourth consecutive title and an FCS playoff bid would quiet the doubts that Woodley was the dynasty and the program is just the vehicle."
+  drought: { since: 2024, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe drake's chip is the outsider's chip — a small Iowa school that built a dynasty the Big Ten ignored. The Woodley-to-Rutgers departure stings precisely because it suggests even Drake's peak isn't enough to keep a coach; the Big Ten calls, and FCS greatness becomes yesterday's news."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes Matt Walker, a D-III national champion, can navigate the dynasty. But deep down, they know that coaching departures always hurt, and the three-year-run coincidence (title in year one, departure in offseason) feeds the fear that success here is always contingent on finding the next coach before the last one leaves."
+
+the_grudge_texture:
+  rival: northern-iowa
+  texture: championship   # historic rivalry, though both programs peaked in different eras
+
+the_coach_relationship: hot-seat-churn   # Woodley arrived, won, left; now Walker inherits the instability
+the_internal_fracture: continuity-vs-departure — the faction trusting Walker's D-III pedigree vs the faction haunted by Woodley's exit
+register: des-moines-bulldogs-1922-undefeated-three-straight-titles-dynasty
+never_use:   # LAW — do not violate in any authored line
+  - "1922 undefeated proves a century of greatness — one historic season doesn't justify a claim"
+  - "Has secured Woodley — he left for Rutgers in Feb 2026, mid-dynasty"
+  - "Is the only FCS dynasty — San Diego and Dayton have stronger title counts over longer periods"
+  - "Will automatically repeat titles under Matt Walker — coaching departures always create risk"
+  - "Has permanent institutional stability — three straight titles is fragile, not permanent"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Drake won three consecutive Pioneer League championships (2023–2025) in a non-scholarship league, proving that sustained excellence doesn't require blue-blood resources — just institutional commitment and consistent coaching."
+  the_origin: "A private university in Des Moines, Iowa founded in 1881 that built football into a regional power. The 1922 team went undefeated and beaten by 48–6 Mississippi State, establishing an early claim. The program joined the Pioneer League in 1993."
+  golden_ages:
+    - { era: "1922 (undefeated season)", what: "Drake goes undefeated in 1922, establishing the program's historic claim" }
+    - { era: "1995–2012", what: "Eight Pioneer League titles over 18 years, the dynasty era that defined modern Drake" }
+    - { era: "2023–2025 (three straight titles)", what: "The most recent dynasty — three consecutive championships under Joe Woodley (2025) and before (continuation)" }
+  legends:
+    - { name: Joe Woodley, role: coach, why: "The architect of the 2023–2025 three-title run, though he departed for Rutgers in 2026" }
+  canonical_moments:
+    - { name: "1922 undefeated season", year: 1922, what: "Drake goes 11–0 and establishes the program's foundational mythology", handling: glory }
+    - { name: "1995–2012 dynasty era (8 titles)", year: 2012, what: "Eight Pioneer League titles over 18 years make Drake the legacy power", handling: glory }
+    - { name: "2023–2025 three straight titles", year: 2025, what: "Three consecutive championships in the modern era, capping Joe Woodley's dominant 2025 season", handling: glory }
+    - { name: "Woodley departure (February 2026)", year: 2026, what: "Coach Joe Woodley resigns after one championship-winning season to join Rutgers — a shock that destabilizes the dynasty", handling: wound }
+  the_place: "Drake Stadium in Des Moines — the on-campus home where the Bulldogs have built championship seasons and sustained excellence for three consecutive years."
+  brand_of_football: "Sustained non-scholarship excellence — the program that proves a small Iowa university can build a perennial power through recruiting and institutional commitment inside the FCS frame."
+  cultural_footprint: "Drake is proof that FCS non-scholarship football can produce dynasty-level sustained excellence. Three straight titles in the modern era make Drake the defining program of the 2020s Pioneer League."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Drake won the 2025 PFL championship (8–4, 7–1 conference) under Joe Woodley, capping a dominant run.
+    But in February 2026, Woodley resigned to join Rutgers as a coordinator — a shock mid-offseason departure that left the defending champions
+    without their architect. Matt Walker, a D-III national champion from Central Connecticut, arrived as the new coach in February 2026 with a mandate
+    to continue the three-year dynasty. The question in Des Moines: can Walker sustain the title streak, or will Woodley's departure prove that
+    coaching greatness, not institutional depth, drove the run?
+  research_checklist:
+    - the program's 3–7 most iconic games/plays (1922 undefeated, recent title-clinching games)
+    - the legendary coaches + players (Joe Woodley for the dynasty, figures from the 1995–2012 era)
+    - the unique tradition / identity / the one amazing thing (three straight titles, 1922 undefeated, non-scholarship success)
+    - the origin + the golden-age dynasty eras (1922, 1995–2012, 2023–2025)
+    - the current-era storyline (Walker's rebuild to sustain the dynasty)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Drake_Bulldogs_football_team
+    - https://en.wikipedia.org/wiki/Drake_Bulldogs_football
+    - https://www.kcrg.com/2026/02/10/drake-head-football-coach-resigns-after-one-season-for-big-ten-job/
+    - https://godrakebulldogs.com/news/2026/2/9/woodley-resigns-as-bulldogs-head-football-coach.aspx

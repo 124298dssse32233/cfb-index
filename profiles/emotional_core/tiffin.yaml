@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Tiffin University — G-MAC dynasty, three G-MAC titles (2019, 2020, 2023), #2 ranked 2025, Alex Johnson era
+
+status: live
+slug: tiffin
+team_id: null
+program_name: Tiffin University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: restoration
+  one_line: "Tiffin is the G-MAC dynasty — three conference titles (2019, 2020, 2023) and the #2-ranked team in the nation in 2025 — led by All-American quarterback Alex Johnson and built on sustained excellence."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A program with three G-MAC titles in six years and back-to-back conference championships (2020-2021) vs. the challenge of maintaining elite status while coach Brett Ekkens departs for the NFL."
+
+the_wound:
+  name: "Coaching transition mid-season"
+  detail: "Brett Ekkens resigned on February 17, 2026, to become the Arizona Cardinals' offensive quality control coach, leaving Tiffin searching for a permanent head coach in the offseason. The timing, after the 10-1 regular season and #2 national ranking in 2025, represents a moment of uncertainty for a dynasty program accustomed to stability."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Maintain the standard of excellence through the coaching transition and win the program's first national championship, proving that Tiffin Dynasty is about system and culture, not one coach."
+  drought: { since: null, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe tiffin has no chip — the program defines itself through excellence earned season after season, commanding respect within the G-MAC and nationally."
+
+the_delusion:
+  tone: self-aware
+  text: "Tiffin fans believe Alex Johnson has proven that the program can sustain Heisman-caliber quarterback play and that the system developed under Brett Ekkens will survive his departure."
+
+the_grudge_texture:
+  rival: ashland
+  texture: championship
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Dynasty continuation vs. new-era rebuilding — can Tiffin maintain its three-title standard with a new permanent head coach, or does the Ekkens era mark the program's peak?"
+register: dragons-tiffin-ohio-dynasty-johnson
+
+never_use:
+  - "Irrelevant small program: Tiffin has won three of the past six G-MAC titles and was nationally ranked #2 in 2025"
+  - "No tradition: back-to-back conference titles (2020-2021) and three titles since 2019 establish dynasty status"
+  - "Single-season fluke: sustained excellence over six years (2019-2025) proves system, not accident"
+
+story_canon:
+  the_unique_thing: "Three-title G-MAC dynasty — Tiffin won conference championships in 2019, 2020, and 2023, establishing itself as the G-MAC's most successful program of the past six years and the #2-ranked team nationally in 2025."
+  the_origin: "Tiffin University built its modern football program through successive eras of competitiveness, moving from GLFC (2006-2007 titles) to GLIAC success and finally establishing itself as a G-MAC power in the modern era."
+  golden_ages:
+    - { era: "2006–2007 (GLFC era)", what: "Two GLFC titles establishing early competitiveness" }
+    - { era: "2019–2023 (G-MAC Dynasty)", what: "Three conference titles (2019, 2020, 2023), back-to-back championships (2020-2021), and sustained national-level competitiveness" }
+  legends:
+    - { name: Alex Johnson, role: player, why: "Senior quarterback with 3,014 passing yards and 31 touchdowns in 2025, G-MAC Offensive Player of the Year with 163.7 efficiency rating and 8,604 career yards/88 TDs" }
+    - { name: Brett Ekkens, role: coach, why: "Architect of the 2024-2025 system that produced a 10-1 regular season and #2 national ranking before departing for the Arizona Cardinals in February 2026" }
+    - { name: Cris Reisert, role: coach_legacy, why: "Previous head coach (replaced by Ekkens in January 2024) who established the foundation Ekkens built upon" }
+  canonical_moments:
+    - { name: "2019 G-MAC Title", year: 2019, what: "Tiffin wins its first of three G-MAC championships in the modern era", handling: glory }
+    - { name: "2020-2021 Back-to-Back Titles", year: 2021, what: "Consecutive conference championships establish Tiffin as the G-MAC standard", handling: glory }
+    - { name: "2023 Third Title", year: 2023, what: "Tiffin wins its third G-MAC championship in five years", handling: glory }
+    - { name: "2025 #2 National Ranking", year: 2025, what: "After going 10-1 in the regular season, Tiffin is ranked #2 nationally and headed to the D2 playoffs", handling: glory }
+  the_place: "Tiffin, Ohio — home of Tiffin University, a small Division II school that has become a national-level football program."
+  brand_of_football: "Elite offensive football powered by exceptional quarterback play and a system-first approach to sustained excellence."
+  cultural_footprint: "Tiffin represents the G-MAC dynasty: a program that won three titles in six years, sustained national competitiveness, and built a culture of excellence that survives coaching transitions."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Tiffin entered 2026 searching for a permanent head coach after Brett Ekkens departed for the Arizona Cardinals on February 17, 2026. The previous season was elite: Alex Johnson (3,014 yards, 31 TDs, G-MAC Offensive POY, 8,604 career yards/88 TDs) led the Dragons to a 10-1 regular season and #2 national ranking. The question in Tiffin: can the program maintain dynasty status through the coaching transition? The system proved successful in 2025, but championships are won by coaches and players. Ronald Blackman (running back, 126 avg rushing yards/game) anchors the offense in 2026. The Dragons' challenge is clear — prove that the 2019-2023 three-title dynasty was about culture and system, not just the players and coaches who built it.
+  research_checklist:
+    - Three G-MAC titles: 2019, 2020, 2023
+    - Two GLFC titles: 2006-2007
+    - Back-to-back G-MAC champs: 2020-2021
+    - 2025: 10-1 regular season, #2 national ranking
+    - Alex Johnson (Sr QB): 3,014 yards, 31 TDs, G-MAC Offensive POY, 163.7 eff, 8,604 career yards/88 TDs
+    - Ronald Blackman (RB): 126 rushing yards/game average
+    - Coach Brett Ekkens: departed Feb 17, 2026 (Arizona Cardinals)
+  sources:
+    - https://www.tiffin.edu/athletics/football
+    - https://d2football.com/2025-season-preview
+    - https://www.gmacports.com/news/

@@ -1,0 +1,93 @@
+# Emotional Core — Princeton Tigers (princeton)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-14 from live web research — Ivy power, 28 national titles, winged helmet.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: princeton
+team_id: null           # non-FBS
+program_name: Princeton Tigers
+program_tier: 1         # 28 national titles (most among Ivy peers)
+division: FCS (Ivy)
+
+emotional_core:
+  primary: honor        # the guardian of the winged helmet legacy
+  secondary: standard   # living up to 28 national championships
+  one_line: "Princeton football played in the first college football game (1869 vs Rutgers), won 28 national titles, invented the winged helmet, and remains one of the most accomplished programs in American football history — even if the Ivy League won't let it prove it anymore."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "28 national championships, 868 wins, the first college game, and a distinctive tradition vs the Ivy League's democratic ceiling that prevents any program from recapturing national prestige."
+
+the_wound:
+  name: "The birth of the sport that now outgrows it — Princeton invented college football but can't compete for national titles"
+  detail: "Princeton played in the first college football game (1869 vs Rutgers). The program won 28 national championships, mostly before 1900. But the Ivy League's no-scholarship commitment and the self-imposed playoff ban mean Princeton will never win a postseason championship again. The sport moved on; Princeton stayed behind."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Dominate the Ivy League and remind people that the Tigers invented this sport. The 2018 undefeated season (10–0, Ivy title) was proof the dynasty hasn't died; it's just been confined to the Ivy."
+  drought: { since: 1950, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe princeton didn't just play the first college football game; the Tigers ARE the origin story. Yale got Walter Camp and Harvard got prestige, but Princeton has 28 national titles and the winged helmet. The rest of the sport moved on; Princeton stayed true to its principles."
+
+the_delusion:
+  tone: earnest
+  text: "That an Ivy League team could win a national championship today if it wanted to — and Princeton half-believes it. The 2018 team went undefeated at 10–0 and proved the Tigers can still play winning football. The fanbase wonders: what could we be if we chose to compete for a national title?"
+
+the_grudge_texture:
+  rival: yale
+  texture: championship    # historic Ivy rivalry, less heated than Harvard-Yale
+
+the_coach_relationship: legends-shadow   # Bob Surace (since 2009) is steady but lives under the program's historical weight
+the_internal_fracture: null
+register: princeton-tiger-winged-helmet-1869-first-game
+never_use:
+  - Also-ran Ivy — 28 national titles (most among Ivy peers)
+  - Never built anything — Princeton invented college football
+
+story_canon:
+  the_unique_thing: "The first college football game (1869 vs Rutgers). Princeton didn't just play the sport; it invented it. The winged helmet originated at Princeton and became the distinctive symbol of football tradition."
+  the_origin: "Princeton started football in 1869 with a game against Rutgers that is widely recognized as the birth of college football. The program won 28 national championships, 20 of them before 1900."
+  golden_ages:
+    - { era: "1869–1899 (Birth of Football)", what: "Princeton wins 20 national titles while inventing the sport; the winged helmet becomes the symbol of football tradition" }
+    - { era: "1950 (National Championship)", what: "The last national championship — the Princeton Tigers prove the program can still compete at the highest level" }
+    - { era: "2018 (Modern Excellence)", what: "Princeton goes undefeated (10–0) and wins the Ivy League, a vindication of the program's sustained excellence" }
+  legends:
+    - { name: Dick Kazmaier, role: player, why: "1951 Heisman Trophy winner; played for the 1950 national championship team" }
+    - { name: Pop Warner, role: coach, why: "Football legend; coached at Princeton and developed innovative tactics" }
+    - { name: Bob Surace, role: coach, why: "15+ years of stability and Ivy League competence; the modern steward" }
+  canonical_moments:
+    - { name: "The first college football game", year: 1869, what: "Princeton vs Rutgers — widely recognized as the birth of college football", handling: glory }
+    - { name: "National championship era", year: 1899, what: "Princeton wins 28 national titles by 1950, the birth-of-the-sport era", handling: glory }
+    - { name: "1950 National Championship", year: 1950, what: "Princeton's last national championship, with Heisman winner Dick Kazmaier", handling: glory }
+    - { name: "2018 perfect season", year: 2018, what: "Princeton goes 10–0 and wins the Ivy League outright", handling: glory }
+  the_place: "Palmer Stadium (later replaced by Princeton Stadium, 1998) in Princeton, New Jersey — home of the tradition that invented the game."
+  brand_of_football: "The origin story — Princeton football is the sport's birth certificate."
+  cultural_footprint: "Every modern football tradition traces back to something Princeton did in the 1870s–1880s."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-14: Under coach Bob Surace (15+ seasons), Princeton competes
+    consistently in the Ivy League. The 2018 team proved the Tigers can still execute at a high level (10–0,
+    Ivy title). Recent seasons have seen the program navigate competitive Ivy races, with Princeton regularly
+    contending for the conference championship. The program remains one of the most historically accomplished
+    in all of college football, even as it operates within the Ivy League's no-scholarship constraints.
+  research_checklist:
+    - First college football game (1869 vs Rutgers)
+    - 28 national championships (most among Ivy peers)
+    - Winged helmet (originated at Princeton)
+    - 868 all-time wins
+    - Dick Kazmaier (1951 Heisman)
+    - 2018 perfect Ivy season (10–0)
+  sources:
+    - https://en.wikipedia.org/wiki/Princeton_Tigers_football
+    - https://en.wikipedia.org/wiki/College_football
+
+briefing:
+  identity_phrase: Princeton is the program that played the first college football game and won 28 national titles — the origin story of American football.
+  mantra: "First Game, Winged Helmet"
+  selfname: the Tigers
+  heritage:
+    national_titles: 28
+    conference_titles: "12 Ivy (multiple)"
+    current_conference: Ivy League (FCS)

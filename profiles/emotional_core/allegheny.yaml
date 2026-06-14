@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: allegheny
+team_id: null
+program_name: Allegheny
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Allegheny is the Presidents' Athletic Conference program anchored by a 1990 national championship, playing every fall for the tradition of small-school excellence in northwest Pennsylvania."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A proud D3 dynasty from 1990 that has spent three decades proving the title was real, not a fluke — consistent playoff appearances and conference respect as the floor."
+
+the_wound:
+  name: "The long climb back to 1990 heights"
+  detail: "Allegheny won the national championship in 1990 (21-14 OT vs. Lycoming) but has never recaptured that summit. The wound is not a collapse but a plateau — the program has remained steady and respected in the PAC, but that golden year casts a long shadow."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to the national championship game — prove the 1990 title established something real, a program built to compete at the highest level of D3."
+  drought: { since: 1990, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip, really — Allegheny carries the pride of 1990 with quiet confidence. The motivation is internal: honor the championship, honor Coach Jerry Finkbeiner's legacy, build a program your grandpa would be proud of."
+
+the_delusion:
+  tone: self-aware
+  text: "That the program's next title is always one great recruiting class and one lucky postseason away — the fanbase knows how hard it is to return to the mountaintop, and believes it anyway."
+
+the_grudge_texture:
+  rival: washington-jefferson
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Pride in steady excellence vs. hunger for another title run"
+register: allegheny-gators-northwest-pa-small-school-excellence
+
+never_use:
+  - Always a title contender — only 1990
+  - Perennial playoff team — not since the 90s, relatively rare now
+  - Dominant in the PAC — respected conference player, but not dominant
+
+story_canon:
+  the_unique_thing: "Allegheny won the NCAA Division III national championship in 1990, defeating Lycoming 21-14 in overtime — the program's singular, defining moment and proof that a small Pennsylvania school could compete at the absolute highest level of collegiate football."
+  the_origin: "A liberal-arts college in Meadville, Pennsylvania (founded 1815) that built a football program on discipline, academics, and small-school pride. The 1990 championship was the apex."
+  golden_ages:
+    - { era: "1988–1992", what: "Peak years surrounding the 1990 national championship, with consistent playoff appearances and conference dominance" }
+  legends:
+    - { name: "Jerry Finkbeiner", role: "coach", why: "Led Allegheny to the 1990 national championship in overtime against Lycoming" }
+  canonical_moments:
+    - { name: "1990 National Championship", year: 1990, what: "Allegheny defeats Lycoming 21-14 in overtime to win the NCAA Division III national championship", handling: glory }
+  the_place: "Robertson Field in Meadville, Pennsylvania — a working college football stadium in the heart of Appalachia, where academic rigor meets autumn tradition."
+  brand_of_football: "Disciplined, fundamental football played by smart students. Allegheny plays the game right, not flashy — small-school values executed with precision."
+  cultural_footprint: "A quiet pride in having peaked at the national level. Allegheny's 1990 title stands as proof that a Division III program can compete for the sport's highest honor."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Allegheny went 4-6 overall (4-4 PAC) in 2025 under head coach Braden
+    Layer. The program has settled into steady-state respectability: occasional playoff years, consistent
+    PAC presence, but the leap back to a national championship remains elusive. The current challenge is
+    rebuilding year-class by year-class, staying true to the small-school mission while chasing a second title.
+
+  research_checklist:
+    - 1990 national championship (Lycoming 21-14 OT)
+    - Jerry Finkbeiner era and legacy
+    - PAC conference standing and recent seasons
+    - Program identity: academic rigor + football excellence
+    - Small-school Appalachian context (Meadville, PA)
+
+  sources:
+    - https://en.wikipedia.org/wiki/Allegheny_Gators_football
+    - https://gatorathletics.com/sports/football
+    - https://en.wikipedia.org/wiki/1990_NCAA_Division_III_Football_Championship_Game

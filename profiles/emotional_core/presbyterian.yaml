@@ -1,0 +1,84 @@
+# Emotional Core — Presbyterian  (presbyterian)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: presbyterian
+team_id: null
+program_name: Presbyterian
+program_tier: 5
+
+emotional_core:
+  primary: restoration      # the program climbing to its highest-ever FCS season
+  secondary: honor          # a program reclaiming traditions dormant since D-II
+  one_line: "Presbyterian is the South Carolina college that went 10–2 in 2025 — the third 10-win season in program history and the first since transitioning from the Big South to the Pioneer League, a small program proving it can win at FCS."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 10–2 season with a PFL title shot vs a program that jumped from the Big South and spent half a century dormant in lower divisions — proof of concept that a small private school can climb to FCS respect."
+
+the_wound:
+  name: "The 57-year dormancy with rival Newberry (1913–2006)"
+  detail: "Presbyterian and Newberry played 95 games for the Bronze Derby (1913–2006), with Presbyterian holding a 57–33–5 record. Then the programs diverged into different conferences, and the rivalry went silent for 19 years. The wound is not defeat; it's the severing of the program's oldest blood-feud tradition."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the Pioneer League championship in 2026 and make the FCS playoffs — cement the 10-win season as the foundation of a new era, not a one-off. Prove that Presbyterian's climb is real and sustainable."
+  drought: { since: 2023, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Presbyterian's chip is the chip of the rising mid-tier — the programs that beat you then get ranked and forget about you. The 10–2 season comes after years of grinding. The fanbase wants the national conversation to acknowledge that this rise is real."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the 10–2 season is not a fluke, that the program can sustain this altitude, and that FCS playoff berths are now in reach. They know they're rising from small-school roots, but they believe the climb is real, not a mirage."
+
+the_grudge_texture:
+  rival: newberry
+  texture: killed-by-realignment   # Bronze Derby rivalry (1913–2006, 95 games, Presbyterian 57–33–5); dormant 19 years
+
+the_coach_relationship: total-trust   # Steve Englehart in fourth year; program stable and climbing
+the_internal_fracture: sustainability-vs-one-off — the faction trusting Englehart's long-term plan vs the faction fearing the 10-win season is an outlier
+register: presbyterian-blue-hose-bronze-derby-newberry-100-year-sleep-rising
+never_use:   # LAW — do not violate in any authored line
+  - "Has won multiple recent titles — 2025 is the first PFL title win in program history (championship-round TBD)"
+  - "Is a perennial FCS playoff team — 10–2 in 2025 is breakthrough, not baseline"
+  - "Regularly beats ranked teams — one 2025 win over Davidson (unranked)"
+  - "Will sustain 10-win seasons — breakthrough year; sustainability is unproven"
+  - "Is no longer climbing — 10–2 is the peak of the arc, not the floor"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Presbyterian football slept for half a century after the Bronze Derby rivalry with Newberry died (1913–2006), then woke up: the program went 10–2 in 2025, the third double-digit-win season in history and the first since transitioning to the Pioneer League."
+  the_origin: "A Presbyterian Church-founded college in Clinton, South Carolina established in 1880 that built football into a regional power. The program is famous for the Bronze Derby rivalry against Newberry (1913–2006, 95 games, Presbyterian 57–33–5) and for fading after the rivalry ended."
+  golden_ages:
+    - { era: "1913–2006 (Bronze Derby era)", what: "95 games against archrival Newberry, with Presbyterian holding a 57–33–5 record — the defining century of the program" }
+    - { era: "2025 (10–2 season)", what: "The program's third 10-win season and the first after transitioning to the Pioneer League — proof of athletic resurgence" }
+  legends:
+    - { name: Steve Englehart, role: coach, why: "The architect of the 2025 breakthrough; in his fourth year, building Presbyterian into FCS respectability" }
+  canonical_moments:
+    - { name: "Bronze Derby rivalry (1913–2006)", year: 2006, what: "95 games against Newberry; Presbyterian holds a 57–33–5 series advantage — the defining tradition", handling: glory }
+    - { name: "2025 10–2 season", year: 2025, what: "Presbyterian goes 10–2, the third double-digit-win season in history and the first since moving to the Pioneer League", handling: glory }
+  the_place: "Bailey Memorial Stadium in Clinton, South Carolina — the on-campus home where the Blue Hose built the Bronze Derby legacy and are now building a new era."
+  brand_of_football: "Small-school honor with growing FCS respect — the program that proved a 140-year-old South Carolina college can climb from dormancy to conference contention through coaching consistency and talent identification."
+  cultural_footprint: "Presbyterian is the model of the small-private-school resurrection — a program that slept through the 2000s–2010s and woke up in the Pioneer League to claim its highest-ever FCS season."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Presbyterian went 10–2 (6–2 PFL) in 2025 under Steve Englehart in his fourth year — a breakthrough
+    season that marks the program's third double-digit-win year in history and the first since transitioning to the Pioneer League. Collin
+    Hurst led the offense; the defense stabilized late in the season. Englehart's continuity (four years in place) paid off. The question
+    in Clinton: can Presbyterian sustain this altitude and return to a PFL championship game in 2026, or was 2025 an outlier climb from
+    a program still learning the FCS tier?
+  research_checklist:
+    - the program's 3–7 most iconic games/plays (Bronze Derby classics, 2025 upset wins, Newberry matchups)
+    - the legendary coaches + players (Englehart, Bronze Derby-era coaches, 2025 team captains)
+    - the unique tradition / identity / the one amazing thing (Bronze Derby 95 games, 10-win breakthrough, South Carolina private prestige)
+    - the origin + the golden-age dynasty eras (1913–2006 Bronze Derby, 2025 FCS breakthrough)
+    - the current-era storyline (Englehart's year four and the question of sustainability)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Presbyterian_Blue_Hose_football_team
+    - https://en.wikipedia.org/wiki/Presbyterian_Blue_Hose_football
+    - https://en.wikipedia.org/wiki/Bronze_Derby
+    - https://prestcollegeathletics.com/sports/football

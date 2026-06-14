@@ -1,0 +1,76 @@
+# Emotional Core — Southeast Missouri State  (southeast-missouri-state)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: southeast-missouri-state
+team_id: null
+program_name: Southeast Missouri State
+program_tier: 5
+
+emotional_core:
+  primary: restoration
+  secondary: contentment
+  core_variant:
+  one_line: "Southeast Missouri State is the Redhawks program in the War for the Wheel tradition, a historic rival to Southern Illinois building FCS playoff contention under Tom Matukewicz."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A competitive OVC-Big South program with four FCS playoff appearances in recent years vs the challenge of sustaining relevance in a competitive conference."
+
+the_wound:
+  name: "The playoff window pressure"
+  detail: "Southeast Missouri State has made the FCS playoffs in 2018, 2019, 2022, and 2024 — a pattern of playoff appearances that creates expectation. The wound is the pressure to sustain that contention, the knowledge that a few wrong decisions can drop the Redhawks out of the conversation, and the constant battle to stay competitive in the OVC-Big South while the conference reorganizes."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win an OVC championship, make a deep FCS playoff run, and establish Southeast Missouri State as one of the OVC-Big South's elite."
+  drought: { since: 2024, unit: bowl }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the four playoff appearances prove SEMO is a postseason regular, that Tom Matukewicz has built something sustainable, and that the Redhawks can climb to the OVC elite."
+
+the_grudge_texture:
+  rival: southern-illinois
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: playoff-contention-vs-rebuild-patience — the faction confident in Matukewicz vs the faction worried about sustainability
+register: cape-girardeau-missouri-redhawk-war-for-wheel
+never_use:
+  - Rising from obscurity (SEMO has been competitive in the OVC for a decade)
+  - No playoff history (four FCS playoff appearances disprove this)
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Southeast Missouri State has made four FCS playoff appearances in recent years (2018, 2019, 2022, 2024) under head coach Tom Matukewicz, establishing the Redhawks as a consistent OVC contender and a playoff program."
+  the_origin: "A state school in Cape Girardeau, Missouri that built an FCS football program focused on OVC competition and regional recruiting, developing into a postseason regular over the past decade."
+  golden_ages:
+    - { era: "2018-2024 (Playoff Era)", what: "Four FCS playoff appearances under Tom Matukewicz, establishing SEMO as an OVC contender" }
+  legends:
+    - { name: Tom Matukewicz, role: coach, why: "Built Southeast Missouri State into an FCS playoff program, establishing four postseason appearances in recent years" }
+  canonical_moments:
+    - { name: "2018 FCS Playoff appearance", year: 2018, what: "SEMO makes its first playoff appearance under Matukewicz, beginning the string of postseason contention", handling: glory }
+    - { name: "2024 FCS Playoff appearance", year: 2024, what: "SEMO returns to the FCS playoffs, continuing the program's pattern of postseason success", handling: glory }
+  the_place: "Busch Stadium (or Redhawk Field) in Cape Girardeau, Missouri — the home of Redhawk football in the Bootheel of Missouri."
+  brand_of_football: "Competitive OVC football that emphasizes discipline, recruiting, and building toward FCS playoff contention. The Redhawks are a program that competes to win the OVC and make postseason runs."
+  cultural_footprint: "Southeast Missouri State represents the postseason-regular OVC program, a school that has made itself a fixture in FCS playoff conversation through sustained excellence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Southeast Missouri State went 4-8 in 2025 in the Big South-OVC conference, stepping back from the playoff contention of 2024 but remaining competitive under head coach Tom Matukewicz in his twelfth season. The program faces questions about whether the pattern of playoff appearances is sustainable or whether 2024 was the apex of the current Matukewicz era. The War for the Wheel rivalry with Southern Illinois carries historical weight and institutional intensity that defines the program's identity.
+  research_checklist:
+    - Four FCS playoff appearances (2018, 2019, 2022, 2024) (verified)
+    - Tom Matukewicz in 12th year (verified)
+    - War for the Wheel rivalry with Southern Illinois (verified, 1909+ history)
+    - 2025 season 4-8 record (verified)
+    - Big South-OVC conference affiliation (verified)
+  sources:
+    - https://en.wikipedia.org/wiki/Southeast_Missouri_State_Redhawks_football
+    - https://semoredhawks.com/
+    - https://siusalukis.com/sports/2022/7/13/war-for-the-wheel
+    - https://en.wikipedia.org/wiki/Tom_Matukewicz

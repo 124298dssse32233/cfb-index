@@ -1,0 +1,98 @@
+# Emotional Core — Northern Iowa (northern-iowa)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# status: live (web-researched 2026-06-13)
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: northern-iowa
+team_id: null
+program_name: Northern Iowa
+program_tier: 2
+
+emotional_core:
+  primary: restoration      # the transition year under Todd Stepsis after Mark Farley's retirement
+  secondary: standard
+  core_variant: regime-reset
+  one_line: "Northern Iowa is the Panthers in transition — Todd Stepsis took over after Mark Farley's retirement, and a 3-9 season tests the fanbase's faith in the next era."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A historic MVFC contender forced to rebuild after the retirement of legendary coach Mark Farley, now testing whether the program's competitive DNA survives the coaching change."
+
+the_wound:
+  name: "The end of the Farley era"
+  detail: "Mark Farley retired after building Northern Iowa into a perennial MVFC contender and playoff regular. Todd Stepsis arrived as the new head coach and immediately faced a 3-9 season (1-7 MVFC) — a jarring reminder that legendary coaches aren't replaced, they're followed by rebuilds."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that Northern Iowa's competitive DNA survives the Farley transition — climb back to MVFC contention and playoff eligibility within three years under Todd Stepsis."
+  drought: { since: 2025, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Northern Iowa has been a MVFC fixture for years. The fanbase is patient with Stepsis because they know what Farley built — but they also expect the program to get back to contention soon."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that the Farley era's success was easily transferable — that Stepsis just has to manage the roster and the wins will come. The Panthers know that rebuilding takes time, but year one's 3-9 stings for a program used to winning."
+
+the_grudge_texture:
+  rival: south-dakota
+  texture: championship   # Northern Iowa and South Dakota compete for MVFC titles
+
+the_coach_relationship: legends-shadow   # Todd Stepsis following Mark Farley's legendary tenure
+the_internal_fracture: ""  # unity around patience with the coaching transition
+register: northern-iowa-panthers-farley-transition
+never_use:
+  - Fallen powerhouse (Northern Iowa is still competitive-enough; 3-9 is a down year, not permanent decline)
+  - No longer contenders (perennial almost-contenders; one down year doesn't erase decades of MVFC presence)
+
+# ── STORY CANON (doc 64) ──
+
+story_canon:
+  the_unique_thing: "Northern Iowa's coaching transition — the Panthers ended Mark Farley's legendary tenure and gave Todd Stepsis the reins, resulting in a 3-9 season (1-7 MVFC) in transition year one."
+  the_origin: "A perennial Missouri Valley contender built over decades by legendary coach Mark Farley, now navigating the most significant coaching change in program history."
+  golden_ages:
+    - { era: "Farley era (1995–2024)", what: "Built Northern Iowa into a MVFC power — multiple conference titles, playoff appearances, and national recognition" }
+    - { era: "2025 Stepsis arrival", what: "Transition year with 3-9 record tests the program's foundation" }
+  legends:
+    - { name: Mark Farley, role: coach, why: "Legendary 30-year coach who built Northern Iowa into a MVFC contender and national fixture" }
+    - { name: Todd Stepsis, role: coach, why: "New head coach tasked with continuing the program's competitive tradition after Farley" }
+  canonical_moments:
+    - { name: "End of Farley era", year: 2024, what: "Mark Farley retired after 30 years of building Northern Iowa into a national program", handling: glory }
+    - { name: "2025 Stepsis transition", year: 2025, what: "Northern Iowa goes 3-9 (1-7 MVFC) in Todd Stepsis' first year — a difficult year following a legend", handling: wound }
+  the_place: "McLeod Center in Cedar Falls, Iowa — home of the Panthers' long tradition of MVFC excellence."
+  brand_of_football: "Tough, MVFC-competitive football — built on Farley's foundation and now being tested under Stepsis' leadership."
+  cultural_footprint: "A program that defined what MVFC excellence looks like for three decades, now entering an uncertain new era."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Northern Iowa finished 3-9 overall (1-7 MVFC) in 2025,
+    Todd Stepsis' first year as head coach after Mark Farley's retirement following 30 legendary
+    years. Farley built the Panthers into a perennial MVFC contender and national fixture. Stepsis
+    inherited a program with sky-high expectations and a 1-7 conference record. Year two for
+    Stepsis will be critical — the fanbase is patient because of Farley's legacy, but they expect
+    the climb back to start immediately. Can Stepsis stabilize the program and point back toward
+    MVFC contention?
+  research_checklist:
+    - Mark Farley's 30-year legacy (what did he build?)
+    - the perennial contender narrative
+    - Todd Stepsis' hiring and first-year struggles
+    - the 3-9 record and 1-7 MVFC standing
+    - the South Dakota rivalry context
+    - the fanbase patience story (leeway because of Farley)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Northern_Iowa_Panthers_football_team
+    - https://www.unipanthers.com/sports/football
+    - https://en.wikipedia.org/wiki/Mark_Farley
+
+# ── BRIEFING ──
+briefing:
+  identity_phrase: "Northern Iowa is the Panthers in transition — Todd Stepsis took over after Mark Farley's legendary 30-year tenure and faces a 3-9 rebuilding season."
+  mantra: "Rebuild. Contend. Return."
+  cultural_anchors:
+    fan_archetype_dominant: Farley-Legacy-Patient-Panther
+    outsider_archetype_dominant: Transition-Doubter
+    one_sentence: "Northern Iowa is the Panthers testing whether Todd Stepsis can continue Mark Farley's legacy of MVFC excellence."
+  selfname: the Panthers
+  live_fingerprint:
+    voice_profile: "present (Farley transition story is major news)"
+    signal: "MODERATE — historic program in flux"

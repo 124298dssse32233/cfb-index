@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Emotional Core — Lamar
+# Status: live
+
+status: live
+slug: lamar
+team_id: null
+program_name: Lamar
+program_tier: 5
+
+emotional_core:
+  primary: grievance     # a Southland dynasty that got good at the wrong time for the wrong league
+  secondary: restoration # rebuilt to 8-5 and a playoff bid after recent struggles
+  one_line: "Lamar is the Beaumont Cardinals that won three straight Southland titles in the 1960s, disappeared into mediocrity, and has spent a decade learning how to belong again."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Lamar was a Southland power (1964-66 conference titles, NAIA national champion in 1963), then spent 40+ years as a footnote. The 2025 season (8-5, playoff appearance) is the most recent proof that Lamar can compete — but also the most recent proof that consistency is the real war."
+
+the_wound:
+  name: "Decades of invisibility and the 1960s ghost"
+  detail: "Lamar won NAIA and Southland titles in the early 1960s, then faded into regional mediocrity for generations. The Cardinals have clawed back to occasional 8-win seasons and playoff bids, but the institutional story is one of repeated false dawns: a program that proved it could win, then couldn't hold it."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Prove the 2025 run (8-5, FCS playoff appearance) is the beginning of sustained contention, not another false dawn — win the Southland, make the playoff consistently, and make Lamar a program Beaumont is proud to have, not just a name in old record books."
+  drought: { since: 1971, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is generational grief: Lamar won when the Southland mattered less, and by the time modern FCS took shape, the Cardinals had lost their edge. The program is determined to prove the 1960s legacy is real, not a relic."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the 2025 season (8-5, playoff bid) is the year the turnaround sticks — that consistent recruiting and stability will finally align, and Lamar will return to regular playoff contention as a matter of institutional identity."
+
+the_grudge_texture:
+  rival: mcneese
+  texture: championship  # Battle of the Border — the fiercest Southland rivalry
+
+the_coach_relationship: forever-ours  # Pete Rossomando in Year 3, the first coach to show sustained stability
+the_internal_fracture: playoff-momentum vs. historical-skepticism — the faction riding the 8-win high vs. those who have seen Lamar sputter before
+register: beaumont-cardinals-southern-dynasty-ghost
+never_use:
+  - "Never won a title"
+  - "Mid-tier forever"
+  - "Should be grateful for 8 wins"
+  - "Battle of the Border is new"
+
+story_canon:
+  the_unique_thing: "Lamar is the Beaumont Cardinals that won an NAIA national championship in 1963 and three straight Southland Conference titles (1964-66), then disappeared into decades of mediocrity — now climbing back into FCS contention with the first sustained success since 1971."
+  the_origin: "Lamar University joined the NAIA and won a national championship in 1963, then moved to the Southland Conference and won three consecutive titles (1964-66), establishing itself as a regional power."
+  golden_ages:
+    - { era: "1963–1966", what: "NAIA national champion (1963) and three consecutive Southland Conference titles (1964-66); the peak of Lamar football" }
+  legends:
+    - { name: "Lamar's 1963-66 dynasty era", role: "era", why: "The NAIA national title and consecutive Southland titles define the program's only canonical success" }
+  canonical_moments:
+    - { name: "1963 NAIA National Championship", year: 1963, what: "Lamar wins the NAIA national title (11-0), the only national championship in program history", handling: glory }
+    - { name: "Southland titles 1964-66", year: 1966, what: "Three consecutive Southland Conference championships, the last in 1971", handling: glory }
+  the_place: "Provost Umphrey Stadium in Beaumont, Texas — home of the Cardinals, where the 1960s dynasty was built."
+  brand_of_football: "Scrappy, resilient, determined to prove that a mid-sized Texas city can sustain a winning program — Lamar football is defined by the struggle to turn occasional playoff bids into a pattern."
+  cultural_footprint: "A program that proves even a long silence doesn't erase canon — Lamar's 1960s legacy is real, and the Cardinals' mission is to add a modern chapter."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Lamar finished the 2025 season 8-5 (5-3 SLC) and earned an FCS playoff bid, the
+    most successful season in recent memory. Coach Pete Rossomando is in Year 3 and has built a stable offense around QB Aiden
+    McCown, RB Xavier Coleman, and WR Kyndon Fuselier. The Cardinals' narrative is renewal: after decades of mediocrity and
+    false dawns (the last Southland title was 1971), Lamar has a genuine chance to prove the 2025 run is the beginning of
+    sustained contention, not another brief spike. The fanbase believes this year is different; the record supports it.
+  research_checklist:
+    - NAIA national championship 1963
+    - Southland titles 1964–66 and 1971
+    - Decades of post-1971 mediocrity
+    - 2025 season (8-5, playoff bid) as renewed trajectory
+    - Lamar-McNeese Battle of the Border rivalry history
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Lamar_Cardinals_football_team
+    - https://en.wikipedia.org/wiki/Lamar_Cardinals_football
+    - https://www.sports-reference.com/cfb/schools/lamar/index.html

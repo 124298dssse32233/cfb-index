@@ -1,0 +1,116 @@
+# Emotional Core — Louisiana  (louisiana)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: louisiana
+team_id: 312
+program_name: Louisiana
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the Napier-era peak is the measuring stick; the live arc is climbing back to it
+  secondary: grievance    # the Sun Belt's most decorated recent program, still treated as mid-pack
+  core_variant: perpetual-rebuild
+  one_line: "Louisiana won four straight Sun Belt titles when Billy Napier was in Lafayette — and has spent every year since trying to prove the dynasty was the program, not the man who left for Florida."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Four consecutive Sun Belt championships and a #19 final ranking in 2021 vs a 6-7 bowl-loss season in 2025 that asked whether the ceiling left with Napier."
+
+the_wound:
+  name: "The post-Napier slide"
+  detail: "Billy Napier won four straight Sun Belt titles (2018-2021) and a #19 finish, then left for Florida. Michael Desormeaux, his hand-picked successor, slipped to 6-7 in 2025 — a losing record capped by a 20-13 loss to Delaware in the 68 Ventures Bowl — and Lafayette is asking whether the standard was ever the program's or only the coach's."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Reclaim the Napier altitude — a fifth Sun Belt banner and a top-25 finish that proves Lafayette is a destination, not a launchpad."
+  drought: { since: 2021, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans point to four straight conference titles and a top-20 ranking and ask why the national conversation still files them under generic Sun Belt mid-pack — as if the best run any Sun Belt program ever stacked never happened."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the four-title core is the real Louisiana and 2025 was the dip, not the truth — that Desormeaux is one good portal class from putting the Cajuns back on top of the league they used to own."
+
+the_grudge_texture:
+  rival: louisiana-tech
+  texture: border-war   # the in-state Battle for the Wagon Wheel
+
+the_coach_relationship: legends-shadow   # every Cajuns coach now lives under what Napier built
+the_internal_fracture: patience vs urgency — give Desormeaux time to rebuild the Napier machine vs the worry that the window already closed when Napier walked
+register: lafayette-ragin-cajuns-restoration
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always Sun-Belt-bottom — 4 consecutive championships + 2021 #19 AP disprove'
+  - No identity — Napier + Geaux Cajuns + Acadiana combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The four-in-a-row — Louisiana won the Sun Belt in 2018, 2019, 2020 and 2021, the most sustained run of conference dominance the league has seen, and did it as the football flagship of Cajun Acadiana."
+  the_origin: "The University of Louisiana at Lafayette, deep in Cajun country, building a Sun Belt power out of a city that wears Geaux Cajuns like a birthright — culminating in the Billy Napier dynasty."
+  golden_ages:
+    - { era: "2018–2021 (Billy Napier)", what: "Four straight Sun Belt championships and a 13-1, #19 AP finish in 2021" }
+  legends:
+    - { name: Billy Napier, role: coach, why: "Built the four-title dynasty before leaving for Florida; the architect of the modern program" }
+    - { name: Elijah Mitchell, role: player, why: "Workhorse back of the Napier-era rise, later an NFL contributor" }
+  canonical_moments:
+    - { name: "The 2021 #19 finish", year: 2021, what: "A 13-1 season, a fourth straight Sun Belt title, and the program's highest final ranking", handling: glory }
+    - { name: "Napier leaves for Florida", year: 2021, what: "The dynasty's architect departs at the peak, opening the post-Napier question", handling: wound }
+  the_place: "Cajun Field — 'The Swamp' of the Sun Belt — in Lafayette, where Acadiana tailgating is a culture, not a pregame."
+  brand_of_football: "Physical, run-first Sun Belt football — the Napier template of trench play and ball control that turned a mid-major into a league bully."
+  cultural_footprint: "The football flagship of Cajun Louisiana — a program that gave Acadiana a top-20 team to call its own and proved the Sun Belt could stack real consecutive championships."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Michael Desormeaux, Napier's hand-picked successor, went 6-7 (5-3 Sun
+    Belt) in 2025 — his fourth season — and lost the 68 Ventures Bowl 20-13 to Delaware, the program's first
+    losing year in the FBS era of relevance. The Lafayette question entering 2026: can Desormeaux rebuild the
+    Napier machine and put the Cajuns back atop the Sun Belt, or has the four-title window quietly closed?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Louisiana_Ragin%27_Cajuns_football_team
+    - https://www.sports-reference.com/cfb/schools/louisiana-lafayette/2025-schedule.html
+    - https://collegefootballnews.com/college-football/louisiana-football-preview-2025-ragin-cajuns-got-groove-back
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Louisiana is the Sun Belt program whose 2018-2021 Billy Napier 4-consecutive-Sun-Belt-championships
+    + Cajun Field + Ragin' Cajuns identity define what Lafayette-Sun-Belt-football looks like.
+  mantra: Geaux Cajuns.
+  cultural_anchors:
+    fan_archetype_dominant: Lafayette-Cajun-Geaux
+    outsider_archetype_dominant: Sun-Belt-Mid-Pack-Diminisher
+    one_sentence: 'Louisiana is the Lafayette Acadiana football flagship — Billy Napier 4-consecutive Sun
+      Belt titles + 2021 #19 AP peak + Ragin'' Cajun cultural identity that anchor the modern Sun Belt era.'
+  selfname: the Ragin' Cajuns
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2018-2021 4 consecutive Sun Belt championships under Billy Napier
+    - 2021 13-1 +
+    - Billy Napier coaching tree (Florida 2022 departure)
+    rituals:
+    - Billy Napier 2018-2021 4 Sun Belt Titles
+    - Ragin' Cajuns Cajun Identity
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (52/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

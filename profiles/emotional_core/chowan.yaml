@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: chowan
+team_id: null
+program_name: Chowan University
+program_tier: 6
+
+emotional_core:
+  primary: grievance
+  secondary: restoration
+  one_line: "Chowan is the fallen program that hit a peak it couldn't sustain — a 2024 Division II Sweet Sixteen contender that collapsed in 2025 and is now searching for a way back to relevance."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A historically Black university in North Carolina with a storied NJCAA and CIAA legacy that made a historic jump to NCAA Division II, peaked immediately in 2024, and then fell hard in 2025."
+
+the_wound:
+  name: "The 2025 collapse after the 2024 peak"
+  detail: "Chowan finished 4-7 in 2025 and missed the playoffs, a dramatic fall from 2024 when the Hawks were a Sweet Sixteen contender with a historic Division II win record. The wound is the sudden loss of momentum and the question: was 2024 real or a fluke?"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the 2024 form and make another tournament run — prove that the Sweet Sixteen season was the beginning, not the anomaly."
+  drought: { since: 2024, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no active chip — Chowan is in introspection mode. The wound is self-inflicted. Coach Paul Johnson needs to figure out what broke."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans hold onto 2024 and believe the program can get back there — that 2025 was a stumble, not a fall, and that a strong offseason can return the Hawks to competitiveness."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "2024 peak expectations vs 2025 reality — the tension between what the program showed it could be and the immediate decline."
+register: north-carolina-hawk-HBCU-transition-decline
+never_use:
+  - Never a competitor — incorrect; Chowan was a D2 Sweet Sixteen contender in 2024
+  - Mid-tier program — the 2024 season proved elite capability; 2025 was a collapse, not normalcy
+  - Stable franchise — the 4-7 fall from 2024 is dramatic and requires explanation
+
+story_canon:
+  the_unique_thing: "A historically Black university that made a successful transition to NCAA Division II, hit a peak in 2024 with a Sweet Sixteen tournament run, and then experienced a dramatic collapse in 2025."
+  the_origin: "Chowan University is a historic HBCU in Murfreesboro, North Carolina. The program has a storied legacy in NJCAA and CIAA football and made the transition to NCAA Division II in recent years."
+  golden_ages:
+    - { era: "2024 (Sweet Sixteen year)", what: "Historic Division II season with Sweet Sixteen playoff appearance" }
+  legends:
+    - { name: Jim Garrison, role: coach, why: "Legendary NJCAA coach with 182 wins" }
+  canonical_moments:
+    - { name: "2024 Sweet Sixteen", year: 2024, what: "Chowan reaches the Division II Sweet Sixteen", handling: glory }
+  the_place: "Murfreesboro, North Carolina — a historic HBCU town in northeastern North Carolina."
+  brand_of_football: "Historically strong HBCU football rooted in NJCAA and CIAA tradition; the transition to D2 revealed both capability and instability."
+  cultural_footprint: "Chowan represents the HBCU transition to NCAA Division II and the challenge of sustaining peak performance when making a significant competitive jump."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Under head coach Paul Johnson (3 seasons), Chowan finished 4-7
+    in 2025 with a 2-4 Conference Carolinas record and missed the playoffs. This dramatic fall from 2024
+    (when the Hawks were a Sweet Sixteen contender) raises serious questions about sustainability. The program's
+    transition to NCAA D2 from NJCAA/CIAA showed capability in 2024, but the 2025 collapse suggests either
+    1) 2024 was overperformance that couldn't sustain, or 2) there were personnel/coaching issues. Coach
+    Johnson must rebuild and prove that 2024 was not a fluke.
+  research_checklist:
+    - 2024 Sweet Sixteen playoff appearance verified
+    - Paul Johnson tenure (3 seasons)
+    - 2025 record (4-7, 2-4 CC, missed playoffs)
+    - HBCU legacy and identity
+    - Conference Carolinas membership
+  sources:
+    - https://chowanhawks.com/
+    - https://en.wikipedia.org/wiki/Chowan_Hawks_football
+    - https://www.conference-carolinas.org/

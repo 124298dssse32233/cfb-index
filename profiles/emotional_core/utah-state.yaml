@@ -1,0 +1,122 @@
+# Emotional Core — Utah State  (utah-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: utah-state
+team_id: 139
+program_name: Utah State
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # a program steadying itself under Bronco Mendenhall after years of upheaval
+  secondary: house-money  # an unexpected upgrade to the new Pac-12 — a ticket up the program never assumed it had
+  core_variant: perpetual-rebuild
+  one_line: "Utah State is the high-altitude Cache Valley program that hands you a loss when you're not looking — now steadied by a veteran rebuilder and, improbably, packing its bags for the Pac-12."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A 2012 top-16 finish and a 2021 conference title vs the coaching turmoil and losing seasons that followed, and a roster Bronco Mendenhall had to rebuild from scratch."
+
+the_wound:
+  name: "The years of churn before the reset"
+  detail: "Utah State's 2021 Mountain West title gave way to staff upheaval and instability, and Bronco Mendenhall inherited a program that needed rebuilding. His first year, 2025, went 6-7 (4-4 Mountain West) with a Famous Idaho Potato Bowl loss to Washington State — a steadying season, not yet a winning one."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Walk into the new Pac-12 as a winner, not a tourist — a bowl, a winning record, the altitude in Logan loud for a team that belongs at the bigger table."
+  drought: { since: 2021, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Aggie fans have spent forever as the state's third program, behind Utah and BYU, told Logan is too small and too cold to matter. They'll point to the Pac-12 invitation and ask which little brother is moving up now."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the altitude and the atmosphere in Logan are a genuine home-field weapon — that visitors wilt at 4,700 feet, and that a steadied roster plus a proven coach makes the Aggies a sneaky problem for anyone who overlooks them."
+
+the_grudge_texture:
+  rival: byu
+  texture: little-brother   # the Old Wagon Wheel — and the in-state resentment of the bigger, better-funded Cougars
+
+the_coach_relationship: savior   # Bronco Mendenhall — a proven program-builder hired to steady the churn and carry USU into the Pac-12
+the_internal_fracture: patience vs urgency — give Mendenhall time to rebuild for the Pac-12 jump vs the faction that wants the Aggies winning the moment they arrive
+register: logan-aggies-maverik-mountain-west   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always MW-bottom — 2012 #16 AP + 2021 Mountain West championship reset'
+  - No identity — Andersen + Anderson + Maverik combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Utah State plays at 4,700 feet in Cache Valley, where the cold and the altitude turn Maverik Stadium into a genuine home-field weapon — a small, high-mountain program that has a habit of ambushing teams that overlook it."
+  the_origin: "A land-grant agricultural school in Logan, Utah — 'the Aggies' — the state's third football program, perpetually scrapping for relevance behind Utah and BYU."
+  golden_ages:
+    - { era: "2012 (Gary Andersen)", what: "An 11-2 season and a #16 final AP ranking — the program's modern peak" }
+    - { era: "2021 (Blake Anderson)", what: "11-3, a Mountain West championship and an LA Bowl win in a surprise breakout year" }
+  legends:
+    - { name: Gary Andersen, role: coach, why: "Built the 2012 top-16 team that announced Utah State as a real program" }
+    - { name: Merlin Olsen, role: player, why: "The Outland Trophy winner and Pro Football Hall of Famer — the program's greatest player" }
+  canonical_moments:
+    - { name: "The 2012 top-16 season", year: 2012, what: "Andersen's 11-2 Aggies finish ranked #16 — the program's high point", handling: glory }
+    - { name: "The 2021 Mountain West title", year: 2021, what: "Blake Anderson's surprise 11-win championship season", handling: glory }
+  the_place: "Maverik Stadium in Logan — high, cold Cache Valley football, where altitude and a tight student section make for a real home edge."
+  brand_of_football: "Altitude ambush — a mountain program built to make visitors uncomfortable and spring the result nobody saw coming."
+  cultural_footprint: "Utah's overlooked third program — the agricultural-school Aggies who give Cache Valley its own Division-I Saturday and a chip about being the smallest of the state's three."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Utah State went 6-7 (4-4 Mountain West) in Bronco Mendenhall's first
+    season, 2025, losing the Famous Idaho Potato Bowl to Washington State — a steadying year after stretches
+    of coaching turmoil. 2025 was the program's last in the Mountain West; Utah State moves to the rebuilt
+    Pac-12 in 2026. The question in Logan: can Mendenhall turn a 6-7 reset into a team ready to compete a
+    rung higher.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Utah_State_Aggies_football_team
+    - https://utahstateaggies.com/news/2025/8/29/a-new-era-in-aggie-football-bronco-mendenhall-leads-utah-state-into-2025.aspx
+    - https://collegefootballnews.com/college-football/utah-state-football-preview-2025-bronco-mendenhall-rebuild-aggies
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Utah State is the Mountain West program whose 2012 11-2 + Famous Idaho Potato Bowl +
+    Maverik Stadium altitude define what Logan-Utah-G5-football looks like.
+  mantra: Go Aggies.
+  cultural_anchors:
+    fan_archetype_dominant: Logan-Aggie-Big-Blue
+    outsider_archetype_dominant: MW-Mid-Pack-Diminisher
+    one_sentence: 'Utah State is the Cache Valley Mountain West program — Gary Andersen 2012 #16 AP peak
+      + Maverik Stadium altitude + 2021 Blake Anderson Mountain West championship that keep the Aggies in
+      competitive cycles.'
+  selfname: the Aggies
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2012 11-2 + WAC championship + Famous Idaho Potato Bowl +
+    - 2021 11-3 + Mountain West championship + LA Bowl under Blake Anderson
+    - Maverik Stadium altitude + Cache Valley setting
+    rituals:
+    - Maverik Stadium Altitude
+    - Gary Andersen 2012 Run
+    - Big Blue Aggie Identity
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (52/100, n=40)
+    voice_profile: absent
+    delusion_premium: absent

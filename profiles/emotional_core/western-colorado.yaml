@@ -1,0 +1,67 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: western-colorado
+program_name: Western Colorado University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: restoration
+  one_line: "Western Colorado is the Gunnison Mountaineers playing consistent D2 football — a program that has made the playoffs four of the last five years and competes with the resourcefulness and discipline of a small regional school."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A sustained RMAC contender with strong recent playoff history and the steady hand of longtime coach Jas Bains, playing for a small mountain town."
+
+the_wound:
+  name: "The playoff near-miss (2025 OT loss)"
+  detail: "Western Colorado went 10-3 in 2025 (7-2 RMAC) but lost in overtime to UT-Permian Basin 21-15 in the Division II playoff second round — the Mountaineers were so close to advancing, and fell just short in heartbreak."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Break through to a Division II Regional championship and establish Western Colorado as a consistent playoff threat — prove the recent four-of-five runs are building toward something deeper."
+  drought: { since: 2015, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — just the driven belief that consistent playoff runs deserve eventual championship breakthrough."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: colorado-mesa
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Consistency vs breakthrough ambition — the tension between celebrating four-of-five playoff runs and the nagging fear of perennial near-miss."
+register: western-colorado-mountaineers-gunnison-D2-playoff
+never_use:
+  - National champions — 10-3 in 2025, lost playoff in OT
+  - Conference powerhouse — 7-2 RMAC, strong but not dominant
+
+story_canon:
+  the_unique_thing: "Four Division II playoff appearances in five years (2021–2025) — a sustained track record of RMAC competitiveness and postseason relevance under 15-year head coach Jas Bains."
+  the_origin: "A mountain college in Gunnison, Colorado with a regional D2 football tradition, part of the RMAC's Rocky Mountain footprint."
+  golden_ages:
+    - { era: "2021–2025", what: "Consistent playoff runs — four appearances in five years, establishing Western Colorado as an RMAC contender" }
+  legends: []
+  canonical_moments:
+    - { name: "2025 OT playoff loss", year: 2025, what: "Western Colorado went 10-3 and lost in overtime to UT-Permian Basin 21-15 in the second round", handling: heartbreak }
+  the_place: "Gunnison, Colorado — a small mountain town home to Mountaineers football and regional pride."
+  brand_of_football: "Disciplined, fundamentally sound D2 football — a program built on coaching consistency and RMAC competitiveness."
+  cultural_footprint: "A small-school D2 program proving that sustained coaching (Jas Bains, 15 years) can build consistent playoff-caliber football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Western Colorado under coach Jas Bains (Year 15) went 10-3 in 2025 with a 7-2 RMAC record —
+    the fourth playoff appearance in five years. The Mountaineers lost in overtime to UT-Permian Basin 21-15 in the second round,
+    a close game that left what-ifs. Bains has built Western Colorado into a consistent RMAC playoff threat, and the program's identity
+    rests on sustained competitiveness and the belief that breakthrough is coming. The question forward: can the Mountaineers finally
+    push past their current ceiling into Division II Regional or Semifinal success?
+  sources:
+    - https://en.wikipedia.org/wiki/Western_Colorado_University_Mountaineers_football
+    - https://www.wcumustangs.com/
+    - https://www.rmac.org/
+    - https://www.ncaa.org/

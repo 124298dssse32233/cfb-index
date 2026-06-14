@@ -1,0 +1,136 @@
+# Emotional Core — Texas Tech  (texas-tech)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: texas-tech
+team_id: 299
+program_name: Texas Tech
+program_tier: 3
+
+emotional_core:
+  primary: redemption     # the fun-but-never-quite program that finally cashed decades of near-misses into a real title
+  secondary: spectacle    # Lubbock is loud, tortilla-flinging, and now it has a championship to throw them over
+  one_line: "Texas Tech spent thirty years as the most entertaining team in Texas that never won anything — then a billionaire booster's checkbook and a 12-2 season delivered the program's first-ever Big 12 title, a 34-7 rout of BYU that turned the wildest fanbase in the league into champions."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Decades of high-scoring teams and famous moments with zero conference titles vs a 2025 breakthrough — a school-record 12 wins, the first Big 12 championship, and a College Football Playoff berth."
+
+the_wound:
+  name: "The decades of almost"
+  detail: "For a generation Texas Tech produced thrilling offenses and signature upsets but never a league title — close calls, bowl trips, and the lingering sense it was a fun program rather than a serious one, a reputation only erased by the 2025 run."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Turn the breakthrough into a standard — defend the Big 12 crown, win a Playoff game, and prove 2025 was the start of something in Lubbock and not a one-year spike bought at the top of the market."
+  drought: { since: 1925, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans spent years hearing 'where is Lubbock?' and 'fun to watch, never a contender,' then heard a new version in 2025 — that the title was just bought, that the spending makes the championship hollow. They say the trophy counts the same regardless of how it was funded."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes the wait is finally over — that the booster money, Joey McGuire, and Behren Morton have permanently moved Texas Tech from the league's entertaining middle into its top tier, and that the doubters calling it a fluke are about to be wrong again."
+
+the_grudge_texture:
+  rival: texas
+  texture: little-brother   # the in-state power Tech has chased for decades — and now, finally, can look in the eye
+
+the_coach_relationship: total-trust   # Joey McGuire delivered the program's first conference title in year four
+the_internal_fracture: built-to-last vs bought-for-a-year — the faction that sees a new era and the faction quietly worried the title rode a $28M roster that may not be repeatable
+register: lubbock-air-raid-gunslinger   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Mike Leach's program — Joey McGuire era is the modern continuity
+  - Always 8-4 — 2008 Cotton Bowl + 11-win seasons contradict
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Texas Tech is where the Air Raid was born — Mike Leach turned a remote West Texas school into the most prolific passing offense in the sport, an offensive philosophy that reshaped how everyone plays; and in 2025 the program finally married that identity to a championship, winning its first Big 12 title."
+  the_origin: "A Lubbock land-grant university on the high plains of West Texas — isolated, fiercely loyal, and tortilla-throwing — that found its national voice when Mike Leach arrived in 2000 and weaponized the forward pass."
+  golden_ages:
+    - { era: "2000-2009 (Mike Leach)", what: "The Air Raid era — record-setting offenses, the 2008 Cotton Bowl run, and a permanent influence on football" }
+    - { era: "2025 (Joey McGuire)", what: "A school-record 12 wins, the first Big 12 championship, and a College Football Playoff berth" }
+  legends:
+    - { name: Mike Leach, role: coach, why: "Birthed the Air Raid at Texas Tech and made the program a national offensive landmark" }
+    - { name: Michael Crabtree, role: player, why: "His 2008 last-second catch to beat No. 1 Texas is the program's signature play" }
+    - { name: Patrick Mahomes, role: player, why: "The future NFL MVP who put up video-game numbers in Lubbock from 2014-2016" }
+  canonical_moments:
+    - { name: "The Crabtree catch", year: 2008, what: "Michael Crabtree's last-second touchdown beats No. 1 Texas — the most famous moment in program history", handling: glory }
+    - { name: "The first Big 12 title", year: 2025, what: "A 34-7 rout of BYU delivers Texas Tech's first conference championship and a Playoff bid", handling: glory }
+    - { name: "The Orange Bowl CFP loss", year: 2025, what: "Oregon shuts out Texas Tech 23-0 in the Playoff quarterfinal — the title run's hard ceiling", handling: heartbreak }
+  the_place: "Jones AT&T Stadium in Lubbock — 'Guns Up,' the swirling West Texas wind, and a hail of tortillas raining onto the field, the loudest expression of one of the sport's most isolated, devoted fanbases."
+  brand_of_football: "Air Raid gunslinger — wide-open, pass-happy, fearless offense, now paired under Joey McGuire with the heavily-funded roster that turned the fireworks into a championship."
+  cultural_footprint: "The birthplace of the modern spread passing game and a cult-favorite fanbase — and, in 2025, a case study in how booster spending can vault a perennial entertainer into a champion."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Backed by booster Cody Campbell's collective and a football roster
+    reported north of $28 million, Texas Tech went 12-2 in 2025 under fourth-year coach Joey McGuire, won the
+    program's first-ever Big 12 title with a 34-7 rout of BYU, and reached the College Football Playoff —
+    before Oregon shut them out 23-0 in the Orange Bowl quarterfinal. QB Behren Morton threw for 3,335 yards
+    and 27 TDs. The question in Lubbock: is this the start of a new era, or a title bought at the top of the
+    market that the spending won't sustain?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Texas_Tech_Red_Raiders_football_team
+    - https://www.cbssports.com/college-football/news/texas-tech-dominance-big-12-championship-game-exclamation-point-historic-season/
+    - https://www.profootballnetwork.com/cfb/deion-sanders-plea-impact-of-cody-campbell-billions-texas-techr/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Texas Tech is the program that birthed the Air Raid, sustained it through Mike Leach's
+    tenure, and refuses to be anything else.
+  mantra: Wreck 'em Tech.
+  cultural_anchors:
+    fan_archetype_dominant: Lubbock-Air-Raid-Loyalist
+    outsider_archetype_dominant: Where-Is-Lubbock-Outsider
+    one_sentence: Texas Tech is the program that birthed the Air Raid, lost Mike Leach in 2009, and built
+      its modern identity around an offensive philosophy that influenced every modern spread program.
+  selfname: the Red Raiders
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2008 Michael Crabtree catch + Cotton Bowl run
+    - Mike Leach's 2000-2009 tenure + Air Raid invention
+    - Patrick Mahomes 2014-2016 era
+    rituals:
+    - Guns Up
+    - Tortilla Throwing
+    - Mike Leach Era Legacy
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (49/100, n=44)
+    distinctive_terms:
+    - sorsby
+    - super league
+    - division
+    - rule
+    - league
+    - super
+    - university
+    - sports
+    - big
+    - now
+    - cfp
+    - conference
+    sample_quote: 'Bold prediction: Texas Tech wins a playoff game by forfeit due to a conference boycott
+      due to the Sorsby ruling.'
+    voice_profile: present
+    delusion_premium: absent

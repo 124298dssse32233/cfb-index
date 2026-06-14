@@ -1,0 +1,93 @@
+# Emotional Core — Christopher Newport University (christopher-newport)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: christopher-newport
+team_id: null
+program_name: Christopher Newport University
+program_tier: 7
+
+emotional_core:
+  primary: disbelief
+  secondary: spectacle
+  one_line: "The startup that won a conference title in its inaugural year and 25 years later went 10–0 undefeated — proving that dreams built from scratch can scale."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program born in 2001 that captured a national title in its first year, went dormant, then returned in 2015 to the NJAC and has built toward an undefeated 2025 season."
+
+the_wound:
+  name: ""
+  detail: ""
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the national championship and prove the startup's 2001 miracle wasn't a one-hit wonder. The Captains have already won the NJAC championship (2025); now the playoff journey begins."
+  drought: { since: never, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe the doubters who said a startup could never sustain excellence — 2001 champions, 2025 undefeated. That's the answer."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that Christopher Newport, a program that didn't exist until 1999, belongs at the table with 100-year institutions. The Captains act like it anyway."
+
+the_grudge_texture:
+  rival: salisbury
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: ""
+register: captain-startup-ascent
+never_use:
+  - "No tradition — Won a national title in 2001 (inaugural year, unprecedented in startup history)"
+  - "Flash in the pan — 10–0 undefeated regular 2025, NJAC Champions, ranked 7th nationally"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "The 2001 startup miracle — a program that did not exist until December 16, 1999 (board vote), won the NJAC championship and made the NCAA tournament in its inaugural 2001 season. Unprecedented in college football history. Then 2025: 10–0 undefeated, 7th nationally ranked, NJAC Champions again."
+  the_origin: "Christopher Newport University, Newport News, Virginia — a startup program founded by board vote December 16, 1999. First season played 2001. Matt Kelchner hired as inaugural head coach (2001-2016) before any of the players enrolled. Paul Crowley became head coach in 2022."
+  golden_ages:
+    - { era: "2001 (startup championship)", what: "Inaugural season championship + NCAA tournament appearance; unprecedented startup success" }
+    - { era: "2001–2004", what: "Four consecutive NCAA tournament appearances (2001, 2002, 2003, 2004)" }
+    - { era: "2015–2025", what: "NJAC era: 2023 first NJAC title, 2025 undefeated regular, 7th nationally ranked" }
+  legends:
+    - { name: "Paul Crowley", role: coach, why: "Head coach since 2022; architect of the NJAC dominance era including 2023 and 2025 titles; 31-11 record" }
+    - { name: "Matt Kelchner", role: coach, why: "Inaugural HC 2001-2016; architect of startup success and four consecutive NCAA tournament appearances (2001-2004)" }
+    - { name: "Connor Barry", role: player, why: "2025 QB: 35 passing TDs, 2,866 yards, NJAC Offensive POY, 2nd-team AFCA All-America, Gagliardi semifinalist" }
+  canonical_moments:
+    - { name: "2001 startup championship", year: 2001, what: "Inaugural season: NJAC championship + NCAA tournament; unprecedented in startup history", handling: miracle }
+    - { name: "2001–2004 tournament streak", year: 2001, what: "Four consecutive NCAA tournaments (2001, 2002, 2003, 2004)", handling: glory }
+    - { name: "2023 first NJAC title", year: 2023, what: "Return to NJAC championship after 14 years dormant", handling: glory }
+    - { name: "2025 undefeated season", year: 2025, what: "10–0 regular, 7th nationally ranked, NJAC Champions, Connor Barry Gagliardi semifinalist", handling: glory }
+  the_place: "TowneBank Stadium, Newport News, Virginia (opened 2001, 4,200 capacity) — built the same year as the program."
+  brand_of_football: "Startup excellence — a program that did not exist until 2001 and has fought for every inch of credibility, competing with teams 100+ years old."
+  cultural_footprint: "The most unlikely success story in college football — a startup that won in 2001, disappeared, returned in 2015, and built to an undefeated 2025 season. Proof that a program can be born and scale immediately."
+  the_ongoing_story: "LIVE as of 2025–26: Christopher Newport went 10–0 regular (undefeated) in 2025, won the NJAC Championship 45–42 over Salisbury (longest rivalry, started 2001), ranked 7th nationally. QB Connor Barry delivered 35 passing TDs and Gagliardi semifinalist honors. Head coach Paul Crowley (since 2022) leads the Captains. The program that won a startup miracle in 2001 is chasing a national championship with an undefeated roster — proving the 2001 title was no fluke, just the beginning."
+  sources:
+    - https://en.wikipedia.org/wiki/Christopher_Newport_Captains_football
+    - https://www.cnu.edu/athletics/football/
+    - https://www.cnu.edu/about/
+    - https://www.njac.org/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Christopher Newport is the startup (founded 1999, first season 2001) that won a national championship in its inaugural year and is 10–0 undefeated in 2025 under head coach Paul Crowley.
+  mantra: Captain ascent.
+  cultural_anchors:
+    fan_archetype_dominant: Newport-Captain-Believer
+    outsider_archetype_dominant: Startup-Success-Skeptic
+    one_sentence: Christopher Newport University is the startup program (first played 2001) that won a national championship in its inaugural season and went 10–0 undefeated in 2025.
+  selfname: the Captains
+  rituals:
+    - 2001 startup miracle
+    - 2001–2004 tournament era
+    - 2025 undefeated season
+    - Salisbury rivalry (started 2001 with CNU's inaugural game)
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

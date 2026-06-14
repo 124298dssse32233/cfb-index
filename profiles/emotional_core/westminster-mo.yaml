@@ -1,0 +1,66 @@
+# AUTHORED (D3/SAC) 2026-06-13 — web-verified (limited data)
+
+status: live
+slug: westminster-mo
+team_id: null
+program_name: Westminster College (Missouri)
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Missouri-based liberal-arts institution with stable but modest football tradition—a regional D3 competitor balancing academics with athletic presence."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Stable regional D3 presence; no prominent eras or dominant years"
+
+the_wound:
+  name: "The institutional anonymity"
+  detail: "Westminster has been a stable but non-prominent D3 member for decades. No perfect seasons, no national recognition, no legendary coaches. This reflects institutional design—liberal-arts mission above athletic prominence."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Maintain regional D3 competitiveness while remaining a scholar-athlete institution where football serves the academic mission."
+  drought: { since: 1892, unit: conference_title }
+
+the_chip:
+  villain: null
+  text: "Fans here believe westminster doesn't define itself by football. The program serves the institutional mission precisely."
+
+the_delusion:
+  tone: null
+  text: null
+
+the_grudge_texture:
+  rival: null
+  texture: null
+
+the_coach_relationship: total-trust
+the_internal_fracture: "unified institutional commitment — no internal fracture"
+
+register: missouri-regional-academic
+
+never_use:
+  - "Mediocre (Westminster competes with discipline; modest results ≠ lack of commitment)"
+  - "Irrelevant (the program serves institutional mission precisely)"
+
+story_canon:
+  the_unique_thing: "Westminster is a SAC/regional D3 member that prioritizes academics over athletic prominence—a deliberate institutional choice reflecting liberal-arts values."
+  the_origin: "Westminster College (founded 1892) is a Missouri liberal-arts institution with 130+ years of football tradition. Regional conference membership reflects institutional commitment to scholar-athlete model."
+  golden_ages:
+    - { era: "1960s–1980s", what: "Regional competitive phase; SAC/WDSU conference participant" }
+    - { era: "1990–2025", what: "Stable SAC/regional D3 presence; modest competitive tier" }
+  legends: []
+  canonical_moments: []
+  the_place: "Fulton, Missouri—a regional college town anchoring a historic liberal-arts college with scholar-athlete mission."
+  brand_of_football: "Disciplined, academic football—a program that reflects institutional values above ranking."
+  cultural_footprint: "Proof that a Division III program can serve institutional mission without chasing athletic prominence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Westminster remains a stable regional D3 competitor. Public documentation of specific 2025 records
+    or recent seasons is limited; the program's identity centers on liberal-arts mission rather than athletic narrative. This is not a
+    weakness—it's deliberate institutional design. Westminster football exists to serve the college community, not define it.
+  sources:
+    - https://www.westminster-mo.edu/athletics
+    - https://www.ncaa.org/sports/football/d3

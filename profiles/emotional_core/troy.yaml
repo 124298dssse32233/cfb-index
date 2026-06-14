@@ -1,0 +1,119 @@
+# Emotional Core — Troy  (troy)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: troy
+team_id: 287
+program_name: Troy
+program_tier: 3
+
+emotional_core:
+  primary: standard       # in the Sun Belt, Troy expects to win the league — anything less is a letdown
+  secondary: grievance    # the small Alabama school that beats the SEC and refuses to be called little
+  one_line: "Troy is the little Alabama school that walks into Death Valley and beats LSU — a Sun Belt power that expects to win its league, and spent 2025 one step short, falling in the conference title game after a four-win turnaround."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Multiple Sun Belt titles, a 12-2 season in 2022, and the 2017 win at LSU vs a 2025 that ended one game short — beaten in the Sun Belt Championship after winning the West."
+
+the_wound:
+  name: "One step short in 2025"
+  detail: "Gerad Parker engineered a four-win improvement and a Sun Belt West title in 2025, then Troy lost the conference championship to James Madison 31-14 and dropped its bowl to Jacksonville State 17-13 — a strong year that stopped just short of the trophy Troy measures itself by."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get back to the top of the Sun Belt — win the conference outright again, bank another marquee scalp, and remind everyone that the small school from south Alabama belongs above its budget."
+  drought: { since: 2018, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Troy's whole self-image is built on one thing: walking into an SEC stadium as a heavy underdog and winning. Fans believe the big Alabama programs and the national media see Troy as a paycheck opponent, and there is nothing they enjoy more than proving otherwise on a Saturday in Baton Rouge or Athens."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes Troy punches above its weight class as a matter of identity — that a tiny athletics budget in south Alabama can keep producing Sun Belt champions and SEC-slaying upsets, and that the gap between Troy and the giants is smaller than the brand names suggest."
+
+the_grudge_texture:
+  rival: south-alabama
+  texture: border-war   # the Battle for the Belt — the in-state Sun Belt rivalry that means the most
+
+the_coach_relationship: savior   # Gerad Parker delivered a four-win jump and a division title in year two
+the_internal_fracture: contender-or-pretender — the faction that sees the West title as proof Troy is back near the top vs the faction stung that 2025 ended a game short of the trophy
+register: troy-trojans-sun-belt-perennial   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always Sun-Belt-bottom — 2017 LSU upset + 2022 12-win season disprove
+  - No identity — Brown era + Sumrall era + LSU upset combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Troy is the small south-Alabama school that made giant-killing its brand — most famously walking into Tiger Stadium and beating LSU in 2017 — a Sun Belt program that treats marquee road upsets of SEC powers as its signature, not a fluke."
+  the_origin: "A Troy, Alabama university that reclassified to FBS in 2001 and quickly became one of the Sun Belt's most consistent programs, building an identity on toughness, recruiting the Deep South, and refusing to be intimidated by bigger names."
+  golden_ages:
+    - { era: "2016-2018 (Neal Brown)", what: "Three straight 10+ win seasons, Sun Belt titles, and the 2017 upset at LSU" }
+    - { era: "2022-2023 (Jon Sumrall)", what: "A 12-2 season, a New Mexico Bowl win, and back-to-back Sun Belt championships" }
+  legends:
+    - { name: Neal Brown, role: coach, why: "Built the modern Troy power and engineered the 2017 win at LSU before leaving for West Virginia" }
+    - { name: Jon Sumrall, role: coach, why: "Won back-to-back Sun Belt titles and a 12-2 season before leaving for Tulane" }
+  canonical_moments:
+    - { name: "The upset at LSU", year: 2017, what: "Troy goes into Tiger Stadium and beats LSU — the program's defining giant-killing", handling: glory }
+    - { name: "The 2022 Sun Belt title", year: 2022, what: "Jon Sumrall's 12-2 team wins the conference and the New Mexico Bowl", handling: glory }
+    - { name: "Losing the 2025 title game", year: 2025, what: "Troy wins the West but falls to James Madison 31-14 in the Sun Belt Championship", handling: heartbreak }
+  the_place: "Veterans Memorial Stadium in Troy, Alabama — an intimate Deep South venue where a small school stages its big-name ambitions."
+  brand_of_football: "Deep-South Sun Belt grit — physical, fearless, recruiting-savvy football built to spring upsets and contend for conference titles on a fraction of an SEC budget."
+  cultural_footprint: "The Sun Belt's giant-killer and a proving ground for rising coaches — Neal Brown and Jon Sumrall both used Troy to launch bigger careers, and the LSU upset remains a touchstone for every G5 fanbase that dreams of an SEC scalp."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Second-year coach Gerad Parker engineered a four-win improvement in 2025,
+    winning the Sun Belt West, before Troy fell to James Madison 31-14 in the conference championship and lost
+    the Salute to Veterans Bowl to Jacksonville State 17-13, finishing 8-6. Parker enters his third season in
+    2026 with the program back near the top of the league and the same standing question: can Troy turn a
+    division title into the conference trophy it measures itself by?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Troy_Trojans_football_team
+    - https://sports.yahoo.com/articles/troy-trojans-college-football-preview-075147964.html
+    - https://troytrojans.com/sports/football/roster/coaches/gerad-parker/2036
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Troy is the Sun Belt program whose 2017 11-2 + Dollar General Bowl championship + 2022
+    12-2 New Mexico Bowl championship define what Alabama-Sun-Belt-football looks like.
+  mantra: Bleed Cardinal.
+  cultural_anchors:
+    fan_archetype_dominant: Troy-Trojan-Bleed-Cardinal
+    outsider_archetype_dominant: Sun-Belt-Mid-Pack-Diminisher
+    one_sentence: Troy is the Alabama-Sun-Belt powerhouse — 2017 Neal Brown LSU upset + 2022 Jon Sumrall
+      12-2 + multiple Sun Belt championships that anchor the program as G5 ceiling competitor.
+  selfname: the Trojans
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2017 11-2 + Sun Belt + Dollar General Bowl + LSU upset under Neal Brown
+    - 2022 12-2 + New Mexico Bowl championship under Jon Sumrall
+    - 2001 FBS reclassification + Sun Belt championship history
+    rituals:
+    - FBS Reclassification (2001)
+    - Bleed Cardinal Identity
+    - Neal Brown 2017 / Jon Sumrall 2022 Eras
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (59/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

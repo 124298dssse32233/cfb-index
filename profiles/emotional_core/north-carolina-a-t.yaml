@@ -1,0 +1,112 @@
+# Emotional Core — North Carolina A&T  (north-carolina-a-t)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: north-carolina-a-t
+team_id: 1108
+program_name: North Carolina A&T
+program_tier: 2
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  core_variant: regime-reset
+  one_line: "North Carolina A&T is the winningest HBCU program in football history — seven Black college national championships and a 2017 undefeated season — now rebuilding in the CAA after leaving the MEAC that made them legends."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "Seven HBCU national championships (including a 12-0 season in 2017) and MEAC dominance vs two straight losing seasons in the CAA — the Aggies carry the most decorated HBCU resume in the sport and are working to translate it to a new conference."
+
+the_wound:
+  name: "The CAA transition and the first-year Gibbs stumble"
+  detail: "NC A&T won five MEAC championships and four HBCU national titles between 2014 and 2019, then left for the Big South and eventually the CAA. The 2025 season under first-year head coach Shawn Gibbs produced a 2-10 record (2-6 CAA). The program that was dominant in HBCU football for a decade is struggling to find its footing in its new conference home."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the CAA and prove the Aggie standard travels — that the program that went 12-0 in 2017 can become a CAA champion and bring the HBCU championship culture to the FCS's most competitive conference."
+  drought: { since: 2019, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The fanbase says NC A&T holds the HBCU record with seven national championships and a Pro Bowl running back in Tarik Cohen — that the program earned its place in the CAA on merit, not nostalgia, and will prove it once the roster catches up to the ambition."
+
+the_delusion:
+  tone: earnest
+  text: "They believe the championship DNA that produced a 12-0 season in 2017 and Tarik Cohen is still in Greensboro — that NC A&T is too talented a recruiting market and too proud a program to stay at the bottom of the CAA for long."
+
+the_grudge_texture:
+  rival: norfolk-state
+  texture: blood-feud
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: HBCU-identity-pride vs CAA-integration-ambition — the faction that celebrates the MEAC championship era as the true measure of the program vs the faction that believes competing in the CAA is the path to FCS relevance that the championships deserve
+
+register: nc-at-aggies-hbcu-champion-greensboro-caa-rebuild
+never_use:
+  - "Mid-level HBCU — seven Black college national championships make NC A&T the most decorated HBCU football program in history"
+  - "Tarik Cohen was a fluke — MEAC record 5,619 career rushing yards and a Pro Bowl selection demonstrate elite player development"
+
+story_canon:
+  the_unique_thing: "The winningest HBCU program in college football — seven Black college national championships, including a 12-0 undefeated 2017 season and a record 59-13 from 2014 to 2019 — built in Greensboro, North Carolina, the heart of HBCU football country."
+  the_origin: "NC A&T has played football since 1924 and joined the MEAC in 1971. The program's modern golden age began in 1999 under Head Coach Bill Hayes — an undefeated MEAC season and HBCU national title — and peaked between 2014 and 2019 with five MEAC championships and four HBCU national titles. The Aggies left the MEAC for the Big South in 2021 and joined the CAA in 2023."
+  golden_ages:
+    - { era: "1999 (Hayes title)", what: "NC A&T goes undefeated in MEAC play for the first and only time in program history, wins 11 games and earns the HBCU national championship" }
+    - { era: "2014-2019 (dynasty peak)", what: "Five MEAC championships and four HBCU national titles in six years — 59-13 record — the most dominant stretch in HBCU football history in the modern era" }
+    - { era: "2017 (undefeated season)", what: "NC A&T goes 12-0, wins the MEAC and the Celebration Bowl over Grambling — the program's best season by record" }
+  legends:
+    - { name: Tarik Cohen, role: player, why: "MEAC record 5,619 career rushing yards; 2018 NFL Pro Bowl selection with the Chicago Bears; the defining modern player in program history" }
+    - { name: Rod Broadway, role: coach, why: "Led the 2014-2019 dynasty — five MEAC titles and four HBCU national championships; most successful coach in the modern NC A&T era" }
+  canonical_moments:
+    - { name: "2017 undefeated season", year: 2017, what: "NC A&T finishes 12-0, wins the MEAC and defeats Grambling in the Celebration Bowl — the program's best season", handling: glory }
+    - { name: "1999 HBCU championship", year: 1999, what: "First undefeated MEAC season in program history; 11 wins and Black college national title under Bill Hayes", handling: glory }
+    - { name: "Tarik Cohen NFL Pro Bowl", year: 2018, what: "Tarik Cohen earns a Pro Bowl selection with the Chicago Bears in his rookie season — peak individual achievement from an Aggie", handling: glory }
+    - { name: "2025 CAA debut — 2-10", year: 2025, what: "First-year coach Shawn Gibbs posts 2-10 (2-6 CAA) — the hard floor of the CAA transition era", handling: wound }
+  the_place: "Truist Stadium in Greensboro, North Carolina — home attendance averaging 12,282 in 2025 (18th-highest in all FCS), proof that Aggie fans show up even in transition."
+  brand_of_football: "Physical, HBCU-proud, talent-pipeline football — a program that develops NFL players and runs the table in HBCU football when the roster matches the ambition."
+  cultural_footprint: "The defining HBCU football program of the 2010s — NC A&T's 59-13 run and seven national titles are the benchmark against which all HBCU football is measured, and Tarik Cohen is the Pro Bowl proof that Greensboro develops NFL talent."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: NC A&T went 2-10 (2-6 CAA) in 2025 under first-year head coach
+    Shawn Gibbs — the program's second straight losing season and the clearest evidence yet that the CAA
+    transition is a rebuild, not a continuation of the MEAC dynasty. Average home attendance of 12,282
+    (18th in all FCS) shows the fan base's faith; the on-field results have not yet matched it.
+    The rivalry with Norfolk State — scheduled as a non-conference game since leaving the MEAC — remains
+    the emotional anchor of the Aggie schedule. Gibbs enters year two with the mandate to show a floor
+    and build toward the winning that the program's HBCU legacy demands.
+  sources:
+    - https://en.wikipedia.org/wiki/North_Carolina_A%26T_Aggies_football
+    - https://hbcugameday.com/2021/06/28/the-history-of-nc-at-in-meac-football-part-i/
+    - https://en.wikipedia.org/wiki/Tarik_Cohen
+
+briefing:
+  identity_phrase: NC A&T is the winningest HBCU program — seven Black college national championships, 12-0 in 2017, Tarik Cohen Pro Bowl — now rebuilding in the CAA under Shawn Gibbs after leaving the MEAC that made them champions.
+  mantra: Go Aggies.
+  cultural_anchors:
+    fan_archetype_dominant: HBCU-Dynasty-Proud
+    outsider_archetype_dominant: Conference-Transplant-Skeptic
+    one_sentence: NC A&T is the most decorated HBCU football program in history — seven national titles, 12-0 in 2017, Tarik Cohen Pro Bowl — now in a CAA rebuild that tests whether the standard travels.
+  selfname: the Aggies
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Rod Broadway
+    era_name_overrides: {}
+    always_surface:
+      - Seven Black College National Championships — most in HBCU football history
+      - 2017 undefeated season (12-0) and Celebration Bowl title
+      - 59-13 record from 2014 to 2019 (five MEAC titles, four HBCU national titles)
+      - Tarik Cohen MEAC rushing record and 2018 NFL Pro Bowl
+    rituals:
+      - Truist Stadium
+      - The Aggie Standard
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

@@ -1,0 +1,120 @@
+# Emotional Core — Southern Miss  (southern-miss)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: southern-miss
+team_id: 302
+program_name: Southern Miss
+program_tier: 3
+
+emotional_core:
+  primary: honor          # the program that gave the world Brett Favre and ran off 21 straight winning seasons — pride carried like an heirloom
+  secondary: grief        # the live ache: that streak is long over, 2024 cratered to 1-11, and the coaching door keeps spinning
+  one_line: "Southern Miss is where Brett Favre learned to throw it — a Hattiesburg program that once strung together 21 straight winning seasons and now fights to remember it's a place that wins."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "Twenty-one consecutive winning seasons (1988-2010) and a top-20 ranking in 2011, against a 1-11 bottom in 2024 — the distance a proud G5 power has fallen, and is clawing back from."
+
+the_wound:
+  name: "The fall — and a coaching door that won't stop spinning"
+  detail: "The 21-year winning streak ended in 2011, and the program bottomed at 1-11 in 2024 under two coaches in one season. Charles Huff arrived and went 7-6 in 2025, dragging Southern Miss back to a bowl — then left for Memphis after a single year, with Blake Anderson promoted to keep the rebuild from resetting again."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get back to a conference title and a national ranking — restore the program of Favre and the winning-seasons streak to the standard that made it a name, not a memory."
+  drought: { since: 2011, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Eagle fans are tired of being filed under forgotten — the program that developed an NFL Hall of Famer and won for two straight decades, now treated like it never mattered. They'll tell you Southern Miss has more pedigree than the leagues that look past it."
+
+the_delusion:
+  tone: earnest
+  text: "Hattiesburg believes the winning is in the program's bones — that a place with this much history and 'The Rock' behind it is one good staff away from being a Sun Belt power again. The fanbase is sure the 1-11 was rock bottom, not the real ceiling."
+
+the_grudge_texture:
+  rival: memphis
+  texture: blood-feud   # the Black and Blue Bowl — the program's fiercest, named for the teams' colors and the violence of the games
+
+the_coach_relationship: hot-seat-churn   # the door keeps spinning — Will Hall fired mid-2024, Charles Huff left for Memphis after one year, Blake Anderson promoted
+the_internal_fracture: pride vs patience — the faction that says Favre and the streak make this a winning program by birthright vs the faction exhausted by coaching churn and losing seasons
+register: hattiesburg-golden-eagles-favre-cf-cusa   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always G5-bottom — 21-winning-seasons streak + 2011 #19 AP disprove'
+  - Forgot Favre — Hall of Fame development arc gives permanent weight
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Southern Miss is where Brett Favre became Brett Favre — a Hattiesburg kid who walked on, won the job, and launched a Hall-of-Fame career from a small Mississippi campus. Pair that with 21 consecutive winning seasons (1988-2010) and you have one of the most accomplished G5 programs in the sport's history."
+  the_origin: "A working-class state school in Hattiesburg that built a reputation as a giant-slayer and a quarterback factory — beating ranked SEC teams on the road for decades and developing NFL talent the bigger programs overlooked."
+  golden_ages:
+    - { era: "1988–2010 (the streak)", what: "Twenty-one consecutive winning seasons — one of the longest such streaks in the modern game" }
+    - { era: "2011 (Larry Fedora)", what: "A 12-2 Conference USA championship season and a final AP ranking around No. 19 — the program's modern peak" }
+  legends:
+    - { name: "Brett Favre", role: player, why: "The Pro Football Hall of Fame quarterback who came up at Southern Miss — the program's defining name" }
+    - { name: "Reggie Collier", role: player, why: "The dual-threat quarterback who made Southern Miss a national giant-killer in the early 1980s" }
+  canonical_moments:
+    - { name: "Favre's rise", year: 1987, what: "A Hattiesburg walk-on wins the starting job and begins the path to the Hall of Fame — the story every Eagle fan leads with", handling: glory }
+    - { name: "2011 Conference USA title", year: 2011, what: "A 12-2 season and a C-USA championship vault Southern Miss to a top-20 finish — the modern high point", handling: glory }
+    - { name: "The 1-11 bottom", year: 2024, what: "After Will Hall is fired mid-season, Southern Miss falls to 1-11 — the lowest point in a long fall from the winning-seasons streak", handling: wound }
+  the_place: "M.M. Roberts Stadium — 'The Rock' — in Hattiesburg, the loud, low-slung home where Southern Miss built its giant-slaying reputation."
+  brand_of_football: "Tough, opportunistic, quarterback-driven — historically a program that punched up at the SEC and developed pro talent; the identity Blake Anderson's pass-first staff is trying to restore."
+  cultural_footprint: "The pride of working-class south Mississippi and a genuine quarterback cradle — the school that gave the NFL a Hall of Famer and spent two decades proving a G5 program could simply refuse to lose."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After a 1-11 2024 (two coaches in one season), Charles Huff arrived and
+    went 7-6 in 2025, returning Southern Miss to a bowl (a New Orleans Bowl loss to Western Kentucky) — then left
+    after one year for Memphis, the program's own blood rival. Blake Anderson, the 2025 offensive coordinator and
+    a former Sun Belt-title head coach, was promoted to keep the rebuild from resetting yet again in 2026.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Southern_Miss_Golden_Eagles_football_team
+    - https://www.espn.com/college-football/story/_/id/47279594/southern-miss-promotes-blake-anderson-head-coach
+    - https://en.wikipedia.org/wiki/Southern_Miss_Golden_Eagles_football
+    - https://en.wikipedia.org/wiki/Black_and_Blue_Bowl
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Southern Miss is the Sun Belt program whose 1958-2010 21-consecutive-winning-seasons
+    streak + Brett Favre 1987-1990 + The Rock M.M. Roberts Stadium define what historic-Mississippi-football
+    looks like.
+  mantra: Go Eagles.
+  cultural_anchors:
+    fan_archetype_dominant: Hattiesburg-Eagle-SMTTT
+    outsider_archetype_dominant: G5-Forever-Diminisher
+    one_sentence: 'Southern Miss is the Hattiesburg Mississippi football flagship — 21-consecutive-winning-seasons
+      streak + Brett Favre QB development + 2011 #19 AP peak that anchor the historic G5 powerhouse arc.'
+  selfname: the Golden Eagles
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 21 consecutive winning seasons (1988-2010)
+    - Brett Favre 1987-1990 + 1991 NFL draft + Hall of Fame career
+    - 2011 12-2 + Conference USA championship +
+    rituals:
+    - 21 Consecutive Winning Seasons (1988-2010)
+    - Brett Favre 1987-1990
+    - M.M. Roberts Stadium 'The Rock'
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (54/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

@@ -1,0 +1,76 @@
+# Emotional Core — Tennessee State  (tennessee-state)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: tennessee-state
+team_id: null
+program_name: Tennessee State
+program_tier: 5
+
+emotional_core:
+  primary: restoration
+  secondary: redemption
+  core_variant: regime-reset
+  one_line: "Tennessee State is the Nashville HBCU Tiger program in transition, anchored by the Eddie George legacy of a 9-4 playoff season, and now rebuilding under new coach Reggie Barlow."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A historic HBCU program that had a stellar 2024 season under Eddie George (9-4, FCS playoffs) vs the reality of a 2-10 drop in 2025 and the challenge of stabilizing a program in flux."
+
+the_wound:
+  name: "The post-George collapse"
+  detail: "Tennessee State went 9-4 and made the FCS playoffs under Eddie George in 2024, a moment that energized the Nashville HBCU fanbase and proved the Tigers could compete. But the program collapsed to 2-10 in 2025 under interim coach Jason Pruyden, raising questions about whether 2024 was sustainable or an anomaly. New coach Reggie Barlow enters 2026 with a team that needs rebuilding and a fanbase frustrated by the fall."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Reggie Barlow rebuilds Tennessee State to playoff contention, restore the excitement of the 2024 season, and establish the Tigers as an OVC-Big South power."
+  drought: { since: 2024, unit: bowl }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: earnest
+  text: "The Tennessee State fanbase believes the 2024 season proved the Tigers belong in FCS playoff conversation, that Eddie George's legacy carries weight for the program, and that Reggie Barlow can restore stability."
+
+the_grudge_texture:
+  rival:
+  texture:
+
+the_coach_relationship: savior
+the_internal_fracture: eddie-george-optimism-vs-post-george-reality — the faction holding onto 2024 success vs the faction accepting the 2025 reality
+register: nashville-hbcu-tiger-eddie-george
+never_use:
+  - Never competitive (won 9 games and made FCS playoffs in 2024)
+  - Always mediocre (the 2024 season disproved a narrative of chronic mediocrity)
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Tennessee State is a historic Nashville HBCU program that won 9 games and made the FCS playoffs in 2024 under Eddie George, proving the Tigers could compete at the highest level of FCS, and now faces the challenge of rebuilding under new coach Reggie Barlow."
+  the_origin: "A historically Black university in Nashville that built an HBCU football identity, originally in the MEAC before moving to the OVC, serving as a flagship program for Tennessee's African American higher education."
+  golden_ages:
+    - { era: "2024 (Eddie George Year)", what: "Tennessee State went 9-4 and made the FCS playoffs under NFL legend Eddie George, the program's high point in recent history" }
+    - { era: "MEAC Era", what: "Historically competitive as an HBCU program" }
+  legends:
+    - { name: Eddie George, role: coach, why: "NFL Hall of Famer who coached Tennessee State to a 9-4 season and FCS playoff appearance in 2024, bringing national attention to the Tigers" }
+  canonical_moments:
+    - { name: "2024 FCS playoff appearance", year: 2024, what: "Tennessee State made the FCS playoffs under Eddie George, proving the Tigers could compete at the highest level", handling: glory }
+    - { name: "Eddie George era", year: 2024, what: "Eddie George's presence as head coach brought credibility and a 9-4 season to the Tigers", handling: glory }
+  the_place: "Tennessee State's football facilities in Nashville, Tennessee — the home of HBCU Tiger football."
+  brand_of_football: "Competitive HBCU football with pride in the program's tradition and the legacy of historic Black college football excellence."
+  cultural_footprint: "Tennessee State represents the Nashville HBCU tradition, a program that carries cultural significance beyond football as a flagship university for African American education in Tennessee."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Tennessee State collapsed to 2-10 in 2025 under interim head coach Jason Pruyden after Eddie George stepped away, a dramatic drop from the 9-4 playoff season of 2024. New head coach Reggie Barlow (formerly an NFL defensive back) was hired in the offseason to rebuild the program. The Tigers face a significant reset, with questions about whether the 2024 success was sustainable or a one-year anomaly. Barlow's task is to restore stability and prove the program can return to playoff contention.
+  research_checklist:
+    - Eddie George coached 2024 (9-4, FCS playoffs) (verified)
+    - HBCU status in Nashville (verified)
+    - 2-10 record in 2025 (verified)
+    - Reggie Barlow new head coach 2026 (verified)
+    - Moved from MEAC to OVC (verified)
+  sources:
+    - https://www.nashvillescene.com/news/sports/tsu-reggie-barlow/article_43700941-37b1-57bd-ad9f-34c32badfe35.html
+    - https://en.wikipedia.org/wiki/Tennessee_State_Tigers_football
+    - https://sports.yahoo.com/article/tennessee-state-football-hires-reggie-140725927.html

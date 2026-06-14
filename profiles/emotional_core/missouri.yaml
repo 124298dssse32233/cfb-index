@@ -1,0 +1,121 @@
+# Emotional Core — Missouri  (missouri)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: missouri
+team_id: 101
+program_name: Missouri
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # the Show-Me state that made the doubted SEC move work and is still waiting for credit
+  secondary: contentment  # a program quietly comfortable with three straight strong seasons under Drinkwitz
+  core_variant: the-chronic-chip
+  one_line: "Missouri is the program that everyone said couldn't survive the SEC move and quietly made it look obvious — still waiting for the respect that a Show-Me state was never going to ask for twice."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Back-to-back SEC East titles in 2013-14 and three recent strong Drinkwitz seasons against a ceiling that has never once been a national championship — always close, never quite the top."
+
+the_wound:
+  name: "Five yards from the title game"
+  detail: "The 2007 team rose to No. 1 in the BCS before losing the Big 12 Championship to Oklahoma — the closest Missouri has come to playing for it all, and the standing definition of the program's almost."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the SEC outright and reach the sport's final weekend — to finish the climb that the 2007 and 2013 teams started, and prove the conference move was a beginning, not a ceiling."
+  drought: { since: 2014, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans remember every analyst who called the SEC jump a mistake in 2012, and they note that even after two division titles and three top-15 finishes, the previews still treat Missouri as the league's afterthought."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Mizzou is a genuine SEC program now, not a guest — that the move is settled, the recruiting has caught up, and the next great team is a quarterback and a November away from making the doubters say it out loud."
+
+the_grudge_texture:
+  rival: kansas
+  texture: blood-feud   # the Border War — a 19th-century blood rivalry realignment tried to kill
+
+the_coach_relationship: total-trust   # Drinkwitz delivered three straight strong years; the base is bought in
+the_internal_fracture: arrival vs ambition — the faction content that Mizzou is finally a stable SEC winner vs the faction that wants a division-or-better breakthrough before it calls the move a success
+register: show-me-state-grit   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Big 12 leftover — SEC tenure is 13+ years and structurally accepted
+  - Pinkel was the program — Drinkwitz era is the modern continuity
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The program that bet on the SEC when everyone said it would drown — Missouri left the Big 12 in 2012, was written off, and won the SEC East twice in its first three years. The move everyone doubted is now the obvious decision in hindsight."
+  the_origin: "Mizzou, the flagship in Columbia, founded 1839 — a border-state program forged in the Border War with Kansas, the oldest rivalry west of the Mississippi, before it found a permanent home in the SEC."
+  golden_ages:
+    - { era: "2013–2014 (Gary Pinkel)", what: "Back-to-back SEC East championships in only the second and third years in the league — the move validated" }
+    - { era: "2007–2008 (Pinkel / Chase Daniel)", what: "No. 1 in the country in 2007; two of the best teams in modern program history" }
+    - { era: "2023–2025 (Eli Drinkwitz)", what: "Three straight strong seasons and top-15 finishes — the program's most stable modern run" }
+  legends:
+    - { name: Gary Pinkel, role: coach, why: "The program's all-time wins leader; the architect of the SEC move and the back-to-back East titles" }
+    - { name: Chase Daniel, role: player, why: "The quarterback of the 2007-08 teams that reached No. 1 and won a Cotton Bowl" }
+    - { name: Kellen Winslow, role: player, why: "Hall of Fame tight end, the prototype Missouri sent to the NFL in the 1980s" }
+  canonical_moments:
+    - { name: "Fifth down", year: 1990, what: "Colorado beats Missouri after officials grant an erroneous extra down — one of the sport's most infamous officiating disasters, against Mizzou", handling: heartbreak }
+    - { name: "No. 1 in the country", year: 2007, what: "Missouri reaches No. 1 before losing the Big 12 title game to Oklahoma, one win from the BCS championship", handling: wound }
+    - { name: "First SEC East title", year: 2013, what: "Missouri wins the East in year two of the SEC, silencing the move's doubters", handling: glory }
+  the_place: "Faurot Field at Memorial Stadium — the giant rock 'M' on the north hillside, kept by generations of students, and the 'M-I-Z / Z-O-U' call that carries across the state."
+  brand_of_football: "Pragmatic and quarterback-friendly — a program built on player development and a recent identity of stout defense and a power run game under Drinkwitz."
+  cultural_footprint: "The proof case that a doubted realignment move can succeed; a Show-Me state program that lets the results argue for it rather than chasing the spotlight."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Missouri went 8-5 in 2025 (4-4 SEC), a step back from consecutive
+    top-15 finishes, behind a defense that ranked among the nation's best and transfer back Ahmad Hardy,
+    before a 13-7 Gator Bowl loss to Virginia. Eli Drinkwitz enters year seven with a bought-in base still
+    waiting on the breakthrough — an outright SEC run that finally turns "the move worked" into "Mizzou is here."
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Missouri_Tigers_football_team
+    - https://en.wikipedia.org/wiki/2007_Missouri_Tigers_football_team
+    - https://www.wholehogsports.com/news/2025/jul/27/2025-sec-football-team-previews-missouri-looking-for-third-consecutive-10-win-season-under-eli-drinkwitz/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Missouri is the program that quietly moved from Big 12 doormat to SEC competitor and
+    made the move look obvious in hindsight.
+  mantra: M-I-Z.
+  cultural_anchors:
+    fan_archetype_dominant: Show-Me-State-Patient-Loyalist
+    outsider_archetype_dominant: SEC-Newcomer-Skeptical
+    one_sentence: Missouri is the program that proved a 2012 SEC move can pay off — even when every analyst
+      predicted it wouldn't.
+  selfname: the Tigers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Gary Pinkel's 14-year tenure (2001-2015)
+    - 2013-2014 SEC East titles + Cotton Bowl
+    - 2023-2024 Drinkwitz top-10 finishes
+    rituals:
+    - M-I-Z / Z-O-U
+    - Truman the Tiger
+    - Mizzou Mafia
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (51/100, n=54)
+    voice_profile: absent
+    delusion_premium: absent

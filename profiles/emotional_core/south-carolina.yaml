@@ -1,0 +1,121 @@
+# Emotional Core — South Carolina  (south-carolina)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: south-carolina
+team_id: 2579
+program_name: South Carolina
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # the pugnacious SEC have-not, chip permanently on the shoulder, swinging up at a league that keeps it down
+  secondary: deprival     # a century-plus and still no conference title; the ceiling always one rung below the SEC's best
+  core_variant: the-chronic-chip
+  one_line: "South Carolina is the SEC's hardest-luck believer — a program that has never won a conference championship in over a century, fights like it might at any moment, and watched a preseason-No.-13 season with a Heisman-hyped quarterback crater to 4-8."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "The 11-win peaks of the early-2010s, against a present where preseason top-15 hype became 4-8 — the gap between what Gamecock fans are promised every August and what usually arrives in November."
+
+the_wound:
+  name: "The 2025 collapse"
+  detail: "South Carolina opened 2025 ranked No. 13 with quarterback LaNorris Sellers a Heisman contender and finished 4-8 (1-7 SEC). Sellers regressed and was sacked a career-high 43 times; Shane Beamer fired his offensive coordinator mid-season and enters 2026 squarely on the hot seat. The fanbase's oldest fear — that the ceiling is real — got loud again."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the thing the program has never won — a conference championship, the first in a history that runs back over a hundred years, and finally clear the rung it has always lived just beneath."
+  drought: { since: 1969, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Gamecock fans have spent generations as the SEC's welcome mat for Georgia, Clemson, and the rest — and they wear the grievance like a badge. They'll tell you nobody fights harder for less, and that the program that should never be respected keeps refusing to go quietly."
+
+the_delusion:
+  tone: load-bearing
+  text: "Every August, Columbia convinces itself this is the year the ceiling breaks — that the talent, the SEC pedigree, and the next quarterback finally deliver the breakthrough. The faithful have been burned this way for decades and they still believe it, because believing it is the whole identity."
+
+the_grudge_texture:
+  rival: clemson
+  texture: blood-feud   # the Palmetto Bowl — the in-state, year-round, families-divided hatred that defines South Carolina football
+
+the_coach_relationship: hot-seat-churn   # Shane Beamer rode a 2022-2024 high into a 4-8 2025 that put his seat among the hottest in the sport
+the_internal_fracture: faith vs fatigue — the faction that buys the preseason hype every year vs the faction worn raw by another top-15 promise collapsing to 4-8
+register: cocky-rooster-with-history   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always second tier — even when true, internal voice doesn't use that frame
+  - Spurrier era — over for a decade, current era owns itself
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "South Carolina has played football since 1892 and won exactly one conference championship — the 1969 ACC title — in all that time. The Gamecocks are the SEC's eternal almost: a fervent, capacity-crowd fanbase that has never had a league title to celebrate, and has built an entire identity out of the wanting."
+  the_origin: "A flagship state university in Columbia that spent twenty years as an independent before joining the SEC in 1992, where it found its true home — a conference brutal enough to match the chip the program already carried."
+  golden_ages:
+    - { era: "2010–2013 (Steve Spurrier peak)", what: "Three straight 11-win seasons, a 2010 SEC East title, and wins over No. 1 Alabama — the highest the program has ever climbed" }
+    - { era: "1969 (Paul Dietzel)", what: "A 6-0 ACC run to the program's only conference championship" }
+  legends:
+    - { name: "George Rogers", role: player, why: "The 1980 Heisman Trophy winner — South Carolina's singular individual glory" }
+    - { name: "Steve Spurrier", role: coach, why: "Built the 2010-2013 peak, the best sustained stretch in program history" }
+    - { name: "Jadeveon Clowney", role: player, why: "The No. 1 NFL Draft pick and author of 'The Hit' vs Michigan — a generational Gamecock talent" }
+  canonical_moments:
+    - { name: "George Rogers wins the Heisman", year: 1980, what: "The Gamecock running back takes home the Heisman Trophy — still the program's proudest individual moment", handling: glory }
+    - { name: "The Clowney Hit", year: 2013, what: "Jadeveon Clowney's helmet-dislodging Outback Bowl tackle of Michigan's Vincent Smith — the most-replayed play in school history", handling: glory }
+    - { name: "1969 ACC championship", year: 1969, what: "South Carolina's lone conference title in more than a century of football", handling: glory }
+  the_place: "Williams-Brice Stadium in Columbia (cap ~77,000) — and 'Sandstorm,' the Darude anthem that turns the night crowd into a wall of waving towels, one of the loudest entrances in the sport."
+  brand_of_football: "SEC grit with a chip — physical, defense-and-quarterback-driven, perpetually punching up at the league's blue bloods; a program that defines itself by the fight rather than the trophy case."
+  cultural_footprint: "The pugnacious soul of a football-mad state split down the middle with Clemson; a fanbase whose loyalty is famously immune to results, defined by the Palmetto Bowl and the wait for a breakthrough that never quite comes."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: South Carolina opened 2025 ranked No. 13 with LaNorris Sellers a Heisman
+    contender, then collapsed to 4-8 (1-7 SEC); Sellers threw for 2,437 yards and 13 touchdowns and was sacked
+    a career-high 43 times, and Shane Beamer fired OC Mike Shula mid-year. Despite NFL Draft and transfer-portal
+    interest — including Miami rumors — Sellers and pass rusher Dylan Stewart both returned for 2026, with Beamer
+    on the hot seat and the fanbase bracing for one more swing at the ceiling.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://www.si.com/college/southcarolina/football/shane-beamer-reveals-how-south-carolina-retained-lanorris-sellers-and-dylan-stewart-01kh9mppxbqg
+    - https://collegefootballnews.com/college-football/south-carolina-college-football-preview-2026
+    - https://en.wikipedia.org/wiki/1969_South_Carolina_Gamecocks_football_team
+    - https://en.wikipedia.org/wiki/South_Carolina_Gamecocks_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: South Carolina is the program waiting for its second 11-win season since 1903.
+  mantra: Forever to thee.
+  cultural_anchors:
+    fan_archetype_dominant: SEC-Underdog-Pugnacious
+    outsider_archetype_dominant: Funny-Hat-Diminisher
+    one_sentence: South Carolina is the SEC program whose ceiling has always been just below the conference's
+      actual ceiling — and whose fans have learned to love the position.
+  selfname: the Gamecocks
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2010-2013 Spurrier peak (44-15, 3 straight 11-win seasons)
+    - 2014 Heisman finalist Connor Shaw
+    - The Outback Bowl wins (2012, 2013)
+    rituals:
+    - Sandstorm Entrance
+    - 2001 Train Cars (Gamecock 1 & 2)
+    - 2x4 Boards in the Locker Room
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

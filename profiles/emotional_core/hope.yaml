@@ -1,0 +1,83 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Hope College Flying Dutchmen
+
+status: live
+slug: hope
+team_id: null
+program_name: Hope College
+program_tier: 7
+
+emotional_core:
+  primary: spectacle
+  secondary: contentment
+  one_line: "Hope is the Flying Dutchmen who won back-to-back perfect regular seasons (2024-2025, 10-0 each year)—a program with Dutch heritage, the Wooden Shoes trophy, and the belief that excellence is the new baseline."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A program with consistent MIAA competitiveness (10-0 in both 2024 and 2025, outright MIAA champ) vs. the ceiling of Division III and the quest for a national championship to complete the narrative."
+
+the_wound:
+  name: "The perfect-season ceiling and the playoff question"
+  detail: "Hope won 10-0 in the regular season in both 2024 and 2025—an extraordinary two-year run. But in 2024, the Flying Dutchmen lost in the NCAA Division III tournament (Aurora 49-21 was the first-ever postseason win, but deeper runs have not materialized). The wound is not defeat but aspiration: Hope is dominant in the MIAA but has not yet proven it can win a national championship."
+  handling: dated-grievance
+  freshness: this-era
+
+the_dream:
+  text: "Win a national championship and prove Hope is not just an MIAA power but a Division III contender."
+  drought: { since: 1953, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Hope's chip is against the ceiling. The Flying Dutchmen know they are the MIAA elite, and they want to prove it at the national level."
+
+the_delusion:
+  tone: self-aware
+  text: "That 10-0 in the regular season means anything if the tournament fails. Hope fans know playoff success is the measure that matters."
+
+the_grudge_texture:
+  rival: kalamazoo
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Perfect regular seasons (10-0, 10-0) vs. playoff ceiling (has not won a national title)"
+register: holland-michigan-flying-dutchmen-wooden-shoes
+never_use:
+  - Only recent powerhouse — 1953 MIAA title proves longer history
+  - New program — Hope has been playing since 1866 (160 years)
+  - One-year wonder — back-to-back perfect seasons (2024, 2025)
+
+story_canon:
+  the_unique_thing: "Hope is the Flying Dutchmen—a program named after the phonetic blend of Dutch heritage and school identity—who have won back-to-back perfect regular seasons (10-0 in 2024 and 2025) and contest the Wooden Shoes trophy with Kalamazoo (since 1910, hand-carved trophy since 1931)."
+  the_origin: "Hope College, founded in 1866 by Dutch settlers in Holland, Michigan, began playing football in the late 1800s. The 'Flying Dutchmen' nickname, coined in 1958 after a basketball victory, blends the Dutch heritage with athletic ambition. The program competes in the MIAA and has accumulated multiple conference titles. The Wooden Shoes rivalry with Kalamazoo (since 1910, trophy since 1931) is one of the MIAA's most storied traditions."
+  golden_ages:
+    - { era: "1953", what: "MIAA undisputed championship (7-2 record)" }
+    - { era: "1984", what: "Perfect 9-0 regular season, Hope's first undefeated season in modern era" }
+    - { era: "2019–2021 (Stuursma era)", what: "Three MIAA titles (2019, 2021 co-champ, 2024), sustained excellence" }
+    - { era: "2024–2025 (Perfect seasons)", what: "Back-to-back 10-0 regular seasons, outright MIAA championships" }
+  legends:
+    - { name: Peter Stuursma, role: coach, why: "Nine seasons (since 2016), 65-18 record (.783 win percentage); architect of the perfect-season dynasty" }
+    - { name: Alex Thole, role: player, why: "Transfer QB (from Schoolcraft) leading the 10-0 season" }
+  canonical_moments:
+    - { name: "1984 perfect season", year: 1984, what: "9-0 undefeated regular season, first in modern Hope history", handling: glory }
+    - { name: "2019 MIAA title", year: 2019, what: "First outright conference title in modern era", handling: glory }
+    - { name: "2024 perfect season", year: 2024, what: "10-0 regular season, outright MIAA championship", handling: glory }
+    - { name: "2025 perfect season", year: 2025, what: "Back-to-back 10-0 regular season, second consecutive outright MIAA title", handling: glory }
+  the_place: "Holland, Michigan, a small town in western Michigan settled by Dutch immigrants. Ray and Sue Smith Stadium is the home. The town is Dutch-heritage-centered, and Hope football is a cultural touchstone."
+  brand_of_football: "Disciplined and well-coached. Hope football under Stuursma is built on consistency, execution, and defensive strength. The Flying Dutchmen control tempo and field position."
+  cultural_footprint: "A mid-major power emerging. Hope has always been competitive but is now a national-level MIAA contender. The Flying Dutchmen are known for excellence and the Wooden Shoes rivalry."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Hope went 10-0 in the regular season in 2025 (outright MIAA championship, second consecutive perfect regular season after 2024's 10-0). The Flying Dutchmen beat Olivet to clinch the title and made the NCAA Division III tournament. Under Peter Stuursma (ninth season, 65-18 career record), Hope has become the MIAA's most consistent program. However, tournament success has eluded them—the 2024 run ended in the early rounds, and the question for 2026 is whether the Flying Dutchmen can finally break through at the national level.
+  research_checklist:
+    - 1866 founding (160 years old)
+    - Flying Dutchmen nickname (coined 1958)
+    - Wooden Shoes rivalry (since 1910, trophy since 1931)
+    - 1953 MIAA championship (7-2)
+    - 1984 perfect season (9-0)
+    - Peter Stuursma 9 seasons, 65-18 record (since 2016)
+    - 2024 perfect season (10-0)
+    - 2025 perfect season (10-0), outright MIAA champ
+    - Ray and Sue Smith Stadium home
+  sources:
+    - https://athletics.hope.edu
+    - https://hope.edu/news/2003/10/07/flying-dutchmen-renew-wooden-shoes-rivalry.html
+    - https://athletics.hope.edu/news/2024/11/16/football-blitzes-olivet-secures-first-10-0-regular-season-and-outright-miaa-title.aspx

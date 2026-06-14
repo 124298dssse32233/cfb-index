@@ -1,0 +1,167 @@
+# Emotional Core — Penn State  (penn-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: penn-state
+team_id: 226
+program_name: Penn State
+program_tier: 2
+
+emotional_core:
+  primary: deprival       # the decade-long inability to win the one game that mattered, now a clean break
+  secondary: restoration  # a new coach hired to finally clear the ceiling
+  one_line: "Penn State spent a decade as the program that could win every big game except the biggest — and in 2025 the wait finally broke the man who embodied it, ending the Franklin era mid-season and handing the job to someone hired to do the one thing the program never could."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Two national titles, seven undefeated seasons, and the loudest stadium in the country vs a decade of New Year's Six near-misses, no Playoff title game, and fourth-quarter collapses to Ohio State that the fanbase never processed past."
+
+the_wound:
+  name: "The 2025 free-fall and the firing it forced"
+  detail: "Penn State opened 2025 ranked No. 2 with title aspirations, started 3-0, then lost in overtime to Oregon at home and dropped stunners to UCLA and Northwestern — a 22-21 home loss to the Wildcats sending the program to 3-3 and ending James Franklin's 12-year, 104-win tenure in October, the abrupt close to a decade defined by getting close and not closer."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Beat the team in front of them in the game that decides it — turn a generation of New Year's Six trophies into the one that the program has chased since 1986."
+  drought: { since: 1986, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans will point to the scoreboard: a decade of being the Big Ten's clear third program behind Ohio State and Michigan, the two rivals who kept finding a way in the fourth quarter when Penn State couldn't. The standard was never the problem — clearing the team one rung up always was."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes the ceiling was a coaching problem, not a program one — that the roster, the recruiting, and the loudest home field in the sport were always championship-grade, and that the right sideline finally unlocks the title the resources have long deserved."
+
+the_grudge_texture:
+  rival: ohio-state
+  texture: championship   # the league's defining matchup — the game that has repeatedly decided Penn State's ceiling
+
+the_coach_relationship: savior   # Matt Campbell hired Dec 2025 to break the ceiling Franklin couldn't
+the_internal_fracture: gratitude vs grievance over Franklin — the faction that says firing a 104-win coach was reckless vs the faction that says a decade of almost was always going to end this way
+register: blue-collar-dynastic — earnest, Pennsylvania-specific, confident in the work without coastal swagger
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Happy Valley as punchline
+  - We Are without the response "Penn State" (it's a call and response)
+  - JoePa scandal as unprompted reference
+  - cute-underdog framing
+  - scrappy
+  - Penn State football as the Paterno scandal (the program is bigger than one chapter)
+  - Cinderella
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The White Out — 106,000 fans in coordinated white at Beaver Stadium, 'Zombie Nation' shaking the bowl between plays — is regularly called the single loudest, most intimidating night-game atmosphere in college football, the program's identity distilled into one Saturday a year."
+  the_origin: "A land-grant school in central Pennsylvania that played football from 1887 and became a national power under Joe Paterno, whose 46-year tenure (1966-2011) built the 'Grand Experiment' — the bet that you could win at the highest level with academic integrity, 'Success with Honor.'"
+  golden_ages:
+    - { era: "1968–1986 (Paterno)", what: "Undefeated 1968, 1969, 1973 teams and national championships in 1982 and 1986" }
+    - { era: "1994", what: "An undefeated, Rose Bowl-winning team many consider the best in school history — and a co-national-title argument that still rankles" }
+  legends:
+    - { name: Joe Paterno, role: coach, why: "The Grand Experiment, two national titles, the most wins in major-college history at his peak" }
+    - { name: John Cappelletti, role: player, why: "The program's only Heisman winner (1973), immortalized for dedicating it to his dying brother" }
+    - { name: Saquon Barkley, role: player, why: "The modern era's defining talent, the face of the Franklin-era rebuild" }
+  canonical_moments:
+    - { name: "1986 national title", year: 1987, what: "A goal-line stand stops Miami in the Fiesta Bowl for the program's second championship", handling: glory }
+    - { name: "1994 undefeated, no title", year: 1994, what: "A perfect season denied a clear championship — the great what-if", handling: heartbreak }
+    - { name: "2022 White Out vs Ohio State", year: 2022, what: "Another fourth-quarter loss to the Buckeyes — the recurring ceiling made literal", handling: wound }
+  the_place: "Beaver Stadium (cap 106,572) — second-largest in the Big Ten, the White Out its defining night, the S-Zone card stunt and 'We Are' call-and-response rolling across the bowl."
+  brand_of_football: "Blue-collar-dynastic — plain uniforms, no names on the jerseys, a program that speaks about itself the way a well-run manufacturing town does: serious, coordinated, built on the work."
+  cultural_footprint: "The program that staked its identity on collective ritual over any one man — 'We Are' as a statement of institutional permanence — and built traditions durable enough to outlast every crisis."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Penn State entered 2025 ranked No. 2 with national-title expectations, then
+    cratered — an overtime home loss to Oregon followed by upsets to UCLA and Northwestern — and fired James Franklin
+    in October after a 3-3 start, ending a 12-year, 104-45 tenure. Terry Smith finished as interim. On December 8,
+    2025, the school hired Iowa State's Matt Campbell as the 17th head coach in program history on an eight-year deal,
+    a three-time Big 12 Coach of the Year brought in to do the one thing the Franklin era never could: break the ceiling.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://www.on3.com/teams/penn-state-nittany-lions/news/james-franklin-fired-penn-state-football-coach-after-start/
+    - https://gopsusports.com/news/2025/12/8/matt-campbell-named-head-football-coach
+    - https://www.espn.com/college-football/story/_/id/47216420/penn-state-hiring-iowa-state-matt-campbell-8-year-deal-coach
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Penn State is the program whose standard was built by one man's reputation and has to
+    keep being rebuilt in his absence.
+  mantra: We Are.
+  cultural_anchors:
+    fan_archetype_dominant: Institutional-Faithful
+    outsider_archetype_dominant: Survivor-of-the-Sandusky-Era
+    one_sentence: Penn State is the program that decided collective identity is more durable than individual
+      coaching tenure — and built rituals that survive every administrative crisis.
+  selfname: the Nittany Lions
+  aspiration_ladder_top: National Championship
+  rivalries:
+  - ohio-state
+  - michigan
+  - pittsburgh
+  - temple
+  - michigan-state
+  heritage:
+    national_titles: 2
+    conference_titles: 4
+    current_conference: Big Ten
+  prose_excerpts:
+    taboos: The Sandusky scandal and Paterno's role are real institutional history; they are handled with
+      factual accuracy, not glib reference. The 2012 NCAA sanctions and their partial reversal are part
+      of the record. "JoePa" is an in-fanbase affectionate term; use with awareness that its register has
+      shifted post-scandal. The 2016 Rose Bowl loss, 2022 Ohio State loss, and 2024 CFP semifinal loss are
+      all real wounds; reference with context. The Beaver Stadium expansion project is a…
+    fans_culture: 'The fanbase is central-Pennsylvania-concentrated with a national alumni diaspora (particularly
+      in the Northeast corridor and the DMV / NC area). The gameday register is blue-collar-dynastic: serious,
+      coordinated, engaged, with a specific Penn State character that is more Pennsylvania Rust Belt than
+      elite-Midwest-academic. The White Out game is the fanbase''s peak expression — 106,000 fans in coordinated
+      white, "Zombie Nation" blaring between plays, the cumulative noise…'
+    voice_ethos: 'The voice is blue-collar-dynastic: earnest, Pennsylvania-specific, uninterested in coastal
+      pageantry or Hollywood register, confident about the program''s standard without performative swagger.
+      Penn State speaks about itself the way a well-run mid-sized manufacturing company speaks — confident
+      in the work, measured in the self-promotion. Identity phrase: **"Penn State is the program whose standard
+      was built by one man''s reputation and has to keep being rebuilt in his…'
+    narratives: The Franklin-era "can he win the big one" question is the program's central open narrative.
+      Four New Year's Six bowls, one Big Ten title (2016), no CFP semifinal appearance, two fourth-quarter
+      collapses vs. Ohio State (2022, 2024) that fanbase patience has not processed past. The 2026 season
+      is the program's 13th Franklin year — the question of whether the ceiling is permanent or breaks is
+      the annual refrain. The portal and NIL era has been mixed for Penn State — strong…
+    in_jokes: '"We Are" / "Penn State" — universal call and response; sincere. "Happy Valley" — proper noun
+      for the State College campus setting. "White Out" — the game; the aesthetic; the program''s signature
+      home atmosphere. "Zombie Nation" — the stadium song; deploys at moments of momentum. "Success with
+      Honor" — a Paterno phrase that survives as program identity. "The Grand Experiment" — Paterno''s term
+      for the program''s athletic-academic integration.'
+  story_materials:
+    legendary_coach: Joe Paterno
+    era_name_overrides:
+      1887-1949: The Founding Decades
+      1950-1965: The Engle Era
+      1966-2011: The Paterno Era
+      2011-2016: The Sanctions Wilderness
+      2014-: The Franklin Era
+    always_surface:
+    - 2 claimed national championships (1982, 1986)
+    - 1 Heisman winner (John Cappelletti 1973)
+    - 7 undefeated seasons (most recent: 1994)
+    - Beaver Stadium — 106,572 capacity, second-largest in the Big Ten
+    - The "White Out" game — the loudest home game in college football
+    - 71 straight wins from 1938-1948 (school-specific internal record)
+    - Franklin era: 4 New Year's Six bowl appearances, one Big Ten title (2016)
+    - Success with Honor — the program's self-articulated ethos
+    rituals:
+    - White Out
+    - We Are... Penn State
+    - Nittany Lion Statue Touch
+    - S-Zone (student section card stunt)
+    - Zombie Nation (Kernkraft 400)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (45/100, n=1)
+    voice_profile: absent
+    delusion_premium: absent

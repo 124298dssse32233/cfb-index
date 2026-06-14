@@ -1,0 +1,74 @@
+# Emotional Core — Tarleton State Texans (tarleton-state)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: tarleton-state
+team_id: 250
+program_name: Tarleton State
+program_tier: 5
+
+emotional_core:
+  primary: house-money         # A championship in year three of transition — luck turning into culture
+  secondary: disbelief         # The surprise that a new D-II program is beating teams that should dominate
+  one_line: "Tarleton State is the Texas program that climbed from Division II to FCS and won a UAC championship in its first eligible year."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program built in Division II that transitioned to FCS in 2023 and has proven it belongs — the UAC co-champion in 2025."
+
+the_wound:
+  name: "The transition eligibility wait (2023–2024)"
+  detail: "Tarleton State moved to FCS on July 1, 2020, but had to wait four years (2023–2024 transition period) before being eligible for FCS postseason play. In 2023, the Texans went 8–3 but couldn't play in the FCS Playoff due to reclassification rules. In 2024, they finally became postseason-eligible and won the UAC."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the 2024–2025 championship run is the start of a dynasty, not a fluke — win multiple UAC titles, establish Tarleton State as a permanent FCS power."
+  drought: { since: 2025, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is one: Tarleton State was told it would take four years to reclassify, and the Texans are determined to prove that the wait was worth it — they're not just an FCS team, they're an FCS champion."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that a Division II program can become a permanent FCS power, that Tarleton State has found its level and will sustain it."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: reclassification-optimists-vs-skeptics — the faction that believes Tarleton belongs in FCS vs the one wondering if 2024–2025 success is sustainable at the higher level
+register: tarleton-state-texans-stephenville-fcs-riser
+never_use:
+  - Just a mid-tier school — UAC co-champion 2025 disproves
+  - Can't compete with real FCS teams — 12–2 record and Quarterfinal playoff appearance disprove
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The 2024–2025 back-to-back UAC championship run (2024 champion, 2025 co-champion) — a Division II school that climbed to FCS and immediately won hardware in its first two eligible seasons."
+  the_origin: "A Texas school that transitioned from Division II to FCS on July 1, 2020, with a four-year reclassification period that made the Texans wait until 2024 to compete for postseason glory."
+  golden_ages:
+    - { era: "2024–2025", what: "Back-to-back UAC championship contention: 2024 UAC champion, 2025 UAC co-champion (12–2, FCS Playoff Quarterfinal)" }
+  legends:
+    - { name: Todd Whitten, role: coach, why: "The 16-year Tarleton coach who guided the transition from D-II to FCS and won two UAC championships in two eligible seasons" }
+    - { name: Victor Gabalis, role: player, why: "The starting QB who led the 2025 UAC co-championship run" }
+  canonical_moments:
+    - { name: "The 2024 UAC Championship", year: 2024, what: "Tarleton State's first postseason-eligible season is crowned with a UAC championship", handling: glory }
+    - { name: "The 2025 Co-Championship & Playoff Run", year: 2025, what: "12–2 (7–1 UAC), co-champions with Abilene Christian, reach FCS Playoff Quarterfinal (lose to Villanova 21–26)", handling: glory }
+  the_place: "Tarleton Stadium in Stephenville, Texas — a program built in Division II, proving itself in Division I."
+  brand_of_football: "Disciplined, fundamentally sound — a coach with 16 years of continuity building a transition-eligible program into a conference champion."
+  cultural_footprint: "A riser program: proof that Division II success can translate to FCS championship football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Tarleton State finished 12–2 (7–1 UAC) in 2025, co-winning the conference and advancing to the FCS Playoff Quarterfinal before losing to No. 9 Villanova (21–26). Coach Todd Whitten, in his 16th season, has now won back-to-back UAC titles (2024–2025) in Tarleton's first two postseason-eligible seasons. The Texans proved in 2025 that their 2024 championship was no fluke, defeating No. 19 North Dakota in the Second Round before stumbling to a ranked Villanova team. The question in Stephenville: can Tarleton State build a multi-year FCS power run, or will the championship window prove narrow?
+  research_checklist:
+    - the D-II to FCS transition (July 1, 2020, four-year wait until 2024 eligibility)
+    - the 2023 ineligible 8–3 season
+    - back-to-back UAC championships (2024–2025)
+    - Todd Whitten's 16-year tenure and continuity
+    - the 2025 FCS Playoff Quarterfinal run (12–2 record, defeated No. 19 North Dakota)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Tarleton_State_Texans_football_team
+    - https://www.tarleton.edu/news/tarleton-accepts-wac-invitation-moves-to-ncaa-division-i/
+    - https://en.wikipedia.org/wiki/2023_Tarleton_State_Texans_football_team

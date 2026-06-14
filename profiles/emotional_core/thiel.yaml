@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: thiel
+team_id: null
+program_name: Thiel
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Thiel College is the Presidents' Athletic Conference program where tradition runs deep through the Tomcat mascot (named by a visiting coach in 1924) and the Victory Bell rivalry tradition, a small Pennsylvania school playing with quiet pride."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small liberal-arts college where football is one tradition among many. Thiel's identity is rooted in history and community, not conquest."
+
+the_wound:
+  name: "Small-school reality in a competitive era"
+  detail: "Thiel went 1-7 (at November 1, 2025) during a rebuilding season. The wound is not catastrophe but the persistent challenge: can a small school build winning momentum?"
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Reclaim the Victory Bell tradition by beating Hiram and building into a competitive PAC program where the Tomcats are feared again."
+  drought: { since: 2015, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Thiel's identity is built on tradition, not grievance. The Tomcat name and the Victory Bell are the program's anchors."
+
+the_delusion:
+  tone: self-aware
+  text: "That the team is closer to competing than it looks, that the recruiting and development will click, and that next year Thiel is back in the mix — the fanbase knows the history is real and believes recovery is possible."
+
+the_grudge_texture:
+  rival: hiram
+  texture: blood-feud
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Honoring tradition vs. building for the future"
+register: thiel-tomcats-small-pennsylvania-victory-bell-1924
+
+never_use:
+  - Perennial PAC power — not in recent decades
+  - Storied national program — Thiel has never been that
+  - Football dynasty — small school, never built that level
+
+story_canon:
+  the_unique_thing: "Thiel College's mascot, the Tomcats, was named in 1924 by visiting Carnegie Tech coach Wally Steffen, who observed the team's fighting spirit and declared them 'a bunch of tomcats.' The name stuck and became the program's identity."
+  the_origin: "A small liberal-arts college founded in 1866 in Greenville, Pennsylvania. The football program reflects the college's mission: education, community, and building character through athletics."
+  golden_ages:
+    - { era: "1950s–1970s", what: "The program's strongest era, with consistent competitiveness in what would become the PAC" }
+  legends:
+    - { name: "Wally Steffen", role: "visiting coach", why: "Named the team the Tomcats in 1924 after observing their fighting spirit" }
+  canonical_moments:
+    - { name: "Tomcat Name Origin (1924)", year: 1924, what: "Carnegie Tech coach Wally Steffen names Thiel's team the Tomcats for their fierce competitive spirit", handling: glory }
+  the_place: "Greenville, Pennsylvania — a small town in northwestern Pennsylvania, home to Thiel College and its Appalachian small-school tradition."
+  brand_of_football: "Scrappy, fighting football rooted in the Tomcat identity. Thiel plays with determination and small-school heart, believing that effort and attitude matter."
+  cultural_footprint: "A guardian of small-school football tradition. Thiel's Tomcats represent what Division III is supposed to be: scholar-athletes playing for the love of the game and the pride of the college."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Thiel went 1-7 (at November 1, 2025) during a rebuilding season under the coaching
+    staff. The program faces the ongoing challenge of small-school athletics: building and maintaining competitiveness
+    while honoring a tradition that stretches back 100 years. The Victory Bell rivalry with Hiram remains an annual
+    anchor, and the goal is to use that and other traditions to build back toward PAC relevance.
+
+  research_checklist:
+    - Tomcat name origin 1924 (Wally Steffen, verified)
+    - Victory Bell tradition (rivalry rivalry)
+    - Recent season record (1-7 at Nov 1, 2025)
+    - Small-school Pennsylvania context
+    - PAC conference standing
+
+  sources:
+    - https://en.wikipedia.org/wiki/Thiel_College
+    - https://www.thielcollegetomcats.com/sports/football
+    - https://en.wikipedia.org/wiki/Thiel_Tomcats_football

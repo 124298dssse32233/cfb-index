@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: macalester
+team_id: null
+program_name: Macalester College
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Macalester is a historic MIAC institution playing at small-school scale—a liberal-arts commitment to football as part of a broader educational mission, not the mission itself."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A founding MIAC school where football is tradition, not obsession—a place where academic excellence is the primary identity, and football is honored as part of that larger community."
+
+the_wound:
+  name: "The small-school gap"
+  detail: "Macalester is a founding member of the MIAC but has never been dominant or driven to dominance in the way Saint John's or Bethel have become. The program sits comfortably in the middle of the MIAC, playing football as it was meant to be played in a liberal-arts setting: seriously but not obsessively."
+  handling: referenceable
+  freshness: all-time
+
+the_dream:
+  text: "Compete consistently in the MIAC and keep football as an honored part of Macalester's identity—not to chase national championships, but to represent the college's values and community on the field."
+  drought: { since: 1990, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe macalester's identity is not about what it lacks—it's about what it prioritizes: a balanced approach to college athletics, where academics and community come first, and football is an expression of those values."
+
+the_delusion:
+  tone: earnest
+  text: "Macalester fans believe the program is exactly where it should be: competitive in the MIAC, representing the college with integrity, not chasing prestige or national rankings that would compromise the educational mission."
+
+the_grudge_texture:
+  rival: hamline
+  texture: border-war
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Liberal-arts mission vs competitive ambition—the eternal tension at a small college where athletics must serve the community first."
+register: macalester-scots-minneapolis-liberal-arts
+never_use:
+  - Never competitive—Macalester is a MIAC member, regularly competitive
+  - No tradition—the program is a founding MIAC school with long history
+  - Irrelevant—Macalester's identity is about intentional priorities, not irrelevance
+
+story_canon:
+  the_unique_thing: "Macalester is a founding member of the MIAC—a small, prestigious liberal-arts college that has maintained football as an honored part of institutional identity for over a century, always balancing competitive ambition with the college's broader academic and community mission."
+  the_origin: "Macalester College, founded 1874, is one of the founding institutions of the MIAC. The program has competed continuously since the conference's establishment, representing a specific model: serious Division III football at a school where academics are the primary identity."
+  golden_ages:
+    - { era: "1970s–1980s", what: "Macalester's strongest era of MIAC competition, winning regularly and maintaining respect in the conference" }
+  legends:
+    - { name: Historic founding institution, role: program, why: "Macalester's identity is rooted in being a founding MIAC school, representing the liberal-arts values that built the conference" }
+  canonical_moments:
+    - { name: "MIAC founding membership", year: 1926, what: "Macalester becomes a founding member of the MIAC, establishing its place in the conference's identity", handling: glory }
+  the_place: "Saint Paul, Minnesota—a small, intellectually rigorous liberal-arts college campus where football is honored but never dominant."
+  brand_of_football: "Serious, principled, educational—Macalester plays football as an extension of its commitment to community and excellence, not as the institution's primary focus."
+  cultural_footprint: "Macalester represents the true D3 model: a school where football is important but not primary, where the game is played with integrity and respect, as part of a larger educational and community mission."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Macalester went 3-7 (2-7 MIAC) in 2025, representing
+    a down year in a program that operates without championship aspirations but with steady commitment to
+    competitive football. The Scots play in the heartland of the MIAC, without the spotlight of programs like
+    Saint John's or the growth trajectory of Bethel, but with the enduring identity of a founding institution
+    that balances athletics and academics with integrity.
+  research_checklist:
+    - Founding MIAC member status and institutional history
+    - Liberal-arts identity and balanced approach to athletics
+    - Consistent middle-tier MIAC presence (not elite, not struggling)
+    - Academic-first identity affecting athletic priorities
+    - Stability and honor as core values
+  sources:
+    - https://www.macalester.edu/athletics/football/
+    - https://miachome.org/sports/football/
+    - https://www.d3football.com/

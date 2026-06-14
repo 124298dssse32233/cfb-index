@@ -1,0 +1,64 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: black-hills-state
+program_name: Black Hills State University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: grievance
+  one_line: "Black Hills State is the regional D2 program defined by the Black Hills Brawl — the 140-year-old rivalry that is the fourth-most-played in NCAA history, and the Jackets are still chasing South Dakota Mines' all-time lead."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A school built on a legendary rivalry and regional pride, chasing a historic rival in one of college football's great blood feuds."
+
+the_wound:
+  name: "The Brawl drought"
+  detail: "South Dakota Mines leads the Black Hills Brawl all-time 67 wins to Black Hills State's series record — a rivalry that traces to 1895 and the Homestake Trophy, and the Jackets are still trying to break even in history's fourth-most-played rivalry."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win back the Homestake Trophy, tilt the all-time Brawl record, and reclaim RMAC supremacy against the Hardrockers."
+  drought: { since: 2012, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe the Brawl is the chip — 67 games down in history's greatest rivalry, the Jackets play every year to chip away at that lead and tilt the rivalry their way."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: south-dakota-mines
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Regional tradition vs modern D2 competitiveness — the weight of 140 years of Brawl history vs the need to build a modern program."
+register: black-hills-yellow-jackets-south-dakota-brawl-rapid-city
+never_use:
+  - Recent national competitors — 3-8 in 2025, RMAC middle-tier
+  - Brawl trophy leaders — Mines leads 67 all-time
+
+story_canon:
+  the_unique_thing: "The Black Hills Brawl — first played in 1895, the fourth-most-played rivalry in NCAA history (any division) and the most-played in Division II. The Homestake Trophy is the prize."
+  the_origin: "A South Dakota regional program born from the Black Hills mining country, defined from the start by its rivalry with South Dakota Mines."
+  golden_ages: []
+  legends: []
+  canonical_moments:
+    - { name: "The Black Hills Brawl establishment (1895)", year: 1895, what: "First game vs South Dakota Mines — the start of the 140-year rivalry", handling: glory }
+  the_place: "South Dakota Black Hills region; rapid City area; home of the Brawl."
+  brand_of_football: "Regional rivalry pride — a program whose identity is built on the annual clash with the Hardrockers and the historic Brawl."
+  cultural_footprint: "Custodians of one of college football's greatest rivalries, a 140-year blood feud that defines D2 regional football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Black Hills State went 3-8 (3-6 RMAC) in 2025 under coach Josh Breske.
+    The Jackets remain in the shadow of the Brawl legacy, chasing South Dakota Mines' all-time series lead. The rivalry
+    itself is the program's defining identity — every season is measured against the Hardrockers and the Homestake Trophy.
+  sources:
+    - https://en.wikipedia.org/wiki/Black_Hills_State_Yellow_Jackets_football
+    - https://www.bhsu.edu/athletics/
+    - https://www.rmac.org/
+    - https://en.wikipedia.org/wiki/Black_Hills_Brawl

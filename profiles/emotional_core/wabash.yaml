@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Wabash College Little Giants
+
+status: live
+slug: wabash
+team_id: null
+program_name: Wabash College
+program_tier: 7
+
+emotional_core:
+  primary: spectacle
+  secondary: honor
+  one_line: "Wabash is the all-men's college that plays DePauw for the Monon Bell every Thanksgiving—a 140-year rivalry, an all-male institution, and the Little Giants' insistence that the bell belongs in Crawfordsville."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "An all-male institution with a .634 all-time winning percentage and 13 conference titles vs. the reality of the Monon Bell deficit (DePauw won it four straight years 2022-2025) and the pressure of a single annual game that defines the season."
+
+the_wound:
+  name: "The Monon Bell drought and the gender question"
+  detail: "Wabash played for the Monon Bell in 2025 and lost 41-20 to DePauw, who have now won it four consecutive years. The drought stings for a program with 13 conference titles and a .634 all-time record. Compounding that is the identity tension: Wabash is a proud all-male institution in an era when that distinction is increasingly rare and questioned. The program carries that identity with pride and defensiveness."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Monon Bell again and prove the Little Giants belong at the trophy game."
+  drought: { since: 2021, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is against the clock. Every November 22 (or nearby), Wabash and DePauw meet for the bell, and Wabash wants to reclaim it from their neighbors 20 miles away."
+
+the_delusion:
+  tone: self-aware
+  text: "That Wabash is one quarterback away from winning the bell every year. The Little Giants know the rivalry is even, but they believe their year is always coming."
+
+the_grudge_texture:
+  rival: depaw
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "All-male identity pride vs. the modern pressure to evolve and remain relevant"
+register: crawfordsville-indiana-little-giants-monon-bell
+never_use:
+  - "Irrelevant small program — 13 conference titles and .634 all-time record disprove; historically strong"
+  - "DePauw dominates the rivalry — 4-year bell streak is recent; historically even"
+  - "Only all-male college in NCAC — a fact, but implies weakness; Wabash owns this identity with pride"
+
+story_canon:
+  the_unique_thing: "Wabash is the only all-male college competing in Division III football, and they are the co-owner of the Monon Bell—a 140-year rivalry with DePauw, and every Thanksgiving is a battle for a 300-pound cast-iron bell."
+  the_origin: "Wabash College, founded in 1832 in Crawfordsville, Indiana, began playing football on October 25, 1884, when they defeated Butler 4-0. The Little Giants nickname was adopted in 1904. The program grew into a small-college power, and the rivalry with DePauw (20 miles away) began in 1890. In 1932, the two schools commissioned the Monon Bell—a 300-pound cast-iron bell—and it has been contested every Thanksgiving ever since. Wabash is unique: the only all-male college in Division III football."
+  golden_ages:
+    - { era: "1906–1911", what: "Consecutive victories over Purdue, making Wabash a regional threat" }
+    - { era: "Early 20th century", what: "13 conference championships, all-time .634 winning percentage" }
+    - { era: "2010–2021", what: "Multiple Monon Bell victories and NCAC competitiveness before recent DePauw dynasty" }
+  legends:
+    - { name: Jake Gilbert, role: coach, why: "Second-year coach (since 2024) tasked with winning the bell again" }
+    - { name: historical coaches, role: builders, why: "Wabash has maintained a .634 all-time winning percentage across 140+ years of football" }
+  canonical_moments:
+    - { name: "1884 first game", year: 1884, what: "Wabash defeats Butler 4-0, beginning the program", handling: glory }
+    - { name: "1890 rivalry begins", year: 1890, what: "First game with DePauw, beginning the Monon Bell rivalry", handling: glory }
+    - { name: "Monon Bell commissioned", year: 1932, what: "The 300-pound bell is commissioned, formalizing the oldest continuous college football rivalry", handling: glory }
+  the_place: "Crawfordsville, Indiana, a small town in central Indiana. Little Giant Stadium is the home. The town is deeply invested in Wabash football."
+  brand_of_football: "Tough and disciplined. Wabash plays a grind-it-out style emphasizing defense and field position. The program's all-male culture emphasizes toughness and resilience."
+  cultural_footprint: "An unusual institution—the only all-male college in Division III football. Wabash carries that identity with pride and uses it as a unifying force. The Monon Bell is the sport's oldest continuous rivalry, and Wabash's role in it defines the program."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Wabash went 8-1 in the regular season in 2025 (strong performance) but lost the Monon Bell game to DePauw 41-20 on Thanksgiving, a tough ending to an otherwise successful year. Coach Jake Gilbert, in his second season, is rebuilding after a coaching change. The Little Giants have not won the bell since 2021 (four-year drought), and that loss haunts every season. Wabash's identity is bound to the bell—the program knows that one November game can define whether the year is a success or a failure.
+  research_checklist:
+    - 1884 first game (Butler 4-0)
+    - 1890 Monon Bell rivalry begins (DePauw)
+    - 1904 Little Giants nickname adoption
+    - 13 conference titles (verified all-time)
+    - .634 all-time winning percentage
+    - All-male institution (only one in D3 football)
+    - 2025 season 8-1 regular, lost Monon Bell 41-20
+    - Jake Gilbert 2nd season as coach (since 2024)
+  sources:
+    - https://sports.wabash.edu
+    - https://en.wikipedia.org/wiki/Monon_Bell
+    - https://en.wikipedia.org/wiki/Wabash_Little_Giants_football
+    - https://bachelor.wabash.edu/2024/10/on-this-day-in-history-wabash-plays-first-intercollegiate-football-game/

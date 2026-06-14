@@ -1,0 +1,171 @@
+# Emotional Core — USC  (usc)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: usc
+team_id: 316
+program_name: USC
+program_tier: 1
+
+emotional_core:
+  primary: restoration    # the whole arc is Riley climbing the program back toward the Saturday nights it used to own
+  secondary: deprival     # a half-decade of relevance lost to sanctions still shapes the impatience
+  core_variant: dynasty-restoration
+  one_line: "USC is the program that once owned Saturday night in Los Angeles — a Tailback U of Heismans and Hall of Famers — inching back toward the marquee and tired of telling fans the next step is coming."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "Eleven titles, seven Heismans and more pro Hall of Famers than any program vs a stretch that's traded the Coliseum's primetime aura for 9-4 seasons and an overtime bowl loss, with the climb still unfinished."
+
+the_wound:
+  name: "The Alamo Bowl overtime loss"
+  detail: "An ascending 9-4 season ended with No. 16 USC blowing a fourth-quarter lead and falling to TCU 30-27 in overtime — the kind of one-score finish that, to a fanbase used to closing games, felt like proof the program isn't all the way back yet."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Own the marquee again — a Big Ten title, a Playoff berth, and a season that turns the Coliseum at kickoff back into the most important room in the sport."
+  drought: { since: 2004, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The fanbase has spent fifteen years hearing the program eulogized as a faded brand coasting on its zip code; they say the talent pipeline, the recruiting and the city were never the problem, and they're done being framed as a name that used to matter."
+
+the_delusion:
+  tone: load-bearing
+  text: "USC fans believe the program is one season from owning the sport again — that Los Angeles, the Coliseum and the Tailback U lineage are advantages no rebuild can dull, and that the marquee belongs to the Trojans by right whenever they decide to take it back."
+
+the_grudge_texture:
+  rival: notre-dame
+  texture: championship   # the Jeweled Shillelagh — the intersectional blue-blood series, decided in triple-OT in 2024
+
+the_coach_relationship: savior   # Riley arrived with universal acclaim as the man hired to restore the Carroll-era glamour
+the_internal_fracture: trajectory vs timeline — the room that sees a 9-4 climb and a No. 1 recruiting class as the build working vs the room that says four years in, with this roster and this city, "ascending" is no longer an acceptable word
+register: hollywood-dynastic   # DRAFT (from voice_register) — confirmed
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - scrappy
+  - underdog
+  - Cinderella
+  - plucky Trojans (their plucky period was Homer)
+  - Reggie Bush scandal as lead reference (the title was restored in 2024)
+  - USC kids just show up in uniforms from central casting (too outsider-Hollywood)
+  - Hollywood as a punchline about the program
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "USC is 'Tailback U' — a continuous lineage of Heisman running backs from O.J. Simpson forward, eleven national titles, seven Heismans, and more Pro Football Hall of Famers than any college program, all staged in the Los Angeles Coliseum with Traveler galloping after every score."
+  the_origin: "A Los Angeles program that became a national power under Howard Jones in the 1920s-30s, then a glamour dynasty under John McKay in the 1960s-70s — Trojan iconography, the Coliseum, and a brand fused with the entertainment capital around it."
+  golden_ages:
+    - { era: "1960–1975 (John McKay)", what: "Four national titles, the Tailback U identity, and the Sam Cunningham game that helped integrate Southern football" }
+    - { era: "2001–2009 (Pete Carroll)", what: "Back-to-back-era dominance, Heismans, and the program's last run as the team that owned Saturday night" }
+  legends:
+    - { name: John McKay, role: coach, why: "Built the glamour dynasty and the Tailback U lineage" }
+    - { name: O.J. Simpson, role: player, why: "1968 Heisman; the start of the running-back tradition (on-field legacy)" }
+    - { name: Pete Carroll, role: coach, why: "The early-2000s dynasty that defined the modern brand" }
+  canonical_moments:
+    - { name: "The Bush Push", year: 2005, what: "USC survives Notre Dame on a last-second goal-line shove during the Carroll dynasty", handling: glory }
+    - { name: "The 2005 Rose Bowl", year: 2006, what: "Vince Young's fourth-down run beats USC 41-38 to end the dynasty's run at a third straight title", handling: heartbreak }
+    - { name: "Reggie's Heisman restored", year: 2024, what: "The 2005 Heisman is returned to Bush — a long-awaited piece of institutional vindication", handling: glory }
+  the_place: "The Los Angeles Memorial Coliseum — host of three Olympics (1932, 1984, 2028) — where Traveler the white horse circles the field, the Spirit of Troy plays 'Conquest' after wins, and kickoff is a celebrity event over a serious football environment."
+  brand_of_football: "Hollywood-dynastic: pedigreed, skill-rich, SoCal-specific; a program that speaks as one of the sport's half-dozen all-time names and treats the marquee as its natural address."
+  cultural_footprint: "The program that turned Los Angeles entertainment sensibility into a football brand — now testing, in the Big Ten, whether that identity travels to a Midwestern-anchored league."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Lincoln Riley's restoration moved up to a 9-4 finish (7-2 Big Ten) in 2025,
+    ending with No. 16 USC losing the Alamo Bowl to TCU 30-27 in overtime after blowing a fourth-quarter lead.
+    Quarterback Jayden Maiava — 3,711 yards, 24 touchdowns, a nation-leading 91.2 QBR and All-Big Ten honors —
+    returns, and USC signed the No. 1 recruiting class of the Riley era. After four seasons (35-18), 2026 has
+    hardened into a "Playoffs or bust" referendum on whether Riley is the long-arc answer or a multi-year bridge.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_USC_Trojans_football_team
+    - https://usctrojans.com/news/2025/12/30/usc-trojans-football-game-recap-associated-press-ap-valero-alamo-bowl-tcu-horned-frogs-jayden-maiava-king-miller-jaden-richardson
+    - https://www.si.com/college/usc/football/usc-trojans-early-top-25-ranking-means-lincoln-riley-jayden-maiava-big-ten-outlook
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: USC is the program that used to own Saturday night, and is trying to remember how it
+    felt.
+  mantra: Fight On.
+  cultural_anchors:
+    fan_archetype_dominant: Pete-Carroll-Era-Memory
+    outsider_archetype_dominant: Hollywood-Glitter
+    one_sentence: USC is the program that turned Los Angeles entertainment-industry sensibility into a college
+      football brand — and is currently figuring out whether the Big Ten will let it stay that way.
+  selfname: the Trojans
+  aspiration_ladder_top: National Championship
+  rivalries:
+  - notre-dame
+  - ucla
+  - stanford
+  - washington
+  - california
+  heritage:
+    national_titles: 11
+    conference_titles: 39
+    current_conference: Big Ten
+  prose_excerpts:
+    taboos: The 2005 Rose Bowl loss to Texas (Vince Young 4th-down run, 41-38) is a wound. The 2010 NCAA
+      sanctions era — specifically the Bush vacatur before the 2024 restoration — is sensitive; the restoration
+      resolved much but the 2010-2014 competitive damage is real. The Lane Kiffin LSU-style "airport firing"
+      (2013) is historical curiosity. Reggie Bush's restored Heisman is a joy, not a cautionary tale. The
+      2024 Notre Dame triple-OT loss (Leonard's run) is the program's most recent…
+    fans_culture: 'The fanbase is Southern California-concentrated with a national alumni diaspora — LA/Orange
+      County saturation, a strong Bay Area presence, and a national network built on the Carroll dynasty''s
+      early-2000s ratings peak. The gameday register is "Hollywood-dynastic" in a specific way: the Coliseum
+      at kickoff is a celebrity-spotting event layered over a serious football environment. Traveler gallops
+      after every score. The Song Girls execute their classical routines. The band…'
+    voice_ethos: 'The voice is Hollywood-dynastic: institutional, pedigreed, SoCal-specific, allergic to
+      both underdog framings and to being treated as a California punchline. USC does not speak as a plucky
+      program; it speaks as one of American college football''s half-dozen all-time programs that happens
+      to have had a rough fifteen-year stretch. The register is aware of the stretch but does not apologize
+      for or center it. Identity phrase: **"USC is the program that used to own Saturday…'
+    narratives: 'The Lincoln Riley restoration is the central open narrative. Hired in late 2021 with universal
+      acclamation (the former Oklahoma head coach moving to the Coliseum), Riley''s first three years produced
+      progress (11-3 in 2022) and stalls (7-6 in 2023) before a 9-4 2024 / 10-3 2025 ascending pair. The
+      2026 question: is Riley the long-arc answer or a multi-year bridge? The 2004 title restoration (2024)
+      was a rare piece of institutional good news. Reggie Bush''s Heisman back in the…'
+    in_jokes: '"Fight On" — universal; hand sign is V-for-victory. "Tailback U" — claim, accepted by most
+      historians. "Conquest" — the post-victory song; triggers emotional response. "Reggie''s Heisman" —
+      the 2024 restoration is still fanbase catharsis material. "Bush Push" — the 2005 Notre Dame game;
+      canonical. "The Song Girls" — proper noun. "SC" vertical shorthand — fan-internal. "Cardinal and gold"
+      — color identity.'
+  story_materials:
+    legendary_coach: John McKay
+    era_name_overrides:
+      1888-1924: The Founding Decades
+      1925-1957: The Early Dynasty / Jones-Hill Era
+      1960-1975: The John McKay Era
+      1976-1982: The John Robinson I Years
+      2001-2009: The Pete Carroll Dynasty
+      2010-2021: The Post-Sanctions Wilderness
+      2022-: The Riley Era
+    always_surface:
+    - 11 claimed national championships (1928, 1931, 1932, 1939, 1962, 1967, 1972, 1974, 1978, 2003, 2004)
+    - 7 Heisman Trophy winners (Garrett '65, Simpson '68, White '79, Allen '81, Palmer '02, Leinart '04,
+      Bush '05 — vacated then restored in 2024)
+    - 12 NFL Hall of Famers — more than any college program
+    - Tailback U — continuous running back lineage from O.J. Simpson forward
+    - LA Coliseum — home field; hosted three Olympics (1932, 1984, 2028 upcoming)
+    - Joined Big Ten in 2024
+    - Fight On hand sign (V-for-victory) and the Trojan warrior iconography
+    - Conquest — the post-victory song played by the band
+    rituals:
+    - Traveler (the white horse)
+    - Spirit of Troy (band, 'the greatest marching band in the history of the universe')
+    - Conquest (the post-victory ritual)
+    - Victory Bell (vs UCLA rivalry trophy)
+    - Tommy Trojan Statue
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

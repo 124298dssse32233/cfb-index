@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: cortland
+team_id: null
+program_name: SUNY Cortland
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: spectacle
+  one_line: "Cortland is the national champion that won the 2023 Stagg Bowl and owns the most iconic rivalry in Division III — the Cortaca Jug against Ithaca, the biggest little game in America."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "The 2023 national champion proving that a SUNY program can compete and win at the highest level, not just participate."
+
+the_wound:
+  name: "The 2025 Cortaca loss"
+  detail: "Ranked #14 nationally with an 8–1 record, Cortland lost the 2025 Cortaca Jug to Ithaca 26–21, costing a likely top-seeded playoff berth and handing the trophy back across the border."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win another national title and reclaim the Cortaca Jug as the undisputed king of New York Division III football."
+  drought: { since: 2023, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe cortland's chip is earned: beat #1 North Central 38–37 in the 2023 Stagg Bowl to win the national championship, proving a small SUNY program could do what the big boys couldn't."
+
+the_delusion:
+  tone: self-aware
+  text: "That 2023 wasn't a lightning strike, that Cortland belongs in the national conversation every year. The fanbase knows the injury luck and portal bounces that built 2023, but believes they can do it again."
+
+the_grudge_texture:
+  rival: ithaca
+  texture: blood-feud
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "The 2023 euphoria vs the reality of competing annually at that level — is the national title repeatable or a one-time miracle?"
+register: cortland-red-dragons-stag-bowl-cortaca
+never_use:
+  - Consistent national contender — 2023 was breakthrough, not dynasty
+  - Multi-title program — first and only national championship
+
+story_canon:
+  the_unique_thing: "The 2023 NCAA Division III National Championship (defeated #1 North Central 38–37) and half-ownership of the Cortaca Jug, the most famous rivalry in Division III — 40,000+ fans at MetLife Stadium."
+  the_origin: "Cortland football dates to the early 1900s as a SUNY regional school. The program played in regional obscurity until recent competitiveness."
+  golden_ages:
+    - { era: "2023", what: "National championship season (14–1 record, defeated North Central 38–37 in Stagg Bowl)" }
+    - { era: "2020s (Five-time Empire 8 champs)", what: "Five consecutive Empire 8 championships in the 2020s" }
+  legends:
+    - { name: Curt Fitzpatrick, role: coach, why: "Led Cortland to the 2023 national championship" }
+    - { name: Zac Boyes, role: player, why: "QB on the 2023 national title team" }
+  canonical_moments:
+    - { name: "2023 Stagg Bowl Victory", year: 2023, what: "Cortland defeated #1-ranked North Central 38–37 for the NCAA Division III national championship", handling: glory }
+    - { name: "Five-time Empire 8 Champions", year: 2023, what: "Cortland won five consecutive Empire 8 titles in the 2020s", handling: glory }
+    - { name: "The Cortaca Jug", year: 1930, what: "Co-founder of the oldest annual rivalry between regional opponents, played at MetLife Stadium", handling: glory }
+  the_place: "Cortland, New York — a small SUNY town in central New York whose football program competes at the national championship level."
+  brand_of_football: "A program that punches above its weight, built on institutional commitment to football excellence and willingness to compete for national hardware."
+  cultural_footprint: "Proof that a state-school football program can reach the highest level of Division III and win a national championship; the Cortaca Jug makes Cortland a household name in Northeast college football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Cortland went 8–1 (5–0 Empire 8) in 2025 under new coach Tom Blumenauer, ranked #14 nationally before
+    losing the Cortaca Jug to Ithaca 26–21. The loss cost a likely top-seeded playoff position despite dominant regular-season record.
+    Cortland seeks to return to the Stagg Bowl and reclaim the Jug, while establishing the 2023 national title as the foundation of a program
+    on the rise, not a one-year anomaly. The coach change from Curt Fitzpatrick to Blumenauer marks a transition year in the post-championship era.
+  research_checklist:
+    - 2023 national championship (Stagg Bowl, defeated North Central 38–37)
+    - Five consecutive Empire 8 championships (2020s)
+    - Cortaca Jug rivalry with Ithaca (started 1930, trophy 1959)
+    - 40,000+ attendance record at MetLife Stadium
+    - 2025: 8–1 record, ranked #14, lost Cortaca Jug to Ithaca 26–21
+    - Head coach change: Curt Fitzpatrick (championship coach) → Tom Blumenauer (2025)
+  sources:
+    - https://en.wikipedia.org/wiki/Cortaca_Jug
+    - https://www.ncaa.com/news/football/article/2023-12-15/cortland-wins-2023-stagg-bowl-diii-football-championship
+    - https://www.d3football.com/teams/cortland
+    - https://empire8.com

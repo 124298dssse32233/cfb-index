@@ -1,0 +1,123 @@
+# Emotional Core — Georgia Tech  (georgia-tech)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: georgia-tech
+team_id: 3
+program_name: Georgia Tech
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the engineering school that won it all in '90 is suddenly winning again under one of its own
+  secondary: grievance    # the little-brother chip toward Georgia that never sleeps
+  core_variant: dynasty-restoration
+  one_line: "Georgia Tech is the engineering school that out-thinks you on Saturday — a 1990 national champion that spent two decades in the wilderness and, under alum Brent Key and Haynes King, has clawed its way back to top-of-the-ACC relevance."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A national title in 1990 and four claimed all-time vs three decades of mid-tier ACC purgatory — until a homegrown coach pulled the program back to a 9-win season and an ACC-runner-up finish in 2025."
+
+the_wound:
+  name: "The fourth-and-goal fumble"
+  detail: "Georgia Tech's modern history with Georgia is a catalog of near-misses — most famously the 2014 collapse and a string of games lost in the final minutes — that hardened the fear of being permanently the smaller school across town, even after the program's recent climb."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "An ACC championship and a Playoff bid that proves the 2025 climb was the floor of a new era, not a one-year spike."
+  drought: { since: 2009, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Tech fans live two miles from a program with more recruits, more money and more rings, and 'To Hell With Georgia' isn't a chant so much as a worldview — the engineers against the football factory down Highway 78."
+
+the_delusion:
+  tone: self-aware
+  text: "The faithful believe smarter beats bigger — that a school full of engineers can scheme and develop its way past the blue-chip machines, and that Key proving it in 2025 is the start of something durable, not a fluke."
+
+the_grudge_texture:
+  rival: georgia
+  texture: little-brother   # Clean, Old-Fashioned Hate since 1893 — the longest uninterrupted rivalry in the Deep South, and Georgia owns the recent ledger
+
+the_coach_relationship: forever-ours   # Brent Key is a former Tech offensive lineman; the alum-made-good who restored belief
+the_internal_fracture: keep-it-real vs dream-big — the faction grateful just to be relevant again vs the faction that wants the program swinging for an ACC title and a Playoff berth now
+register: atlanta-engineers-yellow-jackets-1990
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always below Georgia — 1990 national championship + 2014 fumble + 2024 8-OT thriller
+    disprove
+  - Triple-option is dead — 2024 7-6 + competitive cycles disprove
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The engineering school that won a national championship — Georgia Tech's 1990 title under Bobby Ross, an academic powerhouse that competes at the highest level of the sport while admitting almost none of the academic exceptions its rivals do."
+  the_origin: "Founded in football's earliest days, Tech's roots run to John Heisman himself — the namesake of the trophy coached here and oversaw the famous 222-0 win over Cumberland in 1916, still the most lopsided game in college football history."
+  golden_ages:
+    - { era: "1951–1956 (Bobby Dodd)", what: "Bobby Dodd's run including the 1952 national title and a string of bowl wins" }
+    - { era: "1990 (Bobby Ross)", what: "11-0-1 and a share of the national championship — the modern crown jewel" }
+  legends:
+    - { name: John Heisman, role: coach, why: "The trophy's namesake coached at Tech; the 222-0 Cumberland game is his" }
+    - { name: Bobby Dodd, role: coach, why: "Hall-of-Fame coach the stadium is named for; the 1952 national title" }
+    - { name: Calvin Johnson, role: player, why: "'Megatron' — the greatest receiver in program history and a future Hall of Famer" }
+  canonical_moments:
+    - { name: "The 1990 national championship", year: 1990, what: "Bobby Ross's Jackets go 11-0-1 and share the title", handling: glory }
+    - { name: "222-0 over Cumberland", year: 1916, what: "The most lopsided game in college football history, under Heisman", handling: glory }
+    - { name: "Eight-overtime classic vs Georgia", year: 2024, what: "Tech finally breaks through in an instant-classic rivalry marathon", handling: glory }
+  the_place: "Bobby Dodd Stadium at Historic Grant Field — the oldest on-campus stadium in major college football, sitting in the middle of midtown Atlanta with the skyline as its backdrop, home of the Ramblin' Wreck."
+  brand_of_football: "Cerebral and adaptable — for years the nation's last great triple-option holdout under Paul Johnson, now a modern, physical spread under Key; either way, the identity is out-preparing programs with more talent."
+  cultural_footprint: "The Ramblin' Wreck, the 1930 Model A Ford that leads the team out; an engineering culture that frames football as another problem to be solved smarter than the opponent."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Georgia Tech went 9-3 in the 2025 regular season — its best start (8-0) since
+    1966 and first nine-win regular season since 2014 — before falling to BYU 25-21 in the Pop-Tarts Bowl. QB Haynes
+    King was ACC Player of the Year and finished 10th in the Heisman vote. Tech is the only program to finish fourth
+    or better in the ACC each of the last three years. Alum head coach Brent Key has the Jackets entering 2026 as a
+    genuine ACC-title and Playoff contender.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://ramblinwreck.com/coach/brent-key/
+    - https://clutchpoints.com/ncaa-football/georgia-tech-football-news-brent-key-drops-mic-haynes-kings-heisman-buzz
+    - https://en.wikipedia.org/wiki/Georgia_Tech_Yellow_Jackets_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Georgia Tech is the ACC engineering-school flagship — 1990 national championship under
+    Bobby Ross, four split-T / triple-option / Paul Johnson eras, and Brent Key's 2024 7-6 rebuild that
+    reset competitive cycles.
+  mantra: To Hell with Georgia.
+  cultural_anchors:
+    fan_archetype_dominant: Atlanta-Engineers-Yellow-Jacket
+    outsider_archetype_dominant: Always-Below-Georgia-Diminisher
+    one_sentence: Georgia Tech is the ACC engineering-school flagship — Ramblin' Wreck + 1990 national championship
+      + Clean Old-Fashioned Hate rivalry that anchor the program's permanent CFB identity.
+  selfname: the Yellow Jackets
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1990 11-0-1 + UPI national championship under Bobby Ross
+    - Four national titles (1917 / 1928 / 1952 / 1990)
+    - Clean Old-Fashioned Hate vs Georgia (since 1893)
+    rituals:
+    - Ramblin' Wreck
+    - 1990 National Championship
+    - Clean Old-Fashioned Hate (vs Georgia)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (51/100, n=51)
+    voice_profile: absent
+    delusion_premium: absent

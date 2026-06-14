@@ -1,0 +1,119 @@
+# Emotional Core — Maryland  (maryland)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: maryland
+team_id: 120
+program_name: Maryland
+program_tier: 5
+
+emotional_core:
+  primary: deprival       # the most distinctive look in the sport attached to a team that can't break through the Big Ten middle
+  secondary: restoration  # the live hope: a record-setting freshman QB chose to stay and build
+  one_line: "Maryland has the most striking identity in college football — the state flag stitched into the jersey — and a team that keeps coming up short of letting the look mean what it could."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A pro-tier visual brand and DMV recruiting turf vs a 4-8, 1-8 Big Ten season that left the Terrapins near the bottom of the league for the fourth time in five years."
+
+the_wound:
+  name: "The Big Ten weight"
+  detail: "Since leaving the ACC for the Big Ten in 2014, Maryland has mostly lived in the league's lower half. 2025 bottomed out at 4-8 (1-8 Big Ten) in Mike Locksley's seventh year — a season that asked whether the program can ever be more than a recruiting feeder for the conference's heavyweights."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Turn DMV talent into a team that finally matters in November — a winning Big Ten record, a bowl that feels like a step up instead of a ceiling."
+  drought: { since: 2014, unit: relevance }
+
+the_chip:
+  villain: big_brother
+  text: "The fanbase watches the same DMV recruits it should own get pulled away by Ohio State and Penn State and Michigan, then sees those programs run the league — the sense that Maryland is a supplier to the powers it's supposed to be competing with."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the talent base and the brand are real enough that the right quarterback changes everything — and that Malik Washington, the freshman who broke the program passing record and chose to stay, is that quarterback."
+
+the_grudge_texture:
+  rival: penn-state
+  texture: killed-by-realignment   # the ACC move severed Maryland's old rivalries; the Big Ten ones never replaced them
+
+the_coach_relationship: hot-seat-churn   # Locksley survives a 4-8 into year eight, but the seat is warm
+the_internal_fracture: patience vs frustration — give Locksley and a young QB time vs the fatigue of waiting for a breakthrough that never arrives
+register: dc-mid-atlantic-deprival
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Just uniforms — football matters too
+  - Basketball school — football is real
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Maryland state flag on the uniform — the boldest, most instantly recognizable visual identity in the sport, the black-gold-red-white quadrants that make the Terrapins unmistakable even to people who don't follow the team."
+  the_origin: "The land-grant flagship of Maryland in College Park, a 1953 national champion that won across the ACC for decades before leaving for the Big Ten and the visual rebrand that became its signature."
+  golden_ages:
+    - { era: "1951–1955 (Jim Tatum)", what: "The 1953 national championship and the program's competitive peak" }
+    - { era: "2001–2003 (Ralph Friedgen)", what: "An ACC title run and a 2002 Orange Bowl appearance" }
+  legends:
+    - { name: Randy White, role: player, why: "Outland and Lombardi winner; the program's greatest defensive player and a Pro Football Hall of Famer" }
+    - { name: Ralph Friedgen, role: coach, why: "Maryland alum who led the early-2000s ACC peak and Orange Bowl" }
+    - { name: Boomer Esiason, role: player, why: "The program's most famous quarterback and a long-time NFL star" }
+  canonical_moments:
+    - { name: "The 1953 national championship", year: 1953, what: "Maryland's lone national title under Jim Tatum", handling: glory }
+    - { name: "The 2002 Orange Bowl run", year: 2001, what: "Friedgen's first year delivers an ACC title and a BCS bowl berth", handling: glory }
+    - { name: "The Big Ten move", year: 2014, what: "Maryland leaves the ACC for the Big Ten — financial security, but severed rivalries and a tougher ceiling", handling: heartbreak }
+  the_place: "SECU Stadium in College Park — Testudo the terrapin out front, the state-flag look in the stands, a DMV crowd that swells for the league's marquee visitors."
+  brand_of_football: "Visually unmistakable, identity-forward football — a program whose look outruns its results, built on Mid-Atlantic speed and DMV skill talent."
+  cultural_footprint: "Fear the Turtle — the DMV's Big Ten outpost, a program whose state-flag uniforms are studied as a design landmark even by people indifferent to its record."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Maryland went 4-8 (1-8 Big Ten) in 2025, Mike Locksley's seventh year, who
+    returns for an eighth season despite the slide. The hope is freshman QB Malik Washington, who set program
+    freshman records (2,963 passing yards, 17 TDs) and announced he'll return for 2026. The question in College
+    Park: can Locksley build a winner around a young star, or is the brand destined to outshine the team again?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Maryland_Terrapins_football_team
+    - https://www.espn.com/college-football/story/_/id/47299126/qb-malik-washington-return-maryland-terrapins-26
+    - https://www.si.com/college/maryland/football/maryland-football-fair-expectation-for-mike-locksley-terrapins-in-2025
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Maryland is the program with the most beautiful uniforms in CFB and the eternally rebuilding
+    football team underneath.
+  mantra: Fear the Turtle.
+  cultural_anchors:
+    fan_archetype_dominant: DC-Mid-Atlantic-Loyalist
+    outsider_archetype_dominant: Uniforms-Are-The-Brand-Acknowledger
+    one_sentence: Maryland is the program whose visual identity carries more weight than the on-field product
+      — and whose fans have been patient with that asymmetry through 4 conference moves.
+  selfname: the Terrapins
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1953 national championship
+    - 2001 Orange Bowl appearance (Ralph Friedgen)
+    - The 2014 Big Ten move
+    rituals:
+    - State Flag Uniforms
+    - Testudo Statue
+    - The Fear the Turtle Slogan
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

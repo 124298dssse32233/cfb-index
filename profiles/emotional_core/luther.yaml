@@ -1,0 +1,87 @@
+# Emotional Core — Luther College (luther)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: luther
+team_id: null
+program_name: Luther College
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: standard
+  core_variant: regime-reset
+  one_line: "The Iowa powerhouse saying goodbye to the American Rivers Conference and hello to the Midwest Conference — a historic transition year bridging two eras."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "An Iowa institution with 11 conference titles and 355 All-America honors, transitioning from the American Rivers Conference (its home) into the Midwest Conference for a fresh competitive chapter."
+
+the_wound:
+  name: "The ARC farewell"
+  detail: "Luther dominated the American Rivers Conference for decades, last winning the title in 1978. As the 2025 season closes, Luther is leaving the ARC that built it, moving to the Midwest Conference in 2026 — a necessary transition but a farewell to a long home."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the Norse belong in the Midwest Conference; find the same success in a new league that made Luther a historic Iowa power."
+  drought: { since: 1978, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: dubuque
+  texture: border-war
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Honoring 11 ARC titles while embracing a new Midwest Conference identity"
+register: norse-iowa-transition
+never_use:
+  - "Irrelevant program — 11 conference titles, 355 All-America honors, historic Iowa power"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Luther's transition year — the final season in the American Rivers Conference (where the Norse won 11 titles) before moving to the Midwest Conference in fall 2026. A program bridging two eras."
+  the_origin: "Luther College, Decorah, Iowa — a historic Iowa institution with deep roots in the American Rivers Conference."
+  golden_ages:
+    - { era: "Historic ARC era", what: "11 conference titles, 355 All-America honors, foundational Iowa football program" }
+    - { era: "1978 (last ARC title)", what: "Last conference championship under ARC banner" }
+  legends:
+    - { name: "Luther's 355 All-Americans", role: players, why: "Historic honor tradition spanning generations" }
+  canonical_moments:
+    - { name: "11 conference titles (ARC era)", year: null, what: "Luther dominated the American Rivers Conference for decades", handling: glory }
+    - { name: "1978 last ARC title", year: 1978, what: "Final conference championship under American Rivers Conference banner", handling: glory }
+    - { name: "2026 Midwest Conference transition", year: 2026, what: "Luther moves from ARC (home for generations) to Midwest Conference for 2026–27 season", handling: glory }
+  the_place: "Carlson Stadium, Decorah, Iowa — home of the Norse."
+  brand_of_football: "Iowa tradition — a historic power adapting to a new era while honoring its American Rivers legacy."
+  cultural_footprint: "A historic Iowa program in transition; Luther's 11 ARC titles and 355 All-America honors are the proof of what the Norse have been, and the Midwest Conference entry is proof of what they're becoming."
+  the_ongoing_story: "LIVE as of 2025: Luther plays its final season in the American Rivers Conference (June 2025 announced MWC move effective fall 2026). The 2025 season is a transition year — honoring generations in the ARC while preparing for the Midwest Conference chapter. Head Coach leads the Norse through this threshold moment, carrying 11 conference titles and 355 All-America honors into a new competitive home."
+  sources:
+    - https://en.wikipedia.org/wiki/Luther_College_Norse_football
+    - https://www.luther.edu/athletics/football/
+    - https://www.luther.edu/about/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Luther College is the historic Iowa power (11 ARC titles, 355 All-Americans) transitioning from American Rivers Conference to Midwest Conference in 2026.
+  mantra: Norse transition.
+  cultural_anchors:
+    fan_archetype_dominant: Luther-Iowa-Faithful
+    outsider_archetype_dominant: ARC-Legacy-Carrier
+    one_sentence: Luther College is the Decorah, Iowa institution transitioning from the American Rivers Conference (11 titles, 355 All-Americans) to the Midwest Conference in fall 2026.
+  selfname: the Norse
+  rituals:
+    - 11 ARC Conference titles
+    - 355 All-America honors
+    - 2025 final ARC season
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

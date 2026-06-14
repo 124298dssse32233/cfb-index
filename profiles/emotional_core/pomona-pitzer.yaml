@@ -1,0 +1,66 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Pomona-Pitzer Sagehens — the Sixth Street Rivalry and consortium excellence
+
+status: live
+slug: pomona-pitzer
+team_id: null
+program_name: Pomona-Pitzer Sagehens
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Pomona-Pitzer is a joint athletic consortium of two Claremont Colleges whose Sagehens compete with intellectual pride in the Sixth Street Rivalry — the gold standard of small-school SCIAC football."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Two of the Claremont Colleges' most prestigious institutions united in athletics, competing in SCIAC not for national fame but for the honor of the rivalry and the game."
+
+the_wound:
+  name: "Small-school consortium limits"
+  detail: "Pomona-Pitzer's shared program structure requires consensus and shared resources, which shapes the program as collaborative and mission-aligned rather than resource-aggressive."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the Sixth Street Rivalry with Claremont-Mudd-Scripps, compete with honor in SCIAC, and stay aligned with the liberal arts mission."
+  drought: { since: null, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Pomona-Pitzer's identity is rooted in academic excellence and balanced competition."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: claremont-mudd-scripps
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: none — two schools, one mission
+register: sixth-street-sagehens-claremont-scholars
+never_use:
+  - "Single-school program — this is a permanent joint program"
+  - "National championship contender — SCIAC is the measure"
+  - "Dominant force — small liberal arts, always"
+  - "Resource-rich powerhouse — the consortium structure demands balance"
+
+story_canon:
+  the_unique_thing: "The Sixth Street Rivalry with Claremont-Mudd-Scripps — two joint-program consortiums in the Claremont Colleges separated by a single street, competing annually for pride and tradition."
+  the_origin: "The Pomona-Pitzer athletic program is a joint program of Pomona College and Pitzer College, established in 1970 on an interim basis and made permanent in 1972. The Sagehens represent the Claremont Colleges' unique collaborative athletic tradition."
+  golden_ages: []
+  legends: []
+  canonical_moments:
+    - { name: "Sixth Street Rivalry", year: null, what: "Annual competition with Claremont-Mudd-Scripps across the street — the heart of Pomona-Pitzer football identity", handling: glory }
+  the_place: "Claremont, California — at the heart of the Claremont Colleges cluster in the San Gabriel Valley."
+  brand_of_football: "Academic excellence and collaborative spirit — football as one expression of liberal arts values."
+  cultural_footprint: "Pomona-Pitzer's athletic success reflects the prestige of two flagship Claremont institutions; the program is central to the cluster identity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Pomona-Pitzer represents one of the Claremont Colleges' most prestigious joint athletic consortiums. The Sagehens
+    compete in SCIAC and maintain the historic Sixth Street Rivalry with Claremont-Mudd-Scripps. The program's identity centers on the academic
+    mission and collaborative excellence of the two institutions.
+  sources:
+    - https://en.wikipedia.org/wiki/Pomona_College
+    - https://en.wikipedia.org/wiki/Pitzer_College

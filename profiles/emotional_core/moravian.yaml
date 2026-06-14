@@ -1,0 +1,97 @@
+# Emotional Core — Moravian University (moravian)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III — program_tier: 7, graceful degradation applies (small school, regional focus, academic mission).
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: moravian
+team_id: null
+program_name: Moravian University
+program_tier: 7
+
+emotional_core:
+  primary: disbelief     # breaking a 9-year drought suddenly
+  secondary: restoration
+  one_line: "Moravian broke a 9-year drought by going 7–4 in 2024 and winning a bowl game — a small Bethlehem school suddenly discovering it can win."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "One bowl win in program history (2024, Chesapeake Challenge Bowl) vs. 9 years of sub-.500 football and irrelevance."
+
+the_wound:
+  name: "The 9-year losing record drought (2015–2024)"
+  detail: "Moravian didn't record an over-.500 season for nine years (2015–2023), ending the drought only in 2024 with a 7–4 record and bowl game victory."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Sustain the 2024 breakthrough and establish Moravian as a consistent Landmark bowl contender — prove the breakthrough is structural, not a fluke."
+  drought: { since: 2015, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no external chip; Moravian's pride is in breaking the 9-year drought, not in vindication against anyone."
+
+the_delusion:
+  tone: earnest
+  text: "Moravian fans believe the 2024 breakthrough is real—that the program has found footing in Landmark and will sustain postseason contention."
+
+the_grudge_texture:
+  rival: susquehanna
+  texture: border-war    # no blood feud; Landmark peer, friendly competition
+
+the_coach_relationship: savior     # coaching staff enabled breakthrough
+the_internal_fracture: patience-vs-skepticism — between believers in the 2024 breakthrough and those cautious after 9 years
+register: earnest-hopeful
+never_use:
+  - "Irrelevant (2024 Chesapeake Challenge Bowl win proves otherwise)"
+  - "Perpetual loser (one over-.500 season breaks that narrative)"
+
+story_canon:
+  the_unique_thing: "Moravian University broke a 9-year losing record drought in 2024 with a 7–4 season and a bowl game victory—the Chesapeake Challenge Bowl—in the program's first year back over .500."
+  the_origin: "Moravian University was founded in 1742 in Bethlehem, Pennsylvania. The football program joined the Landmark Conference as a founding member in 2023 and has since achieved a breakthrough 7–4 season with a bowl win."
+  golden_ages:
+    - { era: "2024 breakthrough (7–4, bowl win)", what: "Moravian's first over-.500 season in nine years; first bowl appearance in nine years" }
+  legends:
+    - { name: "The 2024 Coaching Staff", role: "program transformation", why: "Enabled the breakthrough 7–4 season and Chesapeake Challenge Bowl victory" }
+  canonical_moments:
+    - { name: "2024 Chesapeake Challenge Bowl Win (35–14 vs Shenandoah)", year: 2024, what: "Moravian's first bowl victory in 9 years; 7–4 regular season", handling: glory }
+    - { name: "2024 Breakthrough Season (7–4, 3rd Landmark)", year: 2024, what: "First over-.500 season since 2015; program-changing moment", handling: glory }
+  the_place: "Courie Field in Bethlehem, Pennsylvania — a historic Pennsylvania town (Moravian founded 1742) where football returns to relevance after a drought."
+  brand_of_football: "Resurgent small-school football—Moravian plays with the energy of a program breaking through after years of struggle."
+  cultural_footprint: "Proof that a program can break a losing record drought with one breakthrough season; Moravian is the story of a small school finding identity in Landmark."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Moravian University went 7–4 in 2024, the program's first winning season in nine years, and won the Chesapeake Challenge Bowl (35–14 vs. Shenandoah). The program finished 3rd in the Landmark Conference and established itself as a postseason contender. The 2025 question: can Moravian sustain the 2024 breakthrough and establish itself as a consistent Landmark bowl contender, or does 2024 remain an outlier?
+  research_checklist:
+    - 9-year losing record drought (2015–2023)
+    - 2024 breakthrough (7–4, bowl win)
+    - Chesapeake Challenge Bowl victory (35–14 vs Shenandoah)
+    - Landmark Conference founding member (2023)
+  sources:
+    - https://www.flofootball.com/articles/14439602-how-to-watch-moravian-football-in-2025
+    - https://landmarkconference.org/schedule.aspx?schedule=2147
+
+briefing:
+  identity_phrase: Moravian is the Landmark program that broke a 9-year losing record drought in 2024 with a 7–4 season and Chesapeake Challenge Bowl win—a small PA school's breakthrough.
+  mantra: Greyhound Pride.
+  cultural_anchors:
+    fan_archetype_dominant: Bethlehem-Greyhound-Breakthrough
+    outsider_archetype_dominant: Overlooked-Riser
+    one_sentence: Moravian is the historic Bethlehem, PA program (founded 1742) that broke a 9-year losing drought in 2024 (7–4) and won the Chesapeake Challenge Bowl (35–14).
+  selfname: the Greyhounds
+  heritage:
+    conference: Landmark
+    championships: None (2024 bowl win recognition only)
+  story_materials:
+    always_surface:
+    - 9-year losing record drought (2015–2023)
+    - 2024 breakthrough (7–4, bowl win)
+    - Chesapeake Challenge Bowl victory
+    - Historic founding (1742)
+    rituals:
+    - 2024 breakthrough celebration
+    modules_already_rendering: none (D3 module set pending)
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal (canon-only, D3 small program); 2024 breakthrough may enable signal-gathering

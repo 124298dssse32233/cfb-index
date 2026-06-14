@@ -1,0 +1,123 @@
+# Emotional Core — Ohio  (ohio)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: ohio
+team_id: 208
+program_name: Ohio
+program_tier: 3
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+emotional_core:
+  primary: contentment    # a quietly excellent MAC program that just keeps winning bowls and moving on
+  secondary: restoration  # three head coaches in three seasons, and the bowl streak survived all of it
+  one_line: "Ohio just won its seventh straight bowl game — the second-longest active streak in the country — under its third head coach in three years, a quietly relentless program that loses its coaches to bigger jobs and keeps winning anyway."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "The 2024 MAC title and the longest active bowl streak this side of the blue bloods vs a ceiling that keeps poaching the coaches who build it."
+
+the_wound:
+  name: "The program that can't keep a coach"
+  detail: "Tim Albin won Ohio its first MAC title since 1968 in 2024, then immediately left for Charlotte. His successor Brian Smith went 8-4 but was fired for cause in December 2025 amid a misconduct investigation. Defensive coordinator John Hauser, the third head coach in three seasons, won the Frisco Bowl on his first night running the team."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Hold the line through the churn and add another MAC banner — turn the bowl streak and the 2024 title into a program that's too good to keep raiding."
+  drought: { since: 2024, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Athens doesn't carry a grudge so much as a quiet pride: the Bobcats keep getting their coaches stolen by bigger programs, and they keep reloading and winning bowls. The fanbase has stopped apologizing for being good in a league nobody watches."
+
+the_delusion:
+  tone: earnest
+  text: "Bobcat fans believe the program is bigger than any one coach — that the bowl streak and the 2024 title prove Athens itself is the constant, and the next hire will keep the machine running no matter who keeps poaching them."
+
+the_grudge_texture:
+  rival: miami-oh
+  texture: blood-feud   # the Battle of the Bricks — the oldest rivalry in the MAC
+
+the_coach_relationship: hot-seat-churn   # three head coaches in three seasons
+the_internal_fracture: pride in the bowl streak vs frustration at the coaching turnstile — the room split between celebrating a quietly elite MAC program and resenting that it can never keep the people who make it one
+register: athens-oh-bobcats-frank-solich-mac   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always MAC-only — Solich era's multiple championship game appearances + sustained
+    competitive cycles reset
+  - No identity — Peden Stadium hill + Battle of the Bricks + Solich era combine into
+    permanent canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Peden Stadium's hill. Tucked into the Appalachian foothills of southeast Ohio, the Bobcats' stadium has a grass berm where students sprawl on game days — one of the most charming, distinctly small-college settings in the FBS, in a college town as picturesque as any in the sport."
+  the_origin: "The oldest university in Ohio, in the Appalachian river town of Athens, with a football program that became the MAC's model of quiet durability — never the league's biggest brand, always one of its hardest outs."
+  golden_ages:
+    - { era: "2005–2020 (Frank Solich)", what: "The Nebraska-bred coach's long run of bowl trips and MAC Championship Game appearances that made Ohio a fixture" }
+    - { era: "2021–2025 (Albin to the bowl streak)", what: "The 2024 MAC title — the first since 1968 — and a seven-game bowl winning streak" }
+  legends:
+    - { name: Frank Solich, role: coach, why: "Former Nebraska head coach who spent 16 years making Ohio a permanent MAC contender — the program's defining modern figure" }
+    - { name: Tim Albin, role: coach, why: "Solich's longtime lieutenant who won the 2024 MAC title, the program's first in 56 years, before leaving for Charlotte" }
+  canonical_moments:
+    - { name: "2024 MAC Championship", year: 2024, what: "Ohio routed Miami (OH) 38-3 — the largest margin in MAC title-game history and the program's first conference crown since 1968", handling: glory }
+    - { name: "2025 Frisco Bowl win", year: 2025, what: "Beat 10-win UNLV 17-10 under interim coach John Hauser for a seventh straight bowl victory", handling: glory }
+  the_place: "Peden Stadium in Athens — the grass hill, the foothills backdrop, and one of the most genuinely scenic game-day settings in college football."
+  brand_of_football: "Southeast-Ohio tough — a physical, well-coached, low-drama MAC program built on continuity of culture even when the head coach keeps changing."
+  cultural_footprint: "The MAC's quiet standard-bearer — proof that a small Appalachian school can run one of the most consistent mid-major programs in the country and a bowl streak the blue bloods would envy."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Ohio finished 2025 at 9-4 (6-2 MAC), narrowly missing the title game on
+    tiebreakers, then beat UNLV 17-10 in the Frisco Bowl for its seventh straight bowl win. The season was defined
+    by upheaval off the field: head coach Brian Smith — himself a 2024 promotion after Tim Albin won the MAC title
+    and left for Charlotte — was fired for cause in December amid a misconduct investigation. Defensive coordinator
+    John Hauser, the program's third head coach in three seasons, won the bowl as interim and was promoted to the
+    permanent job, inheriting a program that keeps winning through its own revolving door.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Ohio_Bobcats_football_team
+    - https://www.espn.com/college-football/story/_/id/47419461/ohio-tabs-john-hauser-coach-brian-smith-fired-cause
+    - https://ohiobobcats.com/news/2025/12/24/ohio-football-wins-seventh-straight-bowl-game-with-17-10-scooters-coffee-frisco-bowl-victory.aspx
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Ohio is the MAC program whose Frank Solich tenure + Tim Albin continuation + Peden Stadium
+    hill setting define what historic-southeast-Ohio football looks like.
+  mantra: Bobcats Bite Back.
+  cultural_anchors:
+    fan_archetype_dominant: Athens-OH-Bobcat-Loyalist
+    outsider_archetype_dominant: MAC-Refugee-Diminisher
+    one_sentence: Ohio is the southeast-Ohio MAC flagship — Peden Stadium hill venue + Frank Solich 2005-2020
+      era + Battle of the Bricks rivalry that anchor the program as a permanent MAC fixture.
+  selfname: the Bobcats
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Frank Solich 2005-2020 era (115 wins, multiple MAC championship games)
+    - 2011 10-4 + Famous Idaho Potato Bowl championship
+    - Battle of the Bricks vs Miami (OH) (since 1908)
+    rituals:
+    - Peden Stadium Hill Setting
+    - Frank Solich Tenure (2005-2020)
+    - Battle of the Bricks (vs Miami OH)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: cooking (61/100, n=22)
+    voice_profile: absent
+    delusion_premium: absent

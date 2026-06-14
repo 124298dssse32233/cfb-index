@@ -1,0 +1,123 @@
+# Emotional Core — UCLA  (ucla)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: ucla
+team_id: 26
+program_name: UCLA
+program_tier: 4
+
+emotional_core:
+  primary: deprival       # the best location and recruiting base in the country that never converts into a peak
+  secondary: house-money  # the unexpected Nico Iamaleava spark out of a lost season
+  one_line: "UCLA owns the best zip code in college football and almost never cashes it — then went 0-3, fired its coach, and watched a transfer quarterback nobody expected drag the season back to life."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A Rose Bowl address, an NFL-stocked alumni list and one of the sport's great recruiting footprints vs a single Rose Bowl appearance since 1998 and a 3-9 first full season in the Big Ten."
+
+the_wound:
+  name: "The 0-3 collapse and the Foster firing"
+  detail: "UCLA opened 2025 winless through three games — its worst start since 2019 — and fired second-year coach DeShaun Foster after just 15 games. Interim Tim Skipper and a surging Nico Iamaleava pulled the team to a 3-9 finish, but the bottom-falling-out start was the latest proof that a program with every structural advantage keeps finding the floor."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Finally turn the talent and the city into a team that matters in November — a bowl, a Big Ten run, the Rose Bowl full and loud for a winner again."
+  drought: { since: 1998, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Bruins fans are tired of being the other LA team — the one whose football is treated as a basketball school's hobby and USC's undercard. They'll point to the alumni list and ask why the program with the better address keeps getting overlooked."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes UCLA is a sleeping giant one right coach away — that the recruiting base, the brand and the city mean the program is always on the verge of the peak it never quite reaches."
+
+the_grudge_texture:
+  rival: usc
+  texture: little-brother   # the crosstown rivalry — UCLA fans reject the stepchild frame but live inside it
+
+the_coach_relationship: hot-seat-churn   # Mora→Kelly→Foster (fired mid-2025)→Skipper interim — a program that can't settle the chair
+the_internal_fracture: belief vs resignation — the faction that says the Iamaleava spark and the resources mean it's finally turning vs the faction that's seen the giant stay asleep too many times to buy it
+register: la-cool-with-blue-blood-history   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - USC's stepchild — never accepted that frame
+  - Football afterthought — basketball is the headline, football is real
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "UCLA plays its home games in the Rose Bowl and recruits the richest talent base in America, with one of the great NFL alumni lists in the sport — and has turned almost none of it into football glory in a generation. The gap between the resources and the results is the program's whole story."
+  the_origin: "A Los Angeles public university whose athletic identity was built by basketball — John Wooden's dynasty — leaving football to grow in the shadow of both the Bruins' hardwood legend and crosstown USC."
+  golden_ages:
+    - { era: "1980s–1990s", what: "Terry Donahue's run — multiple Rose Bowls, the program's most sustained football success" }
+    - { era: "2005 / 2014", what: "Periodic peaks — Karl Dorrell's and Jim Mora's ten-win teams — that never became a sustained era" }
+  legends:
+    - { name: Troy Aikman, role: player, why: "The most famous of a deep UCLA quarterback line; a Hall of Fame NFL career" }
+    - { name: Terry Donahue, role: coach, why: "Winningest coach in program and conference history; the architect of UCLA's best football years" }
+  canonical_moments:
+    - { name: "The Gutty Little Bruins era", year: 1988, what: "Donahue's nationally ranked, Rose Bowl-winning teams", handling: glory }
+    - { name: "The Big Ten move", year: 2024, what: "UCLA leaves the Pac-12 for the Big Ten — cross-country realignment that reshaped the program's identity", handling: wound }
+    - { name: "The Foster firing", year: 2025, what: "An 0-3 start gets the second-year coach dismissed after 15 games", handling: heartbreak }
+  the_place: "The Rose Bowl in Pasadena — the most storied stadium in college football, a home address most programs would trade everything for."
+  brand_of_football: "LA cool with blue-blood bones — a program that looks the part of a national power and has spent decades searching for the team to match the setting."
+  cultural_footprint: "The thinking fan's LA program — academic prestige, a basketball dynasty's halo, and a football team that carries the city's eternal what-if."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UCLA fired DeShaun Foster after an 0-3 start in September 2025; interim
+    Tim Skipper and a surging Nico Iamaleava — the Tennessee transfer who arrived from a 2025 NIL standoff —
+    pulled the Bruins to a 3-9 finish, with Iamaleava earning Big Ten Offensive Player of the Week honors and
+    announcing his return for 2026. UCLA then hired Bob Chesney, fresh off a 12-1 Sun Belt championship season
+    at James Madison, as its new head coach. The question in Westwood: can Chesney and a returning Iamaleava
+    finally make the resources mean something.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_UCLA_Bruins_football_team
+    - https://www.espn.com/college-football/story/_/id/46257776/sources-ucla-fires-deshaun-foster-bruins-start-0-3
+    - https://newsroom.ucla.edu/releases/ucla-names-bob-chesney-new-football-head-coach
+    - https://www.cbsnews.com/losangeles/news/ucla-quarterback-nico-iamaleava-returning-after-stellar-2025-season
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: UCLA is the program with the country's best football alumni list and the patience to
+    wait for its next national peak.
+  mantra: Go Bruins.
+  cultural_anchors:
+    fan_archetype_dominant: Sun-Belt-Patient-Loyalist
+    outsider_archetype_dominant: USC-Adjacent-Diminisher
+    one_sentence: UCLA is the program whose football identity sits in the shadow of its basketball dynasty
+      and its Los Angeles cultural sprawl — quietly patient, occasionally peaking.
+  selfname: the Bruins
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1954 national championship (retroactively recognized)
+    - Troy Aikman, Cade McNown, Drew Olson era QBs
+    - Big Ten move (2024) as the realignment-era pivot
+    rituals:
+    - The Eight Clap
+    - Pauley Pavilion / Rose Bowl Crossover
+    - Joe Bruin Mascot
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

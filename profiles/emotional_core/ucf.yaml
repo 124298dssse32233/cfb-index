@@ -1,0 +1,122 @@
+# Emotional Core — UCF  (ucf)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: ucf
+team_id: 61
+program_name: UCF
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # the program that went undefeated, got locked out of the Playoff, and declared itself champion anyway
+  secondary: restoration  # now in the Big 12, trying to turn the disruptor swagger into a winning Power-Four record
+  core_variant: the-ceiling
+  one_line: "UCF is the program that finished 13-0, watched the sport refuse to consider it, and hung a national-championship banner anyway — a swagger it dragged all the way into the Big 12."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 13-0 self-declared 2017 title and a hard-won seat at the Power-Four table vs back-to-back losing seasons in the Big 12 that ask whether the riser can actually win at the level it fought to reach."
+
+the_wound:
+  name: "Earning the seat, then struggling in it"
+  detail: "UCF spent a decade demanding to be taken seriously and got its wish — a 2023 jump to the Big 12. But the Power-Four reality has been hard: a 4-8 first year, and a 5-7 (2-7) 2025 under returning architect Scott Frost that missed a bowl, the swagger running into a tougher schedule than the AAC ever offered."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win in the Big 12 the way they once won in the American — a bowl, a winning record, proof the seat at the big table was earned and not borrowed."
+  drought: { since: 2023, unit: bowl }
+
+the_chip:
+  villain: committee
+  text: "The 2017 snub is foundational scripture in Orlando: an undefeated team the system wouldn't even rank highest among one-loss blue bloods. Knights fans will tell you the banner is real, the title is theirs, and the committee can keep pretending otherwise."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes the 2017 national championship is legitimate and earned — that an undefeated season is an undefeated season, and that the program out-grew the Group of Five precisely because it refused to accept the ceiling everyone else assigned it."
+
+the_grudge_texture:
+  rival: south-florida
+  texture: blood-feud   # the War on I-4 — the in-state, in-city Florida rivalry that defines UCF's grievance energy
+
+the_coach_relationship: legends-shadow   # Scott Frost — architect of the 13-0 — returned in 2025; every UCF coach lives under the 2017 standard, and now Frost lives under his own
+the_internal_fracture: vindication vs realism — the faction insisting the program belongs in the Power Four on swagger vs the faction worried two losing Big 12 years prove otherwise
+register: orlando-charge-on-knights-believer   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always G5 — 2023 Big 12 entry resolved the question
+  - 2017 fluke — 2018 12-1 + Fiesta Bowl confirmed the methodology
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "UCF is the program that went 13-0 in 2017, got shut out of the Playoff, and declared itself national champion anyway — banner, rings, parade and all. No other program has ever weaponized a snub into an identity that fully."
+  the_origin: "A massive young commuter university in Orlando that grew from a 1979 startup program into the largest school in the country, and decided the fastest way to be taken seriously was to refuse to wait for permission."
+  golden_ages:
+    - { era: "2017 (Scott Frost)", what: "A perfect 13-0 season, a Peach Bowl win over Auburn, and a self-declared national championship" }
+    - { era: "2018 (Josh Heupel)", what: "12-1 and a Fiesta Bowl berth — proof the 2017 run was a methodology, not a fluke" }
+  legends:
+    - { name: Scott Frost, role: coach, why: "Built the 13-0 team and the self-declared title; returned to UCF in 2025" }
+    - { name: McKenzie Milton, role: player, why: "The quarterback of the undefeated era — and the gruesome 2018 injury that became its emotional center" }
+  canonical_moments:
+    - { name: "The self-declared national championship", year: 2017, what: "13-0, a Peach Bowl win over Auburn, and a banner UCF hung itself", handling: glory }
+    - { name: "The McKenzie Milton injury", year: 2018, what: "The face of the program suffers a catastrophic leg injury vs USF", handling: heartbreak }
+    - { name: "The Big 12 jump", year: 2023, what: "UCF leaves the American for the Power-Four Big 12 — the ascent completed", handling: glory }
+  the_place: "FBC Mortgage Stadium — 'the Bounce House' — an on-campus venue that literally bounces when the Orlando student section jumps."
+  brand_of_football: "Disruptor swagger — fast, brash, chip-on-the-shoulder offense from a program that decided being told no was the whole point."
+  cultural_footprint: "The proof-of-concept for every Group-of-Five program that ever felt locked out — UCF turned a snub into a banner and a banner into a Power-Four invitation, and Orlando claims it as the city's own."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Scott Frost, architect of the 13-0 season, returned to UCF in 2025 and
+    went 5-7 (2-7 Big 12), missing a bowl after a 4-8 first year in the league. Frost is signed through 2029.
+    The question in Orlando: can the man who built the swagger make it win in the Power Four, or is the gap
+    between the AAC and the Big 12 wider than the banner suggests.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_UCF_Knights_football_team
+    - https://www.ucf.edu/news/scott-frost-returns-to-lead-ucf-knights-football-program/
+    - https://athlonsports.com/college-football/scott-frost-ucf-return-2025-season-grade
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: UCF is the program that went 13-0 in 2017 + declared themselves national champions +
+    later won the New Year's Six Peach Bowl, and whose Big 12 entry in 2023 completed the G5-to-P5 ascent.
+  mantra: Charge On.
+  cultural_anchors:
+    fan_archetype_dominant: Orlando-Charge-On-Knights
+    outsider_archetype_dominant: G5-Forever-Diminisher
+    one_sentence: UCF is the G5-to-P5 ascent program — 2017 13-0 + Peach Bowl + self-declared national champions,
+      2023 Big 12 entry from American Athletic, and the Charge On + Bounce House identity that defined the
+      rise.
+  selfname: the Knights
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2017 13-0 + Peach Bowl + self-declared national champions under Scott Frost
+    - 2018 12-1 + Fiesta Bowl championship under Josh Heupel
+    - 2023 Big 12 entry from American Athletic
+    rituals:
+    - 2017 Self-Declared National Championship
+    - Charge On
+    - The Bounce House (FBC Mortgage Stadium)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (52/100, n=51)
+    voice_profile: absent
+    delusion_premium: absent

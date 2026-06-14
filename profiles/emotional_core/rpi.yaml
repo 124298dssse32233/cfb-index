@@ -1,0 +1,82 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: rpi
+team_id: null
+program_name: Rensselaer Polytechnic Institute
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "RPI is the engineering school that owns the Dutchman's Shoes trophy and the oldest rivalry in New York state, a 120-plus-game history against Union since 1886."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A prestigious engineering school with a historic rivalry and regional championship tradition, not an elite national power but a respected regional presence."
+
+the_wound:
+  name: "The 2003 playoff loss"
+  detail: "RPI reached the NCAA Division III semifinals in 2003 with an 11–2 record, then lost to St. John's 38–10 — the closest the Engineers have come to a Stagg Bowl in the modern era."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win another Liberty League championship and return to the NCAA Tournament, capturing the Dutchman's Shoes from Union for sustained years."
+  drought: { since: 2018, unit: bowl }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe rPI's chip is old-school rivalry pride: football began in 1886, the oldest rivalry in New York state, and the Dutchman's Shoes represents 120+ games of competition. Union leads the all-time series, but RPI has dominated the trophy era (14 of 24 since 2000)."
+
+the_delusion:
+  tone: self-aware
+  text: "That an engineering school with limited football resources can sustain championship-level football annually. The fanbase knows RPI's strength is the rivalry tradition and regional pride, not national pretension."
+
+the_grudge_texture:
+  rival: union
+  texture: blood-feud
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "Pride in the historic rivalry vs the reality of competing in a lower-resource school environment."
+register: rpi-engineers-dutchman-shoes-oldest-rivalry
+never_use:
+  - Elite national power — RPI's strength is regional, not national
+  - Recent playoff contender — last significant postseason was 2018; 2003 semifinal was anomaly
+  - Championship titles — RPI has never won a Stagg Bowl
+
+story_canon:
+  the_unique_thing: "The oldest football rivalry in New York state (since 1886) and the Dutchman's Shoes trophy (since 1950) against Union College — a 120-plus-game history that defines both programs' identities."
+  the_origin: "Rensselaer Polytechnic Institute founded 1824. Football began 1886 with the first game vs Union, making it the oldest collegiate rivalry in New York state."
+  golden_ages:
+    - { era: "2000–2003", what: "RPI dominated the modern trophy era, winning 14 of 24 Dutchman's Shoes games since 2000" }
+    - { era: "2003 Semifinal Run", what: "RPI reached the NCAA Division III semifinals (11–2 record) but lost to St. John's 38–10" }
+  legends:
+    - { name: Ralph Isernia, role: coach, why: "13 seasons building RPI into a Liberty League contender" }
+  canonical_moments:
+    - { name: "Oldest NY Rivalry", year: 1886, what: "First football game vs Union College, beginning the oldest rivalry in New York state", handling: glory }
+    - { name: "Dutchman's Shoes Trophy", year: 1950, what: "Wooden clogs on pedestal symbolizing the ancient rivalry tradition", handling: glory }
+    - { name: "2003 Playoff Run", year: 2003, what: "RPI reached the NCAA Division III semifinals (11–2) before losing to St. John's 38–10", handling: heartbreak }
+    - { name: "Modern Trophy Dominance", year: 2000, what: "Won 14 of 24 Dutchman's Shoes games since 2000", handling: glory }
+  the_place: "Rensselaer Polytechnic Institute in Troy, New York — an engineering powerhouse where football is played with honor and tradition."
+  brand_of_football: "Pride-driven, tradition-anchored football where the rivalry with Union matters more than national rankings."
+  cultural_footprint: "RPI represents the value of historic rivalries and the way a single trophy (Dutchman's Shoes) can define a program's identity and purpose."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: RPI compiled a 7–2 record (5–1 Liberty League) in 2025 under coach Ralph Isernia in his 13th season,
+    entering the final regular-season game vs Union for the Liberty League championship and Dutchman's Shoes. The Engineers have dominated the
+    trophy era since 2000 (14 of 24 games) and seek to maintain that edge while returning to postseason prominence. The program is built on the
+    oldest rivalry in New York state and the honor of competing in a legacy that extends back to 1886.
+  research_checklist:
+    - Founded 1824 (historic engineering school)
+    - Football began 1886 (oldest NY state rivalry vs Union)
+    - Dutchman's Shoes trophy since 1950 (wooden clogs on pedestal)
+    - All-time Union record: Union leads 51–24 in trophy series
+    - 2003 NCAA Division III semifinal (11–2), lost to St. John's 38–10
+    - 2018 was last significant postseason (second NCAA Tournament appearance)
+    - Coach Ralph Isernia: 13 seasons
+    - 2025 record: 7–2 (5–1 Liberty League) entering final game vs Union
+  sources:
+    - https://en.wikipedia.org/wiki/Dutchman's_Shoes
+    - https://en.wikipedia.org/wiki/RPI_Engineers_football
+    - https://www.d3football.com/teams/rpi
+    - https://libertyleagueathletics.com

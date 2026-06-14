@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — Endicott (endicott)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: endicott
+team_id: null
+program_name: Endicott College
+program_tier: 7
+
+emotional_core:
+  primary: contentment  # the program that has become the standard
+  secondary: spectacle  # rare-gull dominance
+  one_line: "Endicott is the rare-mascot gull program that has captured five straight Conference of New England championships and now enters the NCAA Tournament with its first-round bye — the standard-setter of D3 New England."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A young program (founded 2001) that has achieved sustained dominance — five consecutive CNE titles is a championship pace that few D3 schools reach."
+
+the_wound:
+  name: "None to reference"
+  detail: "Endicott's identity is forward-facing: building dynasty-level success at a young school with limited pre-program history. No past trauma to overcome."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Establish Endicott as a D3 powerhouse — sustained Conference of New England dominance and NCAA Tournament contention."
+  drought: { since: 2021, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Endicott is the new standard, not the underdog. The chip is self-directed: prove the Gulls belong at the national level."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes that five straight Conference of New England titles are the prelude to NCAA Tournament success — that the dynasty is just beginning, not a ceiling."
+
+the_grudge_texture:
+  rival: curry
+  texture: championship   # heated conference rivals
+
+the_coach_relationship: forever-ours   # Paul McGonagle has built Endicott's dynasty since 2018
+the_internal_fracture: dynasty expectations vs. the reality that D3 NCAA glory is extremely rare
+register: gull-dynasty-new-england-standard-setter
+never_use:
+  - Gulls are a common mascot — only 2 NCAA programs use it (Endicott is the rarity)
+  - Endicott is a new program with no tradition — 2001 founding is young, but five straight titles IS tradition now
+  - Paul McGonagle is replaceable — he's the architect of the entire dynasty; losing him would reset the program
+
+story_canon:
+  the_unique_thing: "The rarest of D3 mascots — only two NCAA programs use 'Gull' — Endicott has built five consecutive Conference of New England championships under Paul McGonagle and earned its first NCAA Tournament first-round bye."
+  the_origin: "Endicott College football was founded in 2001, making it one of the youngest established programs in New England. From the start, it was built for competitiveness."
+  golden_ages:
+    - { era: "2021–2025 (Five straight CNE titles)", what: "McGonagle's dynasty: undefeated CNE 2025 (7-0), first NCAA first-round bye" }
+  legends:
+    - { name: Paul McGonagle, role: coach, why: "Architect of Endicott's five-year dynasty since 2018; 7-0 CNE in 2025" }
+  canonical_moments:
+    - { name: "Five straight Conference titles", year: 2025, what: "2021–2025 Conference of New England championships", handling: glory }
+    - { name: "First NCAA first-round bye", year: 2025, what: "Undefeated 7-0 Conference record earned automatic first-round bye", handling: glory }
+  the_place: "Endicott College field in Beverly, Massachusetts — home of the emerging D3 powerhouse."
+  brand_of_football: "Disciplined, conference-dominant football — McGonagle's system wins championships."
+  cultural_footprint: "Proof that a young program (25 years old) can build dynasty-level success through coaching stability and recruiting."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Endicott went undefeated in the Conference of New England (7-0) in 2025 and captured
+    its fifth consecutive conference championship. The Gulls earned their first-ever NCAA Division III Football Championship first-round bye,
+    advancing directly to the second round. Paul McGonagle enters his 8th season in 2026 with a 7-0 CNE resume and rising national profile.
+    The question: can Endicott translate five years of conference dominance into NCAA Tournament runs, or will the leap to the national stage
+    prove different from Conference play?
+  research_checklist:
+    - Paul McGonagle's coaching record since 2018
+    - Five-year (2021–2025) Conference of New England titles
+    - Gull mascot rarity (only 2 NCAA programs)
+    - 2025 NCAA Tournament first-round bye
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Endicott_Gulls_football_season
+    - https://www.ncaa.org/sports/2025/d3/football/endicott-college/schedule
+    - https://www.ncollegefootball.com/teams/endicott-gulls

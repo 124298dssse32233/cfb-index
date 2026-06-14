@@ -1,0 +1,102 @@
+# Emotional Core — Carnegie Mellon (carnegie-mellon)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III — program_tier: 7, graceful degradation applies (small school, regional focus, academic mission).
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: carnegie-mellon
+team_id: null           # D3, no CFB ID
+program_name: Carnegie Mellon
+program_tier: 7
+
+emotional_core:
+  primary: honor        # academic excellence + the mission outranks the scoreboard
+  secondary: contentment
+  one_line: "Carnegie Mellon is an elite STEM institution where the best computer scientists happen to play football — a program that defines itself by who the athletes become, not who they beat."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Recent PAC championships and a new Centennial identity vs. the deeper truth: players here are engineers first, athletes second."
+
+the_wound:
+  name: "The 32-year drought (1989–2021)"
+  detail: "From a 1989 PAC championship to a 2021 return to the postseason was three decades of quiet competence and academic focus, not glory. The championship drought defined an era."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Prove the Centennial Conference is home — compete annually for a title and honor the program's new conference affiliation."
+  drought: { since: 2022, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip; CMU's identity is orthogonal to disrespect. The program exists for the intellectual development of world-class engineers who happen to wear football uniforms."
+
+the_delusion:
+  tone: none
+  text: "The fanbase believes no delusion; the program sees itself clearly — a roboticist's training ground where success is measured in graduates, not rankings."
+
+the_grudge_texture:
+  rival: wisconsin-lacrosse
+  texture: border-war   # no blood feud; respectful D3 peer rivalry
+
+the_coach_relationship: total-trust  # young coaches, supported by academic mission
+the_internal_fracture: academics-vs-football-balance — the constant tension between recruiting for cerebral football vs. attracting pure athletes
+register: earnest-academic
+never_use:   # D3 graceful degradation — no fabrication
+  - "A powerhouse (recent PAC dominance is anomaly, not program norm)"
+  - "Robot football (athletes are real humans, not cartoons)"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Carnegie Mellon is the only major college football program where every player is also a world-class engineer, computer scientist, or mathematician — the roboticist's football team."
+  the_origin: "Founded in Pittsburgh in 1900, CMU football has always been secondary to the university's elite STEM mission. The program defines itself by producing Rhodes Scholars, NASA engineers, and tech leaders, not NFL draft picks."
+  golden_ages:
+    - { era: "1989 PAC Championship", what: "The program's last conference title; marked the peak of a quiet, competent era" }
+    - { era: "2021–2022", what: "Back-to-back PAC championships and NCAA tournament returns after a 32-year drought; recent resurgence" }
+  legends:
+    - { name: "CMU Computer Science Department", role: "program identity", why: "The true heart of the program — players are trained here, not just on the field" }
+  canonical_moments:
+    - { name: "1989 PAC Championship", year: 1989, what: "CMU's last conference title before the 32-year drought", handling: glory }
+    - { name: "2021 PAC Championship return", year: 2021, what: "After 32 years, CMU returns to the postseason under Ryan Larsen", handling: glory }
+    - { name: "Centennial Conference arrival", year: 2025, what: "CMU joins Centennial as associate member, finding new conference home", handling: glory }
+  the_place: "Gesling Stadium in Pittsburgh — a program embedded in a STEM campus where the student body is uninterested in sports but deeply invested in academic excellence."
+  brand_of_football: "Intellectual football — disciplined, cerebral, played by the smartest athletes in the room. Not flashy; precise."
+  cultural_footprint: "Proof that a world-class university can field competitive football without compromising its academic mission; a program that asks, 'What happens when the smartest people play?'"
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Carnegie Mellon joined the Centennial Conference in 2025 as an associate member, leaving behind 95 years in the Presidents' Athletic Conference. The transition follows back-to-back PAC championships in 2021–2022 under coaches Ryan Larsen and Ben Gibboney. The 2025 question in Pittsburgh: can CMU establish itself in the Centennial, and does a program built on academic excellence + quiet football success belong in a more competitive conference?
+  research_checklist:
+    - CMU's 1989 PAC championship legacy
+    - 2021–2022 PAC championship returns
+    - Current 2025 Centennial Conference transition
+  sources:
+    - https://triblive.com/sports/carnegie-mellon-football-joining-centennial-conference-in-2025/
+    - https://centennial.org/news/2024/8/6/cmu-to-join-centennial-as-associate-football-member.aspx
+    - https://athletics.cmu.edu/sports/fball/2022-23/releases/20221106s4pe1y
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Carnegie Mellon is the STEM powerhouse where Rhodes Scholar software engineers happen to play football — academics first, football as the honorable pursuit of excellent people.
+  mantra: Tartan Pride.
+  cultural_anchors:
+    fan_archetype_dominant: Pittsburgh-STEM-Engineer
+    outsider_archetype_dominant: Dismissed-as-Pretentious
+    one_sentence: Carnegie Mellon is the elite research university where football players are computer scientists, mathematicians, and future tech leaders — the brainy kid's football team.
+  selfname: the Tartans
+  heritage:
+    conference: Centennial (2025+, formerly Presidents' Athletic Conference)
+    championships: 1989 PAC, 2021–2022 PAC
+  story_materials:
+    always_surface:
+    - 1989 PAC Championship (32-year drought predecessor)
+    - 2021–2022 back-to-back PAC championships
+    - Centennial Conference arrival 2025
+    - STEM mission defines program identity
+    rituals:
+    - Tartan colors and STEM pride
+    modules_already_rendering: none (D3 module set pending)
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal (canon-only, D3 small program)

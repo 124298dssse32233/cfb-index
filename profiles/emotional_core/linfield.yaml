@@ -1,0 +1,72 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Linfield Wildcats — 69 CONSECUTIVE WINNING SEASONS, the longest streak in all of college football
+
+status: live
+slug: linfield
+team_id: null
+program_name: Linfield University
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: standard
+  one_line: "Linfield is a small Oregon liberal arts school whose Wildcats have won 69 consecutive winning seasons (since 1956) — the longest streak in the history of college football, at any level."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A program defined entirely by consistency — not one national championship season, but 69 years of doing it right, every single year, the gold standard of sustained excellence in D3."
+
+the_wound:
+  name: "The weight of the streak"
+  detail: "69 consecutive winning seasons is a stunning achievement, but it's also a burden — every year carries the weight of history, every loss threatens to end a 69-year legacy."
+  handling: referenceable
+  freshness: all-time
+
+the_dream:
+  text: "Extend the streak, win NWC titles, and prove that sustained excellence can last forever — 70 straight, 75 straight, the record unbroken."
+  drought: { since: 1956, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Linfield's identity is about building, not resenting."
+
+the_delusion:
+  tone: load-bearing
+  text: "That 69 consecutive winning seasons can continue indefinitely. Linfield fans and the community believe the streak is the program's destiny, that it defines the DNA of the place."
+
+the_grudge_texture:
+  rival: pacific-lutheran
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: streak-protection vs cultural-building — the pressure of the 69-year legacy vs the need to evolve and grow
+register: mcminnville-wildcats-nwc-dynasty-streak
+never_use:
+  - "National championship program — Linfield is a D3 school, one NCAA title (2004)"
+  - "Undefeated — winning seasons are not perfect seasons"
+  - "Invincible — they lose games, they just keep winning overall"
+  - "Modern contender — the streak is the identity; don't minimize it"
+
+story_canon:
+  the_unique_thing: "69 consecutive winning seasons (since 1956) — the longest streak in the history of college football at any level. No other program in the country has sustained this level of year-after-year success."
+  the_origin: "Linfield University, founded 1849, is a small liberal arts college in McMinnville, Oregon. The Wildcats football program has been among the most consistently successful in college sports history, with Joseph Smith as head coach for 19 seasons (173-33 record)."
+  golden_ages:
+    - { era: "1956–2025", what: "69 consecutive winning seasons — the longest streak in college football history" }
+    - { era: "NAIA era (1982–1986)", what: "Three NAIA Division II national championships (1982, 1984, 1986)" }
+    - { era: "2004", what: "NCAA Division III national championship" }
+  legends:
+    - { name: Joseph Smith, role: coach, why: "19-year head coach with 173-33 record, architect of sustained success" }
+  canonical_moments:
+    - { name: "69 consecutive winning seasons", year: 2025, what: "Linfield completes 69 straight winning seasons (1956–2025), the longest streak in college football history", handling: glory }
+    - { name: "NCAA Division III championship", year: 2004, what: "Linfield wins the NCAA Division III national championship", handling: glory }
+    - { name: "Three NAIA titles", year: 1986, what: "Linfield wins NAIA Division II national championships in 1982, 1984, and 1986", handling: glory }
+  the_place: "McMinnville, Oregon — a small liberal arts campus in the Willamette Valley."
+  brand_of_football: "Relentless consistency — the Wildcats are defined by doing it right every single year, the standard of excellence in small-college athletics."
+  cultural_footprint: "The most storied D3 program in history; Linfield's 69-year streak is a beacon of what sustained commitment can achieve."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Linfield maintains the longest streak of consecutive winning seasons in college football history — 69 years
+    (1956–2025). Under head coach Joseph Smith (19th season, 173-33), the Wildcats continue to compete in NWC as a dynasty built on consistency.
+    The streak represents the defining achievement in program history and in all of college football. Linfield's 2026 season is the 70th opportunity
+    to extend the record.
+  sources:
+    - https://en.wikipedia.org/wiki/Linfield_Wildcats_football

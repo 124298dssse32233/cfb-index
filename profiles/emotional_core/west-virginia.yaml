@@ -1,0 +1,121 @@
+# Emotional Core — West Virginia  (west-virginia)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: west-virginia
+team_id: 157
+program_name: West Virginia
+program_tier: 3
+
+emotional_core:
+  primary: redemption      # the prodigal coach who broke their hearts in 2007 came home to fix it — a story too good to script
+  secondary: grievance     # an entire state's chip against everyone who treats Morgantown as flyover football
+  one_line: "West Virginia is an entire state's only big-time team, and it just hired back the coach who broke its heart in 2007 and bolted — Rich Rodriguez, home in Morgantown to finish what the Backyard Brawl interrupted."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A 2007 team one home win from the national championship game vs the years since of good-not-great Big 12 finishes and a 4-8 reset — the gap between almost-immortal and merely respectable."
+
+the_wound:
+  name: "The 2007 Backyard Brawl"
+  detail: "Ranked No. 2 and a home win over 4-7 Pitt from the BCS title game, West Virginia lost 13-9 in the season's biggest stunner — and two weeks later Rich Rodriguez left for Michigan. The closest the program ever came to the summit became its deepest scar, and the man at the center of it is now the head coach again."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Finish what 2007 started — a Big 12 title and the league's spot in the Playoff, the breakthrough the program has chased since the night Pitt took it away."
+  drought: { since: 2011, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Mountaineer fans are tired of their state's only major team being treated as an afterthought, a hard place to recruit, a name from the past. They say Morgantown is the loudest Saturday nobody outside the state bothers to watch — and they wear the slight like armor."
+
+the_delusion:
+  tone: load-bearing
+  text: "Mountaineer fans believe Rich Rodriguez can recreate the magic of his first tenure — that the coach who built the 2005-2007 peak will out-scheme the Big 12 again, and that an entire state's faith is enough to drag the program back to the edge of a title it nearly won."
+
+the_grudge_texture:
+  rival: pittsburgh
+  texture: blood-feud   # the Backyard Brawl — geographic hatred, the 2007 wound, and the most personal game on the schedule
+
+the_coach_relationship: savior   # Rich Rodriguez, the prodigal son, hired to restore the program he once left for Michigan
+the_internal_fracture: forgiveness vs the grudge — the faction thrilled to have Rodriguez home and the faction that never forgave 2007 and watched a 4-8 first year with arms crossed
+register: appalachian-blue-collar-loud   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Where is WVU football — Pat White era and 2007 Fiesta Bowl deny the frame
+  - Always-on-the-edge program — 12th Big 12 season as senior member
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "West Virginia is the only major-college football team in the entire state — there is no other — which makes the Mountaineers a whole state's singular Saturday, and makes Country Roads at the end of a Milan Puskar Stadium night the most communal sound in the sport."
+  the_origin: "A land-grant university in Morgantown serving a small, fiercely proud Appalachian state with no NFL or major pro team of its own — so football became the entire state's shared identity."
+  golden_ages:
+    - { era: "2005–2007 (Rich Rodriguez)", what: "The spread-option peak — a 2006 Sugar Bowl rout of Georgia, Pat White and Steve Slaton, and a team that came within a home upset of the BCS title game" }
+    - { era: "1988 & 1993 (Don Nehlen)", what: "Two undefeated regular seasons and national-title-game contention — the program's first golden era" }
+  legends:
+    - { name: Pat White, role: player, why: "The quarterback of the mid-2000s peak; four bowl wins and the face of the spread-option era" }
+    - { name: Don Nehlen, role: coach, why: "Built West Virginia into a national name with two unbeaten regular seasons" }
+    - { name: Major Harris, role: player, why: "The electric 1988 quarterback who defined the program's first run at a title" }
+  canonical_moments:
+    - { name: "The 2006 Sugar Bowl", year: 2006, what: "West Virginia stuns Georgia 38-35 to announce the spread-option era nationally", handling: glory }
+    - { name: "The 2007 Backyard Brawl", year: 2007, what: "No. 2 WVU, a home win from the BCS title game, loses 13-9 to 4-7 Pitt — the program's deepest heartbreak", handling: heartbreak }
+    - { name: "Rodriguez beats Pitt at last", year: 2025, what: "In his first Backyard Brawl since 2007, the returned Rich Rodriguez beats Pitt 31-24 in overtime", handling: glory }
+  the_place: "Milan Puskar Stadium (Mountaineer Field) in Morgantown, where the night games are an Appalachian roar and the postgame singing of 'Take Me Home, Country Roads' binds a whole state together."
+  brand_of_football: "Let's go, Mountaineers — loud, blue-collar, spread-option in its soul; a coal-country toughness and a fanbase whose couch-burning intensity is famous and earned."
+  cultural_footprint: "A state's entire sporting identity in one program — no pro team, no rival flagship, just the Mountaineers, carried by a fanbase that treats every Saturday as the state's own."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: West Virginia fired Neal Brown after 2024 and brought back Rich Rodriguez,
+    home in Morgantown for the first time since he left for Michigan after the 2007 heartbreak. His first year back
+    was rough — 4-8 (2-7 Big 12), an offense that looked overmatched — though it included a cathartic 31-24
+    overtime win over Pitt, his first Backyard Brawl since 2007. With the quarterback room reshuffled (Nicco
+    Marchiol transferred out after injury; Scotty Fox Jr. played most of the year) and a veteran portal arm
+    planned, 2026 is the prove-it year for the prodigal coach.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_West_Virginia_Mountaineers_football_team
+    - https://www.espn.com/college-football/story/_/id/44614918/rich-rodriguez-west-virginia-college-football-return
+    - https://www.cbssports.com/college-football/news/edwards-short-td-run-in-overtime-leads-west-virginia-over-pittsburgh-31-24-in-the-backyard-brawl
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: West Virginia is the state's program — there's no other Power-5 football team in the
+    entire state — and that geographic monopoly makes Morgantown the loudest Saturday in the Big 12.
+  mantra: Let's go Mountaineers.
+  cultural_anchors:
+    fan_archetype_dominant: Appalachian-Mountaineer-Loyalist
+    outsider_archetype_dominant: Morgantown-Curious-Outsider
+    one_sentence: West Virginia is the program whose entire state identity is bound to one football program
+      — and whose Country Roads finale is the most-cited stadium moment in college football.
+  selfname: the Mountaineers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2007 11-2 + Fiesta Bowl with Pat White
+    - Country Roads post-game tradition
+    - The Mountaineer mascot's musket
+    rituals:
+    - Country Roads
+    - Couch Burning
+    - Mountaineer Mascot (Live Squirrel-Gun Carrying)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (54/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

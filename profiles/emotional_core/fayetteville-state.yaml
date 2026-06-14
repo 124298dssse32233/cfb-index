@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+# Fayetteville State University Broncos (CIAA Division II)
+
+status: live
+slug: fayetteville-state
+team_id: null
+program_name: Fayetteville State University
+program_tier: 6
+
+emotional_core:
+  primary: restoration       # breaking a 71-year drought and returning to championship glory
+  secondary: honor           # the Marching Bronco Xpress and the cultural legacy
+  one_line: "Fayetteville State is the CIAA program that broke a 71-year championship drought in 2022 and has sustained it, backed by one of the most powerful marching traditions in Black college football."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A historic HBCU with a legendary marching band, now proving it can compete at the highest level of CIAA football after decades of futility."
+
+the_wound:
+  name: "Seven decades without a conference championship"
+  detail: "Fayetteville State went from 1940s-era prominence to a 71-year championship drought that lasted from 1951 until 2022. The wound was real and generational: a proud program forgotten in its own backyard."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Sustain CIAA championship contention and restore Fayetteville State to the perennial power it was in the 1940s and 1950s. Every October is now about winning the conference again, not waiting for the next one."
+  drought: { since: 1951, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe not a chip against other CIAA schools, but against the indifference of the national narrative — Fayetteville State won in 2022 and again contended in subsequent years, proving that a small North Carolina HBCU could build a power on its own terms."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 2022 title broke a real curse and the Broncos are now destined for sustained dominance. The fanbase knows football is fragile and coaches can leave, but believes Richard Hayes Jr. has truly rebuilt something lasting."
+
+the_grudge_texture:
+  rival: livingstone
+  texture: blood-feud         # Homecoming rivalry; deep CIAA competition
+
+the_coach_relationship: forever-ours          # Richard Hayes Jr. a built-to-last coach; his uncle Bill Hayes won championship at WSSU in 1987
+the_internal_fracture: championship-or-bust vs. rebuild patience — Hayes has built a standard so high that anything less than conference contention feels like failure
+register: fayetteville-bronco-xpress-championship-restored
+never_use:
+  - Fayetteville State has won multiple CIAA titles — only one (2022)
+  - National champion — advanced to ESPN Championship in 2025 (marching band), not football playoffs
+  - Always competitive — the 71-year drought proves otherwise
+  - A football powerhouse — it is NOW, after 2022, but wasn't before
+
+story_canon:
+  the_unique_thing: "The Marching Bronco Xpress — one of the most historically significant marching bands in Black college football, which just advanced to the ESPN National Championship in 2025, marking a historic first for the program. The band is Fayetteville State."
+  the_origin: "Fayetteville State University was founded as an HBCU in North Carolina, competing in CIAA football since the early era. The program built national prestige through its legendary marching band and cultural presence before struggling on the field."
+  golden_ages:
+    - { era: "1940s-1950s (national prominence era)", what: "Fayetteville State won national titles and was a power in Black college football; played in front of historic crowds" }
+    - { era: "2022-present (Hayes restoration)", what: "Richard Hayes Jr. broke a 71-year championship drought in 2022 (31-28 vs. Chowan) and sustained CIAA contention with six consecutive championship-game appearances" }
+  legends:
+    - { name: Richard Hayes Jr., role: coach, why: "Broke the 71-year championship drought in 2022 and has sustained championship contention ever since; his uncle Bill Hayes won a title at Winston-Salem State in 1987" }
+    - { name: Marching Bronco Xpress, role: band, why: "Legendary marching tradition dating to early HBCU era; advanced to ESPN National Championship in 2025, the first time in program history" }
+  canonical_moments:
+    - { name: "2022 CIAA Championship", year: 2022, what: "Richard Hayes Jr. defeats Chowan 31-28, breaking a 71-year drought", handling: glory }
+    - { name: "Marching Bronco Xpress ESPN Championship", year: 2025, what: "Historic first appearance in ESPN National Championship for the band", handling: glory }
+  the_place: "Fayetteville, North Carolina — home to Fayetteville State's campus and a proud Black college football tradition that predates modern CIAA."
+  brand_of_football: "Disciplined, system-driven HBCU football backed by one of the most powerful marching traditions in the sport. The Broncos play with the full weight of 75+ years of band legacy."
+  cultural_footprint: "The Marching Bronco Xpress is iconic in CIAA culture. The band brings national prestige; the football team now provides championship legitimacy that the program had been missing for generations."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Fayetteville State went 6-4 overall and 6-1 in CIAA in 2025, qualifying for CIAA contention. Richard Hayes Jr., in his ninth season, has now compiled a 41-22 record (.651 winning %) and become the anchor of CIAA football. The Marching Bronco Xpress advanced to the ESPN National Championship in 2025, marking a historic first for the program. The 2026 season begins with sustained championship expectations — the drought is over, and Hayes has set a new standard.
+  research_checklist:
+    - Richard Hayes Jr.'s coaching arc from 2016-2026
+    - The 71-year championship drought history
+    - Marching Bronco Xpress national prominence
+    - Six consecutive CIAA championship game appearances
+    - Traditional rivalry with Livingstone (homecoming game)
+  sources:
+    - https://fsubroncos.com
+    - https://theciaa.com/sports/fball/index
+    - https://hbcugameday.com/fayetteville-state-broncos
+    - https://en.wikipedia.org/wiki/Fayetteville_State_Broncos_football

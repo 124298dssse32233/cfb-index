@@ -1,0 +1,91 @@
+# Emotional Core — Merrimack Warriors (merrimack)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-14 from live web research — FCS independent, two NEC titles, 2021 ranked win.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: merrimack
+team_id: null           # non-FBS; no team_id
+program_name: Merrimack Warriors
+program_tier: 4         # FCS independent; competitive mid-level program
+division: FCS (Independent)
+
+emotional_core:
+  primary: house-money  # the freedom of independence after conference instability
+  secondary: restoration # building after recent losing seasons
+  one_line: "Merrimack football is a program that has played in five different conferences in 27 years, is now building as an FCS Independent, and proved it can beat ranked teams (Holy Cross, 2021) — a scrappy program proving it belongs every season."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "The biggest win in program history (2021 over ranked Holy Cross) and two Northeast-10 titles vs four straight losing seasons in the modern era and the constant reality of conference instability."
+
+the_wound:
+  name: "Conference instability and the revolving-door coach curse"
+  detail: "Merrimack has played in five different conferences in 27 years (EFC 1997–2000, NE-10 2001–2018, NEC 2019–2023, Independent 2024+). The program has also churned through five head coaches in that span, including Mike Gennetti's arrival in 2024 (the fifth coach). The wound is permanent instability — never staying in one home long enough to build a culture."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the 2021 Holy Cross win (biggest in program history) was a sign of the program's potential, not an anomaly. Build sustained success as an FCS Independent and stabilize the coaching situation."
+  drought: { since: 2009, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe merrimack doesn't have a chip against specific rivals. The program's rival is instability itself — proving that a team can build real culture despite constant conference changes and coaching turnover."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 2021 Holy Cross victory proved Merrimack can compete with ranked programs and build toward that level consistently. The fanbase believes the program has been sleeping; the right coaching and stability will wake it up."
+
+the_grudge_texture:
+  rival: null
+  texture: none          # no historic rival; independent status means floating rivalries
+
+the_coach_relationship: total-trust   # Mike Gennetti (2024+) brings new hope for stability
+the_internal_fracture: null
+register: north-andover-warriors-scrappy-independent
+never_use:
+  - Never won anything — two Northeast-10 titles (2006, 2009); FCS playoff appearance (2006)
+  - Irrelevant — beat ranked Holy Cross (2021), the biggest win in program history
+
+story_canon:
+  the_unique_thing: "The 2021 victory over ranked #24 Holy Cross 35–21 — the biggest win in program history by a significant margin. It proved Merrimack can compete at the highest FCS level on any given Saturday."
+  the_origin: "Merrimack started football in 1996 and has played in five different conferences, competing in the FCS since its inception. The program has had to constantly adapt, move, and rebuild."
+  golden_ages:
+    - { era: "2006–2009 (Northeast-10)", what: "Two Northeast-10 conference titles (2006, 2009) under coaches Jim Murphy and John Perry; the most successful era" }
+    - { era: "2021 (Holy Cross Victory)", what: "Merrimack defeats ranked #24 Holy Cross 35–21 — the biggest win in program history" }
+  legends:
+    - { name: Jim Murphy, role: coach, why: "Won the first Northeast-10 title in 2006; led the only FCS playoff appearance (2006)" }
+    - { name: John Perry, role: coach, why: "Won the 2009 Northeast-10 title; continued the successful era" }
+    - { name: Mike Gennetti, role: coach, why: "Fifth head coach (2024); tasked with building stability and culture as an FCS Independent" }
+  canonical_moments:
+    - { name: "2006 NE-10 Championship", year: 2006, what: "Merrimack wins the Northeast-10 title under Jim Murphy and makes its only FCS playoff appearance", handling: glory }
+    - { name: "2009 NE-10 Championship", year: 2009, what: "Merrimack wins a second Northeast-10 title under John Perry", handling: glory }
+    - { name: "Holy Cross Victory (2021)", year: 2021, what: "Merrimack defeats ranked #24 Holy Cross 35–21 — the biggest win in program history", handling: glory }
+  the_place: "Duane Stadium in North Andover, Massachusetts (4,000 capacity) — opened 2017; the newest home in Merrimack's journey."
+  brand_of_football: "The scrappy independent — Merrimack football is about proving that programs can build culture despite constant external instability."
+  cultural_footprint: "Merrimack's footprint is resilience. The program has survived five conference moves and five coaches by staying committed to competing."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-14: Merrimack transitioned to FCS Independent status in 2024 under
+    new head coach Mike Gennetti (the fifth coach in program history). The Warriors finished 5–6 in 2024 and
+    4–8 in 2025 as an independent, navigating the challenge of scheduling without conference affiliation. The 2021
+    Holy Cross victory remains the program's gold standard. Merrimack continues to prove that smaller FCS programs
+    can compete and surprise ranked opponents.
+  research_checklist:
+    - 2006–2009 Northeast-10 titles
+    - 2006 FCS playoff appearance
+    - 2021 victory over ranked #24 Holy Cross (biggest win)
+    - Five conferences in 27 years
+    - Five head coaches (Gennetti is the latest)
+    - 154–157 all-time record
+    - Duane Stadium (opened 2017)
+  sources:
+    - https://en.wikipedia.org/wiki/Merrimack_Warriors_football
+
+briefing:
+  identity_phrase: Merrimack is the scrappy FCS Independent that beat ranked Holy Cross in 2021 and proves that programs can compete despite constant conference instability.
+  mantra: "Scrappy Warriors"
+  selfname: the Warriors
+  heritage:
+    national_titles: null
+    conference_titles: "2 NE-10 (2006, 2009)"
+    current_conference: "FCS Independent (since 2024)"

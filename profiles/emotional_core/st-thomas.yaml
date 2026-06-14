@@ -1,0 +1,84 @@
+# Emotional Core — St. Thomas  (st-thomas)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: st-thomas
+team_id: null
+program_name: St. Thomas
+program_tier: 5
+
+emotional_core:
+  primary: spectacle      # the historic transition from D-III to full FCS football
+  secondary: house-money  # proving the D-III foundation can win at the FCS tier
+  one_line: "St. Thomas is the Minnesota private school that jumped straight from NCAA Division III to FCS in 2021 — the only program to skip Division II entirely — and is now competing for respect after its first full FCS season."
+
+self_image:
+  archetype: orphaned
+  standard_gap_frame: "A 17-year history in FCS that started from D-III and no real FCS rivals — the program that is building identity from a blank slate, with none of the blood-feud heritage that defines Pioneer programs."
+
+the_wound:
+  name: "No natural rivalry or deep conference identity yet"
+  detail: "St. Thomas jumped D-III → D-I FCS, skipping D-II entirely. That historic leap means no traditional blood rivals, no conference rivals from the past, no 20-year playoff history. The wound is novelty — the program lacks the rooted identity that makes FCS programs feel like home."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that a D-III program can sustain FCS competition. A 7–5 season and a bowl bid would prove the historic jump was wise, that St. Thomas belongs at FCS and can compete without the 50-year traditions other programs have."
+  drought: { since: 2021, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe st. Thomas has no chip. The program is still writing its story. The question is not disrespect; it's whether the program can build identity fast enough to compete."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the D-III foundation — a winning culture, academic rigor, institutional resources — is enough to make FCS work. They know they're young in the conference, but they believe the program can grow roots faster than traditional rivalries usually form."
+
+the_grudge_texture:
+  rival: none
+  texture: blood-feud   # no traditional rival yet; rivalries forming in real time
+
+the_coach_relationship: forever-ours   # Glenn Caruso in his 17th year; unprecedented continuity
+the_internal_fracture: D-III-nostalgia vs FCS-ambition — the faction that misses the D-III era vs the faction excited about FCS opportunity
+register: st-thomas-tommies-d-three-to-fcs-historic-jump-minneapolis-jesuit
+never_use:   # LAW — do not violate in any authored line
+  - "Has a blood rival — program too young; rivalries are forming"
+  - "Recently won D-III titles — 2018 was the last D-III season; moved to D-I FCS 2021"
+  - "Is a perennial FCS contender — program in its first full FCS year of eligibility (2025)"
+  - "Competed at FCS level before — historic D-III jump is the story; no pre-FCS FCS era"
+  - "Will automatically succeed at FCS — D-III foundation helps but FCS is a different tier"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "St. Thomas is the only NCAA program to jump directly from Division III to Division I FCS, skipping Division II entirely — a historic transition by a Minnesota private school that is now proving the D-III foundation works at FCS."
+  the_origin: "A Jesuit Catholic university in Saint Paul, Minnesota founded in 1885 that played football in NCAA Division III through 2018. In an unprecedented move, the school reclassified directly to FCS in 2021, joining the Pioneer League and skipping the traditional D-III → D-II → D-I pathway."
+  golden_ages:
+    - { era: "2018 (D-III era)", what: "St. Thomas competed as a D-III power before the historic reclassification" }
+    - { era: "2023–2025 (first full FCS seasons)", what: "The program's emergence as a full FCS competitor after two transition years" }
+  legends:
+    - { name: Glenn Caruso, role: coach, why: "17-year tenure straddling the D-III and FCS eras; unprecedented continuity" }
+  canonical_moments:
+    - { name: "2021 FCS reclassification", year: 2021, what: "St. Thomas becomes the only program to jump D-III directly to D-I FCS, skipping Division II", handling: glory }
+    - { name: "2025 first full FCS season", year: 2025, what: "St. Thomas completes its first fully-eligible FCS season at 7–5 after two years of transition", handling: glory }
+  the_place: "O'Shaughnessy Stadium in Saint Paul, Minnesota — the historic on-campus home where the Tommies made the historic D-III to FCS jump."
+  brand_of_football: "Jesuit academic excellence married to FCS ambition — the program that proved a D-III school can jump directly to FCS and compete on the same field as programs with 30-year FCS histories."
+  cultural_footprint: "St. Thomas is the proof that D-III programs can ascend to FCS and compete. The historic reclassification made the program a national story, and now 2025 is the proof that the story has legs."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: St. Thomas went 7–5 (5–3 PFL) in 2025 — its first fully-eligible FCS season after two transition
+    years (2023–2024). Andy Peters led the offense; the defense improved late in the year. Glenn Caruso, in his 17th year and his first full
+    cycle of a D-III→FCS program, showed remarkable continuity. The 7–5 finish is respectable and proves the historic jump is working. The
+    question in Saint Paul: can St. Thomas build on this baseline and begin competing for Pioneer League titles, or will the program settle
+    into steady-state respectability?
+  research_checklist:
+    - the program's 3–7 most iconic games/plays (2025 wins, transition-era milestones)
+    - the legendary coaches + players (Glenn Caruso, 2025 team leaders)
+    - the unique tradition / identity / the one amazing thing (D-III to FCS historic jump, Jesuit prestige, Caruso's continuity)
+    - the origin + the golden-age dynasty eras (D-III era through 2018, 2021 reclassification, 2025 full eligibility)
+    - the current-era storyline (Caruso's post-transition rebuild and the program's FCS establishment)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_St._Thomas_Tommies_football_team
+    - https://en.wikipedia.org/wiki/St._Thomas_(Minnesota)_Tommies_football
+    - https://www.startribune.com/st-thomas-football-team-officially-arrives-in-ncaa-division-i/601450696
+    - https://www.startribune.com/st-thomas-in-final-year-before-becoming-ncaa-football-team/567099872/

@@ -1,0 +1,84 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: texas-am-kingsville
+team_id: null
+program_name: Texas A&M-Kingsville
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: restoration
+  one_line: "Texas A&M-Kingsville is the South Texas Javelinas—34 LSC/TIAA championships, three Hall-of-Famers in the NFL (Darrell Green, John Randle, Gene Upshaw), and a prayer-in-the-end-zone tradition that defines what institutional pride looks like."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "34 conference titles, 230–62–2 home record, and pro-level talent on the roster vs. the reality of rebuilding under a new coach in 2026 after a 5–6 season."
+
+the_wound:
+  name: "2024 transition — the Scott Parr first season"
+  detail: "Texas A&M-Kingsville went 5–6 in 2025 (4–5 LSC), Scott Parr's first year after being hired in December 2024 from Louisiana Tech. The wound is not sharp—the Javelinas have too much history to feel like they've fallen—but it's a stumble that asks whether the new regime can maintain the standard that Kingsville has built over 80+ years."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to LSC contention, rebuild the championship culture that produced 34 conference titles, and prove that the prayer-in-the-end-zone tradition—the spiritual discipline that defines the Javelinas—still produces winners."
+  drought: { since: 2013, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the Javelinas have no chip against the world. Their pride is in the uniforms that Darrell Green and John Randle wore, the home-field dominance that produced 23 perfect home seasons, and the faith that the program is bigger than any one year."
+
+the_delusion:
+  tone: load-bearing
+  text: "That the 2025 season was just a speed bump, not a sign of decline. The fanbase needs to believe Scott Parr will honor the tradition, that the prayer in the end zone still works, that the Javelina way is eternal."
+
+the_grudge_texture:
+  rival: texas-am-commerce
+  texture: championship
+  # Texas A&M-Kingsville and Texas A&M-Commerce (now in Southland Conference FCS) share an A&M rivalry; a conference/class division now separates them.
+
+the_coach_relationship: savior
+  # Scott Parr, hired December 2024 from Louisiana Tech, carries the mandate to restore the Javelina standard.
+
+the_internal_fracture: "Respect for legacy vs. embrace of change—can Parr build his own identity while honoring the prayer-in-the-end-zone tradition and the Kingsville way?"
+
+register: "south-texas-javelina-prayer-tradition-34-lsc-titles-pro-pedigree"
+
+never_use:
+  - "Texas A&M-Kingsville won fewer than 30 LSC titles — 34 conference titles (LSC/TIAA combined)"
+  - "The Javelinas have no pro-level players — three Hall-of-Famers: Darrell Green (Washington Commanders), John Randle (Minnesota Vikings), Gene Upshaw (Raiders)"
+  - "2025 was a shocking collapse — 5–6 after a coach change is a normal transition year for a program rebuilding"
+  - "The prayer-in-the-end-zone is a recent invention — long-standing tradition that defines Kingsville's spiritual identity"
+
+story_canon:
+  the_unique_thing: "34 Lone Star/TIAA conference championships, a home-field dominance that produced 230–62–2 record (14 perfect home seasons), and three Hall-of-Famers in the NFL—plus a prayer-in-the-end-zone tradition that has defined Javelina football for generations."
+  the_origin: "Texas A&M University–Kingsville in Kingsville, Texas (founded 1925 as Texas College of Arts and Industries); football established in the 1920s–1930s; became a South Texas regional power."
+  golden_ages:
+    - { era: "1950s–2000s", what: "The era of sustained conference dominance, 34 LSC/TIAA titles, home-field excellence (230–62–2), and pro-level talent pipeline" }
+    - { era: "1967–1970, 1974–1976", what: "Back-to-back perfect home seasons (23–0 combined); the apex of Javelina dominance" }
+  legends:
+    - { name: Darrell Green, role: player, why: "Hall of Famer (Washington Commanders); one of three Javelinas to reach the Pro Football Hall of Fame" }
+    - { name: John Randle, role: player, why: "Hall of Famer (Minnesota Vikings); defensive legend; one of three Javelinas in the Pro Football Hall of Fame" }
+    - { name: Gene Upshaw, role: player, why: "Hall of Famer (Oakland Raiders); one of three Javelinas to reach the Pro Football Hall of Fame" }
+    - { name: Scott Parr, role: coach, why: "Hired December 2024 from Louisiana Tech; tasked with honoring the Javelina tradition while building a new era" }
+  canonical_moments:
+    - { name: "Prayer in the End Zone", year: "ongoing", what: "A spiritual tradition where players kneel in the north end zone before kickoff; both teams often meet at the 50-yard line to pray post-game; defines Javelina identity", handling: glory }
+    - { name: "23–0 Home Run (1967–1970)", year: 1970, what: "Perfect home season record; the apex of Javelina dominance", handling: glory }
+    - { name: "34 LSC/TIAA Championships", year: "ongoing", what: "One of the winningest conference records in Division II history", handling: glory }
+    - { name: "Three Pro Football Hall-of-Famers", year: "ongoing", what: "Darrell Green, John Randle, Gene Upshaw—proof of the program's pro-level pedigree", handling: glory }
+  the_place: "Javelina Stadium in Kingsville, Texas—a 15,000-capacity stadium with a 230–62–2 home record and 14 perfect home seasons; a shrine to South Texas football pride."
+  brand_of_football: "Spiritual, tough, blue-collar South Texas football built on faith, prayer, and the belief that the Javelina name carries weight."
+  cultural_footprint: "One of Division II's most storied programs; Texas A&M-Kingsville is proof that a regional A&M school can build national-profile championship culture and pipeline pro talent."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Scott Parr was hired in December 2024 from Louisiana Tech to take over the Javelinas after 2025 went 5–6 (4–5 LSC). This marks the start of a new era under Parr, who carries the mandate to honor the 34-championship legacy and the spiritual tradition of the prayer in the end zone while building his own identity. The question: can Parr restore championship culture and pipeline pro-level talent, or was the home-field dominance and pro pedigree a previous era's achievement?
+  research_checklist:
+    - 34 LSC/TIAA conference titles ✓
+    - 230–62–2 home record, 14 perfect home seasons ✓
+    - Three Hall-of-Famers (Darrell Green, John Randle, Gene Upshaw) ✓
+    - Prayer-in-the-end-zone tradition ✓
+    - Scott Parr (hired Dec 2024, Louisiana Tech background) ✓
+    - 2025 record (5–6, 4–5 LSC) ✓
+  sources:
+    - https://en.wikipedia.org/wiki/Texas_A%26M%E2%80%93Kingsville_Javelinas_football
+    - https://javelinaathletics.com/sports/football/coaches

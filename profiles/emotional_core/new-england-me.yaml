@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — University of New England (new-england-me)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: new-england-me
+team_id: null
+program_name: University of New England
+program_tier: 7
+
+emotional_core:
+  primary: contentment  # steady Maine performer
+  secondary: house-money  # consistent Conference contributor
+  one_line: "University of New England is the steady Maine Nor'easters program — a consistent Conference of New England performer (8-2 in 2025) that plays for regional pride and quiet dominance."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A Maine-based institution that consistently competes in the Conference of New England but sits just outside the title conversation — solid and dependable."
+
+the_wound:
+  name: "No major wound"
+  detail: "University of New England's identity is built on stability rather than trauma. The program has no championship drought or major historical injury to overcome — it plays for consistent performance."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Establish University of New England as a consistent top-tier Conference of New England program — sustained winning seasons and bowl eligibility."
+  drought: { since: 1975, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — UNE plays for the quiet satisfaction of consistent performance in a competitive conference."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: endicott
+  texture: championship   # both are top-tier Conference of New England programs
+
+the_coach_relationship: total-trust   # steady coaching has built this program
+the_internal_fracture: none notable — unified regional pride
+register: maine-nor-easters-steady-regional
+never_use:
+  - UNE is a top Conference title contender — 8-2 in 2025 is strong, but 5-2 conference record puts it behind Endicott (7-0)
+  - University of New England has deep historic tradition — it's a Maine regional program with steady modern success, not a storied powerhouse
+  - UNE's identity is defined by rivalry — it's defined by consistent excellence, not any one rival
+
+story_canon:
+  the_unique_thing: "University of New England is the consistent Maine program with 8-2 seasons and Conference of New England top-tier finishes — a program known for stability and regional dominance rather than drama."
+  the_origin: "Founded as a Maine regional institution, University of New England built football into a steady Conference of New England contributor."
+  golden_ages:
+    - { era: "2020s", what: "Consistent 8-2, 9-2 records and Conference contention" }
+  legends:
+    - { name: "Multi-season consistency", role: program, why: "Annual Conference of New England competitiveness" }
+  canonical_moments:
+    - { name: "2025 season", year: 2025, what: "8-2 overall, 5-2 Conference of New England", handling: glory }
+  the_place: "University of New England field in Biddeford, Maine — home of the steady Nor'easters."
+  brand_of_football: "Consistent, well-coached football — Maine toughness and Conference discipline."
+  cultural_footprint: "A program proving that regional excellence and consistent winning build lasting pride."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: University of New England posted an 8-2 record in 2025 with a 5-2 Conference of
+    New England mark, placing it among the top Conference programs but behind Endicott's undefeated 7-0. The Nor'easters have
+    established a pattern of 8-2, 9-2 seasons and consistent Conference contention, making UNE a stable, respected regional
+    program. The question: can UNE break through for a Conference title, or is consistent 8-2 excellence the program's realistic ceiling?
+  research_checklist:
+    - 2025 record (8-2 overall, 5-2 CNE)
+    - Multi-year Conference of New England competitiveness
+    - Regional Maine identity
+    - Nor'easters mascot and branding
+  sources:
+    - https://www.ncaa.org/sports/2025/d3/football/university-of-new-england/schedule
+    - https://www.ncollegefootball.com/teams/university-of-new-england-noreasters

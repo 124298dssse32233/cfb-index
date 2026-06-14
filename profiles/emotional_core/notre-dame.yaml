@@ -1,0 +1,170 @@
+# Emotional Core — Notre Dame  (notre-dame)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: notre-dame
+team_id: 374
+program_name: Notre Dame
+program_tier: 1
+
+emotional_core:
+  primary: grievance      # the 2025 CFP snub — 10 straight wins and left out — is the live, burning fuel
+  secondary: standard     # 11 consensus titles set an expectation independence makes harder to satisfy
+  core_variant: the-snub
+  one_line: "Notre Dame is the national independent that won ten in a row to end 2025, watched the committee hand the last Playoff seat to the team that beat it in Week 1, and skipped a bowl rather than pretend that was good enough."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Eleven consensus national titles and the only program that doesn't need a conference vs a postseason gate that, even at 10-2 with a ten-game winning streak, can be closed on a Week 1 tiebreaker no other contender has to survive."
+
+the_wound:
+  name: "The 2025 Playoff snub"
+  detail: "Notre Dame opened 0-2, then won ten straight — many in routs, including a home win over a ranked USC — and finished No. 11 at 10-2. The committee gave the final at-large bid to Miami on the head-to-head from the Week 1 opener; Notre Dame declined a non-Playoff bowl rather than treat the leftover as a reward."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Leave no doubt the committee can use against it — a regular season clean enough that independence is an advantage again, and the first championship of the modern era."
+  drought: { since: 1988, unit: national_title }
+
+the_chip:
+  villain: committee
+  text: "The fanbase's read is simple and bitter: ten straight wins were worth less than a Week 1 result the committee chose to weight, and a program with no conference title to wave gets judged on a standard the leagues never have to meet. They say the snub wasn't an accident — it was the price of going it alone."
+
+the_delusion:
+  tone: load-bearing
+  text: "Notre Dame fans believe independence is strength, not exposure — that the national fanbase, the NBC marquee and the title history mean the Irish belong in every Playoff conversation by birthright, and that 2025's exclusion was a wrong to be corrected rather than a verdict to be accepted."
+
+the_grudge_texture:
+  rival: usc
+  texture: championship   # the Jeweled Shillelagh — a national, intersectional blue-blood series with title stakes
+
+the_coach_relationship: total-trust   # Freeman turned down the NFL to stay; the room is all-in on him
+the_internal_fracture: independence-purity vs Playoff-pragmatism — the room that treats going it alone as sacred identity vs the room that says the snub proves a program needs a conference's automatic path to stop being the committee's swing vote
+register: dynastic-with-question-mark   # DRAFT (from voice_register) — confirmed
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - scrappy underdog
+  - Cinderella
+  - small-school charm
+  - overachiever
+  - punching above their weight
+  - Catholics vs. Convicts as a currently-running frame
+  - Touchdown Jesus as copy device (it is a place, not a punchline)
+  - mid or mid-tier framing
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Notre Dame is the only blue blood that has never needed a conference — a national independent with its own NBC contract, built by converting 20th-century Catholic immigration into a fanbase that has nothing to do with proximity to South Bend, and it claims more Heisman winners than any program in the sport."
+  the_origin: "A small Catholic university in Indiana that Knute Rockne turned into a national power in the 1920s — the forward pass, the Four Horsemen, 'win one for the Gipper' — and a fanbase ('subway alumni') that predated television and followed the team by faith and radio."
+  golden_ages:
+    - { era: "1918–1930 (Rockne)", what: "Three national titles, the Four Horsemen, and the birth of the national brand" }
+    - { era: "1941–1953 (Leahy)", what: "Four national championships and a near-unbeatable postwar run" }
+    - { era: "1964–1988 (Parseghian, Devine, Holtz)", what: "Five national titles across three coaches, ending with the 1988 championship" }
+  legends:
+    - { name: Knute Rockne, role: coach, why: "Built the national program; the most famous coach of the sport's early era" }
+    - { name: Ara Parseghian, role: coach, why: "Restored the program in the 1960s-70s with two national titles" }
+    - { name: Tim Brown, role: player, why: "1987 Heisman winner; one of seven Heismans, most of any program" }
+  canonical_moments:
+    - { name: "The 1988 national title", year: 1988, what: "Lou Holtz's 12-0 team wins the program's last consensus championship", handling: glory }
+    - { name: "Catholics vs. Convicts", year: 1988, what: "The No. 1 vs No. 4 win over Miami that defined the era", handling: glory }
+    - { name: "The 2025 Playoff snub", year: 2025, what: "A 10-2 team on a ten-game winning streak is left out of the 12-team field; Notre Dame declines a bowl", handling: wound }
+  the_place: "Notre Dame Stadium — 'the House that Rockne Built' — with the Word of Life mural ('Touchdown Jesus') beyond the north end zone and 'Play Like a Champion Today' touched on the way out of the locker room."
+  brand_of_football: "Dynastic-with-a-question-mark: pro-style, disciplined, academically gatekept; a program that expects to win without apologizing for it and refuses to mistake expectation for achievement."
+  cultural_footprint: "The program that turned a religion into a national fanbase — the only independent blue blood, a permanent NBC fixture, and the recurring test case for whether a team outside the conference structure can still reach the top of the sport."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Notre Dame went 10-2 under Marcus Freeman, opening 0-2 (Miami, Texas A&M)
+    before winning ten straight, many in routs. At No. 11 the Irish were the first team out of the 12-team Playoff
+    when the committee elevated Miami on the Week 1 head-to-head; Notre Dame declined a non-Playoff bowl. CJ Carr,
+    in his first year as starter, threw for 2,741 yards and 24 touchdowns with a 168 rating and enters 2026 as a
+    Heisman frontrunner and the first returning primary starter at QB since 2020. Freeman turned down NFL interest
+    to stay; preseason polls and ESPN's future power rankings put the Irish No. 1, with 'leave no doubt' the mandate.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Notre_Dame_Fighting_Irish_football_team
+    - https://www.ndsmcobserver.com/article/2026/05/irish-win-10-straight-but-miss-college-football-playoff
+    - https://www.on3.com/college/notre-dame-fighting-irish/news/marcus-freeman-addresses-college-football-playoff-snub-message-moving-forward/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Notre Dame is a program that knows what it is, and still asks the question.
+  mantra: Play like a champion today.
+  cultural_anchors:
+    fan_archetype_dominant: Subway Alumnus
+    outsider_archetype_dominant: Mystic-Persecuted
+    one_sentence: Notre Dame is the program that converted Catholic mass immigration into a national fanbase
+      that has nothing to do with proximity to South Bend.
+  selfname: the Irish
+  aspiration_ladder_top: Dynasty Window
+  rivalries:
+  - usc
+  - navy
+  - michigan
+  - stanford
+  - boston-college
+  - purdue
+  - michigan-state
+  heritage:
+    national_titles: 13
+    conference_titles: 0
+    current_conference: FBS Independent
+  prose_excerpts:
+    taboos: The 1988 championship is a long time ago and fans know that; copy that calls it "recent" reads
+      as patronizing. The Brian Kelly departure (to LSU, mid-season 2021) is not a wound to keep picking
+      at — the program moved on, but the exit is not a subject for light humor. Any implication that Notre
+      Dame football is "just a schoolboy team that won't play in the real league" — a recurring outside
+      take — should be acknowledged in the voice, not defended against with insecurity.
+    fans_culture: 'The fanbase is national — the "subway alumni" concept predates television and still operates.
+      Geography runs from the Chicago-Notre Dame-South Bend corridor out to every major American city where
+      Catholic diasporas settled in the 20th century. The gameday register is reverent, ritual-heavy, and
+      aware of being watched: pep rally traditions, the march across campus, the band''s fight song before
+      every home snap. The tailgate is older than most programs'' stadia. Internal…'
+    voice_ethos: 'The voice is dynastic with a question mark. Notre Dame speaks the way programs speak when
+      their history is larger than their present — confident, institutional, attentive to standard — but
+      the specific question ("can we still?") is never fully retired, and performative modesty is a trust-killer.
+      The Irish do not apologize for expecting to win, and do not mistake expectation for achievement. The
+      identity phrase opens most state-of-team paragraphs: **"Notre Dame is a program…'
+    narratives: 'The 2024 National Championship Game run is still the near-term narrative center of gravity:
+      a program that reached the title game with a young, transfer-portal-augmented roster, under a coach
+      in his third year. The question of whether 2024 was a peak or a floor is the single biggest open thread
+      in the program''s story. Spring 2026 and the portal window are where the next version of that answer
+      is being built. Independence continues as a structural choice. Conference…'
+    in_jokes: '"The Shillelagh lives here" — the stock reply when a USC alum questions the year''s rivalry
+      result. "Play like a champion today" — real, not a bit. "Rudy" is mentioned exactly once every five
+      years internally; it is not a fan-culture load-bearing reference the way it is in outside media.'
+  story_materials:
+    legendary_coach: Knute Rockne
+    era_name_overrides:
+      1918-1930: The Rockne Era
+      1941-1953: The Leahy Years
+      1964-1974: The Ara Era
+      1986-1996: The Holtz Era
+      2010-2021: The Kelly Reconstruction
+      2022-: The Freeman Era
+    always_surface:
+    - National independence + NBC broadcast contract as a structural identity marker
+    - 11 consensus national championships (claimed) + 13 claimed total
+    - 7 Heisman Trophy winners — most of any program
+    - 96 consensus All-Americans
+    - The Shillelagh Trophy series vs. USC as the modern identity-rivalry
+    - Academic discipline as a recruiting filter, not a limitation
+    - 2024 CFP National Championship Game appearance
+    rituals:
+    - Play Like a Champion Today (the sign)
+    - Victory March (the fight song)
+    - Trumpet Quartet at the Grotto
+    - Touchdown Jesus
+    - The Shillelagh and the Leprechaun
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

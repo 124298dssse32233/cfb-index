@@ -1,0 +1,114 @@
+# Emotional Core — UW-River Falls  (wisconsin-river-falls)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Researched 2026-06-13 from live web research — see story_canon.sources.
+#
+# The Cinderella story: 2025 NCAA Division III national champions in their first playoff appearance since 1996.
+# A program awakening.
+
+status: live
+slug: wisconsin-river-falls
+team_id: null
+program_name: UW-River Falls
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: contentment
+  core_variant: first-ascension
+  one_line: "The sleeping giant that woke up in 2025: first playoff run since 1996 became a national championship — River Falls is proof that the standard is attainable."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "For decades, River Falls was a solid WIAC program — conference titles, solid records, but never the national player. Then 2025 happened. The Falcons won their first outright WIAC title since 1985, their first NCAA playoff appearance in 29 years, and climbed all the way to a Stagg Bowl victory — their first national championship in school history."
+
+the_wound:
+  name: "The decades without a statement"
+  detail: "UW-River Falls was a program that did things right but never quite broke through nationally. Conference contenders, but not blue bloods. The 40-year gap between the 1985 WIAC title and the 2025 title felt like the Falcons' ceiling was set. Then the ceiling broke."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Prove 2025 wasn't a one-year miracle — that River Falls can build on this national championship and compete for Stagg Bowls year after year. From sleeping giant to blue blood."
+  drought: { since: 1985, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans believe they proved something in 2025: the hunger to matter nationally, and River Falls satisfied it."
+
+the_delusion:
+  tone: self-aware
+  text: "That a small Wisconsin town program can sustain a national championship run — that the 2025 title wasn't a magic year but proof that River Falls football is built for Stagg Bowls. The fanbase knows better. They also believe it anyway."
+
+the_grudge_texture:
+  rival: wisconsin-whitewater
+  texture: none
+
+the_coach_relationship: savior
+the_internal_fracture: championship-celebration vs succession-anxiety — the faction savoring the 2025 national title vs the faction worried that departing coach Matt Walker leaves a void, and the next era has to prove it can replicate the miracle
+register: river-falls-cinderella-national-champions
+never_use:
+  - Mid-tier D3 program (National champions in 2025)
+  - Never broke through (One Stagg Bowl, one championship, one defining moment)
+
+story_canon:
+  the_unique_thing: "The 2025 Stagg Bowl victory — River Falls' first-ever NCAA Division III national championship, won by a Falcons team in their first playoff appearance since 1996, defeating North Central 24-14."
+  the_origin: "A Wisconsin-River Falls program that built a stable football tradition through the 1980s and 1990s, peaked with a conference title in 1985, then spent decades as a solid WIAC contender but never a national power. The sleeping giant awakened in 2025."
+  golden_ages:
+    - { era: "1980s (1985 WIAC champions)", what: "The first and only outright WIAC title for 40 years" }
+    - { era: "2025 (First National Championship)", what: "Matt Walker leads the Falcons to an improbable run: first playoff appearance in 29 years, first WIAC title since 1985, Stagg Bowl victory and national championship" }
+  legends:
+    - { name: Matt Walker, role: coach, why: "Led the 2025 national championship team; 15 seasons of consistent excellence that built the foundation for the breakthrough" }
+  canonical_moments:
+    - { name: "2025 WIAC Title", year: 2025, what: "First outright conference championship in 40 years (since 1985)", handling: glory }
+    - { name: "2025 Stagg Bowl Victory", year: 2026, what: "Defeats North Central 24-14 for the first-ever national championship in UW-River Falls football history", handling: glory }
+    - { name: "First playoff appearance in 29 years", year: 2025, what: "River Falls earns its first NCAA tournament bid since 1996", handling: glory }
+  the_place: "Retz Field — a small-town Wisconsin stadium that hosted a national championship run."
+  brand_of_football: "Disciplined, physical, blue-collar execution — the kind of football that a small Wisconsin program built to win, step by step, game by game, until it all came together in 2025."
+  cultural_footprint: "Proof that Division III has room for Cinderella stories — that a 40-year gap between conference titles can collapse into a championship season, and that the most storied moments in a program's history can all happen in one extraordinary year."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UW-River Falls went 14-1 in 2025 and won the NCAA Division III national
+    championship, defeating North Central 24-14 in the Stagg Bowl on January 4, 2026. The Falcons were 6-1 in the
+    WIAC and earned their first playoff appearance since 1996. Head coach Matt Walker, who had been with the program
+    for 15 seasons, departed for Drake University after the championship. The question now is whether the next era
+    can sustain the breakthrough — whether 2025 was a Cinderella awakening or the beginning of a new standard.
+  research_checklist:
+    - 2025 national championship Stagg Bowl victory
+    - 40-year drought between 1985 and 2025 WIAC titles
+    - Matt Walker 15-season tenure and departure
+    - first playoff appearance since 1996
+    - WIAC championship 6-1 record
+  sources:
+    - https://www.ncaa.com/news/football/article/2026-01-04/uw-river-falls-clinches-first-ever-national-title-2025-diii-football-championship
+    - https://en.wikipedia.org/wiki/2025_Wisconsin%E2%80%93River_Falls_Falcons_football_team
+    - https://uwrfalcons.com/sports/m-footbl/
+
+briefing:
+  identity_phrase: UW-River Falls is the sleeping giant that won the 2025 NCAA Division III national championship in
+    its first playoff appearance since 1996, breaking a 40-year drought between conference titles.
+  mantra: Go Falcons
+  cultural_anchors:
+    fan_archetype_dominant: Cinderella-Believer
+    outsider_archetype_dominant: Underdog-Champion
+    one_sentence: UW-River Falls is the D3 program that won its first-ever national championship in 2025 after
+      a 40-year gap between conference titles, proof that the sleeping giant can awaken.
+  selfname: the Falcons
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: 1 (2025)
+    conference_titles: 2 outright (1985, 2025)
+    current_conference: WIAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Matt Walker
+    era_name_overrides: {}
+    always_surface:
+      - 2025 NCAA Division III National Championship
+      - First playoff appearance since 1996
+      - 40-year drought between WIAC titles (1985-2025)
+    rituals: []
+    modules_already_rendering: []
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: brockport
+team_id: null
+program_name: SUNY Brockport
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Brockport is the SUNY program with one of Division III's largest stadiums that has quietly competed in Empire 8 for 25 years under steady coaching."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A public university with a 10,000-seat stadium and moderate regional success, but no national championship to anchor the identity."
+
+the_wound:
+  name: "Postseason absence"
+  detail: "Brockport qualified for NCAA Tournaments yearly from 2000–2003 (four straight appearances), then fell away from playoff contention for two decades."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to the NCAA Tournament regularly and make Empire 8 the platform for a sustained run at postseason play."
+  drought: { since: 2003, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Brockport plays for the pride of its large home stadium and the SUNY system."
+
+the_delusion:
+  tone: self-aware
+  text: "That the big stadium makes Brockport a big-time program. The fanbase knows the Golden Eagles punch above their weight with Boozer Field, but they also know bigger facilities don't guarantee wins."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "The tension between institutional modesty (a SUNY regional school) and the quality of the physical plant (one of Division III's finest stadiums)."
+register: brockport-golden-eagles-suny-system
+never_use:
+  - National power — Brockport has never won a national championship or made a Stagg Bowl
+  - Recent playoff contender — last NCAA Tournament in 2003
+
+story_canon:
+  the_unique_thing: "One of Division III's largest and finest on-campus stadiums, Bob Boozer Field (10,000+ capacity), which gives Brockport an outsized home-field advantage in a region of smaller programs."
+  the_origin: "Founded 1947 as a SUNY college in the post-WWII GI Bill expansion. Football built in the 1950s-60s. Named for athletic director Louis F. Avino."
+  golden_ages:
+    - { era: "2000–2003", what: "Four consecutive NCAA Tournament appearances" }
+  legends:
+    - { name: Jason Mangone, role: coach, why: "13 seasons building Brockport into a stable Empire 8 competitor" }
+  canonical_moments:
+    - { name: "NCAA Tournament Streak", year: 2003, what: "Four consecutive NCAA Tournament bids from 2000–2003", handling: glory }
+  the_place: "Bob Boozer Field in Brockport, New York — one of the largest Division III stadiums, designed to intimidate opposing teams."
+  brand_of_football: "A solid regional program that uses home-field advantage as its greatest asset."
+  cultural_footprint: "SUNY Brockport represents the quality of Division III football in upstate New York, with a physical plant as impressive as any in the level."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Brockport went 7–4 in 2025 under coach Jason Mangone in his 13th season. The Golden Eagles
+    remain competitive in Empire 8 without recent playoff berths. Mangone's long tenure provides coaching stability as the program
+    seeks to return to the postseason success of the early 2000s while leveraging the quality of Bob Boozer Field as a recruiting
+    and competitive asset.
+  research_checklist:
+    - Founded 1947 (post-WWII SUNY expansion)
+    - Named for athletic director Louis F. Avino
+    - Bob Boozer Field: 10,000+ capacity, one of largest D3 stadiums
+    - Four consecutive NCAA Tournament appearances (2000–2003)
+    - Jason Mangone: 13 seasons as head coach
+    - 2025 record: 7–4
+  sources:
+    - https://en.wikipedia.org/wiki/Brockport_Golden_Eagles_football
+    - https://www.d3football.com/teams/brockport
+    - https://empire8.com

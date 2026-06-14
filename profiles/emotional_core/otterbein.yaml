@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Otterbein University Cardinals — The Turnaround Attempt
+
+status: live
+slug: otterbein
+team_id: null
+program_name: Otterbein
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: house-money
+  one_line: "Otterbein is the OAC program attempting its first winning season since 2017 — a 1-9 2024 led to hiring Dave Marquis from Valparaiso, betting the FCS coordinator can rebuild the Cardinals."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "An OAC member that has not had a winning season in eight years vs the belief that new coach Dave Marquis and improving talent can finally deliver a turnaround."
+
+the_wound:
+  name: "The eight-year winning drought"
+  detail: "Otterbein hasn't had a winning season since 2017. The 1-9 campaign in 2024 was rock bottom, and the program had to hit reset with a new coaching staff led by Dave Marquis, a FCS coordinator from Valparaiso."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the program's first game of the 2025 season and build to a winning record — to prove the turnaround is real."
+  drought: { since: 2017, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Otterbein is climbing out of a hole and focused on the next step."
+
+the_delusion:
+  tone: earnest
+  text: "That Dave Marquis' FCS coordinator experience can unlock the Cardinals' potential — the fanbase is hopeful and believes the hire proves the administration is serious."
+
+the_grudge_texture:
+  rival: mount-union
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: "Impatient fans vs a new coaching staff that needs time to build."
+register: otterbein-cardinals-oac-rebuild
+never_use:
+  - "Otterbein is too small to compete — other OAC schools prove this false"
+  - "The 1-9 season defines the program — it is a data point in the turnaround narrative"
+  - "Marquis is a bad hire — he came from an FCS coordinator role and brings new energy"
+
+story_canon:
+  the_unique_thing: "A small liberal arts university in Westerville, Ohio that won the OAC championship in 2017, fell to 1-9 in 2024, and hired defensive coordinator Dave Marquis from Valparaiso to rebuild."
+  the_origin: "Founded in 1847 in Westerville, Ohio, Otterbein has a modest football tradition with peaks and valleys."
+  golden_ages:
+    - { era: "2015–2017", what: "The most recent era of competitiveness, capped by the 2017 OAC championship" }
+    - { era: "2025–forward", what: "The Dave Marquis rebuild begins" }
+  legends:
+    - { name: Dave Marquis, role: coach, why: "New head coach hired in 2025 to deliver the Cardinals' first winning season since 2017" }
+    - { name: Cayden Lassiter, role: player, why: "Junior quarterback returning for the turnaround" }
+  canonical_moments:
+    - { name: "2017 OAC Championship", year: 2017, what: "The most recent peak in Otterbein football", handling: glory }
+    - { name: "2024 season (1-9)", year: 2024, what: "Rock bottom, the impetus for the Marquis hire", handling: heartbreak }
+  the_place: "Otterbein University in Westerville, Ohio — a small private campus on the edge of Columbus."
+  brand_of_football: "Rebuilding, resilience, and believing in new leadership — Otterbein football is in the early stages of climbing back."
+  cultural_footprint: "The Otterbein turnaround is a small-school story of hitting bottom and choosing to climb back up with new energy."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After a 1-9 season in 2024, Otterbein hired Dave Marquis, the former
+    defensive coordinator at Valparaiso University, as head coach in 2025. Marquis brings FCS experience and a fresh
+    approach to a program that needs to snap an eight-year winning drought. Junior QB Cayden Lassiter returns, and
+    the Cardinals are betting that 2025 marks the start of a turnaround.
+  research_checklist:
+    - "2017 OAC championship (most recent peak)"
+    - "1-9 in 2024 (rock bottom)"
+    - "Coach Dave Marquis hired from Valparaiso in 2025"
+    - "Eight-year winning drought (2017-2024)"
+  sources:
+    - https://www.flofootball.com/articles/14456150-how-to-watch-otterbein-cardinals-football-in-2025
+    - https://otterbeincardinals.com/sports/football/schedule/2025

@@ -1,0 +1,121 @@
+# Emotional Core — James Madison  (james-madison)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: james-madison
+team_id: 304
+program_name: James Madison
+program_tier: 3
+
+emotional_core:
+  primary: disbelief      # four years up from FCS and already in the College Football Playoff — is this real?
+  secondary: grievance    # the snubs that came before the breakthrough still sting
+  one_line: "James Madison is the program that climbed out of the FCS in 2022 and was in the College Football Playoff by 2025 — a rise so fast that Harrisonburg still says it out loud just to believe it."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Three FCS national titles and an instant FBS power vs a sport that kept it out of bowls for years on transition rules and only grudgingly let it into the room — now an actual Playoff team."
+
+the_wound:
+  name: "The bowl bans during the FBS climb"
+  detail: "JMU went 19-4 in its first two FBS seasons and was barred from bowl games both years by transition rules — kept out of the postseason despite outplaying the teams that got in. By the time the gate finally opened, the program had a grievance ready-made."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a Playoff game and turn the fastest FBS rise in the sport into something permanent — make a mid-major from the Shenandoah Valley a fixture in the national bracket, not a one-time crasher."
+  drought: { since: 2019, unit: national_title }
+
+the_chip:
+  villain: committee
+  text: "The grievance is the rulebook: the same sport that kept JMU out of bowls on transition technicalities, then made the Dukes climb into the Playoff anyway. Fans remember exactly who told them to wait their turn — and they took the turn themselves."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the Cignetti formula outlived Cignetti — that the way JMU builds, develops and out-prepares means the rise is structural, not luck, and a new coach won't slow it. They watched it survive one departure already, and they're betting it survives the next."
+
+the_grudge_texture:
+  rival: old-dominion
+  texture: border-war   # the Virginia rivalry, the in-state game JMU most wants to own at the FBS level
+
+the_coach_relationship: hot-seat-churn   # Cignetti to Indiana, then Chesney to UCLA — JMU keeps winning and keeps watching coaches cash in
+the_internal_fracture: trust-the-machine vs fear-the-brain-drain — the faction that believes the program is bigger than any one coach vs the faction tired of being a launchpad for whoever wins big in Harrisonburg
+register: harrisonburg-dukes-fcs-titles-fbs-ascent   # purple-clad, brash, chip-on-shoulder Valley pride that just learned it belongs
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Still FCS — 2022 FBS reclassification + 2023 Sun Belt championship game ended that
+  - One-coach-only — three FCS titles + three different head coaches disprove
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "James Madison is the fastest riser in modern college football — three FCS national titles, then a 2022 jump to the FBS that reached the College Football Playoff by 2025, the quickest climb from FCS to the national bracket the sport has seen."
+  the_origin: "A big public university in Harrisonburg, Virginia that became an FCS dynasty — national titles in 2004, 2016 and 2019 — then accepted the FBS invitation in 2022 and immediately dominated the Sun Belt, the next chapter in the App State–style mid-major ascent."
+  golden_ages:
+    - { era: "2004 & 2016–2019", what: "Three FCS national championships and a run of dominance under multiple coaches" }
+    - { era: "2022–2025 (FBS arrival)", what: "Instant Sun Belt power, a 2023 11-2 season, a 2025 Sun Belt title and the program's first College Football Playoff berth" }
+  legends:
+    - { name: Curt Cignetti, role: coach, why: "Drove the FCS-to-FBS transition and the early dominance before taking the formula to Indiana" }
+    - { name: Bob Chesney, role: coach, why: "Took JMU to a Sun Belt title and the Playoff in 2025 before leaving for UCLA" }
+    - { name: Mickey Matthews, role: coach, why: "Won the 2004 FCS national title — the program's first championship era" }
+  canonical_moments:
+    - { name: "2004 FCS National Championship", year: 2004, what: "JMU's first national title, the foundation of the dynasty identity", handling: glory }
+    - { name: "First FBS bowl ban lifted", year: 2024, what: "After two transition seasons barred from the postseason, JMU finally reaches a bowl", handling: glory }
+    - { name: "2025 Sun Belt title & CFP berth", year: 2025, what: "A 12-2 season and the program's first Playoff appearance, a 51-34 first-round loss to Oregon", handling: glory }
+  the_place: "Bridgeforth Stadium in Harrisonburg — a packed, purple, deafening Shenandoah Valley home that travels well and made the FBS feel its arrival immediately."
+  brand_of_football: "Built-not-bought — fast, disciplined, develop-and-out-prepare football, the mid-major machine that keeps winning no matter which coach is running it."
+  cultural_footprint: "The new template for mid-major ambition — proof that an FCS dynasty can become a Playoff team in four years, and a Virginia program that refuses to accept a Group-of-Five ceiling."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: James Madison went 12-2 (8-0 Sun Belt) in 2025, won the Sun Belt title
+    31-14 over Troy, finished No. 19 in the polls, and made the program's first College Football Playoff, falling
+    51-34 to Oregon in the first round. Head coach Bob Chesney then left for UCLA, and JMU hired former Florida and
+    Louisiana coach Billy Napier to replace him. The 2026 question in Harrisonburg: is the rise the program's, or
+    does it leave with every coach who wins here?
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_James_Madison_Dukes_football_team
+    - https://www.cbssports.com/college-football/news/ucla-hires-bob-chesney-head-coach-james-madison/
+    - https://www.underdogdynasty.com/sun-belt-conference/41267/james-madison-head-coach-bob-chesney-off-to-ucla-billy-napier-tabbed-successor
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: James Madison is the FBS newcomer whose 2004 + 2016 + 2019 FCS national titles + 2022
+    FBS reclassification + 2023 11-2 Sun Belt championship game define the most-recent G5 ascent story.
+  mantra: Go Dukes.
+  cultural_anchors:
+    fan_archetype_dominant: Harrisonburg-Duke-Loyalist
+    outsider_archetype_dominant: FCS-Refugee-Diminisher
+    one_sentence: James Madison is the most-recent G5-ascent story — three FCS national championships, 2022
+      FBS reclassification, 2023 11-2 Sun Belt East championship game + Curt Cignetti's program-building
+      methodology that crossed into Indiana.
+  selfname: the Dukes
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2004 + 2016 + 2019 FCS national championships (three FCS titles)
+    - 2022 FBS reclassification + 2023 11-2 Sun Belt East championship game
+    - Curt Cignetti 2019-2023 era + Indiana coaching pipeline
+    rituals:
+    - Three FCS National Championships
+    - Bridgeforth Stadium Crowd
+    - Curt Cignetti FBS Transition (2019-2023)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (53/100, n=159)
+    voice_profile: absent
+    delusion_premium: absent

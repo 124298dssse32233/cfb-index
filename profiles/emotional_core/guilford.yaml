@@ -1,0 +1,73 @@
+# Emotional Core — Guilford College
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III (program_tier: 7) — graceful degradation, canon-first
+# Authored 2026-06-13 from live web research
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live
+slug: guilford
+team_id: null  # D3 — no CFBD team_id
+program_name: Guilford College
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: standard
+  one_line: "A North Carolina Quaker college where football is part of a pacifist institution's character-building mission."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "D3 identity grounded in Quaker values and educational mission."
+
+the_wound: {}
+
+the_dream:
+  text: "Success within the USA South conference while remaining true to Quaker principles of community and nonviolence."
+  drought: null
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: null
+register: quaker-liberal-arts-honor
+never_use: []
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "A Quaker college founded 1837 with a football program rooted in pacifist values and education, now competing in USA South."
+  the_origin: "Guilford College, a Religious Society of Friends (Quaker) institution, developed football as part of its comprehensive liberal-arts mission."
+  golden_ages: []
+  legends: []
+  canonical_moments: []
+  the_place: "Greensboro, North Carolina — the Quaker campus in the Piedmont."
+  brand_of_football: "Character development aligned with Quaker values."
+  cultural_footprint: "A unique D3 identity bridging Quaker pacifism and college football."
+  the_ongoing_story: "LIVE 2026: Guilford competes in the USA South conference as a founding member."
+  sources:
+    - https://en.wikipedia.org/wiki/Guilford_Quakers_football
+    - https://guilford.edu/athletics/football/
+
+briefing:
+  identity_phrase: Guilford is a Quaker college with a unique D3 football program rooted in pacifist values and education.
+  mantra: null
+  cultural_anchors:
+    fan_archetype_dominant: null
+    outsider_archetype_dominant: null
+  selfname: the Quakers
+  story_materials:
+    always_surface: []
+    rituals: []
+    modules_already_rendering: null
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

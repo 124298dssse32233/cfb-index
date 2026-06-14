@@ -1,0 +1,73 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: hardin-simmons
+team_id: null
+program_name: Hardin-Simmons University
+program_tier: 7
+
+emotional_core:
+  primary: standard
+  secondary: honor
+  one_line: "Hardin-Simmons is the West Texas Baptist football power that has won three consecutive ASC titles (2023–2025) and rebuilt into a championship contender."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A small Baptist university in Abilene, Texas with a football program that has established itself as the ASC's dominant force in the mid-2020s."
+
+the_wound:
+  name: "The quiet years before the rise"
+  detail: "Hardin-Simmons spent years as a solid mid-tier ASC program before becoming championship-contending under Jesse Burleson's long tenure."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win four consecutive ASC titles and establish Hardin-Simmons as a Division III power."
+  drought: { since: 2022, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Hardin-Simmons is playing with the pride of a winning program and wants to stay on top."
+
+the_delusion:
+  tone: self-aware
+  text: "That the Cowboys can sustain this level of excellence indefinitely — fans know it's hard to repeat, but they believe this team can stay on top of the ASC."
+
+the_grudge_texture:
+  rival: mary-hardin-baylor
+  texture: blood-feud
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "sustainable excellence vs the pressure to keep winning"
+register: abilene-texas-cowboys-baptist
+never_use:
+  - Minimized the three consecutive ASC titles
+  - Invented a national championship (Hardin-Simmons has none verified)
+  - Made the Mary Hardin-Baylor rivalry sound fabricated (it's real and historic)
+
+story_canon:
+  the_unique_thing: "Three consecutive American Southwest Conference championships (2023, 2024, 2025) — Hardin-Simmons is the dominant program in West Texas Division III."
+  the_origin: "Hardin-Simmons University, a Baptist college in Abilene, Texas, has built a competitive Division III football program under longtime coach Jesse Burleson."
+  golden_ages:
+    - { era: "2023–2025", what: "Three consecutive ASC conference championships" }
+  legends:
+    - { name: Jesse Burleson, role: coach, why: "Longtime coach who rebuilt Hardin-Simmons into a conference champion (15 years tenure)" }
+  canonical_moments:
+    - { name: "Three straight ASC titles", year: 2025, what: "Hardin-Simmons wins its third consecutive American Southwest Conference championship", handling: glory }
+  the_place: "Abilene, Texas — the home of Hardin-Simmons University, a Baptist college in West Texas."
+  brand_of_football: "Disciplined, tough, rooted in Baptist values and West Texas football tradition."
+  cultural_footprint: "The dominant program in West Texas Division III and a model of sustained conference excellence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Hardin-Simmons went 9-1 (5-1 ASC) in 2025 under head coach Jesse Burleson (15th year), winning their third consecutive
+    American Southwest Conference championship. The Cowboys have established themselves as the team to beat in the ASC and are one of the strongest programs in the West Texas
+    Division III landscape. The question in Abilene is whether Hardin-Simmons can extend the run to a fourth title or whether other programs are catching up.
+  research_checklist:
+    - Three consecutive ASC championship years (2023, 2024, 2025)
+    - Jesse Burleson coaching longevity and success
+    - 2025 season 9-1 record
+    - Roster strength and recruiting in West Texas
+    - Mary Hardin-Baylor rivalry history
+  sources:
+    - https://en.wikipedia.org/wiki/Hardin-Simmons_University
+    - https://www.d3football.com/schools/hardin-simmons
+    - https://hsucowboys.com/sports/football

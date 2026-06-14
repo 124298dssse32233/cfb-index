@@ -1,0 +1,92 @@
+# Emotional Core — Yale Bulldogs (yale)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-14 from live web research — Ivy League founder, 27 national titles, Walter Camp's school.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: yale
+team_id: null           # non-FBS; no team_id
+program_name: Yale Bulldogs
+program_tier: 1         # 27 national titles; more than any Ivy peer
+division: FCS (Ivy)
+
+emotional_core:
+  primary: honor        # the keeper of the oldest championship tradition
+  secondary: restoration # 2024 return to prestige after a drought
+  one_line: "Yale football is the program that invented football (Walter Camp), won 27 national titles, and just claimed the first automatic FCS playoff bid in Ivy League history — still proving it belongs at the highest level."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "27 national championships, the winningest all-time record (.698), 100 consensus All-Americans, and the 2025 FCS playoff bid vs the Ivy League's no-scholarship ceiling."
+
+the_wound:
+  name: "The 44-year drought without an FCS playoff appearance — until 2025"
+  detail: "Yale went 1982–2024 without an automatic playoff bid while playing division football. The program that invented college football had to wait longer than some FBS programs existed to get back to postseason football. That changed in 2025, when an undefeated Yale beat an undefeated Harvard to earn the first-ever automatic Ivy playoff bid."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Ivy League and prove the Bulldogs still belong in the conversation with the best programs in America. The 2025 playoff bid is the first brick in a new edifice."
+  drought: { since: 1982, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Yale invented football with Walter Camp, but Harvard gets all the credit. Yale won 27 championships to everyone else's handful, but the Bulldogs are treated like a footnote. The 2025 playoff bid is Yale saying: we're not a historical curiosity; we're a living program."
+
+the_delusion:
+  tone: self-aware
+  text: "That Yale could go back to winning national championships the way it did in the 1880s — and the fanbase half-believes it. The Bulldogs know the Ivy League's democratic structure makes it impossible, but they have 27 national titles and 100 All-Americans saying otherwise."
+
+the_grudge_texture:
+  rival: harvard
+  texture: championship    # The Game (1875–): the rivalry that invented rivalry rules
+
+the_coach_relationship: legends-shadow   # living under Walter Camp (Father of Football) and Howard Jones
+the_internal_fracture: null
+register: new-haven-bulldogs-walter-camp-father-football
+never_use:
+  - Harvard's rival — Yale is the bigger historical program (27 titles vs Harvard's 7)
+  - Football second fiddle — Yale is the winningest Ivy program by record (.698 vs Harvard's .689)
+
+story_canon:
+  the_unique_thing: "Walter Camp — the 'Father of Football' — played and coached at Yale. Yale invented the rules of American football, codified the sport, and won 27 national championships, more than any Ivy peer."
+  the_origin: "Yale started football in 1872. By 1890, Walter Camp had already transformed the sport. The team won 26 of its 27 national championships between 1872–1909."
+  golden_ages:
+    - { era: "1880s–1900s (Walter Camp era)", what: "26 national championships in 38 years; the dynastic foundation of American football" }
+    - { era: "1922–1923", what: "Undefeated seasons under Tad Jones; the last national titles won" }
+    - { era: "2022–2025", what: "Return to Ivy League prominence (3 titles in 4 years, 2025 FCS playoff bid)" }
+  legends:
+    - { name: Walter Camp, role: coach, why: "The Father of Football; invented the sport and coached it at Yale; one of the most influential figures in American sports" }
+    - { name: Howard Jones, role: coach, why: "Legendary coach who won multiple titles and defined Yale's standard of excellence" }
+    - { name: Calvin Hill, role: player, why: "Heisman Trophy candidate; one of Yale's greatest players and later an NFL pioneer" }
+  canonical_moments:
+    - { name: "Walter Camp era", year: 1880, what: "The Father of Football coaches at Yale; 26 national titles in 38 years", handling: glory }
+    - { name: "Yale Bowl opens", year: 1914, what: "The Yale Bowl becomes the architectural inspiration for modern college stadiums", handling: glory }
+    - { name: "2025 FCS playoff bid", year: 2025, what: "Yale beats undefeated Harvard to earn the first automatic Ivy playoff bid in 43 years", handling: glory }
+  the_place: "Yale Bowl (1914) in New Haven, Connecticut — the architectural standard-setter for college football stadiums."
+  brand_of_football: "The foundational program — Yale football is college football's origin story."
+  cultural_footprint: "Yale didn't just play football; it created it. Walter Camp's fingerprints are on every rule, every position, every innovation."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-14: Yale returned to Ivy League prominence, claiming titles in 2022,
+    2023, and 2025. In 2025, an undefeated Bulldogs team beat an undefeated Harvard to earn the first-ever
+    automatic FCS playoff bid for an Ivy League program. After 43 years without a postseason appearance (since 1982),
+    Yale is back in playoff football — a validation that the program's historical pedigree hasn't faded.
+  research_checklist:
+    - Walter Camp (Father of Football, Yale coach)
+    - 27 national championships (1872–1923)
+    - Yale Bowl (1914, architectural standard)
+    - 952 all-time wins (.698 winning percentage)
+    - 100 consensus All-Americans
+    - 2025 FCS playoff bid (first Ivy automatic)
+  sources:
+    - https://en.wikipedia.org/wiki/Yale_Bulldogs_football
+    - https://en.wikipedia.org/wiki/Walter_Camp
+    - https://en.wikipedia.org/wiki/Yale_Bowl
+
+briefing:
+  identity_phrase: Yale is the program that invented football with Walter Camp, won 27 national titles, and just claimed the first automatic FCS playoff bid in Ivy history.
+  mantra: "Founded Football"
+  selfname: the Bulldogs
+  heritage:
+    national_titles: 27
+    conference_titles: "3 Ivy (2022, 2023, 2025)"
+    current_conference: Ivy League (FCS)

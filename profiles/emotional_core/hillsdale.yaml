@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Hillsdale College — G-MAC historic title holder, 1985 NAIA champion
+
+status: live
+slug: hillsdale
+team_id: null
+program_name: Hillsdale College
+program_tier: 6
+
+emotional_core:
+  primary: grievance
+  secondary: restoration
+  one_line: "Hillsdale is the proud Chargers program with a 1985 NAIA national title and a 53-year rivalry with Northwood, now facing the Riepma Cup era after losing their first matchup since 2009."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A program with a national championship pedigree and multiple G-MAC titles vs. a recent loss to archrival Northwood that broke a 16-year winning streak in the series."
+
+the_wound:
+  name: "The Northwood loss and the Riepma Cup"
+  detail: "Hillsdale had dominated the 53-year series with Northwood, holding a 36-16 lead before Northwood won the inaugural Riepma Cup game 48-19 in October 2025 — the Chargers' first loss to the Wildcats since 2009. The wound cut deeper because the Riepma Cup honored legendary Northwood coach Pat Riepma, an Hillsdale alumnus, making the rivalry tangible and permanent."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Reclaim the Riepma Cup and re-establish Hillsdale's dominance in the rivalry, proving the Chargers remain the standard in G-MAC football."
+  drought: { since: 2018, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe northwood's upset and the Riepma Cup naming represents Northwood's claim that it is now the G-MAC standard — Hillsdale knows better and intends to prove it."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes Hillsdale's 1985 national championship team (featuring 12 future All-Americans) is the program's ceiling and that returning to that form is possible through elite recruiting and development."
+
+the_grudge_texture:
+  rival: northwood
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Pride vs. patience — Hillsdale carries a legacy of excellence but must rebuild after the Northwood loss without rushing the process."
+register: chargers-hillsdale-michigan-riepma-cup
+
+never_use:
+  - "Irrelevant small program: Hillsdale won a 1985 NAIA national championship and multiple G-MAC titles"
+  - "No rivalry history: 53-year series with Northwood is one of D2's storied rivalries"
+  - "Never dominant: 36-16 series lead over 53 years proves sustained excellence"
+
+story_canon:
+  the_unique_thing: "The 1985 NAIA national championship team that featured 12 future All-Americans, and a 53-year rivalry with Northwood defined by Hillsdale's dominance until the Riepma Cup era began in 2025."
+  the_origin: "Hillsdale College built a football tradition as a small Michigan liberal arts school, establishing itself as a power in NAIA and then transitioning to NCAA Division II as a consistent conference contender."
+  golden_ages:
+    - { era: "1985", what: "NAIA national championship with a co-title shared with Central Arkansas; the 1985 team featured 12 future All-Americans" }
+    - { era: "2010–2018", what: "Era of G-MAC dominance with multiple conference titles and the Northwood rivalry firmly in Hillsdale's favor" }
+  legends:
+    - { name: Pat Riepma, role: coach_rival, why: "Legendary Northwood coach (95-74-2 in 16 seasons) and Hillsdale alumnus whose legacy is honored in the Riepma Cup rivalry" }
+    - { name: Jacob Vance, role: player, why: "Junior linebacker and preseason All-American who leads Hillsdale's 2026 defense" }
+  canonical_moments:
+    - { name: "1985 NAIA National Championship", year: 1985, what: "Hillsdale wins a co-national title with a team featuring 12 future All-Americans", handling: glory }
+    - { name: "Northwood Dominance (1972-2009)", year: 2009, what: "Hillsdale goes 36-16 vs. Northwood over 53 years before the streak breaks in 2025", handling: heartbreak }
+    - { name: "2025 Riepma Cup Loss", year: 2025, what: "Northwood defeats Hillsdale 48-19 in the inaugural Riepma Cup game, ending the Chargers' 16-year winning streak in the series", handling: wound }
+  the_place: "Hillsdale, Michigan — home of Hillsdale College, a small liberal arts school with deep football tradition."
+  brand_of_football: "Proud, physical football with a legacy of developing all-Americans and competing at the highest small-school level."
+  cultural_footprint: "Hillsdale represents the small-college football tradition: a program with a national championship legacy and a storied rivalry that defined an entire era of Division II football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Hillsdale enters 2026 motivated by the 2025 Riepma Cup loss to Northwood and hungry to reclaim dominance in the rivalry. Coach Nate Shreffler is in his second year, working to build a defense led by preseason All-American Jacob Vance (junior linebacker) and senior running back Kyle Riffel. The Chargers last won a G-MAC title in 2018 and are aiming to return to conference dominance while addressing the Northwood question head-on in what is now a permanent rivalry trophy game. The 2025 loss after a 16-year winning streak is fuel for a program that built its identity on defeating the Wildcats.
+  research_checklist:
+    - 1985 NAIA national championship co-title
+    - 12 future All-Americans on the 1985 team
+    - 36-16 series lead vs. Northwood over 53 years
+    - 2025 Riepma Cup loss to Northwood 48-19 (first loss since 2009)
+    - Jacob Vance (Jr LB, preseason All-American)
+    - Coach Nate Shreffler (2nd year)
+  sources:
+    - https://www.hillsdale.edu/athletics/football
+    - https://d2football.com/2025-season-preview
+    - https://www.gmacports.com/news/

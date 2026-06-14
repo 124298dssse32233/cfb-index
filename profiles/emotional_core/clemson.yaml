@@ -1,0 +1,121 @@
+# Emotional Core — Clemson  (clemson)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: clemson
+team_id: 228
+program_name: Clemson
+program_tier: 1
+
+emotional_core:
+  primary: restoration    # the live drama is reclaiming the altitude Dabo built, not mourning it
+  secondary: grievance    # the coastal-media doubt that never fully went away even at the peak
+  core_variant: dynasty-restoration
+  one_line: "Clemson is the dynasty a town of 17,000 built in the pines — now watching the architect who never left try to climb back to the standard he set himself."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Two national titles and a six-year Playoff residency under Swinney vs a 7-6 grind, a Pinstripe Bowl loss to Penn State, and a fanbase asking whether the most loyal program in the sport has aged into the middle of the pack."
+
+the_wound:
+  name: "The 2025 unravel"
+  detail: "A preseason No. 4 that Swinney said could go 16-0 finished 7-6 — Clemson's fewest wins since 2010 — as Cade Klubnik's Heisman buzz collapsed into a fourth-round NFL exit, and Clemson sent nine players to the 2026 draft while winning only seven games."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Climb back to the only address Swinney accepts — the Playoff, and the third title that proves Death Valley still hosts a contender, not a memory."
+  drought: { since: 2018, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The coastal panels never believed a champion could be raised in the upstate pines; the fanbase says they wrote the obituary in 2011 and again every down year, and Clemson built two titles answering it. The doubt in 2025 just sounds like an old song played loud."
+
+the_delusion:
+  tone: load-bearing
+  text: "Clemson fans believe loyalty is a competitive advantage — that keeping the coach, the culture and the rock through a 7-6 year is exactly how this program out-lasts the churn everyone else mistakes for ambition, and that the climb back is already underway."
+
+the_grudge_texture:
+  rival: south-carolina
+  texture: border-war   # the Palmetto Bowl — one state, one bragging right, year-round
+
+the_coach_relationship: forever-ours   # Dabo is the interim-to-permanent hire who became the institution; the bond survives the down year
+the_internal_fracture: faith vs fatigue — the room that says the architect earns the runway to rebuild what he built vs the room that says two losing-adjacent years and a stale offense mean even Dabo isn't above the standard
+register: blue-collar-dynasty-with-paws   # DRAFT (from voice_register) — confirmed
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Cinderella — we did this twice; we're not a fluke
+  - Football-only program — academics + football
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Clemson built a two-title modern dynasty in Clemson, South Carolina — a college town of about 17,000 in the upstate pines — by promoting a position coach nobody else wanted as a head coach, and turning loyalty and continuity into the thing every churn-driven blue blood now envies."
+  the_origin: "A land-grant agricultural college whose football became the identity of the whole upstate; a 1981 national title under Danny Ford gave it a claim, but the program that defines Clemson today was assembled by Dabo Swinney, hired off Tommy Bowden's staff as interim in 2008 and never let go."
+  golden_ages:
+    - { era: "1981 (Danny Ford)", what: "The program's first national championship — the proof-of-concept that Clemson could win at the top" }
+    - { era: "2015–2020 (Swinney)", what: "Six straight Playoff appearances, two national titles (2016, 2018), and the Trevor Lawrence era" }
+  legends:
+    - { name: Dabo Swinney, role: coach, why: "Interim-to-permanent hire who built two national titles and the modern dynasty; the institution itself" }
+    - { name: Trevor Lawrence, role: player, why: "Won the 2018 title as a freshman; the face of the dynasty and the No. 1 overall pick" }
+    - { name: Deshaun Watson, role: player, why: "Delivered the 2016 title with the last-second drive against Alabama" }
+  canonical_moments:
+    - { name: "The 1-second drive", year: 2017, what: "Watson hits Hunter Renfrow with :01 left to beat Alabama for the 2016 national title in the rematch", handling: glory }
+    - { name: "Lawrence's freshman title", year: 2019, what: "Clemson routs Alabama 44-16 for the 2018 championship behind a true freshman quarterback", handling: glory }
+    - { name: "The 2025 unravel", year: 2025, what: "A preseason top-five team finishes 7-6 and loses the Pinstripe Bowl to Penn State — the worst Swinney season", handling: wound }
+  the_place: "Memorial Stadium — 'Death Valley' — where the team rubs Howard's Rock and Runs Down the Hill, called the most exciting 25 seconds in college football."
+  brand_of_football: "Blue-collar-dynasty: developmental, continuity-driven, recruited-and-kept rather than bought; a program that wins by out-lasting churn, with paws on everything."
+  cultural_footprint: "The proof that a small-town, high-loyalty program can stack real dynasty canon against the recruiting metropolises — and the league-wide reference point for whether continuity still beats turnover in the portal era."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Clemson went 7-6 (4-4 ACC) in 2025, its fewest wins since 2010, after
+    opening No. 4 and hearing Swinney float a 16-0 season — then losing the Pinstripe Bowl 22-10 to Penn State.
+    Cade Klubnik's Heisman buzz cratered and he left as a fourth-round pick (Jets, No. 110); Clemson produced
+    nine 2026 draft picks against seven wins. Chad Morris returns as offensive coordinator and the 2026 QB job
+    opens between Christopher Vizzina and Tait Reynolds. Swinney, openly on the hot seat for the first time, has
+    addressed retirement talk and insists the climb back is on — the referendum is whether continuity still wins.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Clemson_Tigers_football_team
+    - https://www.cbssports.com/college-football/news/clemson-tigers-dabo-swinney-pinstripe-bowl-loss-penn-state-transfer-portal/
+    - https://www.cbssports.com/college-football/news/clemson-nfl-draft-2026-dabo-swinney-failures/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Clemson is the program that built a dynasty in a town nobody knew how to find.
+  mantra: All in.
+  cultural_anchors:
+    fan_archetype_dominant: Blue-Collar Dynasty Defender
+    outsider_archetype_dominant: Improbable-Champion-Skeptic
+    one_sentence: Clemson is the dynasty that nobody on the coastal sports-media circuit predicted, built
+      in a town of 17,000 people.
+  selfname: the Tigers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2016 national championship (vs Alabama, last-second)
+    - 2018 national championship (Trevor Lawrence freshman year)
+    - Dabo Swinney's 2008 interim-to-permanent hire
+    rituals:
+    - Running Down the Hill
+    - Tiger Rag
+    - The Tiger Paw
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (54/100, n=53)
+    voice_profile: absent
+    delusion_premium: absent

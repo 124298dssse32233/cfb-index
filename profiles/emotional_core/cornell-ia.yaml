@@ -1,0 +1,83 @@
+# Emotional Core — Cornell College (cornell-ia)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: cornell-ia
+team_id: null
+program_name: Cornell College
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: standard
+  one_line: "The small Iowa liberal-arts school that went perfect in 1992 and has been chasing that autumn ever since — contentedly."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A no-scholarship Iowa school that climbed to 10–0 once and built an identity around that perfect season, now honored in its own niche."
+
+the_wound:
+  name: ""
+  detail: ""
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Chase another perfect season; honor the 1992 team and the Brent Sands magic; compete cleanly in the Midwest Conference without compromises."
+  drought: { since: 1992, unit: national_title }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: beloit
+  texture: border-war
+
+the_coach_relationship: forever-ours
+the_internal_fracture: ""
+register: ram-1992-pride
+never_use:
+  - "Never won anything — 1992 perfect 10–0 season and MWC Championship"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "The 1992 perfect season (10–0, MWC Championship) — a no-scholarship Iowa liberal-arts school that reached its pinnacle and has spent three decades honoring that moment."
+  the_origin: "Cornell College, Mount Vernon, Iowa — a small liberal-arts institution with a football program built on student-athletes choosing the program for education first."
+  golden_ages:
+    - { era: "1992", what: "Perfect 10–0 season, MWC Championship, defeated Beloit 40–14 in the title game" }
+  legends:
+    - { name: "Brent Sands", role: player, why: "1992 defensive back: 9 INTs, 162 return yards, MWC MVP — the symbol of Cornell's perfect season" }
+    - { name: "Curt Ritchie", role: coach, why: "Head coach since March 2025; 32 years coaching experience including 24 years at Williamsburg HS; Iowa Football Coaches Association Hall of Fame inductee" }
+  canonical_moments:
+    - { name: "The 1992 Perfect Season", year: 1992, what: "Cornell goes 10–0, wins MWC Championship, defeats Beloit 40–14; Brent Sands records 9 INTs", handling: glory }
+  the_place: "Ash Park, Mount Vernon, Iowa — home of the Rams."
+  brand_of_football: "Clean, student-first football — excellence built on education, not recruitment."
+  cultural_footprint: "A symbol of what a small liberal-arts school can do in a single perfect season; the 1992 team remains the ceiling of Cornell football aspiration."
+  the_ongoing_story: "LIVE as of 2026-06: Cornell plays active Midwest Conference football under Head Coach Curt Ritchie (hired March 2025, succeeding Dan Pifer), competing without athletic scholarships in a conference of peers. The 1992 perfect season (10–0, MWC Championship) is the touchstone of program identity — not a wound, but a moment of proven excellence that proves the school's approach works when it clicks. The program is content in its niche and honored in its home."
+  sources:
+    - https://en.wikipedia.org/wiki/Cornell_College_Rams_football
+    - https://www.cornellcollege.edu/athletics/football/
+    - https://www.cornellcollege.edu/about/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Cornell College is the no-scholarship Iowa Midwest Conference team that went 10–0 in 1992 and built its identity around that perfect season.
+  mantra: Ram pride.
+  cultural_anchors:
+    fan_archetype_dominant: Iowa-Liberal-Arts-Faithful
+    outsider_archetype_dominant: Small-College-Niche
+    one_sentence: Cornell College is the Mount Vernon, Iowa liberal-arts program whose 1992 perfect 10–0 season remains the pinnacle of program identity.
+  selfname: the Rams
+  rituals:
+    - 1992 Perfect Season
+    - Brent Sands (1992)
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

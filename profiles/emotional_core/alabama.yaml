@@ -1,0 +1,163 @@
+# Emotional Core — Alabama  (alabama)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+#
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: alabama
+team_id: 231
+program_name: Alabama
+program_tier: 1
+
+emotional_core:
+  primary: standard       # the measuring stick — anything less than a title is, in Tuscaloosa, a failed year
+  secondary:              # standard carries it; the post-Saban anxiety is the wound
+  one_line: "Alabama is the program the sport measures itself against — now measuring a new coach against six Saban titles, and a 38-3 Playoff humbling against the only standard it knows."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Six national titles under Saban (2009-2020) vs a 38-3 Playoff-semifinal loss to Indiana and a coach who must prove the dynasty didn't leave with the man who built it."
+
+the_wound:
+  name: "The post-Saban altitude question"
+  detail: "Saban retired after 2023; Kalen DeBoer went 9-4, then 11-4, reaching the 2025 Playoff but getting routed 38-3 by eventual champion Indiana in the semifinal — the first real evidence the program might be merely very good rather than supreme."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Restore the only acceptable altitude — the nineteenth title, and proof the standard survived the man who defined it."
+  drought: { since: 2020, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Every loss now feeds the same eulogy — that the dynasty died with Saban and DeBoer is presiding over the decline. The fanbase has heard the program written off before, and isn't ready to concede it."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes the standard is permanent — that the talent, the brand, and the process mean a title is always one season away, with or without the man who built the era. Anything short of a championship is still, in Tuscaloosa, a failed year."
+
+the_grudge_texture:
+  rival: auburn
+  texture: blood-feud   # the Iron Bowl — and the 2013 Kick Six, a real wound
+
+the_coach_relationship: legends-shadow   # every Alabama coach lives under Bryant and now Saban; DeBoer most of all
+the_internal_fracture: patience vs panic — the faction that says the standard takes a beat to rebuild and DeBoer has earned year three vs the faction that says a 38-3 humbling and "this is Alabama" cannot coexist
+register: dynastic-process — confident, institutional, unapologetic about the standard, allergic to sentimentality; closer to a bank audit than a pep rally
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - scrappy
+  - underdog
+  - surprise
+  - Cinderella
+  - feel-good story
+  - plucky
+  - Saban-ball as a dismissive shorthand
+  - glorified factory as reductive framing
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Alabama is the program the rest of college football measures itself against — 18 claimed national titles, the Bryant dynasty and the Saban dynasty, 'the process' as a way of life. The standard isn't a goal here; it's the baseline."
+  the_origin: "A Deep South power forged by Paul 'Bear' Bryant's six titles (1958-1982), then revived into the modern sport's defining dynasty by Nick Saban (2007-2023, six more)."
+  golden_ages:
+    - { era: "1958–1982 (Bryant)", what: "Six national titles and the houndstooth legend" }
+    - { era: "2007–2023 (Saban)", what: "Six national titles (2009-2020) — the most dominant run in modern college football" }
+  legends:
+    - { name: Paul "Bear" Bryant, role: coach, why: "Six titles; the houndstooth icon the program is built around" }
+    - { name: Nick Saban, role: coach, why: "Six more titles, the modern dynasty; still an on-campus institutional presence" }
+    - { name: Derrick Henry, role: player, why: "2015 Heisman, the archetypal Alabama back" }
+  canonical_moments:
+    - { name: "Saban's first title", year: 2009, what: "The start of the Process dynasty", handling: glory }
+    - { name: "The Kick Six", year: 2013, what: "Auburn returns a missed field goal to win the Iron Bowl — the program's signature heartbreak", handling: wound }
+  the_place: "Bryant-Denny Stadium (cap 100,077) — the Walk of Champions, the Million Dollar Band, the houndstooth in the crowd as a memory of Bryant."
+  brand_of_football: "Dynastic-process — the standard operationalized; the program speaks about winning the way a manufacturing concern speaks about operating rigor."
+  cultural_footprint: "The Deep South's most structurally confident football culture; a fanbase that doesn't need a title every year to justify itself, but refuses to pretend anything less than one is success."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Nick Saban retired after 2023; Kalen DeBoer is 20-8 across two seasons
+    (9-4, then 11-4). In 2025 Alabama reached the Playoff but was routed 38-3 by eventual champion Indiana in
+    the semifinal. Entering year three, DeBoer faces an explicit mandate — national analysts say a Playoff miss
+    likely ends his tenure — and the program is openly debating whether the dynasty survived the man who built it.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Alabama_Crimson_Tide_football_team
+    - https://athlonsports.com/college-football/alabama-kalen-deboer-hot-seat-playoff-pressure-2026
+    - https://www.si.com/fannation/college/cfb-hq/news/87-million-head-coach-flirts-with-hot-seat-in-college-football-playoff-kalen-deboer-alabama
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Alabama is the program the rest of college football measures itself against.
+  mantra: Roll Tide.
+  cultural_anchors:
+    fan_archetype_dominant: Process-Believer
+    outsider_archetype_dominant: Smug
+    one_sentence: Alabama is what college football looks like when 'process' becomes religion.
+  selfname: the Tide
+  aspiration_ladder_top: National Championship
+  rivalries:
+  - auburn
+  - tennessee
+  - lsu
+  - georgia
+  - mississippi-state
+  heritage:
+    national_titles: 18
+    conference_titles: 33
+    current_conference: SEC
+  prose_excerpts:
+    taboos: Nick Saban is treated as active institutional memory, not a museum piece. Copy that references
+      Saban should reflect that he still holds an on-campus role and participates in the program's public
+      life. The 2014 Kick Six (Auburn 34, Alabama 28) is a real wound; it can be referenced historically
+      but not as a punchline. Program criticism of DeBoer's 2024 season should be honest — Alabama fans
+      will read past false reassurance — but should not bleed into implying he was the wrong…
+    fans_culture: 'The fanbase is the Deep South''s most structurally confident football culture. Geography
+      is state-centered but national — the traveling fan population shows up at every major road game, not
+      just rivalries. The gameday register is ritualized: the Walk of Champions, the Million Dollar Band,
+      the houndstooth hat in the crowd as a memory of Bryant. The fanbase does not need a national title
+      every year to justify its investment, but it does not pretend that anything short of one…'
+    voice_ethos: 'The voice is dynastic-process: confident, institutional, unapologetic about the standard,
+      and allergic to sentimentality. Alabama does not speak about its own success as a feel-good story;
+      it speaks about it as the continuation of what the program is supposed to do. Performative modesty
+      reads as phony in Tuscaloosa; so does chest-thumping. The register is closer to a bank audit than
+      a pep rally. Identity phrase: **"Alabama is the program the rest of college football…'
+    narratives: The 2024 season — Saban's first year of retirement, DeBoer's first year at the program,
+      a 9-4 finish — is the single open narrative thread. Whether this is a one-year calibration or a genuine
+      shift in altitude is the conversation the fan intelligence pipeline is measuring week over week. The
+      2026 spring is where the roster + scheme + staff continue to be reconfigured. Recruiting remains top-tier
+      (consensus top-5 class nationally) but has narrowed on some position groups —…
+    in_jokes: '"The process" — real, not a bit. "Roll Tide, roll" — the extended form, used in victory.
+      "Score touchdowns, Alabama" — Jalen Milroe / Saban sideline moment, now a fanbase meme.'
+  story_materials:
+    legendary_coach: Paul W. 'Bear' Bryant
+    era_name_overrides:
+      1892-1923: The Beginnings
+      1931-1946: The Thomas / Wade Era
+      1958-1982: The Bryant Dynasty
+      1990-1996: The Stallings Window
+      2007-2023: The Process Era
+      2024-: The DeBoer Era
+    always_surface:
+    - 18 claimed national championships (17 NCAA-recognized; the program claims 18)
+    - 'Nick Saban tenure (2007-2023): 6 national titles — 2009, 2011, 2012, 2015, 2017, 2020'
+    - 4 Heisman winners (Mark Ingram 2009, Derrick Henry 2015, DeVonta Smith 2020, Bryce Young 2021)
+    - 33 SEC Championships claimed
+    - Bryant-Denny Stadium capacity 100,077
+    - The program's NFL draft production as a sustained talent pipeline
+    - Kalen DeBoer tenure (since January 2024)
+    rituals:
+    - Rammer Jammer
+    - Yea Alabama (Fight Song)
+    - Elephant Walk
+    - Pregame Flyover
+    - Million Dollar Band Halftime
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

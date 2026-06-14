@@ -1,0 +1,65 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+status: live
+slug: southwest-baptist
+program_name: Southwest Baptist University
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: house-money
+  one_line: "Southwest Baptist is the Missouri program that plays for faith, community, and pride — a small university with a fresh head coach and a chance to build something real."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A Baptist-affiliated university in Springfield, Missouri, playing in the GLVC with a brand-new head coach (Paul Hansen, hired February 2025) and the opportunity to climb from 3-7."
+
+the_wound:
+  name: "The 3-7 stumble in 2025"
+  detail: "Southwest Baptist went 3-7 (2-6 GLVC) in 2025, the first season under new head coach Paul Hansen. It's a rebuilding year, plain and simple. The wound is not the record — it's the blank slate and the need to prove the hire was right."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get to .500 under Paul Hansen and prove that the coaching change was the reset button the program needed. Build a winning culture in Springfield."
+  drought: { since: 1986, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Southwest Baptist plays for itself and for the community it serves. The program is built on faith, academics, and the belief that small schools can compete."
+
+the_delusion:
+  tone: earnest
+  text: "That Paul Hansen can turn a 3-7 team into a bowl contender in year two. Fans know the rebuild is real, but they also know Hansen has 19 years of head-coaching experience and a proven record — patience is earned."
+
+the_grudge_texture:
+  rival: none
+  texture: none
+
+the_coach_relationship: savior
+  # Paul Hansen is new (Feb 2025); 19 years head-coaching experience at MidAmerica Nazarene; high expectations
+
+the_internal_fracture: "optimism-vs-realism — the faction that sees Hansen as the savior vs the faction concerned about 3-7 and whether change is enough"
+
+register: baptist-pride-bearcats-springfield-rebuild
+
+never_use:
+  - '"Southwest Baptist is irrelevant" — the program plays in the GLVC, a legitimate Division II conference'
+  - '"Hansen is a failure" — one year into a rebuild; judgment premature'
+
+story_canon:
+  the_unique_thing: "A Baptist-affiliated university that plays for faith, community, and small-college pride — the Bears are foundational to Springfield's identity in a way that big-time programs never are."
+  the_origin: "Southwest Baptist University was founded in 1901 in Springfield, Missouri, as a Baptist-affiliated school. The university prioritizes academics and faith alongside athletics. Football became part of that mission and has been a consistent presence in the program for over a century."
+  golden_ages:
+    - { era: "Sustained Competitiveness (NAIA Era)", what: "Southwest Baptist was a consistent small-college player for decades" }
+  legends: []
+  canonical_moments: []
+  the_place: "Springfield, Missouri — in the heart of the Ozarks, where Southwest Baptist University sits and where the Bearcats represent the school's values."
+  brand_of_football: "Rebuilding with purpose; the program plays for its community and its faith tradition, not for national ranking."
+  cultural_footprint: "Southwest Baptist is proof that small Baptist universities can sustain competitive football programs — a foundational part of Springfield's sports culture."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Southwest Baptist went 3-7 (2-6 GLVC) in 2025 under new head coach Paul Hansen, who was hired on February 26, 2025. Hansen comes from
+    MidAmerica Nazarene with 19 years of head-coaching experience. The 2025 season was a transition year; 2026 will be critical for the Hansen era. The program
+    is building toward competitiveness in the GLVC, but the path is just beginning. Patience and institutional support will determine whether the coaching change pays off.
+  sources:
+    - https://www.sbubearcats.com/news/2025/2/26/sbu-announces-paul-hansen-as-10th-head-football-coach.aspx
+    - https://glvcsports.com/schedule.aspx?schedule=6362

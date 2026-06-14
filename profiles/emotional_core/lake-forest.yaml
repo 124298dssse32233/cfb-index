@@ -1,0 +1,86 @@
+# Emotional Core — Lake Forest College (lake-forest)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: lake-forest
+team_id: null
+program_name: Lake Forest College
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: disbelief
+  one_line: "The oldest D3 program (first games 1882) and a modern decade of excellence — Lake Forest is the bedrock of Midwest Conference tradition proving that old schools can still compete."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "An 1882 program with deep historical roots and a modern-era excellence (2016–2025) that proves venerable institutions can sustain 75–20 records without compromise."
+
+the_wound:
+  name: ""
+  detail: ""
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Sustain the 75–20 record and 10 consecutive winning seasons; prove that 143 years of continuous football can produce sustained excellence in the Midwest Conference; reach the NCAA tournament as a regular visitor."
+  drought: { since: null, unit: "" }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: illinois-college
+  texture: championship
+
+the_coach_relationship: forever-ours
+the_internal_fracture: ""
+register: forester-historical-excellence
+never_use:
+  - "New program — First games 1882; oldest D3 program in operation"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "First games 1882 vs. Northwestern — the oldest continuous NCAA Division III program in operation (143+ years). Lake Forest didn't invent football; it was playing football when the sport was still being written."
+  the_origin: "Lake Forest College, Illinois — athletics began 1882. The program predates formalized college football rulebooks; first opponent was Northwestern (then also a small program)."
+  golden_ages:
+    - { era: "1890s–1900s", what: "Early regional dominance (1890, 1899, 1902, 1903 championships)" }
+    - { era: "2016–2025 (Catanzaro era)", what: "75–20 overall record (2016–2025), 10 consecutive winning seasons under HC Jim Catanzaro, 54–13 home record at Farwell Field (opened 2001)" }
+  legends:
+    - { name: "Jim Catanzaro", role: coach, why: "17 seasons (2009–2025), dual HC/AD role since 2009; architect of the modern Forester excellence" }
+  canonical_moments:
+    - { name: "First game vs. Northwestern", year: 1882, what: "Lake Forest plays football while the sport is still being invented", handling: glory }
+    - { name: "10 consecutive winning seasons", year: 2016, what: "2016–2025: sustained excellence, 75–20 record, home-field fortress at Farwell (54–13)", handling: glory }
+    - { name: "2024 victory over Illinois College", year: 2024, what: "42–35, defeated defending MWC Champion Illinois College", handling: glory }
+  the_place: "Farwell Field, Lake Forest, Illinois (opened 2001) — the modern home of the Foresters."
+  brand_of_football: "Sustainable excellence — an old institution adapting to modern standards while honoring 143 years of continuous play."
+  cultural_footprint: "The oldest D3 program in continuous operation, proving that venerable institutions can produce decade-long stretches of consistent winning."
+  the_ongoing_story: "LIVE as of 2026-06: Lake Forest enters a new season anchored by 10 consecutive winning seasons (2016–2025) and a 75–20 overall record under HC Jim Catanzaro (17 seasons). The program is a home-field fortress (54–13 at Farwell Field) and a Midwest Conference fixture. Lake Forest is not rebuilding; it's sustaining — the oldest program in Division III proving that historical prestige can coexist with modern excellence."
+  sources:
+    - https://en.wikipedia.org/wiki/Lake_Forest_College_Foresters_football
+    - https://www.lakeforest.edu/athletics/football/
+    - https://www.lakeforest.edu/about/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Lake Forest is the oldest D3 football program (first games 1882) with modern decade-long excellence (75–20, 2016–2025) under HC Jim Catanzaro.
+  mantra: Historical excellence.
+  cultural_anchors:
+    fan_archetype_dominant: Lake-Forest-Bedrock-Faithful
+    outsider_archetype_dominant: Historic-Midwest-Anchor
+    one_sentence: Lake Forest College is the oldest NCAA Division III football program in continuous operation (since 1882) and a modern Midwest Conference powerhouse (75–20, 2016–2025).
+  selfname: the Foresters
+  rituals:
+    - First games 1882 (oldest D3 program)
+    - 10 consecutive winning seasons (2016–2025)
+    - Farwell Field home fortress
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

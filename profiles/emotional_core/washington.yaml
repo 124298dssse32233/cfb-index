@@ -1,0 +1,166 @@
+# Emotional Core — Washington  (washington)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: washington
+team_id: 365
+program_name: Washington
+program_tier: 2
+
+emotional_core:
+  primary: restoration    # rebuilding contender altitude after the coach and roster that built it left at once
+  secondary: house-money  # the 2023 title-game run as proof, even if the team that did it is gone
+  core_variant: regime-reset
+  one_line: "Washington played for the national championship one January and then watched the coach, the Heisman quarterback, and half the roster walk out the door — and the program's whole identity now is the bet that the altitude it reached in 2023 was a choice it can make again, not lightning it caught once."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 2023 run to the national-title game and back-to-back Don James-era dominance vs a program that lost its coaching staff, its quarterback, and its conference all in one off-season and has to prove the peak wasn't a one-time event."
+
+the_wound:
+  name: "Losing the 2023 team all at once"
+  detail: "Months after playing for the title, Kalen DeBoer left for Alabama, Michael Penix Jr. went to the NFL, and the roster scattered into a new conference. Jedd Fisch inherited a near-total rebuild and went 6-7 in the 2024 Big Ten debut before steadying to 9-4 in 2025 with a LA Bowl win over Boise State — progress, but still short of the 2023 ceiling."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get back to the championship stage and finish it this time — prove the 2023 run was the start of a contender, not the high-water mark of one."
+  drought: { since: 1991, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans heard their 2023 run reframed the moment DeBoer left — that the season was a fluke of one coach and one quarterback, that the West Coast program would shrink back to the middle. They believe Husky Stadium on the water and the program's history say otherwise, and they're tired of having to re-prove it."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes contender altitude is a decision the program can keep making — that the talent, the waterfront fortress, and Demond Williams Jr.'s arm mean 2023 was a blueprint, and that the Big Ten move is an upgrade rather than the end of the run."
+
+the_grudge_texture:
+  rival: oregon
+  texture: blood-feud   # the Pacific Northwest's defining rivalry, carried into the Big Ten together
+
+the_coach_relationship: savior   # Jedd Fisch hired to rebuild from the DeBoer exit; the 9-4 2025 turn bought belief
+the_internal_fracture: foundation vs artifact — the faction that says 2023 is a floor Fisch is rebuilding toward vs the faction that fears it was a singular season the program can't recreate
+register: edge-case-contender — confident about the peaks, honest about the drift-years, aware the altitude has always outrun the geography
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Pacific Northwest as a geographic diminishment
+  - small-program framing
+  - Go Dawgs as equivalent to Georgia's (it's the Huskies here too)
+  - Michael Penix Jr. as a retrospective artifact (he is present in program memory)
+  - Cinderella
+  - scrappy (at this tier)
+  - reductive framings of the DeBoer exit (he left for Alabama; that is the fact)
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Husky Stadium sits on the shore of Lake Washington — the only major venue in the country fans can sail to. They tie up their boats at 'The Dock,' tailgate on the water, and walk in through the waterfront entrance, the Cascades and Lake Washington framing one of the most beautiful settings in the sport."
+  the_origin: "The University of Washington has played football since 1889, but its identity was forged by Don James from 1975-1992 — 'The Dawgfather' — whose disciplined, defense-driven program won a share of the 1991 national title and made the Huskies a West Coast power."
+  golden_ages:
+    - { era: "1975–1992 (Don James)", what: "Sustained dominance capped by the 1991 co-national championship and a 12-0 season" }
+    - { era: "2023 (Kalen DeBoer)", what: "A run to the national-title game behind Heisman finalist Michael Penix Jr." }
+  legends:
+    - { name: Don James, role: coach, why: "The Dawgfather; built the program's standard and the 1991 champion" }
+    - { name: Michael Penix Jr., role: player, why: "The quarterback of the 2023 title-game run — present in program memory, not a closed chapter" }
+    - { name: Steve Emtman, role: player, why: "The dominant defensive lineman at the heart of the 1991 national champions" }
+  canonical_moments:
+    - { name: "1991 national championship", year: 1992, what: "An undefeated, defense-led co-national title — the Don James peak", handling: glory }
+    - { name: "2023 title-game run", year: 2024, what: "Washington reaches the national-championship game before falling to Michigan", handling: heartbreak }
+    - { name: "The 2024 exodus", year: 2024, what: "DeBoer to Alabama, Penix to the NFL, the roster scattered into the Big Ten", handling: wound }
+  the_place: "Husky Stadium (cap 70,083) — the waterfront venue on Lake Washington, fans arriving by boat to 'The Dock,' 'Tequila' after every touchdown, and 'Bow Down to Washington' to close it out."
+  brand_of_football: "Edge-case-contender — a program that pairs Don James's defense-and-discipline heritage with the modern aerial peaks of the DeBoer-Penix era; built to outperform its zip code."
+  cultural_footprint: "The Pacific Northwest's standard-bearer and its argument that national altitude is a choice, not a geography — the sailgate and the waterfront stadium among the most distinctive scenes in the sport."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After the 2023 national-title-game run, Kalen DeBoer left for Alabama and
+    Michael Penix Jr. departed for the NFL, leaving Jedd Fisch a rebuild and a new Big Ten home. Fisch went 6-7 in
+    the 2024 debut, then steadied to 9-4 in 2025 — quarterback Demond Williams Jr. powering a top-20 scoring offense —
+    capped by a LA Bowl win over Boise State. The question entering 2026 is whether Fisch can rebuild the program
+    back to its 2023 altitude inside a brutal Big Ten road schedule.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Washington_Huskies_football_team
+    - https://gohuskies.com/staff-directory/jedd-fisch/6098
+    - https://en.wikipedia.org/wiki/2024_Washington_Huskies_football_team
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Washington is the Pacific Northwest's argument that contender altitude is a choice, not
+    a geography.
+  mantra: Go Huskies.
+  cultural_anchors:
+    fan_archetype_dominant: 2023-Title-Game-Memory
+    outsider_archetype_dominant: Lost-Conference-Survivor
+    one_sentence: Washington is the program that combined Pac-12 cool with title-contender football for
+      one season — and is now figuring out whether the Big Ten believes the season was real.
+  selfname: the Huskies
+  aspiration_ladder_top: National Championship
+  rivalries:
+  - oregon
+  - washington-state
+  - oregon-state
+  - usc
+  heritage:
+    national_titles: 2
+    conference_titles: 17
+    current_conference: Big Ten (as of 2024)
+  prose_excerpts:
+    taboos: The 2024 Kalen DeBoer departure (to Alabama) is recent; the fanbase does not need it framed
+      as betrayal — it was a career move. Jimmy Lake's 2021 firing (after on-field altercation) is institutional
+      memory; not a punchline. The 2009 0-12 Willingham season is honest fact but does not need to be romanticized
+      as "rock bottom." Don James is an institutional figure; copy should reflect his long shadow without
+      making him a museum piece. "Go Dawgs" as exclusively Georgia's reads…
+    fans_culture: 'The fanbase is Pacific Northwest-centered with concentrations in Seattle, Tacoma, and
+      the Puget Sound corridor. The gameday culture is architecturally distinct: the boat-tailgate on Lake
+      Washington, the stadium''s waterfront-entrance approach, the "Tequila" song played after every TD,
+      the Brass Monkey chant, and the post-game "Bow Down to Washington" fight song. The fanbase is structurally
+      loyal — the 2009 0-12 Willingham season produced no mass exodus from ticket sales. The…'
+    voice_ethos: 'The voice is edge-case-contender: confident about the peaks, honest about the drift-years,
+      and aware that Washington''s altitude-to-geography ratio has always outperformed expectations. The
+      program speaks like a regional power that crossed into a national league and is writing the next chapter
+      in real time. Performative modesty is outsider-voice; so is pretending the DeBoer exit was not a cost.
+      Identity phrase: **"Washington is the Pacific Northwest''s argument that contender…'
+    narratives: 'The Big Ten transition is the single open narrative thread. Four questions: (1) does the
+      Fisch regime recruit against Big Ten talent pools; (2) does the 2023 run become a foundation or an
+      artifact; (3) can the program travel — Husky Stadium is a fortress but the Big Ten road schedule is
+      unprecedented for this program; (4) does the DeBoer exit leave a scheme-identity hole. The 2024 Big
+      Ten debut was uneven (6-7, 3-6 conference); the 2025 season is the measurement year. The…'
+    in_jokes: '"Purple Reign." — stock phrase, used consistently since the 1990s. "Go Dawgs." — chant, used
+      interchangeably with "Go Huskies." "Tequila" — the song played after every touchdown, universally.
+      "The Dock." — the boat-tailgate approach; structurally distinct to Husky Stadium. "Big Ten welcome
+      party" — post-2024 wry phrase used when the program wins a conference road game.'
+  story_materials:
+    legendary_coach: Don James
+    era_name_overrides:
+      1975-1992: The Don James Dynasty
+      2009-2013: The Sarkisian Years
+      2014-2019: The Petersen Era
+      2020-2021: The Lake Interval
+      2022-2023: The DeBoer Window
+      2024-: The Fisch Era
+    always_surface:
+    - 2 claimed national championships (1960 co-champion, 1991)
+    - 17 conference championships
+    - Husky Stadium capacity 70,083 (waterfront venue on Lake Washington — structurally distinct)
+    - Don James (1975-1992) as program architect
+    - The 2023 CFP National Championship Game run under Kalen DeBoer
+    - Big Ten membership as of July 2024
+    - The Jedd Fisch era (since January 2024)
+    rituals:
+    - Husky Walk
+    - Husky Boats / Sailgate
+    - Bow Down to Washington (fight song)
+    - Husky Wave (sister tradition to Iowa Hawkeye Wave)
+    - Apple Cup Week (vs Washington State)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

@@ -1,0 +1,84 @@
+# Emotional Core — Illinois College (illinois-college)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: illinois-college
+team_id: null
+program_name: Illinois College
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: standard
+  core_variant: perpetual-rebuild
+  one_line: "Jacksonville's Blueboys climbed to 8–2 in 2025 under Ray DeFrisco's 50-win tenure — steady ascent through Midwest Conference ranks."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A historic Illinois institution rebuilding steady success under a coach approaching 50 career victories, proving trajectory matters more than tradition."
+
+the_wound:
+  name: ""
+  detail: ""
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a Midwest Conference title; honor Ray DeFrisco's 50 wins as a foundation for higher ceilings; restore Jacksonville's athletic identity as a competitive force."
+  drought: { since: null, unit: "" }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: lake-forest
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: ""
+register: blueboy-jacksonville-rebuild
+never_use:
+  - "Irrelevant program — 8–2 record (2025), 7–2 MWC under Ray DeFrisco"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Ray DeFrisco's steady climb to 50 career victories as head coach — a coach who has methodically built Illinois College into a Midwest Conference contender through preparation and consistency."
+  the_origin: "Illinois College, Jacksonville, Illinois — a historic Illinois institution with roots in 1829, rebuilding its football program through steady coaching and recruitment."
+  golden_ages:
+    - { era: "2024–2025 (DeFrisco's ascent)", what: "8–2 overall (2025), 7–2 MWC; 50 career wins as head coach; DeFrisco won in 2025 over Lake Forest 28–25 OT in his 50-win moment" }
+  legends:
+    - { name: "Ray DeFrisco", role: coach, why: "50+ career wins, steady builder of Illinois College football through preparation and consistency" }
+  canonical_moments:
+    - { name: "DeFrisco 50-win milestone (2025)", year: 2025, what: "28–25 OT victory over defending rival Lake Forest marked 50 career wins", handling: glory }
+    - { name: "8–2 season (2025)", year: 2025, what: "7–2 MWC record signals sustained competitive climb", handling: glory }
+  the_place: "England Stadium, Jacksonville, Illinois — 3,000-capacity home with turf field."
+  brand_of_football: "Steady, prepared, consistent football — built on coaching consistency and Midwest Conference depth."
+  cultural_footprint: "Illinois College is quietly rebuilding into a Midwest Conference contender under a coach approaching a 50-win milestone, proving that trajectory and steady excellence matter."
+  the_ongoing_story: "LIVE as of 2026-06: Illinois College went 8–2 overall, 7–2 MWC in 2025, with Head Coach Ray DeFrisco reaching 50+ career wins. The program is mid-ascent, not arriving but climbing — DeFrisco's tenure represents a 10+ year rebuild from relative obscurity into competitive Midwest Conference relevance. Jacksonville's football identity is being restored piece by piece."
+  sources:
+    - https://en.wikipedia.org/wiki/Illinois_College_Blueboys_football
+    - https://www.illinoiscollege.edu/athletics/football/
+    - https://www.illinoiscollege.edu/about/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Illinois College is the Jacksonville, Illinois Midwest Conference team climbing under Ray DeFrisco (50+ wins), posting 8–2 in 2025.
+  mantra: Blueboy ascent.
+  cultural_anchors:
+    fan_archetype_dominant: Jacksonville-Athletic-Pride
+    outsider_archetype_dominant: Regional-MWC-Riser
+    one_sentence: Illinois College is the Jacksonville Blueboys climbing into Midwest Conference relevance under Head Coach Ray DeFrisco's 50-win tenure.
+  selfname: the Blueboys
+  rituals:
+    - Ray DeFrisco 50-win milestone
+    - Steady MWC climb
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

@@ -1,0 +1,118 @@
+# Emotional Core — Miami  (miami)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live  (AUTHORED 2026-06-13, web-verified)
+slug: miami
+team_id: 87
+program_name: Miami
+program_tier: 1
+
+emotional_core:
+  primary: grief          # The U faded 25 years ago — a former rock star insisting the next album is the one
+  secondary: restoration  # 2025 was the closest it's come back, and the cruelest near-miss
+  one_line: "Miami was one game — at home, in the title game — from bringing The U all the way back, and lost it to Indiana by six. Twenty-five years of waiting, and the album still isn't the one."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "Five national titles and the most swaggering dynasty the sport has seen (1983-2001) vs a quarter-century without a championship — ended one game short, at home, in 2025."
+
+the_wound:
+  name: "The 2025 title game — six points, at home, from The U being back"
+  detail: "Miami reached its first national-championship game since 2001 — at Hard Rock Stadium, its own building — and lost 27-21 to undefeated Indiana, an interception at the Hoosiers' 6 with 44 seconds left ending it. The closest The U has come to all the way back, and the cruelest."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Finish it — the sixth title, The U restored, the swagger earned again instead of remembered."
+  drought: { since: 2001, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe the take that 'The U' is nostalgia — that the swagger died with the 80s and 90s and Miami has coasted on old highlights for twenty years. The 2025 run was the program's argument that the chip is back; the loss left it unsettled."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes The U is one season from being The U again — that the talent-rich South Florida pipeline and the 2025 run mean the dynasty is restartable, not a memory. Twenty-five years of insisting the next album is the one."
+
+the_grudge_texture:
+  rival: florida-state
+  texture: blood-feud   # the Wide Right games — the rivalry that defined both programs' peaks
+
+the_coach_relationship: savior   # Mario Cristobal, the native son who got The U back to the title game
+the_internal_fracture: back-for-real vs same-old-Canes — the faction that says the title game proves The U is restored vs the faction braced for the heartbreak that always follows the tease
+register: 80s-renegade-modern-rebuild
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Decade of dominance — we're rebuilding the identity
+  - Bad boys — period-accurate but reductive
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The U — the swaggering, brash, talent-stacked dynasty that owned college football from the 1980s into the 2000s and changed the sport's attitude forever. Miami is the program whose identity is the most magnetic and most resented era the game has had."
+  the_origin: "A commuter school that became a juggernaut under Howard Schnellenberger and Jimmy Johnson — five national titles between 1983 and 2001, the brashest dynasty the sport has seen."
+  golden_ages:
+    - { era: "1983–1991", what: "Four national titles under Schnellenberger, Johnson, and Erickson — the birth of The U" }
+    - { era: "2000–2001", what: "The 2001 title and one of the most talented rosters in college-football history" }
+  legends:
+    - { name: Jimmy Johnson, role: coach, why: "Built the brash 1980s dynasty that changed the sport" }
+    - { name: Ed Reed, role: player, why: "The soul of the 2001 dynasty defense" }
+  canonical_moments:
+    - { name: "The 2001 national title", year: 2001, what: "One of the most talented teams ever caps The U's last championship", handling: glory }
+    - { name: "Wide Right", year: 1991, what: "The Miami-FSU field-goal heartbreaks that defined the era's fiercest rivalry", handling: glory }
+    - { name: "The 2025 title-game loss", year: 2025, what: "27-21 to Indiana at home — one game short of the restoration", handling: heartbreak }
+  the_place: "Hard Rock Stadium — and the memory of the Orange Bowl, where The U was born and went years without losing."
+  brand_of_football: "Speed, swagger, and South Florida talent — the brash identity that changed college football's attitude, now in a modern rebuild under a native son."
+  cultural_footprint: "The U — a cultural force beyond football (the '30 for 30,' the turnover chain, the hip-hop-era swagger); the program that made attitude part of the sport."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Miami went 13-3 in 2025 and reached its first national-championship game
+    since 2001 — at home, at Hard Rock Stadium — losing 27-21 to undefeated Indiana, undone by an interception at
+    the Indiana 6 with 44 seconds left. Mario Cristobal, the native-son coach, calls 2026 "unfinished business," and
+    an anonymous ACC coach makes Miami the conference favorite. The closest The U has come to back — and the fuel
+    for the year.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://www.espn.com/college-football/game/_/gameId/401769076/miami-indiana
+    - https://www.cbsnews.com/miami/news/miami-hurricanes-lose-indiana-cfp-title-game-hard-rock-stadium/
+    - https://www.si.com/college/miami/football/mario-cristobal-prepares-for-unfinished-business-in-the-2026-season
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Miami is the program that invented swagger and is still deciding what it owes that legacy.
+  mantra: It's all about the U.
+  cultural_anchors:
+    fan_archetype_dominant: Renegade-Romantic
+    outsider_archetype_dominant: Trash-Talker-Apologist
+    one_sentence: Miami is the program that defined how college football looked at celebrity, and is now
+      rebuilding around whether that DNA still wins.
+  selfname: the Hurricanes
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1983-1991 dynasty (4 national titles)
+    - 2001 unbeaten national championship
+    - The Cristobal rebuild + 2024
+    rituals:
+    - The Turnover Chain
+    - The Smoke Tunnel
+    - Touchdown Catfish
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

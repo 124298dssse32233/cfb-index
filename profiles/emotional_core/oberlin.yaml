@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Oberlin College Yeomen
+
+status: live
+slug: oberlin
+team_id: null
+program_name: Oberlin College
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: redemption
+  one_line: "Oberlin is the program that John Heisman coached (7-0 in 1892), then disappeared into a lost century, a Yeomen rebuild that measures success not by records but by presence and persistence."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A historic D3 institution with a John Heisman-coached undefeated season vs. a brutal present: rebuilding from a multi-decade losing spiral and a 0-88 loss to Calvin in 2025."
+
+the_wound:
+  name: "The lost century and the 2025 abyss"
+  detail: "Oberlin's football identity is bound to one shining moment: 1892, when John Heisman coached the Yeomen to a 7-0 record. After that, the program fell into a sustained decline that lasted decades. The 2025 season bottomed out: losses of 88-6 to Calvin and 57-2 to Kenyon, the worst losses in recent program memory. The wound is not recent; it is historical and acute."
+  handling: never-a-punchline
+  freshness: all-time
+
+the_dream:
+  text: "Restore basic dignity to Oberlin football—not contention, but the right to be in games."
+  drought: { since: 1921, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe there is no chip. Oberlin football is past grievance and into pure survival mode. The program needs to remember how to win."
+
+the_delusion:
+  tone: earnest
+  text: "That a new coaching staff and a full rebuild can turn the Yeomen around in three to four seasons. Fans hope, but hope is tempered by 100+ years of evidence."
+
+the_grudge_texture:
+  rival: kenyon
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Historic pedigree (Heisman era) vs. century-long irrelevance"
+register: oberlin-ohio-yeomen-heisman-ghost
+never_use:
+  - "Competitive NCAC program — 2025 record contradicts (0-10+ estimated)"
+  - "Modern power — last winning season was unknown; program has been losing for generations"
+  - "Heisman coaching makes us relevant — single 1892 season was 134 years ago"
+
+story_canon:
+  the_unique_thing: "John Heisman coached Oberlin to a 7-0 record in 1892, creating a direct link between Oberlin football and the man who would become the trophy-namesake. Then Oberlin football collapsed and never recovered."
+  the_origin: "Oberlin College, founded in 1833, began playing football in the 1880s. In 1892, legendary coach John Heisman (who would later coach at Auburn, Rice, and Georgia Tech and have the Heisman Trophy named for him) coached Oberlin to a perfect 7-0 season. That was the apex. The program never sustained that success and fell into a generation-spanning decline."
+  golden_ages:
+    - { era: "1892 (Heisman era)", what: "7-0 perfect season under John Heisman, the only true golden moment in program history" }
+    - { era: "1921", what: "Last victory over Ohio State (7-6), Oberlin's final win of relevance" }
+  legends:
+    - { name: John Heisman, role: coach, why: "Only legendary coach in program history; 7-0 season in 1892" }
+    - { name: John Pont, role: coach, why: "Head coach since 2023, third season in 2025; hired to rebuild Oberlin football from historic lows; previously OC at University of Chicago" }
+  canonical_moments:
+    - { name: "1892 undefeated season", year: 1892, what: "7-0 record under John Heisman, the pinnacle of Oberlin football", handling: glory }
+    - { name: "1921 Ohio State victory", year: 1921, what: "7-6 win over Ohio State, Oberlin's last moment of true relevance", handling: glory }
+  the_place: "Oberlin, Ohio, a small college town in northern Ohio. Dick Bailey Field is the home. The town and college are tightly bound, but football has receded from local consciousness."
+  brand_of_football: "Rebuilding. Oberlin football is not a brand—it is a project. The program is starting from near-zero and attempting to restore basic competitive function."
+  cultural_footprint: "A cautionary tale. Oberlin football is remembered primarily for John Heisman and for its long losing history, not for sustained excellence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Oberlin's 2025 season was catastrophic: the Yeomen lost 88-6 to Calvin (a brand-new program) in the opener and 57-2 to Kenyon, among other heavy defeats. The season record is estimated 0-10 or similar (specific final record unconfirmed). Head coach John Pont (entering his third season in 2025, hired January 2023) is leading the effort to restore Oberlin football to basic competence. The program is in full rebuild mode—not attempting to win the NCAC, but to be competitive at all. Success in 2026 means being .500 and showing growth. This is a multi-year project.
+  research_checklist:
+    - John Heisman 1892 season (7-0)
+    - 1921 Ohio State victory (7-6)
+    - Multi-decade losing streak (verified)
+    - 2025 season losses (88-6 Calvin, 57-2 Kenyon)
+    - John Pont head coach (hired 2023, third season 2025)
+    - Kenyon as traditional rival (since 1892, longest NCAC rivalry)
+  sources:
+    - https://goyeo.com
+    - https://oberlinreview.org
+    - https://en.wikipedia.org/wiki/Oberlin_Yeomen_football

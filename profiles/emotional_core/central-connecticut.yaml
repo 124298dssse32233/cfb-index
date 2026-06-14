@@ -1,0 +1,69 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+status: live
+slug: central-connecticut
+team_id: null
+program_name: Central Connecticut State University
+program_tier: 5
+
+emotional_core:
+  primary: restoration
+  secondary: contentment
+  one_line: "Central Connecticut is the Northeast Conference champion and FCS playoff team—a 8–5 (6–1 NEC) program that won the conference title and proved New Britain football belongs in the national conversation."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A solid Northeast Conference power with eight program NEC championships vs. the FCS playoff reality where every loss in the playoff tourney stings—where conference dominance meets national-stage vulnerability."
+
+the_wound:
+  name: "The playoff reality check"
+  detail: "Central Connecticut won the 2025 NEC championship (6–1 record) and earned the FCS playoff berth that every NEC champion craves. The Playoff loss to Rhode Island (19–27) was a familiar disappointment—small-conference champions often run into bigger-budget programs in early playoff rounds. The wound is not shame; it's the recognition that NEC titles and FCS playoff births are different levels of validation."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Defend the NEC championship in 2026, earn another FCS playoff berth, and win a playoff game that proves Central Connecticut belongs at the next level of college football."
+  drought: { since: 1990, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "The fanbase knows the NEC is small-conference territory, but they also know Central Connecticut can compete. The chip is quiet but real—the belief that a well-coached NEC program can win in the FCS playoff, not just participate."
+
+the_delusion:
+  tone: self-aware
+  text: "That the NEC championship validates equal status with bigger conferences—that Central Connecticut's 6–1 conference record is equivalent to a major-conference title. The fanbase believes it; the playoff bracket suggests otherwise."
+
+the_grudge_texture:
+  rival: hartford
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: Conference dominance satisfaction vs. national-stage ambition—the faction content with repeated NEC titles vs. those demanding postseason advancement beyond opening-round exits
+register: new-britain-blue-devils-nec-champions
+never_use:
+  - "A minor program" # 8 NEC championships; 2025 FCS playoff berth
+  - "No regional rivalry" # Hartford rivalry dates to 1958
+  - "Never wins conference" # Eight NEC championships
+
+story_canon:
+  the_unique_thing: "Central Connecticut's 2025 NEC Championship (6–1 record)—a program that has built eight Northeast Conference titles and earned consistent FCS playoff berths. The Blue Devils are the model NEC power, proving that small-conference excellence is sustainable with the right coaching and institutional commitment."
+  the_origin: "Central Connecticut State University was founded in 1849 in New Britain, Connecticut. The football program was established as part of the university's Division II legacy and transitioned to Division I FCS competition. The program joined the Northeast Conference and became a consistent championship contender."
+  golden_ages:
+    - { era: "1990s–2000s", what: "Central Connecticut wins multiple NEC championships and begins earning consistent FCS playoff berths" }
+    - { era: "2020–2025", what: "Under head coach Adam Lechtenberg (third season in 2026), CCSU returns to sustained NEC contention with a 6–1 championship record" }
+  legends:
+    - { name: Adam Lechtenberg, role: coach, why: "Third-season head coach leading Central Connecticut to the 2025 NEC championship and FCS playoff berth" }
+    - { name: QB Brady Olson, role: player, why: "Quarterback leading the 2025 championship team with 323-yard performances" }
+  canonical_moments:
+    - { name: "2025 NEC Championship", year: 2025, what: "Central Connecticut wins the Northeast Conference title with a 6–1 record and earns FCS playoff berth", handling: glory }
+    - { name: "Eight NEC Championships", year: 2025, what: "CCSU has won eight Northeast Conference football championships in program history", handling: glory }
+  the_place: "Arute Field in New Britain, Connecticut—a traditional college football venue that has been home to Blue Devils football since 1969."
+  brand_of_football: "Northeast Conference excellence—Central Connecticut plays for the NEC title and the validation of postseason participation, where conference dominance is the standard and FCS playoff participation is the measure of success."
+  cultural_footprint: "Central Connecticut's contribution to FCS football is proof that small-conference programs can sustain excellence with stability and smart coaching—eight NEC titles prove the Blue Devils belong."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Central Connecticut finished 2025 at 8–5 overall (6–1 NEC), winning the Northeast Conference championship and earning an FCS playoff berth. The Blue Devils faced Rhode Island in the playoff opener and lost 19–27, a familiar small-conference disappointment. Head coach Adam Lechtenberg (third season) led a balanced roster with QB Brady Olson and RB Elijah Howard providing offensive firepower. The 2026 challenge: defend the NEC championship and push deeper into the FCS playoff tournament. The program has the formula for conference excellence; proving it at the national level remains the goal.
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Central_Connecticut_State_Blue_Devils_football
+    - https://www.espn.com/college-football/team/_/id/2154/central-connecticut-state-blue-devils
+    - https://www.nec.org/sports/fball
+    - https://www.ccsu.edu/athletics/
+

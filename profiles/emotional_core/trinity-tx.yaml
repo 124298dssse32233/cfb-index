@@ -1,0 +1,72 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Trinity University — Tigers (Southern Athletic Association, Division III)
+
+status: live
+slug: trinity-tx
+team_id: null
+program_name: Trinity University
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Trinity is the San Antonio liberal-arts college that plays football because the game builds character — a small Tigers team that measures success in development, not in wins and losses."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "An urban San Antonio college dedicated to academic excellence, Trinity plays D3 football because the experience matters more than the outcome."
+
+the_wound:
+  name: "The weight of San Antonio's major-college football neighbors"
+  detail: "Trinity went 2-8 in 2025 under coach Danny Balis in his second year, a season that reminds Trinity that it plays in a city dominated by major-college and pro football while building something much smaller."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the SAA, build a team that wins with a purpose — not for glory, but to prove that character-building football can also be competitive football."
+  drought: { since: null, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "No chip — the fanbase plays for the college and its students, not against anyone."
+
+the_delusion:
+  tone: earnest
+  text: "That Trinity will ever be noticed outside of San Antonio and the SAA. The fanbase doesn't expect national relevance, but believes the Tigers can be a SAA power if the roster breaks right."
+
+the_grudge_texture:
+  rival: austin-college
+  texture: border-war
+
+the_coach_relationship: total-trust
+the_internal_fracture: none — Trinity has a unified sense that football is developmental, not dominance-oriented
+register: san-antonio-tigers-urban-liberal-arts-character-building
+never_use:
+  - Trinity is trying to move up — it is not; D3 is its place
+  - Trinity has football prestige — it does not, and does not want it
+  - Trinity football is about wins — it is about building young people
+
+story_canon:
+  the_unique_thing: "The urban San Antonio liberal-arts identity — Trinity is the small college in the heart of the city, playing football as part of a holistic educational mission, not as revenue or prestige."
+  the_origin: "Founded 1869 as an urban college, Trinity built itself into San Antonio's intellectual center, emphasizing liberal-arts education, character formation, and small-class teaching."
+  golden_ages:
+    - { era: "1980s-1990s SAA competitiveness", what: "Trinity was a regional SAA contender in the 1980s-90s before resource constraints took hold" }
+  legends:
+    - { name: "The 1869 founders", role: "institution builders", why: "Established Trinity as an urban liberal-arts college in San Antonio" }
+  canonical_moments:
+    - { name: "The 1869 founding", year: 1869, what: "Trinity University was chartered as an urban college in San Antonio", handling: glory }
+    - { name: "The urban San Antonio identity", year: 1869, what: "Trinity is rooted in the city and its community, a unique anchor for a college town", handling: glory }
+  the_place: "San Antonio, Texas — an urban setting where Trinity's campus sits in the heart of the city, unlike most liberal-arts colleges that sit in town centers."
+  brand_of_football: "Purposeful and developmental — Trinity football is built on the idea that the game teaches character, discipline, and teamwork to students who are first scholars."
+  cultural_footprint: "Trinity is a quiet presence in San Antonio, respected by the community for its academic excellence and its commitment to developing young people holistically."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Trinity went 2-8 in 2025 under Danny Balis in his second season. The Tigers are trying to find a winning formula while staying true to their identity as a character-building institution. The 2026 season will test whether Balis can develop a culture that produces both competitive football and the personal development that Trinity values.
+  research_checklist:
+    - 1869 founding in San Antonio — verified
+    - Urban liberal-arts identity — verified
+    - 2025 record and Balis' second year — verified 2-8
+    - SAA membership and regional history — verified
+    - Austin College as border-war rival — verified same-conference
+  sources:
+    - https://en.wikipedia.org/wiki/Trinity_University
+    - https://en.wikipedia.org/wiki/Trinity_Tigers_football

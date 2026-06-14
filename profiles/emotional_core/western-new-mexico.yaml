@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: western-new-mexico
+team_id: null
+program_name: Western New Mexico
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: house-money
+  one_line: "Western New Mexico is the Silver City Silver Mustangs—a small, proudly independent mountain program with 100+ years of tradition that plays football for the love of the game and the purple-and-gold community that surrounds it."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "100+ years of football tradition (since 1911) and conference championship banners vs. the reality of being a small Division II program in a remote corner of New Mexico."
+
+the_wound:
+  name: "The 2024 slide (2–9 overall)"
+  detail: "Western New Mexico went 2–9 in 2024, a losing season that tested the program's resilience. For a small program built on house-money pride and tailgate tradition, the wound is less about the win-loss record and more about proving that the program still has the fundamentals to compete in a tough conference."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Win six games. Get back to .500. Prove that the Mustangs are more than a name—they're a real program with real talent, real pride, and real community support in the mountains of Silver City."
+  drought: { since: 2024, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe western New Mexico has no chip against the world. The program's pride is in the Ben Altamirano Stadium tradition, the purple and gold that lines Scott Park, the faith that a small school can matter."
+
+the_delusion:
+  tone: earnest
+  text: "That the 2024 season was a pit stop, not a permanent station. The fans believe the Mustangs can get back to conference contention, that the mountain program has what it takes, that coach Billy Hickman will get it right. It's a small delusion, but a real one."
+
+the_grudge_texture:
+  rival: eastern-new-mexico
+  texture: championship
+  # Western New Mexico and Eastern New Mexico are in-state showdowns; also rivals with New Mexico Highlands for bragging rights.
+
+the_coach_relationship: legends-shadow
+  # Billy Hickman (year UNVERIFIED) carries the mandate to rebuild from a 2–9 season.
+
+the_internal_fracture: "Pride in 100+ years of history vs. frustration with recent decline—how do small-school fans stay patient?"
+
+register: "silver-city-silver-mustang-mountain-program-100-years"
+
+never_use:
+  - "Western New Mexico won the LSC multiple times in the modern era — conference titles noted in program history but specific years unverified; recent titles not confirmed"
+  - "The Silver Mustangs are a DII feeder to P5 — small independent program; not a pipeline destination"
+  - "2024 was the worst season ever — 2–9 is poor, but program has endured longer downturns"
+  - "Ben Altamirano Stadium is new — memorial stadium; exact age unverified but long-standing tradition"
+
+story_canon:
+  the_unique_thing: "A 100+ year football tradition in the remote mountains of Silver City, New Mexico—a small program that has raised conference championship banners and kept the faith despite the resource constraints of a truly small school."
+  the_origin: "Western New Mexico University in Silver City, New Mexico (founded 1893); football established in 1911; built a mountain regional identity in the high desert."
+  golden_ages:
+    - { era: "1960s–2000s", what: "A period of conference competence and raised championship banners; when WNMU was a consistent LSC/RMAC contender" }
+  legends:
+    - { name: Billy Hickman, role: coach, why: "Head coach tasked with rebuilding from a 2–9 season and restoring Mustang pride" }
+  canonical_moments:
+    - { name: "100+ Year Football Tradition", year: 1911, what: "Continuous football since 1911; a century of mountain pride", handling: glory }
+    - { name: "Conference Championship Banners", year: "ongoing", what: "WNMU has raised championship banners; specific years unverified but tradition is real", handling: glory }
+    - { name: "2024 Losing Season", year: 2024, what: "2–9 record; a test of program resilience", handling: wound }
+  the_place: "Ben Altamirano Memorial Stadium in Silver City, New Mexico—a mountain stadium with sunset views and tailgates in Scott Park; the heart of Silver City football."
+  brand_of_football: "Gritty, small-school, mountain-pride Division II football—a program that plays for love of the game and community."
+  cultural_footprint: "A small-school treasure; Western New Mexico football is proof that Division II exists for regional pride and the pure love of the game, not just for upward mobility."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Western New Mexico went 2–9 in 2024, a losing season that tested the program. Coach Billy Hickman enters 2025 with the mandate to rebuild and get the Mustangs back to competitive footing. The program's strength is in the community—the mountain identity, the purple-and-gold pride, the tailgate tradition in Scott Park. The question: can Hickman build a roster that matches the heart and tradition of the program?
+  research_checklist:
+    - 100+ year football tradition (since 1911) ✓
+    - Ben Altamirano Memorial Stadium ✓
+    - 2024 record (2–9) ✓
+    - Billy Hickman (HC, year unverified) ✓
+    - Mountain/high-desert Silver City identity ✓
+    - In-state rivalry with Eastern New Mexico ✓
+  sources:
+    - https://en.wikipedia.org/wiki/Western_New_Mexico_Mustangs
+    - https://wnmumustangs.com/sports/football
+    - https://wnmumustangs.com/sports/football/schedule/2025

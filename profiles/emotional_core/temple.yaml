@@ -1,0 +1,122 @@
+# Emotional Core — Temple  (temple)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: temple
+team_id: 130
+program_name: Temple
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the gritty Philly program clawing back toward the Rhule-era highs after years in the cellar
+  secondary: honor        # the blue-collar identity matters more than the trophies — Temple Made is a code
+  core_variant: perpetual-rebuild
+  one_line: "Temple is the North Philadelphia program that Matt Rhule dragged to an AAC title and a top-25 ranking, then watched slide back to the bottom — and is now handing the rebuild to a 275-win coach who refuses to be realistic about how fast the Owls can climb."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A 2016 AAC championship and back-to-back 10-win seasons under Matt Rhule vs a multi-year stretch of last-place finishes that erased almost all of it."
+
+the_wound:
+  name: "The post-Rhule freefall"
+  detail: "After Rhule's 2016 AAC title and the program's late-2010s peak, Temple fell apart — a string of two- and three-win seasons that gutted the roster and the relevance, until K.C. Keeler arrived in 2025, went 5-7 in year one, and notably lost zero starters to the transfer portal afterward."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get back to where Rhule had it — bowl games, an AAC title push, and a Philadelphia program that the city's pro teams have to share the spotlight with again."
+  drought: { since: 2016, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans are sick of being the program everyone treats as a coaching stepping-stone — the place a Rhule or an Addazio uses to get to the next job. They want Keeler's refusal to be realistic to mean Temple finally keeps a winner instead of exporting one."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes 'Temple Made' is a real competitive edge — that a roster of overlooked Philly-tough players, coached by a man who's won everywhere, can out-want more talented teams, and that Keeler holding his whole roster through the portal is the first proof it's working."
+
+the_grudge_texture:
+  rival: navy
+  texture: little-brother   # the AAC scrap Temple wants to own — the rivalry that means most in the conference
+
+the_coach_relationship: savior   # K.C. Keeler, a 275-game winner, is the rebuild's whole premise
+the_internal_fracture: patience vs proof — the faction giving Keeler time to rebuild from a 5-7 base vs the faction that remembers the Rhule highs and wants a bowl now
+register: philadelphia-owls-matt-rhule-american-athletic   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always AAC-bottom — 2016 AAC championship + Matt Rhule era disprove
+  - No identity — Rhule era + Temple Made + Lincoln Financial combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Temple is the North Philadelphia commuter school that built a tough, blue-collar football identity inside a basketball city — 'Temple Made,' a program defined less by trophies than by the kind of overlooked, hard-edged players it turns into winners, and the coaches it produces for everyone else."
+  the_origin: "An urban Philadelphia university with deep, scattered football history — Pop Warner coached here a century ago — that became a modern story when Al Golden and then Matt Rhule rebuilt it from a national punchline into an AAC champion."
+  golden_ages:
+    - { era: "2015-2016 (Matt Rhule)", what: "Back-to-back 10-win seasons and the 2016 AAC championship — the modern peak" }
+    - { era: "2009-2011 (Al Golden)", what: "The first rebuild from irrelevance back to bowl eligibility" }
+  legends:
+    - { name: Matt Rhule, role: coach, why: "Built the 2016 AAC champion and the program's modern identity before leaving for Baylor and the NFL" }
+    - { name: Bill Cosby-era and Pop Warner deep history, role: coach, why: "Pop Warner coached at Temple in the 1930s, anchoring the program's century-old roots" }
+  canonical_moments:
+    - { name: "The 2016 AAC championship", year: 2016, what: "Temple wins the conference title under Matt Rhule — the program's modern high point", handling: glory }
+    - { name: "Beating No. 9 Penn State", year: 2015, what: "Temple knocks off rival Penn State for the first time since 1941 in front of a packed Lincoln Financial Field", handling: glory }
+    - { name: "The post-Rhule collapse", year: 2022, what: "A run of two- and three-win seasons that erased the late-2010s gains", handling: wound }
+  the_place: "Lincoln Financial Field — Temple shares the Eagles' NFL stadium, a downtown big-league stage for a program that plays like it has something to prove in it."
+  brand_of_football: "Philadelphia blue-collar — physical, defense-first, chip-on-the-shoulder football that mirrors the city; 'Temple Made' as both a slogan and an attitude."
+  cultural_footprint: "A coaching factory and an underdog flag for North Philly — the program that proves a commuter school in a pro-sports town can build something the city claims as its own."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: K.C. Keeler — a 275-game career winner who built Sam Houston into an
+    FCS power and a bowl-winning FBS newcomer — took over Temple in 2025 and went 5-7 (3-5 American) in year
+    one, earning his 275th career win along the way. Crucially, he lost no starters to the transfer portal
+    afterward and is adding pieces like Penn State QB transfer Jaxon Smolik. The question in Philadelphia:
+    can a proven program-builder drag the Owls back to the Rhule-era heights, faster than anyone expects?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Temple_Owls_football_team
+    - https://now.temple.edu/news/2025-08-20/kc-keeler-has-no-interest-being-realistic
+    - https://www.inquirer.com/college-sports/temple/kc-keeler-coach-owls-starter-transfer-portal-ncaa-college-football-20260203.html
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Temple is the American Athletic program whose 2016 10-4 + AAC championship under Matt
+    Rhule + Lincoln Financial Field NFL-stadium-shared identity define what Philadelphia-G5-football looks
+    like.
+  mantra: Temple Made.
+  cultural_anchors:
+    fan_archetype_dominant: Philadelphia-Owl-Temple-Made
+    outsider_archetype_dominant: AAC-Mid-Pack-Diminisher
+    one_sentence: Temple is the Philadelphia American Athletic program — Matt Rhule 2016 AAC championship
+      + Lincoln Financial Field NFL-stadium-shared identity + 'Temple Made' mantra that anchor the historic
+      Northeast-G5 arc.
+  selfname: the Owls
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2016 10-4 + AAC championship + Military Bowl under Matt Rhule
+    - 1979 10-2 +
+    - Lincoln Financial Field NFL-stadium-shared venue
+    rituals:
+    - Matt Rhule Era (2013-2016)
+    - Lincoln Financial Field (Shared with Eagles)
+    - Temple Made Identity
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

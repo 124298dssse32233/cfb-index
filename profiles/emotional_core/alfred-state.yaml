@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: alfred-state
+team_id: null
+program_name: Alfred State College
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: spectacle
+  one_line: "Alfred State is the brand-new Division III program that just joined Empire 8 in 2025 and celebrated its inaugural victory with the Alfred Cup rivalry born that same year."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A program beginning its Division III era after building identity in the ECFC, now playing for the simple joy of competition in a new conference."
+
+the_wound:
+  name: "No wound yet"
+  detail: "Alfred State is too new to the Division III stage to carry deep grievance. The program is still writing its first chapters."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Establish Division III identity and become a competitive force in Empire 8, building on recent ECFC postseason success."
+  drought: { since: 1995, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "No chip. The fanbase is building from the ground up."
+
+the_delusion:
+  tone: earnest
+  text: "That three years of ECFC championship success and NCAA Tournament berths meant Alfred State is ready to compete with established Empire 8 powers — the fanbase believes in the talent, even if the record doesn't yet."
+
+the_grudge_texture:
+  rival: alfred
+  texture: little-brother
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Patience vs impatience — young program needs time to develop or is 2025 a missed opportunity?"
+register: alfred-state-pioneers-new-d3-era
+never_use:
+  - Established program with tradition — founded 1995, only 30 years old
+  - Long D3 history — just joined Division III in 2025 after ECFC affiliation 2017–2024
+
+story_canon:
+  the_unique_thing: "The inaugural Alfred Cup rivalry with Alfred University, born in 2025 as Alfred State joined Empire 8 — an instant rivalry forged between two neighboring schools."
+  the_origin: "Founded 1995 as an ECFC program. Competed 2017–2024 in the ECFC with recent success (back-to-back conference championships). Joined Empire 8 as affiliate member in 2025."
+  golden_ages:
+    - { era: "2023–2024 (ECFC dominance)", what: "Back-to-back conference championships and NCAA Tournament berths" }
+  legends:
+    - { name: Scott Linn, role: coach, why: "Led ECFC championship teams and is building Alfred State's Division III identity" }
+  canonical_moments:
+    - { name: "ECFC Championship 2023", year: 2023, what: "First conference title in program history", handling: glory }
+    - { name: "ECFC Championship 2024", year: 2024, what: "Back-to-back championship and NCAA Tournament berth", handling: glory }
+    - { name: "First Alfred Cup Victory", year: 2025, what: "Defeated Alfred University in the inaugural Alfred Cup rivalry game", handling: glory }
+  the_place: "Alfred State's campus in central New York, neighboring Alfred University's historic grounds."
+  brand_of_football: "Ambitious but unproven at the Division III level — a young program hungry to prove it belongs."
+  cultural_footprint: "The newest player in Empire 8, bringing recent success and a forward-looking identity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Alfred State won the inaugural Alfred Cup vs Alfred University in 2025 while joining
+    Empire 8 as an affiliate member. Coach Scott Linn is transitioning the program from ECFC success to Division III competition.
+    The 2025 record remains incomplete in available sources, but the program's first Division III season marked a significant step
+    in institutional athletics. Building on ECFC postseason experience, Alfred State seeks to establish itself as a competitive
+    Empire 8 program.
+  research_checklist:
+    - Founded 1995
+    - ECFC affiliation 2017–2024
+    - Back-to-back ECFC championships (2023–2024)
+    - NCAA Tournament berths
+    - Joined Empire 8 in 2025
+    - Coach Scott Linn
+    - First Alfred Cup rivalry with Alfred University
+  sources:
+    - https://www.d3football.com/teams/alfred-state
+    - https://empire8.com
+    - https://en.wikipedia.org/wiki/Alfred_State_Pioneers_football

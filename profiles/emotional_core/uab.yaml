@@ -1,0 +1,121 @@
+# Emotional Core — UAB  (uab)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: uab
+team_id: 95
+program_name: UAB
+program_tier: 3
+
+emotional_core:
+  primary: redemption     # the program that was killed and came back — the comeback IS the identity
+  secondary: restoration  # post-Clark, trying to get the resurrection magic back after three losing years
+  one_line: "UAB is the program its own university shut down — then brought back from the dead and watched win a conference title, a comeback story no other program in the sport can claim."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A 2018 conference championship two years after literal extinction vs three straight losing seasons and a mid-2025 coaching firing that asks whether the resurrection has run out of road."
+
+the_wound:
+  name: "The shutdown — and the slide back toward it"
+  detail: "In 2014 UAB's own administration cancelled the football program; fans and donors forced it back for 2017, and Bill Clark won a conference title in 2018. But the post-Clark years went the other way — a 2-4 start in 2025 got Trent Dilfer fired, and the Blazers limped to 4-8, a third straight losing season that revived the old fear the program is fighting for its life again."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Prove the comeback wasn't a one-time miracle — a winning season, a bowl, a program that looks permanent instead of provisional."
+  drought: { since: 2021, unit: bowl }
+
+the_chip:
+  villain: big_brother
+  text: "UAB fans never forget that their own university system — the one that answers to Tuscaloosa — tried to bury the program. Every season the Blazers exist at all, they say, is a win over the people who wanted them gone."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes a program that survived being shut down can survive anything — that the comeback proved the city wants this team enough to keep saving it, no matter how the standings look."
+
+the_grudge_texture:
+  rival: memphis
+  texture: little-brother   # the longtime conference foe; UAB's interim-era upset of Memphis in 2025 was its proudest win
+
+the_coach_relationship: savior   # Bill Clark — the man who won the resurrection title — is the standard every coach is measured against
+the_internal_fracture: gratitude vs ambition — the faction grateful the program merely exists vs the faction that says surviving isn't the same as competing
+register: birmingham-blazers-resurrection-program   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Disappeared program — 2017 resurrection + 2018 C-USA championship disprove
+  - No identity — shutdown / revival / Clark / Protective combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "UAB is the only program in modern major-college football that was shut down by its own university and brought back from the dead — cancelled in 2014, revived in 2017, and a conference champion by 2018. The resurrection isn't a chapter; it's the whole identity."
+  the_origin: "An urban commuter university in Birmingham that built a football program in the shadow of Alabama and Auburn, then had it taken away and fought to get it back."
+  golden_ages:
+    - { era: "2017–2018 (Bill Clark return)", what: "The resurrected program goes from zero football to an 11-3 Conference USA championship in two seasons" }
+    - { era: "2020–2021", what: "Sustained conference contention and the move into Protective Stadium, the program's first dedicated home" }
+  legends:
+    - { name: Bill Clark, role: coach, why: "Coached the team into the shutdown, then back out of it to a conference title — the architect of the comeback" }
+  canonical_moments:
+    - { name: "The shutdown", year: 2014, what: "UAB's administration cancels the football program after a winning season", handling: wound }
+    - { name: "The resurrection title", year: 2018, what: "Two years after extinction, UAB wins the Conference USA championship", handling: glory }
+    - { name: "Protective Stadium opens", year: 2021, what: "The Blazers finally get a dedicated downtown home", handling: glory }
+  the_place: "Protective Stadium — a downtown Birmingham venue the program got only after coming back from the dead, a permanence the city had to build to keep the team."
+  brand_of_football: "Resurrection football — a program whose whole stylistic soul is that it exists at all, playing with the chip of a team that was told it shouldn't."
+  cultural_footprint: "Birmingham's own Division-I football team — proof a city will fight to save a program its institutions tried to erase, and a rallying point for an urban university that wanted something to call its own."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UAB fired Trent Dilfer at 2-4 in October 2025 and finished 4-8, a third
+    straight losing season. Offensive coordinator Alex Mortensen went interim, beat Memphis in his first game,
+    and was named the permanent head coach in December 2025. The question in Birmingham: can a first-time head
+    coach restore the resurrection-era magic, or has the comeback story stalled.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_UAB_Blazers_football_team
+    - https://www.espn.com/college-football/story/_/id/46575973/uab-blazers-fire-football-coach-trent-dilfer
+    - https://bhamnow.com/2025/12/04/alex-mortensen-to-be-named-uab-head-coach-espn-reports/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: UAB is the AAC program whose 2014 football program shutdown + 2017 resurrection + Bill
+    Clark 2018 Conference USA championship + Protective Stadium 2021 define what dropped-and-revived-football-program
+    looks like.
+  mantra: Roar.
+  cultural_anchors:
+    fan_archetype_dominant: Birmingham-Blazer-Resurrection
+    outsider_archetype_dominant: Disappearing-Program-Diminisher
+    one_sentence: UAB is the Birmingham resurrection program — 2014 shutdown + 2017 revival + Bill Clark
+      2018 Conference USA championship + Protective Stadium 2021 that define what dropped-and-revived-football
+      looks like.
+  selfname: the Blazers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2014 football program shutdown + 2017 resurrection
+    - 2018 11-3 + Conference USA championship + Boca Raton Bowl under Bill Clark
+    - 2021 Protective Stadium opening (first dedicated venue)
+    rituals:
+    - 2014 Shutdown / 2017 Resurrection
+    - Bill Clark Era (2014-2021)
+    - Protective Stadium 2021
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

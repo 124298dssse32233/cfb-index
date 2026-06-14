@@ -1,0 +1,121 @@
+# Emotional Core — Wyoming  (wyoming)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: wyoming
+team_id: 328
+program_name: Wyoming
+program_tier: 3
+
+emotional_core:
+  primary: honor           # toughness as identity — the highest, hardest place to play, where grit is the whole brand
+  secondary: restoration   # clawing back to a bowl after a 4-8 slip, with the realignment exits clearing room at the top
+  one_line: "Wyoming plays the highest home games in major college football — 7,220 feet up in Laramie, where the thin air and the cold are the program's best recruit, and 'Cowboy Tough' is a literal description."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A 1967 Sugar Bowl team and Josh Allen's first-round launch vs a 2025 that finished 4-8 and missed a bowl — the gap between the program's proud peaks and a frontier-football floor."
+
+the_wound:
+  name: "The 4-8 slip after the Bohl steadiness"
+  detail: "Craig Bohl built a decade of bowl trips and toughness, then handed off to Jay Sawvel — and 2025 backslid to 4-8, no bowl, the kind of season that tests whether the program's altitude-and-grit identity still wins games or just describes them."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get back to a bowl and contend in a Mountain West suddenly missing its biggest names — to seize the opening realignment left and make Laramie a place nobody wants to visit again."
+  drought: { since: 1988, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Cowboy fans are tired of being filed under 'cold, remote, forgettable' by people who've never had to play a December night in Laramie. They say the altitude humbles every recruiting-ranking darling who comes to War Memorial thinking it'll be easy."
+
+the_delusion:
+  tone: earnest
+  text: "Cowboy fans believe Wyoming's home-field edge is a genuine weapon no one else has — that the 7,220-foot altitude and frontier cold are worth a couple of wins a year, and that a tough, well-coached team can own a Mountain West the big names just abandoned."
+
+the_grudge_texture:
+  rival: colorado-state
+  texture: border-war   # the Border War for the Bronze Boot — the bitter Wyoming-Colorado State rivalry
+
+the_coach_relationship: hot-seat-churn   # Jay Sawvel inherited the Bohl program and a 4-8 year puts the heat on
+the_internal_fracture: patience vs pressure — the faction giving Sawvel time to rebuild what Bohl steadied vs the faction that won't accept a 4-8, bowl-less season from a program that prides itself on toughness
+register: laramie-cowboys-7220-altitude   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always MW-bottom — 1967 #6 AP + Craig Bohl 7-bowl era reset'
+  - No identity — Josh Allen + Cowboy Joe + 7,220 ft altitude combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Wyoming plays its home games at 7,220 feet — War Memorial Stadium is the highest-elevation venue in major college football, where the thin air, the cold, and the eight-hour drive to anywhere turn a visit to Laramie into a genuine ordeal."
+  the_origin: "The University of Wyoming in Laramie is the entire state's only Division I program — Wyoming has no other major-college team and no pro franchise, so the Cowboys are the whole state's football, played higher and colder than anyone else's."
+  golden_ages:
+    - { era: "1966–1968 (Lloyd Eaton)", what: "A 10-1 1967 team that reached the Sugar Bowl and rose into the national top ten — the program's historic peak" }
+    - { era: "2014–2023 (Craig Bohl)", what: "A run of bowl trips and toughness, and the development of Josh Allen from unrecruited to a top-10 NFL draft pick" }
+  legends:
+    - { name: Josh Allen, role: player, why: "Came to Laramie with almost no recruiting interest and left as the No. 7 overall NFL draft pick — the program's modern calling card" }
+    - { name: Craig Bohl, role: coach, why: "Restored Wyoming to a steady bowl program and developed its most famous player" }
+    - { name: Cowboy Joe, role: player, why: "The live pony mascot — the four-legged face of the program's frontier identity" }
+  canonical_moments:
+    - { name: "The 1967 Sugar Bowl season", year: 1967, what: "A 10-1 record and a Sugar Bowl berth — Wyoming's high-water mark and a top-ten national finish", handling: glory }
+    - { name: "Josh Allen's rise", year: 2017, what: "An overlooked quarterback becomes a first-round NFL prospect, putting Laramie back on the map", handling: glory }
+    - { name: "The 4-8 backslide", year: 2025, what: "A bowl-less season in Jay Sawvel's second year that tested the program's toughness identity", handling: wound }
+  the_place: "War Memorial Stadium in Laramie — 7,220 feet up, the highest venue in major college football, where altitude and cold are part of the home-field advantage and the Cowboy Joe pony circles the field after scores."
+  brand_of_football: "Cowboy Tough — physical, cold-weather, frontier football built on the literal and figurative high ground, where grit is the program's identity and its recruiting pitch."
+  cultural_footprint: "An entire state's only big-time team, carried by a fanbase that drives across the empty West to fill a high-plains stadium — football as the shared identity of a place with little else on the national stage."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Jay Sawvel returns for 2026 after a 4-8 (2-6 Mountain West) second season
+    that missed a bowl. Wyoming stays in the Mountain West as a legacy anchor — with New Mexico, UNLV, and Air
+    Force — while Boise State, Colorado State, Fresno State, San Diego State, and Utah State leave for the rebuilt
+    Pac-12 in 2026, and UTEP, Northern Illinois, Grand Canyon, and UC Davis join. Sophomore Kaden Anderson
+    quarterbacks the offense. The question in Laramie: can Wyoming seize a wide-open Mountain West the biggest
+    names just left behind?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Wyoming_Cowboys_football_team
+    - https://www.cbssports.com/college-football/news/mountain-west-schools-departing-for-pac-12-which-newcomer-is-most-likely-to-rule-over-new-look-conference
+    - https://www.si.com/college/unlv/football/mountain-west-realignment-unlv-faces-new-rivals-2026
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: 'Wyoming is the Mountain West program whose 7,220-ft War Memorial Stadium altitude +
+    Craig Bohl 2017 11-2 + Josh Allen 2017 #6 NFL draft define what Laramie-frontier-football looks like.'
+  mantra: Cowboy Tough.
+  cultural_anchors:
+    fan_archetype_dominant: Laramie-Cowboy-Tough
+    outsider_archetype_dominant: MW-Mid-Pack-Diminisher
+    one_sentence: Wyoming is the highest-elevation FBS program — War Memorial Stadium 7,220 ft altitude
+      + Josh Allen 2017 NFL draft + Craig Bohl 2014-2023 era that anchor the frontier-football identity.
+  selfname: the Cowboys
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1967 10-1 + Sugar Bowl appearance +
+    - Josh Allen 2014-2017 development + 2018
+    - Craig Bohl 2014-2023 era + multiple bowl appearances
+    rituals:
+    - War Memorial Stadium Altitude (7,220 ft)
+    - Josh Allen 2014-2017 Development
+    - Cowboy Joe Mascot
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (56/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

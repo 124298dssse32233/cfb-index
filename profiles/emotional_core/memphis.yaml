@@ -1,0 +1,120 @@
+# Emotional Core — Memphis  (memphis)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: memphis
+team_id: 284
+program_name: Memphis
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # a program that builds winners and keeps getting passed over for the big invitation
+  secondary: restoration  # a coaching change after the latest poacher, betting the machine keeps running
+  core_variant: the-ceiling
+  one_line: "Memphis builds 10-win teams and watches them get raided — for the players, for the coach, for the conference invite that never comes — and the chip is that the city keeps producing winners the powers keep treating as a parts bin."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Back-to-back 10-win seasons in 2023 and 2024 and an 8-5 follow-up vs a program still outside the power structure, watching its head coach get hired away again."
+
+the_wound:
+  name: "Silverfield to Arkansas"
+  detail: "Ryan Silverfield went 50-25 over six seasons, beat Arkansas 32-31 in Memphis in 2025 — and then Arkansas hired him away. The Tigers finished 8-5, lost the Gasparilla Bowl 31-7 to NC State under an interim, and turned the program over to Charles Huff: proof again that success at Memphis is something other programs come to harvest."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the American outright again and force the door — a conference title and a New Year's-tier bowl that makes the city impossible to leave off the list."
+  drought: { since: 2019, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The fanbase watches every realignment shuffle leave Memphis on the outside while it out-wins programs that got the call — the sense that the city beats people who'll never have to share a conference with it."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the program is a sustained-success machine bigger than any one coach — that even after Silverfield walked, Memphis keeps winning, because the city and the talent base are the engine, not the man holding the headset."
+
+the_grudge_texture:
+  rival: mississippi-state
+  texture: border-war   # the Battle for the Bones — the Memphis–Mississippi State trophy game
+
+the_coach_relationship: savior   # Charles Huff arrives to keep the machine running after Silverfield's exit
+the_internal_fracture: trust-the-machine vs fear-the-drain — the faith that Memphis reloads through any departure vs the fatigue of being everyone else's hire-and-poach pool
+register: memphis-grit-grind-tigers
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Basketball-only school — football top-25 finishes contradict
+  - Always G5 — competitive 11-win seasons + AAC titles disprove the floor
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The 2019 peak — a 12-2 season, the AAC championship, and a Cotton Bowl berth under Mike Norvell, the year Memphis announced itself as a program that wins big and means it, fused to a Grit-and-Grind city identity borrowed from its NBA team."
+  the_origin: "An urban program in Memphis, Tennessee that climbed from Conference USA into the American and built, in the late 2010s, one of the most consistent Group-of-Five winners in the country."
+  golden_ages:
+    - { era: "2016–2019 (Mike Norvell)", what: "The rise to a 12-2 AAC champion and Cotton Bowl team" }
+    - { era: "2019–2025 (Ryan Silverfield)", what: "Sustained success including back-to-back 10-win seasons in 2023 and 2024" }
+  legends:
+    - { name: Mike Norvell, role: coach, why: "Built the 2019 AAC-champion peak before leaving for Florida State" }
+    - { name: DeAngelo Williams, role: player, why: "Record-setting running back; the program's most iconic player" }
+    - { name: Ryan Silverfield, role: coach, why: "50-25 over six years with two 10-win seasons before Arkansas hired him" }
+  canonical_moments:
+    - { name: "The 2019 AAC championship", year: 2019, what: "A 12-2 season, the conference title, and a Cotton Bowl berth — the program's modern high point", handling: glory }
+    - { name: "Beating Arkansas, then losing the coach", year: 2025, what: "Memphis beats Arkansas 32-31, and Arkansas responds by hiring Silverfield away", handling: wound }
+  the_place: "Simmons Bank Liberty Stadium in Memphis — a city venue with a Beale Street postgame culture, football as one more thing the city does loud."
+  brand_of_football: "Up-tempo, explosive offense fused to a Grit-and-Grind toughness ethos — Memphis scores, and wears its city's identity on its sleeve."
+  cultural_footprint: "Go Tigers Go — the football pride of a basketball-loving city, a program that turned sustained winning into a civic identity and a chip about being overlooked."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Memphis went 8-5 (4-4 American) in 2025 — Ryan Silverfield beat Arkansas
+    32-31, then Arkansas hired him, and the Tigers lost the Gasparilla Bowl 31-7 to NC State under interim coach
+    Reggie Howard. Memphis then hired Charles Huff, fresh off a one-year turnaround at Southern Miss, to keep the
+    machine running. The 2026 question: does sustained Memphis success survive another coaching change, and can
+    Huff finally force the bigger door open?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Memphis_Tigers_football_team
+    - https://www.espn.com/college-football/story/_/id/47246942/huff-hired-memphis-new-head-coach-replacing-silverfield
+    - https://www.espn.com/college-football/story/_/id/47151195/arkansas-hiring-memphis-ryan-silverfield-new-coach
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Memphis is the American Athletic program whose Mike Norvell era produced multiple top-25
+    finishes and whose 2024 11-2 ceiling under Ryan Silverfield kept the trajectory upward.
+  mantra: Go Tigers Go.
+  cultural_anchors:
+    fan_archetype_dominant: Memphis-City-Tigers-Loyalist
+    outsider_archetype_dominant: G5-Forever-Diminisher
+    one_sentence: Memphis is the American Athletic program whose Mike Norvell era + Grit-and-Grind identity
+      + city-football alignment make every Saturday feel different from the rest of the AAC.
+  selfname: the Tigers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2019 12-2 + AAC championship + Cotton Bowl under Mike Norvell
+    - Mike Norvell era 2016-2019 + Ryan Silverfield continuation
+    - 2024 11-2 trajectory under Ryan Silverfield
+    rituals:
+    - Grit and Grind Identity
+    - Mike Norvell Era (2016-2019)
+    - Beale Street Postgame Tradition
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

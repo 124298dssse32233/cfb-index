@@ -1,0 +1,114 @@
+# Emotional Core — Alabama A&M  (alabama-a-m)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: alabama-a-m
+team_id: 5
+program_name: Alabama A&M
+program_tier: 3
+
+emotional_core:
+  primary: restoration   # the 2020 undefeated black college national championship season and 14 total conference titles prove the program can compete
+  secondary: redemption  # rebuilding after a 4-8 season in 2025
+  core_variant: perpetual-rebuild
+  one_line: "Alabama A&M is the HBCU that won a 2020 black college national championship with an undefeated season and 14 total conference titles — now rebuilding under Sam Shade in 2025 after a 4-8 stumble."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "An undefeated 2020 black college national championship (5-0), 14 total conference titles (12 from SIAC era, 2 from SWAC 2006 and 2020) and a 444-422-35 all-time record vs a 4-8 season in 2025 and the rebuild cycle that comes after."
+
+the_wound:
+  name: "The 2025 fourth-quarter collapse"
+  detail: "Alabama A&M went 4-8 (1-7 SWAC East) in 2025 under first-year coach Sam Shade (.333 winning percentage), with the team unable to convert the 2020 championship foundation into sustained SWAC contention. The program knows it can win at the national level but hasn't proven it's a consistent SWAC power."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Rebuild on the 2020 national championship foundation; prove it wasn't a one-year anomaly; return to consistent SWAC East contention; show that Alabama A&M is capable of winning multiple titles in this era."
+  drought: { since: 2020, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe alabama A&M knows it can win a national championship (2020 proof) but can't seem to parlay that into a dynasty. The chip is the frustration of a program that has tasted the peak and knows the standard exists but can't replicate it every year."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that a program with a 2020 national championship and 14 conference titles in its history is always one good coaching hire away from returning to the peak. The 2020 season proved it's possible; the next era is about making it repeatable."
+
+the_grudge_texture:
+  rival: alabama-state
+  texture: little-brother   # intra-state rivalry with Alabama State
+
+the_coach_relationship: hot-seat-churn   # Sam Shade is year one after a 4-8 stumble; the program is searching
+the_internal_fracture: patience with shade vs immediate results — the faction that says a new coach needs time vs the faction that says 4-8 is unacceptable when 2020 proved the program is capable of elite
+register: championship-memory-program — the 2020 national title is still the reference point
+never_use:   # LAW — do not violate in any authored line
+  - one-hit-wonder framing (more than 14 conference titles)
+  - scrappy
+  - just trying to have fun
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep canon ──
+story_canon:
+  the_unique_thing: "Alabama A&M is the HBCU that won a black college national championship with an undefeated 2020 season (5-0) and has accumulated 14 total conference titles (12 from the SIAC era 1962-1991, 2 from SWAC 2006 and 2020). Pro Football Hall of Famer John Stallworth is an Alabama A&M product. The program has appeared in seven SWAC East Division championships."
+  the_origin: "A land-grant university in Normal, Alabama that began football in 1912 and built a tradition spanning over a century. Alabama A&M competed in the SIAC, then joined the SWAC and has been competitive throughout."
+  golden_ages:
+    - { era: "1962–1991 (SIAC era)", what: "12 conference championships across the Southern Intercollegiate Athletic Conference era" }
+    - { era: "2006", what: "SWAC championship" }
+    - { era: "2020", what: "Undefeated 5-0 season and black college national championship" }
+  legends:
+    - { name: John Stallworth, role: player, why: "Pro Football Hall of Famer; showed Alabama A&M's capacity to produce elite NFL talent" }
+  canonical_moments:
+    - { name: "The 2020 national championship", year: 2020, what: "Alabama A&M went 5-0 and won the black college national championship", handling: glory }
+    - { name: "The 2006 SWAC title", year: 2006, what: "SWAC championship under SWAC era", handling: glory }
+    - { name: "14 conference titles", year: 2020, what: "12 SIAC titles + 2 SWAC titles; proof of sustained success", handling: glory }
+  the_place: "Louis Crews Stadium in Normal, Alabama (home of the Bulldogs)."
+  brand_of_football: "Capability-proven: a program that has won at the highest HBCU level and is searching for the second act; the 2020 championship set the standard."
+  cultural_footprint: "Alabama A&M is the HBCU that proved it could win a black college national championship in the modern era. The 2020 season is the reference point; the next phase is about making it repeatable."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Alabama A&M went 4-8 (1-7 SWAC East) in 2025 under first-year head coach
+    Sam Shade. The program is rebuilding after the 2020 undefeated national championship season. The 2025 stumble
+    raises questions about consistency, but Alabama A&M's long history (1912 origin, 14 conference titles, 2020
+    national championship) suggests the program has the infrastructure to recover. Shade is tasked with recreating
+    the winning culture from 2020 and establishing consistent SWAC East contention.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Alabama_A%26M_Bulldogs_football
+    - https://en.wikipedia.org/wiki/2025_Alabama_A%26M_Bulldogs_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Alabama A&M is the HBCU that won a 2020 black college national championship; now rebuilding.
+  mantra: Go Bulldogs.
+  cultural_anchors:
+    fan_archetype_dominant: Championship-Memory-Keeper
+    outsider_archetype_dominant: Program-Rebuilder
+    one_sentence: Alabama A&M is the HBCU that won a black college national championship in 2020 with an undefeated season.
+  selfname: the Bulldogs
+  aspiration_ladder_top: ''
+  rivalries:
+  - alabama-state
+  heritage:
+    national_titles: 1
+    conference_titles: 14
+    current_conference: SWAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2020 undefeated black college national championship (5-0)
+    - 14 conference titles (12 SIAC, 2 SWAC)
+    - John Stallworth (Pro Football Hall of Famer)
+    rituals:
+    - Annual SWAC competition
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

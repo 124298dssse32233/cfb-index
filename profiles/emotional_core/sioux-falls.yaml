@@ -1,0 +1,72 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: sioux-falls
+team_id: null
+program_name: Sioux Falls
+program_tier: 6        # Division II
+
+emotional_core:
+  primary: grievance      # NAIA legend (4 national titles) now a D2 transplant searching for identity
+  secondary: restoration  # 7-4 2025 season shows the Cougars can compete at D2 level
+  one_line: "Sioux Falls is an NAIA legend with four undefeated national championships (1996, 2006, 2008, 2009) — and is now a Division II transplant learning that D2 is a different arena, even for champions."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "Four NAIA national titles and a 42-game winning streak vs a 7-4 record in a new Division II home that doesn't recognize yesterday's glory."
+
+the_wound:
+  name: "The NAIA-to-D2 transition and championship irrelevance"
+  detail: "Sioux Falls won four undefeated NAIA national championships (1996, 2006, 2008, 2009) and built a 42-game winning streak from 2008-2010 (tied NAIA record). But when the Cougars transitioned to Division II, their NAIA titles became historical footnotes — D2 recognizes only D2 champions. The 2025 season (7-4, playoff bubble) showed Sioux Falls can be respectable, but managing the injury depleted roster (starters Camden Dean and Bennett Brueck both injured, forcing third-string QB Tate Schafer into action) reminded the program that D2 is a different competitive level than the NAIA dynasty days."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the championship DNA from four NAIA titles translates to D2 success; build a playoff contender in the NSIC South."
+  drought: { since: 2009, unit: national_title }
+
+the_chip:
+  villain: committee
+  text: "Fans here believe the chip is the narrative itself — Sioux Falls knows it has won national championships, but the D2 community views the Cougars as a transplant, not a power."
+
+the_delusion:
+  tone: self-aware
+  text: "That the four NAIA titles prove Sioux Falls belongs at the top of D2. The fanbase knows the titles are historical glory; they hope the championship culture is still real."
+
+the_grudge_texture:
+  rival: winona-state
+  texture: championship    # competitive South NSIC matchups
+
+the_coach_relationship: legends-shadow    # Jim Glogowski 3rd season (18-15 overall); navigating a rebuild in the new D2 landscape
+the_internal_fracture: naia-glory-nostalgia vs d2-reality — fans remembering four undefeated titles vs those accepting Sioux Falls as a mid-tier D2 contender
+register: sioux-falls-cougars-naia-legend-four-titles-42-game-streak
+never_use:
+  - "Sioux Falls is a D2 power: the NAIA titles don't transfer; Sioux Falls hasn't won a D2 championship"
+  - "The transition is recent: NAIA-to-D2 shift happened years ago; the wound is the permanence of irrelevance"
+
+story_canon:
+  the_unique_thing: "Sioux Falls is an NAIA legend with four undefeated national championships (1996, 2006, 2008, 2009) and a 42-game winning streak (2008-2010, tied NAIA record) that transitioned to Division II and must rebuild its identity in a new competitive landscape."
+  the_origin: "Sioux Falls is a South Dakota program that built an NAIA dynasty in the 1990s-2000s, winning four national titles and establishing itself as an NAIA powerhouse."
+  golden_ages:
+    - { era: "1996, 2006–2010 (NAIA Dynasty)", what: "Four undefeated NAIA national championships (1996, 2006, 2008, 2009); 42-game winning streak 2008-2010" }
+  legends:
+    - { name: "Unknown NAIA-era coaches", role: coach, why: "Built the four-championship dynasty (specific coach names not verified in research)" }
+  canonical_moments:
+    - { name: "1996 NAIA National Championship", year: 1996, what: "First NAIA title", handling: glory }
+    - { name: "2006 NAIA National Championship", year: 2006, what: "Second NAIA title", handling: glory }
+    - { name: "2008 NAIA National Championship", year: 2008, what: "Third NAIA title; start of 42-game winning streak", handling: glory }
+    - { name: "2009 NAIA National Championship", year: 2009, what: "Fourth NAIA title; peak of the dynasty", handling: glory }
+  the_place: "Sioux Falls, South Dakota; a regional program base."
+  brand_of_football: "A former NAIA powerhouse that won championships through dominant execution; Sioux Falls is now a D2 competitor searching for identity."
+  cultural_footprint: "Sioux Falls is remembered for NAIA dominance; the D2 transition has been a challenge to the program's championship identity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Sioux Falls went 7-4 in 2025 despite significant injury challenges; starting QB Camden
+    Dean and backup Bennett Brueck both went down, forcing third-string QB Tate Schafer into action. The Cougars remain on the
+    playoff bubble in the NSIC South Division. Head coach Jim Glogowski (3rd season, 18-15 overall record) is navigating the
+    program's transition from NAIA legend to D2 competitor. The championship culture from four NAIA titles (1996, 2006, 2008, 2009)
+    and the 42-game winning streak (2008-2010) remains historical gold, but D2 recognizes only D2 titles, forcing Sioux Falls to
+    rebuild its identity in a new competitive landscape.
+  sources:
+    - https://espnsiouxfalls.com/sioux-falls-cougars-football-recap/
+    - https://www.naia.org/sports/fball/2006-07/releases/20061216yrxm9
+    - https://northernsun.org/schedule.aspx?schedule=3876

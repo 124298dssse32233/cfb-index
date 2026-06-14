@@ -1,0 +1,91 @@
+# Emotional Core — Dartmouth Big Green (dartmouth)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-14 from live web research — Ivy power, 22 conference titles, Fifth Down Game.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: dartmouth
+team_id: null           # non-FBS
+program_name: Dartmouth Big Green
+program_tier: 1         # Ivy power; 22 conference titles
+division: FCS (Ivy)
+
+emotional_core:
+  primary: honor        # the Ivy League's championship program
+  secondary: standard   # living up to 22 conference titles
+  one_line: "Dartmouth football leads the Ivy League with 22 conference championships and played the first intercollegiate game (1881 vs Amherst) — a program that has built excellence in the mountains of New Hampshire and refuses to leave."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "22 Ivy League titles (the most of any Ivy program), the 1925 national championship, and sustained excellence vs the reality of being in Hanover, New Hampshire — far from the football media centers."
+
+the_wound:
+  name: "The tragic loss of Buddy Teevens (2005–2023) — a coach who defined modern Ivy football"
+  detail: "Buddy Teevens coached Dartmouth for 19 seasons and won seven Ivy League titles, building the most successful program in modern Ivy history. He was killed in a bicycle accident in September 2023, a tragedy that shook the program and the Ivy League. Teevens was the living embodiment of Dartmouth football; his absence is still fresh."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Win the Ivy League every year — not just share it, but dominate it. The 2024 shared title (8–2) is proof the program is back after Teevens' tragic death. Sammy McCorkle (the 2023 Ivy Coach of the Year) is building the next era."
+  drought: null
+
+the_chip:
+  villain: none
+  text: "Fans here believe there is no chip. Dartmouth leads the Ivy League in conference titles and doesn't need to resent anyone. The Big Green's competitor is itself — the standard set by Buddy Teevens and the 22 titles that came before."
+
+the_delusion:
+  tone: earnest
+  text: "That Dartmouth could compete for national championships if the Ivy League allowed scholarships — and the fanbase genuinely believes it. The 1925 national championship proves the program has been built for excellence since the beginning."
+
+the_grudge_texture:
+  rival: harvard
+  texture: championship    # historic Ivy rival
+
+the_coach_relationship: total-trust   # Sammy McCorkle brings stability after Teevens' tragedy
+the_internal_fracture: null
+register: hanover-big-green-mountains-buddy-teevens-legacy
+never_use:
+  - Lost program — 22 Ivy titles (most of any Ivy program)
+  - Never won anything — 1925 national championship
+
+story_canon:
+  the_unique_thing: "Dartmouth played the first intercollegiate game (1881 vs Amherst) — Dartmouth claims this honor as its own foundational moment. The program has built excellence in the mountains of New Hampshire for 145 years."
+  the_origin: "Dartmouth started football in 1881 with a 1–0 victory over Amherst, the first intercollegiate game the college played. The Big Green built a program on the principle of mountain excellence and resilience."
+  golden_ages:
+    - { era: "1925 (National Championship)", what: "Dartmouth wins the only national championship in program history with an undefeated 8–0 season" }
+    - { era: "Bob Blackman (1955–1970)", what: "Legendary coach wins 104 games and seven Ivy League titles; defines modern Dartmouth football" }
+    - { era: "Buddy Teevens (2005–2023)", what: "19 years and seven Ivy titles; the most successful modern era in Big Green history" }
+  legends:
+    - { name: Bob Blackman, role: coach, why: "104–37–3 record; seven Ivy titles; the architect of modern Dartmouth football" }
+    - { name: Buddy Teevens, role: coach, why: "19 seasons, seven Ivy titles, the most successful modern era; remembered for his character and commitment to the program" }
+    - { name: Earl Blaik, role: coach, why: "45–15–4 record; legendary coach who built Dartmouth football" }
+  canonical_moments:
+    - { name: "First intercollegiate game", year: 1881, what: "Dartmouth plays Amherst in what Dartmouth claims as the first intercollegiate game", handling: glory }
+    - { name: "1925 National Championship", year: 1925, what: "Dartmouth goes 8–0 undefeated and wins the national championship", handling: glory }
+    - { name: "Bob Blackman era", year: 1970, what: "Bob Blackman's 16-year tenure produces 104 wins and seven Ivy titles", handling: glory }
+    - { name: "Buddy Teevens era", year: 2023, what: "19 seasons and seven Ivy titles; one of the most successful modern tenures in Ivy history", handling: glory }
+  the_place: "Dartmouth Park (Memorial Field) in Hanover, New Hampshire — home of Big Green football in the mountains."
+  brand_of_football: "Mountain excellence — Dartmouth football is built on the principle that great programs can thrive anywhere, even in remote New Hampshire."
+  cultural_footprint: "Dartmouth football is proof that isolation doesn't prevent excellence. The program has built 22 conference titles in the mountains."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-14: Under coach Sammy McCorkle (named 2023 Ivy Coach of the Year),
+    Dartmouth returned to excellence after the tragic loss of Buddy Teevens in September 2023. The 2024 team
+    finished 8–2 and shared the Ivy League championship, proof that the program has recovered from the tragedy
+    and remains a championship contender. McCorkle continues Teevens' legacy of sustained success in the Ivy League.
+  research_checklist:
+    - First intercollegiate game (1881 vs Amherst)
+    - 1925 national championship (8–0 undefeated)
+    - 22 Ivy League titles (most of any Ivy program)
+    - Bob Blackman (104–37–3, 16 years)
+    - Buddy Teevens (19 years, 7 Ivy titles, tragic death 2023)
+    - Sammy McCorkle (2023 Ivy Coach of the Year)
+  sources:
+    - https://en.wikipedia.org/wiki/Dartmouth_Big_Green_football
+
+briefing:
+  identity_phrase: Dartmouth is the Ivy League's most successful program (22 titles) and played the first intercollegiate game — mountain excellence built on principle.
+  mantra: "First Game, Mountain Tradition"
+  selfname: the Big Green
+  heritage:
+    national_titles: 1
+    conference_titles: "22 Ivy (most of any program)"
+    current_conference: Ivy League (FCS)

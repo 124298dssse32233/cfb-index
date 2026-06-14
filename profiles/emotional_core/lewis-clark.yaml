@@ -1,0 +1,64 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Lewis & Clark Pioneers (River Otters) — NWC newcomers, brand transition underway
+
+status: live
+slug: lewis-clark
+team_id: null
+program_name: Lewis & Clark College
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: restoration
+  one_line: "Lewis & Clark is an elite liberal arts school in Portland whose River Otters compete in the Northwest Conference — a program rebranding with Brett Elliott in his first season."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A prestigious Portland liberal arts college competing in NWC with modest ambitions and community values, enjoying the game more than the trophy."
+
+the_wound:
+  name: "Mascot transition and fresh start"
+  detail: "Lewis & Clark changed mascots in February 2026 from Pioneers to River Otters — a rebrand that signals a cultural shift and new identity under first-year coach Brett Elliott."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Establish River Otters as a competitive NWC presence, build culture under Elliott, and compete with Portland pride."
+  drought: { since: 2026, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — this is a new chapter, not a grievance."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that a rebranding and new coaching can quickly unlock NWC success. The Lewis & Clark community wants to build something sustainable."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: savior
+the_internal_fracture: rebranding-optimism vs culture-building-challenge — excitement about Elliott and the River Otters vs the work to establish credibility
+register: portland-river-otters-nwc-builders
+never_use:
+  - "Historic dynasty — this is a new program identity"
+  - "Powerhouse — Lewis & Clark is a small NWC school"
+  - "Traditional powerhouse — the tradition is academic, not athletic"
+  - "Established contender — still building"
+
+story_canon:
+  the_unique_thing: "A prestigious Portland liberal arts school rebranding from Pioneers to River Otters in 2026 — a fresh start under Brett Elliott."
+  the_origin: "Lewis & Clark College, founded 1867, is an elite liberal arts college in Portland, Oregon. The athletics program competes in NWC and competes with academic mission first."
+  golden_ages: []
+  legends: []
+  canonical_moments: []
+  the_place: "Portland, Oregon — a prestigious liberal arts campus in the Pacific Northwest."
+  brand_of_football: "Academic first, athletic second — River Otters football is secondary to the college's educational mission."
+  cultural_footprint: "A Portland institution; Lewis & Clark's athletic program reflects the city's progressive values."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Lewis & Clark hired Brett Elliott as head coach in his first season with a 6–4 record. The college changed
+    its athletic mascot from Pioneers to River Otters in February 2026, signaling a cultural and branding refresh. The Pioneers compete in the
+    Northwest Conference at the NCAA Division III level. The 2026 season continues Elliott's culture-building work.
+  sources:
+    - https://en.wikipedia.org/wiki/Lewis_%26_Clark_College

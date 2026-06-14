@@ -1,0 +1,73 @@
+# Emotional Core — Lindenwood  (lindenwood)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: lindenwood
+team_id: null
+program_name: Lindenwood
+program_tier: 5
+
+emotional_core:
+  primary: restoration
+  secondary:
+  core_variant: first-ascension
+  one_line: "Lindenwood is the youngest FCS program, a 2022 transition from Division II in St. Charles, Missouri, building its FCS identity from scratch."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A new FCS program with only three years of history at the level, competing against programs with decades of established traditions and trying to prove the transition was the right choice."
+
+the_wound:
+  name: "The newness"
+  detail: "Lindenwood joined the FCS in 2022, the most recent transition to the level, and every opponent has history and tradition that the Lions are still building. The wound is the constant reminder that this program is the youngest at the level, that the foundation is new, and that sustaining success requires building from a blank slate."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Establish a winning culture in the FCS, build a playoff appearance, and prove that the transition from Division II can result in sustained Big South-OVC competence."
+  drought: { since: 2022, unit: relevance }
+
+the_chip:
+  villain: national_media
+  text: "College football overlooked Lindenwood's transition to the FCS and treated the Lions as a novelty, not a peer, and the fanbase believes the program will earn respect through on-field success."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that Lindenwood's transition to the FCS is the beginning of a journey, that the Lions will climb to conference competence, and that the St. Charles program has the resources to build an FCS power."
+
+the_grudge_texture:
+  rival:
+  texture:
+
+the_coach_relationship: total-trust
+the_internal_fracture: transition-confidence-vs-rebuild-patience — the faction excited about the FCS jump vs the faction understanding the long climb ahead
+register: st-charles-missouri-lion-newcomer
+never_use:
+  - Division II remnant (the transition to FCS is complete)
+  - Permanently overmatched (program is competitive in Big South-OVC)
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Lindenwood joined the FCS in 2022, the most recent transition from Division II, making the Lions the youngest FCS program and the newest voice in college football's third tier."
+  the_origin: "Lindenwood University in St. Charles, Missouri transitioned from Division II to the FCS in 2022 to join the Ohio Valley Conference, representing one of the rare modern-era jumps to the FCS level."
+  golden_ages:
+    - { era: "2022-Present (FCS Era)", what: "Lindenwood's entire FCS history, building foundations for the program's future" }
+  legends:
+    - { name: none, role: none, why: none }
+  canonical_moments:
+    - { name: "FCS transition", year: 2022, what: "Lindenwood officially joins the FCS and OVC, beginning its college football career at the third level", handling: glory }
+  the_place: "Lindenwood's football facilities in St. Charles, Missouri, home to the Lions' FCS program."
+  brand_of_football: "Building FCS football, establishing culture and identity as a new program at the level."
+  cultural_footprint: "Lindenwood represents the rare modern transition to the FCS, bringing a Catholic private-school identity to the Big South-OVC."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Lindenwood went 6-6 in 2025 in the Big South-OVC conference in its fourth season at the FCS level. The Lions are competitive but not yet a playoff program, and the challenge ahead is turning .500 seasons into consistent winning. The program is in the early stages of FCS development, with years of building needed before true conference contention is realistic.
+  research_checklist:
+    - Transitioned from Division II to FCS in 2022 (verified)
+    - Joined Ohio Valley Conference in 2022 (verified)
+    - St. Charles, Missouri location (verified)
+    - 2025 season 6-6 record (verified)
+  sources:
+    - https://fbschedules.com/lindenwood-to-move-up-to-the-fcs-join-ohio-valley-conference-in-2022/
+    - https://lindenwoodlions.com/news/2022/2/23/general-lindenwood-announces-transition-to-ncaa-division-i-and-ohio-valley-conference.aspx
+    - https://en.wikipedia.org/wiki/Lindenwood_Lions_football

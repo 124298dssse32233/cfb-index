@@ -1,0 +1,72 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Lake Erie College — G-MAC newest D2 program, first varsity 2008
+
+status: live
+slug: lake-erie
+team_id: null
+program_name: Lake Erie College
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Lake Erie is the youngest D2 program in the G-MAC — first varsity in 2008 — a Storm program building identity brick by brick with modest resources and outsized pride."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A program with only 18 years of NCAA football history vs. neighbors with generations of tradition; Lake Erie plays for the love of the game, not championships."
+
+the_wound:
+  name: "The newness and the thin tradition"
+  detail: "Lake Erie's first varsity season was 2008, making the Storm one of the newest D2 programs in America. The program has no championship history, no legendary coaches, no traditions older than two decades. Every season is an uphill climb against programs with deep roots."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Build sustainable Division II football that represents the college with pride, even if titles remain distant; make Lake Erie a respected mid-conference program by 2030."
+  drought: { since: 2008, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe lake Erie has no chip — the program plays every game as a bonus, building something from nothing in a conference full of established schools."
+
+the_delusion:
+  tone: none
+  text: null
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "Ambition vs. reality — competing in a tough G-MAC while managing the constraints of a newer program with smaller infrastructure."
+register: storm-lake-erie-ohio-newest-d2
+
+never_use:
+  - "A D2 powerhouse or title contender: Lake Erie has never won a championship in its 18-year history"
+  - "NAIA program: Lake Erie became NCAA Division II in 2018, joining the G-MAC in 2017"
+  - "Irrelevant small school: the program is legitimate D2 and growing"
+
+story_canon:
+  the_unique_thing: "The newest Division II program in the G-MAC — Lake Erie's first varsity season was 2008, making it one of America's youngest college football programs and giving it a unique identity of building from the ground up."
+  the_origin: "Lake Erie College began its NCAA Division II football program in 2008, making a significant institutional commitment to intercollegiate athletics. The program started as an independent (2008-2009), then joined the GLIAC (2010-2011) before moving to the G-MAC (2017-2018), where it competes alongside established regional rivals."
+  golden_ages:
+    - { era: "2008–present", what: "Building era — Lake Erie has spent 18 years establishing infrastructure, recruiting, and developing a D2 program from zero" }
+  legends: []
+  canonical_moments:
+    - { name: "First Varsity Season", year: 2008, what: "Lake Erie College launches its NCAA Division II football program", handling: glory }
+  the_place: "Painesville, Ohio — a small college town on the shore of Lake Erie, home to a young Division II program with community ambition."
+  brand_of_football: "Grassroots Division II football — a program built on the belief that a small Ohio college can compete with established rivals, even without championship history."
+  cultural_footprint: "Lake Erie represents the emerging Division II program: no glory years to rest on, no legendary coaches, just a school working to build something real from the ground up with limited resources and unlimited effort."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Lake Erie enters 2026 under head coach David Price in his second season (hired in 2024, previously Tiffin's defensive coordinator). The Storm struggled in 2025, finishing 2-9 overall with a 1-8 G-MAC record in a conference of established rivals. With approximately 20 returning letterwinners, Coach Price is tasked with building sustainable competitiveness and developing a program culture that can attract players to an institution without championship history or deep regional tradition. The challenge is modest but real: Lake Erie must prove that a new program can grow and compete year-over-year in a tough G-MAC environment. Every win is progress; every season is an opportunity to build.
+  research_checklist:
+    - 2008 first varsity season
+    - Independent 2008-2009, GLIAC 2010-2011, G-MAC 2017-2018
+    - 2025: 2-9 overall, 1-8 G-MAC
+    - Coach David Price (2nd year; was Tiffin DC)
+    - ~20 returning letterwinners in 2026
+  sources:
+    - https://www.lec.edu/athletics/football
+    - https://d2football.com/2025-season-preview
+    - https://www.gmacports.com/news/

@@ -1,0 +1,121 @@
+# Emotional Core — Marshall  (marshall)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: marshall
+team_id: 228
+program_name: Marshall
+program_tier: 3
+
+emotional_core:
+  primary: honor          # the program that rebuilt from a plane crash; resilience IS the identity
+  secondary: restoration  # the live arc: rebuilding the roster a coach gutted on his way out
+  one_line: "Marshall is the program that buried a team in 1970 and built a champion out of the grief — a place where football is a memorial, and where rebuilding from nothing is the oldest thing it knows how to do."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A Sun Belt champion in 2024 vs a 2025 roster so hollowed by departures that survival, not contention, became the season's standard."
+
+the_wound:
+  name: "Southern Airways Flight 932"
+  detail: "On November 14, 1970, a plane crash killed 75 — the entire football team, coaches, and boosters. Huntington rebuilt from the ashes; the program is a living memorial, and every season is played downstream of that loss."
+  handling: never-a-punchline
+  freshness: all-time
+
+the_dream:
+  text: "Honor the ones who never came home the only way Huntington knows — by building winners, season after season, no matter who walks out the door."
+  drought: { since: 2024, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Marshall doesn't need a national villain — the fanbase carries its own standard, set in 1970 and proven every time the program rebuilds from nothing and wins anyway."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Huntington will always rebuild — that a program forged out of a 1970 tragedy can survive a coach gutting the roster, because resilience isn't a hope here, it's the founding fact."
+
+the_grudge_texture:
+  rival: ohio
+  texture: border-war   # the Battle for the Bell — the long-running Marshall–Ohio grudge
+
+the_coach_relationship: hot-seat-churn   # Pruett's dynasty, then Holliday, then Huff (who left), now Gibson
+the_internal_fracture: loyalty vs realism — the faith that the Herd always rebuilds vs the worry that the Huff exodus left a hole even Huntington's resilience can't fill fast
+register: huntington-thundering-herd-honor
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always G5 — 2024 Sun Belt championship + multiple bowl wins disprove
+  - Forgotten about 1970 — every game starts with moment of silence
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "We Are Marshall — the program rebuilt from the 1970 plane crash that killed nearly the entire team. No other program's identity is so completely the story of resurrection from tragedy; the 2006 film carried it into the wider culture."
+  the_origin: "A football program in Huntington, West Virginia that lost its team in the 1970 crash, rebuilt from scratch over five years under a young staff, and rose into a Division I-AA dynasty before its FBS run."
+  golden_ages:
+    - { era: "1996–2004 (Bob Pruett)", what: "Six MAC championships and a dominant mid-major run" }
+    - { era: "1996–1999", what: "The Randy Moss and Chad Pennington era — one of the great mid-major skill duos ever" }
+  legends:
+    - { name: Bob Pruett, role: coach, why: "Architect of the MAC dynasty; six conference titles" }
+    - { name: Randy Moss, role: player, why: "Generational wide receiver who put Marshall on the national map" }
+    - { name: Chad Pennington, role: player, why: "The quarterback of the dynasty; later a first-round NFL pick" }
+  canonical_moments:
+    - { name: "Southern Airways Flight 932", year: 1970, what: "The crash that killed 75, including the entire team — the founding wound the program is built around", handling: wound }
+    - { name: "The 2024 Sun Belt championship", year: 2024, what: "Marshall wins the league under Charles Huff before the coach's abrupt departure", handling: glory }
+  the_place: "Joan C. Edwards Stadium in Huntington — and the Memorial Fountain on campus, shut off each November 14 in remembrance, the literal heart of the program's identity."
+  brand_of_football: "Resilient, tough, opportunistic mid-major football — built less on a single style than on the program's defining capacity to rebuild and win regardless of circumstance."
+  cultural_footprint: "The ultimate football-resurrection story — a program whose grief became national folklore through 'We Are Marshall,' and a fanbase for whom every season is, quietly, a memorial."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Charles Huff won the 2024 Sun Belt title, then left for Southern Miss days
+    later — roughly 50 players entered the portal, ~21 followed Huff, and Marshall withdrew from its bowl. Tony
+    Gibson, hired from NC State, inherited a stripped roster and went 5-7 (3-5 Sun Belt) in his first season
+    rebuilding from almost nothing. Entering 2026, Gibson's task is the oldest one in Huntington: build a winner
+    back up from the ground.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Marshall_Thundering_Herd_football_team
+    - https://en.wikipedia.org/wiki/Charles_Huff_(American_football_coach)
+    - https://www.marshall.edu/wmul/2025/02/09/marshall-welcomes-first-recruitment-class-in-tony-gibson-era/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Marshall is the program whose 1970 plane-crash tragedy + 'We Are Marshall' film + Bob
+    Pruett dynasty + Randy Moss / Chad Pennington era + 2024 Sun Belt championship define what football-resurrection
+    looks like.
+  mantra: We Are Marshall.
+  cultural_anchors:
+    fan_archetype_dominant: Huntington-Herd-Survivor
+    outsider_archetype_dominant: MAC-Refugee-Diminisher
+    one_sentence: Marshall is the football-resurrection program — 1970 plane crash + 5-year rebuild + Bob
+      Pruett dynasty + Randy Moss / Chad Pennington era + 2024 Sun Belt championship that completed the
+      multi-era ascent.
+  selfname: the Thundering Herd
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1970 plane crash + 5-year rebuild + 2006 'We Are Marshall' film
+    - 1996-2004 Bob Pruett dynasty (six MAC championships)
+    - Randy Moss + Chad Pennington era (1996-1999)
+    rituals:
+    - 1970 Plane Crash
+    - Bob Pruett Dynasty (1996-2004)
+    - Randy Moss + Chad Pennington Era (1996-1999)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (54/100, n=53)
+    voice_profile: absent
+    delusion_premium: absent

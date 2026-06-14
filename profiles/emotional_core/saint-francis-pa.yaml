@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: saint-francis-pa
+team_id: null
+program_name: Saint Francis University
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Saint Francis University is transitioning to Division III football in 2026-27 as the Red Wolves, a 1892-founded Catholic institution beginning a new chapter in D3 athletics."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Saint Francis shifts from Northeast Conference to D3 Landmark Conference, carrying institutional pride into a new division and a fresh athletic identity."
+
+the_wound:
+  name: "The transition pain and uncertainty"
+  detail: "Saint Francis went 0-11 in 2025 in the NEC while preparing for the shift to D3. The wound is not failure but transition — the program is leaving one home and building in another."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "In D3, build a competitive program from the ground up. The transition to the Landmark Conference is a chance to reset and prove Saint Francis can be a D3 football program."
+  drought: { since: 2024, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip yet — this is a new beginning. Saint Francis carries the pride of being a 1892-founded Catholic institution with a mission to educate and compete with honor."
+
+the_delusion:
+  tone: earnest
+  text: "That the move to D3 and the new Red Wolves identity will bring fresh energy, better competitive fit, and a pathway back to relevance — the fanbase believes the new chapter is the right move."
+
+the_grudge_texture:
+  rival: none
+  texture: none
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Old Northeast Conference identity vs. new D3 and Red Wolves rebrand"
+register: saint-francis-red-wolves-catholic-transition-d3
+
+never_use:
+  - Storied NEC power — underperformed in the NEC
+  - Instant D3 contender — transitioning programs rarely are competitive immediately
+  - Historic football tradition — Saint Francis football is relatively modern; founded 1892, but not known for football dominance
+
+story_canon:
+  the_unique_thing: "Saint Francis University is transitioning to Division III football for the 2026-27 season, moving from the Northeast Conference and adopting the Red Wolves identity, a bold rebrand and new beginning."
+  the_origin: "Saint Francis University was founded in 1892 in Pennsylvania as a Catholic Franciscan institution committed to education and service. Football was added later as part of the athletic mission."
+  golden_ages:
+    - { era: "2010s", what: "The program's strongest NEC years, with occasional playoff appearances and competitive seasons" }
+  legends:
+    - { name: "Franciscan Heritage", role: "identity", why: "Saint Francis carries the institutional mission of the Franciscan order: education, service, and building community leaders" }
+  canonical_moments:
+    - { name: "Red Wolves Rebrand and D3 Transition", year: 2026, what: "Saint Francis transitions to Division III and adopts the Red Wolves identity, beginning a new era", handling: glory }
+  the_place: "Loretto, Pennsylvania — a small rural community in central Pennsylvania, home to Saint Francis University and its Franciscan mission."
+  brand_of_football: "Transitional football, building a new identity. Saint Francis's game is about establishing D3 competitiveness while honoring the Catholic educational mission."
+  cultural_footprint: "A Franciscan institution bringing Catholic values to Division III athletics. Saint Francis's football team represents the university's broader commitment to development and community."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Saint Francis finished 0-11 in 2025 while competing in the Northeast Conference.
+    The university is transitioning to Division III for 2026-27, joining the Landmark Conference and adopting the Red
+    Wolves identity. This is a significant institutional move: the program resets its expectations, competes at a new
+    level, and rebuilds from the ground up. The first D3 season will be about establishing culture and competitive
+    baseline, not immediate success.
+
+  research_checklist:
+    - Saint Francis University founded 1892
+    - Northeast Conference to Landmark Conference D3 transition confirmed
+    - Red Wolves rebrand for 2026-27
+    - 2025 season record (0-11 verified)
+    - Franciscan Catholic educational mission
+
+  sources:
+    - https://en.wikipedia.org/wiki/Saint_Francis_University
+    - https://www.sfu.edu/athletics/football
+    - https://en.wikipedia.org/wiki/Saint_Francis_Red_Wolves_football

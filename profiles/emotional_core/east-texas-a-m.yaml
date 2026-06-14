@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Emotional Core — East Texas A&M
+# Status: live
+
+status: live
+slug: east-texas-a-m
+team_id: null
+program_name: East Texas A&M
+program_tier: 5
+
+emotional_core:
+  primary: restoration  # climbing back into the FCS, rebuilding after a reclassification
+  secondary: grievance  # D2 national champions, but nobody in the Power Four knows it
+  one_line: "East Texas A&M is the Lions that won a D2 national championship and spent 60 years proving it before jumping to FCS — now climbing out of a reclassification transition."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "East Texas A&M was a powerhouse in Division II (24 LSC titles, a 2017 NCAA D2 national championship), then jumped to FCS. The 3-9 record in 2025 reflects the growing pains of a program playing way up in classification — not mediocrity, but transition."
+
+the_wound:
+  name: "The 2025 FCS growing pains and the D2 shadow"
+  detail: "East Texas A&M (formerly Texas A&M–Commerce) moved to FCS in 2024. The 2025 season brought a 3-9 record (3-5 SLC) — a painful step down from D2 success, and a reminder that even championship programs struggle when jumping classification. The institutional hurt: a storied D2 legacy felt invisible to the FCS world."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that a D2 national champion can belong at the FCS level — win the Southland, make the FCS playoffs, and force the sport to acknowledge that East Texas A&M's 24 conference titles and D2 trophy weren't flukes."
+  drought: { since: 2025, unit: conference_title }
+
+the_chip:
+  villain: big_brother  # Texas A&M (the namesake, the noise, the shadow); the FCS establishment that doesn't know or respect D2 legacy
+  text: "Fans here believe the chip is identity: a program that won a national championship in D2 and doesn't get credit for it. East Texas A&M is haunted by the assumption that it was always a middling program, not by the reality that it reclassified into a tougher league."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that a D2 national championship is as real as an FCS title — that East Texas A&M belongs in this conference not because of 2025's record, but because of the institutional DNA that built 24 conference titles. Fans know the climb will be hard, but they expect it will come."
+
+the_grudge_texture:
+  rival: tarleton-state
+  texture: championship  # President's Cup rivalry, both former LSC powerhouses
+
+the_coach_relationship: legends-shadow  # Clint Dolezel is in Year 3, stepping out of the shadow of D2 success into FCS reality
+the_internal_fracture: "patience-for-transition vs. win-now impatience: the faction believing the FCS jump was always going to hurt vs. those who saw 2025 as a failure of coaching"
+register: commerce-lions-d2-kings-fcs-climb
+never_use:
+  - "Never a powerhouse"
+  - "Always mid-tier"
+  - "2017 was a fluke"
+  - "Small-school program"
+  - "Unknown outside Texas"
+
+story_canon:
+  the_unique_thing: "East Texas A&M won a D2 national championship in 2017 and 24 conference titles in the LSC before reclassifying to FCS in 2024. The Lions are defined by the gap between D2 dominance and FCS growing pains — and the refusal to accept that the jump erased the legacy."
+  the_origin: "Texas A&M–Commerce (rebranded East Texas A&M in 2022) was a powerhouse in the NCAA Division II Lone Star Conference. The program won 24 LSC titles and captured the 2017 NCAA D2 national championship."
+  golden_ages:
+    - { era: "2010–2017 (D2 dominance)", what: "Sustained excellence in the Lone Star Conference, culminating in the 2017 NCAA Division II national championship" }
+  legends:
+    - { name: "2017 national championship team", role: "team", why: "The only NCAA D2 national champion in program history; the pinnacle of East Texas A&M football" }
+  canonical_moments:
+    - { name: "2017 D2 National Championship", year: 2017, what: "East Texas A&M defeats a D2 powerhouse to win the NCAA Division II national title", handling: glory }
+    - { name: "Reclassification to FCS 2024", year: 2024, what: "The Lions jump to FCS after dominating D2, beginning a difficult transition", handling: wound }
+  the_place: "Ernest Hawkins Field in Commerce, Texas — home of the Lions since the D2 era, where a national championship banner hangs."
+  brand_of_football: "Disciplined, proven at the D2 level, ambitious beyond its geographic reach — East Texas A&M football is defined by institutional excellence that the FCS world is still learning to respect."
+  cultural_footprint: "A D2 national championship program that is proving a smaller school can sustain winning culture, even when jumping up in classification."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: East Texas A&M (formerly Texas A&M–Commerce) moved from NCAA D2 to FCS in 2024.
+    The 2025 season brought a 3-9 record (3-5 SLC) — a painful step down from D2 success, but not unexpected for a program
+    in reclassification. Coach Clint Dolezel is in Year 3, building a roster that can compete in the Southland. Key players
+    include QBs Ron Peace and Eric Rodriguez, RB EJ Oakmon, and WR Devin Matthews. The transition challenge: prove that a
+    D2 national champion can climb out of the growing-pains phase and establish itself as an FCS contender.
+  research_checklist:
+    - D2 legacy and 24 LSC titles
+    - 2017 national championship details
+    - Reclassification timeline (2024)
+    - 2025 record and coaching situation
+    - Roster composition and key players
+  sources:
+    - https://en.wikipedia.org/wiki/2025_East_Texas_A%26M_Lions_football_team
+    - https://en.wikipedia.org/wiki/East_Texas_A&M_Lions_football
+    - https://www.etamu.edu/athletics/

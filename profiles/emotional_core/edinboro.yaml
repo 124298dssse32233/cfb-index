@@ -1,0 +1,82 @@
+# Emotional Core — PennWest Edinboro Fighting Scots (edinboro)
+# AUTHORED 2026-06-13 — web-verified Eric Crandall interim era, Clarion rivalry wound, Scottish identity
+# program_tier: 6 (PSAC Division II)
+
+status: live
+slug: edinboro
+team_id: null          # PSAC, not FBS-indexed
+program_name: Pennsylvania Western University–Edinboro
+program_tier: 6
+
+emotional_core:
+  primary: grievance        # The chronic Clarion-Edinboro rivalry wound — Edinboro led for 40+ years and lost the last two games
+  secondary: redemption     # Clawing back from interim coaching to reclaim regional dominance and rebuild home-field authority
+  one_line: "Edinboro is the Fighting Scots program whose legendary track-and-field heritage and 50-year Clarion dominance suddenly reversed — they're rebuilding identity under interim coaching."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A PSAC program built on extraordinary track-and-field legacy (five NCAA titles 1986–1990, 31-year nationals streak) but defined by football only through the Clarion rivalry, which they suddenly lost."
+
+the_wound:
+  name: "The Clarion-Edinboro reversal — from dominance to back-to-back losses"
+  detail: "Edinboro led the all-time series 36–24–1 and dominated from the 1960s through the early 2020s. They won 11 of 13 consecutive matchups, a historic dominance. Then Clarion won back-to-back games (2024–2025) for the first time since 1997–1998 — the rivalry narrative inverted in a single season. Combined with interim coaching (Eric Crandall takes over for 2026 after Matt Scott's one-season departure), the wound is fresh and compound."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Re-establish home-field dominance against Clarion, make the Clarion rivalry a route to a PSAC West title again, and prove that the Fighting Scots' 40-year regional supremacy was not erased by a two-game skid."
+  drought: { since: 2023, unit: relevance }
+
+the_chip:
+  villain: big_brother
+  text: "The chip is defensive: Edinboro had the Clarion rivalry in their grip for four decades. Now they've lost the last two, watching Clarion celebrate a reversal that nobody saw coming. The fanbase knows they're still the better program; one more loss makes that assertion hollow."
+
+the_delusion:
+  tone: self-aware
+  text: "That a single interim-coaching season cannot erase 40+ years of regional dominance — that the Fighting Scots' identity is deeper than two consecutive Clarion losses. The fanbase wants to believe the reversal is anomalous, not structural."
+
+the_grudge_texture:
+  rival: clarion
+  texture: blood-feud   # Same consolidated university; the entire Edinboro football identity hinges on defeating Clarion
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: last-era-believers vs rebuild-acceptors — those who lived through Edinboro's 40-year Clarion dominance vs those who see interim coaching as necessary recalibration after Scott's failure
+register: edinboro-fighting-scots-pennsylvania-interim
+never_use:
+  - Small program — Edinboro is a PSAC anchor with a 50-year defining rivalry and a legendary cross-country dynasty
+  - Struggling with identity — the Fighting Scots have a clear identity; they're struggling with recent execution
+  - Has never competed — Edinboro led the Clarion rivalry 36–24–1 before the recent reversal
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The Fighting Scots' identity is split: one of the nation's greatest track-and-field dynasties (five NCAA titles 1986–1990, 31-year nationals streak) whose football program was defined entirely by dominating Clarion for 40+ years — until losing two straight."
+  the_origin: "Founded as a normal school, Edinboro joined the PSAC at its 1951 foundation. The program's earliest football identity was obscure until the Clarion rivalry became the defining matchup."
+  golden_ages:
+    - { era: "1960–2000", what: "Edinboro's historical dominance in the Clarion rivalry (36–24–1 ledger through the 1990s, then widened)" }
+    - { era: "1986–1990 (Track)", what: "Five NCAA men's national championships in cross-country/track — the non-football identity that gave the university national visibility" }
+    - { era: "1979–2009", what: "A record 31-year streak of qualifying for the NCAA nationals in track (Division II record)" }
+  legends:
+    - { name: Doug Watts, role: coach, why: "Track coach who built the cross-country dynasty (five titles, 31-year streak) — the university's greatest athletic legacy" }
+    - { name: Eric Crandall, role: interim head coach, why: "Defensive coordinator (2025) elevated to interim head coach for 2026; tasked with stopping the Clarion bleeding" }
+  canonical_moments:
+    - { name: "40-Year Clarion Dominance", year: 2023, what: "Edinboro's long control of the rivalry began in the 1960s and held through the 2020s", handling: glory }
+    - { name: "Clarion Back-to-Back Wins (2024–2025)", year: 2025, what: "Clarion defeats Edinboro in consecutive seasons, inverting 40+ years of dominance; the first back-to-back Clarion wins since 1997–1998", handling: wound }
+    - { name: "Matt Scott One-Season Departure (2025)", year: 2025, what: "Head coach Matt Scott resigns after a single season; Eric Crandall (defensive coordinator) takes interim role", handling: wound }
+  the_place: "Sox Harrison Stadium in Edinboro, PA — a regional landmark where the Fighting Scots' football identity has been built entirely around one rivalry."
+  brand_of_football: "Historically dominant in the Clarion rivalry, now in defensive rebuild mode; fundamentally disciplined when the culture is intact."
+  cultural_footprint: "The Fighting Scots' football identity is uniquely single-threaded: the Clarion game defines the season. The track-and-field legacy gives them university prestige; the football rivalry gives them regional emotion."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Eric Crandall (interim, elevated from defensive coordinator) enters 2026 facing an immediate crisis: Clarion beat Edinboro in back-to-back seasons (2024–2025), inverting 40+ years of dominance. Crandall's defense ranked third in the PSAC (22.3 PPG allowed, 333.6 total yards) in 2025, a strength. But the interim label + the Clarion bleeding + the recent coaching turnover create urgency. The 2026 Clarion matchup is not an annual rivalry; it's a referendum on whether the Fighting Scots can reclaim their region. If Edinboro loses again, the narrative flips to genuine program crisis. If they win, it's "returning to form." That single game now defines the entire season.
+  research_checklist:
+    - The 50-year Clarion-Edinboro rivalry (1926–present) and Edinboro's 40+ year dominance
+    - Doug Watts' track-and-field dynasty (five NCAA titles 1986–1990)
+    - The 31-year nationals qualification streak (1979–2009, Division II record)
+    - Clarion's back-to-back victories in 2024–2025 and the dominance reversal
+    - Matt Scott's one-season departure and Eric Crandall's interim appointment
+    - Crandall's defensive performance and the interim transition mechanics
+  sources:
+    - https://gofightingscots.com/
+    - https://en.wikipedia.org/wiki/Edinboro_Fighting_Scots
+    - https://clariongoldeneagles.com/sports/football/opponent-history/edinboro-university-of-pennsylvania/7
+    - https://gofightingscots.com/news/2025/12/29/matt-scott-departs-eric-crandall-named-interim-head-coach-of-edinboro-football.aspx
+    - https://gofightingscots.com/news/2025/9/26/football-hosts-clarion-in-hall-of-fame-game.aspx

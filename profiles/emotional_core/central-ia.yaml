@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Central College Division III emotional core
+
+status: live
+slug: central-ia
+team_id: null
+program_name: Central College
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: restoration
+  one_line: "Central College is the small Iowa school that won the NCAA Division III National Championship in 1974 and has spent 50 years proving the giant-killer identity still matters."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "One national title in the vault, 32 conference championships, and two decades of Jeff McMartin's 163 wins vs. the small-school struggle to stay relevant in an era of money-dominated college sports."
+
+the_wound:
+  name: "The 2025 title drought — half a century since the peak"
+  detail: "No national championship since 1974. The Dutch have won conference titles regularly (most recent 2021), but the gap between a 1970s dynasty and a 2020s contender has grown wider with NCAA budget cuts hitting small privates hardest. The fanbase knows they've done it before, and wonders if the program can climb back."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Another national championship. Another season when the Dutch step into November ranked and finish the conversation with hardware instead of a near-miss."
+  drought: { since: 1974, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Pella, Iowa is not in the national media orbit. Central's 1974 championship is footnoted in the Division III historical record, rarely cited when the sport discusses dynasties. The Dutch know they won it, and the disrespect of indifference burns deeper than any rival's slight."
+
+the_delusion:
+  tone: earnest
+  text: "That another title run is one great season away. That Jeff McMartin's 163 wins and the program's steady conference success put Central just a coaching hire or two away from repeating 1974. The fanbase believes it because the record — six NCAA playoff appearances since 2015 — says it's possible."
+
+the_grudge_texture:
+  rival: coe-college
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: McMartin-stability vs next-generation-transition — Jeff McMartin has been the program face for 22 years (163–50 all-time); his eventual retirement will force a reckoning with whether the Dutch identity is McMartin-built or program-deep
+register: pella-dutch-small-iowa-giant-killer-1974
+
+never_use:
+  - Central College won multiple recent national titles (only 1974)
+  - The Dutch play FBS football (Division III since founding)
+  - McMartin is a new hire (22 seasons, 2004–present, 163 wins)
+  - Central is a powerhouse among D3 peers (top-tier within D3 ARC, not national dominator)
+
+story_canon:
+  the_unique_thing: "The 1974 NCAA Division III National Championship — the moment a small Methodist college in Pella, Iowa won the national title and proved small schools could step into the conversation with legitimate hardware."
+  the_origin: "Founded 1853, Central College began football in 1892. A founding member of the Iowa Intercollegiate Athletic Association (IIAC, 1922), the Dutch competed regionally for decades before breaking through to national prominence."
+  golden_ages:
+    - { era: "1970–1975", what: "The run that produced the 1974 NCAA Division III National Championship, anchored by coach John McArthur's vision" }
+    - { era: "2004–present (Jeff McMartin)", what: "22 years, 163–50 all-time, six NCAA playoff appearances, five ARC titles (most recent 2021), and sustained contention" }
+  legends:
+    - { name: John McArthur, role: coach, why: "Led the 1974 national championship team" }
+    - { name: Jeff McMartin, role: coach, why: "22-year tenure (2004–present) with 163 wins, five ARC titles, and six NCAA playoff appearances" }
+  canonical_moments:
+    - { name: "The 1974 National Championship", year: 1974, what: "Central College wins the NCAA Division III National Championship, proving small Iowa schools could claim national hardware", handling: glory }
+    - { name: "Six NCAA Playoff Appearances (2015–2021)", year: 2015, what: "McMartin's sustained tournament runs validate the program's climb back to contention", handling: glory }
+  the_place: "Schroeder Field in Pella, Iowa — a small Methodist college town where the fanbase still talks about 1974."
+  brand_of_football: "The disciplined small-school team that plays well enough to win a region, occasionally a region's region, and once — in 1974 — stepped all the way to a national championship."
+  cultural_footprint: "Central College football is Pella's civic identity. Alumni will tell you about 1974 unsolicited. The program is proof that a small Methodist college can build something real, something that lasts."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Central College went 8–2 (6–2 ARC) in 2025, continuing Jeff
+    McMartin's tenure and proving sustained competence. McMartin, in his 22nd season, has accumulated 163
+    wins and five ARC titles since 2004. The question for Pella: can the Dutch build one more contending era
+    before the McMartin era ends, or will the next coach be tasked with restoring what McMartin built?
+  research_checklist:
+    - 1974 national championship run (team, coach, memorable games)
+    - Jeff McMartin's 22-year tenure (2004–present)
+    - Six NCAA playoff appearances (most recent 2021)
+    - Iowa Intercollegiate Athletic Association heritage (1922 charter)
+    - Current ARC standing and 2025 season finish
+  sources:
+    - https://en.wikipedia.org/wiki/Central_Dutch_football
+    - https://www.d3football.com/teams/central-ia
+    - https://en.wikipedia.org/wiki/1974_NCAA_Division_III_Football_Championship

@@ -1,0 +1,94 @@
+# Emotional Core — Lycoming (lycoming)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III — program_tier: 7, graceful degradation applies (small school, regional focus, academic mission).
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: lycoming
+team_id: null
+program_name: Lycoming
+program_tier: 7
+
+emotional_core:
+  primary: contentment   # acceptance of steady mid-pack existence
+  secondary: honor       # academic mission matters
+  one_line: "Lycoming joined the Landmark Conference in 2023 and has settled into mid-pack stability—a Williamsport program that plays solid football without championship ambition."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A solid but unspectacular Landmark member (6–6 in two seasons) vs. a small Pennsylvania college where football is one pursuit among many."
+
+the_wound:
+  name: "Conference transition uncertainty (joined Landmark 2023)"
+  detail: "Lycoming joined Landmark in 2023 after a history in other conferences. The transition is fresh; the program is finding baseline competence (6–6 Landmark, 9–12 overall)."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Establish Lycoming as a consistent mid-tier Landmark team and compete annually for postseason qualification — nothing more ambitious."
+  drought: { since: 2023, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip; Lycoming is content with steady competence."
+
+the_delusion:
+  tone: none
+  text: "No false hope. Lycoming fans know what they are—a small school playing solid football in a regional conference."
+
+the_grudge_texture:
+  rival: susquehanna
+  texture: border-war    # no blood feud; Landmark peer, friendly competition
+
+the_coach_relationship: total-trust    # coach supported by athletic administration
+the_internal_fracture: none            # consensus around mid-pack stability
+register: earnest-steady
+never_use:
+  - "Irrelevant (6–6 Landmark record proves baseline competence)"
+  - "Weak (joining Landmark in 2023 and achieving .500 shows stability)"
+
+story_canon:
+  the_unique_thing: "Lycoming joined the Landmark Conference in 2023 as a football sponsor, bringing automatic playoff qualification to a regional Pennsylvania program."
+  the_origin: "Lycoming College was founded in 1812 in Williamsport, Pennsylvania. The football program joined the Landmark Conference in 2023, seeking athletic stability and automatic NCAA tournament qualification."
+  golden_ages:
+    - { era: "2023–2025 (Landmark Era)", what: "Joined Landmark and achieved steady mid-pack competence (6–6 Landmark, 9–12 overall)" }
+  legends:
+    - { name: "Landmark Transition", role: "program milestone", why: "Joining Landmark in 2023 provided stability and playoff path for a small-college program" }
+  canonical_moments:
+    - { name: "Landmark Conference joining (2023)", year: 2023, what: "Lycoming joins Landmark for football, unlocking automatic NCAA tournament qualification", handling: glory }
+  the_place: "Girardi Stadium in Williamsport, Pennsylvania — home to the Little League World Series; Lycoming football plays in a community defined by baseball."
+  brand_of_football: "Solid, unspectacular regional football—Lycoming plays competent small-school football without pretension."
+  cultural_footprint: "A regional Pennsylvania program finding home in Landmark Conference; Lycoming represents the stability that comes with joining a stable conference."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Lycoming is in its second season in the Landmark Conference (2023–2025) with a 6–6 Landmark record and 9–12 overall. The program is establishing baseline competence in its new conference home. The 2026 question: can Lycoming improve above .500 and position itself for sustained Landmark contention, or does the program remain a steady mid-tier participant?
+  research_checklist:
+    - Landmark Conference joining (2023)
+    - 6–6 Landmark record (2023–2024 combined)
+    - Girarði Stadium in Williamsport
+  sources:
+    - https://lycomingathletics.com/news/2022/2/10/football-to-join-landmark-conference-in-2023.aspx
+    - https://www.flofootball.com/articles/14438294-how-to-watch-lycoming-football-in-2025
+
+briefing:
+  identity_phrase: Lycoming is the Williamsport, PA school that joined Landmark in 2023—a steady mid-pack program (6–6 Landmark) finding stability in a regional conference.
+  mantra: Warrior Pride.
+  cultural_anchors:
+    fan_archetype_dominant: Williamsport-Warrior-Steady
+    outsider_archetype_dominant: Regional-Solid-Unremarkable
+    one_sentence: Lycoming is the Williamsport, PA program that joined Landmark Conference in 2023, achieving 6–6 Landmark record and steady mid-pack competence.
+  selfname: the Warriors
+  heritage:
+    conference: Landmark
+    championships: None (mid-pack participant)
+  story_materials:
+    always_surface:
+    - Landmark Conference transition (2023)
+    - 6–6 Landmark record (steady baseline)
+    - Williamsport location (Little League World Series town)
+    rituals:
+    - Steady mid-pack identity
+    modules_already_rendering: none (D3 module set pending)
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal (canon-only, D3 small program)

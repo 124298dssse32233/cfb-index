@@ -1,0 +1,70 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+status: live
+slug: south-carolina-state
+team_id: null
+program_name: South Carolina State University
+program_tier: 5
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "South Carolina State is the 2025 HBCU National Champion—Celebration Bowl victors who staged a 21-point comeback in 4 OT against Prairie View A&M, proving the Bulldogs belong at the apex of Black college football."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program that just won the 2025 HBCU National Championship (its seventh Black college title) vs. the expectation that Orangeburg's Bulldogs sustain the climb—where immediate validation meets long-term pressure."
+
+the_wound:
+  name: "The pre-2025 drought"
+  detail: "South Carolina State had won HBCU titles before but hadn't reached the Celebration Bowl in years. The 2025 season (10–3, 5–0 MEAC) ended a long championship absence and silenced doubters about whether the Bulldogs could compete at the highest level of Black college football. The wound was impatience; the cure was 4 OT in December."
+  handling: dated-grievance
+  freshness: this-era
+
+the_dream:
+  text: "Prove the 2025 championship was the beginning of an era, not a one-off—defend the Celebration Bowl in 2026 and establish South Carolina State as the new HBCU power that consistently wins MEAC titles and national championships."
+  drought: { since: 2024, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "The fanbase carries the swagger of champions now. The chip isn't grievance—it's proof. South Carolina State walked into the biggest game in HBCU football and won in 4 OT. No chip needed when you're the reigning HBCU National Champion."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes that the 2025 Celebration Bowl victory is the beginning of a dynasty, not a flash—that SC State has finally reached the level of Howard, Morgan State, and the HBCU elite, and 2026 proves it sustainable."
+
+the_grudge_texture:
+  rival: north-carolina-a-t
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: Dynasty ambition vs. enjoying-the-moment—the faction demanding immediate repeat success vs. those savoring the historic 2025 achievement
+register: orangeburg-bulldogs-celebration-bowl-champions-hbcu-peak
+never_use:
+  - "A middling program" # 2025 HBCU National Champions; 10–3 record, 5–0 MEAC
+  - "No championship tradition" # Seven Black college national titles; 2025 Celebration Bowl winner
+  - "Outshadowed by peers" # Just defeated Prairie View A&M in 4 OT for the national title
+
+story_canon:
+  the_unique_thing: "South Carolina State won the 2025 Celebration Bowl (HBCU National Championship) on December 13, 2025, defeating Prairie View A&M 40–38 in 4 OT. The Bulldogs mounted a historic comeback from a 21-point halftime deficit, the kind of moment that defines generational memory. It's the singular achievement that elevated SC State to the apex of Black college football."
+  the_origin: "South Carolina State University was founded in 1896 in Orangeburg, South Carolina, as an HBCU land-grant institution. The football program was established as part of the athletic tradition. SC State competed in MEAC and built a tradition of competitiveness, culminating in the 2025 national championship."
+  golden_ages:
+    - { era: "1960s–1980s", what: "South Carolina State wins multiple HBCU championships and establishes Orangeburg football tradition" }
+    - { era: "2020–2025", what: "SC State builds toward the 2025 MEAC championship (5–0) and Celebration Bowl victory" }
+    - { era: "2025 National Championship", what: "The Bulldogs win their seventh Black college national title and the 2025 Celebration Bowl in historic 4 OT comeback" }
+  legends:
+    - { name: Chennis Berry, role: coach, why: "Head coach who led South Carolina State to the 2025 MEAC championship and Celebration Bowl victory in his second season" }
+    - { name: QB William Atkins IV, role: player, why: "Led the Bulldogs to the 2025 national championship and the historic 4 OT comeback vs. Prairie View" }
+  canonical_moments:
+    - { name: "2025 Celebration Bowl Victory", year: 2025, what: "South Carolina State defeats Prairie View A&M 40–38 in 4 OT, winning the HBCU National Championship. Historic 21-point comeback from halftime deficit.", handling: glory }
+    - { name: "Perfect MEAC Season (5–0)", year: 2025, what: "SC State wins the MEAC conference championship outright with an undefeated conference record", handling: glory }
+  the_place: "Oliver C. Dawson Stadium in Orangeburg, South Carolina—the home of the Bulldogs, where the 2025 season was celebrated and where the expectation of excellence now rests."
+  brand_of_football: "Championship pride with a comeback identity—SC State plays for Orangeburg, for MEAC dominance, and with the confidence of reigning HBCU National Champions."
+  cultural_footprint: "South Carolina State's contribution to HBCU football in 2025 is proof that any program can reach the summit—the Celebration Bowl victory was an upset, a comeback, and a moment that redefines what SC State believes it can achieve."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: South Carolina State peaked at the perfect moment in December 2025, winning the Celebration Bowl in 4 OT over Prairie View A&M (40–38) after trailing 21 points at halftime. The 2025 regular season was flawless (10–3, 5–0 MEAC), with Head Coach Chennis Berry in his second season leading a roster that finally delivered on HBCU title potential. QB William Atkins IV proved capable of leading clutch moments. The 2026 challenge is immediate: can the Bulldogs defend the national championship, repeat as MEAC champions, and establish South Carolina State as the sustained HBCU power? The window is open; the expectation is set.
+  sources:
+    - https://en.wikipedia.org/wiki/2025_South_Carolina_State_Bulldogs_football
+    - https://www.espn.com/college-football/team/_/id/2589/south-carolina-state-bulldogs
+    - https://www.meacsports.com/sports/football/2025/south-carolina-state-schedule
+    - https://www.celebrationbowl.org/
+

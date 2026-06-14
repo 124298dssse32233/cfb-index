@@ -1,0 +1,83 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: western-oregon
+team_id: null
+program_name: Western Oregon
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: spectacle
+  one_line: "Western Oregon is the Monmouth Wolves—a 100-year football program (since 1923) that lost its GNAC home in 2021, migrated to the Lone Star Conference in 2022, and nearly won the championship in 2025 with a dominant 8–3 regular season."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 66–3 demolition of Sul Ross State and an 8–3 season in the Lone Star Conference vs. the reality that the Wolves are still rebuilding an identity 1,000 miles from home."
+
+the_wound:
+  name: "The 2025 LSC Championship game loss (19–17 to Central Washington)"
+  detail: "Western Oregon went 8–3 in 2025, dominated the LSC in 2nd place (7–2 conference), and then lost the championship game to Central Washington 19–17 on a last-second touchdown—a painful reminder that the Wolves are close to the top but not quite there yet. The wound is fresh and specific: one yard, one second, one yard to go."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Lone Star Conference championship. Prove that the GNAC migration was just a detour, not a permanent loss of identity. Build a Cascade Cup rivalry with Central Washington and make the Wolves the standard in the new league."
+  drought: { since: 2022, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe western Oregon's chip is existential: the GNAC died, and the Wolves had to migrate 1,000 miles to survive. Now they're hungry to prove that the Pacific Northwest program belongs at the top of the Lone Star, not as a transplant, but as a power."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 2025 championship game loss was close enough to convince the Wolves they can win next year. The fanbase knows Central Washington got the better breaks, but they're starting to believe Western Oregon is capable of a title run."
+
+the_grudge_texture:
+  rival: central-washington
+  texture: blood-feud
+  # Central Washington and Western Oregon are Pacific Northwest neighbors now competing in the LSC; the 2025 championship game (19–17) was a blood feud fought a thousand miles from home.
+
+the_coach_relationship: forever-ours
+  # Arne Ferguson, in year 20, is the symbol of continuity and the architect of the GNAC-to-LSC transition.
+
+the_internal_fracture: "Nostalgia for the GNAC era vs. embracing the Lone Star future—how long can the Wolves look back before they need to look forward?"
+
+register: "monmouth-wolf-pacific-northwest-gnac-lsc-cascade-championship"
+
+never_use:
+  - "Western Oregon won the GNAC championship in their last year — program dropped football after 2021; didn't compete in final GNAC season"
+  - "The Wolves are a new program — 100+ years old; established 1923; GNAC member for 70 years before migration"
+  - "2025 was a disappointing season — 8–3, second place in LSC, championship game loss on last-second TD; very strong season"
+  - "The rivalry with Central Washington is recent — both migrated to LSC in 2022 as Pacific Northwest neighbors; natural rivals"
+
+story_canon:
+  the_unique_thing: "A 100-year Pacific Northwest football tradition (since 1923) that was forced to migrate from the GNAC to the Lone Star Conference in 2022, and nearly won the LSC championship in 2025 after going 8–3 and dominating the regular season."
+  the_origin: "Western Oregon University in Monmouth, Oregon (founded 1856); football established in 1923; spent a century building Pacific Northwest tradition."
+  golden_ages:
+    - { era: "1920s–2021 (GNAC era)", what: "100 years of Pacific Northwest football; deep regional tradition and rivalry with Western Washington (Cascade Cup, 62–34–5 all-time WOU lead, 1922–present)" }
+    - { era: "2025", what: "8–3 regular season (7–2 LSC), second place in LSC, championship game loss to Central Washington 19–17 on last-second TD" }
+  legends:
+    - { name: Arne Ferguson, role: coach, why: "Year 20; 109–96 all-time record; symbol of continuity through the GNAC-to-LSC transition" }
+  canonical_moments:
+    - { name: "2025 66–3 Victory vs. Sul Ross State", year: 2025, what: "Dominant LSC opener; largest margin of victory since 1934; showcase of Wolves dominance", handling: glory }
+    - { name: "2025 LSC Championship Game Loss (19–17)", year: 2025, what: "Lost to Central Washington on a last-second TD; second-place finish after 8–3 regular season", handling: heartbreak }
+    - { name: "Cascade Cup Rivalry with Western Washington", year: "1922–present", what: "62–34–5 all-time WOU lead; 100-year Pacific Northwest tradition", handling: glory }
+    - { name: "2021 GNAC Shutdown", year: 2021, what: "Conference dissolution forced migration to Lone Star Conference in 2022", handling: wound }
+  the_place: "McArthur Field in Monmouth, Oregon—a Pacific Northwest stadium in the Willamette Valley, now 1,000 miles from the GNAC but carrying 100 years of tradition."
+  brand_of_football: "Pacific Northwest, tough, disciplined football—a program that defines itself by grit and regional pride."
+  cultural_footprint: "A proof that a West Coast program can transplant to the Lone Star Conference and compete; Western Oregon's 2025 near-championship showed that the migration was successful, if bittersweet."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Western Oregon went 8–3 in 2025 (7–2 LSC, second place) and nearly won the Lone Star Championship, losing to Central Washington 19–17 on a last-second TD pass. Coach Arne Ferguson, in year 20, navigated the 2021 GNAC shutdown and guided the Wolves to a mature program in the LSC by 2025. The Wolves were dominant in the regular season (66–3 vs. Sul Ross State), proving they belong, but fell just short of the crown. The question: can the Wolves learn from the championship game loss and build a title-contending program, or was 2025 the peak of this era?
+  research_checklist:
+    - 2025 record (8–3, 7–2 LSC, second place) ✓
+    - Championship game loss (vs. Central Washington, 19–17) ✓
+    - 66–3 victory vs. Sul Ross State ✓
+    - Arne Ferguson (year 20, 109–96 record) ✓
+    - 100-year program history (since 1923) ✓
+    - GNAC shutdown (2021) and 2022 LSC migration ✓
+    - Cascade Cup rivalry (vs. Western Washington, 62–34–5 all-time WOU lead) ✓
+  sources:
+    - https://en.wikipedia.org/wiki/Western_Oregon_Wolves
+    - https://wouwolves.com/news/2025/9/20/FB20Sept2025.aspx
+    - https://wildcatsports.com/news/2025/11/15/football-wildcats-win-first-lsc-championship-after-19-17-thriller-over-pacific-northwest-rival-western-oregon.aspx

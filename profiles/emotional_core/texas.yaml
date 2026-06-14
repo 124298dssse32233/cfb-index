@@ -1,0 +1,169 @@
+# Emotional Core — Texas  (texas)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+#
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: texas
+team_id: 170
+program_name: Texas
+program_tier: 1
+
+emotional_core:
+  primary: restoration    # the king who was the punchline for a decade, clawed back, swagger laced with proof-watch
+  secondary:              # restoration carries it; the 2025 letdown is the wound
+  core_variant: dynasty-restoration
+  one_line: "Texas spent fifteen years as the sport's punchline, climbed back to the brink under Sarkisian and Arch Manning — and then a 2025 that missed the Playoff turned the swagger into a question."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Four national titles and the sport's wealthiest brand vs no championship since Vince Young in 2005 — and a 2025 that fell short of the Playoff the program now expects."
+
+the_wound:
+  name: "The 2025 letdown — and the decade that made it terrifying"
+  detail: "Back-to-back CFP semifinals had Texas all the way back; then Arch Manning's first full year as starter ended outside the Playoff in 2025 (a New Year's bowl win over Michigan the consolation) — a flicker of the decade-long collapse the program spent years clawing out of."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Close the last gap — an SEC title and the first national championship since Vince Young in 2005."
+  drought: { since: 2005, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Every flicker of struggle reignites the punchline the program wore for a decade — 'Texas is back?' said with a smirk. The fanbase uses it on itself now, but it wants to bury it for good."
+
+the_delusion:
+  tone: earnest
+  text: "That the talent and the Manning name make a title imminent — that the gap to Georgia and the SEC's best is a season, not a rebuild. Fifteen years in the wilderness makes the present feel overdue."
+
+the_grudge_texture:
+  rival: oklahoma
+  texture: blood-feud   # the Red River Showdown — neutral-site Dallas, pure hate
+
+the_coach_relationship: savior   # Steve Sarkisian ended the wilderness and restored the program to the Playoff
+the_internal_fracture: all-the-way-back vs not-yet — believers who think the title is one season away vs the scarred realists who remember the collapse and won't celebrate until there's a ring
+register: confident-texan — institutional swagger aware of the 2010s collapse, moving through it without self-pity; "we know where we've been"
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - plucky
+  - Cinderella
+  - scrappy
+  - underdog
+  - Texas is back without context (the phrase is its own meme)
+  - college-football-royalty-now-slumbering-sleeping-giant register
+  - mocking the burnt orange
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Bevo and the burnt orange — Texas is the wealthiest, largest brand in college football, a program that carries itself as royalty and spent fifteen years failing to back it up. The 2005 Rose Bowl (Vince Young vs USC) is the canon it measures everything against."
+  the_origin: "A flagship that won three titles under Darrell K Royal in the 1960s-70s, then Mack Brown's 2005 championship behind Vince Young — before a decade-long collapse and the Sarkisian restoration + the 2024 move to the SEC."
+  golden_ages:
+    - { era: "1957–1976 (Royal)", what: "Darrell K Royal's three national titles (1963, 1969, 1970) and the wishbone" }
+    - { era: "1998–2009 (Mack Brown)", what: "The 2005 national title behind Vince Young's Rose Bowl" }
+  legends:
+    - { name: Darrell K Royal, role: coach, why: "Three titles and the program's namesake stadium" }
+    - { name: Vince Young, role: player, why: "The 2005 Rose Bowl — the greatest title-game performance in program memory" }
+    - { name: Earl Campbell, role: player, why: "1977 Heisman, the Tyler Rose" }
+  canonical_moments:
+    - { name: "The 2005 Rose Bowl (Vince Young vs USC)", year: 2005, what: "Young's fourth-down run wins the national title over USC", handling: glory }
+    - { name: "The 2010s collapse", year: 2014, what: "A decade in the wilderness that became the 'Texas is back?' punchline", handling: wound }
+  the_place: "Darrell K Royal–Texas Memorial Stadium (cap ~100,119) and Bevo, the live longhorn since 1916. 'Come early, be loud, stay late, wear orange.'"
+  brand_of_football: "Sarkisian's pro-style restoration — and the burnt-orange expectation that Texas, the richest program in the sport, is supposed to win it all."
+  cultural_footprint: "The SEC's newest megabase and one of the largest in the sport; a program whose self-image as royalty survived a fifteen-year drought intact."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After back-to-back CFP semifinals, Texas stepped back in 2025 — Arch
+    Manning's first full season as starter (3,163 yds, 26 TD, 7 INT) ended outside the Playoff, with a New
+    Year's bowl win over Michigan as consolation. Manning returns for 2026 with an improved line, run game, and
+    defense, and the same expectation Sarkisian set: Playoff or bust. The question is whether 2025 was a stumble
+    or a ceiling.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://www.cbssports.com/college-football/news/texas-football-bounceback-2026-season-arch-manning-steve-sarkisian/
+    - https://www.nbcsports.com/college-football/news/arch-manning-texas-longhorns-2025-season-preview-stats-predictions-outlook-for-first-season-as-starting-qb-possible-first-overall-pick
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Texas is the program that spent fifteen years explaining what it used to be, and is now
+    remembering how to speak in present tense.
+  mantra: Hook 'em.
+  cultural_anchors:
+    fan_archetype_dominant: Birthright-Believer
+    outsider_archetype_dominant: Always-Should-Be-Better
+    one_sentence: Texas is the program that spent 15 years convinced it deserved more — and the SEC move
+      is the test of whether the conviction was correct.
+  selfname: the Longhorns
+  aspiration_ladder_top: National Championship
+  rivalries:
+  - oklahoma
+  - texas-am
+  - arkansas
+  - lsu
+  - baylor
+  heritage:
+    national_titles: 4
+    conference_titles: 33
+    current_conference: SEC
+  prose_excerpts:
+    taboos: The 2005 national title is sacred; references should be earned, not casual. The 2010s collapse
+      is a real wound; acknowledge, don't litigate. "The Eyes of Texas" has had an ongoing racial-history
+      conversation that the university has addressed; copy should not flatten that history or treat it glibly.
+      The 2023 Alabama loss (34-24) in Austin is recent wound; the 2024 CFP loss to Washington is also recent.
+      The "Texas is back" meme is used by fans in self-deprecation;…
+    fans_culture: 'The fanbase is the SEC''s newest megabase and one of the largest in college football
+      by any measure. Geography is Texas-dominated (Austin + Dallas–Fort Worth + Houston + San Antonio saturation),
+      with a strong national alumni network concentrated in coastal cities. Gameday register is confident-Texan:
+      the fanbase carries itself with the institutional confidence of a program that has four titles and
+      expects more, and the specific swagger of Texas itself. "The Eyes of Texas" —…'
+    voice_ethos: 'The voice is confident-Texan: institutional, swagger-forward, aware of the 2010s collapse
+      and moving through it without self-pity or defensiveness. Texas doesn''t apologize for expecting to
+      be in the conversation, but the program''s fanbase has had enough self-awareness injected by the collapse
+      years that the voice carries more maturity than the "born on third base" stereotype would suggest.
+      The register is "we know where we''ve been." Identity phrase: **"Texas is the program…'
+    narratives: The 2024 SEC-first-season run (13-3, CFP semifinal) answered the "can Texas play at SEC
+      speed" question. The 2025 and 2026 seasons are about whether the program can close the gap to Georgia,
+      Alabama, and LSU in the SEC title race, and whether Arch Manning (Peyton and Eli's nephew, starter
+      since 2025) can be the program's Vince Young-caliber quarterback. The portal and NIL era have favored
+      Texas — the Texas One Fund has been among the SEC's best-resourced collectives, and…
+    in_jokes: '"Hook ''em" — universal; real hand gesture. "The Eyes of Texas" — alma mater; sung reverently.
+      "Texas Fight" — fight song. "Come early, be loud, stay late, wear orange" — DKR home game instruction
+      to fans. "Texas is back" — meme; used with irony. "Arch" — Arch Manning shorthand; affectionate. "Burnt
+      orange" — color identity, specifically burnt (not pumpkin, not regular orange). "DKR" — the stadium
+      shorthand.'
+  story_materials:
+    legendary_coach: Darrell K. Royal
+    era_name_overrides:
+      1893-1956: The Pre-Royal Decades
+      1957-1976: The Royal Era
+      1977-1997: The Wilderness (post-Royal)
+      1998-2013: The Mack Brown Era
+      2014-2020: The Collapse
+      2021-: The Sarkisian Restoration
+    always_surface:
+    - 4 national championships (1963, 1969, 1970, 2005)
+    - 2 Heisman winners (Earl Campbell 1977, Ricky Williams 1998)
+    - 33 claimed conference championships across SWC + Big 12
+    - SEC member since 2024 (conference realignment)
+    - Darrell K Royal-Texas Memorial Stadium — ~100,119 capacity
+    - Bevo — the live Texas longhorn steer mascot, continuous since 1916
+    - The 2005 Rose Bowl (Vince Young vs. USC) — canonical national title game
+    - Red River Showdown vs. Oklahoma — annual neutral-site in Dallas
+    rituals:
+    - Hook 'em Horns (the hand sign)
+    - Bevo (the longhorn steer)
+    - The Eyes of Texas
+    - Smokey the Cannon
+    - Texas Fight (fight song)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

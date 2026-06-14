@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: shorter
+team_id: null
+program_name: Shorter University
+program_tier: 6
+
+emotional_core:
+  primary: grievance
+  secondary: restoration
+  one_line: "Shorter is the program in free fall — a transition year into Conference Carolinas that saw a catastrophic 6-5 to 2-9 collapse in one season, now fighting to stabilize before the program becomes unsalvageable."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A university in Rome, Georgia, that maintained a competitive football program before transitioning to NCAA Division II and Conference Carolinas, only to experience a dramatic collapse in its first season."
+
+the_wound:
+  name: "The 2024-2025 catastrophic collapse"
+  detail: "Shorter was 6-5 in 2024 (non-NCAA). In 2025, its first year competing in Conference Carolinas (NCAA Division II), the Hawks went 2-9 with a 1-5 conference record. A four-win swing represents a program in crisis. The wound is the sudden, dramatic fall and the fear that the transition broke something fundamental."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "A recovery season that shows the 2024-2025 drop was a transition anomaly, not the new normal — climb back to five wins and prove Shorter football can stabilize."
+  drought: { since: 2025, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Shorter needs a reset. The program is in introspection mode and needs to rebuild identity after the transition trauma."
+
+the_delusion:
+  tone: earnest
+  text: "Fans hope the coaching change or program reset can fix what broke. They remember 6-5 and believe the program can get back there — but faith is fragile after the 2-9 fall."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Zach Morrison's direction vs transition chaos — the tension between the coach's system and the institutional disruption of moving to a new conference."
+register: georgia-hawk-transition-collapse
+never_use:
+  - Stable program — Shorter went from 6-5 to 2-9 in one year; stability is not the current descriptor
+  - Established D2 competitor — 2025 is the first year in NCAA D2; too early to establish
+  - Likely successful — the collapse is acute; recovery is uncertain
+
+story_canon:
+  the_unique_thing: "A university that maintained competitive non-NCAA football and then experienced a catastrophic transition to NCAA Division II and Conference Carolinas in 2025."
+  the_origin: "Shorter University in Rome, Georgia, has competed in football for decades at various competitive levels."
+  golden_ages:
+    - { era: "2024 (non-NCAA era)", what: "6-5 record before transitioning to NCAA Division II" }
+  legends: []
+  canonical_moments:
+    - { name: "2024 non-NCAA season", year: 2024, what: "Final season before transitioning to NCAA Division II", handling: glory }
+  the_place: "Rome, Georgia — a city in northwest Georgia with a historic university."
+  brand_of_football: "The program is rebuilding its identity after transition disruption; historically, it was competitive at lower levels."
+  cultural_footprint: "Shorter represents the challenge of transitioning from non-NCAA to NCAA Division II and the instability that comes with major competitive moves."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Under head coach Zach Morrison (8 seasons), Shorter finished
+    2-9 in 2025 (1-5 Conference Carolinas) in its first year competing in NCAA Division II. The dramatic
+    collapse from 6-5 in 2024 to 2-9 in 2025 represents either a major transition disruption or fundamental
+    problems with the program. Morrison is an eight-year coach with previous success, but the 2025 season
+    raises serious questions about whether the NCAA Division II transition can be recovered from. The 2026
+    season is critical: either Shorter stabilizes and climbs toward .500, or the program enters a deeper
+    spiral.
+  research_checklist:
+    - Transition to NCAA Division II in 2025 verified
+    - 2024 record (6-5, pre-NCAA)
+    - 2025 record (2-9, 1-5 CC)
+    - Zach Morrison tenure (8 seasons)
+    - Conference Carolinas membership
+  sources:
+    - https://www.shorteruniversity.edu/
+    - https://en.wikipedia.org/wiki/Shorter_Hawks_football
+    - https://www.conference-carolinas.org/

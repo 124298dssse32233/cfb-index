@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Thomas More University — G-MAC newest full D2 member, first varsity 1990, first D2 game 2023
+
+status: live
+slug: thomas-more
+team_id: null
+program_name: Thomas More University
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Thomas More is the Saints program in its D2 infancy — full NCAA Division II member as of 2025-26 — a Catholic school playing meaningful football for the first time in the modern era."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A program with only 36 years of football history (first varsity 1990) and just three years in NCAA Division II (since 2023) vs. multi-generation D2 rivals; Thomas More plays with the joy of a program finding its level."
+
+the_wound:
+  name: "The provisional years and the growing pains"
+  detail: "Thomas More began football in 1990 as an NAIA program and spent nearly 33 years outside NCAA Division II before receiving full membership in 2025. The program's first D2 game was in 2023 with a victory (37-0 vs UVA Wise), but three seasons of low-conference finishes and a 1-10 record in 2025 underscore how new and fragile the program remains."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Become a .500 Division II program that represents Thomas More University with pride and stability, graduating student-athletes who value the opportunity over championship expectations."
+  drought: { since: 1990, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe thomas More has no chip — the program is playing in an era of growth and foundation-building, not championship contention."
+
+the_delusion:
+  tone: none
+  text: null
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "Patience vs. improvement — Thomas More must accept the learning curve of full D2 membership while working toward consistent competitive seasons."
+register: saints-thomas-more-kentucky-catholic-new
+
+never_use:
+  - "Elite D2 program or championship contender: Thomas More has never won a D2 conference title"
+  - "Historic football powerhouse: the program is in its infancy, only three seasons into D2"
+  - "NAIA equivalent: Thomas More is now full NCAA D2, no longer provisional"
+
+story_canon:
+  the_unique_thing: "A program in its D2 infancy — Thomas More became a full NCAA Division II member in 2025-26, having earned provisional membership in 2021 and played its first D2 game in 2023. The Saints represent a small Catholic school beginning a new chapter in intercollegiate athletics."
+  the_origin: "Thomas More University began its football program in 1990 as an NAIA institution in Fort Mitchell, Kentucky. The program played NAIA football for 33 seasons, building a modest program within the college's Catholic educational mission. In 2021, Thomas More applied for NCAA Division II membership, received provisional status, played its first D2 game in 2023, and earned full D2 membership in 2025."
+  golden_ages:
+    - { era: "1990–2022", what: "NAIA era — 32 seasons of small-college football building institutional identity" }
+    - { era: "2023–present", what: "NCAA Division II beginning — three seasons of D2 competition and adjustment to higher level" }
+  legends:
+    - { name: Chris Norwell, role: coach, why: "Fourth-year head coach navigating Thomas More's transition to full NCAA Division II membership" }
+  canonical_moments:
+    - { name: "1990 First Varsity Season", year: 1990, what: "Thomas More launches its football program in the NAIA", handling: glory }
+    - { name: "2023 First D2 Game", year: 2023, what: "Thomas More defeats UVA Wise 37-0 in its first NCAA Division II game", handling: glory }
+    - { name: "2025-26 Full D2 Membership", year: 2025, what: "Thomas More earns full NCAA Division II membership after provisional status (2021-2025)", handling: glory }
+  the_place: "Fort Mitchell, Kentucky — home of Thomas More University, a small Catholic institution in the Cincinnati metro area."
+  brand_of_football: "Foundational Division II football rooted in Catholic values and the determination to build something real from recent beginnings."
+  cultural_footprint: "Thomas More represents the emerging D2 program: a school committed to intercollegiate athletics as part of its educational mission, growing into Division II with patience and purpose."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Thomas More enters 2026 as a first-year full NCAA Division II member. Head Coach Chris Norwell (fourth year) is navigating the program's first full season with all-D2 resources and scheduling. The 2025 season (1-10 overall, 1-8 G-MAC, last place) was difficult but unsurprising for a program in its D2 infancy. The Saints are three years into D2 competition and must focus on development, recruiting, and building the infrastructure that transforms programs from bottom-feeder to competitive. The first D2 victory (37-0 vs. UVA Wise in 2023) established that Thomas More can win at this level; the challenge is consistency and sustainability. Every season is a learning opportunity for a program that just earned full membership.
+  research_checklist:
+    - 1990 first varsity season (NAIA)
+    - 2021 applied for NCAA D2 membership
+    - 2023 first NCAA D2 game (37-0 win vs. UVA Wise)
+    - 2025-26 full NCAA D2 membership granted
+    - 2025: 1-10 overall, 1-8 G-MAC
+    - Coach Chris Norwell (4th year)
+  sources:
+    - https://www.thomasmore.edu/athletics/football
+    - https://d2football.com/2025-season-preview
+    - https://www.gmacports.com/news/

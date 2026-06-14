@@ -1,0 +1,114 @@
+# Emotional Core — Bethune-Cookman  (bethune-cookman)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: bethune-cookman
+team_id: 12
+program_name: Bethune-Cookman
+program_tier: 3
+
+emotional_core:
+  primary: restoration   # Raymond Woodie Jr. rebuilding in year three with an 11-24 career record; program joined SWAC in 2021 from MEAC
+  secondary: redemption  # 2010 and 2013 black college national championships prove the program can win
+  core_variant: perpetual-rebuild  # SWAC transition is difficult
+  one_line: "Bethune-Cookman is the Florida HBCU that won black college national championships in 2010 and 2013 — now rebuilding in the SWAC (since 2021) under Raymond Woodie Jr. in year three, searching to return to national prominence."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Two black college national championships (2010, 2013) and a proud HBCU history in Daytona Beach vs an 11-24 record in three seasons under Woodie and the SWAC transition after decades in the MEAC."
+
+the_wound:
+  name: "The MEAC-to-SWAC transition struggle"
+  detail: "Bethune-Cookman joined the SWAC in 2021 after four decades in the MEAC. The program won national championships in 2010 and 2013, but the transition to the SWAC has been difficult. Raymond Woodie Jr. is in year three with an 11-24 record, searching for the formula to make the Wildcats competitive in a larger conference."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Find SWAC competitiveness; honor the 2010 and 2013 championship legacy; return to national championship conversation; prove that Bethune-Cookman is a SWAC power, not a MEAC leftover."
+  drought: { since: 2013, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe bethune-Cookman won national championships in 2010 and 2013 and knows that standard. The chip is that the transition from MEAC to SWAC has been rough, but the program refuses to accept that it's a lesser tier; the next championship is in the SWAC conversation."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that a program with two black college national championships is always capable of competing for titles — that the MEAC-to-SWAC transition is temporary and the next chapter is about restoring national championship contention."
+
+the_grudge_texture:
+  rival: florida-a-m
+  texture: championship   # both are Florida HBCUs with championship histories
+
+the_coach_relationship: hot-seat-churn   # Raymond Woodie Jr. is year three with an 11-24 record; the program may be searching
+the_internal_fracture: patience with woodie vs new-direction — the faction that says SWAC transition is difficult vs the faction that says 2010 and 2013 proved the program's standard and it should be met
+register: championship-memory-program — 2010 and 2013 are the anchors
+never_use:   # LAW — do not violate in any authored line
+  - one-hit-wonder framing (two national championships, four decades in MEAC with multiple titles)
+  - scrappy
+  - just trying to have fun
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep canon ──
+story_canon:
+  the_unique_thing: "Bethune-Cookman is the Daytona Beach HBCU that won black college national championships in 2010 and 2013 while competing in the MEAC. The program joined the SWAC in 2021 after four decades in the MEAC and is working to transition into the larger conference. Bethune-Cookman founded football in 1925 and has maintained a continuous tradition in the sport."
+  the_origin: "A historically black university in Daytona Beach, Florida that began football in 1925 and competed in the MEAC for four decades before joining the SWAC in 2021. Bethune-Cookman built itself into a MEAC power with multiple national championships."
+  golden_ages:
+    - { era: "2010 (national championship)", what: "Bethune-Cookman won the black college national championship" }
+    - { era: "2013 (national championship)", what: "Bethune-Cookman won the black college national championship" }
+    - { era: "2021–2025 (SWAC transition)", what: "The program transitions to a larger conference and works to establish itself" }
+  legends:
+    - { name: Wildcats, role: mascot, why: "The program's identity in Daytona Beach" }
+  canonical_moments:
+    - { name: "The 2010 national championship", year: 2010, what: "Bethune-Cookman won the black college national championship in the MEAC", handling: glory }
+    - { name: "The 2013 national championship", year: 2013, what: "Bethune-Cookman won the black college national championship in the MEAC", handling: glory }
+    - { name: "SWAC membership", year: 2021, what: "Bethune-Cookman joined the SWAC after four decades in the MEAC", handling: glory }
+  the_place: "Daytona Stadium in Daytona Beach, Florida (cap 10,000); home of the Wildcats."
+  brand_of_football: "Championship-proven-in-transition: a program that won two national championships in the MEAC and is now working to establish itself in the SWAC."
+  cultural_footprint: "Bethune-Cookman is the Daytona Beach HBCU with two black college national championships and a foundation of success. The transition to the SWAC in 2021 represents a new chapter, and the program is working to establish itself in the larger conference."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Bethune-Cookman has gone 11-24 (.314) under head coach Raymond Woodie Jr. in
+    three seasons while transitioning from the MEAC to the SWAC (joined 2021). The program won back-to-back national
+    championships in 2010 and 2013 while in the MEAC, proving the capability to win at the HBCU national level. The
+    transition to the SWAC has been challenging, and Woodie is tasked with rebuilding the Wildcats into a SWAC
+    contender and returning to the national championship conversation.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Bethune%E2%80%93Cookman_Wildcats_football
+    - https://en.wikipedia.org/wiki/2025_Bethune%E2%80%93Cookman_Wildcats_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Bethune-Cookman is the Daytona Beach HBCU with 2010 and 2013 national championships; transitioning to SWAC.
+  mantra: Go Wildcats.
+  cultural_anchors:
+    fan_archetype_dominant: Championship-Memory-Keeper
+    outsider_archetype_dominant: Program-In-Transition
+    one_sentence: Bethune-Cookman is the Florida HBCU that won black college national championships in 2010 and 2013.
+  selfname: the Wildcats
+  aspiration_ladder_top: ''
+  rivalries:
+  - florida-a-m
+  heritage:
+    national_titles: 2
+    conference_titles: null
+    current_conference: SWAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2010 black college national championship
+    - 2013 black college national championship
+    - SWAC membership (since 2021, transferred from MEAC)
+    rituals:
+    - Annual SWAC competition
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

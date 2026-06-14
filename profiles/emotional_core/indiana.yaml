@@ -1,0 +1,139 @@
+# Emotional Core — Indiana  (indiana)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+#
+# AUTHORED 2026-06-13 (first real pass, status: drafted) from live web research — see story_canon.sources.
+# CORE SHIFT: the seed below captured the 2024 Cinderella (11-1). Indiana then went 16-0 and WON the 2025
+# national title — the core moved lovable-have-not -> disbelief. A live demo of the "cores shift" rule
+# (doc 63 §8) + the currency rule (doc 65 §4). Sensitive fields need owner sign-off before reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: indiana
+team_id: 201
+program_name: Indiana
+program_tier: 4
+
+emotional_core:
+  primary: disbelief      # the basketball school that won a football national title and still can't say it out loud
+  secondary: standard     # disbelief curdling into a brand-new, terrifying expectation
+  one_line: "Indiana is the reigning national champion — a sentence a century-long basketball school still has no muscle memory for saying."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "One conference title in 130 years of football vs a 16-0 national championship — and the brand-new burden of having to prove it wasn't lightning in a bottle."
+
+the_wound:
+  name: "A century as the Big Ten's football afterthought"
+  detail: "From 1887 to 2023 Indiana had never won 11 games or reached the playoff; the football program was a punchline at a basketball blue blood. Cignetti inverted it in two seasons — but the long irrelevance is the backdrop every win is still measured against."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Prove it's real — that a 'basketball school' can stay a national power, not regress to a century of mean."
+  drought: { since: 2025, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The same voices who called 2024 a fluke and 2025 a soft schedule are still waiting for Indiana to fall back to earth. Cignetti's answer — roughly, 'I win, look it up' — became the fanbase's whole posture."
+
+the_delusion:
+  tone: earnest
+  text: "That one title makes Indiana a permanent power — that the basketball school is a football school now, for good. After 130 years of nothing, the fanbase has earned the right to believe it."
+
+the_grudge_texture:
+  rival: purdue
+  texture: border-war   # the Old Oaken Bucket — in-state, the one rivalry that predates the relevance
+
+the_coach_relationship: savior   # Curt Cignetti IS the program's relevance — 27-2 in two years, the architect
+the_internal_fracture: permanent-power vs impostor-syndrome — the believers who think the title made Indiana a blue blood vs the hedgers braced for regression to the mean
+register: a basketball school that won it all — disbelieving swagger, Cignetti-blunt, allergic to being called a fluke
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Football is an afterthought — Curt Cignetti's 2024 ended that
+  - Basketball-only program — 11-win 2024 contradicts permanently
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The basketball school that won a football national title. Indiana — one conference title in its first 130 years of football — went 16-0 in 2025 behind a 64-year-old former James Madison coach and the school's first Heisman winner. The most improbable champion in modern college football."
+  the_origin: "A basketball blue blood (the Bob Knight legacy) whose football program was a century-long Big Ten punchline — until Curt Cignetti arrived from James Madison in 2024, went 11-1 for the first CFP berth in program history, then 16-0 for the title."
+  golden_ages:
+    - { era: "2024–2025 (Cignetti)", what: "An 11-1 first-ever CFP appearance, then a 16-0 national championship — the program's entire golden age compressed into two seasons" }
+  legends:
+    - { name: Curt Cignetti, role: coach, why: "Arrived from James Madison and built the most improbable champion in modern CFB in two years (27-2)" }
+    - { name: Fernando Mendoza, role: player, why: "Quarterback, the school's first Heisman winner, the trigger of the 16-0 title" }
+  canonical_moments:
+    - { name: "The 16-0 title", year: 2025, what: "Indiana beats Miami 27-21 for its first national championship, never trailing in the playoff — routing Alabama 38-3 and Oregon 56-22 en route", handling: glory }
+    - { name: "The first CFP berth", year: 2024, what: "An 11-1 debut under Cignetti — the first playoff appearance in program history", handling: glory }
+  the_place: "Memorial Stadium (the Crimson Out) — for a century the quietest big stadium in the Big Ten, suddenly its loudest."
+  brand_of_football: "Cignetti's process: proven veteran production over recruiting-ranking upside, players who absorb coaching immediately — the portal-era blueprint rivals are now openly copying."
+  cultural_footprint: "Living proof that the portal era can let a 'basketball school' win it all in two years — the most-studied program-building case in the sport."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Indiana is the reigning national champion (16-0, 2025), the first 16-0
+    modern major champion — beating Alabama 38-3, Oregon 56-22, and Miami 27-21 in the final, never trailing in
+    the playoff, behind Heisman QB Fernando Mendoza. Cignetti (27-2 in two years, ex-James Madison) says his
+    "total focus" is 2026, where Indiana is favored to return to the CFP. The question is no longer "do they
+    belong" but "can a program with no muscle memory for this defend it" — disbelief hardening into expectation.
+    (Supersedes the 2024-era seed below, which predates the title.)
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Indiana_Hoosiers_football
+    - https://www.cbssports.com/college-football/news/indiana-blueprint-curt-cignetti-college-football-playoff-national-championship/
+    - https://www.cbssports.com/college-football/news/curt-cignetti-focused-next-for-indiana/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+# NOTE 2026-06-13: the briefing below is the 2024-CINDERELLA seed (pre-title). The current arc is in
+# story_canon.the_ongoing_story above. Left intact as the original seed record.
+briefing:
+  identity_phrase: Indiana is the basketball school whose football team won 11 games in 2024 and made the
+    College Football Playoff — the most-improbable season of the playoff era.
+  mantra: Go IU.
+  cultural_anchors:
+    fan_archetype_dominant: Bloomington-Basketball-First-Football-Convert
+    outsider_archetype_dominant: Where-Is-IU-Football-Diminisher
+    one_sentence: Indiana is the basketball school whose Curt Cignetti 2024 football season — 11-1, CFP
+      appearance, the first ever — rewrote the program's entire identity in three months.
+  selfname: the Hoosiers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2024 11-1 + CFP appearance under Curt Cignetti
+    - Curt Cignetti's James Madison-to-IU career arc
+    - The first 11-win season in program history
+    rituals:
+    - Curt Cignetti Era (2024-)
+    - Old Oaken Bucket (vs Purdue)
+    - Memorial Stadium Crimson Out
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (50/100, n=194)
+    distinctive_terms:
+    - miami
+    - cignetti
+    - notre
+    - notre dame
+    - dame
+    - tech
+    - north
+    - big ten
+    - ten
+    - opponents
+    - mississippi
+    - atlantic
+    sample_quote: 'Tonight’s Menu: CFP National Championship Miami vs Indiana 7:30pm ET | ESPN'
+    voice_profile: present
+    delusion_premium: absent

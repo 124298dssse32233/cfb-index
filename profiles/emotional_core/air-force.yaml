@@ -1,0 +1,121 @@
+# Emotional Core — Air Force  (air-force)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: air-force
+team_id: 193
+program_name: Air Force
+program_tier: 3
+
+emotional_core:
+  primary: honor          # the academy mission first; football is the salute, the trophy is the prize
+  secondary: restoration  # claw back the Commander-in-Chief's Trophy after a 4-8 slip
+  one_line: "Air Force plays football the way the Academy does everything — disciplined, undersized, and aimed at one trophy that means more than any ranking: the Commander-in-Chief's, decided against Army and Navy."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "The service-academy team that fields 5,000 future officers against rosters stocked with NFL bodies — built to win the Trophy and bowl games, never to chase a national title it was never structured to reach."
+
+the_wound:
+  name: "The 2025 slide and a Trophy handed to Navy"
+  detail: "After winning 19 straight season openers, the Falcons cratered to 4-8 in 2025 — their defense finally tightened late, but a 34-31 loss to Navy in El Paso handed the Commander-in-Chief's Trophy to Annapolis, the prize the Academy measures its falls against."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win back the Commander-in-Chief's Trophy from Navy and Army, return to a December bowl, and prove the triple-option still bends bigger, faster programs at altitude."
+  drought: { since: 2023, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Falcons fans say the talking heads write the academy off every August — too small, too slow, the offense from another century — then act surprised when those cadets out-discipline a more talented roster on a Saturday in Colorado Springs."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes effort, conditioning, and altitude can erase a recruiting-star gap that a spreadsheet says is unbridgeable — that a roster of future officers, drilled to the snap, can simply out-want anyone."
+
+the_grudge_texture:
+  rival: navy
+  texture: championship   # the Commander-in-Chief's Trophy three-way — the only title that truly matters here
+the_coach_relationship: total-trust   # Troy Calhoun, an academy grad, is institution as much as coach
+the_internal_fracture: tradition vs adaptation — the faction that wants the option run pure and the Trophy defended above all vs the faction that says the academy must modernize the offense and embrace the portal to stop the 4-8 seasons
+register: colorado-springs-falcons-service-academy-triple-option   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Old-fashioned program — Troy Calhoun's 2007-present competitive cycles disprove
+  - Triple-option doesn't work — multiple Mountain West contention seasons prove it
+    does
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Air Force runs the triple option at 7,258 feet with a roster of cadets who will commission as officers — the program where the offense, the altitude, and the institution are all the same argument: that discipline and conditioning can beat raw talent on the right Saturday."
+  the_origin: "Founded with the Academy in 1955 and elevated by Fisher DeBerry (1984-2006), who turned the wishbone into a permanent Mountain West weapon and made the Falcons the winningest of the three service academies in head-to-head Trophy play."
+  golden_ages:
+    - { era: "1984–2006 (Fisher DeBerry)", what: "169 wins, a 1985 12-1 season and Bluebonnet Bowl, and the most Commander-in-Chief's Trophies of any academy" }
+    - { era: "2007–present (Troy Calhoun)", what: "An academy grad's two-decade run of bowl trips, 10-win seasons, and sustained Mountain West relevance" }
+  legends:
+    - { name: Fisher DeBerry, role: coach, why: "Built the modern Falcons; 169 wins and the option identity the program still runs" }
+    - { name: Troy Calhoun, role: coach, why: "Academy graduate, 19 seasons, the longest-tenured coach in program history and a living institution" }
+    - { name: Chad Hennings, role: player, why: "Outland Trophy winner, fighter pilot, A-10 combat veteran — the literal embodiment of the academy ideal" }
+  canonical_moments:
+    - { name: "The 1985 12-1 season", year: 1985, what: "DeBerry's peak — a Bluebonnet Bowl win and a top-5 ranking, the high-water mark of academy football", handling: glory }
+    - { name: "The 19-game opening-day streak", year: 2025, what: "Air Force opened a season with a win for the 19th straight year — second-longest in the nation behind Ohio State — before the 2025 slide", handling: glory }
+  the_place: "Falcon Stadium, carved into the Rampart Range at 7,258 feet — the thin Colorado air is a recruited advantage, plus the cadet wing, the fly-overs, and the parachute team dropping the game ball."
+  brand_of_football: "Triple-option precision — assignment football run by future officers; misdirection, cut blocks, and conditioning weaponized to wear down bigger, more talented rosters by the fourth quarter."
+  cultural_footprint: "Football as the Academy's most visible recruiting and pride ritual — every Saturday a salute, every senior a commissioning officer, the Trophy a measure of service-branch honor rather than a poll."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Air Force went 4-8 (3-5 Mountain West) in 2025, Troy Calhoun's 19th
+    season — a 1-5 start that the defense salvaged late, holding five of the last six opponents under 21 points.
+    A 34-31 loss to Navy handed the Commander-in-Chief's Trophy to Annapolis. Entering 2026, Calhoun — now
+    the dean of academy coaches — faces the question of whether a triple-option roster can still win the
+    Trophy and reach a bowl in the portal era, or whether the model needs modernizing to stop the slide.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Air_Force_Falcons_football_team
+    - https://goairforcefalcons.com/news/2025/12/22/football-looking-back-at-2025-air-force-finishes-season-4-8-overall
+    - https://en.wikipedia.org/wiki/Commander-in-Chief's_Trophy
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Air Force is the Colorado Springs service academy whose Troy Calhoun triple-option longevity
+    + Commander-in-Chief's Trophy competition + Falcon Stadium altitude define what mountain-west service-academy
+    football looks like.
+  mantra: Go Air Force.
+  cultural_anchors:
+    fan_archetype_dominant: Colorado-Springs-Falcon-Loyalist
+    outsider_archetype_dominant: Triple-Option-Diminisher
+    one_sentence: Air Force is the Colorado Springs service academy whose Falcon Stadium altitude + triple-option
+      offensive identity + Troy Calhoun longevity + Commander-in-Chief's Trophy dominance make the program
+      a permanent Mountain West fixture.
+  selfname: the Falcons
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1985 12-1 + Bluebonnet Bowl +
+    - Troy Calhoun 2007-present longevity tenure
+    - Commander-in-Chief's Trophy 20+ wins (most of any service academy)
+    rituals:
+    - Falcon Stadium Altitude (6,621 ft)
+    - Commander-in-Chief's Trophy Competition
+    - Troy Calhoun Tenure (2007-present)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (52/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

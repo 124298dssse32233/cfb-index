@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Emotional Core — soul file for Central Missouri Mules (MIAA)
+
+status: live
+slug: central-missouri
+team_id: null  # D2 — not in FBS registry
+program_name: Central Missouri
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Central Missouri is the MIAA foundation program — a charter member that built the conference and plays for the tradition of steady, respected football in the heartland."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A program with eight conference championships and forty years of MIAA existence, competing year after year in a conference built by its peers, never quite cresting the national stage but never wavering from the mission."
+
+the_wound:
+  name: "The national-title ceiling — a power within the MIAA that hasn't reached the national podium"
+  detail: "Central Missouri has been a consistent MIAA competitor — eight conference titles, multiple bowl games — but has never won a national championship. It's the wound of the steady program: excellence at the regional level, never the breakthrough that echoes nationally."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "End the national-title drought — prove the Mules belong among D2's elite, not just the MIAA's reliable backbone."
+  drought: { since: 2002, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "No chip — just the quiet satisfaction of belonging. The Mules know what they are: stewards of the game in the heartland, building young men, winning conference games. That's the dream."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the next portal haul could be the one that breaks through — that Central Missouri's steady, unsexy build could surprise a playoff field. They know it's a long shot, and play it anyway."
+
+the_grudge_texture:
+  rival: northwest-missouri-state
+  texture: championship
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "stability vs. ambition — a program that has settled into competence, with fans debating whether to push harder or trust the build"
+register: mule-heartland-steady-conference-anchor
+never_use:
+  - "Always a doormat (eight MIAA titles disprove)"
+  - "Playing for scraps (consistently makes bowl games)"
+  - "No history (charter MIAA member since 1912)"
+
+story_canon:
+  the_unique_thing: "Central Missouri is a MIAA charter member (1912) and the conference's organizational backbone — the program that helped build the MIAA and has never left. Eight conference titles, the steady hand in the room."
+  the_origin: "Founded as the Missouri State Normal School in Warrensburg in 1905, the football program joined the MIAA in 1912 and has remained ever since. Mule athletics became the identity — a program built on tradition, not flash."
+  golden_ages:
+    - { era: "1970s–1980s", what: "Multiple MIAA championships and consistent regional relevance under legendary coaches" }
+    - { era: "2010s", what: "Bowl games and All-MIAA rosters under Josh Lamberson's steady rebuild" }
+  legends:
+    - { name: "Josh Lamberson", role: "coach", why: "Rebuilt Central Missouri after a down period; 11 All-MIAA selections in 2025 alone" }
+  canonical_moments:
+    - { name: "2002 MIAA Championship", year: 2002, what: "Last conference title; the program's most recent postseason run", handling: glory }
+    - { name: "Forty Consecutive MIAA Seasons", year: 2025, what: "Unbroken membership in the conference since 1912", handling: glory }
+  the_place: "Audrey J. Walton Stadium (formerly Vernon Kennedy Field), home to the Marching Mules band and the heartbeat of Warrensburg football."
+  brand_of_football: "Steady, developmental, conference-anchored — football built on recruiting and player development, not shortcuts."
+  cultural_footprint: "The MIAA charter program that proved a small state university could build a competitive football culture and sustain it for over a century."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Central Missouri went 5-6 overall, 5-4 in the MIAA in 2025 — a middle-of-the-pack season that reflects the program's perennial plateau. Josh Lamberson is in his fourth year of rebuild, and the Mules fielded 11 All-MIAA selections, including Freshman Omolo. The question in Warrensburg: can this talent base push back to conference contention, or are the Mules settling into the steady-but-unfulfilled identity?
+  research_checklist:
+    - MIAA charter member status (1912) and unbroken conference affiliation
+    - Eight conference championships across decades
+    - Josh Lamberson rebuild arc (2022–present)
+    - The Marching Mules band tradition
+    - Bowl-game history and recent competitive trends
+  sources:
+    - https://en.wikipedia.org/wiki/Central_Missouri_Mules_football
+    - https://www.ucmathletics.com/
+    - https://themiaa.com/
+    - https://www.d2football.com/

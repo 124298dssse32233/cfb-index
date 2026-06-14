@@ -1,0 +1,70 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+status: live
+slug: quincy
+program_name: Quincy University
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: contentment
+  one_line: "Quincy is the program that walked from NAIA into the GLVC and found a rival it never left — 150 years of McKendree, and finally a trophy to prove it."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small Illinois university with a 150+ year rivalry and a brand-new conference home — the Hawks are still figuring out their GLVC identity, but the rivalry with McKendree is forever."
+
+the_wound:
+  name: "The NAIA-to-GLVC transition and immediate mediocrity"
+  detail: "Quincy moved to NCAA Division II and the GLVC, expecting to compete. Instead, 2024 was a rebuilding year (5-3 conference-best in program history), and 2025 was a solid 6-5. The wound is the gap between expectation and reality — Quincy believed the move would unleash competitive success faster."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the 'Battle for the Land of Lincoln' and prove the GLVC move was the right choice. Get to .500 and build toward a playoff berth."
+  drought: { since: 1993, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is McKendree. Always. 150 years of history, and now there's a trophy. Beating McKendree annually is not destiny — it's obsession."
+
+the_delusion:
+  tone: earnest
+  text: "That Quincy is just one recruiting cycle away from dominating the GLVC. Fans know the move is recent, but they also remember NAIA success and believe it transfers."
+
+the_grudge_texture:
+  rival: mckendree
+  texture: blood-feud
+  # "Battle for the Land of Lincoln" — 150+ year rivalry; Quincy won 2024 inaugural 34-10, lost 2025 21-24
+
+the_coach_relationship: hot-seat-churn
+  # Jason Killday is in his second season; Quincy has churned coaches in the transition
+
+the_internal_fracture: "naia-legacy-vs-d2-ambition — the faction proud of NAIA success and wanting to stay in that lane vs the faction that sees the GLVC move as the path forward"
+
+register: glvc-transition-top-hat-rivalry-hawks-illinois
+
+never_use:
+  - '"The Land of Lincoln rivalry is new" — 150+ years of history; 2024 just added the trophy'
+  - '"Quincy is irrelevant" — the program won the 2024 inaugural trophy game and has consistent record-building momentum'
+
+story_canon:
+  the_unique_thing: "A 150+ year rivalry with McKendree for the 'Battle for the Land of Lincoln' and a steel top-hat trophy — one of the most storied small-college rivalries in America, now formalized in 2024."
+  the_origin: "Quincy University was founded in 1860 in Quincy, Illinois. Football became part of the program's identity in the early 1900s. The school spent decades in NAIA conferences, building a reputation as a solid small-college competitor."
+  golden_ages:
+    - { era: "NAIA Era (1970s–2020s)", what: "Consistent NAIA competition and regional success; the Hawks were a known quantity in small-college football" }
+    - { era: "2024 GLVC Inaugural (Land of Lincoln)", year: 2024, what: "Quincy won the inaugural 'Battle for the Land of Lincoln' trophy game 34-10 over McKendree", handling: glory }
+  legends: []
+  canonical_moments:
+    - { name: "2024 Battle for the Land of Lincoln Inaugural Win", year: 2024, what: "Quincy defeated McKendree 34-10 in the first-ever championship game for the steel top-hat trophy", handling: glory }
+    - { name: "Transition to GLVC (2024)", year: 2024, what: "Quincy left NAIA and joined NCAA Division II and the Great Lakes Valley Conference", handling: miracle }
+  the_place: "Quincy, Illinois — on the banks of the Mississippi River, where the Hawks have played for over 160 years."
+  brand_of_football: "Rebuilding competitiveness in a tougher conference; the program plays with pride for its NAIA legacy and optimism for the GLVC future."
+  cultural_footprint: "Quincy proved that NAIA success could translate to NCAA D-II; the program is still writing that story."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Quincy went 6-5 in 2025, a solid season under Jason Killday. The Hawks lost the 2025 Battle for the Land of Lincoln 21-24
+    to McKendree after winning the inaugural 2024 game 34-10. The rivalry is now the emotional center of Quincy's season; the program's success in the GLVC
+    hinges on fixing that loss and building toward playoff contention. The 2024 GLVC move is still early; 2026 will be the true test of whether Quincy belongs.
+  sources:
+    - https://quhawks.com/news/2025/4/11/hawks-release-2025-football-schedule.aspx
+    - https://muddyriversports.com/college/college-gameday-hawks-and-bearcats-to-square-off-in-land-of-lincoln-rivalry-game/20241005054500/
+    - https://www.wgem.com/2025/11/16/qu-culver-stockton-close-book-their-football-seasons/

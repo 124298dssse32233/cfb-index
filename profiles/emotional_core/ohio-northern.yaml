@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Ohio Northern Polar Bears — The Overnight Rise
+
+status: live
+slug: ohio-northern
+team_id: null
+program_name: Ohio Northern
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: house-money
+  one_line: "Ohio Northern is the OAC Cinderella story — picked fifth in the preseason polls, the Polar Bears went 8-2 with a 7-1 OAC record and won the Coach of the Year under Andy Fries."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Expectations of a middle-of-the-pack OAC team vs the stunning reality of the second-place finish and an 8-2 season that defied all projections."
+
+the_wound:
+  name: "The preseason disrespect"
+  detail: "Picked to finish fifth in the OAC, the Polar Bears had to prove themselves every single week. The wound is the chip on the shoulder — everyone doubted Ohio Northern, and the team answered."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the OAC championship next year — to prove 2025 was not a fluke but the start of a new standard for the program."
+  drought: { since: 1900, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe the entire OAC preseason establishment doubted the Polar Bears. Ohio Northern climbed over them all."
+
+the_delusion:
+  tone: self-aware
+  text: "That the Polar Bears are now a permanent OAC power — the fanbase knows it was a special year with a special coach, and wants to do it again."
+
+the_grudge_texture:
+  rival: mount-union
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: "Managing expectations — maintaining the humility and hunger that got them to 8-2 while believing the championship is next."
+register: ohio-northern-polar-bears-oac-cinderella
+never_use:
+  - "Ohio Northern is a new power — they are a riser with one exceptional season, not established yet"
+  - "Never win again — Coach of the Year Fries proved he can build a winner"
+  - "This is the ceiling — 8-2 and second place is just the foundation"
+
+story_canon:
+  the_unique_thing: "A small liberal arts university in Ada, Ohio that was picked fifth in the preseason and went 8-2 with a 7-1 OAC record, earning head coach Andy Fries the Larry Kehres Coach of the Year award."
+  the_origin: "Founded in 1871 in Ada, Ohio, Ohio Northern has played football with steady consistency but without major conference dominance."
+  golden_ages:
+    - { era: "2024–2025", what: "The Fries era begins — year one was a stunning success" }
+  legends:
+    - { name: Andy Fries, role: coach, why: "Second-year head coach who flipped Ohio Northern from projected fifth place to 8-2 and Coach of the Year in 2025" }
+  canonical_moments:
+    - { name: "2025 season (8-2, 7-1 OAC)", year: 2025, what: "The stunning Cinderella rise from fifth-place projection to second in the OAC", handling: glory }
+    - { name: "Coach Andy Fries wins Larry Kehres Coach of the Year", year: 2025, what: "Recognition of one of the best coaching seasons in the OAC", handling: glory }
+  the_place: "Ohio Northern University in Ada, Ohio — a small liberal arts school in northwest Ohio."
+  brand_of_football: "Underdog grit and coach excellence — Ohio Northern football is built on exceeding expectations and refusing to accept preseason doubts."
+  cultural_footprint: "The 2025 Polar Bears are a reminder that a great coach can transform a program in one season. The entire OAC is now watching Ohio Northern."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After being picked to finish fifth in the OAC preseason polls,
+    Ohio Northern surprised everyone with an 8-2 overall record and 7-1 conference mark, earning second place and a
+    bowl berth in the ForeverLawn Bowl against Wabash. Head Coach Andy Fries, in his second season, won the Larry
+    Kehres Coach of the Year award. The Polar Bears' 2025 season has set the program up with momentum for 2026.
+  research_checklist:
+    - "Picked fifth in OAC preseason polls"
+    - "2025: 8-2 overall, 7-1 OAC (second place)"
+    - "Coach Andy Fries: Larry Kehres Coach of the Year"
+    - "ForeverLawn Bowl appearance vs Wabash"
+  sources:
+    - https://www.onusports.com/sports/fball/2025-26/releases/20250818p3hdfq
+    - https://oac.org/news/2025/11/24/2025-football-special-awards-and-all-oac-teams.aspx

@@ -1,0 +1,70 @@
+status: live            # authored 2026-06-13 via web research
+slug: samford
+team_id: null
+program_name: Samford
+program_tier: 2
+
+emotional_core:
+  primary: grievance      # 1991 semifinal run that ended a dynasty arc; 2022 SoCon title with uncertain sustainability
+  secondary: restoration  # the Chris Hatcher rebuilds
+  core_variant: the-chronic-chip
+  one_line: "Samford is the SoCon program that came closest to a national championship in 1991 (lost 12-2 in the semifinal) and won a title in 2022 — but has never broken through to the next level despite consistent contention."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A 1991 semifinal run (12-2, lost to Youngstown State) followed by 35 years without another deep playoff run — the program that proved it could compete for a national title but couldn't hold the momentum."
+
+the_wound:
+  name: "The 1991 semifinal heartbreak"
+  detail: "Samford went 12-2 in 1991 and reached the FCS semifinal, the deepest run in program history, before losing to Youngstown State. The Bulldogs have been chasing that level of national success ever since. A 2022 SoCon title provided recent vindication, but 35 years is a long drought from the national spotlight."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the FCS playoffs and prove the 1991 semifinal run wasn't a one-hit wonder — another deep playoff run, another SoCon title, another chance to compete for a national championship."
+  drought: { since: 1991, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Samford came within one game of the national championship in 1991 but has been chasing that level ever since. The 2022 title proved the Bulldogs can still win, but the national stage has eluded them for 35 years — and the room remembers."
+
+the_delusion:
+  tone: load-bearing
+  text: "That the 1991 semifinal run proves Samford is a championship-caliber program. The fanbase knows better — but they also know that 12-2 team was real, and somewhere in this program is the talent to get back."
+
+the_grudge_texture:
+  rival: furman
+  texture: championship   # Both are SoCon powers; Furman won national title, Samford reached 1991 semifinal
+
+the_coach_relationship: legends-shadow   # Chris Hatcher (11 years) is building on Samford's existing legacy but hasn't reached 1991 heights
+the_internal_fracture: 1991_nostalgia_vs_2022_future — honoring the semifinal run vs. building on the recent title
+register: samford-1991-semifinal-haunted
+never_use:
+  - "Samford will never win a title"
+  - "the 1991 team was a fluke"
+
+story_canon:
+  the_unique_thing: "The 1991 FCS semifinal run (12-2 record, lost to Youngstown State) — the closest Samford has come to a national championship, followed 31 years later by a 2022 SoCon title that proved the Bulldogs still belonged."
+  the_origin: "Samford became a consistent SoCon power in the 1980s-1990s, reaching its apex in 1991 before sustaining moderate success for three decades."
+  golden_ages:
+    - { era: "1980s-1991", what: "Samford establishes itself as a SoCon contender, capped by the 1991 semifinal run" }
+    - { era: "2022", what: "A SoCon championship restored Samford's identity as a conference power" }
+  legends:
+    - { name: Chris Hatcher, role: coach, why: "11-year coach (through 2025) who built the 2022 SoCon title team and has sustained Samford as a conference contender" }
+  canonical_moments:
+    - { name: "1991 FCS Semifinal", year: 1991, what: "Samford goes 12-2 and reaches the FCS national championship semifinal, the program's deepest playoff run", handling: heartbreak }
+    - { name: "2022 SoCon Championship", year: 2022, what: "Samford wins a SoCon title, proving the program could still win when it mattered", handling: glory }
+  the_place: "Seibert Stadium — the home of Bulldogs football in Birmingham, Alabama."
+  brand_of_football: "Tough, consistent SoCon football — a program that competes hard but has struggled to reach the national stage."
+  cultural_footprint: "The 1991 semifinal team proved Samford could compete for a national title; the 2022 Bulldogs proved the program still belonged in the conversation."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Samford remains a SoCon power under Chris Hatcher (11 years), who built the 2022 SoCon championship team. The Bulldogs are competing at a high level but have not returned to the FCS playoffs since 1991. The program is chasing that semifinal-run magic while sustaining its identity as a consistent conference contender.
+  research_checklist:
+    - ✓ 1991 FCS semifinal (12-2, lost to Youngstown State)
+    - ✓ 2022 SoCon championship
+    - ✓ Chris Hatcher era (11 years, 62-59)
+    - ✓ Consistent SoCon contention
+  sources:
+    - https://en.wikipedia.org/wiki/Samford_Bulldogs_football
+    - https://www.samfordsports.com
+    - https://www.thescore.com/nfl/news/samford-football

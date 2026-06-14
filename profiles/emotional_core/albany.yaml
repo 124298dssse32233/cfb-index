@@ -1,0 +1,113 @@
+# Emotional Core — UAlbany  (albany)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: albany
+team_id: 1101
+program_name: UAlbany
+program_tier: 2
+
+emotional_core:
+  primary: restoration
+  secondary: spectacle
+  core_variant: first-ascension
+  one_line: "UAlbany is the Great Dane program that climbed from the Northeast to FCS playoff semifinals — proof that steady, 44-year-old method beats flash."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program that built itself through five decades of steady improvement vs the flashier FCS programs that bought their way in."
+
+the_wound:
+  name: "The 2024 reset"
+  detail: "After reaching the FCS semifinals in 2023 and sharing the CAA title, UAlbany regressed to 6-6 in 2024. The question: was 2023 the peak of the Ford era legacy, or the beginning of a new standard?"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the FCS playoffs and prove the 2023 run was no accident — another CAA title, another deep playoff run, and cement UAlbany as a permanent FCS force."
+  drought: { since: 2023, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe bob Ford coached for 44 years and never made the FCS playoffs. UAlbany waited decades and finally broke through in 2023. The Danes carry the chip of a program that nobody expected to get here, and won't be underestimated again."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that UAlbany can consistently compete with the East Coast powers who've been FCS for longer — that the method and the program culture Ford built can stay competitive in a conference full of older FBS-refugee programs."
+
+the_grudge_texture:
+  rival: stony-brook
+  texture: little-brother
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "legacy-pride vs new-standard — the faction proud of what Ford built vs the faction demanding the recent success become the floor, not the ceiling"
+register: albany-great-dane-northeast-breakthrough
+
+never_use:
+  - "Perpetual mid-major — 2023 CAA championship + FCS semifinals disprove"
+  - "Never beat anyone — Jared Verse transfer to FSU after establishing as top NFL prospect proves talent identification"
+
+story_canon:
+  the_unique_thing: "The Bob Ford era — a single coach who built the entire modern program from Division III in 1970 and stayed for 44 seasons (265 wins), turning a tiny Northeast school into an FCS power and seeding a 100-coach coaching factory."
+  the_origin: "In 1970, Bob Ford arrived at Albany State College (a commuter school in upstate New York) and built the program from scratch across five decades — from Division III through Division II to FCS, never leaving, never wavering."
+  golden_ages:
+    - { era: "1970–2013 (Bob Ford)", what: "265 wins, six Northeast Conference championships, a coaching factory that seeded over 100 assistant coaches into college and professional football" }
+    - { era: "2023", what: "Shared CAA championship and FCS semifinals — the program's first FCS playoff run, 44 years into Division I" }
+  legends:
+    - { name: Bob Ford, role: coach, why: "44-year tenure building the program from nothing; 265 wins; only coach in program history through the modern era" }
+    - { name: Jared Verse, role: player, why: "2023 All-American; transferred to Florida State and became the highest NFL draft pick (19th overall by LA Rams in 2024)" }
+    - { name: Gary Jones, role: player, why: "Single-season rushing record: 1,509 yards and 22 touchdowns (2002)" }
+  canonical_moments:
+    - { name: "2023 CAA Championship", year: 2023, what: "11-4 record, shared CAA title with Villanova and Richmond", handling: glory }
+    - { name: "2023 FCS Semifinals", year: 2023, what: "First FCS playoff run in school history; lost to South Dakota State", handling: glory }
+    - { name: "Bob Ford's 44-year tenure", year: 2013, what: "Longest-tenured coach in program history; built modern UAlbany entirely", handling: glory }
+  the_place: "University at Albany — Bleecker Stadium in upstate New York; 'The Great Danes' identity rooted in the Northeast's college town legacy."
+  brand_of_football: "Steady method — a program that climbs by getting better every year, not by buying talent; Bob Ford's coaching tree as organizational DNA."
+  cultural_footprint: "Proof that a tiny Northeast commuter school can stack real FCS canon — five playoff appearances in the last two seasons, a shared CAA crown, and the template for slow-build excellence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UAlbany went 6-6 (4-4 CAA) in 2024 after the breakthrough 2023 run. The question in Albany: was 2023 the ceiling or the floor? The program is in a post-Ford era transitioning through
+    new leadership with the weight of a Northeast legacy — five decades of steady method now measured against the playoffs they finally reached. Can they return?
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Albany_Great_Danes_football
+    - https://www.albanyathletics.com/sports/football
+    - https://en.wikipedia.org/wiki/2023_UAlbany_Great_Danes_football_team
+
+briefing:
+  identity_phrase: UAlbany is the Northeast program whose 44-year Bob Ford tenure + 2023 CAA championship + FCS semifinals run + 100-coach coaching factory define sustainable mid-major excellence.
+  mantra: Go Danes.
+  cultural_anchors:
+    fan_archetype_dominant: Northeast-Underdog-Builder
+    outsider_archetype_dominant: FCS-Skeptic-Surprised
+    one_sentence: UAlbany is the steady Northeast program whose Bob Ford's 44-year tenure building from nothing, 265 wins, and 2023 FCS playoffs proved method beats flash.
+  selfname: the Great Danes
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Bob Ford 44-year tenure (1970-2013)
+    - 265 career wins coaching one school
+    - 2023 shared CAA championship
+    - 2023 FCS semifinals breakthrough
+    rituals:
+    - 44 Years of Bob Ford
+    - 2023 Playoff Breakthrough
+    - Northeast to FCS Journey
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

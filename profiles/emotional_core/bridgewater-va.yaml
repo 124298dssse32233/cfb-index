@@ -1,0 +1,71 @@
+# Emotional Core — Bridgewater College (VA)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III (program_tier: 7) — graceful degradation, canon-first
+# Authored 2026-06-13 from live web research
+
+status: live
+slug: bridgewater-va
+team_id: null
+program_name: Bridgewater College
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: standard
+  one_line: "A Virginia Brethren college with 125+ years of football rooted in community service and academic mission."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "D3 tradition and identity as a teaching institution within the ODAC."
+
+the_wound: {}
+
+the_dream:
+  text: "ODAC conference success and competitive play among regional rivals."
+  drought: null
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: null
+register: virginia-brethren-tradition
+never_use: []
+
+story_canon:
+  the_unique_thing: "A Virginia Brethren college with 125+ years of football tradition, rooted in service and community."
+  the_origin: "Bridgewater College, founded 1880 and affiliated with the Church of the Brethren, began football in the 1890s as part of a comprehensive liberal-arts education."
+  golden_ages: []
+  legends: []
+  canonical_moments: []
+  the_place: "Bridgewater, Virginia — a small college town in the Shenandoah Valley."
+  brand_of_football: "Community and service alongside athletic competition."
+  cultural_footprint: "A regional D3 identity tied to Brethren values."
+  the_ongoing_story: "LIVE 2026: Bridgewater College competes in the ODAC, a cornerstone of Virginia D3 football."
+  sources:
+    - https://en.wikipedia.org/wiki/Bridgewater_Eagles_football
+    - https://www.bridgewater.edu/athletics/football/
+
+briefing:
+  identity_phrase: Bridgewater is a Virginia Brethren college with over a century of football tradition and community mission.
+  mantra: null
+  cultural_anchors:
+    fan_archetype_dominant: null
+    outsider_archetype_dominant: null
+  selfname: the Eagles
+  story_materials:
+    always_surface: []
+    rituals: []
+    modules_already_rendering: null
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

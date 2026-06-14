@@ -1,0 +1,85 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+# Virginia Union University Panthers (CIAA Division II)
+
+status: live
+slug: virginia-union
+team_id: null
+program_name: Virginia Union University
+program_tier: 6
+
+emotional_core:
+  primary: contentment       # the dynasty that has already won; sustained excellence is the victory
+  secondary: house-money     # every championship is a bonus; the system endures
+  one_line: "Virginia Union is the CIAA dynasty — 12 conference championships and the throne, now defending against a rising generation of challengers like Johnson C. Smith."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A genuine HBCU dynasty with 12 CIAA titles and a 120-year Magic City Classic rivalry, maintaining excellence in an era when upstarts are beginning to challenge the throne."
+
+the_wound:
+  name: "The 2025 CIAA Championship loss and the consciousness of challengers"
+  detail: "Virginia Union went undefeated in CIAA regular season play (7-0) in 2025, defending the 2024 championship, but lost the CIAA Championship 45-21 to Johnson C. Smith on November 15. The wound is not deep — but it is new. For the first time in years, the throne is contested by teams like Fayetteville State and Johnson C. Smith that are building systems, not just fielding teams."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to back-to-back-to-back title years. The dream is not to reclaim the throne — Virginia Union has never lost it for long — but to build another dynasty run that cements the era."
+  drought: { since: null, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe virginia Union has no chip. The program is satisfied with its place and plays out of pride and system-driven excellence, not grievance. The Magic City Classic frames every Virginia State game as an opportunity, not a necessity."
+
+the_delusion:
+  tone: load-bearing
+  text: "That the Joe Taylor legacy (233 career wins, 70.6% winning %, 1977-2007) can be equaled by any coach who comes after. Virginia Union fans believe the system is bigger than any individual — that the program's culture sustains excellence across coaching changes."
+
+the_grudge_texture:
+  rival: virginia-state
+  texture: championship       # Magic City Classic — 120+ year rivalry, contested annually; Virginia Union won 14-3 in 2025 playoff
+
+the_coach_relationship: legends-shadow          # No current head coach named in research; program operates under legacy of Joe Taylor and sustained system
+the_internal_fracture: defending glory vs. preventing complacency — the eternal tension of a dynasty program
+register: virginia-union-panthers-12-ciaa-titles-dynasty-joe-taylor-legacy
+never_use:
+  - Virginia Union won the 2025 CIAA Championship — they lost 45-21 to Johnson C. Smith in the championship game
+  - Virginia Union has never lost the CIAA throne — they have lost it before and regained it; it is not permanent
+  - Virginia Union is dominant by an enormous margin — the 7-0 regular season loss to 45-21 in the championship shows the program is beatable
+  - Joe Taylor is the current coach — Taylor coached 1977-2007 (30 years); the program has had other coaches since then
+
+story_canon:
+  the_unique_thing: "The 12 CIAA championships and the Joe Taylor legacy (233 career wins, 70.6% winning %, 1977-2007) — Virginia Union is the definition of HBCU football dynasty. The program has been to the top and stayed there."
+  the_origin: "Virginia Union University was founded in 1865 and became part of the HBCU football tradition from the early era, competing in what would become the CIAA."
+  golden_ages:
+    - { era: "CIAA early era", what: "Virginia Union participates in early CIAA football tradition" }
+    - { era: "Joe Taylor era (1977-2007)", what: "Virginia Union wins 233 games in 30 seasons, 70.6% winning %, and establishes a 12-title dynasty" }
+    - { era: "1980s-1990s dynasty", what: "Virginia Union wins multiple titles (1981-83, 1986, 2001) under Taylor" }
+    - { era: "2023-2025 defending champions", what: "Virginia Union wins back-to-back-to-back titles in 2023-24, then reaches 7-0 CIAA in 2025" }
+  legends:
+    - { name: Joe Taylor, role: coach, why: "233 career wins (1977-2007), 70.6% winning percentage, top-10 all-time FCS coach, architect of the Virginia Union dynasty" }
+    - { name: Virginia Union Panthers, role: team, why: "12 CIAA titles across decades, the most titles of any CIAA program" }
+    - { name: Curtis Allen, role: player, why: "2025 CIAA Offensive Player of the Year" }
+  canonical_moments:
+    - { name: "Joe Taylor era begins", year: 1977, what: "Joe Taylor becomes Virginia Union coach; begins 30-year dynasty", handling: glory }
+    - { name: "1981-1983 back-to-back-to-back titles", year: 1983, what: "Virginia Union wins three straight CIAA championships", handling: glory }
+    - { name: "1986 NCAA Division II playoff", year: 1986, what: "Virginia Union wins CIAA and reaches NCAA D2 playoffs with 11-1 record", handling: glory }
+    - { name: "Joe Taylor retires (2007)", year: 2007, what: "Joe Taylor ends 30-year coaching tenure with 233 wins and 70.6% winning percentage", handling: glory }
+    - { name: "2023-2024 back-to-back titles", year: 2024, what: "Virginia Union wins two straight CIAA titles, defending the championship", handling: glory }
+    - { name: "2025 CIAA regular season (7-0)", year: 2025, what: "Virginia Union goes undefeated in CIAA regular season play", handling: glory }
+  the_place: "Richmond, Virginia — home to Virginia Union University and the epicenter of the Magic City Classic rivalry with Virginia State."
+  brand_of_football: "System-driven dynasty football. Virginia Union's brand is consistent excellence rooted in program culture, not individual stars. The Panthers play with precision and discipline."
+  cultural_footprint: "Virginia Union's cultural footprint is the 12-title dynasty and the Joe Taylor legacy that transcends his coaching tenure. The program's culture is the footprint — sustained excellence that outlasts any individual coach."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Virginia Union went approximately 9-2 overall and 7-0 in CIAA regular season play in 2025, defending the 2024 CIAA Championship. However, the Panthers lost the 2025 CIAA Championship game 45-21 to Johnson C. Smith on November 15, ending the back-to-back title run. The loss came after seven straight CIAA regular season wins, suggesting an upset but not a collapse. Curtis Allen was named CIAA Offensive Player of the Year. The 2026 season begins with Virginia Union returning to contention, seeking to reclaim the throne but aware that Johnson C. Smith, Fayetteville State, and Livingstone are building competitive systems.
+  research_checklist:
+    - Joe Taylor's 30-year legacy (1977-2007) and 233 wins
+    - The 12-title CIAA championship history (1917, 1921, 1923, 1973, 1979, 1981-83, 1986, 2001, 2023-24)
+    - 2025 CIAA Championship loss to Johnson C. Smith (45-21)
+    - 2025 7-0 CIAA regular season record
+    - Magic City Classic rivalry with Virginia State (120+ years)
+    - Current roster and coaching staff
+  sources:
+    - https://vuusports.com
+    - https://theciaa.com/sports/fball/index
+    - https://hbcugameday.com/virginia-union-panthers
+    - https://en.wikipedia.org/wiki/Virginia_Union_Panthers_football

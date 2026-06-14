@@ -1,0 +1,86 @@
+# Emotional Core — Kean University (kean)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: kean
+team_id: null
+program_name: Kean University
+program_tier: 7
+
+emotional_core:
+  primary: standard
+  secondary: contentment
+  one_line: "A 20+ year era under Dan Garrett (since 2006) that has built Kean into an NJAC tournament regular — stable, dependable, and content in New Jersey football."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A New Jersey program built on coaching longevity (Dan Garrett since 2006, 20+ seasons) and steady NCAA tournament appearances (15+ since 1991)."
+
+the_wound:
+  name: ""
+  detail: ""
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win an NJAC championship; honor Dan Garrett's stability era; continue the tournament tradition."
+  drought: { since: 2011, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: njac-circuit
+  texture: border-war
+
+the_coach_relationship: forever-ours
+the_internal_fracture: ""
+register: cougar-garrett-stability
+never_use:
+  - "No tournament history — 15+ NCAA tournament appearances since 1991; one NJAC championship (2011)"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Dan Garrett's 20+ year tenure (since 2006) as head coach — the architect of consistent Kean football within the NJAC, proving that coaching stability builds tournament-regular programs."
+  the_origin: "Kean University, Union, New Jersey — a New Jersey institution competing in the NJAC."
+  golden_ages:
+    - { era: "1991–2025", what: "15+ NCAA tournament appearances over 35 years" }
+    - { era: "2011", what: "NJAC Championship — Kean's sole conference title" }
+    - { era: "2006–2025", what: "Dan Garrett era: 20+ seasons, stable coaching, consistent tournament appearances" }
+  legends:
+    - { name: "Dan Garrett", role: coach, why: "Head coach since 2006 (20+ seasons); architect of coaching stability and tournament culture" }
+  canonical_moments:
+    - { name: "2011 NJAC Championship", year: 2011, what: "Kean's only conference title", handling: glory }
+    - { name: "15+ NCAA tournaments (1991–2025)", year: null, what: "Consistent tournament tradition spanning generations", handling: glory }
+  the_place: "Alumni Stadium, Union, New Jersey — home of the Cougars."
+  brand_of_football: "Stable, consistent New Jersey football — built on coaching longevity and tournament culture."
+  cultural_footprint: "A New Jersey program defined by Dan Garrett's stability (since 2006) and tournament regularity (15+ appearances since 1991)."
+  the_ongoing_story: "LIVE as of 2026-06: Kean competes in the NJAC under Head Coach Dan Garrett's 20+ year tenure (since 2006). The program is anchored by coaching stability and a 15+ tournament appearance tradition (since 1991). The 2011 NJAC championship is the peak; every season chases return to that moment. Kean is not a rising program or a fallen one — it's a stable New Jersey institution building tournament culture one season at a time."
+  sources:
+    - https://en.wikipedia.org/wiki/Kean_University_Cougars_football
+    - https://www.kean.edu/athletics/football/
+    - https://www.kean.edu/about/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Kean University is the New Jersey NJAC team with Dan Garrett's 20+ year coaching tenure (since 2006) and 15+ NCAA tournament appearances.
+  mantra: Cougar stability.
+  cultural_anchors:
+    fan_archetype_dominant: Kean-Garrett-Faithful
+    outsider_archetype_dominant: NJAC-Steady-Voice
+    one_sentence: Kean University is the Union, New Jersey program defined by Head Coach Dan Garrett's 20+ year tenure (since 2006) and consistent NCAA tournament culture.
+  selfname: the Cougars
+  rituals:
+    - Dan Garrett era (since 2006)
+    - 15+ NCAA tournaments (1991–2025)
+    - 2011 NJAC Championship
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

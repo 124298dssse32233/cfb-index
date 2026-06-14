@@ -1,0 +1,123 @@
+# Emotional Core — App State  (app-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+#
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources. (The "lesser team" floor demo:
+# even a 5-8 Sun Belt program gets a specific, non-generic soul, anchored in canon.)
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: app-state
+team_id: 215
+program_name: App State
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # disrespect as fuel — the G5 giant-killer with a 40-year-old point to prove
+  secondary: restoration  # the live Loggains rebuild after a 5-8 stumble
+  core_variant: the-ceiling
+  one_line: "App State is the mountain program that walked into the Big House and beat Michigan — and has spent every year since insisting the giant-killer belongs."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Three FCS national titles and the most famous upset in the sport vs a Group-of-Five ceiling that says none of it counts at the level that matters."
+
+the_wound:
+  name: "The 2025 collapse — and the G5 ceiling underneath it"
+  detail: "A program built on punching up went 5-8 in Dowell Loggains' first season — a 4-2 start, then six losses in seven — a stumble that fed the oldest fear in Boone: that the giant-killer's best days were the mountain-FCS ones."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the mountain still slays giants — another Sun Belt title, another marquee scalp, a bowl that forces the blue bloods to look up."
+  drought: { since: 2019, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe the chip is one game wide and forty years deep: App State walked into Michigan Stadium in 2007 and won, and the blue bloods have spent every year since pretending it was an accident. Boone hasn't forgotten, and won't let them."
+
+the_delusion:
+  tone: self-aware
+  text: "That the mountain could hang with anybody on the right Saturday — that the gap between App State and the giants is a scheduling quirk, not a resource chasm. The fanbase knows better, and believes it anyway."
+
+the_grudge_texture:
+  rival: georgia-southern
+  texture: blood-feud   # the fiercest rivalry in the Sun Belt — two mountain/south neighbors who genuinely hate it
+
+the_coach_relationship: hot-seat-churn   # post-Jerry-Moore, App State has churned coaches (Satterfield→Drinkwitz→Clark→Loggains)
+the_internal_fracture: punch-up-pride vs rebuild-patience — the faction that wants App State swinging at giants and winning the Sun Belt now vs the faction giving Loggains time to rebuild a 5-8 roster
+register: boone-mountain-mountaineers-michigan-killer
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always FCS — 2014 FBS reclassification + 2018 Sun Belt championship ended that
+  - One-game-fluke — three FCS titles + sustained conference success disprove
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The 2007 Michigan upset — the FCS team that walked into the Big House and beat the #5 team in the country, the most famous upset in college-football history. App State's entire identity is that anyone can be beaten on the right Saturday in the mountains."
+  the_origin: "A small mountain school in Boone, North Carolina that became an FCS dynasty under Jerry Moore — three straight national titles (2005-2007) — shocked Michigan in 2007, then climbed to FBS in 2014 and made itself a Sun Belt power."
+  golden_ages:
+    - { era: "2005–2007 (Jerry Moore)", what: "Three consecutive FCS national championships, capped by the 2007 Michigan upset" }
+    - { era: "2018–2019", what: "Sun Belt championships and a sustained FBS rise" }
+  legends:
+    - { name: Jerry Moore, role: coach, why: "Three FCS titles and the Michigan upset — the architect of the App State identity" }
+    - { name: Armanti Edwards, role: player, why: "The quarterback who beat Michigan and won two FCS titles" }
+  canonical_moments:
+    - { name: "The 2007 Michigan upset", year: 2007, what: "App State beats #5 Michigan 34-32 in Ann Arbor — the biggest upset in the sport's history", handling: glory }
+    - { name: "Three straight FCS titles", year: 2007, what: "The 2005-2007 dynasty under Jerry Moore", handling: glory }
+  the_place: "Kidd Brewer Stadium — 'The Rock' — in the Blue Ridge Mountains, and 'Take the Stairs,' the mountain-program ethos."
+  brand_of_football: "The giant-killer — a program that defines itself by punching up, built on the belief that the mountain levels anybody."
+  cultural_footprint: "Proof that a small mountain school can stack real canon — three titles and the upset every G5 program has cited ever since as evidence the giants bleed."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: App State went 5-8 (2-6 Sun Belt) in Dowell Loggains' first season — a
+    4-2 start that collapsed to six losses in seven. Loggains enters year two rebuilding hard: 66 newcomers (35
+    from the portal), a new QB in Purdue/Arkansas transfer Malachi Singleton, and a mandate to fix an offense that
+    managed 5.2 yards a play. The question in Boone: can the giant-killer climb back to a Sun Belt contender, or
+    has the mountain gone quiet?
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Appalachian_State_Mountaineers_football_team
+    - https://athlonsports.com/college-football/sun-belt-football-2026-predictions
+    - https://www.hcpress.com/app-state/appalachian-state-university-announces-2026-football-schedule.html
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: App State is the Sun Belt program whose 2007 Michigan upset + back-to-back FCS national
+    titles + sustained FBS conference success define what G5-disruptor looks like.
+  mantra: Go Apps.
+  cultural_anchors:
+    fan_archetype_dominant: Boone-Mountain-Mountaineer
+    outsider_archetype_dominant: G5-Forever-Diminisher
+    one_sentence: App State is the G5-disruptor whose 2007 Michigan upset, three straight FCS national titles,
+      and sustained Sun Belt success after the 2014 FBS reclassification proved that mid-major identity
+      can stack with historical canon.
+  selfname: the Mountaineers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2007 Michigan upset (the FCS team that beat
+    - 2005-2007 three consecutive FCS national championships under Jerry Moore
+    - 2018 Sun Belt championship + FBS reclassification
+    rituals:
+    - 2007 Michigan Upset
+    - Take the Stairs
+    - Three Straight FCS Championships (2005-2007)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

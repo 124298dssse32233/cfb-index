@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: ut-permian-basin
+team_id: null
+program_name: UT Permian Basin
+program_tier: 6
+
+emotional_core:
+  primary: spectacle
+  secondary: house-money
+  one_line: "UT Permian Basin is the Odessa Falcons—a young Division II program (LSC since 2016) that just won 11 games, made the playoffs for the first time, and proved that a startup can shock a storied league in one magic season."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program-record 11 wins and the first Division II playoff appearance ever vs. the reality that UTPB is only five years old in the Lone Star Conference."
+
+the_wound:
+  name: "The coaching transition (Kris McCullough departure)"
+  detail: "After the breakthrough 2025 season (11–3, Division II Quarterfinal run), head coach Kris McCullough stepped down in late December 2025 to take a FBS opportunity at Gardner–Webb. The fanbase celebrated the wins but now faces the loss of the architect of the breakthrough year. Chris Softley arrives as the new HC in a high-pressure succession."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that 2025 was the start of a dynasty, not a one-year wonder. Win another 10 games, make the playoffs again, and show that a young program can sustain excellence in the toughest Division II conference."
+  drought: { since: 2025, unit: bowl }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe uTPB's chip is existential: a five-year-old Division II program proving it belongs in the same league as 80-year-old regional powers. The 2025 playoff run was the first evidence that age doesn't matter if you build the right culture."
+
+the_delusion:
+  tone: self-aware
+  text: "That one 11-win season means the Falcons are now a championship contender every year. The fanbase knows better—2025 was a magical run—but they're starting to believe UTPB can be a permanent playoff program."
+
+the_grudge_texture:
+  rival: sul-ross-state
+  texture: little-brother
+  # UTPB and Sul Ross are young Lone Star members; UTPB won 27–6 in the first-ever matchup.
+
+the_coach_relationship: legends-shadow
+  # Chris Softley, hired December 31, 2025, steps into the shadow of Kris McCullough's breakthrough season.
+
+the_internal_fracture: "Euphoria from 2025 vs. anxiety about the coaching change—can the culture McCullough built survive without him?"
+
+register: "odessa-falcon-young-program-2025-breakthrough-playoff-first"
+
+never_use:
+  - "UTPB has been in the LSC for a decade — joined in 2016 (nine seasons as of 2025)"
+  - "The Falcons have a long football history — young program; established Division II in 2016; five seasons in LSC as of 2025"
+  - "The 2025 playoff run was expected — first-ever playoff appearance; 11-win program record; massive breakthrough"
+  - "Kris McCullough is still the coach — stepped down late December 2025 for FBS opportunity at Gardner–Webb"
+
+story_canon:
+  the_unique_thing: "A program-record 11 wins and the first NCAA Division II playoff appearance ever in 2025—a five-year-old Lone Star member that shocked a storied conference and proved that startup programs can compete."
+  the_origin: "University of Texas Permian Basin in Odessa, Texas; football established in the early 2010s as a small NCAA Division II independent; joined the Lone Star Conference in 2016."
+  golden_ages:
+    - { era: "2025", what: "Program-record 11 wins (11–3 overall, 7–2 LSC), first-ever Division II playoff appearance, second place in conference, Quarterfinal loss to Harding 28–34" }
+  legends:
+    - { name: Kris McCullough, role: coach, why: "Architect of the 2025 breakthrough season; 11-win program record; stepped down for FBS opportunity at Gardner–Webb" }
+    - { name: Chris Softley, role: coach, why: "Hired December 31, 2025, from Lubbock Christian School; tasked with sustaining the 2025 momentum" }
+    - { name: Kanon Gibson, role: player, why: "Senior QB; multiple TD passes including 5 TDs vs. Sul Ross; led the Falcons to the playoff quarterfinal" }
+  canonical_moments:
+    - { name: "2025 Program-Record 11 Wins", year: 2025, what: "11–3 overall, 7–2 LSC; first-ever winning season of this magnitude", handling: glory }
+    - { name: "First Division II Playoff Appearance", year: 2025, what: "Quarterfinal vs. Harding; lost 28–34; historic first playoff run", handling: miracle }
+    - { name: "LSC Second Place", year: 2025, what: "7–2 conference record; a breakthrough conference finish", handling: glory }
+  the_place: "Falcon Field in Odessa, Texas—a young stadium on a young campus, now home to the Falcons' rapid rise in Division II."
+  brand_of_football: "Hungry, ambitious, startup Division II football—a program that has nothing to lose and everything to prove."
+  cultural_footprint: "UTPB's 2025 breakthrough is proof that age is irrelevant if you build the right culture; the Falcons shocked a storied league and opened the eyes of the Division II landscape."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UT Permian Basin had a magical 2025 season: 11 wins (program record), 7–2 LSC finish (second place), and the first Division II playoff appearance in program history (Quarterfinal loss to Harding 28–34). QB Kanon Gibson led the charge, and the fanbase erupted. But in late December 2025, head coach Kris McCullough stepped down to take a FBS job at Gardner–Webb, leaving the Falcons to prove that 2025 was the start of something, not a one-hit wonder. Chris Softley arrives tasked with sustaining the momentum. The question: can a young, startup program build on a breakthrough year, or does the loss of McCullough derail the dream?
+  research_checklist:
+    - 2025 program record (11 wins, 11–3 overall, 7–2 LSC) ✓
+    - First Division II playoff appearance ✓
+    - Kris McCullough (architect, now at Gardner–Webb) ✓
+    - Chris Softley (hired Dec 31, 2025) ✓
+    - Kanon Gibson (senior QB) ✓
+    - Quarterfinal loss to Harding 28–34 ✓
+  sources:
+    - https://en.wikipedia.org/wiki/2025_UT_Permian_Basin_Falcons_football_team

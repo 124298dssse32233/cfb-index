@@ -1,0 +1,76 @@
+# Emotional Core — Austin Peay Governors (austin-peay)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: austin-peay
+team_id: 3
+program_name: Austin Peay
+program_tier: 5
+
+emotional_core:
+  primary: spectacle         # A 38-year drought ended in 2025 — the impossible FBS victory
+  secondary: contentment     # Finally beating the obstacle that had defined the era
+  one_line: "Austin Peay is the Tennessee program that stood 1,411 days without beating an FBS team and then stepped on Middle Tennessee to end the curse."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A Governors program that has been the perpetual stepping stone — until 2025, when they finally reached up and beat Middle Tennessee."
+
+the_wound:
+  name: "The 38-year FBS drought (1987–2025)"
+  detail: "Austin Peay's last FBS victory came on September 12, 1987, against Middle Tennessee. Every year since, the program has carried that absence — a 1,411-day drought that defined an era and became the narrative for anyone mentioning the Governors."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Prove the 2025 FBS victory was a turning point, not a novelty — keep beating FBS teams, rebuild to a conference contender in the UAC, make Clarksville relevant in the Division I conversation."
+  drought: { since: 2025, unit: relevance }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe the chip is 38 years old and specifically targeted: Austin Peay finally beat an FBS team in 2025 by facing the exact program that gave them their last FBS victory in 1987 — Middle Tennessee. The Governors had nowhere to look but up."
+
+the_delusion:
+  tone: self-aware
+  text: "That one FBS victory in 2025 signals a new era, that Austin Peay has finally arrived as a competitor at the next level. The fanbase knows the real climb is ahead."
+
+the_grudge_texture:
+  rival: middle-tennessee
+  texture: little-brother
+  # The specific grief: beaten by Middle Tennessee continuously; the 2025 reversal is the hope that it marks a turning
+
+the_coach_relationship: savior
+the_internal_fracture: drought-skeptics-vs-renaissance-believers — the faction that thinks 2025 is still just one moment vs the believers who see a coaching trajectory (Jeff Faris, contract through 2030)
+register: clarksville-governors-tennessee-fbs-drought
+never_use:
+  - Perennial loser — 2025 FBS victory resets the narrative
+  - Never relevant — the 2025 win proves Governors can compete at FBS level
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The 2025 FBS victory over Middle Tennessee (34–14) — ending a 38-year drought, the longest FBS-drought nightmare in college football, and defeating the exact program that handed them the last FBS win in 1987."
+  the_origin: "A small Tennessee program that has spent four decades in the FCS wilderness, always competitive but never with the resources to break through to sustained FBS relevance."
+  golden_ages:
+    - { era: "1980s", what: "A brief era when Austin Peay could compete at the FBS level (the last FBS victory came in 1987)" }
+    - { era: "2025", what: "The year the drought ended — a 34–14 demolition of Middle Tennessee on October 4, 2025" }
+  legends:
+    - { name: Jeff Faris, role: coach, why: "The second-year coach who engineered the 2025 FBS breakthrough and signed a contract extension through 2030 to build on it" }
+    - { name: Chris Parson, role: player, why: "The QB who led the 2025 FBS victory over Middle Tennessee" }
+  canonical_moments:
+    - { name: "The 2025 Middle Tennessee Victory", year: 2025, what: "Austin Peay defeats FBS-level Middle Tennessee 34–14 on October 4, 2025 — ending a 38-year FBS drought", handling: glory }
+    - { name: "September 12, 1987", year: 1987, what: "Austin Peay's last FBS victory, against Middle Tennessee — the moment that defined an era of absence", handling: wound }
+  the_place: "Governors Stadium in Clarksville, Tennessee — a program built for small victories and sudden moments."
+  brand_of_football: "Underdog, scrappy — a program that has learned to win in the margins, in a town that celebrates any Division I moment."
+  cultural_footprint: "The ultimate Cinderella narrative: 38 years of watching others beat you at the FBS level, and then one October day you beat them back."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Austin Peay finished 7–5 (4–4 UAC) in 2025, narrowly missing the FCS Playoff but celebrating the FBS breakthrough that had eluded the program since 1987. Coach Jeff Faris, in his second season, has already signed a contract extension through 2030 — signaling institutional faith that the 2025 Middle Tennessee victory marks a turning point, not a fluke. The question in Clarksville: can Faris build a sustained run at UAC contention, or was 2025 the apex moment?
+  research_checklist:
+    - the 38-year FBS drought (1987–2025)
+    - the specific 2025 Middle Tennessee victory (34–14)
+    - the drought's cultural weight in Governors fandom
+    - the Jeff Faris coaching hire and contract extension
+    - UAC competitive positioning
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Austin_Peay_Governors_football_team
+    - https://letsgopeay.com/news/2025/11/28/football-austin-peay-faris-agree-on-contract-extension-through-2030.aspx
+    - https://www.espn.com/college-football/story/_/id/40219649/austin-peay-ends-38-year-fbs-drought-middle-tennessee

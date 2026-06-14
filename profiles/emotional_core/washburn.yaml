@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Emotional Core — soul file for Washburn Ichabods (MIAA)
+
+status: live
+slug: washburn
+team_id: null
+program_name: Washburn
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Washburn is the Ichabod program carrying a storied name and a historic rivalry — a small Kansas school that plays for tradition, not national validation."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A program with deep roots in Topeka (founded 1865) and a traditional rivalry with Emporia State (Emporia leads 62-53-6 all-time), competing regionally but without recent national championship aspirations."
+
+the_wound:
+  name: "The modern-era plateau — a program with history but without recent postseason success"
+  detail: "Washburn has a long football tradition (dating to 1890) and a fierce rivalry with Emporia State, but the program hasn't made the D2 playoffs recently. That's the wound: the weight of history without the postseason presence to validate it."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the D2 playoff conversation — break back into postseason and prove the Ichabods still belong."
+  drought: { since: 2012, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "No chip — the Ichabods play for the rivalry with Emporia State and the tradition of Topeka football. The fanbase measures success in head-to-head matchups, not national ranking."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that Zach Watkins' first season as head coach (hired Nov 2024, took field in 2025) could spark a turnaround — that new energy could get the Ichabods back to a bowl or playoff conversation. They know the recent history has been quiet, and play the hope that it's changing."
+
+the_grudge_texture:
+  rival: emporia-state
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: "patience with the new coach vs. frustration with recent on-field decline — fans hopeful but skeptical about year one results"
+register: kansas-ichabod-topeka-traditional
+never_use:
+  - "No tradition (football program since 1890, university founded 1865)"
+  - "New to the MIAA (established member with Emporia State rivalry history)"
+  - "Historic doormat (rivalry with Emporia is genuinely competitive 62-53-6)"
+
+story_canon:
+  the_unique_thing: "Washburn is the Ichabod program carrying a 136-year football tradition (since 1890) in Topeka, Kansas — a small university with a storied name (from early settler Ichabod), historic colors (Yale blue and white), and a traditional rivalry with Emporia State that defines what matters."
+  the_origin: "Washburn University was founded in 1865 in Topeka, and football became part of the identity in 1890. The Ichabods — named after Ichabod, an early settler — became rooted in Topeka tradition. The rivalry with Emporia State developed over generations and remains the emotional center of the program."
+  golden_ages:
+    - { era: "Pre-1970s", what: "Early regional competence and the solidification of the Emporia State rivalry" }
+    - { era: "1990s–2010s", what: "Sustained MIAA membership and consistent competitiveness" }
+  legends:
+    - { name: "[Historic Coaches]", role: "coach", why: "Multiple coaches have built Washburn's 136-year tradition in Topeka" }
+    - { name: "Zach Watkins", role: "coach", why: "New coach hired Nov 2024; first season in 2025; tasked with rebuilding the program" }
+  canonical_moments:
+    - { name: "136 Years of Football (1890–2025)", year: 2025, what: "The Ichabod tradition and continuity", handling: glory }
+    - { name: "Emporia State Rivalry (All-Time 62-53-6)", year: 2025, what: "Washburn leads the all-time series; the core rivalry of the program", handling: glory }
+  the_place: "Washburn University Stadium (or Ichabod football home) in Topeka, Kansas — the traditional center of northeastern Kansas football."
+  brand_of_football: "Traditional, rivalry-driven, stable — football that values the game against Emporia more than the national ranking."
+  cultural_footprint: "A program that proved a small Kansas university could sustain football tradition across 136 years, grounded in the region, not chasing national glory."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Washburn went 3-8 in 2025, continuing a difficult recent stretch for the Ichabods. Zach Watkins was hired as head coach in Nov 2024 and took the field in 2025 (his first season) — tasked with rebuilding a program that has lost competitive ground in the MIAA. The Emporia State rivalry (Washburn leads 62-53-6 all-time) remains the emotional center, but recent on-field results have been challenging. The question: can Watkins spark a turnaround, or will the Ichabods remain in the basement of MIAA play?
+  research_checklist:
+    - Football program history (since 1890)
+    - Emporia State rivalry (62-53-6 all-time, Washburn leads)
+    - Zach Watkins' hiring and first-season impact
+    - 2025 season record and MIAA standings
+    - Historic coaches and traditions
+  sources:
+    - https://en.wikipedia.org/wiki/Washburn_Ichabods_football
+    - https://www.washburn.edu/athletics/
+    - https://themiaa.com/
+    - https://www.d2football.com/

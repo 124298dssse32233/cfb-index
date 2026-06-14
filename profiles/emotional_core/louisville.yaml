@@ -1,0 +1,120 @@
+# Emotional Core — Louisville  (louisville)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: louisville
+team_id: 155
+program_name: Louisville
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # Brohm has the program winning nine games a year again; the live arc is breaking through the ACC ceiling
+  secondary: standard     # for a program that's touched the Heisman, "good" now wants to be "in the playoff conversation"
+  core_variant: perpetual-rebuild
+  one_line: "Louisville is the program that produced a Heisman and now, under a hometown coach, wins nine games a year while it tries to turn three straight strong seasons into a breakthrough it can't quite reach."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Three straight nine-win seasons under Jeff Brohm vs an ACC where the Cardinals keep finishing on the outside — 4-4 in league play and unranked in 2025, watching Duke take the title game."
+
+the_wound:
+  name: "So close, never through"
+  detail: "Jeff Brohm came home and went 9-4 in 2023, 9-4 in 2024 and 9-4 again in 2025 — three straight strong seasons, the second time in school history — yet Louisville keeps finishing 4-4 in the ACC, missing the title game and the national rankings while a Boca Raton Bowl win over Toledo papered over a year that flirted with more."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Convert the steady nine-win floor into a real ceiling — an ACC championship, a top-15 finish, a seat at the table the program has only glimpsed."
+  drought: { since: 2013, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Brohm himself said it out loud — an unbeaten stretch and three straight strong years, and Louisville still couldn't crack the rankings. Fans hear the same message every fall: prove it against somebody big, because we're not penciling you in."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Brohm — a Louisville kid running his hometown program — is the coach who finally breaks through, that the ceiling that's held the Cards back is one signature season from cracking for good."
+
+the_grudge_texture:
+  rival: kentucky
+  texture: border-war   # the Governor's Cup — the in-state grudge that defines the Bluegrass
+
+the_coach_relationship: forever-ours   # Brohm is Louisville-born, a former Cardinals QB who came home
+the_internal_fracture: contentment vs ambition — the faction grateful for a stable nine-win program after years of churn vs the faction that says nine wins and no breakthrough is its own kind of trap
+register: bluegrass-louisville-riser-proving
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Lamar Jackson was the program — Petrino era + 2023 Brohm era contradict
+  - Basketball school — football has 113+ years of program history
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Lamar Jackson's 2016 Heisman — the most electric individual season the program has ever produced, the year a Louisville quarterback became the best player in the country and gave the program a permanent place in the sport's highlight reel."
+  the_origin: "An urban program that climbed from independent and Conference USA roots through the Big East to the ACC, building real football canon — Howard Schnellenberger's Fiesta Bowl, the Petrino offenses, the Jackson era."
+  golden_ages:
+    - { era: "2014–2018 (Bobby Petrino, second stint)", what: "Lamar Jackson's 2016 Heisman and a high-octane offensive peak" }
+    - { era: "2023–present (Jeff Brohm)", what: "Three straight nine-win seasons after Brohm's homecoming" }
+  legends:
+    - { name: Lamar Jackson, role: player, why: "2016 Heisman winner; statue unveiled in 2024; the program's defining player" }
+    - { name: Howard Schnellenberger, role: coach, why: "Built the modern program and its 1990 Fiesta Bowl identity" }
+    - { name: Jeff Brohm, role: coach, why: "Louisville-born former Cardinals QB who came home and restored a nine-win standard" }
+  canonical_moments:
+    - { name: "Lamar Jackson's Heisman", year: 2016, what: "Jackson becomes Louisville's first Heisman winner with one of the great dual-threat seasons ever", handling: glory }
+    - { name: "The Lamar Jackson statue", year: 2024, what: "Louisville immortalizes its Heisman winner outside the stadium", handling: glory }
+  the_place: "L&N Federal Credit Union Stadium (formerly Cardinal Stadium) — a loud, purpose-built football home in a basketball-mad city that has learned to pack it on Saturdays."
+  brand_of_football: "Quarterback-driven, explosive offense — from Petrino's vertical passing to Jackson's open-field genius to Brohm's modern attack; Louisville scores."
+  cultural_footprint: "L1C4 — Love 1, Card 4 Life. A city program with fierce local loyalty and a Heisman that no one can take away, fighting for national football respect."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Jeff Brohm went 9-4 again in 2025 (4-4 ACC), beating Toledo 27-22 in the
+    Boca Raton Bowl behind QB Miller Moss — a third straight strong season, but a fourth straight without an ACC
+    title game or a national ranking as Duke won the league. Entering 2026, the question is whether Brohm can
+    turn a stable nine-win program into the breakthrough Louisville keeps brushing against.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Louisville_Cardinals_football_team
+    - https://en.wikipedia.org/wiki/2026_Louisville_Cardinals_football_team
+    - https://www.si.com/college/louisville/football/jeff-brohm-among-top-graded-third-year-coaches
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Louisville is the program that watched Lamar Jackson win a Heisman and then watched the
+    program rebuild around being more than Lamar Jackson.
+  mantra: Go Cards.
+  cultural_anchors:
+    fan_archetype_dominant: Bluegrass-Cardinal-Loyalist
+    outsider_archetype_dominant: Lamar-Was-The-Program-Diminisher
+    one_sentence: Louisville is the program whose 2016 Lamar Jackson Heisman season redefined what was possible
+      at a basketball-school football program — and whose post-Jackson identity is still recovering the
+      ceiling.
+  selfname: the Cardinals
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2016 Lamar Jackson Heisman season
+    - Bobby Petrino 2014-2018 era (Heisman, Citrus Bowl)
+    - Jeff Brohm 2023-present return-home era
+    rituals:
+    - L1C4 (Love 1 Card 4 Life)
+    - Governor's Cup (vs Kentucky)
+    - Lamar Jackson Statue (2024)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (52/100, n=51)
+    voice_profile: absent
+    delusion_premium: absent

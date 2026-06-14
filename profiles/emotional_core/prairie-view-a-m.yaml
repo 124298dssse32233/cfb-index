@@ -1,0 +1,116 @@
+# Emotional Core — Prairie View A&M  (prairie-view-a-m)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: prairie-view-a-m
+team_id: 4
+program_name: Prairie View A&M
+program_tier: 3
+
+emotional_core:
+  primary: restoration   # the 2025 SWAC championship and the Celebration Bowl appearance is year one of a new era
+  secondary: redemption  # 10-3 record, West Division title, defeating Jackson State in the title game
+  core_variant: first-ascension
+  one_line: "Prairie View A&M is the Texas HBCU that won the 2025 SWAC championship in Tremaine Jackson's first season and advanced to the Celebration Bowl — proof that building a SWAC contender is possible on short timeline."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Multiple SWAC championships in program history (1931, 1933, 1951-1954, 1958, 1960, 1963-1964, 2009) vs a long drought until 2025; proof the program can win, now rebuilding the championship culture."
+
+the_wound:
+  name: "The pre-2025 SWAC championship drought"
+  detail: "Prairie View had not won a SWAC championship since 2009 — 16 years of competitive football but no titles. The 2025 season under new coach Tremaine Jackson broke the spell: 10-3 overall, 7-1 SWAC West Division, defeated Jackson State 23-21 in the championship game."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build a consistent SWAC contender; prove the 2025 championship was the start of a new era, not a flash in the pan; reach the Celebration Bowl annually and compete for the black college national title."
+  drought: { since: 2009, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe prairie View has multiple SWAC titles in its history but had gone 16 years without one. The chip is that the program knows it can win at this level and refuses to accept a return to the pre-2025 drought; the 2025 title is proof the standard is achievable."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that a program with this much history and this much recent success is built to be a SWAC power — that the 2025 championship with a new coach and a portal-built roster proves the formula works, and the next three years are about consistency."
+
+the_grudge_texture:
+  rival: texas-southern
+  texture: championship   # the Labor Day Classic for the Durley-Nicks Trophy; recent dominance
+
+the_coach_relationship: total-trust   # Tremaine Jackson, first season, already a championship; the room believes completely
+the_internal_fracture: immediate-standards vs patience — the faction that says 2025 proved the program is a contender and next year must be a playoff run vs the faction cautioning one season is a sample size
+register: emerging-contender — new coach, new standard, championship DNA reactivated
+never_use:   # LAW — do not violate in any authored line
+  - underdog framing (champions are not underdogs)
+  - scrappy
+  - surprise championship
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep canon ──
+story_canon:
+  the_unique_thing: "Prairie View A&M is the Texas HBCU that won the 2025 SWAC championship in head coach Tremaine Jackson's first season (10-3, 7-1 SWAC West), advanced to the Celebration Bowl, and defeated Jackson State 23-21 in the title game. The program has won multiple SWAC titles in its history (1931, 1933, 1951-1954, 1958, 1960, 1963-1964, 2009) and is rebuilding championship culture."
+  the_origin: "A land-grant university in Prairie View, Texas that joined the SWAC and built a tradition around SWAC competition. Prairie View has been competitive throughout its history and produced multiple SWAC champions."
+  golden_ages:
+    - { era: "1951–1964", what: "Multiple SWAC championships; the foundational era" }
+    - { era: "2009", what: "The most recent SWAC championship before 2025" }
+    - { era: "2025", what: "10-3 record, 7-1 SWAC West, championship game victory, Celebration Bowl appearance" }
+  legends:
+    - { name: Tremaine Jackson, role: coach, why: "Won a SWAC championship in year one; rebuilt the program's competitive standard" }
+  canonical_moments:
+    - { name: "The 2025 SWAC championship", year: 2025, what: "Prairie View defeats Jackson State 23-21 in the title game and advances to the Celebration Bowl", handling: glory }
+    - { name: "The 1951-1964 dynasty era", year: 1964, what: "Multiple SWAC championships in a 14-year span", handling: glory }
+  the_place: "Panther Stadium at Blackshear Field in Prairie View, Texas; home of the Panthers' tradition."
+  brand_of_football: "Championship-ready: a program that has tasted success and rebuilt quickly with a portal-friendly approach; Tremaine Jackson's year-one success suggests the SWAC power standard is within reach."
+  cultural_footprint: "Prairie View is the Texas HBCU proving that building a SWAC contender is possible on a short timeline. The 2025 championship broke a 16-year drought and showed the program is capable of competing at the highest HBCU level."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Prairie View A&M went 10-3 (7-1 SWAC West) in 2025 under first-year head coach
+    Tremaine Jackson. The Panthers won the SWAC West Division championship and defeated Jackson State 23-21 in the
+    SWAC Championship Game, claiming the conference title. Prairie View advanced to the 2025 Celebration Bowl (the
+    de facto black college national championship) as the SWAC representative. The victory over Jackson State (who went
+    9-3) signaled that the program is competitive and capable of winning at the SWAC level. The next question: can
+    Jackson build a three-year contender or was 2025 a one-year flash?
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Prairie_View_A%26M_Panthers_football
+    - https://en.wikipedia.org/wiki/2025_SWAC_football_season
+    - https://en.wikipedia.org/wiki/Celebration_Bowl
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Prairie View A&M is the 2025 SWAC champion; Tremaine Jackson rebuilt the program in year one.
+  mantra: Go Panthers.
+  cultural_anchors:
+    fan_archetype_dominant: Championship-Builder
+    outsider_archetype_dominant: New-Standard-Setter
+    one_sentence: Prairie View A&M is the Texas HBCU that won the 2025 SWAC championship in year one of a new era.
+  selfname: the Panthers
+  aspiration_ladder_top: ''
+  rivalries:
+  - texas-southern
+  heritage:
+    national_titles: null
+    conference_titles: 8
+    current_conference: SWAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2025 SWAC Championship (10-3, defeated Jackson State 23-21)
+    - Celebration Bowl (2025 SWAC representative)
+    - Labor Day Classic vs Texas Southern
+    rituals:
+    - Labor Day Classic (Durley-Nicks Trophy)
+    - Annual SWAC competition
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

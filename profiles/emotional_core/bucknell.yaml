@@ -1,0 +1,111 @@
+# Emotional Core — Bucknell Bison (bucknell)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — FCS Patriot League
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: bucknell
+team_id: null
+program_name: Bucknell Bison
+program_tier: 3
+
+emotional_core:
+  primary: contentment      # comprehensive athletic excellence across all sports
+  secondary: standard
+  one_line: "The all-sports champion that measures itself by institutional breadth, not football's spotlight."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Multi-sport athletic excellence vs. the Patriot League football ceiling where peers have won conference titles."
+
+the_wound:
+  name: "The football gap beneath overall athletic success"
+  detail: "An institution that wins the Presidents' Cup more than any school in America, with 27 varsity sports thriving, yet football languishes in rebuilding. The disconnect between institutional strength and football visibility feeds frustration — excellence at Bucknell is real, but outsiders only see football."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the all-sports excellence translates to a consistent Patriot League contender — football visibility finally matching institutional reality."
+  drought: { since: 1996, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "No chip — Bucknell plays the long game. The program believes sustained institutional commitment across all sports is the actual winning formula, and football will follow."
+
+the_delusion:
+  tone: self-aware
+  text: "That football can be built the same way a dynasty in field hockey or swimming is built — through four-year patience and program continuity. It works for 27 sports; why not football? The fanbase believes it; the reality: football requires a narrower, more violent form of excellence."
+
+the_grudge_texture:
+  rival: colgate
+  texture: championship
+
+the_coach_relationship: hot-seat-churn   # Cecchini parted after six seasons in 2025
+the_internal_fracture: institutional-patience vs. football-urgency — the faction that trusts the all-sports model vs. the faction demanding football investment
+register: institutional-earnest
+never_use:
+  - small
+  - mid-tier
+  - basketball school
+  - one-sport
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. ──
+story_canon:
+  the_unique_thing: "The only FCS program that measures institutional success by an all-sports trophy (the Presidents' Cup), winning it more times than any other school in America. Football is one thread in a much larger athletic tapestry."
+  the_origin: "Bucknell University athletic tradition began in 1883, the same year Lehigh-Lafayette rivalry started. The school became a Patriot League founding member, embedding football in a comprehensive athletics mission from the start."
+  golden_ages:
+    - { era: "1935", what: "Orange Bowl champions, defeated Miami 26-0" }
+    - { era: "1996", what: "First Patriot League championship era began" }
+    - { era: "2000s-2010s", what: "Multiple Presidents' Cup winners; sustained multi-sport excellence" }
+  legends:
+    - { name: "Ralph Rucker IV", role: "player", why: "Set program records with 437 passing yards and five TDs in a single 2024 game vs. Colgate (48-34 win)" }
+  canonical_moments:
+    - { name: "1935 Orange Bowl", year: 1935, what: "Bucknell defeated Miami 26-0 in the Orange Bowl, the program's historic national victory", handling: glory }
+    - { name: "1996 Patriot League Championship", year: 1996, what: "First Patriot League title began the modern conference era for Bucknell", handling: glory }
+  the_place: "Memorial Stadium in Lewisburg, Pennsylvania, home of a program embedded in a 27-sport athletic institution."
+  brand_of_football: "Patient, institutional football — one sport within a comprehensive athletic strategy, not the center of gravity."
+  cultural_footprint: "Proof that FCS football can thrive without dominating institutional identity. Bucknell's cultural signature is all-sports excellence."
+  the_ongoing_story: >
+    LIVE ARC — 2026-06-13: Bucknell finished 5-7 (2-5 Patriot League) in 2025 after a 6-6 season in 2024, with coach Dave Cecchini parting ways after six seasons. The program enters a new era under new coaching leadership, tasked with bridging the Presidents' Cup institutional culture and football competitiveness. The question in Lewisburg: can football finally match the excellence the institution has mastered across 27 sports?
+  research_checklist:
+    - The Presidents' Cup history and what it means institutionally
+    - The 1935 Orange Bowl and its place in program lore
+    - The Patriot League founding member legacy
+    - The all-sports identity and how it shapes football recruitment/culture
+    - The 2024-2025 transition and new coaching direction
+  sources:
+    - https://sportsteamhistory.com/bucknell-bison/
+    - https://en.wikipedia.org/wiki/2024_Bucknell_Bison_football_team
+    - https://en.wikipedia.org/wiki/2025_Bucknell_Bison_football_team
+    - https://bucknellathletics.com/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Bucknell is the all-sports champion embedded in comprehensive athletic excellence, with football as one thread in a 27-sport tapestry.
+  mantra: All for One; One for All (institutional unity)
+  cultural_anchors:
+    fan_archetype_dominant: All-Sports Pride
+    outsider_archetype_dominant: Mid-Tier Overlooked
+    one_sentence: Bucknell measures winning by the Presidents' Cup (all-sports trophy) more than football success, representing an institution where comprehensive athletic excellence outweighs football visibility.
+  selfname: Bison
+  aspiration_ladder_top: Patriot League championship + all-sports dominance
+  rivalries:
+    - colgate
+    - lehigh
+    - lafayette
+  heritage:
+    national_titles: "1935 Orange Bowl"
+    conference_titles: "1 (1996 Patriot League)"
+    current_conference: Patriot League
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: "Unknown (program rebuilt post-2000)"
+    era_name_overrides: {}
+    always_surface:
+      - Presidents' Cup (all-sports trophy won more times than any school)
+      - 1935 Orange Bowl (26-0 vs. Miami)
+      - 1996 Patriot League Championship
+    rituals: []
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    signal: "no live signal yet (canon-only) — FCS program not covered by discourse fingerprint"

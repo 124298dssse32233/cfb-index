@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Emotional Core — soul file for Missouri Western Griffons (MIAA)
+
+status: live
+slug: missouri-western
+team_id: null
+program_name: Missouri Western
+program_tier: 6
+
+emotional_core:
+  primary: grief
+  secondary: restoration
+  one_line: "Missouri Western is the Griffon program in the shadow of its giant neighbor — fifty miles from Northwest Missouri State, searching for relevance in a rivalry they cannot win."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A program that competed in the late 2000s and early 2010s under Jerry Partridge (2010–2012 playoff appearances) but has not recovered since; 3-8 in 2025, in the long shadow of Northwest Missouri State's dynasty."
+
+the_wound:
+  name: "The proximity curse — living fifty miles from a D2 dynasty and being defined by that distance"
+  detail: "Missouri Western and Northwest Missouri State are so close they can almost hear each other's games. But NWMSU is a national power (six D2 titles) and the Griffons are struggling. That's the wound: not losing to a rival, but being dominated by a neighbor that reminds you daily of the gap."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build a program worthy of the rivalry — beat Northwest Missouri State, go to a bowl, prove the Griffons can compete in the backyard."
+  drought: { since: 2012, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "The chip is NWMSU — the Bearcats win national titles while the Griffons struggle to win conference games. Every loss to Northwest makes it worse; every year they don't breaks the fanbase a little more."
+
+the_delusion:
+  tone: earnest
+  text: "Missouri Western fans believe that Tyler Fenwick's rebuild can get the Griffons back to the 2010–2012 form when they made playoffs. They know the proximity curse is real, but refuse to accept permanent second-place status."
+
+the_grudge_texture:
+  rival: northwest-missouri-state
+  texture: blood-feud
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "nostalgia for 2010–2012 vs. acceptance of current reality — fans split on whether Griffons can ever escape the shadow"
+register: missouri-griffon-proximity-curse
+never_use:
+  - "Always been irrelevant (made playoffs 2010, 2011, 2012)"
+  - "No history (Jerry Partridge era playoff teams)"
+
+story_canon:
+  the_unique_thing: "Missouri Western is defined by geography — fifty miles from Northwest Missouri State's six-time D2 championship dynasty. Every loss, every season, every decision is shadowed by that proximity and that disparity."
+  the_origin: "Founded in 1905, Missouri Western expanded from junior college to four-year university in 1969. The football program built regional competence and made the move to NCAA Division II in the MIAA. But since the early 2010s, the program has struggled to maintain success in the shadow of the Bearcats."
+  golden_ages:
+    - { era: "2010–2012 (Jerry Partridge)", what: "Three consecutive NCAA playoff appearances (2010, 2011, 2012) — the program's only recent postseason runs" }
+    - { era: "Pre-1970s", what: "Junior college success before the four-year transition" }
+  legends:
+    - { name: "Jerry Partridge", role: "coach", why: "Led Missouri Western to three consecutive NCAA D2 playoffs (2010–2012), the program's only recent postseason success" }
+  canonical_moments:
+    - { name: "2010 NCAA Playoff Appearance", year: 2010, what: "First playoff berth; the start of the brief Partridge run", handling: glory }
+    - { name: "2012 Playoff (Last Recent Berth)", year: 2012, what: "Missouri Western's most recent postseason appearance", handling: glory }
+  the_place: "Griffon Stadium in St. Joseph, Missouri — home of the Griffons and the launching point for the Partridge playoffs teams."
+  brand_of_football: "Developmental, regional, catching-up — football trying to prove the Griffons belong in the same conversation as the Bearcats, fifty miles away."
+  cultural_footprint: "A program that proved junior-college-to-four-year transition could work competitively, but hasn't yet proven it can sustain that success."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Missouri Western went 3-8 in 2025, 2-7 in MIAA play — a continuation of the struggle. Tyler Fenwick is in his third season as head coach (12-11 record in his first two years), and the Griffons are still searching for a return to playoff contention. The 2010–2012 Partridge era (three playoff berths) is now nearly 15 years in the rearview. The question: can Fenwick rebuild the program, or is Missouri Western settling into the permanent role of NWMSU's lesser neighbor?
+  research_checklist:
+    - Jerry Partridge's 2010–2012 playoff teams
+    - Junior college to four-year transition (1969)
+    - Tyler Fenwick's coaching tenure and record
+    - 2025 season performance and MIAA standings
+    - The proximity and rivalry with NWMSU
+  sources:
+    - https://en.wikipedia.org/wiki/Missouri_Western_Griffons_football
+    - https://www.missouriwestern.edu/athletics/
+    - https://themiaa.com/
+    - https://www.d2football.com/

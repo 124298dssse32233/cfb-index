@@ -1,0 +1,92 @@
+# Emotional Core — Cornell Big Red (cornell)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-14 from live web research — Ivy member, five national titles, Pop Warner connection.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: cornell
+team_id: null           # non-FBS
+program_name: Cornell Big Red
+program_tier: 2         # solid Ivy program
+division: FCS (Ivy)
+
+emotional_core:
+  primary: honor        # the keeper of Pop Warner's legacy
+  secondary: standard   # living up to five national titles
+  one_line: "Cornell football is the program that Pop Warner built into a dynasty (five national titles, three undefeated seasons), and still plays the game the way he taught it — with intelligence, tradition, and pride in the sport itself."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Five national championships, the legacy of Pop Warner, and the Ivy League's sixth-most played rivalry (Penn) vs the reality of being one of the smaller Ivy programs competing for championships."
+
+the_wound:
+  name: "The weight of Pop Warner's legacy — can any coach live up to it?"
+  detail: "Pop Warner coached Cornell (1904–1906) and built one of college football's first dynasties. The program then posted three consecutive undefeated seasons (1920–1923) under Gil Dobie. Cornell has never found a coach who matched that standard in the modern era. The wound is generational: greatness that happened once, long ago."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Recapture Ivy League dominance and remind people why Pop Warner's Cornell was a dynasty. The 1988 and 1990 shared Ivy titles are proof the program can still compete."
+  drought: { since: 1990, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "The fanbase believes Penn holds the sixth-most played rivalry in college football history against Cornell, and that Penn has won more Ivy titles in the modern era. Cornell built the foundation of Ivy football, but Penn has claimed more championships since 1956. That gap between historical pedigree and modern success fuels the Big Red."
+
+the_delusion:
+  tone: self-aware
+  text: "That Cornell could have continued Pop Warner's dynasty if the Ivy League had allowed it — and the fanbase half-believes it. The program knows what it could have been; the Ivy League's structure prevents it from finding out."
+
+the_grudge_texture:
+  rival: penn
+  texture: championship    # the sixth-most played rivalry in college football history
+
+the_coach_relationship: legends-shadow   # every coach lives under Pop Warner's shadow
+the_internal_fracture: null
+register: ithaca-big-red-pop-warner-empire
+never_use:
+  - Pop Warner's sole legacy — five national titles proves sustained success beyond one coach
+  - Never won anything in Ivy — three shared titles (1971, 1988, 1990)
+
+story_canon:
+  the_unique_thing: "Pop Warner at Cornell (1904–1906) — one of the most influential coaches in football history built a dynasty at Cornell before becoming a legend elsewhere. The program's DNA comes from the Father of Modern Football."
+  the_origin: "Cornell started football in 1887. Pop Warner arrived in 1904 and transformed the program into a powerhouse, laying the foundation for three consecutive undefeated seasons (1920–1923) under Gil Dobie."
+  golden_ages:
+    - { era: "1904–1906 (Pop Warner)", what: "The Father of Modern Football coaches at Cornell; lays the foundation for a dynasty" }
+    - { era: "1920–1923 (Gil Dobie)", what: "Three consecutive undefeated seasons; the peak of Cornell football" }
+    - { era: "1971, 1988, 1990", what: "Three Ivy League championships; the modern era of competence" }
+  legends:
+    - { name: Pop Warner, role: coach, why: "The Father of Modern Football; coached at Cornell and built the program's identity" }
+    - { name: Gil Dobie, role: coach, why: "Three consecutive undefeated seasons (1920–1923); the architect of early Cornell dominance" }
+    - { name: Hunter Nourzad, role: player, why: "Recent player who competed in Super Bowl LIX; proof Cornell produces NFL talent" }
+  canonical_moments:
+    - { name: "Pop Warner Era", year: 1906, what: "Pop Warner coaches at Cornell and builds the foundation of the program", handling: glory }
+    - { name: "Three undefeated seasons", year: 1923, what: "Gil Dobie leads Cornell to three consecutive undefeated seasons (1920–1923)", handling: glory }
+    - { name: "Penn rivalry (sixth-most played)", year: 1890, what: "Cornell-Penn is the sixth-most played rivalry in college football history", handling: glory }
+  the_place: "Schoellkopf Field in Ithaca, New York — home of Pop Warner's legacy."
+  brand_of_football: "The intelligent game — Cornell football is built on the principle that Pop Warner taught: football is a thinking person's game."
+  cultural_footprint: "Pop Warner's fingerprints are on Cornell football. The program doesn't need to win championships to matter; it matters because Pop Warner built it."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-14: Under coach Dan Swanstrom (second season), Cornell competes in the Ivy
+    League. The Big Red face the ongoing challenge of living up to the program's historical legacy while building
+    within the Ivy League's competitive constraints. Recent seasons have seen Cornell navigate strong Ivy competition,
+    with the program continuing to field competitive teams. Notable recent players like Hunter Nourzad have gone on
+    to NFL success, proving the program still produces elite talent.
+  research_checklist:
+    - Pop Warner (1904–1906, Father of Modern Football)
+    - Gil Dobie (three undefeated seasons, 1920–1923)
+    - Five national championships total
+    - Three Ivy League titles (1971, 1988, 1990)
+    - Penn rivalry (sixth-most played)
+    - 666 all-time wins
+  sources:
+    - https://en.wikipedia.org/wiki/Cornell_Big_Red_football
+    - https://en.wikipedia.org/wiki/Pop_Warner
+
+briefing:
+  identity_phrase: Cornell is the program Pop Warner built when he was coaching at the school that would become one of football's foundational forces.
+  mantra: "Pop Warner's Tradition"
+  selfname: the Big Red
+  heritage:
+    national_titles: 5
+    conference_titles: "3 Ivy (1971, 1988, 1990)"
+    current_conference: Ivy League (FCS)

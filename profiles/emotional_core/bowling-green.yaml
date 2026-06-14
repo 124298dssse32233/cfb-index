@@ -1,0 +1,120 @@
+# Emotional Core — Bowling Green  (bowling-green)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: bowling-green
+team_id: 45
+program_name: Bowling Green
+program_tier: 3
+
+emotional_core:
+  primary: house-money     # a Heisman head coach walked into the MAC; whatever happens now is found money
+  secondary: restoration   # the slow climb back toward the Doyt Perry standard, started fresh in 2025
+  one_line: "Bowling Green is the cradle that launched Urban Meyer's career and now, somehow, got a Heisman winner to come coach the Falcons himself — a MAC program suddenly more interesting than its record."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Doyt Perry's undefeated 1959 and a national-coaching-tree pedigree vs a modern MAC reality where bowl eligibility, not titles, is the bar."
+
+the_wound:
+  name: "The 4-8 reset under a famous new face"
+  detail: "Eddie George's debut went 4-8 (2-6 MAC) — a transition year with a transfer-built roster that fell short of a bowl, the kind of rebuild season that tests whether a marquee name can translate to wins in Bowling Green."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get the Falcons back to the MAC Championship and a bowl — and let the Doyt fill the way it did when Bowling Green was the league's measuring stick, not an afterthought."
+  drought: { since: 2015, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Falcon fans will remind you that Urban Meyer's whole legend started here, in their building — and they say the pundits who can't place Bowling Green on a map are the same ones who'll act surprised when the place produces the next big name."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes a Heisman-winner head coach changes the gravity of the program — that recruits and transfers who'd never have heard of the Falcons will now take the call, and that George is the lever that pulls Bowling Green back to relevance."
+
+the_grudge_texture:
+  rival: toledo
+  texture: blood-feud   # the Battle of I-75 / Peace Pipe — the oldest, fiercest rivalry in the MAC
+
+the_coach_relationship: savior   # George is the brand-name hire the fanbase is betting the era on
+the_internal_fracture: name-recognition vs proven-record — the faction thrilled that a Heisman winner chose Bowling Green and willing to wait vs the faction that wanted a proven MAC winner and judges 4-8 on its face
+register: bg-falcons-doyt-perry-mac-historic
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always MAC-bottom — 1959 #20 AP + Urban Meyer era disprove'
+  - Forgotten program — Urban Meyer's coaching tree gives permanent weight
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Bowling Green is the launchpad — the place Urban Meyer's head-coaching career started in 2001-2002 before Utah, Florida, and Ohio State, and now the only MAC program coached by a Heisman Trophy winner in Eddie George. The Falcons keep producing names bigger than their conference."
+  the_origin: "A northwest-Ohio state school in the football-soaked MAC, built into a power in the 1950s-60s by Doyt Perry, whose name is on the stadium and whose standard still defines what 'good' means in Bowling Green."
+  golden_ages:
+    - { era: "1955–1964 (Doyt Perry)", what: "A 77-11-5 run, an undefeated 9-0 1959 team that finished No. 20 in the AP poll — the program's high-water mark" }
+    - { era: "2001–2002 (Urban Meyer)", what: "Meyer's first head job: a 17-6 turnaround that launched one of the great coaching careers in the sport" }
+  legends:
+    - { name: Doyt Perry, role: coach, why: "Built the dynasty; the stadium bears his name and his standard" }
+    - { name: Urban Meyer, role: coach, why: "Started his head-coaching career here in 2001 before becoming a national-champion coach" }
+    - { name: Josh Harris, role: player, why: "Early-2000s dual-threat QB who quarterbacked the Meyer-era resurgence" }
+  canonical_moments:
+    - { name: "Undefeated 1959", year: 1959, what: "Perry's 9-0 team finishes ranked No. 20 in the AP poll", handling: glory }
+    - { name: "Meyer's arrival", year: 2001, what: "Urban Meyer's first head-coaching season begins a career that ends in national titles", handling: glory }
+    - { name: "2015 MAC Championship", year: 2015, what: "Dino Babers' high-scoring Falcons win the league title before he leaves for Syracuse", handling: glory }
+  the_place: "Doyt L. Perry Stadium — named for the coach who built the program — in northwest Ohio, the heart of MAC country, where 'Ay Ziggy Zoomba' (a fight song since the 1920s) frames a small-school, big-history gameday."
+  brand_of_football: "MAC offense-forward football — the program that gave Dino Babers and Urban Meyer their starts has long leaned into tempo and scoring, a development lab as much as a team."
+  cultural_footprint: "The coaching cradle — a program whose footprint on the sport is measured less in trophies than in the careers it launched, Urban Meyer chief among them."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Bowling Green made the splashiest hire in the MAC, bringing in 1995
+    Heisman winner Eddie George from Tennessee State. His debut went 4-8 (2-6 MAC), a transition season on a
+    transfer-heavy roster that missed a bowl. Entering year two, the bet in Bowling Green is that a marquee
+    name changes recruiting gravity and pulls the Falcons back toward the MAC contention the program once
+    owned — with the Doyt standard and the Meyer legacy as the measuring sticks.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Bowling_Green_Falcons_football_team
+    - https://bgsufalcons.com/news/2025/3/9/eddie-george-named-bowling-green-football-head-coach
+    - https://en.wikipedia.org/wiki/Urban_Meyer
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Bowling Green is the MAC program whose Doyt Perry 1950s-1960s dynasty + Urban Meyer 2001-2002
+    ascent + Doyt Perry Stadium tradition define what historic-Ohio-MAC-football looks like.
+  mantra: Ay Ziggy Zoomba.
+  cultural_anchors:
+    fan_archetype_dominant: BG-Falcon-Ziggy-Zoomba
+    outsider_archetype_dominant: MAC-Refugee-Diminisher
+    one_sentence: Bowling Green is the historic MAC program — Doyt Perry 1950s-1960s dynasty + Urban Meyer
+      2001-2002 launchpad + Ay Ziggy Zoomba fight song that anchor the Falcon identity.
+  selfname: the Falcons
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1959 9-0 +
+    - Urban Meyer 2001-2002 launchpad era
+    - '''Ay Ziggy Zoomba'' fight song (since 1923)'
+    rituals:
+    - Doyt Perry Era (1955-1964)
+    - Urban Meyer 2001-2002 Ascent
+    - Ay Ziggy Zoomba Fight Song
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

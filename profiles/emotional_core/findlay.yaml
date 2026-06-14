@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# University of Findlay — G-MAC historic powerhouse, four NAIA titles, co-2025 champions
+
+status: live
+slug: findlay
+team_id: null
+program_name: University of Findlay
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Findlay is the historic NAIA powerhouse that transitioned to NCAA Division II and is reclaiming its place atop the G-MAC, a program built on the Dick Strahm legacy of excellence."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "Four NAIA national championships and a storied history vs. a Division II rebuild that has Findlay surging toward conference dominance in its new home."
+
+the_wound:
+  name: "The NAIA-to-D2 transition and the championship gap"
+  detail: "Findlay's four national titles (1979, 1992, 1995, 1997) came in NAIA, where the Oilers went 14-0 in 1997. Moving to NCAA Division II meant leaving that legacy behind and rebuilding in a new tier. The transition required proving the Oilers could compete at a higher level."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a D2 national championship and prove Findlay's dynasty belongs at the highest tier, not just in NAIA history but in Division II hierarchy."
+  drought: { since: 1997, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe findlay has no chip — the program's strength is its legacy of excellence, and the co-2025 G-MAC title is the first step toward a national championship."
+
+the_delusion:
+  tone: none
+  text: null
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Legacy pressure — Findlay fans and players carry the weight of four NAIA titles and must build something equivalent in Division II."
+register: oilers-findlay-ohio-dick-strahm-legacy
+
+never_use:
+  - "NAIA program: Findlay has been NCAA Division II since transitioning and is co-champion in 2025"
+  - "Small-school program with no championship history: four national titles (1979, 1992, 1995, 1997) define the program"
+  - "New to competitive football: the Dick Strahm era established deep tradition"
+
+story_canon:
+  the_unique_thing: "Four NAIA national championships (1979, 1992, 1995, 1997) with a perfect 14-0 1997 national title team — and the program's 2025 co-G-MAC title is the first step toward proving that legacy translates to Division II."
+  the_origin: "Findlay University built a football dynasty under head coach Dick Strahm, winning four NAIA national championships and establishing itself as one of the most successful small-school programs in America."
+  golden_ages:
+    - { era: "1979, 1992, 1995, 1997", what: "Four NAIA national championships under Dick Strahm, including an undefeated 14-0 season in 1997" }
+    - { era: "2024–2025", what: "NCAA Division II co-champions in 2025 after transitioning from NAIA" }
+  legends:
+    - { name: Dick Strahm, role: coach, why: "Built four NAIA national championship teams and established Findlay as a dynasty program" }
+    - { name: Kory Allen, role: coach, why: "Guided Findlay's Division II transition with a 33-12 record over four seasons before stepping down in December 2025" }
+  canonical_moments:
+    - { name: "1997 National Championship", year: 1997, what: "Findlay goes undefeated (14-0) and wins the NAIA national title", handling: glory }
+    - { name: "Four NAIA Titles", year: 1997, what: "1979, 1992, 1995, 1997 national championships establish Findlay as a dynasty", handling: glory }
+    - { name: "2025 G-MAC Co-Championship", year: 2025, what: "Co-champions prove the program's transition to Division II is successful", handling: glory }
+  the_place: "Findlay, Ohio — home of the Oilers, a small university with a storied athletic tradition."
+  brand_of_football: "Championship football with a legacy of excellence — Findlay plays with the mentality of a program that has won at the highest levels and expects to do so again."
+  cultural_footprint: "Findlay represents the dynasty small-school program: four NAIA titles and a coaching legacy under Dick Strahm that shaped Division II football for a generation."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Findlay enters 2026 as a co-defending G-MAC champion after going 10-2 in 2025 and sharing the conference title. The program made NCAA Division II history in 2025 by hosting its first home playoff game, a landmark moment in the transition from NAIA. New head coach Tyler Johns, a 2012 Findlay product, takes over in 2026 after Kory Allen (33-12 in four years) stepped down in December 2025. The question in Findlay: can the program continue the co-championship momentum and push toward a D2 national title, proving that the NAIA dynasty legacy translates to the highest tier?
+  research_checklist:
+    - Four NAIA national championships (1979, 1992, 1995, 1997)
+    - 1997 undefeated 14-0 national championship season
+    - 10-2 overall in 2025, co-G-MAC champions
+    - 2025 NCAA Division II history: first home playoff game
+    - Coaching transition: Kory Allen (33-12 in four years) → Tyler Johns (2026)
+  sources:
+    - https://www.findlay.edu/athletics/football
+    - https://d2football.com/2025-season-preview
+    - https://www.gmacports.com/news/

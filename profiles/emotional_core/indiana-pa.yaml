@@ -1,0 +1,86 @@
+# Emotional Core — Indiana University of Pennsylvania  (indiana-pa)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Status: live | Tier: 6 (Division II PSAC) | Authored 2026-06-13
+
+status: live             # todo | drafted | authored | reviewed | live
+slug: indiana-pa
+team_id: 227            # placeholder; verify against CFBD ID mapping
+program_name: Indiana University of Pennsylvania
+program_tier: 6         # Division II PSAC
+
+emotional_core:
+  primary: contentment     # strong but never quite champion; closest contender to Kutztown's dynasty
+  secondary: contentment         # Paul Tortorella's stable ten-year tenure and consistent excellence
+  one_line: "IUP is the PSAC program that shows up every year ready to compete, led by a Head Coach who has built consistent excellence but lives in the shadow of Kutztown's national dominance."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Back-to-back PSAC West titles and playoff appearances vs a national title that stays just out of reach — the runner-up story."
+
+the_wound:
+  name: "Always the bridesmaid"
+  detail: "IUP won consecutive PSAC West titles in 2022–2023 and made NCAA D2 playoff runs, but never advanced past the regional semifinals. Kutztown's dynasty eclipses every local achievement."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a PSAC championship that sticks — and advance deep enough in the NCAA tournament to claim a regional title, not just a conference title."
+  drought: { since: 2023, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe iUP builds excellent teams year after year and draws recruits to Indiana, PA, but Kutztown's 31-game winning streak and national-semifinal runs make every IUP achievement look like second place."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes THIS year, IUP breaks through — that Tortorella has the pieces for a deep run and just needs one break, one playoff draw to prove IUP is as good as anyone."
+
+the_grudge_texture:
+  rival: kutztown
+  texture: championship    # IUP respects Kutztown but chafes at always losing the PSAC title conversation to them
+
+the_coach_relationship: forever-ours      # Tortorella has built IUP into a perennial winner over ten years
+the_internal_fracture: null         # program is unified around Tortorella's excellence
+register: indiana-pa-crimson-loyalist
+never_use:
+  - "Small-time program — PSAC West Champion 2022–2023 contradicts that"
+  - "Tortorella's a stepping stone — he's committed ten years to IUP and keeps recruiting"
+
+# ── STORY CANON (doc 64) ────────────────────────────────────────────────────
+story_canon:
+  the_unique_thing: "The PSAC's most consistent challenger to Kutztown — Paul Tortorella built IUP into a program that shows up every year ready to fight for a conference title."
+  the_origin: "Indiana University of Pennsylvania (1875–), a regional public university in Indiana, PA (near Pittsburgh), fielding Crimson Hawks football since the early 20th century."
+  golden_ages:
+    - { era: "Tortorella Era (2015–)", what: "Built IUP from a mid-tier PSAC team into a consistent playoff contender with 10-win seasons and consecutive PSAC West titles in 2022–2023." }
+  legends:
+    - { name: Paul Tortorella, role: coach, why: "Ten-year head coach who elevated IUP to regional powerhouse status and PSAC West champion." }
+  canonical_moments:
+    - { name: "2022 PSAC Championship + Playoff", year: 2022, what: "IUP won the PSAC title and advanced to the NCAA D2 regional, establishing Tortorella's elite coaching arrival.", handling: glory }
+    - { name: "2023 PSAC West Title", year: 2023, what: "Back-to-back PSAC West championship, cementing IUP as a consistent power.", handling: glory }
+  the_place: "George P. Miller Stadium — Frank Cignetti Field, home to the Crimson Hawks, in the heart of Indiana, PA."
+  brand_of_football: "Tough, disciplined PSAC football — Tortorella's system builds strong defense and ball control."
+  cultural_footprint: "A program that earns respect through year-to-year consistency; Indiana, PA takes pride in IUP's ability to compete with anyone."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Paul Tortorella enters his eleventh season as IUP head coach with a program
+    that has established itself as the PSAC West's closest challenger to Kutztown's dominance. With defending
+    PSAC West champion status and a strong recruiting class, IUP aims to make a deeper NCAA tournament run and
+    finally break through to a regional title that proves the program's national standing.
+  research_checklist:
+    - Paul Tortorella's background and his path to building IUP into a PSAC power
+    - IUP's 2022–2023 PSAC championship runs and playoff performances
+    - The Indiana, PA regional identity and how it ties to Tortorella's recruiting
+    - IUP vs Kutztown head-to-head record and the regional rivalry dynamic
+  sources:
+    - https://iupathletics.com/sports/football/roster
+    - https://iupathletics.com/staff-directory/paul-tortorella/71
+    - https://en.wikipedia.org/wiki/IUP_Crimson_Hawks_football
+
+# ── BRIEFING (read-only context; NOT part of published core) ──
+briefing:
+  identity_phrase: "IUP is the PSAC regional power under Paul Tortorella, a ten-year coach who built Crimson Hawks excellence but lives in the PSAC's biggest program's shadow."
+  mantra: "Crimson Hawks."
+  cultural_anchors:
+    fan_archetype_dominant: "Indiana-PA-Loyalist-PSAC-Believer"
+    outsider_archetype_dominant: "PSAC-West-Close-Second-Observer"
+    one_sentence: "IUP is the PSAC West's most consistent challenger under ten-year coach Paul Tortorella, a program that builds year after year but always chases Kutztown."
+  selfname: "the Crimson Hawks"

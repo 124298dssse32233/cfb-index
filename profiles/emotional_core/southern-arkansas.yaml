@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: southern-arkansas
+team_id: null
+program_name: Southern Arkansas
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: house-money
+  one_line: "Southern Arkansas is the Mulerider dynasty in ascent—a program that has quietly built 32 wins in four years under Brad Smiley and won the 2025 Battle of the Timberlands 49-10 over its ancient rival."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A small D2 school in Magnolia, Arkansas that went from mid-tier GAC competitor to a rising power—27 wins in three years (2023-2025) and the momentum to challenge for a conference title."
+
+the_wound:
+  name: "Decades of mid-tier irrelevance"
+  detail: "Southern Arkansas was not a powerhouse. It was reliable but unremarkable for years, a conference member that showed up but didn't dominate. The wound is not dramatic—it's the quiet frustration of a program that knew it could do better."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Win a GAC Conference Championship and prove the Smiley era is a dynasty in the making—not just a good stretch, but a sustained turnaround that puts Magnolia on the D2 map."
+  drought: { since: 2023, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe southern Arkansas has no external enemy. The chip is against the program's own history—the desire to transform from steady-state mediocrity into genuine contender."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that 27 wins in three years is a blueprint for something bigger—that Brad Smiley has built something that won't regress. They see the talent, the depth, the trajectory, and they think it's finally Southern Arkansas' moment."
+
+the_grudge_texture:
+  rival: arkansas-monticello
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: None; Southern Arkansas is unified around Brad Smiley's rebuild
+register: magnolia-muleriders-timberlands-ascent
+
+never_use:
+  - "Southern Arkansas will always be mid-tier"
+  - "The Muleriders can't sustain success"
+  - "Small Arkansas schools can't build dynasties"
+  - "Brad Smiley is a flash in the pan"
+
+story_canon:
+  the_unique_thing: "Southern Arkansas is a rising D2 power that has built 32 wins in four years (2022-2025) and has won recent Battle of the Timberlands games against its oldest rival, Arkansas-Monticello."
+  the_origin: "Southern Arkansas was founded in 1909. The football program began as a regional competitor in Arkansas, competing in the GAC since the conference's founding."
+  golden_ages:
+    - { era: "2023-2025", what: "Brad Smiley's first four years have produced 32 wins and a 8-3 season in 2025, including a 49-10 win over Arkansas-Monticello in the Battle of the Timberlands" }
+  legends:
+    - { name: Brad Smiley, role: coach, why: "Fourth-year head coach with a 32-13 record; architect of the current Mulerider dynasty" }
+    - { name: Hezekiah Harris, role: player, why: "Standout player in the 2025 Battle of the Timberlands win (5 TDs)" }
+  canonical_moments:
+    - { name: "2025 Battle of the Timberlands", year: 2025, what: "Southern Arkansas defeats Arkansas-Monticello 49-10 in the 100th edition of the Battle of the Timberlands", handling: glory }
+    - { name: "27 Wins in Three Years", year: 2025, what: "Brad Smiley builds a sustained winning program with 27 wins in three years (2023-2025)", handling: glory }
+  the_place: "Wilkins Stadium in Magnolia, Arkansas—home of the Muleriders, where a small-school power is being built."
+  brand_of_football: "Tough, physical football. A program that plays for the love of the game and the community that supports it—the kind of place where every win matters because there's no cushion."
+  cultural_footprint: "Southern Arkansas is proof that sustained coaching and player development in a small market can turn a regional program into a rising power."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Southern Arkansas finished 8-3 in 2025 under head coach Brad Smiley
+    with a dominant 49-10 victory over Arkansas-Monticello in the 100th edition of the Battle of the Timberlands.
+    Smiley has compiled a 32-13 record in four years, including 27 wins in the last three seasons. The Muleriders
+    are trending upward and building momentum toward a GAC Conference Championship. The question for 2026: can
+    Southern Arkansas sustain this trajectory and make a run at the conference title?
+  research_checklist:
+    - Brad Smiley's coaching record and trajectory
+    - the Battle of the Timberlands rivalry origin and history
+    - 2025 season wins and standout performances
+    - recent player talent and depth
+    - conference standings and positioning
+  sources:
+    - https://en.wikipedia.org/wiki/Southern_Arkansas_Muleriders_football
+    - https://muleriderathletics.com/staff-directory/brad-smiley/1240
+    - https://greatamericanconference.com/standings.aspx?path=football

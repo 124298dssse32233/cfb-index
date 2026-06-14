@@ -1,0 +1,88 @@
+# Emotional Core — Kutztown University  (kutztown)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Status: live | Tier: 6 (Division II PSAC) | Authored 2026-06-13
+
+status: live             # todo | drafted | authored | reviewed | live
+slug: kutztown
+team_id: 228            # placeholder; verify against CFBD ID mapping
+program_name: Kutztown University
+program_tier: 6         # Division II PSAC
+
+emotional_core:
+  primary: standard         # defending champions, 31-game winning streak, the measure by which all PSAC programs are judged
+  secondary: standard              # elite program that still wants more; no complacency despite dominance
+  one_line: "Kutztown is the PSAC's national power — a 14-1 championship dynasty under Jim Clements, a program that set the standard and refuses to step down."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Three consecutive PSAC championships, a 31-game winning streak, and a national semifinals appearance (2025) — Kutztown IS the standard against which the PSAC is measured."
+
+the_wound:
+  name: null  # no wound; this is a program at its peak
+  detail: null
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Play for a national championship — the 2025 semifinal run proved Kutztown belongs in that conversation, and the program now hungers for the final step."
+  drought: null  # no drought; Kutztown is the program denying everyone else's dreams
+
+the_chip:
+  villain: none
+  text: "Fans here believe kutztown carries the chip of a program that grew from a mid-tier PSAC program into a national contender. Every critic who doubted a PSAC school's ceiling gets proven wrong by the scoreboard."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes Kutztown is closer to a national title than any other D2 team — and the 2025 semifinal run, the 31-game streak, and Clements' elite coaching give that belief merit."
+
+the_grudge_texture:
+  rival: slippery-rock
+  texture: championship    # Kutztown has emerged as the PSAC's undisputed top program; Slippery Rock is the defending West champion but plays second fiddle nationally
+
+the_coach_relationship: total-trust     # Jim Clements is the architect of Kutztown's dynasty
+the_internal_fracture: null           # program is unified around championship culture
+register: kutztown-championship-believer
+never_use:
+  - "Mid-tier PSAC — 14-1 and national semifinals contradicts this entirely"
+  - "Overrated — 31-game winning streak and three consecutive PSAC titles prove the opposite"
+  - "One-year wonder — three consecutive championships and a semifinal appearance say otherwise"
+
+# ── STORY CANON (doc 64) ────────────────────────────────────────────────────
+story_canon:
+  the_unique_thing: "Kutztown transformed from a regional PSAC program into a national power — a 14-1 dynasty with the longest active winning streak in D2, a national semifinals appearance, and three consecutive conference championships."
+  the_origin: "Kutztown University (1866–), a public university in Kutztown, PA (Berks County), fielding Golden Bears football with deep regional tradition."
+  golden_ages:
+    - { era: "Clements Dynasty (2014–)", what: "Jim Clements elevated Kutztown from a mid-tier PSAC program into a national contender with five PSAC titles (11th in 2014, then three consecutive 2023–2025) and a national semifinals run." }
+  legends:
+    - { name: Jim Clements, role: coach, why: "Built Kutztown from a PSAC middle-of-the-pack team into a national power; 2025 Walter Camp Division II Coach of the Year." }
+  canonical_moments:
+    - { name: "2025 Season (14-1, National Semifinals)", year: 2025, what: "Kutztown went 11-0 in the regular season with a 31-game winning streak, won the PSAC title, and advanced to the national semifinals — the program's finest hour.", handling: glory }
+    - { name: "2025 Walter Camp Coach of the Year", year: 2025, what: "Jim Clements won D2's highest coaching honor, validating his dynasty-building vision.", handling: glory }
+    - { name: "Three Consecutive PSAC Championships (2023–2025)", year: 2023, what: "Established Kutztown as the conference's undisputed power.", handling: glory }
+  the_place: "South Stadium — Kutztown's home, in rural Berks County, a setting that grounds the program's identity in its region."
+  brand_of_football: "Elite, physical, Big-Ten-style football — Clements' system is built on strong defense, ball control, and relentless execution."
+  cultural_footprint: "A program that proved a PSAC school could compete at the national level — Kutztown is now the standard by which all small-college programs are judged."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Kutztown enters 2026 as the defending PSAC champion with a 31-game winning
+    streak intact and national championship aspirations. Jim Clements, fresh off the 2025 Walter Camp Coach of the Year
+    award, returns a dominant squad that fell one win short of the national title in 2025. With elite talent returning and
+    a program culture defined by winning, Kutztown aims to finish what the 2025 season started: a national championship.
+  research_checklist:
+    - Jim Clements' coaching background and his path to building a national power
+    - The 2025 season breakdown: 14-1 record, 31-game streak, national semifinals
+    - Kutztown's five PSAC championship runs (2014, 2023, 2024, 2025, plus earlier titles)
+    - Recruits and talent retention in the post-2025 offseason
+  sources:
+    - https://waltercamp.org/kutztown-universitys-jim-clements-has-been-named-the-2025-walter-camp-division-ii-coach-of-the-year/
+    - https://kubears.com/news/2025/11/19/football-kutztown-football-lands-program-record-18-on-all-psac-teams-clements-hile-and-novak-claim-major-awards.aspx
+    - https://en.wikipedia.org/wiki/Jim_Clements_(American_football)
+
+# ── BRIEFING (read-only context; NOT part of published core) ──
+briefing:
+  identity_phrase: "Kutztown is the PSAC's national power — a 14-1 dynasty with a 31-game winning streak, three consecutive conference titles, and Jim Clements' championship vision."
+  mantra: "Go, Kutztown!"
+  cultural_anchors:
+    fan_archetype_dominant: "Kutztown-Believer-National-Contender"
+    outsider_archetype_dominant: "PSAC-Skeptic-Now-Believer"
+    one_sentence: "Kutztown is the PSAC's undisputed national power — a 14-1 team with a 31-game streak, three consecutive championships, and a 2025 national semifinals appearance."
+  selfname: "the Golden Bears"

@@ -1,0 +1,118 @@
+# Emotional Core — San José State  (san-jos-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: san-jos-state
+team_id: 123
+program_name: San José State
+program_tier: 3
+
+emotional_core:
+  primary: deprival       # a football team in the tech capital of the world, fighting for a fraction of a region's attention
+  secondary: disbelief    # a promising program that unraveled to 3-9 on late-game collapses nobody saw coming
+  one_line: "San José State plays football in the middle of Silicon Valley, where the smartest money in America has never once been spent on caring about the Spartans — and where a 2020 conference title proved they could win anyway."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A 2020 Mountain West championship in an empty-stadium COVID season, against a 2025 team that went 3-9 on missed kicks and late-game breakdowns — the gap between what the Spartans can be and how thin the support is."
+
+the_wound:
+  name: "The 2025 unraveling"
+  detail: "After the high of the 2020 title and a bowl-level baseline, San José State went 3-9 (2-6 Mountain West) in 2025 — Ken Niumatalolo's second year — a season defined by late-game collapses and missed kicks, even as quarterback Walker Eget threw 275 passes without an interception and a fanbase wondered how it came apart so fast."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Bay Area's attention one more time the way 2020 did — a conference title that forces a tech-distracted region to notice the football school in its backyard."
+  drought: { since: 2020, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Spartan fans know the deal: they're the football program nobody outside San José thinks about, in a valley that worships startups, not Saturdays. They'll remind you they won a Mountain West title when the whole sport was looking elsewhere, and that showing up at all is the loyalty test."
+
+the_delusion:
+  tone: self-aware
+  text: "The faithful half-believe that Silicon Valley's money and talent should somehow tip toward the local team — that the right season turns the Spartans into the Bay Area's program. They've seen the empty seats; they keep buying tickets anyway, certain the breakthrough converts the region."
+
+the_grudge_texture:
+  rival: fresno-state
+  texture: blood-feud   # the Valley Trophy — the Central California grudge match SJSU cares about most
+
+the_coach_relationship: hot-seat-churn   # Brent Brennan left for Arizona; Ken Niumatalolo's 3-9 second year put the new era under early pressure
+the_internal_fracture: belief vs resignation — the faction that thinks 2020 proves SJSU can win and deserves backing vs the faction worn down by empty stands and a 3-9 slide
+register: san-jose-spartans-mountain-west-pacific   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always MW-bottom — 2020 Mountain West championship + 1990 California Bowl disprove
+  - No identity — 2020 + Brennan + Silicon Valley combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "San José State is big-time football planted in the least football-obsessed acre in America — the heart of Silicon Valley, where a startup IPO outdraws a Saturday kickoff. The Spartans' identity is winning anyway, in front of empty seats, and the 2020 Mountain West title is the proof that they can."
+  the_origin: "One of the oldest public colleges in California, San José State has fielded football since the 1890s as the Bay Area's quiet football program — overshadowed first by Cal and Stanford, then by the tech economy that grew up around its campus."
+  golden_ages:
+    - { era: "2020 (Brent Brennan)", what: "A 7-1 COVID-season run to the program's first conference championship since a shared 1990 Big West title" }
+    - { era: "1980s–1990 (the Big West years)", what: "Bowl trips and a share of the 1990 Big West title — the prior high-water mark" }
+  legends:
+    - { name: "Brent Brennan", role: coach, why: "Built the 2020 Mountain West champions before leaving for Arizona — the modern era's defining coach" }
+    - { name: "Dick Vermeil", role: player, why: "Pro Football Hall of Fame coach and an SJSU alum and quarterback — one of two Hall-of-Famers (with Bill Walsh) who came up as Spartans" }
+  canonical_moments:
+    - { name: "2020 Mountain West championship", year: 2020, what: "An undersized, displaced (the team practiced out of state during COVID) San José State goes 7-1 and wins the conference — the program's signature triumph", handling: glory }
+    - { name: "The 2025 slide", year: 2025, what: "Ken Niumatalolo's second year falls to 3-9 on late-game collapses and missed kicks, gutting the momentum of recent years", handling: wound }
+  the_place: "CEFCU Stadium in San José — a modest, often-quiet home in the shadow of the tech giants; the Spartans' fight is partly to fill it."
+  brand_of_football: "Scrappy and pass-leaning in recent years (QB Walker Eget's interception-free 2025 streak the bright spot); the program is now navigating the transition from Brennan's spread to Ken Niumatalolo's identity."
+  cultural_footprint: "The Bay Area's overlooked football program — and an unlikely cradle of coaching royalty, with Hall-of-Famers Bill Walsh and Dick Vermeil both former Spartans; a study in winning without a crowd."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After Brent Brennan left for Arizona in 2024, Ken Niumatalolo — the
+    winningest coach in Navy history — took over, and 2025 fell hard to 3-9 (2-6 Mountain West) on late-game
+    breakdowns even as QB Walker Eget threw 275 passes without a pick. Entering year three in 2026, with the
+    Mountain West reshaping around the Pac-12 raid, Niumatalolo faces early pressure to stop the slide.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_San_Jose_State_Spartans_football_team
+    - https://sjsuspartans.com/news/2025/11/22/san-jose-state-head-football-coach-ken-niumatalolo-after-sdsu
+    - https://www.espn.com/college-football/story/_/id/39321223/source-arizona-hires-san-jose-state-brent-brennan
+    - https://en.wikipedia.org/wiki/Dick_Vermeil
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: San José State is the Mountain West program whose 2020 7-1 + Mountain West championship
+    under Brent Brennan + CEFCU Stadium identity define what Silicon-Valley-G5-football looks like.
+  mantra: All Spartan.
+  cultural_anchors:
+    fan_archetype_dominant: San-Jose-Spartan-All-Spartan
+    outsider_archetype_dominant: MW-Mid-Pack-Diminisher
+    one_sentence: San José State is the Silicon Valley Mountain West program — Brent Brennan 2020 COVID-era
+      championship + 1990 California Bowl + CEFCU Stadium identity that anchor the historic Bay Area G5
+      arc.
+  selfname: the Spartans
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2020 7-1 + Mountain West championship + Arizona Bowl +
+    - 1990 9-2-1 + California Bowl championship
+    - Silicon Valley regional identity
+    rituals:
+    - 2020 COVID-Era Mountain West Championship
+    - Silicon Valley Identity
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (56/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

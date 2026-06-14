@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: north-greenville
+team_id: null
+program_name: North Greenville University
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "North Greenville is the ascending program anchored in faith — a 2024 NCCAA champion climbing to NCAA Division II with an NFL coaching staff and a perfect 6-0 Conference Carolinas debut in 2025."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A Christ-centered university that won the NCCAA Victory Bowl in 2014 and is now making a bold statement with NFL-level coaching talent and immediate Conference Carolinas success."
+
+the_wound:
+  name: "Years in smaller-conference silence"
+  detail: "North Greenville won one notable national championship (2014 NCCAA Victory Bowl) but spent years in relative obscurity in smaller conferences. The wound is not acute but historical — a program that knew it could be excellent but didn't have the platform."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that the 2025 perfect 6-0 Conference Carolinas start is not a fluke — climb to an NCAA Division II national tournament and announce that NGU is a rising power."
+  drought: { since: 2014, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — North Greenville's energy is forward. The program is rising, not avenging. The chip is the future: arriving."
+
+the_delusion:
+  tone: earnest
+  text: "Fans believe this coaching staff can build something sustained — that the NFL pedigree and immediate success (6-0 CC, coach of year) prove that NGU is positioned to compete nationally."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "None — the program is unified in its excitement about the new direction."
+register: south-carolina-crusader-faith-ascending-football
+never_use:
+  - Never been competitive — NGU won the 2014 NCCAA championship
+  - Unproven at D2 level — the 6-0 CC record and immediate bowl eligibility in 2025 prove competitive capability
+  - Small program ceiling — the NFL coaching staff signals serious investment and upside
+
+story_canon:
+  the_unique_thing: "A Christ-centered university that claimed the 2014 NCCAA Victory Bowl championship and is now ascending to NCAA Division II prominence with an NFL-level coaching staff and immediate Conference Carolinas success."
+  the_origin: "North Greenville University is a faith-based institution in South Carolina that has competed in college football with a Christ-centered mission and values at the center of program identity."
+  golden_ages:
+    - { era: "2014 (NCCAA National Championship)", what: "Won the NCCAA Victory Bowl national championship" }
+    - { era: "2025 (Conference Carolinas perfect start)", what: "Perfect 6-0 Conference Carolinas debut season under new coaching staff" }
+  legends: []
+  canonical_moments:
+    - { name: "2014 NCCAA National Championship", year: 2014, what: "North Greenville wins the NCCAA Victory Bowl", handling: glory }
+    - { name: "2025 perfect 6-0 Conference Carolinas season", year: 2025, what: "Immediate success and bowl eligibility in first NCAA D2 season", handling: glory }
+  the_place: "Tigerville, South Carolina — a small town in Greenville County with a tight-knit faith-based community."
+  brand_of_football: "Faith-centered, disciplined, professional — the program is built on Christian values and increasingly coached at an NFL level."
+  cultural_footprint: "North Greenville represents the rising tide of faith-based NCAA Division II programs and proves that Christian identity can coexist with elite coaching and competitive excellence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: North Greenville finished the 2025 season 7-5 with a perfect 6-0
+    Conference Carolinas record, earning bowl eligibility in its first NCAA Division II season. The program hired
+    coach Nate Garner, whose staff includes NFL pedigree, and immediately produced one of the best seasons in
+    NGU history. Garner was named Conference Carolinas Coach of the Year, signaling the quality of the hire.
+    Heading into 2026, North Greenville is positioned as one of the conference's rising powers and a contender
+    for a playoff berth and eventual national tournament appearance.
+  research_checklist:
+    - 2014 NCCAA Victory Bowl championship verified
+    - Nate Garner hire and NFL coaching staff
+    - 2025 record (7-5, 6-0 CC, Coach of Year)
+    - Faith-based program identity
+    - Conference Carolinas membership
+  sources:
+    - https://www.ngcrusaders.com/
+    - https://en.wikipedia.org/wiki/North_Greenville_Crusaders_football
+    - https://www.conference-carolinas.org/

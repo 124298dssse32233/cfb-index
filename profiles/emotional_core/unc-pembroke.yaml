@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: unc-pembroke
+team_id: null
+program_name: University of North Carolina at Pembroke
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: restoration
+  one_line: "UNC Pembroke is the steady performer with deep roots — a program reinstated in 2007 that has built consistent Conference Carolinas competitiveness under Mark Hall and represents Native American heritage in NCAA Division II."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A UNC system school representing the Native American community of southeastern North Carolina that competes steadily in Conference Carolinas with a winning culture and consistent tournament appearances."
+
+the_wound:
+  name: "Reinstated after decades of absence"
+  detail: "UNC Pembroke's football program was reinstated in 2007 after being discontinued. The wound is historical: the program was away and had to rebuild from nothing. But under Mark Hall, it has become a consistent winner."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "One playoff run that puts UNC Pembroke on the national stage — proof that the reinstatement 18 years ago was worth it and that Pembroke belongs in the conversation of regional powers."
+  drought: { since: 2023, unit: bowl }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe uNC Pembroke's chip is the historic rivalry with Fayetteville State — a battle for regional supremacy in North Carolina's native and historically Black college football landscape."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans know Pembroke is a solid, respectable program that competes every year — and they believe that with the right season, the Braves can make a tournament run."
+
+the_grudge_texture:
+  rival: fayetteville-state
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "None — the program is unified in its identity as a steady Conference Carolinas competitor."
+register: north-carolina-brave-native-heritage-steady-hand
+never_use:
+  - Never competitive — incorrect; UNC Pembroke is .679 win percentage under Mark Hall (3 seasons)
+  - New program — reinstated 2007, now 18 years into rebuilding (mature program)
+  - Small program — UNC system school with institutional backing
+
+story_canon:
+  the_unique_thing: "A UNC system school representing the Native American community of southeastern North Carolina that was reinstituted in 2007 and has built a steady Conference Carolinas program with consistent competitiveness."
+  the_origin: "UNC Pembroke is a historically Native American-serving institution within the UNC system, located in Robeson County, North Carolina. The football program was reinstated in 2007 after decades of absence."
+  golden_ages:
+    - { era: "2022–2025 (Mark Hall era)", what: "Consistent Conference Carolinas competitiveness and .679 win percentage" }
+  legends: []
+  canonical_moments:
+    - { name: "2023 bowl appearance", year: 2023, what: "UNC Pembroke earned a bowl berth", handling: glory }
+  the_place: "Pembroke, North Carolina — a town in Robeson County in southeastern North Carolina, the historic home of the Lumbee Tribe."
+  brand_of_football: "Steady, respectable, rooted in community — the program represents Native American presence in NCAA Division II."
+  cultural_footprint: "UNC Pembroke represents the reinstatement of Native American representation in NCAA football and proves that programs can build sustained competitiveness after decades of absence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Under head coach Mark Hall (3 seasons), UNC Pembroke finished 8-3
+    in 2025 with a 5-1 Conference Carolinas record. The Braves have established themselves as a consistent
+    winner in the conference and earned their second bowl appearance in four years. Mark Hall has built a stable,
+    winning culture that has .679 win percentage and annual playoff contention. The program represents
+    institutional commitment to both athletics and the Native American heritage and community at the heart of
+    Pembroke's identity.
+  research_checklist:
+    - Reinstatement in 2007 verified
+    - Mark Hall tenure and record
+    - 2025 record (8-3, 5-1 CC)
+    - Native American heritage and community
+    - Conference Carolinas membership
+  sources:
+    - https://uncpbraves.com/
+    - https://en.wikipedia.org/wiki/UNC_Pembroke_Braves_football
+    - https://www.conference-carolinas.org/

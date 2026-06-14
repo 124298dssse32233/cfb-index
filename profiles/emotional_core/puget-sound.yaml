@@ -1,0 +1,65 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# University of Puget Sound Loggers — NWC competitor with Bruce Arena coaching legacy
+
+status: live
+slug: puget-sound
+team_id: null
+program_name: University of Puget Sound
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Puget Sound is an elite liberal arts school in Tacoma whose Loggers compete in NWC — a program enjoying the game and the conference, with deep roots in regional tradition."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A prestigious Pacific Northwest liberal arts college competing in NWC with pride and balance, measuring success by conference presence and community values."
+
+the_wound:
+  name: "Small-school NWC ceiling"
+  detail: "Puget Sound competes knowing it's outmanned on resources compared to larger NWC peers; the program finds identity in integrity and steady play."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Compete annually in NWC, enjoy sustained conference presence, and represent Puget Sound's values through athletics."
+  drought: { since: null, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Puget Sound plays for the love of the game."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: none — the program is aligned
+register: tacoma-loggers-nwc-liberal-arts
+never_use:
+  - "Powerhouse — Puget Sound is a small NWC school"
+  - "National contender — NWC is the right home"
+  - "Historic dynasty — the program is steady, not celebrated"
+  - "Championship-focused — the mission is education first"
+
+story_canon:
+  the_unique_thing: "A prestigious liberal arts program with coaching legacy (Bruce Arena got his start at Puget Sound in 1976) competing in NWC with steady pride."
+  the_origin: "University of Puget Sound, founded 1888, is an elite liberal arts college in Tacoma, Washington. The Loggers compete in NWC with 23 varsity sports."
+  golden_ages: []
+  legends:
+    - { name: Bruce Arena, role: coach, why: "Future US national team coach got his coaching start at Puget Sound in 1976" }
+  canonical_moments: []
+  the_place: "Tacoma, Washington — an elite liberal arts campus in the Pacific Northwest on a 97-acre suburban setting."
+  brand_of_football: "Academic excellence and regional pride — Puget Sound football is secondary to the broader educational mission."
+  cultural_footprint: "A regional institution with deep ties to Pacific Northwest culture and values."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: University of Puget Sound competes in the Northwest Conference as part of its 23-varsity-sports athletic
+    program. The Loggers are an NCAA Division III liberal arts institution competing with steady NWC presence. The program continues to represent
+    the university's commitment to athletics aligned with academic excellence and community values.
+  sources:
+    - https://en.wikipedia.org/wiki/University_of_Puget_Sound

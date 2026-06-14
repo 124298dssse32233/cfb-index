@@ -1,0 +1,71 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: buffalo-state
+team_id: null
+program_name: Buffalo State College
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Buffalo State is a regional SUNY program in its sixth season of Liberty League competition, building identity in a new conference landscape."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A state university football program seeking to find its footing in the Liberty League after joining in 2020."
+
+the_wound:
+  name: "No wound"
+  detail: "Buffalo State carries no historic grievance. The program is young in the Liberty League and still building identity in the new conference."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Build a competitive program in Liberty League and prove that a state-school in western New York belongs among the region's elite Division III programs."
+  drought: { since: 2020, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Buffalo State plays to establish legitimacy in a new conference."
+
+the_delusion:
+  tone: earnest
+  text: "That Buffalo State can compete with Liberty League powers despite limited resources and recent conference affiliation. The fanbase is hopeful but realistic about the growth timeline."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Patience with building in a new conference vs the desire for immediate competitive results."
+register: buffalo-state-bengals-liberty-league
+never_use:
+  - Historic power — Buffalo State is young in Liberty League (2020+)
+  - Established tradition — program is still building identity in the new conference
+
+story_canon:
+  the_unique_thing: "A western New York SUNY program competing in the Liberty League and seeking to build regional identity through sustained Division III competition."
+  the_origin: "Buffalo State College founded 1871 as a teacher-training institution. Football began in the modern era. Joined Liberty League in 2020 after independent status."
+  golden_ages: []
+  legends:
+    - { name: Lazarus Morgan, role: coach, why: "Leading the program's development in Liberty League competition" }
+  canonical_moments: []
+  the_place: "Buffalo, New York — a major city in western New York seeking to build football relevance."
+  brand_of_football: "A young program finding its way in a new conference with steady coaching leadership."
+  cultural_footprint: "Buffalo State represents the broader ecosystem of Division III programs building identity in regional conferences."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Buffalo State competed in Liberty League play in 2025, compiling a 1–6 record as of late October.
+    Coach Lazarus Morgan leads a program in transition within the Liberty League. Founded 1871 as a teacher-training institution, Buffalo State
+    football represents the educational mission of SUNY while competing in Division III athletics. The program seeks to build credibility in a
+    competitive regional conference.
+  research_checklist:
+    - Founded 1871 (teacher-training college)
+    - Joined Liberty League 2020 (6th season as of 2025)
+    - 2025 record: 1–6 through late October
+    - Coach: Lazarus Morgan
+    - Western New York location (Buffalo)
+  sources:
+    - https://www.d3football.com/teams/buffalo-state
+    - https://libertyleagueathletics.com
+    - https://en.wikipedia.org/wiki/Buffalo_State_Bengals_football

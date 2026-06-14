@@ -1,0 +1,65 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# University of Redlands — SCIAC founder with steady Bulldogs pride and the Smudge Pot
+
+status: live
+slug: redlands
+team_id: null
+program_name: University of Redlands
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Redlands is a founding SCIAC member in Southern California whose Bulldogs compete with steady pride — the Smudge Pot rivals of Cal Lutheran since 2012, building tradition brick by brick."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A historic SCIAC founding member that plays the game right, competing annually for conference titles and the rivalry that matters most."
+
+the_wound:
+  name: "The weight of founding member expectations"
+  detail: "Redlands was one of SCIAC's founders in 1915 and has been continuously competitive since — the expectation is steady excellence, not breakthrough success."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the Smudge Pot rivalry with Cal Lutheran, compete for SCIAC titles, and honor Redlands' place as one of the conference's founding pillars."
+  drought: { since: null, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Redlands competes to win SCIAC, not to prove anything."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: cal-lutheran
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: none — the program is aligned
+register: inland-empire-bulldogs-sciac-founders
+never_use:
+  - "Historic powerhouse — steady is the word"
+  - "National champion — SCIAC is Redlands' home"
+  - "Perennial title contender — competitive, not dominant"
+  - "Rising star — Redlands is established, not ascending"
+
+story_canon:
+  the_unique_thing: "A SCIAC founder (1915) still playing with steady pride — Redlands and the Smudge Pot rivalry with Cal Lutheran, established 2012."
+  the_origin: "University of Redlands, founded 1907, is a private liberal arts university in San Bernardino County. The Bulldogs football program was part of SCIAC from the conference's founding in 1915."
+  golden_ages: []
+  legends: []
+  canonical_moments:
+    - { name: "Smudge Pot rivalry", year: 2012, what: "Redlands and Cal Lutheran establish the Smudge Pot trophy rivalry, cementing annual competition", handling: glory }
+  the_place: "Redlands, California — the Inland Empire, a small liberal arts campus."
+  brand_of_football: "Steady and principled — the Bulldogs represent SCIAC values of balanced competition and academic mission first."
+  cultural_footprint: "One of SCIAC's founding voices; Redlands' continuity is part of the conference's identity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Redlands competes as a founding SCIAC member with steady competitive presence. The Bulldogs compete annually
+    for the Smudge Pot with Cal Lutheran and remain competitive in the Sun Division. The program continues to represent the university's commitment
+    to athletic excellence aligned with academic mission.
+  sources:
+    - https://en.wikipedia.org/wiki/University_of_Redlands

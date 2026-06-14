@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: hilbert
+team_id: null
+program_name: Hilbert College
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Hilbert is a brand-new Division III football program just beginning its Liberty League journey in 2025 after being independent and transitioning between conferences."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A tiny liberal-arts college with a very young football program competing in Division III for the first time in a new conference."
+
+the_wound:
+  name: "No wound yet"
+  detail: "Hilbert's program is too new to carry historic grievance. The football team is still writing its inaugural chapters."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Compete with honor in Division III and Liberty League, building a foundation for sustained participation."
+  drought: { since: 2022, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Hilbert plays for the simple goal of being competitive."
+
+the_delusion:
+  tone: earnest
+  text: "That a brand-new program can immediately compete in Liberty League. The fanbase is patient, knowing the team is still being built from the ground up."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "The 0–10 start vs the belief that improvement will come with time and experience."
+register: hilbert-hawks-new-liberty-league
+never_use:
+  - Established program — Hilbert began football in 2022
+  - Historic tradition — program is only 3–4 years old
+  - Recent success — the program is in its inaugural Liberty League season with a 0–10 record
+
+story_canon:
+  the_unique_thing: "The newest Division III football program in the region, joining Liberty League in 2025 after brief stints in independent and Empire 8 status."
+  the_origin: "Hilbert College founded 1846 as a small Catholic liberal-arts institution. Football program began 2022 as part of athletic expansion. Competed independently and in Empire 8 before joining Liberty League 2025."
+  golden_ages: []
+  legends:
+    - { name: Ted Egger, role: coach, why: "Leading Hilbert's inaugural Liberty League season as head coach in his 3rd year with the program" }
+  canonical_moments: []
+  the_place: "Hilbert College in Hamburg, New York (Buffalo area) — a small Catholic institution competing in Division III."
+  brand_of_football: "A nascent program learning Division III competition with patience and faith in the building process."
+  cultural_footprint: "Hilbert represents the newest expansion into Division III football, building from scratch in a competitive regional conference."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Hilbert College competed in its inaugural Liberty League season in 2025, compiling a 0–10 record
+    under head coach Ted Egger (3rd season). The Hawks began football in 2022, competed as an independent, then moved to Empire 8 in 2024
+    before joining Liberty League in 2025. This represents a rapid conference transition for a young program. Coach Egger leads the Hawks through
+    the learning phase of Division III competition, with expectations of gradual improvement as the program matures.
+  research_checklist:
+    - Founded 1846 (Catholic liberal-arts college)
+    - Football began 2022
+    - Independent status 2022–2023
+    - Empire 8 member 2024
+    - Liberty League member 2025 (inaugural season)
+    - Coach Ted Egger: 3rd season overall
+    - 2025 record: 0–10 (first Liberty League season)
+  sources:
+    - https://www.d3football.com/teams/hilbert
+    - https://libertyleagueathletics.com
+    - https://en.wikipedia.org/wiki/Hilbert_College

@@ -1,0 +1,71 @@
+# Emotional Core — Eastern Kentucky Colonels (eastern-kentucky)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: eastern-kentucky
+team_id: 9
+program_name: Eastern Kentucky
+program_tier: 5
+
+emotional_core:
+  primary: restoration        # The 2021 bowl year was recent enough to believe in again
+  secondary: contentment      # A program that has found its level in the UAC
+  one_line: "Eastern Kentucky is the Kentucky program that won a bowl game five years ago and is still trying to climb back to that moment."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A program that tasted postseason success in 2021 and has been chasing the feeling ever since — stuck in the middle between bowl-eligible and rebuilding."
+
+the_wound:
+  name: "The 2021 Opportunity Bowl — a peak that became a memory"
+  detail: "Eastern Kentucky went 7–4 in 2021 and won the Opportunity Bowl, then has not been back to a bowl in four years. The Colonels have made UAC transition but remain trapped between consistent 5–7 finishes and bowl contention."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to 2021 form — win the UAC, get back to a bowl game, prove that the Opportunity Bowl year was a floor, not the ceiling."
+  drought: { since: 2021, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "The chip is five years old and fading: Eastern Kentucky won a bowl in 2021 and hasn't been back since. The Colonels know they can get there because they've been there — they just need to find the path again."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that the 2021 bowl year is repeatable, that Eastern Kentucky can build a consistent postseason-contending program in the UAC."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: stability-believers-vs-coach-questioners — the faction that trusts Walt Wells' plan vs the one wondering if a coaching change is needed to rebuild
+register: eastern-kentucky-colonels-richmond-opportunity-bowl
+never_use:
+  - Never won anything — 2021 Opportunity Bowl victory disproves
+  - Irrelevant — 5–7 records show competitive parity, not futility
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The 2021 Opportunity Bowl — Eastern Kentucky's most recent bowl game, a 7–4 season and a postseason win that has become the standard the program is measured against."
+  the_origin: "A Kentucky program that has competed at the FCS level as a functional mid-tier team, reaching occasional postseason moments."
+  golden_ages:
+    - { era: "2021", what: "7–4 season, Opportunity Bowl victory" }
+  legends:
+    - { name: Walt Wells, role: coach, why: "The six-year coach who has maintained consistent .500 FCS competitiveness but hasn't returned to bowl level" }
+  canonical_moments:
+    - { name: "The 2021 Opportunity Bowl", year: 2021, what: "Eastern Kentucky wins a postseason bowl game, finishing 7–4", handling: glory }
+  the_place: "Roy Kidd Stadium in Richmond, Kentucky — a program with one recent bowl memory."
+  brand_of_football: "Inconsistent, middle-tier — capable of 5–7 seasons but struggling to break through to consistent contention."
+  cultural_footprint: "A program defined by its closeness to relevance — always a few wins away from a bowl, never quite getting there."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Eastern Kentucky finished 5–7 (3–5 UAC) in 2025 under sixth-year coach Walt Wells, continuing the pattern of near-miss seasons since the 2021 Opportunity Bowl. The Colonels have not returned to a bowl game in four years despite maintaining competitive-looking records. The question in Richmond: is Walt Wells the right coach to rebuild to bowl-level, or does Eastern Kentucky need a new direction to climb back?
+  research_checklist:
+    - the 2021 Opportunity Bowl (the recent peak)
+    - Walt Wells' tenure since 2019 and competitive trajectory
+    - the consistent 5–7 record pattern (2021–2025 arc)
+    - UAC competitive positioning
+    - the gap between bowl-eligible and current standing
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Eastern_Kentucky_Colonels_football_team
+    - https://ekusports.com/sports/football/

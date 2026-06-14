@@ -1,0 +1,101 @@
+# Emotional Core — Illinois State (illinois-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# status: live (web-researched 2026-06-13)
+#
+# LANDMARK UPSET: Beat #1 North Dakota State 29-28 in FCS playoff second round (Dec 6, 2025)
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: illinois-state
+team_id: null
+program_name: Illinois State
+program_tier: 2
+
+emotional_core:
+  primary: redemption      # the 2025 playoff upset after a long drought in the postseason
+  secondary: restoration  # rebuilding relevance in the MVFC after years of middle-tier play
+  one_line: "Illinois State is the Redbirds who stunned college football — a 23-point underdog that beat #1 North Dakota State 29-28 in the FCS playoffs, the biggest upset in decades and proof that the Redbirds belong in the postseason conversation."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A Missouri Valley program finally breaking through to postseason relevance and historic upset glory, ending a long drought of tournament impact and proving Brock Spack's system works in the biggest moments."
+
+the_wound:
+  name: "Years of MVFC mediocrity — finally broken by the upset"
+  detail: "Illinois State had been a middle-tier MVFC program for years, never quite winning the conference or making serious postseason noise. The 2025 12-5 season and the playoff run changed that narrative — suddenly, the Redbirds were the team that beat the unbeaten #1 seed at home."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "More playoff runs, more upset wins, and eventually a MVFC title — prove that the 2025 upset wasn't a one-year miracle but the start of a sustained rise in the conference."
+  drought: { since: 2015, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Illinois State walked into the Fargodome as a 23-point underdog and beat the best team in FCS. The fanbase has been hungry for this moment — the Redbirds belong in the postseason conversation, not on the outside looking in."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that the 2025 upset is the start of a dynasty — that Illinois State will be a MVFC power from here on. The team knows one upset, even over #1, doesn't guarantee sustained success. But it proves the program can win the biggest games."
+
+the_grudge_texture:
+  rival: north-dakota-state
+  texture: championship   # the chip is against the Bison now — Illinois State just beat them in the biggest moment
+
+the_coach_relationship: total-trust   # Brock Spack's 17-year tenure vindicated by the playoff run
+the_internal_fracture: ""  # unified around the upset glory
+register: illinois-state-redbirds-fcs-upset-royalty
+never_use:
+  - Mid-tier MVFC team (2025 upset made Illinois State a postseason fixture; reframe as arrival)
+  - Not a title contender (12-5 record and playoff win over #1 NDSU changes that status)
+
+# ── STORY CANON (doc 64) ──
+
+story_canon:
+  the_unique_thing: "The 2025 FCS playoff upset — Illinois State, unseeded and a 23-point underdog, defeated top-seeded, previously unbeaten North Dakota State 29-28 in the second round on December 6, 2025. The biggest upset in FCS playoff history and the moment the Redbirds announced they belonged."
+  the_origin: "A Missouri Valley program that built slowly under Brock Spack for 17 years, finally breaking through to postseason relevance in 2025 with the historic upset of #1 North Dakota State."
+  golden_ages:
+    - { era: "The 2025 playoff run", what: "Illinois State defeats #1 NDSU 29-28, advances to FCS quarterfinals, and ends a 14-game losing streak to the Bison" }
+    - { era: "Spack era (2008–present)", what: "17 years of building the program to playoff contention and beyond" }
+  legends:
+    - { name: Brock Spack, role: coach, why: "17 years as head coach that culminated in the 2025 playoff upset of #1 North Dakota State" }
+    - { name: Tommy Rittenhouse, role: player, why: "Quarterback who led the comeback against #1 NDSU with two late TD passes to Daniel Sobkowicz" }
+  canonical_moments:
+    - { name: "2025 NDSU upset", year: 2025, what: "Illinois State defeats top-seeded #1 North Dakota State 29-28 in the FCS playoff second round — the biggest upset in decades, with Tommy Rittenhouse throwing two late TDs to Sobkowicz in the final two minutes", handling: glory }
+    - { name: "Snapped 14-game NDSU losing streak", year: 2025, what: "The 2025 playoff win ended Illinois State's historic frustration against the Bison", handling: miracle }
+  the_place: "Hancock Stadium in Normal, Illinois — the Redbirds' home where the program was built, and the place that grew loud enough to believe in upset greatness."
+  brand_of_football: "The underdog that wins the big game — a program built on tough defense and clutch offense that finally proved it could slay the giant on the biggest stage."
+  cultural_footprint: "The team that beat #1 North Dakota State and reminded college football that any team can win on the right Saturday — the Cinderella story of the 2025 FCS playoffs."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Illinois State finished 12-5 overall (5-3 MVFC) in 2025
+    and made the FCS playoffs as an unseeded at-large team. On December 6, 2025, the Redbirds
+    faced #1 North Dakota State — unbeaten and seemingly invincible. Illinois State won 29-28
+    in the Fargodome in the biggest upset in FCS playoff history, with QB Tommy Rittenhouse
+    throwing two late TD passes to Daniel Sobkowicz in the final two minutes. The Redbirds
+    advanced to the quarterfinals and ended a 14-game losing streak to NDSU. The question
+    facing Illinois State in 2026: was this a career-defining upset, or the start of a new era
+    of MVFC and postseason relevance?
+  research_checklist:
+    - the 2025 NDSU upset (the defining moment)
+    - Brock Spack's 17-year journey to this moment
+    - Tommy Rittenhouse and the offense that climbed back
+    - the MVFC context (12-5, 5-3 conference)
+    - the 14-game NDSU losing streak
+    - the ongoing story (what's next after the upset?)
+  sources:
+    - https://www.espn.com/college-football/recap/gameId/401836198
+    - https://www.wglt.org/local-news/2025-12-06/isu-football-stuns-no-1-north-dakota-state-advances-to-playoff-quarterfinals
+    - https://en.wikipedia.org/wiki/2025_Illinois_State_Redbirds_football_team
+    - https://www.isuredbirds.com/sports/football
+
+# ── BRIEFING ──
+briefing:
+  identity_phrase: "Illinois State is the Redbirds who beat #1 North Dakota State 29-28 in the 2025 FCS playoffs — the biggest upset in decades and proof that the Redbirds belong."
+  mantra: "Slay the Giant. Belong."
+  cultural_anchors:
+    fan_archetype_dominant: MVFC-Believer-Vindicated
+    outsider_archetype_dominant: Cinderella-Believer
+    one_sentence: "Illinois State is the Redbirds whose 2025 playoff upset of #1 NDSU announced their arrival as a postseason force in the Missouri Valley."
+  selfname: the Redbirds
+  live_fingerprint:
+    voice_profile: "present (2025 upset story is the headline)"
+    signal: "STRONG — the biggest FCS story of 2025"

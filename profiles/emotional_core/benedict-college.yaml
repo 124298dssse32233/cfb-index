@@ -1,0 +1,68 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: benedict-college
+team_id: null
+program_name: Benedict College
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Benedict is the Tiger that rose from 1994 dormancy to capture back-to-back SIAC championships (2022–2023) and remains a contender every November, proof that patience pays."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program that was extinct from 1966–1994, came back from nothing, and has been systematically climbing toward SIAC dominance ever since, reaching two consecutive championship games."
+
+the_wound:
+  name: "29 years without football (1966–1994)"
+  detail: "Benedict College shut down football for nearly three decades — a gap so large that the program had to rebuild institutional memory from scratch when it returned in 1995. The Tigers had to teach themselves how to play the game again."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the SIAC championship again — and again, and again. Make it back-to-back-to-back, prove that the 2022–2023 run wasn't a blip but the start of a Tiger dynasty."
+  drought: { since: 2023, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The fanbase believes: Nobody gave Benedict football back a real chance. The program was supposed to be a curio, a nice try by a historic HBCU. Instead, the Tigers became a SIAC force that scares every team in the conference. That doubt fuels everything now."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that Benedict's resurrected program has momentum that can't be stopped — that the Tigers are building a multi-year run that could rival the great SIAC dynasties, even though the program is only 30 years old."
+
+the_grudge_texture:
+  rival: albany-state
+  texture: championship
+
+the_coach_relationship: forever-ours
+the_internal_fracture: young-program-ambition vs. humility — wanting to be champions right now vs. respecting that 30 years of football is still a youth for any program
+
+register: tigers-columbia-south-carolina-resurrection
+never_use:
+  - Dormant forever. Returned 1995, became competitive by 2000s, now a SIAC power.
+  - New program. Founded 1870; only the football program is young (31 years).
+
+story_canon:
+  the_unique_thing: "Back-to-back SIAC Championship Game appearances (2022–2023), capping a resurrection from 29-year extinction. Benedict came back from the dead and became a conference finalist."
+  the_origin: "Founded 1870 as a historic HBCU; football played from early 1900s until program shutdown in 1966. The Tigers returned to football in 1995 and built slowly toward SIAC competitiveness."
+  golden_ages:
+    - { era: "2022–2023 (Championship Run)", what: "Back-to-back SIAC Championship Game appearances, establishing Benedict as a top-three conference contender" }
+    - { era: "2015–2019 (SIAC Rise)", what: "Benedict emerged as a .500+ program and consistent bowl-level competitor, proof of the rebuild's success" }
+  legends:
+    - { name: "Ron Dickerson Jr.", role: "Coach (2024–)", why: "Leading the Tigers through championship contention and building a multi-year competitive window" }
+  canonical_moments:
+    - { name: "Football Returns (1995)", year: 1995, what: "Benedict restarts football after 29-year hiatus, beginning the resurrection", handling: glory }
+    - { name: "2022 SIAC Championship Game", year: 2022, what: "Benedict reaches the SIAC Championship Game and becomes a conference finalist", handling: glory }
+    - { name: "2023 SIAC Championship Game", year: 2023, what: "Back-to-back championship game appearance, cementing the Tigers as conference contenders", handling: glory }
+  the_place: "Columbia, South Carolina — Benedict's campus is in the heart of historic HBCU country. The Tigers play in a program that was born from the decision to resurrect a dormant tradition."
+  brand_of_football: "Disciplined, intelligent SIAC football — a program that knows it had to learn the game twice and has become obsessive about fundamentals and preparation."
+  cultural_footprint: "A resurrection story that became a success story. Benedict proved that a 30-year-old football program can compete with conference powers built over a century."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Benedict came up just short of the 2025 SIAC Championship (losing to Albany State 22–16 in the title game after a 9–1 regular season), securing the program's third championship-game berth in four years. Head Coach Ron Dickerson Jr. (hired January 2024) has stabilized the culture and kept the Tigers in championship contention. The 2026 question: can Benedict reclaim the title it last won in 2023, or has a different team established itself as the SIAC standard?
+  sources:
+    - https://en.wikipedia.org/wiki/Benedict_College_Tigers_football
+    - https://thesiac.com/sports/football/roster/coaches/ron-dickerson-jr/588
+    - https://benedict.edu/benedict-college-football-returns-to-the-siac-championship-for-the-third-time-in-four-years/

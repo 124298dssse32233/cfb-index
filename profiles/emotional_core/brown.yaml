@@ -1,0 +1,89 @@
+# Emotional Core — Brown Bears (brown)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-14 from live web research — Ivy member, four conference titles, Iron Men of 1926.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: brown
+team_id: null           # non-FBS
+program_name: Brown Bears
+program_tier: 2         # solid Ivy performer
+division: FCS (Ivy)
+
+emotional_core:
+  primary: contentment  # small program with its own legacy
+  secondary: restoration # post-winless seasons rebuild
+  one_line: "Brown football is the Ivy program that invented the 'de-fense!' chant, featured the Iron Men of 1926, and competes without pretension — proof that a smaller school can do excellence its own way."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Four Ivy League championships and genuine football tradition vs the reality of being the most modestly-resourced Ivy program — and being okay with that."
+
+the_wound:
+  name: "Two consecutive winless Ivy seasons before the Perry coaching change"
+  detail: "Before James Perry's arrival in 2018, Brown went through a stretch of two consecutive winless Ivy League campaigns. For a program with the Iron Men legacy, the hit came less from losing and more from the loss of identity — the Bears seemed to have forgotten who they were."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to regular Ivy League contention. Four conference titles in program history is proof Brown can compete; the goal is steady, sustainable excellence without the churn."
+  drought: null
+
+the_chip:
+  villain: none
+  text: "Fans here believe there is no chip. Brown doesn't resent the bigger Ivy programs. The Bears have their own identity: the program that gave the world the 'de-fense!' chant, the one that plays football because football is worth playing, not because it's a path to something else."
+
+the_delusion:
+  tone: self-aware
+  text: "That being the smallest Ivy program is actually an advantage — Brown fans believe that running a program with less money and fewer resources and still competing makes the wins more meaningful. It's a little delusional, but it's genuine."
+
+the_grudge_texture:
+  rival: yale
+  texture: championship    # Yale is the geographic and historical rival
+
+the_coach_relationship: total-trust   # James Perry brought stability after instability
+the_internal_fracture: null
+register: brown-providence-bears-de-fense
+never_use:
+  - Lowest-resourced Ivy — Brown has real tradition (Iron Men, four titles, de-fense chant)
+  - Irrelevant — four Ivy League championships proves sustained success
+
+story_canon:
+  the_unique_thing: "The 'de-fense!' chant that swept the nation — Brown fans invented the popular chant in 1948, and it became part of football culture. A small school's cultural footprint."
+  the_origin: "Brown started football in 1878 and built a program on the principle that competitive excellence doesn't require big money or big resources — just commitment."
+  golden_ages:
+    - { era: "1926 (Iron Men)", what: "The famous Iron Men of 1926 went 9–0–1 without substitutions; a legend of resilience and toughness" }
+    - { era: "1997–2008 (Phil Estes)", what: "Three Ivy League championships under coach Phil Estes; the most sustained success in program history" }
+  legends:
+    - { name: John Heisman, role: coach, why: "Coached at Brown (1887–1889) before becoming a legend; the namesake of the Heisman Trophy" }
+    - { name: Fritz Pollard, role: player, why: "Led Brown to the Rose Bowl in 1915 as a freshman; one of the first Black football players" }
+    - { name: Phil Estes, role: coach, why: "Built three Ivy League championships and gave the program sustained stability" }
+  canonical_moments:
+    - { name: "Iron Men of 1926", year: 1926, what: "The famous Brown team goes 9–0–1 without substitutions — a testament to toughness and commitment", handling: glory }
+    - { name: "The de-fense! chant", year: 1948, what: "Brown fans invent the 'de-fense!' chant that becomes part of NFL and college football culture", handling: glory }
+    - { name: "Rose Bowl (1915)", year: 1915, what: "Fritz Pollard leads Brown to the Rose Bowl as a freshman", handling: glory }
+  the_place: "Brown Stadium (home field) in Providence, Rhode Island — a program that plays because football matters."
+  brand_of_football: "The small-program excellence — Brown proves you don't need the biggest budget to do football right."
+  cultural_footprint: "The de-fense! chant is Brown's gift to football. A small program changed the soundscape of the sport."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-14: Brown rebuilt under coach James Perry after a period
+    of struggle in the mid-2010s. The Bears have returned to competitive Ivy football and continue
+    to prove that a smaller Ivy program can sustain excellence. Perry's appointment in 2018 marked
+    a turning point from two winless Ivy seasons to a program that competes year-to-year for Ivy titles.
+  research_checklist:
+    - Iron Men of 1926 (9–0–1 without substitutions)
+    - De-fense! chant (invented 1948, part of football culture)
+    - Four Ivy League championships
+    - John Heisman (coached 1887–1889)
+    - Fritz Pollard (Rose Bowl 1915)
+    - Phil Estes (three Ivy titles)
+  sources:
+    - https://en.wikipedia.org/wiki/Brown_Bears_football
+
+briefing:
+  identity_phrase: Brown is the small Ivy program that proved excellence doesn't require big money — the origin of the de-fense! chant.
+  mantra: "Iron Men, De-fense!"
+  selfname: the Bears
+  heritage:
+    national_titles: null
+    conference_titles: "4 Ivy"
+    current_conference: Ivy League (FCS)

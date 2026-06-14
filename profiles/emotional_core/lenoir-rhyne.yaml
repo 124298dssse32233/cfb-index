@@ -1,0 +1,116 @@
+# Emotional Core — Lenoir-Rhyne  (lenoir-rhyne)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: lenoir-rhyne
+team_id: 999  # Placeholder — may need D2 DB assignment
+program_name: Lenoir-Rhyne
+program_tier: 6
+
+emotional_core:
+  primary: grievance      # one NAIA championship and three title-game appearances now archived as "not Division II"
+  secondary: restoration  # the 2013 D2 National Championship game appearance gives a glimmer of what could be
+  core_variant: the-ceiling
+  one_line: "Lenoir-Rhyne won an NAIA national title in 1960 and almost won the Division II championship in 2013 — two different eras, both halted at the glass ceiling, with the Bears wondering when they'll finally get their moment."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "An NAIA champion (1960) and a D2 championship game runner-up (2013) vs Division II's ceiling that's kept the Bears from both levels of glory at once."
+
+the_wound:
+  name: "The year-away seasons"
+  detail: "Lenoir-Rhyne's 1960 NAIA championship sits in a vault labeled 'minor league.' The 2013 D2 National Championship game loss to blocking the path to a D2 title. The Bears have been a game or two away from glory twice and haven't quite closed either door."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win a Division II national championship that nobody can asterisk — make the Bears' name stick at a level where the giants have to take notice."
+  drought: { since: 1960, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Lenoir-Rhyne fans carry 1960 and 2013 like twin ghosts — a championship nobody recognizes and a loss in the one place where the title would have counted. The chip is that they've been close twice and walked away with nothing."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that the 2013 D2 title-game team was better than the team that beat them; that another run at the Division II summit is coming and they'll finish it this time."
+
+the_grudge_texture:
+  rival: ""
+  texture: none
+
+the_coach_relationship: legends-shadow   # Clarence Stasavich's 1960 NAIA legacy still casts shadow; no current dominant HC named
+the_internal_fracture: ""
+register: hickory-bears-stasavich-naia-nearly-d2
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - "Won the Division II national championship — won NAIA (1960), lost D2 title game (2013)"
+  - "No championship heritage — 1960 NAIA title + 3 title-game appearances prove otherwise"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The bridesmaid championship: Lenoir-Rhyne won an NAIA national championship in 1960 (defeating Humboldt State 15–14 in the Holiday Bowl) and made three NAIA championship games in four years (1959–1962), then transitioned to Division II and reached the 2013 D2 National Championship game before losing. Two title-game heartbreaks separated by 50 years of almost-victories."
+  the_origin: "Lenoir-Rhyne was founded in 1907 in Hickory, North Carolina. Football became a regional power in the Piedmont. Under legendary coach Clarence Stasavich in the late 1950s and early 1960s, the Bears reached a national level."
+  golden_ages:
+    - { era: "1959–1962 (Clarence Stasavich)", what: "Four consecutive NAIA national championship-game appearances, winning the 1960 title and losing the others" }
+    - { era: "2013 (D2 summit)", what: "The 2013 Division II National Championship game, a final-year run that narrowly missed another title" }
+  legends:
+    - { name: Clarence Stasavich, role: coach, why: "Took Lenoir-Rhyne to four consecutive NAIA title games and won the 1960 national championship; the architect of the Bears' peak" }
+  canonical_moments:
+    - { name: "1960 NAIA National Championship", year: 1960, what: "Lenoir-Rhyne defeats Humboldt State 15–14 in the Holiday Bowl/NAIA championship game to win the national title", handling: glory }
+    - { name: "2013 D2 National Championship game", year: 2013, what: "The Bears reach the Division II National Championship game (lost); the only D2 title-game appearance in program history", handling: wound }
+  the_place: "Lenoir-Rhyne Stadium in Hickory, North Carolina — home of the Bears and a Piedmont landmark of almost-glory."
+  brand_of_football: "Stasavich-era defensive, grinding football from the late 1950s and early 1960s; later evolved into the modern D2 game but retained the tough-nose identity."
+  cultural_footprint: "Evidence that a small Piedmont school could reach two different national championship games 50 years apart — and come away empty both times."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Lenoir-Rhyne competes in the South Atlantic Conference as a Division II program.
+    The Bears have not returned to the D2 playoff summit since the 2013 National Championship game loss. The program
+    remains competitive in the SAC but is searching for a path back to national contention. The question in Hickory:
+    will the Bears finally close the deal, or are they forever a championship-game program?
+  research_checklist:   # what to look up (web) when we author this team together
+    - Clarence Stasavich's coaching record and the 1959–1962 NAIA run
+    - Notable players from the 1960 championship team
+    - The 2013 D2 National Championship game (who they lost to, what happened)
+    - Current trajectory under the current head coach
+  sources:
+    - https://en.wikipedia.org/wiki/Lenoir%E2%80%93Rhyne_Bears_football
+    - https://en.wikipedia.org/wiki/1960_Lenoir%E2%80%93Rhyne_Bears_football_team
+    - https://en.wikipedia.org/wiki/2013_NCAA_Division_II_football_season
+    - Lenoir-Rhyne Athletics official site
+    - FloFootball (2024-2025)
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Lenoir-Rhyne is the Piedmont program whose 1960 NAIA national championship and 2013 Division II
+    championship game appearance define the almost-glory arc.
+  mantra: ''
+  cultural_anchors:
+    fan_archetype_dominant: Hickory-Bears-Stasavich-Almost
+    outsider_archetype_dominant: Bridesmaid-Championship-Program
+    one_sentence: Lenoir-Rhyne is the Hickory Bears — 1960 NAIA championship + 2013 D2 championship game that
+      anchor the almost-there arc.
+  selfname: the Bears
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: "1 NAIA (1960, not NCAA Division II)"
+    conference_titles: null
+    current_conference: SAC (South Atlantic Conference)
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Clarence Stasavich (1950s–1960s)
+    era_name_overrides: {}
+    always_surface:
+    - 1960 NAIA National Championship (defeated Humboldt State 15–14)
+    - 1959, 1961, 1962 NAIA Championship game appearances
+    - 2013 Division II National Championship game (lost)
+    rituals:
+    - 1960 NAIA National Championship
+    - Stasavich Era (1950s–1960s)
+    modules_already_rendering: ''
+  live_fingerprint:
+    backometer: ''
+    voice_profile: absent
+    delusion_premium: absent

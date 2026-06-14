@@ -1,0 +1,121 @@
+# Emotional Core — Arizona State  (arizona-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: arizona-state
+team_id: 327
+program_name: Arizona State
+program_tier: 3
+
+emotional_core:
+  primary: house-money    # 2024 was a gift nobody saw coming — picked last, won the league, made the Playoff
+  secondary: restoration  # holding onto relevance after a regression and the loss of the stars who built it
+  one_line: "Arizona State was picked dead-last in the Big 12 and instead won the thing — an 11-3 league-champion, first-ever Playoff team built on Cam Skattebo's shoulders, the most joyful out-of-nowhere season the desert has had."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program that went 3-9 and 2-19 over Kenny Dillingham's first stretch, then 11-3 with a Playoff berth — the gap is between that one perfect season and a history of being the desert's overlooked second team."
+
+the_wound:
+  name: "The 2025 comedown after the dream"
+  detail: "The year after the Playoff run, Arizona State slid to 8-5 — Sam Leavitt broke his foot against Baylor, had season-ending surgery and entered the transfer portal, Cam Skattebo was gone to the NFL, and a Sun Bowl loss to Duke (42-39) closed a season that asked whether 2024 was the start of something or a one-off."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove 2024 wasn't lightning in a bottle — win the Big 12 again, get back to the Playoff, and make Tempe a place top recruits choose on purpose rather than a surprise."
+  drought: { since: 2024, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Sun Devil fans say the sport picked them last in 2024 and treated the title that followed as a fluke all season — they say the preseason polls still won't take Tempe seriously, and they relish being the team nobody respects until kickoff."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes Dillingham, a Tempe kid coaching his hometown school, can keep conjuring 11-win seasons out of a roster the rankings undervalue — that the 2024 magic is repeatable on culture and energy even after the stars who powered it left."
+
+the_grudge_texture:
+  rival: arizona
+  texture: border-war   # the Territorial Cup — the oldest trophy rivalry in college football
+the_coach_relationship: savior   # Kenny Dillingham, hometown son, dragged ASU from 3-9 to the Playoff
+the_internal_fracture: believer vs realist — the faction that sees a sustainable Dillingham program vs the faction bracing for regression to the mean now that Skattebo and Leavitt are gone
+register: tempe-sun-devil-fork-up   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Pac-12 forever — 2024 Big 12 + CFP run answers the question
+  - Always 7-5 — 2024 11-3 + CFP appearance disproves the ceiling
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Pat Tillman — the Sun Devil linebacker who walked away from an NFL contract to enlist after 9/11 and died in service; no program in the sport carries a person who means more, and ASU's identity is bound to his name as much as to any trophy."
+  the_origin: "A Tempe program that became a 1970s Western power under Frank Kush, peaked with the 1996 Rose Bowl team, and — after long stretches of mediocrity — was reborn in 2024 by a hometown coach."
+  golden_ages:
+    - { era: "1970s (Frank Kush)", what: "An undefeated 1975 Fiesta Bowl season and the program's first national prominence; the stadium bears his name" }
+    - { era: "1996 (Bruce Snyder)", what: "An 11-1 Pac-10 title and a Rose Bowl appearance led by Jake Plummer, nearly a national title" }
+    - { era: "2024 (Kenny Dillingham)", what: "Picked last in the Big 12, won it — 11-3, the program's first College Football Playoff berth" }
+  legends:
+    - { name: Pat Tillman, role: player, why: "Walked away from the NFL to enlist; killed in Afghanistan — the program's soul and moral center" }
+    - { name: Jake Plummer, role: player, why: "Quarterback of the 1996 Rose Bowl team, the gunslinger who took ASU to the brink of a title" }
+    - { name: Frank Kush, role: coach, why: "Built ASU into a power; the stadium field carries his name" }
+    - { name: Cam Skattebo, role: player, why: "The bruising back who carried the 2024 Playoff team and finished a Heisman finalist" }
+  canonical_moments:
+    - { name: "The 1996 Rose Bowl season", year: 1996, what: "11-1, a Pac-10 title and a Rose Bowl berth — a near-perfect run to the doorstep of a national title", handling: glory }
+    - { name: "The 2024 Big 12 title and Playoff berth", year: 2024, what: "Picked last, won the league and reached the first 12-team Playoff — the great modern Sun Devil season", handling: glory }
+    - { name: "Tillman's enlistment and death", year: 2004, what: "The Sun Devil who chose service over the NFL and gave his life — the program's enduring identity", handling: wound }
+  the_place: "Mountain America Stadium in Tempe — Sun Devil Stadium of old, carved into the desert against Tempe Butte, 'A' Mountain glowing maroon and gold, the brutal early-season desert heat as a home-field weapon."
+  brand_of_football: "High-energy, hometown-fueled football under Dillingham — fast, emotional, chip-on-the-shoulder; a 2024 identity built on a downhill run game and a defense that hit above its recruiting ranking."
+  cultural_footprint: "The desert's emotional program — Pat Tillman's legacy, Sparky and the Fork-Up, a fan culture that treats being doubted as fuel and the 2024 run as proof the underestimation was always wrong."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: A year after the dream 11-3 Big 12 title and Playoff run, Arizona State
+    fell to 8-5 (6-3) in 2025. Sam Leavitt suffered a season-ending foot injury against Baylor and entered the
+    transfer portal; backup Jeff Sims, who started down the stretch, then declared for the NFL Draft. With
+    Cam Skattebo also gone, a Sun Bowl loss to Duke (42-39) closed the year. Kenny Dillingham enters 2026
+    rebuilding the quarterback room and trying to prove the breakthrough was a foundation, not a fluke.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Arizona_State_Sun_Devils_football_team
+    - https://arizonasports.com/ncaa/arizona-state-football/arizona-state-4/3607231/
+    - https://www.si.com/college/arizonastate/asu-sun-devils-football-kenny-dillingham-sam-leavitt-colorado-iowa-state
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Arizona State is the Big 12 newcomer whose 2024 11-3 + Big 12 championship + first-ever
+    CFP appearance under Kenny Dillingham completed the rebuild from 2-19 to playoff team in three years.
+  mantra: Fork up.
+  cultural_anchors:
+    fan_archetype_dominant: Tempe-Sun-Devil-Pitchfork-Loyalist
+    outsider_archetype_dominant: Big-12-Newcomer-Diminisher
+    one_sentence: Arizona State is the program whose Kenny Dillingham 2024 11-3 + Big 12 championship +
+      first-ever CFP appearance turned three years of rebuild into national relevance.
+  selfname: the Sun Devils
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2024 11-3 + Big 12 championship + CFP appearance under Kenny Dillingham
+    - 1996 11-1 + Rose Bowl appearance under Bruce Snyder
+    - Cam Skattebo 2024 Heisman finalist running
+    rituals:
+    - Fork Up
+    - Sparky the Sun Devil
+    - 2024 CFP Run
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

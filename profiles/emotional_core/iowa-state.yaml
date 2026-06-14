@@ -1,0 +1,119 @@
+# Emotional Core — Iowa State  (iowa-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: iowa-state
+team_id: 205
+program_name: Iowa State
+program_tier: 4
+
+emotional_core:
+  primary: grief          # the coach who ended a century of losing just left — and took the roster with him
+  secondary: restoration  # Jimmy Rogers inherits the rebuild of what Campbell built
+  one_line: "Iowa State spent a hundred years as the program that couldn't, then Matt Campbell made it matter — and in 2025 Ames had to watch the man who fixed everything pack up for Penn State."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A century of competitive irrelevance ending in the Campbell era's bowl runs and top-15 rankings vs the gut-drop of watching the architect leave and starting the climb over from scratch."
+
+the_wound:
+  name: "Losing Matt Campbell to Penn State"
+  detail: "After ending generations of losing and pushing Iowa State into the national conversation, Matt Campbell left for Penn State at the end of 2025 — and the roster largely followed him out the door. Ames is left with the oldest fear in Cyclone country: that the good years were on loan, and the program reverts to what it always was."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the Campbell decade rewired the program for good — that a once-hopeless job can hold its altitude under Jimmy Rogers, win the Big 12 it has never won, and stop being college football's lovable hard-luck story."
+  drought: { since: 1912, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "The chip is shaped like the team across the state — Iowa State fans are tired of being the little sibling in their own Cy-Hawk rivalry, the program everyone roots for but nobody fears. They wanted Campbell's era to flip that for good, and now they have to defend it all over again."
+
+the_delusion:
+  tone: earnest
+  text: "Cyclone fans believe the love is the moat — that the most patient, most-loyal fanbase in the league will keep showing up and keep the program from sliding back, that the Campbell years changed who Iowa State is and not just how it played. They've earned the right to believe it."
+
+the_grudge_texture:
+  rival: iowa
+  texture: little-brother   # the Cy-Hawk — the in-state big brother that has owned the narrative for generations
+
+the_coach_relationship: savior   # Campbell WAS the savior; Jimmy Rogers inherits the job of being the next one
+the_internal_fracture: faith-in-the-foundation vs fear-of-the-reversion — the faction that believes Campbell permanently changed the program vs the faction quietly bracing for a slide back to the bad old days
+register: ames-quiet-cyclone-arrival   # plainspoken, grateful, hard-loyal Midwestern patience — never loud, never entitled
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always-bad program — Matt Campbell ended that narrative permanently
+  - Small-state school — Big 12 senior member as of 2024
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Iowa State is the program that lost for the better part of a century and turned that hard-luck loyalty into one of the most-loved stories in the sport — then watched Matt Campbell finally make it win, only to lose him to a blue blood. Its home is named for Jack Trice, the only Big 12 stadium named for an African-American athlete, who died from injuries in a 1923 game."
+  the_origin: "A land-grant ag school in Ames that fielded football for over a century with almost nothing to show for it competitively — defined less by trophies than by the singular, dignified story of Jack Trice and a fanbase that kept turning up anyway."
+  golden_ages:
+    - { era: "2017–2025 (Matt Campbell)", what: "The first sustained winning of the modern era — bowl games, top-15 finishes, a Big 12 title-game appearance, and Brock Purdy" }
+  legends:
+    - { name: Matt Campbell, role: coach, why: "Ended a century of losing and made Iowa State a national name — the most important figure in program history before leaving for Penn State" }
+    - { name: Brock Purdy, role: player, why: "The face of the Campbell rise who went from Ames to a Super Bowl starting QB — proof the program could make stars" }
+    - { name: Jack Trice, role: player, why: "Iowa State's first African-American athlete, who died of injuries from a 1923 game; the stadium bears his name" }
+  canonical_moments:
+    - { name: "Jack Trice's last game", year: 1923, what: "Trice is fatally injured at Minnesota; his letter the night before becomes the program's moral cornerstone", handling: wound }
+    - { name: "First Big 12 Championship Game berth", year: 2020, what: "Campbell's Cyclones reach the league title game for the first time ever, capped by a Fiesta Bowl win", handling: glory }
+    - { name: "Campbell leaves for Penn State", year: 2025, what: "The architect of the rise departs after an 8-4, top-12 season, and the roster largely follows", handling: heartbreak }
+  the_place: "Jack Trice Stadium — the only Power-conference stadium named for an African-American athlete — and the sprawling, devoted tailgate lots that turned out for the program through a century of losing."
+  brand_of_football: "Tough, gap-sound, develop-and-keep football — a program that out-coaches and out-recruits its hard-luck history through patience rather than blue-chip talent."
+  cultural_footprint: "The sport's model of loyalty without reward — a fanbase beloved for showing up regardless of the scoreboard, and a stadium that stands as one of college football's most meaningful memorials."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Iowa State went 8-4 (5-4 Big 12) in 2025 and climbed to No. 12 in the AP
+    poll, but Matt Campbell left for Penn State at season's end after compiling the best winning percentage in
+    school history (72-55), and much of the roster followed him. Jimmy Rogers takes over a stripped-down program
+    in 2026 with a heavy rebuild ahead. The question in Ames: did Campbell change Iowa State for good, or was the
+    good era his to take with him?
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Iowa_State_Cyclones_football_team
+    - https://collegefootballnews.com/college-football/iowa-state-cyclones-football-preview-2026
+    - https://gopsusports.com/staff/matt-campbell
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Iowa State is the program that turned 'losing for 100 years' into one of the most-loved
+    Big 12 stories of the 2020s.
+  mantra: Go Clones.
+  cultural_anchors:
+    fan_archetype_dominant: Ames-Patient-Underdog-Loyalist
+    outsider_archetype_dominant: Iowa-State-Of-Mind-Curious
+    one_sentence: Iowa State is the program whose Matt Campbell era ended a century of competitive irrelevance
+      and made 'Cy' the most-loved underdog mascot in CFB.
+  selfname: the Cyclones
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Jack Trice's 1923 story
+    - Matt Campbell's 2017-present tenure
+    - 2020 Fiesta Bowl appearance + Brock Purdy
+    rituals:
+    - Jack Trice Stadium
+    - Tailgate Lots
+    - Matt Campbell Era
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (54/100, n=51)
+    voice_profile: absent
+    delusion_premium: absent

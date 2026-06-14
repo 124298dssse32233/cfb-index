@@ -1,0 +1,121 @@
+# Emotional Core — Kansas  (kansas)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: kansas
+team_id: 103
+program_name: Kansas
+program_tier: 3
+
+emotional_core:
+  primary: house-money    # the basketball blue blood whose football joy is pure bonus
+  secondary: restoration  # the Leipold rebuild that woke the program up, now steadying after two 5-7 years
+  one_line: "Kansas is a basketball cathedral that, for a few Jalon Daniels seasons, made football matter in Lawrence — every win a bonus on top of a banner-filled gym that never needed the gridiron at all."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A program with one of the worst football histories in the Power conferences vs a Leipold revival that produced a 2023 bowl team and Heisman buzz — anything good here is found money."
+
+the_wound:
+  name: "The long fall after the 2008 Orange Bowl"
+  detail: "Kansas won the Orange Bowl to cap a 12-1 season in 2007, then collapsed into one of the bleakest stretches in major-college football — a decade-plus of double-digit losses before Lance Leipold arrived. The 2025 team's 5-7 finish, missing a bowl for a second straight year, was a reminder of how thin the margin still is."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Keep football alive as a real thing in Lawrence — stack bowl seasons, win games that matter on a fall Saturday, and prove the Daniels-era spark wasn't a borrowed moment in a basketball town."
+  drought: { since: 2008, unit: bowl }
+
+the_chip:
+  villain: national_media
+  text: "Fans are tired of being told their school only cares from November to March — that football is a hobby in a basketball town. They point at the Orange Bowl banner and the Leipold revival and ask to be taken seriously between the whistles, too."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the program can be a basketball school AND a football program at once — that 'Rock Chalk' can mean both, and the Leipold years proved Lawrence will show up for the gridiron if it's given something to show up for. They know which sport pays the bills, and they want both anyway."
+
+the_grudge_texture:
+  rival: missouri
+  texture: killed-by-realignment   # the Border War, one of the sport's oldest rivalries, gutted by conference realignment
+
+the_coach_relationship: savior   # Lance Leipold dragged the program off the floor; Lawrence credits him for the revival
+the_internal_fracture: football-as-bonus vs football-as-priority — the faction that treats every football win as gravy on a basketball school vs the faction that wants the program funded and serious year-round
+register: lawrence-rock-chalk-leipold-rebuild   # warm, self-deprecating, basketball-first Lawrence pride that learned to love football late
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Basketball-only school — Lance Leipold's bowl wins ended that frame
+  - Always 1-11 — 2023 9-4 + bowl championship disprove the floor
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Kansas is one of college basketball's holiest grounds — the place James Naismith, the inventor of the game, coached — whose football program has lived its whole life in that shadow, making the rare good football season feel like a bonus the school never strictly needed."
+  the_origin: "A flagship public university in Lawrence whose athletic identity was forged in Allen Fieldhouse, not on the gridiron — a football program with one of the thinnest trophy cases in the Power conferences, punctuated by a single, glorious 2007 season."
+  golden_ages:
+    - { era: "1968 (Pepper Rodgers/Bobby Douglass)", what: "An Orange Bowl team and one of the program's best seasons of the old era" }
+    - { era: "2007 (Mark Mangino)", what: "A 12-1 season capped by an Orange Bowl win — the high-water mark of modern KU football" }
+    - { era: "2021–2023 (Lance Leipold)", what: "The revival — from the depths to a 2023 bowl team and Jalon Daniels Heisman buzz" }
+  legends:
+    - { name: Mark Mangino, role: coach, why: "Coached the 2007 Orange Bowl team, the best season in modern program history" }
+    - { name: Gale Sayers, role: player, why: "The 'Kansas Comet,' a College and Pro Football Hall of Famer — the program's greatest player" }
+    - { name: Jalon Daniels, role: player, why: "The face of the Leipold revival; left as a top-two passer in school history after six seasons" }
+  canonical_moments:
+    - { name: "2008 Orange Bowl win", year: 2008, what: "Kansas beats Virginia Tech to finish 12-1 and No. 7 — the peak of modern KU football", handling: glory }
+    - { name: "Gale Sayers era", year: 1964, what: "The Kansas Comet's All-America years define the program's greatest individual talent", handling: glory }
+    - { name: "Jalon Daniels' final game", year: 2025, what: "A six-season starter ends his career in a loss to Utah as KU misses a bowl at 5-7", handling: heartbreak }
+  the_place: "David Booth Kansas Memorial Stadium in Lawrence — long the quieter neighbor to Allen Fieldhouse, recently rebuilt as the program tries to give football a home worthy of the Rock Chalk name."
+  brand_of_football: "Spread-it-out, score-in-bunches football under Leipold — an offense-first identity built to make a basketball school's football fun to watch."
+  cultural_footprint: "The birthplace of basketball coaching wearing a football helmet — a program whose meaning is inseparable from the gym next door, where every football high feels like found joy."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Kansas went 5-7 (3-6 Big 12) in 2025, missing a bowl for a second straight
+    season, as six-year starter Jalon Daniels closed his career — leaving as the program's second all-time leader
+    in passing yards and touchdowns. Lance Leipold, the coach credited with reviving the program from the depths,
+    now faces life after Daniels. The question in Lawrence: was the Daniels-era spark the new normal, or a borrowed
+    moment in a basketball town?
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://www.sports-reference.com/cfb/schools/kansas/2025.html
+    - https://www2.kusports.com/sports/college/football/2025/nov/28/daniels-ends-ku-career-heartbroken-with-three-turnovers-in-loss/
+    - https://kuathletics.com/sports/football/roster/jalon-daniels/16182
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Kansas is the basketball school whose Lance Leipold rebuild from 1-11 to bowl games +
+    Jalon Daniels Heisman buzz reset what historic-football-disappointment can become.
+  mantra: Rock Chalk.
+  cultural_anchors:
+    fan_archetype_dominant: Lawrence-Rock-Chalk-Loyalist
+    outsider_archetype_dominant: Basketball-Only-School-Diminisher
+    one_sentence: Kansas is the basketball school whose Lance Leipold rebuild from 1-11 to bowl-winning
+      team — plus Jalon Daniels Heisman buzz — proved that even historic football disappointment can transform.
+  selfname: the Jayhawks
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2007 12-1 + Orange Bowl championship under Mark Mangino
+    - Lance Leipold 2021-present rebuild
+    - Jalon Daniels Heisman buzz era
+    rituals:
+    - Rock Chalk Jayhawk Chant
+    - 2007 Orange Bowl Run
+    - Lance Leipold Rebuild (2021-)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (56/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

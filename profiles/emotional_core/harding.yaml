@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: harding
+team_id: null
+program_name: Harding
+program_tier: 6
+
+emotional_core:
+  primary: spectacle
+  secondary: redemption
+  one_line: "Harding is the D2 dynasty that taught the nation what seven-man football looks like—a rushing juggernaut that ran for 6,943 yards and 88 touchdowns in 2025 alone."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A small Christian university in Searcy, Arkansas that became the face of modern option football—and a 2025 runner-up in the national championship game."
+
+the_wound:
+  name: "2025 National Championship loss—the one that got away"
+  detail: "Harding finished 15-1 with an 11-0 GAC record, led the nation in rushing, and faced Ferris State 42-21 in the Division II national championship. A heartbreaking loss to a team from Michigan."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the national championship and finish the job—prove the option is not a gimmick but an unstoppable force that can win it all."
+  drought: { since: 2024, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe harding has no chip against anyone. The Bisons' story is not about revenge—it's about proving a thesis: that an unconventional style of football, run with precision and discipline, can dominate even against teams with more resources."
+
+the_delusion:
+  tone: self-aware
+  text: "The fans believe that the option is so efficient, so repeatable, so mathematically sound that Ferris State was just a bad matchup on a cold night—and that next year, no defense in Division II will be ready for 15 yards per carry."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: savior
+the_internal_fracture: None; the program is unified around the Roddy Mote era
+register: searcy-option-dynasty-rushing-machine-bisons
+
+never_use:
+  - "Small school can't beat power offenses"
+  - "Option football is outdated"
+  - "2025 was their best season"
+  - "The Bisons have never won a national title"
+
+story_canon:
+  the_unique_thing: "Harding runs the Flexbone option and became a D2 powerhouse by doing it better than anyone else—6,943 rushing yards and 88 rushing touchdowns in 2025, an NCAA record."
+  the_origin: "A small Christian university in Searcy, Arkansas that adopted the triple option as its offensive identity and turned it into a recruiting and coaching edge—schools like Harding play to their strengths, not the sport's conventional expectations."
+  golden_ages:
+    - { era: "2023", what: "Harding won the 2023 Division II National Championship, defeating Colorado Mines 38-7" }
+    - { era: "2024-2025", what: "Back-to-back national title games (2024 champion, 2025 runner-up); 26-2 record in two years" }
+  legends:
+    - { name: Paul Simmons, role: coach, why: "Built the option empire and won the 2023 national title" }
+    - { name: Roddy Mote, role: coach, why: "Incoming HC; inherits a dynasty and the mandate to finish what 2025 started" }
+  canonical_moments:
+    - { name: "2023 National Championship", year: 2023, what: "Harding defeats Colorado Mines 38-7 in the Division II national championship", handling: glory }
+    - { name: "2025 Rushing Dominance", year: 2025, what: "Harding rushes for 6,943 yards and 88 touchdowns—an NCAA record—with a 15-1 record", handling: glory }
+    - { name: "2025 National Championship Loss", year: 2025, what: "Harding loses to Ferris State 42-21 in the Division II national championship game", handling: heartbreak }
+  the_place: "Alumni Field in Searcy, Arkansas—home of the Bisons, where the option is religion."
+  brand_of_football: "Precision rushing. Seven-man football. The option as an offensive philosophy—not a gimmick, but a system so efficient that Harding averages 5+ yards per carry year after year."
+  cultural_footprint: "Proof that a small Division II program can compete on a national stage by doing one thing—rushing the football—and doing it better than anyone else."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Harding finished the 2025 season 15-1 (11-0 GAC) and made the
+    Division II national championship game, where they fell to Ferris State 42-21. The Bisons rushed for 6,943 yards
+    and 88 touchdowns in 2025, an NCAA record. New head coach Roddy Mote takes over after Paul Simmons transitioned
+    to GM. The question in Searcy: can the Bisons respond from the championship loss and complete the unfinished business?
+  research_checklist:
+    - the option philosophy and why it works at Harding
+    - the 2023 national championship and 2025 runner-up game
+    - NCAA rushing records and statistical dominance
+    - coaching transition from Simmons to Mote
+    - recruiting identity around the option
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Harding_Bisons_football_team
+    - https://hardingsports.com/news/2025/12/20/football-harding-falls-to-ferris-state-42-21-in-division-ii-national-championship.aspx
+    - https://www.ncaa.org/sports/2025/12/20/harding-falls-to-ferris-state-in-division-ii-title-game.html

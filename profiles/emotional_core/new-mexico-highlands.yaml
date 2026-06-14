@@ -1,0 +1,64 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: new-mexico-highlands
+program_name: New Mexico Highlands University
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "New Mexico Highlands is the Cowboys breaking a 13-year winning-season drought in 2025 — a regional D2 program proving that steady coaching and recruitment can resurrect a once-competitive tradition."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A historic regional program that hit a bottom (13 years without winning) and climbed back to relevance with a winning season in 2025."
+
+the_wound:
+  name: "The 13-year drought (2012–2024)"
+  detail: "New Mexico Highlands didn't post a winning season from 2012 to 2024 — a 13-year stretch that tested whether the program could ever return to regional relevance and whether the Cowboys belonged in RMAC conversation."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Establish back-to-back winning seasons and build toward RMAC title contention — prove 2025 was the start of sustained resurgence, not a one-year blip."
+  drought: { since: 2012, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — just the quiet determination to prove the Cowboys still have football in their DNA."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: western-new-mexico
+  texture: border-war
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Momentum belief vs skepticism — the question of whether one winning season breaks the long drought or whether the Cowboys are destined to plateau."
+register: new-mexico-highlands-cowboys-regional-D2
+never_use:
+  - Recent national competitors — 6-5 in 2025, first winning season in 13 years
+  - Historic powerhouse — climbed from years of futility
+
+story_canon:
+  the_unique_thing: "The 2025 winning season (6-5) — the first winning record since 2012, ending a 13-year drought and signaling the start of resurgence under coach Kurt Taufa'asau (Year 2)."
+  the_origin: "A regional D2 program in New Mexico with a modest football tradition, part of the RMAC's regional footprint."
+  golden_ages: []
+  legends: []
+  canonical_moments:
+    - { name: "2025 winning season", year: 2025, what: "New Mexico Highlands went 6-5, posting its first winning record since 2012 and breaking a 13-year drought", handling: glory }
+  the_place: "Las Vegas, New Mexico — home of the Cowboys and a regional D2 program."
+  brand_of_football: "Grounded, regional football — a program rebuilding through disciplined coaching and incremental improvement."
+  cultural_footprint: "A regional D2 school proving that sustained coaching and institutional commitment can restore a dormant program."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: New Mexico Highlands under coach Kurt Taufa'asau (Year 2, multi-year extension through 2026+)
+    went 6-5 (4-5 RMAC) in 2025 — the program's first winning season since 2012. The Cowboys showed clear improvement and earned respect
+    as an RMAC contender. The question forward: can Taufa'asau sustain this trajectory and build back-to-back winning seasons that
+    establish the program as a consistent regional power?
+  sources:
+    - https://en.wikipedia.org/wiki/New_Mexico_Highlands_University_athletics
+    - https://www.nmhu.edu/athletics/
+    - https://www.rmac.org/

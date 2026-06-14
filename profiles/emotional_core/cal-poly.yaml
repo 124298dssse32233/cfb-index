@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: cal-poly
+team_id: 330
+program_name: Cal Poly
+program_tier: 5
+
+emotional_core:
+  primary: standard
+  secondary: contentment
+  one_line: "Cal Poly is the blue-green campus program where the Battle for the Golden Horseshoe against UC Davis anchors a compact, dependable identity built on consistency without championship urgency."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A mid-Major FCS program with a half-century of stable football, playing a rivalry that mattered before either team became blue-blood aspirants."
+
+the_wound:
+  name: "The long run without a national title"
+  detail: "Cal Poly has never won an FCS national championship; the program has existed in a middle-tier equilibrium since joining Big Sky in 2012, with sporadic playoff appearances but no moment of championship glory."
+  handling: dated-grievance
+  freshness: all-time
+
+the_dream:
+  text: "Win the Big Sky, get to the FCS playoffs, prove the Mustangs can sustain a run."
+  drought: { since: 2012, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe cal Poly doesn't carry a chip — the program carries a quiet pride in showing up every Saturday and playing honest, mid-Major football without apology."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: uc-davis
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "None — the fanbase is patient and understands the ceiling."
+register: san-luis-obispo-mustangs-horseshoe-rivalry
+never_use:
+  - Ever won an FCS national championship — Cal Poly's success is measured in bowl eligibility, not titles
+  - Consistent playoff team — appearances are rare and noteworthy, not routine
+  - Dominant Big Sky power — Cal Poly is mid-pack, not a contender year-in and year-out
+
+story_canon:
+  the_unique_thing: "The Battle for the Golden Horseshoe — a 1921-originated rivalry with UC Davis that survived both schools' FCS era and remains one of the oldest continuous rivalries in college sports, played annually or near-annually despite conference realignment."
+  the_origin: "A small mid-Major program on the Central Coast of California that joined Big Sky in 2012 after 40+ years in the Great West Conference, bringing a tradition of steady, non-flashy football."
+  golden_ages:
+    - { era: "1991–2000", what: "A decade of consistent I-AA competitiveness under multiple coaches, with regular postseason eligibility" }
+    - { era: "2012–2015", what: "Early Big Sky stability, establishing Cal Poly as a reliable mid-pack conference member" }
+  legends:
+    - { name: Joe Harper, role: coach, why: "Built stability into the program in the 1980s and 1990s" }
+  canonical_moments:
+    - { name: "1921 first game vs UC Davis", year: 1921, what: "The founding of the Battle for the Golden Horseshoe, one of the oldest continuous rivalries in American college sports", handling: glory }
+  the_place: "Mustang Stadium in San Luis Obispo, a compact, intimate setting on the California Central Coast"
+  brand_of_football: "Dependable mid-Major football — not flashy, not dominant, but steady and competitive"
+  cultural_footprint: "A small-town California program that proves you don't need a national title to have an identity; the rivalry with UC Davis is proof that longevity and consistency matter."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Cal Poly went 4–8 (2–6 Big Sky) in 2025 under first-year coach Tim Skipper
+    (hired from Incarnate Word). The Mustangs are in a rebuild phase after inconsistent recent seasons and a coaching change.
+    2026 looms as a critical year: Skipper has to establish a baseline for consistency, with QB Ty Dieffenbach
+    (if returning) leading the offense. The question is whether Skipper can restore Big Sky competitiveness, or if Cal Poly
+    settles further into the lower-mid tier.
+  research_checklist:
+    - The Battle for the Golden Horseshoe as the marquee identity anchor
+    - Honest assessment of mid-Major ceiling expectations
+    - Consistency vs championship urgency in the fanbase
+    - The Central Coast identity and small-school pride
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Cal_Poly_Mustangs_football_team
+    - https://en.wikipedia.org/wiki/Battle_for_the_Golden_Horseshoe
+    - https://calpolyathletics.com/sports/m-footbl

@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Hanover College Panthers — The 2025 HCAC Champions
+
+status: live
+slug: hanover
+team_id: null
+program_name: Hanover
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Hanover College is the 2025 HCAC champion — the Panthers broke Mount St. Joseph's three-year stranglehold with an undefeated 6-0 conference record and earned the automatic NCAA tournament bid."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A program that finished second in 2024 vs the dramatic breakthrough to a perfect HCAC season and the NCAA tournament."
+
+the_wound:
+  name: "The three-year Mount St. Joseph drought"
+  detail: "Mount St. Joseph had gone 20-0 in HCAC games over three straight seasons (2022-2024), and Hanover had finished second the year before. The wound was the frustration of being close enough to taste it. In 2025, the Panthers answered: 6-0 HCAC and the conference championship."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Make a deep NCAA Division III playoff run — to prove the 2025 HCAC championship is not a one-year miracle but the start of a new era."
+  drought: { since: 1900, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Hanover just broke through and is riding the wave of the 2025 championship."
+
+the_delusion:
+  tone: none
+  text: null
+
+the_grudge_texture:
+  rival: mount-st-joseph
+  texture: championship
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "Managing expectations — believing the championship is sustainable while respecting the quality of Mount St. Joseph."
+register: hanover-panthers-hcac-champion
+never_use:
+  - "Hanover is a one-year wonder — winning the HCAC title proves championship capability"
+  - "The Panthers cannot repeat — Hanover has strong fundamentals under head coach Matt Theobald"
+  - "Mount St. Joseph is still dominant — Hanover just beat them"
+
+story_canon:
+  the_unique_thing: "A small liberal arts college in Hanover, Indiana that had been a consistent HCAC contender and finished second in 2024, then broke Mount St. Joseph's three-year dominance with a perfect 6-0 HCAC record and the 2025 conference championship."
+  the_origin: "Founded in 1827 in Hanover, Indiana, Hanover College has built a steady athletic tradition."
+  golden_ages:
+    - { era: "2024–2025", what: "The rise from second place to championship" }
+  legends:
+    - { name: Matt Theobald, role: coach, why: "Head coach since 2016 (10th season in 2025), architect of the perfect HCAC season and the 2025 championship" }
+  canonical_moments:
+    - { name: "2025 HCAC Championship (6-0 record)", year: 2025, what: "Perfect conference season, breaking Mount St. Joseph's three-year streak", handling: glory }
+    - { name: "95th Victory Bell Game win vs Franklin (51-18)", year: 2025, what: "The dominant clinching win that sealed the title", handling: glory }
+    - { name: "NCAA Division III playoff berth (first since 2019)", year: 2025, what: "Automatic qualification for breaking through", handling: glory }
+  the_place: "Hanover College in Hanover, Indiana — a small liberal arts school on the Ohio River."
+  brand_of_football: "Disciplined excellence and the belief that sustained pressure wins championships — Hanover football proved that beating Mount St. Joseph was possible."
+  cultural_footprint: "The 2025 Panthers are proof that even dominant programs can be toppled by the right team at the right time."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Hanover College won the 2025 HCAC championship with a perfect 6-0 conference
+    record and a 7-1 overall record, breaking Mount St. Joseph's three-year stranglehold on the title. The Panthers
+    won the 95th Victory Bell Game against rival Franklin 51-18 to clinch the title and earned the automatic NCAA
+    Division III playoff berth, marking the program's first NCAA tournament appearance since 2019. Head coach Matt
+    Theobald led the team to the conference title.
+  research_checklist:
+    - "2025 HCAC championship (6-0 conference record)"
+    - "7-1 overall record"
+    - "95th Victory Bell win vs Franklin (51-18)"
+    - "First NCAA playoff berth since 2019"
+    - "Broke Mount St. Joseph's 20-0 HCAC streak over three years"
+  sources:
+    - https://heartlandconf.org/news/2025/11/15/HC-25FBChamps.aspx
+    - https://athletics.hanover.edu/news/2025/11/15/football-panthers-win-95th-victory-bell-game-51-18.aspx

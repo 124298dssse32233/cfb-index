@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Emotional Core — Houston Christian
+# Status: live
+
+status: live
+slug: houston-christian
+team_id: null  # New program
+program_name: Houston Christian
+program_tier: 5
+
+emotional_core:
+  primary: spectacle      # the newest kids on the block, learning how to belong
+  secondary: house-money  # a 2-10 season is not a failure — it's a first step
+  one_line: "Houston Christian is the newest program in FCS, still writing the story of how a faith-rooted university learns to win at this level."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A 2024-founded football program in a Division I athletics framework is playing out the most literal version of a startup story — building the infrastructure and culture from scratch, one roster spot and one win at a time."
+
+the_wound:
+  name: "The 2-10 inaugural season and the ceiling question"
+  detail: "Houston Christian started FCS football in 2024, finished 1-11. The 2025 season brought modest improvement to 2-10 — not a loss, but a reminder that building a championship-level program takes longer than a year or two. Huskies fans are still writing the founding narrative; every result is a data point, not a verdict."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that faith-rooted institutional values can stack with athletic excellence — win a Southland title, make the FCS playoffs, and make Houston Christian a program opponents respect and fans are proud to claim."
+  drought: { since: 2024, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is internal: the expectation that a university with HC's academic and faith foundation can be genuinely excellent at football, not just competitive. It's about proving the institution's athletic ambition, not proving anything to anyone else."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that building a winning program is about heart and smart roster moves, not raw resources — that HC can compete in the Southland with the right coaching and culture, regardless of how small the recruiting footprint looks next to programs with decades of tradition."
+
+the_grudge_texture:
+  rival: southeast-louisiana
+  texture: little-brother  # Southland peers, not yet true rivals, but HC is learning the conference
+
+the_coach_relationship: savior   # Jason Bachtel is still in Year 2, establishing the program identity
+the_internal_fracture: "patience-vs-impatience: the faction that believes HC is on the right trajectory vs. those questioning whether the growth curve is steep enough"
+register: houston-faith-huskies-startup-story
+never_use:
+  - "Been here forever"
+  - "Storied tradition"
+  - "Should be better by now"
+  - "Rebuilding after a fall"
+
+story_canon:
+  the_unique_thing: "Houston Christian is the newest program in FCS, founded in 2024, and is literally writing the founding story of what a faith-rooted university looks like on the field. Every game is part of the institutional narrative."
+  the_origin: "Houston Christian University, a faith-affiliated institution, launched a Division I football program in 2024. The program is only two years old as of 2025, making it the youngest in the Southland Conference."
+  golden_ages: []  # No golden age yet; the entire program is the origin story
+  legends: []  # Too early for legends; the narrative belongs to the coaches and athletes still writing the founding chapter
+  canonical_moments:
+    - { name: "2-10 in Year 2", year: 2025, what: "Houston Christian improves to 2-10 in the 2025 season, showing incremental progress as a brand-new FCS program", handling: wound }
+  the_place: "Husky Stadium in Houston, Texas — a faith-rooted university claiming the Husky identity and building a football culture from the ground up."
+  brand_of_football: "Disciplined, faith-driven, ambitious despite the odds — HC football is defined by the challenge of building something from nothing in a conference of established programs."
+  cultural_footprint: "As the newest FCS program, HC has the unique role of proving that a faith-based institution can be genuinely competitive at the highest level of non-Power Four football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Houston Christian entered 2025 after a 1-11 inaugural season in 2024.
+    The Huskies improved to 2-10 (1-7 SLC) under second-year HC coach Jason Bachtel, winning games over Incarnate Word
+    and managing a competitive offense despite roster limitations. Key offensive performers included QB Jake Weir and
+    RB Xai'Shaun Edwards. The program is in the early institutional-build phase — infrastructure, recruiting footprint,
+    and conference integration are the actual battles. Year 3 will test whether the modest improvement trajectory holds.
+  research_checklist:
+    - the program's founding year and institutional mission (faith-rooted identity)
+    - the role of Jason Bachtel in establishing the HC football culture
+    - the 2024 inaugural season and 2025 improvement trajectory
+    - the roster building strategy in a young program's first two years
+    - the Southland Conference peers and the learning curve
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Houston_Christian_Huskies_football_team
+    - https://en.wikipedia.org/wiki/Houston_Christian_Huskies_football
+    - https://www.hcpress.com/sports/football/

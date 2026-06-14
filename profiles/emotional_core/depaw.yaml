@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# DePauw University Tigers
+
+status: live
+slug: depaw
+team_id: null
+program_name: DePauw University
+program_tier: 7
+
+emotional_core:
+  primary: spectacle
+  secondary: honor
+  one_line: "DePauw is the program that plays for the Monon Bell every Thanksgiving—a 140-year-old rivalry with Wabash, a 300-pound cast-iron bell, and a guaranteed annual national stage."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "An NCAC powerhouse and four-time defending conference champion vs. the ceiling of Division III and the outsized significance placed on a single annual game."
+
+the_wound:
+  name: "The Monon Bell and the world beyond it"
+  detail: "DePauw owns a 300-pound iron bell that dates to 1932, symbolic of the oldest continuous college football rivalry (since 1890). The program has been so defined by this one game—the rivalry, the trophy, the Thanksgiving tradition—that everything else feels secondary. Beating Wabash is the measure."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Monon Bell every year and prove DePauw is not just the NCAC champion but can reach the Division III playoff ceiling."
+  drought: { since: 2019, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is against the calendar. Thanksgiving comes once a year, and DePauw wants to own that day the way Wabash used to."
+
+the_delusion:
+  tone: self-aware
+  text: "That the Monon Bell game is everything—that a 10-2 season with a bell loss is a disappointment. DePauw fans know the rivalry defines the year, and they live with that beautiful, maddening truth."
+
+the_grudge_texture:
+  rival: wabash
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Conference dominance (4x NCAC champs) vs. playoff aspirations (seeking national relevance beyond the bell)"
+register: greencastle-indiana-monon-bell-tigers
+never_use:
+  - "DePauw has never won a national title — true, but NCAC/HCAC/SCAC conference titles (1990, 1996, 2000, 2005, 2009, 2010) span era"
+  - "New rivalry — Monon Bell dates to 1890 (136 years) and trophy to 1932 (94 years)"
+  - "Small school — DePauw is academically elite; 2,300 undergraduates"
+
+story_canon:
+  the_unique_thing: "The Monon Bell—an annual Thanksgiving game with Wabash for a 300-pound cast-iron bell trophy, the oldest continuous college football rivalry in America (since 1890) and one of the sport's most sacred traditions."
+  the_origin: "DePauw, founded in 1837 in Greencastle, Indiana, began playing football in 1884 as the first team ever to play in Indiana. The rivalry with Wabash, 20 miles away, started in 1890 as a natural regional clash. In 1932, the two schools commissioned a bell—a cast-iron Schlag bell, 300 pounds, engraved 'Monon Bell'—to commemorate the trophy, and it has been contested every Thanksgiving ever since."
+  golden_ages:
+    - { era: "1928–1933", what: "Historic 1933 undefeated season (7-0) outscored opponents 136-0, early national prominence" }
+    - { era: "1990–1996", what: "HCAC conference titles, 1990 co-championship" }
+    - { era: "2020–2025", what: "NCAC dynasty: four consecutive conference titles (2022, 2023, 2024, 2025)" }
+  legends:
+    - { name: Brett Dietz, role: coach, why: "Architect of the modern DePauw dynasty; four consecutive NCAC titles in five seasons (since 2020)" }
+    - { name: Scott Ballentine, role: player, why: "2025 quarterback who led DePauw to NCAC championship and Monon Bell trophy (41-20 victory)" }
+  canonical_moments:
+    - { name: "The 1933 undefeated season", year: 1933, what: "7-0 record, outscored opponents 136-0, most dominant season in program history", handling: glory }
+    - { name: "The Monon Bell tradition begins", year: 1932, what: "The bell is commissioned and contested, creating the oldest continuous rivalry in American college football", handling: glory }
+    - { name: "2025 Monon Bell victory", year: 2025, what: "41-20 victory over Wabash secures fourth consecutive Monon Bell trophy", handling: glory }
+  the_place: "Greencastle, Indiana, in the rolling farmland of central Indiana. The bell is displayed at the winner's school each year. Blackstock Stadium is DePauw's home."
+  brand_of_football: "Opportunistic and well-coached. DePauw plays a controlled game emphasizing field position and capitalizing on mistakes. Brett Dietz's system is built on consistency and execution."
+  cultural_footprint: "The custodian of American college football's oldest rivalry. DePauw football is inseparable from the Monon Bell—the program's entire identity is wrapped around Thanksgiving and the bell. No other D3 program owns a single game the way DePauw owns the bell."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: DePauw went 10-2 in 2025 (9-1 regular season, 7-1 NCAC), captured the NCAC championship and the Monon Bell trophy over Wabash 41-20, then made the NCAA Division III playoffs where they lost to Wheaton 49-24 in Round 3 (after beating Wisconsin-Whitewater 26-23 in Round 1). Brett Dietz, now in his sixth season, has built a dynasty: four NCAC titles in five seasons. The question for DePauw going forward is whether the program can break through the Division III playoff ceiling, or if the Monon Bell will remain the highest achievement.
+  research_checklist:
+    - Monon Bell rivalry dating to 1890 (136 years)
+    - Bell trophy commissioned 1932 (94 years)
+    - 1933 undefeated 7-0 season (136-0 outscoring)
+    - Brett Dietz 4 NCAC titles in 5 seasons (2022, 2023, 2024, 2025)
+    - 2025 season 10-2, Monon Bell victory 41-20
+    - NCAA Division III playoffs (lost Wheaton Round 3)
+    - Wabash as traditional rival (THE rival, not just conference opponent)
+  sources:
+    - https://depauwtigers.com
+    - https://northcoast.org
+    - https://en.wikipedia.org/wiki/Monon_Bell
+    - https://en.wikipedia.org/wiki/DePauw_Tigers_football
+    - https://www.wthr.com/article/sports/ncaa/ncaaf/depauw-tigers-defeat-wisconsin-whitewater-warhawks-26-23-ncaa-division-iii-football-playoffs/

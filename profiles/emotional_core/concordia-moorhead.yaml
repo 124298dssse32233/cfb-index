@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: concordia-moorhead
+team_id: null
+program_name: Concordia University Moorhead
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Concordia-Moorhead is a program built on stability—25 years of the same coach, 150+ career wins, and the quiet confidence that excellence is measured in tenure, not championships."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A MIAC school that competes consistently without flash, led by the longest-tenured active coach in Minnesota college football, proving that stability breeds winning."
+
+the_wound:
+  name: "The championship that never came"
+  detail: "Terry Horan has 150+ wins and 25 years at Concordia-Moorhead, has built a program of steady, reliable success—and yet has never won a MIAC championship, never made a statement run at nationals. Excellence without the trophy case to show for it."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a MIAC championship and prove that stability and consistency can finally culminate in the ultimate prize—to validate 25 years of steady building with one dominant season."
+  drought: { since: 1980, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe concordia-Moorhead's identity is not about what it's chasing—it's about what it refuses to abandon: the same coach, the same culture, the same commitment to building year after year without shortcuts."
+
+the_delusion:
+  tone: earnest
+  text: "Concordia fans believe that one day, the accumulated excellence and stability under Terry Horan will finally result in a MIAC championship. This might be the year; it might be next. The culture doesn't change."
+
+the_grudge_texture:
+  rival: hamline
+  texture: border-war
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "Contentment with stability vs hunger for a breakthrough championship—should the program push harder, or trust the long game?"
+register: concordia-moorhead-cougars-minnesota-stability
+never_use:
+  - Middling program—Concordia-Moorhead wins 7-8 games consistently
+  - Unknown or forgettable—Terry Horan is the longest-tenured active coach in Minnesota college football
+  - Never competes—25 years of steady MIAC presence proves otherwise
+
+story_canon:
+  the_unique_thing: "Terry Horan, the longest-tenured active coach in Minnesota college football, has been the head coach of Concordia-Moorhead for 25 years, compiling 150+ career wins. His tenure has defined the program as a model of stability and steady excellence in the MIAC."
+  the_origin: "Concordia University Moorhead, a small Lutheran school in Moorhead, Minnesota, has been part of the MIAC since the conference's founding era. Under Terry Horan's long tenure beginning in the early 2000s, the program became known for steady competitive success."
+  golden_ages:
+    - { era: "2000s–2010s", what: "Terry Horan's first decade, establishing Concordia-Moorhead as a consistent MIAC competitor" }
+    - { era: "2015–2025", what: "Sustained excellence; 150+ career wins accumulated under Horan's continued leadership" }
+  legends:
+    - { name: Terry Horan, role: coach, why: "25-year head coach at Concordia-Moorhead, 150+ career wins, longest-tenured active coach in Minnesota college football—a symbol of stability and steady building" }
+  canonical_moments:
+    - { name: "Terry Horan becomes longest-tenured Minnesota coach", year: 2023, what: "After two decades of consistent winning, Horan surpasses other long-standing coaches in the state", handling: glory }
+    - { name: "2025 season (7-3 MIAC)", year: 2025, what: "Concordia-Moorhead continues its pattern of 6-8 win seasons, steady and reliable", handling: glory }
+  the_place: "Moorhead, Minnesota—a small campus where the football program operates without fanfare, consistent and dependable."
+  brand_of_football: "Steady, predictable, fundamentally sound—Concordia-Moorhead executes the basics year after year, winning through consistency rather than flash."
+  cultural_footprint: "Concordia-Moorhead exemplifies the D3 model of long-term institutional commitment: the same coach, the same culture, the same expectations, proving that stability matters as much as talent."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Concordia-Moorhead went 7-3 (6-3 MIAC) in 2025, continuing
+    its pattern of solid, reliable football under Terry Horan's stewardship. At 25 years and 150+ wins,
+    Horan remains the longest-tenured active coach in Minnesota college football. The 2026 question is
+    whether this will finally be the year the accumulated excellence translates into a MIAC championship,
+    or whether Concordia-Moorhead remains the most reliable and least celebrated program in the conference.
+  research_checklist:
+    - Terry Horan's 25-year tenure and 150+ wins
+    - Longest-tenured Minnesota coach status
+    - Consistent 6-8 win seasons (steady mediocrity or quiet excellence?)
+    - Stability as identity (not chasing flashy rebuilds)
+    - The unfulfilled championship dream
+  sources:
+    - https://www.cord.edu/athletics/football/
+    - https://miachome.org/sports/football/
+    - https://www.d3football.com/

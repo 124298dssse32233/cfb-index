@@ -1,0 +1,122 @@
+# Emotional Core — Hawai'i  (hawai-i)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: hawai-i
+team_id: 15
+program_name: Hawai'i
+program_tier: 3
+
+emotional_core:
+  primary: honor          # the team of an entire island chain, representing a place no mainland program can be
+  secondary: restoration  # Timmy Chang, the program's own passing legend, has the Warriors winning bowls again
+  one_line: "Hawai'i is the only major-college team an entire ocean of islands calls its own — the program that perfected the Run-and-Shoot, crashed the 2008 Sugar Bowl, and asks every visitor to fly six hours and play a different climate."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A 2007 12-0 regular season and a BCS Sugar Bowl berth vs a Mountain West program whose geography costs it recruits, money and the benefit of the doubt every single year."
+
+the_wound:
+  name: "The 2008 Sugar Bowl blowout"
+  detail: "The unbeaten 2007 dream — Colt Brennan, a No. 10 final ranking, the first non-BCS island team to crash the party — ended 41-10 against Georgia, a national stage that doubled as the doubters' favorite exhibit that the islands couldn't hang."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Another unbeaten run and a return to the sport's biggest stage — proof the 2007 magic wasn't a one-time lightning strike from the middle of the Pacific."
+  drought: { since: 2010, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Warrior fans are sick of being the road trip nobody wants and the time zone nobody watches — a program that has to win twice as convincingly to get half the respect, and knows the mainland forgets it exists by Sunday morning."
+
+the_delusion:
+  tone: earnest
+  text: "The faithful believe the islands breed a toughness the mainland can't scout — that the right quarterback in this offense, with a jet-lagged opponent in 80-degree humidity, can still shock anybody who flies out to play them."
+
+the_grudge_texture:
+  rival: byu
+  texture: blood-feud   # the old WAC blood feud — culture-clash games and a genuinely bitter history
+
+the_coach_relationship: forever-ours   # Timmy Chang, the program's all-time passing-yards legend, came home to coach it
+the_internal_fracture: protect-the-islands vs play-the-mainland's-game — fans who prize the bunker-mentality identity vs fans who want the resources and scheduling to compete on the mainland's terms
+register: honolulu-rainbow-warriors-june-jones-run-and-shoot
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always G5 — 2007 #10 AP + Sugar Bowl disprove the ceiling'
+  - No identity — June Jones + Run-and-Shoot + Imua combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The 2007 Run-and-Shoot dream: June Jones's Warriors went 12-0 in the regular season behind Colt Brennan, became the first team from the islands to crash a BCS bowl, and made Hawai'i the air-raid laboratory of college football."
+  the_origin: "College football on the islands as a point of statewide pride — the only FBS program in Hawai'i, separated from every opponent by an ocean, carrying the identity of an entire state onto a mainland stage."
+  golden_ages:
+    - { era: "1999–2007 (June Jones)", what: "Jones installs the Run-and-Shoot, resurrects a 0-12 program, and builds it into the 2007 BCS-buster" }
+    - { era: "Colt Brennan years (2005–2007)", what: "NCAA passing records and the most prolific aerial show the sport had seen" }
+  legends:
+    - { name: June Jones, role: coach, why: "Turned 0-12 into 12-0 and the Sugar Bowl; the architect of the Run-and-Shoot era" }
+    - { name: Colt Brennan, role: player, why: "Record-shattering quarterback and the face of the 2007 dream; a beloved figure who died young" }
+    - { name: Timmy Chang, role: player, why: "Once college football's all-time passing-yards leader — and now the head coach" }
+  canonical_moments:
+    - { name: "Perfect regular season", year: 2007, what: "12-0 and a BCS Sugar Bowl berth — the islands crash the party", handling: glory }
+    - { name: "The Sugar Bowl loss", year: 2008, what: "41-10 to Georgia on the sport's biggest stage", handling: wound }
+    - { name: "Hawai'i Bowl comeback over Cal", year: 2025, what: "Erases a 21-point deficit to win — tying the largest comeback in program history", handling: glory }
+  the_place: "The Ching Athletics Complex, the on-campus home built after Aloha Stadium closed in 2020 — and the islands themselves: a six-hour flight, a time-zone gauntlet, and 80-degree humidity that visiting teams never quite shake."
+  brand_of_football: "Air it out — the Run-and-Shoot heritage, four- and five-wide sets, a pass-first identity born under June Jones and revived by his own quarterbacks-turned-coaches."
+  cultural_footprint: "More than a team — the football program of an entire state, woven into island identity, the 'Imua' (move forward) ethos, and a fanbase that treats Saturdays as a statewide gathering."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Hawai'i went 9-4 (5-3 Mountain West) in Timmy Chang's fourth season and won
+    the Hawai'i Bowl, erasing a 21-point deficit to beat California in one of the program's great comebacks. Chang —
+    the program's own all-time passing legend — was named AFCA Region 5 Coach of the Year and got an extension
+    through 2026. The Warriors enter 2026 a rising Mountain West team chasing the conference title that's eluded
+    them since the league realigned.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Hawaii_Rainbow_Warriors_football_team
+    - https://www.hawaiinewsnow.com/2025/11/25/university-hawaii-football-coach-timmy-chang-selected-region-five-coach-year/
+    - https://en.wikipedia.org/wiki/Hawaii_Rainbow_Warriors_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Hawai'i is the Mountain West program whose June Jones Run-and-Shoot 2007 12-1 + Aloha
+    Stadium / Ching Athletic Complex + 25-hour-flight visiting-team disorientation define what Pacific-island-football
+    looks like.
+  mantra: Imua.
+  cultural_anchors:
+    fan_archetype_dominant: Honolulu-Rainbow-Warrior-Imua
+    outsider_archetype_dominant: MW-Mid-Pack-Diminisher
+    one_sentence: Hawai'i is the Mountain West Pacific-island program — June Jones 2007 Sugar Bowl + Run-and-Shoot
+      offense + Aloha Stadium-to-Ching Complex venue transition that define what scheme-pioneer-island-football
+      looks like.
+  selfname: the Rainbow Warriors
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2007 12-1 + WAC + Sugar Bowl +
+    - Run-and-Shoot offense + multiple NCAA passing records
+    - Aloha Stadium 1975-2020 + Ching Complex 2020+ transition
+    rituals:
+    - 2007 Sugar Bowl Run
+    - Run-and-Shoot Offense
+    - Aloha Stadium / Ching Complex Transition
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

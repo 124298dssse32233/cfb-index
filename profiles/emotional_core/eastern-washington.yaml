@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: eastern-washington
+team_id: 331
+program_name: Eastern Washington
+program_tier: 5
+
+emotional_core:
+  primary: standard
+  secondary: contentment
+  one_line: "Eastern Washington is the Big Sky blue-blood that built its identity on the Dam Cup rivalry with Portland State — a trophy named after four Columbia River dams crossing 339 miles of Pacific Northwest wilderness."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A consistent Big Sky presence with sustained playoff eligibility but no national title, forever hovering at the edge of genuine contention without the breakthrough."
+
+the_wound:
+  name: "The near-misses that never broke through"
+  detail: "Eastern Washington has made multiple FCS playoff runs but never reached the national championship game; the program has sustained excellence without the ultimate reward, a pattern that defines the modern Eagles identity."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Break through to the FCS National Championship, prove the Eagles belong in the Finals, not just the Tournament."
+  drought: { since: 1987, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe eastern Washington doesn't carry resentment — the Eagles carry the pragmatic pride of a program that shows up every year."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: portland-state
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "None; the fanbase has accepted the Big Sky ceiling."
+register: cheney-washington-eagles-dam-cup
+never_use:
+  - Won an FCS national championship — no title in program history
+  - Made the FCS Finals — only semifinals in 1987
+  - Consistently dominates Big Sky — the Eagles are competitive, not dominant
+
+story_canon:
+  the_unique_thing: "The Dam Cup — the 339-mile rivalry trophy with Portland State named after four Columbia River hydroelectric dams (Bonneville, Dalles, John Day, McNary) that separate Eastern Washington from Portland. It's one of the most geographically specific trophies in college sports and embodies the Pacific Northwest identity."
+  the_origin: "A small Division II program in Cheney, Washington that entered I-AA in 1982 and quickly became a Big Sky fixture, establishing itself as a reliable playoff-adjacent program."
+  golden_ages:
+    - { era: "1987", what: "The Eagles reached the FCS (then I-AA) national semifinals, the pinnacle of program history" }
+    - { era: "2000s–2010s", what: "Sustained Big Sky competitiveness with multiple playoff appearances under coaches like Dick Zornes and Beau Baldwin" }
+  legends:
+    - { name: Beau Baldwin, role: coach, why: "Built Eastern Washington into a modern playoff contender in the 2010s, making the Eagles relevant beyond Cheney" }
+  canonical_moments:
+    - { name: "1987 FCS Semifinals", year: 1987, what: "Eastern Washington's deepest FCS playoff run, losing in the semifinals to Northeastern", handling: miracle }
+    - { name: "Dam Cup establishment", year: 1968, what: "The rivalry with Portland State began, eventually yielding the unique trophy that defined the geographic identity", handling: glory }
+  the_place: "Reardan-Haley Stadium in Cheney, Washington — a small-town FCS facility deep in the Inland Northwest"
+  brand_of_football: "Reliable Big Sky football — consistent, competitive, but rarely transcendent"
+  cultural_footprint: "Eastern Washington proves that a small, blue-collar Pacific Northwest town can field a program that sustains FCS relevance; the Dam Cup is proof that college sports can build unique, geography-specific traditions."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Eastern Washington went 5–7 (4–4 Big Sky) in 2025 under coach Aaron Best (10th season).
+    The Eagles suffered QB injuries to starter Jared Taylor and struggled with consistency. Best is in a precarious position in his
+    10th year: he has not captured an FCS playoff breakthrough, and 2026 becomes critical. New QB options and a healthy roster
+    will be essential for Eastern Washington to avoid becoming a "good, not great" story forever. The question looms whether Best
+    can still generate a postseason run, or if the Eagles have permanently settled into mid-pack Big Sky football.
+  research_checklist:
+    - The Dam Cup as the primary identity anchor (established 1968, actual trophy created later)
+    - The 1987 semifinal run as peak program history
+    - Sustained but not dominant Big Sky presence
+    - The Inland Northwest small-town identity
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Eastern_Washington_Eagles_football_team
+    - https://en.wikipedia.org/wiki/Dam_Cup
+    - https://goviks.com/news/2025/9/29/football-vikings-prepare-to-defend-trophy-in-dam-cup-rivalry-game-with-eagles.aspx
+    - https://en.wikipedia.org/wiki/Eastern_Washington_Eagles_football

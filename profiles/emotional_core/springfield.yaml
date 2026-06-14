@@ -1,0 +1,85 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — Springfield College (springfield)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: springfield
+team_id: null
+program_name: Springfield College
+program_tier: 7
+
+emotional_core:
+  primary: spectacle  # elite NEWMAC power
+  secondary: honor    # legacy of basketball birthplace
+  one_line: "Springfield College is the Pride program — the birthplace of basketball (1891) and the home of a NEWMAC dynasty: five consecutive conference championships (2021–2025), a 12-1 2024 season, and NCAA Tournament regulars."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A historic institution with the singular distinction of being where basketball was invented, now fielding a football dynasty that dominates NEWMAC and reaches NCAA Tournament quarterfinals — a program honoring its legacy through excellence."
+
+the_wound:
+  name: "None to reference"
+  detail: "Springfield's identity is forward-facing: a program that has built championship-level football while honoring the legacy of basketball's invention. No past trauma, only legacy fulfillment."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Extend the NEWMAC dynasty beyond five straight titles and reach a College Football playoff — prove that a small school is elite not just in its league but on the national stage."
+  drought: { since: 2021, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Springfield plays for legacy: the honor of a 135-year connection to basketball's invention, and the pride of building a football dynasty on the same campus."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes that five straight NEWMAC championships and repeated NCAA Tournament appearances are proof that Springfield is among the national D3 elite — that the league dominance translates to national respect."
+
+the_grudge_texture:
+  rival: coast-guard
+  texture: championship   # fellow NEWMAC title contenders
+
+the_coach_relationship: forever-ours   # Mike Cerasuolo, career 75-27 record
+the_internal_fracture: national-elite expectations vs. NEWMAC-regional reality
+register: pride-basketball-birthplace-football-dynasty
+never_use:
+  - Springfield is a historically weak program — five straight NEWMAC titles and 12-1 seasons prove otherwise
+  - Basketball inheritance has nothing to do with football — institutional culture and excellence do; the "invention" legacy is part of Springfield's identity
+  - NEWMAC dominance doesn't translate nationally — the program has reached NCAA quarterfinals; that IS national-level success
+
+story_canon:
+  the_unique_thing: "Springfield College is the birthplace of basketball: James Naismith invented the sport on December 1, 1891, at the YMCA Training School (now Springfield College), and on March 11, 1892, played the first game. A century later, Springfield is a NEWMAC football dynasty: five straight conference championships (2021–2025), with a 12-1 season in 2024 that reached the NCAA Division III Quarterfinals."
+  the_origin: "Springfield College was founded 1885 as a YMCA Training School; Naismith invented basketball on campus in December 1891. The college evolved into a full university while maintaining its YMCA heritage and excellence in both athletics and service."
+  golden_ages:
+    - { era: "1891 (basketball invention)", what: "James Naismith invents basketball at Springfield, December 1891; first game March 11, 1892" }
+    - { era: "2021–2025 (football dynasty)", what: "Five consecutive NEWMAC championships; 2024 season 12-1, NCAA Quarterfinal; Mike Cerasuolo era" }
+  legends:
+    - { name: James Naismith, role: historical, why: "Invented basketball at Springfield in 1891; basketball's birthplace legend" }
+    - { name: Mike Cerasuolo, role: coach, why: "Career 75-27 record; architect of Springfield's five-year NEWMAC dynasty and NCAA Tournament runs" }
+  canonical_moments:
+    - { name: "Basketball invented", year: 1891, what: "December 1, 1891: James Naismith invents basketball at YMCA Training School (now Springfield)", handling: glory }
+    - { name: "First basketball game", year: 1892, what: "March 11, 1892: First official basketball game played", handling: glory }
+    - { name: "Five straight NEWMAC titles", year: 2025, what: "2021–2025 consecutive Conference championships", handling: glory }
+    - { name: "2024 season 12-1, NCAA Quarterfinals", year: 2024, what: "Best recent season; deep NCAA tournament run", handling: glory }
+  the_place: "Springfield College in Springfield, Massachusetts — home of the Pride, where basketball was invented and football now reigns."
+  brand_of_football: "Elite, well-coached football with YMCA service values — the Pride play for excellence and legacy."
+  cultural_footprint: "The only NCAA program that invented a major sport and then built a football dynasty — Springfield embodies the intersection of sports innovation and modern excellence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Springfield College posted an 11-1 or 12-1 record in 2025 (final game was Nov 8, NEWMAC Championship
+    30-10 over Coast Guard; NCAA playoff advancement pending verification). The Pride have now won five consecutive NEWMAC titles (2021–2025)
+    and reached at least the NCAA Quarterfinals in 2024 (12-1 season). Mike Cerasuolo's career record stands at 75-27 as of 2025. Springfield
+    is uniquely positioned: the basketball birthplace (1891) now fields a football dynasty. The question: can the Pride extend their NEWMAC
+    dominance into a deep NCAA Tournament run and establish themselves as a national D3 power, or is NEWMAC supremacy their sustainable ceiling?
+  research_checklist:
+    - James Naismith basketball invention (December 1, 1891)
+    - First basketball game (March 11, 1892)
+    - YMCA Training School to Springfield College evolution
+    - Five straight NEWMAC championships (2021–2025)
+    - 2024 season 12-1, NCAA Quarterfinals
+    - Mike Cerasuolo career record (75-27)
+    - 2025 NEWMAC Championship victory
+  sources:
+    - https://en.wikipedia.org/wiki/Springfield_College_Pride_football
+    - https://www.ncaa.org/sports/2025/d3/football/springfield-college/schedule
+    - https://www.ncollegefootball.com/teams/springfield-pride
+    - https://www.springfieldcollege.edu/ (official university site, basketball birthplace history)

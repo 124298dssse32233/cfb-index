@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — Nichols College (nichols)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: nichols
+team_id: null
+program_name: Nichols College
+program_tier: 7
+
+emotional_core:
+  primary: contentment  # stable, modest regional program
+  secondary: house-money  # each win is earned, not guaranteed
+  one_line: "Nichols is the Bison program with 53 years in the Conference of New England — a modest Massachusetts school where Jack Morvan's 1,175-yard receiving season proved individual excellence thrives even in lean times."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A long-standing Conference of New England member (since 1972) that has never captured a league title — steady participation in conference football, honest and humble."
+
+the_wound:
+  name: "53 years without a Conference title"
+  detail: "Nichols has competed in the Conference of New England (originally NEFC) since 1972 — over five decades of conference play without ever winning the league championship. The wound is one of patient frustration."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win a Conference of New England title — break the 53-year drought and prove that Nichols belongs among the league's elite, not just as a perpetual participant."
+  drought: { since: 1972, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Nichols plays for respect and for the small satisfactions of competitive football. Individual stars like Jack Morvan carry the program."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that a star player like Jack Morvan is proof that Nichols football can produce excellence at the individual level, and that one day that excellence will translate to team titles."
+
+the_grudge_texture:
+  rival: curry
+  texture: blood-feud   # Conference of New England rivals
+
+the_coach_relationship: total-trust   # Vinny Marino in 2nd year
+the_internal_fracture: hope for championship vs. generational futility
+register: bison-massachusetts-steady-never-quite
+never_use:
+  - Nichols is a national powerhouse — 2-8 record and 2-5 conference in 2025 proves otherwise
+  - The program has never fielded a star player — Jack Morvan's 1,175 receiving yards (1,000+ in single season, program record) disproves this
+  - 53 years is an exaggeration — confirmed 1972 founding year through 2025 (53 years without a Conference title)
+
+story_canon:
+  the_unique_thing: "Jack Morvan set a Nichols College program record with 1,175 receiving yards in 2025 — the first player ever to exceed 1,000 yards in a single season, proof that individual excellence flourishes even amid team struggles."
+  the_origin: "Nichols College joined the Conference of New England (originally NEFC) in 1972, establishing 53+ years of conference participation."
+  golden_ages:
+    - { era: "1972–present", what: "53 years of Conference of New England membership without a league title" }
+  legends:
+    - { name: Jack Morvan, role: player, why: "1,175 receiving yards, 2025 program record; first player to exceed 1,000-yard single season" }
+    - { name: Vinny Marino, role: coach, why: "In 2nd year of rebuilding Nichols football" }
+  canonical_moments:
+    - { name: "Jack Morvan 1,175-yard season", year: 2025, what: "Program record for single-season receiving yards", handling: glory }
+    - { name: "53 years without Conference title", year: 2025, what: "1972–2025 streak of Conference of New England participation without league championship", handling: wound }
+  the_place: "Nichols College field in Dudley, Massachusetts — home of the Bison."
+  brand_of_football: "Honest, modest football — individual excellence in a team context."
+  cultural_footprint: "A program that proves individual stars can shine even within team struggles; 53 years of Conference loyalty."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Nichols College posted a 2-8 overall record and 2-5 Conference of New England mark
+    in 2025 — a lean year interrupted by Jack Morvan's breakout 1,175-receiving-yard season (program record, first to exceed 1,000).
+    Vinny Marino is in his 2nd year of rebuilding. Nichols has now spent 53 years in Conference play (1972–2025) without ever
+    capturing a Conference of New England title. The question: can Morvan's individual excellence catalyze a team turnaround,
+    or will Nichols remain a program of patient participation without Conference crowns?
+  research_checklist:
+    - 1972 Conference of New England joining date
+    - 53-year Conference membership without title
+    - Jack Morvan 1,175-yard 2025 season
+    - Program record for receiving yards
+  sources:
+    - https://www.ncaa.org/sports/2025/d3/football/nichols-college/schedule
+    - https://www.ncollegefootball.com/teams/nichols-bison
+    - https://en.wikipedia.org/wiki/Nichols_College_Bison_football

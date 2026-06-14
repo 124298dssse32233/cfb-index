@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: concord
+team_id: null
+program_name: Concord University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: restoration
+  one_line: "Concord plays football for the name itself — a small West Virginia school whose 1872 founding symbolized post-Civil War unity, and whose football family spans generations."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A regional powerhouse in the WVIAC through the 1980s, now rebuilding in a smaller league with the same multi-generational family bonds that have sustained the program for 150 years."
+
+the_wound:
+  name: "From WVIAC power to D2 transition"
+  detail: "Concord dominated the WVIAC (5 conference titles, 1970s-1980s) and reached the NCAA D2 playoff semifinals in 2014 (13-1), but the transition to the Mountain East has meant smaller rosters, regional competition, and a 2025 season that saw the Eagles stumble to 4-7 under new coach Cody Edwards."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the D2 playoffs and restore Concord to relevance in the Mountain East — one winning season at a time."
+  drought: { since: 2014, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Concord's identity is built on continuity, not grievance. The school was founded on the principle of unity, and that's the lens through which the football team plays."
+
+the_delusion:
+  tone: self-aware
+  text: "That a small, family-oriented program can compete with larger state schools in the same conference — the fanbase knows the resource gap exists, and believes Concord football still belongs in the conversation anyway."
+
+the_grudge_texture:
+  rival: west-virginia-state
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: patience-vs-skepticism — new coach Cody Edwards is building in year one; the tension between those who believe in the rebuild and those who want immediate results
+register: concord-civil-war-unity-generation-family
+never_use:
+  - Perennial championship contenders (Concord had five WVIAC titles but never a national title)
+  - Powerhouse of Division II (the semifinals appearance was a highlight, not a pattern)
+  - One of the state's premier programs (Concord is solid but regionally known, not state-defining)
+
+story_canon:
+  the_unique_thing: "Concord's identity is inseparable from its founding name — the 1872 date symbolized post-Civil War reconciliation, and the football team has carried that multi-generational family tradition for over a century. Alums bring their kids; kids bring their kids."
+  the_origin: "A small West Virginia liberal-arts school founded in 1872 as the Concord Literary Institute. Football came later but became woven into the school's identity as a regional program that embodied its founding principles of unity and continuity."
+  golden_ages:
+    - { era: "1970s–1980s", what: "Five WVIAC conference titles and sustained regional dominance" }
+    - { era: "2013–2014", what: "NCAA D2 playoff run, including a 13-1 season and a semifinal appearance" }
+  legends:
+    - { name: "Multi-generational families", role: fanbase, why: "The real legend of Concord is the alum parent bringing their child to the same stadium they attended" }
+  canonical_moments:
+    - { name: "2014 NCAA D2 Playoff Semifinal", year: 2014, what: "Concord went 13-1 and reached the D2 playoff semifinals, the program's highest point in the modern era", handling: glory }
+    - { name: "WVIAC Dominance", year: 1980, what: "Five conference titles across the 1970s and 1980s cemented Concord as a regional power", handling: glory }
+  the_place: "A small campus in Athens, West Virginia, where football is woven into the school's 150-year identity."
+  brand_of_football: "Family-oriented, continuity-driven football — the kind where alums know the players by name and multi-generational bonds matter more than the final score."
+  cultural_footprint: "Concord's football presence is entirely regional but entirely genuine. It's a school that plays football because the school itself is about unity, not because football is a path to riches."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Concord finished 4-7 in 2025 under new head coach Cody Edwards, a stumble that
+    raised questions about whether the Eagles could rebuild in the competitive Mountain East. Edwards took over in January
+    2025 facing the challenge of restoring the program's standing after the transition away from the WVIAC. Year two will test
+    whether Concord can climb back to .500 and restore the Eagles' place as a D2 contender.
+  research_checklist:
+    - regional WVIAC dominance (1970s-1980s)
+    - 2014 D2 playoff semifinal run
+    - multi-generational family tradition
+    - current coaching transition
+  sources:
+    - https://en.wikipedia.org/wiki/Concord_University
+    - https://en.wikipedia.org/wiki/2025_NCAA_Division_II_football_season
+    - https://www.concord.edu/athletics/

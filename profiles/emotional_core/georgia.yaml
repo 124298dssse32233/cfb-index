@@ -1,0 +1,170 @@
+# Emotional Core — Georgia  (georgia)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+#
+# AUTHORED 2026-06-13 (first real pass, status: drafted) from live web research — see story_canon.sources.
+# Sensitive wound/delusion fields need owner sign-off before flipping to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: georgia
+team_id: 228
+program_name: Georgia
+program_tier: 1
+
+emotional_core:
+  primary: standard       # entitlement to dominance — but EARNED, with a 41-year memory underneath it
+  secondary:              # standard carries it; the frustration is the wound, not a second core
+  one_line: "Georgia chased a national title for forty years, won back-to-back, and now measures a 12-2 SEC champion as a disappointment."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Back-to-back titles (2021-22) and a decade as the sport's most consistent program vs a championship drought that's quietly reached three seasons."
+
+the_wound:
+  name: "The can't-finish-it stretch since the back-to-back"
+  detail: "After closing a 41-year title loop in 2021-22, three straight seasons of SEC dominance have ended short of the mountaintop — the 2024 quarterfinal loss to Notre Dame, then a 39-34 Sugar Bowl loss to Ole Miss in 2025."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "A third title — and the dynasty word the back-to-back earned and the January misfires keep deferring."
+  drought: { since: 2022, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The growing take that the regular-season machine can't close in January anymore — that the Smart dynasty peaked at two. The fanbase has heard it three straight winters, and it stings precisely because it isn't yet refutable."
+
+the_delusion:
+  tone: earnest
+  text: "That the back-to-back-SEC machine is one or two plays from another title — that the playoff misfires are variance, not a finishing problem. Forty years of waiting taught this fanbase to trust the process."
+
+the_grudge_texture:
+  rival: florida
+  texture: championship   # the Jacksonville neutral-site rivalry, long decided SEC supremacy (Auburn is the blood-feud secondary)
+
+the_coach_relationship: total-trust   # Kirby Smart — winningest by percentage, the program's standard made flesh
+the_internal_fracture: title-or-bust vs count-the-blessings — the faction that calls a 12-2 SEC champion a failure vs the faction that remembers the 41-year wait and refuses to
+register: dominant-hungry — earned confidence with a 41-year memory; never birthright-entitled the way Alabama is, always "we remember what it felt like to not be here"
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - flyover SEC
+  - poor man's Alabama
+  - chokers (even in reference to the pre-2021 drought)
+  - South's Oldest Rivalry without pairing with Auburn
+  - cute underdog framings
+  - how 'bout them dogs (mispell)
+  - rural Georgia stereotype register
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Between the Hedges and Uga — Sanford Stadium's privet hedges and the unbroken line of live English bulldogs since 1956 — wrapped around the program that waited 41 years between titles and then won two in a row. Georgia's identity is earned dominance that still remembers the drought."
+  the_origin: "A flagship SEC program (founded 1892) with mid-century success and a golden age under Vince Dooley and Herschel Walker — then a 41-year national-title drought that defined two generations until Kirby Smart broke it."
+  golden_ages:
+    - { era: "1964–1988 (Dooley)", what: "The Dooley era and the 1980 national title behind Herschel Walker" }
+    - { era: "2016– (the Smart Dynasty)", what: "Back-to-back national titles (2021, 2022) and sustained SEC dominance" }
+  legends:
+    - { name: Vince Dooley, role: coach, why: "Built the modern program and won the 1980 title" }
+    - { name: Herschel Walker, role: player, why: "1982 Heisman, the greatest Bulldog, the engine of the 1980 title" }
+    - { name: Kirby Smart, role: coach, why: "Winningest coach by percentage; broke the 41-year drought and won back-to-back" }
+  canonical_moments:
+    - { name: "The 2021 title (over Alabama)", year: 2021, what: "Georgia beats Alabama for its first national title in 41 years", handling: glory }
+    - { name: "The 2022 repeat", year: 2022, what: "Back-to-back titles — the first in the sport since 2011-12 Alabama", handling: glory }
+    - { name: "The 41-year wait", year: 1980, what: "From the 1980 title to 2021, the defining institutional memory for two generations of Dawgs", handling: wound }
+  the_place: "Sanford Stadium — 'Between the Hedges' (cap 92,746) — and Uga, the live mascot in continuous lineage since 1956."
+  brand_of_football: "Kirby Smart's identity: run it, stop the run, recruit and retain the deepest roster in the sport, win with discipline rather than birthright."
+  cultural_footprint: "The SEC's most numerically dense traveling base; a program whose 41-year wait makes its current dominance feel earned, not assumed."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Georgia went 12-2 in 2025 with back-to-back SEC titles, but a 39-34 Sugar
+    Bowl loss to Ole Miss ended another playoff run short of the championship. QB Gunner Stockton returns after
+    leading the Dawgs to the SEC crown in his first year as starter; Smart retooled the secondary with transfers
+    and kept RB Nate Frazier. Georgia opens 2026 a consensus top-tier team — and the live question is whether the
+    Smart dynasty is a two-title peak or a sustained window, with the national-title drought now three seasons deep.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Georgia_Bulldogs_football_team
+    - https://www.cbssports.com/college-football/news/georgia-2026-season-outlook-sugar-bowl-college-football-playoff-loss-ole-miss/
+    - https://collegefootballnetwork.com/georgia-kirby-smart-bulldogs/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Georgia is the program that chased the sentence for forty years, and now refuses to leave
+    it.
+  mantra: Go Dawgs.
+  cultural_anchors:
+    fan_archetype_dominant: Title-Era Believer
+    outsider_archetype_dominant: Insufferable-Since-2021
+    one_sentence: Georgia is what happens when a fanbase finally gets what it spent 40 years waiting for
+      — and then immediately wants more.
+  selfname: the Dawgs
+  aspiration_ladder_top: Three-peat
+  rivalries:
+  - florida
+  - auburn
+  - tennessee
+  - georgia-tech
+  - south-carolina
+  heritage:
+    national_titles: 4
+    conference_titles: 15
+    current_conference: SEC
+  prose_excerpts:
+    taboos: The 2017 CFP title game loss to Alabama (Tua Tagovailoa's overtime touchdown) is a wound; reference
+      with context. The 2018 SEC title game loss to Alabama (the fake punt) is also a wound. The 2024 CFP
+      quarterfinal loss to Notre Dame is recent enough to still carry heat. The 1981–2020 drought is the
+      defining institutional memory for Georgia fans over 40; dismissing its weight ("only 40 years — not
+      that long") reads as young-fan myopia. Munson's death in 2011 is not mourned in…
+    fans_culture: 'The fanbase is the SEC''s most numerically-dense traveling base and one of the top-three
+      most engaged in the country. Geography is state-concentrated (Atlanta metro + rural Georgia + coastal
+      Georgia) with a strong southeastern diaspora and national alumni presence. Gameday register is SEC-dynastic
+      with a specific Georgia character: less pageantry than Alabama''s houndstooth heritage, less raucous
+      than LSU''s Tiger Stadium, more consistent in intensity than most. "Sic ''Em" is a…'
+    voice_ethos: 'The voice is dominant-hungry: confident, earned, with a specific chip-on-shoulder that
+      comes from 41 years between title #2 (1980) and title #3 (2021). Georgia does not speak about its
+      success as a birthright the way Alabama does; the program speaks about its success as the product
+      of discipline, and carries a quiet awareness that the drought ended recently. The register is "we
+      remember what it felt like to not be here." Identity phrase: **"Georgia is the program that…'
+    narratives: 'The 2021 and 2022 national championships closed a 40-year loop on the "can Georgia finish
+      it" question. The 2023–2024 stretch (no title, CFP quarterfinal loss in 2024) opened the next question:
+      is the Smart dynasty a 2-title peak or a sustained window? 2026 is the question''s measurement year.
+      The portal and NIL era has continued to favor Georgia — the Classic City Collective has been among
+      the SEC''s best-funded, roster retention has been strong, and the program has…'
+    in_jokes: '"How ''bout them Dawgs" — Munson''s call, universal. "Sic ''Em, Dawgs" — gameday command.
+      "Uuuuggggggaaaa" — the crowd-chant countdown. "Natty" — shorthand for national championship, the one
+      the fanbase used for 40 years in hope and now uses in affirmation. "Bark at a cat" — a Munson reference
+      that lives in-fanbase only; rarely translated for outsiders. "Clean old-fashioned hate" — the Georgia
+      Tech week phrase; appears once a year.'
+  story_materials:
+    legendary_coach: Vince Dooley
+    era_name_overrides:
+      1892-1913: The Founding Decades
+      1964-1988: The Dooley Era
+      1989-2000: The Wilderness (post-Dooley)
+      2001-2015: The Richt Era
+      2016-: The Smart Dynasty
+    always_surface:
+    - 4 claimed national championships (1942, 1980, 2021, 2022)
+    - Back-to-back national titles (2021, 2022) — first back-to-back in college football since 2011-12 Alabama
+    - 15 SEC championships
+    - 2 Heisman winners (Frank Sinkwich 1942, Herschel Walker 1982)
+    - Sanford Stadium "Between the Hedges" capacity 92,746
+    - Uga — the live English bulldog mascot, continuous lineage since 1956
+    - Larry Munson's radio call legacy
+    - Kirby Smart — winningest coach in program history by win percentage
+    rituals:
+    - Uga (the live mascot)
+    - Calling the Dawgs (Glory Glory)
+    - Between the Hedges
+    - Dawg Walk
+    - Trumpeting the Hairy Dawg
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (54/100, n=53)
+    voice_profile: absent
+    delusion_premium: absent

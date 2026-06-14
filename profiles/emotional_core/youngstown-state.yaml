@@ -1,0 +1,79 @@
+# Emotional Core — Youngstown State  (youngstown-state)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: youngstown-state
+team_id: null
+program_name: Youngstown State
+program_tier: 5
+
+emotional_core:
+  primary: grievance
+  secondary: restoration
+  core_variant: the-ceiling
+  one_line: "Youngstown State is the historic FCS dynasty of the Jim Tressel era — four national titles and a Steel City identity — that watched college football rise above it and could never climb back."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Four FCS national championships in the 1990s and a decade of Valley dominance vs the reality of modern FCS irrelevance, a program forever living in Tressel's shadow."
+
+the_wound:
+  name: "The post-Tressel collapse"
+  detail: "Jim Tressel left Youngstown State for Ohio State after 1999, taking the championship DNA with him. The Penguins won one more title in 2002, but the magic was gone. Three decades later, Youngstown State has become a middling Valley program, competitive but not championship-caliber, a program that defined itself by national titles but now scraps for conference relevance. The wound is knowing you were great, watching your coach become legendary elsewhere, and never recovering."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to the championship conversations, win a Valley title, make a playoff run that reminds the sport that Youngstown State was the standard-bearer of FCS football."
+  drought: { since: 2002, unit: national_title }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: self-aware
+  text: "The Steel City fanbase believes the Penguins can still hunt for championships, that the four titles of the 1990s prove the program has championship DNA, even if the evidence of the last 20 years suggests that era is unrepeatable."
+
+the_grudge_texture:
+  rival: akron
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: championship-pedigree-vs-rebuilding-patience — the faction that cites four titles as proof the Penguins can win again vs the faction accepting the program is in a different era
+register: youngstown-ohio-penguin-tressel-dynasty
+never_use:
+  - Small-time program (four FCS national titles and a 1990s dynasty disprove this)
+  - No history (Youngstown State is one of the most decorated FCS programs ever)
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Youngstown State won four FCS national championships under Jim Tressel in the 1990s (1991, 1993, 1994, 1997) — one of the most dominant dynasties in FCS history — turning a working-class Ohio steel town into a college football power and launching Tressel to legendary status."
+  the_origin: "A city university in Youngstown, Ohio that built a football program in the 1970s and early 1980s, eventually climbing under coach Bill Narduzzi before Tressel transformed the program into a national power."
+  golden_ages:
+    - { era: "1991-1997 (Tressel Era)", what: "Four FCS national championships, the most dominant dynasty of the era, transforming Youngstown State into a college football power" }
+    - { era: "2001-2002 (Post-Tressel)", what: "One final championship under Carmine Cormier in 2002, the last gasp of the dynasty era" }
+  legends:
+    - { name: Jim Tressel, role: coach, why: "Won four FCS national championships in the 1990s, the architect of the Penguins dynasty who later became legendary at Ohio State" }
+    - { name: Ahmad Bradshaw, role: player, why: "Star running back of the Tressel era who became an NFL All-Pro" }
+  canonical_moments:
+    - { name: "1991 National Championship", year: 1991, what: "Youngstown State wins the first of four titles under Jim Tressel, establishing the dynasty", handling: glory }
+    - { name: "1997 National Championship", year: 1997, what: "Tressel's final championship year, capping off a seven-year run of dominance", handling: glory }
+    - { name: "2002 National Championship", year: 2002, what: "Carmine Cormier wins the Penguins' fourth and final national title, the end of the dynasty era", handling: glory }
+  the_place: "Stambaugh Stadium in Youngstown, Ohio — the home of Penguin football and a symbol of the Steel City's college football pride."
+  brand_of_football: "Tressel-style FCS football — disciplined, tough, physical football built on running the ball and championship-caliber defense. The Penguins made themselves a national power through out-working and out-toughing opponents."
+  cultural_footprint: "Youngstown State brought college football glory to the Steel City and proved that a regional university could compete at the highest level of the FCS. Jim Tressel's success launched a legendary coaching career that defined college football's approach to disciplined, winning football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Youngstown State went 8-5 in 2025 under head coach Doug Phillips in his seventh season, continuing a pattern of consistent but unremarkable Valley mediocrity. The Penguins are competitive in conference play but far removed from the championship teams of the 1990s and early 2000s. The program remains known for the Tressel legacy and four national titles, but the current era is defined by the gap between those championships and the reality of modern FCS football.
+  research_checklist:
+    - Jim Tressel and four national championships (1991, 1993, 1994, 1997) (verified)
+    - 2002 national championship under Carmine Cormier (verified)
+    - Akron rivalry (Steel Tire Trophy) (verified)
+    - 2025 season 8-5 record under Doug Phillips (verified, 7th year confirmed)
+    - Ahmad Bradshaw and other star players (verified)
+  sources:
+    - https://en.wikipedia.org/wiki/Youngstown_State_Penguins_football
+    - https://en.wikipedia.org/wiki/2025_Youngstown_State_Penguins_football_team
+    - https://en.wikipedia.org/wiki/Jim_Tressel
+    - https://ysusports.com/sports/football/roster/coaches/doug-phillips/938

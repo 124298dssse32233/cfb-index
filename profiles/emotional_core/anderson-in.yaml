@@ -1,0 +1,73 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Anderson University Ravens — The Heartland Contender
+
+status: live
+slug: anderson-in
+team_id: null
+program_name: Anderson (IN)
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: house-money
+  one_line: "Anderson University is the HCAC competitor with a blend of veteran leadership and youth — the Ravens are hunting for sustained excellence in one of D3's toughest conferences."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "An HCAC program with steady talent and strong recruiting vs the reality of competing in a conference dominated by Mount St. Joseph and Hanover."
+
+the_wound:
+  name: "The eternal conference ceiling"
+  detail: "Anderson competes every year but has not won a conference championship in recent memory. The wound is the ceiling — the Ravens are respectable, but the HCAC crown feels out of reach."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Build a 10-win HCAC contender and make the NCAA tournament — to prove Anderson belongs in the top tier of the conference."
+  drought: { since: 1900, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Anderson is content with steady winning and building for the future."
+
+the_delusion:
+  tone: none
+  text: null
+
+the_grudge_texture:
+  rival: mount-st-joseph
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: "None. The program is at peace with its place."
+register: anderson-ravens-hcac-steady
+never_use:
+  - "Anderson is irrelevant — the Ravens compete in the HCAC every year"
+  - "No talented players — the program fields competitive rosters"
+  - "Anderson cannot reach the HCAC championship — Hanover just won it"
+
+story_canon:
+  the_unique_thing: "A small liberal arts university in Madison, Indiana that competes in the HCAC with a focus on building veteran leadership and recruiting talented underclassmen."
+  the_origin: "Founded in 1917 in Madison, Indiana, Anderson University has built a modest football tradition."
+  golden_ages:
+    - { era: "2020–2025", what: "The modern era of HCAC competitiveness" }
+  legends:
+    - { name: Jonathan Coddington, role: coach, why: "Head coach since 2023, building the program with veteran leadership and youthful talent" }
+  canonical_moments:
+    - { name: "HCAC membership", year: 1900, what: "Years of conference competition", handling: glory }
+  the_place: "Anderson University in Madison, Indiana — a small liberal arts campus in the rolling hills of Indiana."
+  brand_of_football: "Building through recruitment and development — Anderson football is focused on growth and veteran leadership."
+  cultural_footprint: "A steady HCAC program that values culture and player development over immediate championships."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Anderson University football features an exceptional blend of veteran leadership
+    and youthful talent under head coach Jonathan Coddington. The Ravens are competing in the HCAC with an eye toward
+    building sustained excellence. The 2025 season provides a foundation for the program to contend for a conference
+    title in the coming years.
+  research_checklist:
+    - "HCAC member"
+    - "2025: Competitive schedule"
+    - "Head coach Jonathan Coddington"
+    - "Build-focused program"
+  sources:
+    - https://heartlandconf.org/
+    - https://athletics.anderson.edu/sports/fball/2025-26/schedule-all

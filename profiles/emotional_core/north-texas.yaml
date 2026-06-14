@@ -1,0 +1,121 @@
+# Emotional Core — North Texas  (north-texas)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: north-texas
+team_id: 225
+program_name: North Texas
+program_tier: 3
+
+emotional_core:
+  primary: disbelief      # ranked for the first time since 1959 — 12 wins out of nowhere, then the coach left
+  secondary: restoration  # 'Mean Green' canon finally cashing a check after decades in the wilderness
+  one_line: "North Texas is the program named for Joe Greene's 'Mean Green' that broke a 66-year ranking drought in 2025 — 12 wins, a poll appearance, and then the coach who built it gone to Oklahoma State before the celebration ended."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A historic 12-2 season and a national ranking against decades as a forgotten G5 program that won its last conference titles two decades ago and never made a poll across the entire careers of its fans."
+
+the_wound:
+  name: "Built it, then watched it leave"
+  detail: "Eric Morris took the Mean Green from afterthought to 12-2, a No. 24 ranking, and an American title-game berth — then left for Oklahoma State after the regular season, taking Burlsworth-winning QB Drew Mestemaker with him to Stillwater. Denton's best season ever ended with the architects walking out the door."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove 2025 wasn't a fluke — win the American outright, stay ranked, and finally turn the 'Mean Green' name into a program that keeps its coaches instead of losing them the moment it gets good."
+  drought: { since: 2004, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans note that the moment North Texas finally got good — the first ranking since 1959, 12 wins, a Burlsworth Trophy quarterback — a power-conference school simply reached down and took the coach and the QB, the way the big programs always do."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the Mean Green have arrived for real — that Denton, in the heart of recruit-rich North Texas, can be a permanent G5 power, and that 2025 was the proof the program's potential was never the problem, only the patience."
+
+the_grudge_texture:
+  rival: smu
+  texture: little-brother   # the Safeway Bowl / DFW Metroplex rivalry with the bigger Dallas program
+
+the_coach_relationship: hot-seat-churn   # Morris built it then bolted; the program is hiring again
+the_internal_fracture: pride vs fear — the faction certain 2025 proved North Texas belongs vs the faction bracing for the post-Morris hangover and another slide back to the middle
+register: denton-mean-green-historic-sun-belt   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always G5-bottom — 4 Sun Belt titles + Joe Greene legacy disprove
+  - No identity — Mean Green + 4 titles + Apogee combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The 'Mean Green' — the only program whose nickname became NFL legend. North Texas's 1960s defense earned the name, and when alum Joe Greene reached Pittsburgh, fans turned it into 'Mean Joe Greene,' immortalizing a college team's identity through one of pro football's greatest players."
+  the_origin: "A large public university in Denton, in the recruit-rich heart of the Dallas-Fort Worth Metroplex, playing football since 1913 — a program forever rich in nearby talent and poor in national recognition."
+  golden_ages:
+    - { era: "2001–2004 (Darrell Dickey)", what: "Four consecutive Sun Belt championships and four straight New Orleans Bowls — only the 11th program ever to win four leagues in a row" }
+    - { era: "2025 (Eric Morris)", what: "A 12-2 season, the first AP ranking since 1959, and an American Conference title-game berth — the best year in program history" }
+  legends:
+    - { name: Joe Greene, role: player, why: "The defensive tackle whose Denton roots gave 'Mean Green' to the NFL; a Steelers and Pro Football Hall of Fame icon" }
+    - { name: Darrell Dickey, role: coach, why: "Won four straight Sun Belt titles (2001-04), the program's only sustained championship run" }
+    - { name: Drew Mestemaker, role: player, why: "The 2025 Burlsworth Trophy winner and American Offensive Player of the Year who led the FBS in passing during the breakthrough season" }
+  canonical_moments:
+    - { name: "Four straight Sun Belt titles", year: 2004, what: "North Texas caps four consecutive conference championships under Darrell Dickey, a rare college feat", handling: glory }
+    - { name: "Ranked for the first time since 1959", year: 2025, what: "The Mean Green crack the AP poll, ending the longest active ranking drought of any FBS program", handling: glory }
+    - { name: "Morris leaves for Oklahoma State", year: 2025, what: "After the best regular season ever, head coach Eric Morris departs for a power-conference job, QB Drew Mestemaker following him", handling: heartbreak }
+  the_place: "DATCU Stadium (opened 2011 as Apogee Stadium) in Denton — the program's first dedicated on-campus home after six decades at Fouts Field, a wind-turbine-powered venue in the Metroplex."
+  brand_of_football: "High-octane Air Raid passing under Eric Morris — a wide-open, points-in-bunches identity that took a talent-rich but overlooked program to its first ranking in two generations."
+  cultural_footprint: "The program that gave 'Mean Green' to American sports vocabulary, sitting on a goldmine of DFW talent — and, in 2025, finally cashing the potential everyone always said it had."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: North Texas went 12-2 in 2025 (7-1 American), earned its first AP ranking
+    since 1959, reached the American title game (a 34-21 loss to Tulane), and won the New Mexico Bowl 49-47 over
+    San Diego State. Then head coach Eric Morris left for Oklahoma State and Burlsworth-winning QB Drew Mestemaker
+    followed him to Stillwater — leaving Denton to hire a new staff and prove the program's best-ever season
+    was a foundation, not a one-year flash.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_North_Texas_Mean_Green_football_team
+    - https://meangreensports.com/sports/2018/7/6/trads-MeanGreen-html
+    - https://www.aol.com/articles/reports-oklahoma-state-hiring-north-221230294.html
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: North Texas is the American Athletic program whose Joe Greene 'Mean Green' identity +
+    Apogee Stadium + Eric Morris 2024 7-6 bowl appearance define what historic-Texas-G5-football looks like.
+  mantra: GMG.
+  cultural_anchors:
+    fan_archetype_dominant: Denton-Mean-Green-GMG
+    outsider_archetype_dominant: G5-Mid-Pack-Diminisher
+    one_sentence: North Texas is the Denton 'Mean Green' historical flagship — Joe Greene 1966-1968 origin
+      + Darrell Dickey 4 consecutive Sun Belt championships + Apogee Stadium 2011 venue that anchor the
+      historic G5 arc.
+  selfname: the Mean Green
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Joe Greene 1966-1968 + 'Mean Green' nickname origin
+    - 2001-2004 Darrell Dickey 4 consecutive Sun Belt championships
+    - 2011 Apogee Stadium opening (first dedicated on-campus venue)
+    rituals:
+    - Joe Greene 'Mean Green' Origin (1966-1968)
+    - Darrell Dickey 4 Sun Belt Titles (2001-2004)
+    - Apogee Stadium 2011
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (51/100, n=29)
+    voice_profile: absent
+    delusion_premium: absent

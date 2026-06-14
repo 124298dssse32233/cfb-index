@@ -1,0 +1,79 @@
+# Emotional Core — Bloomsburg University Huskies (bloomsburg)
+# AUTHORED 2026-06-13 — web-verified Commonwealth University consolidation, PSAC Eastern Division
+# program_tier: 6 (PSAC Division II)
+
+status: live
+slug: bloomsburg
+team_id: null          # PSAC, not FBS-indexed
+program_name: Commonwealth University–Bloomsburg
+program_tier: 6
+
+emotional_core:
+  primary: contentment       # A stable, regionally anchored PSAC power with deep Pennsylvania roots
+  secondary: restoration     # Re-establishing identity after 2023 Commonwealth University consolidation
+  one_line: "Bloomsburg is the Husky program in the heart of Pennsylvania's Columbia County — a century-old PSAC institution rebuilding identity under consolidation, stable in execution."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A PSAC Eastern anchor with a storied history (founded 1839) and consistent conference competitiveness, now establishing itself as the Bloomsburg campus of Commonwealth University."
+
+the_wound:
+  name: "The 2023 consolidation — institutional identity absorbed into Commonwealth University umbrella"
+  detail: "Bloomsburg University merged with Lock Haven and Mansfield into Commonwealth University in July 2023, forcing the Huskies to rebuild institutional identity while maintaining athletic independence. The wound is not crisis; it's the steady work of re-establishing regional pride under a new institutional name."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Reassert Bloomsburg as the Commonwealth University flagship athletics campus, win the PSAC Eastern Division title, and prove that consolidation strengthened rather than diluted the program."
+  drought: { since: 2013, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "The chip is defensive: Bloomsburg Huskies have played PSAC football since 1951, won seven conference titles (1948, 1949, 1952, 1954, 1955, 1985, 2013), and they know consolidation was administrative, not athletic. The fanbase is determined to prove the Huskies still belong."
+
+the_delusion:
+  tone: earnest
+  text: "That consolidation will not erode the program's regional identity and conference standing — that the Husky football culture transcends bureaucratic mergers. The fanbase believes it because they've survived administrative reorganizations before."
+
+the_grudge_texture:
+  rival: lock-haven         # Same consolidated university; the two campuses now share institutional identity while competing athletically
+  texture: little-brother
+
+the_coach_relationship: total-trust
+the_internal_fracture: consolidation-skeptics vs institutional-advocates — longtime fans protective of the 1839 heritage vs those who see Commonwealth as enabling resources
+register: bloomsburg-husky-columbia-county-pennsylvania
+never_use:
+  - Small school — Bloomsburg has competed in PSAC since 1951 with seven conference titles
+  - Struggling with identity — consolidation was administrative; the athletic culture is intact
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The only PSAC program that experienced a three-campus consolidation (2023) while maintaining athletic independence and regional identity."
+  the_origin: "Founded as Bloomsburg Academy in 1839, became a normal school in 1869, and has competed in PSAC since 1951 — a 174-year-old institution with deep Pennsylvania regional roots."
+  golden_ages:
+    - { era: "1948–1955", what: "Five conference titles in eight years under early PSAC dominance" }
+    - { era: "1984–2014", what: "Consistent PSAC competitiveness, including the 1985 and 2013 conference championships" }
+    - { era: "2022–present", what: "Navigating institutional consolidation while maintaining competitive PSAC presence" }
+  legends:
+    - { name: Frank Sheptock, role: coach, why: "Fifth season as head coach; alma mater HC returning to rebuild post-consolidation identity" }
+    - { name: Robert B. Redman, role: stadium namesake, why: "The 5,000-capacity Redman Stadium (opened 1929) is Bloomsburg athletic home" }
+  canonical_moments:
+    - { name: "Seven PSAC Championships", year: 1955, what: "1948, 1949, 1952, 1954, 1955, 1985, 2013 — conference dominance across three eras", handling: glory }
+    - { name: "The 2023 Commonwealth Consolidation", year: 2023, what: "Merger with Lock Haven and Mansfield into unified Commonwealth University system", handling: wound }
+  the_place: "Robert B. Redman Stadium (5,000 capacity) in the heart of Columbia County, Pennsylvania — a regional athletic landmark since 1929."
+  brand_of_football: "Blue-collar, regionally rooted — a PSAC program built on fundamentals and institutional stability."
+  cultural_footprint: "A century-old Pennsylvania school that predates the PSAC and has thrived within it; consolidation changed the letterhead, not the culture."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Frank Sheptock (alma mater, fifth season) is rebuilding Bloomsburg's competitive posture in the PSAC Eastern Division post-consolidation. The 2026 schedule features a home opener against Edinboro (September 12) and a Fairmont State road opener (September 3). The program's narrative is stability through institutional change — the fanbase expects PSAC competitiveness regardless of the Commonwealth University umbrella. Success this season = reasserting the Huskies as a regional power.
+  research_checklist:
+    - The 1839 founding and evolution to PSAC membership (1951)
+    - The 1948–1955 conference championship run
+    - The 2023 Commonwealth consolidation mechanics and its athletic implications
+    - Frank Sheptock's tenure and the post-consolidation coaching hire
+    - Bloomsburg's regional identity within the PSAC Eastern Division
+  sources:
+    - https://www.commonwealthu.edu/about/history
+    - https://bloomsburgathletics.com/
+    - https://bloomsburgathletics.com/news/2026/4/2/football-announces-2026-schedule.aspx
+    - https://en.wikipedia.org/wiki/Bloomsburg_Huskies_football
+    - https://www.zippia.com/bloomsburg-university-of-pennsylvania-careers/history/

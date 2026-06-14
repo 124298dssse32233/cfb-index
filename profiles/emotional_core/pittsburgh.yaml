@@ -1,0 +1,124 @@
+# Emotional Core — Pittsburgh  (pittsburgh)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: pittsburgh
+team_id: 147
+program_name: Pittsburgh
+program_tier: 3
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+emotional_core:
+  primary: grievance      # an old national power that the country keeps forgetting is still here
+  secondary: house-money  # a true freshman QB nobody recruited dragging the season back to life
+  core_variant: the-chronic-chip
+  one_line: "Pittsburgh is the old power the sport keeps forgetting — a 1976 national champion that the country talks about like it vanished — and in 2025 an 18-year-old freshman named Mason Heintschel reminded everyone the Panthers are still in the room."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "Dorsett's 1976 national title and the Marino-era glory vs decades as an ACC afterthought the national broadcast forgets to mention."
+
+the_wound:
+  name: "The forgotten power"
+  detail: "Pitt won a national title in 1976 and produced Tony Dorsett and Dan Marino, then spent the modern era as an overlooked program whose history outweighs its present. The 2021 ACC title under Pat Narduzzi briefly broke the silence; the wound is that the country still acts like Pitt football is a question mark, not a heritage."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win another ACC title and force the sport to remember — turn Heintschel's emergence into the run that puts Pitt back among the names that get said first, not last."
+  drought: { since: 1976, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The fanbase has heard the program written off as an afterthought for two decades and bristles every time, because Pitt was a national power before half the programs dismissing it existed. They don't want sympathy; they want the country to remember the receipts."
+
+the_delusion:
+  tone: earnest
+  text: "Panther fans believe the program is one quarterback away from being a real one again — and after watching a true freshman throw for 423 in a single game, they say Heintschel might be exactly the quarterback that ends the long wait."
+
+the_grudge_texture:
+  rival: west-virginia
+  texture: blood-feud   # the Backyard Brawl — the border rivalry that defines the program
+
+the_coach_relationship: forever-ours   # Pat Narduzzi, the long-tenured coach who delivered the 2021 ACC title
+the_internal_fracture: Narduzzi loyalty vs Narduzzi fatigue — the room split between crediting him with the 2021 title and the freshman QB find, and the faction that wants more than 8-win seasons from a program with this history
+register: pittsburgh-steel-city-blue-collar   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Where is Pitt football — Narduzzi's 2021 ACC title ended that frame
+  - Steeler town only — Pitt football predates the NFL franchise
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Pitt is one of college football's oldest powers — national titles claimed across the 1910s, 1930s, and a consensus 1976 championship, plus the heritage of Tony Dorsett and Dan Marino — wearing the same blue and gold as a city that built the modern game. It predates the Steelers; it helped invent football in Western Pennsylvania."
+  the_origin: "An urban research university in Pittsburgh whose football tradition runs back to the dawn of the sport — Pop Warner and Jock Sutherland built early-century dynasties, and the program has worn its working-class steel-town identity ever since."
+  golden_ages:
+    - { era: "1973–1981 (Majors/Sherrill)", what: "Tony Dorsett's Heisman, the 1976 national championship, and a run of top-10 finishes with Dan Marino" }
+    - { era: "2021 (Pat Narduzzi)", what: "An 11-win ACC championship season behind Heisman-finalist QB Kenny Pickett" }
+  legends:
+    - { name: Tony Dorsett, role: player, why: "1976 Heisman winner and national champion — the greatest player in program history" }
+    - { name: Dan Marino, role: player, why: "The Pittsburgh kid who became a Hall of Fame quarterback — the program's most iconic name" }
+    - { name: Pat Narduzzi, role: coach, why: "The long-tenured coach who delivered the 2021 ACC title, the program's first conference crown in the Power-conference era" }
+  canonical_moments:
+    - { name: "The 1976 national title", year: 1976, what: "Dorsett's Heisman season and Pitt's consensus national championship — the program's defining glory", handling: glory }
+    - { name: "2021 ACC Championship", year: 2021, what: "An 11-win season and a conference title behind Kenny Pickett — proof the old power could still win one", handling: glory }
+  the_place: "Acrisure Stadium on the Allegheny — shared with the Steelers, where the Panthers wear the same colors as the city's NFL team and carry a football heritage older than the franchise."
+  brand_of_football: "Steel-city blue-collar — a physical, defense-first program that wears its working-class roots and a chip about being overlooked, built in the image of the city that built American football."
+  cultural_footprint: "A foundational program of the sport's early history hidden inside a modern afterthought — the heritage of Dorsett, Marino, and a national title that the fanbase guards against a country that keeps forgetting it."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Pittsburgh went 8-5 (6-2 ACC) in 2025 under 11th-year coach Pat Narduzzi,
+    finishing with a 23-17 Military Bowl loss to East Carolina. The season's story was at quarterback: Eli Holstein
+    opened the year, but true freshman Mason Heintschel took over in October and broke out — including a 423-yard,
+    freshman-record passing game in a 53-34 win over NC State — to power a four-game winning streak. The Panthers
+    also fell to West Virginia in an overtime Backyard Brawl. Pitt enters 2026 with a freshman QB its fans hope is
+    the answer to the long wait for relevance.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Pittsburgh_Panthers_football_team
+    - https://www.cbssports.com/college-football/gametracker/recap/NCAAF_20251025_NCST@PITT/
+    - https://www.espn.com/college-football/story/_/id/46954683/pitt-quarterback-mason-heintschel-acc-contender
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Pittsburgh is the program with nine national titles in football history and a 2021 ACC
+    championship that reminded the country it's still here.
+  mantra: Hail to Pitt.
+  cultural_anchors:
+    fan_archetype_dominant: Pittsburgh-Steel-City-Loyalist
+    outsider_archetype_dominant: Where-Is-Pitt-Football
+    one_sentence: Pittsburgh is the program whose nine national football titles (claimed by various selectors)
+      make it one of the oldest powers in CFB — and whose modern story is the Narduzzi rebuild from ACC
+      afterthought.
+  selfname: the Panthers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1976 Tony Dorsett Heisman + national title
+    - 1980s Dan Marino + Mark May era
+    - 2021 Pat Narduzzi ACC championship
+    rituals:
+    - Sweater Vest Era / Pat Narduzzi
+    - Backyard Brawl (vs West Virginia)
+    - Roc the Panther
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (52/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

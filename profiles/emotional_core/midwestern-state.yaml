@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: midwestern-state
+team_id: null
+program_name: Midwestern State
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: grievance
+  one_line: "Midwestern State is the Wichita Falls Mustangs entering the post-Maskill era—one of Division II's most storied regimes just ended, and the program must prove that the dynasty was institutional, not one man."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "Five LSC championships and 160 wins under Bill Maskill (22 years, 17 consecutive winning seasons) vs. the question of whether the program can function without him."
+
+the_wound:
+  name: "The end of the Maskill dynasty"
+  detail: "Bill Maskill retired after 2023 with 160 wins (2nd most in LSC history) and 22 years at the helm, leaving a program built entirely in his image. Rich Renner, the defensive coordinator, inherited a 3–8 2025 season and the weight of living up to a legend—the exact opposite of the smooth succession a program hopes for."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Renner finds his own voice and restores the Mustang standard—a return to playoff contention, an LSC championship that proves the program is bigger than any one coach, a bowl game that rebuilds faith."
+  drought: { since: 2021, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Midwestern State's chip is existential—not against an opponent, but against the assumption that a program dies with its patriarch. The Mustangs believe the culture Maskill built is deep enough to survive him."
+
+the_delusion:
+  tone: load-bearing
+  text: "That the 2025 collapse is just a transition year and not the beginning of a slow decline. The fanbase needs to believe the program still has the same DNA; Renner is carrying the torch, not running with a different flame. The delusion is necessary."
+
+the_grudge_texture:
+  rival: sul-ross-state
+  texture: championship
+  # Midwestern State and Sul Ross State share a TIAA-era rivalry (the Mustangs dominate recent matchups, e.g., 69–23 in 2025).
+
+the_coach_relationship: legends-shadow
+  # Rich Renner, elevated from defensive coordinator, steps into the shadow of Bill Maskill's 160-win legacy.
+
+the_internal_fracture: "Loyalty to the Maskill era vs. urgency to move forward—how fast should Renner change things, and how much of his predecessor's system is still the right culture?"
+
+register: "wichita-falls-mustang-maskill-legacy-renner-rebuild-lsc-power"
+
+never_use:
+  - "Midwestern State won the LSC more than five times — five titles (2009, 2011, 2012, 2017, 2021) in modern era"
+  - "Bill Maskill is still coaching — retired 2023 after 22 years"
+  - "The Mustangs are a mid-tier LSC program — 160 wins, 17 consecutive winning seasons, five LSC titles = one of the league's most successful programs"
+  - "2025 was a shocking collapse — transition years are normal after a 22-year regime ends; 3–8 is poor but not incomprehensible"
+
+story_canon:
+  the_unique_thing: "Five Lone Star Conference championships and 160 wins under Bill Maskill—one of the most dominant coaching tenures in Division II history, now ending and forcing the program to prove it's bigger than one man."
+  the_origin: "Midwestern State University in Wichita Falls, Texas (founded 1922); football established in the 1950s; built a regional power in northwest Texas."
+  golden_ages:
+    - { era: "2001–2023 (Maskill Era)", what: "22 years, 160–119 record, five LSC titles (2009, 2011, 2012, 2017, 2021), 17 consecutive winning seasons; sustained excellence that made MSU a Division II landmark" }
+  legends:
+    - { name: Bill Maskill, role: coach, why: "160 wins, five LSC championships, 17 consecutive winning seasons—built the modern Mustang dynasty and became a Division II icon" }
+    - { name: Rich Renner, role: coach, why: "Defensive coordinator under Maskill for 16 years; elevated to HC in 2024; tasked with proving the program transcends its founder" }
+  canonical_moments:
+    - { name: "Maskill's 160 Wins", year: 2023, what: "Bill Maskill retires with 160 wins (2nd most in LSC history); the capstone of a 22-year dynasty", handling: glory }
+    - { name: "Five LSC Championships", year: 2021, what: "2009, 2011, 2012, 2017, 2021—a run of titles spanning two decades", handling: glory }
+    - { name: "2025 Transition Year", year: 2025, what: "3–8 record in Rich Renner's first real year; a stumble that tests the institutional identity", handling: wound }
+  the_place: "Abe Martin Stadium in Wichita Falls, Texas—home of the Mustangs for decades; a stadium that witnessed Maskill's entire dynasty."
+  brand_of_football: "Disciplined, hard-nosed, defensive-first Division II football; Maskill's legacy was built on fundamental soundness and consistency."
+  cultural_footprint: "One of Division II's most storied programs; Midwestern State under Maskill was proof that a small university in northwest Texas could build a national-profile dynasty."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Bill Maskill's 22-year tenure at Midwestern State ended after the 2023 season, leaving the program in the hands of Rich Renner—the defensive coordinator elevated from within. Renner's first real season, 2025, was a 3–8 disaster, raising the central question for all programs: is the culture institutional or did it die with the coach? MSU enters 2026 needing to prove that the Maskill DNA still lives in the building and that Renner, despite the stumble, can rebuild championship caliber. The Mustangs have too much history to tank, but they're also vulnerable to a slow decline if the transition isn't managed right.
+  research_checklist:
+    - Bill Maskill (22 years, 160 wins, 5 LSC titles, 17 consecutive winning seasons) ✓
+    - Rich Renner (DC under Maskill, elevated to HC) ✓
+    - 2025 collapse (3–8 in Renner's first year) ✓
+    - Five LSC championships (2009, 2011, 2012, 2017, 2021) ✓
+    - TIAA/LSC rivalry with Sul Ross State ✓
+  sources:
+    - https://en.wikipedia.org/wiki/Midwestern_State_Mustangs_football
+    - https://msumustangs.com/news/2023/12/10/football-maskill-announces-retirement-following-successful-22-year-run.aspx
+    - https://sports.yahoo.com/bill-maskill-retires-renner-elevated-200820092.html
+    - https://www.texasfootball.com/team/midwestern-state-mustangs

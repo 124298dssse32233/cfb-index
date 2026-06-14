@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: west-liberty
+team_id: null
+program_name: West Liberty University
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "West Liberty is the Hilltopper program that made 16 consecutive NCAA tournament appearances and played for the love of the game — sustained excellence in a small West Virginia town."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A modest West Virginia school that hung together for two decades of NCAA tournament runs through discipline and continuity, now navigating a coaching transition after 21 years with Roger Waialae."
+
+the_wound:
+  name: "The end of the Waialae era and 2025's stumble"
+  detail: "West Liberty's legendary coach Roger Waialae retired after 21 years (100+ wins) at the end of 2025, leaving a 3-8 season and a program searching for direction. The 16-year playoff streak ended, and the Hilltoppers are in transition entering 2026 under new coach Chad Salisbury."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Restore playoff contention under new coach Salisbury and prove West Liberty's excellence wasn't solely tied to Waialae — maintain the Hilltopper identity of sustained competitiveness."
+  drought: { since: 2025, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — West Liberty's identity is built on continuity and steady effort, not grievance or ambition. The Hilltoppers play for themselves and their town."
+
+the_delusion:
+  tone: self-aware
+  text: "That a small West Virginia school can sustain 16 consecutive playoff appearances and compete year-in and year-out — the fanbase knows the resource gap is real, but believed in Waialae and the Hilltopper way anyway."
+
+the_grudge_texture:
+  rival: wheeling-university
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: waialae-legacy-vs-salisbury-future — the challenge of stepping out of a 21-year coaching shadow while honoring the program that Waialae built
+register: west-liberty-16-straight-tournaments-roger-waialae-hilltopper
+never_use:
+  - Perennial championship contenders (West Liberty made tournaments but did not win national titles)
+  - One of the state's premier programs (West Liberty is solid and regional, not flagship)
+  - Historic football powerhouse (the 16-year streak is the program's main achievement)
+
+story_canon:
+  the_unique_thing: "West Liberty's 16 consecutive NCAA Division II tournament appearances (spanning decades) — not a single title, but a streak of sustained competitiveness that proved a small West Virginia school could hang with bigger programs through discipline and continuity. Coach Roger Waialae compiled 100+ wins over 21 years, the face of the program."
+  the_origin: "A small West Virginia college town that built football around steady, incremental improvement. The Waialae era (100+ wins, 21 years) became the foundation of modern Hilltopper identity — not glamorous, but durable."
+  golden_ages:
+    - { era: "2005–2024", what: "The Roger Waialae era: 100+ wins, 21 years of sustained competitiveness, 16 consecutive NCAA tournament appearances" }
+  legends:
+    - { name: Roger Waialae, role: coach, why: "100+ career wins over 21 years, 16 consecutive NCAA tournament appearances — the architect of West Liberty's identity of sustained excellence" }
+  canonical_moments:
+    - { name: "16 Consecutive NCAA Tournament Appearances", year: 2024, what: "West Liberty made the NCAA D2 tournament 16 years straight, the program's signature achievement", handling: glory }
+    - { name: "The Waialae Era", year: 2005, what: "Coach Roger Waialae arrived and built West Liberty into a sustained playoff contender over two decades", handling: glory }
+  the_place: "West Liberty, West Virginia, a small college town."
+  brand_of_football: "Steady, continuity-driven, small-town football — the Hilltopper way is about showing up and competing, not about explosive wins or national ambitions."
+  cultural_footprint: "West Liberty's cultural footprint is entirely the 16-year tournament streak and Roger Waialae's tenure. The program is known for consistency and longevity, not championships or highlights."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: West Liberty finished 3-8 overall (3-5 MEC) in 2025, ending the 16-year NCAA tournament streak. Coach Roger
+    Waialae retired after 21 years, leaving 100+ wins and sustained excellence as his legacy. New head coach Chad Salisbury was hired in December 2025
+    to lead the Hilltoppers forward. The 2026 season is about proving West Liberty football exists beyond Waialae and can rebuild under new direction.
+    The program faces the challenge of honoring the Waialae legacy while carving a new path.
+  research_checklist:
+    - 16 consecutive NCAA tournament appearances
+    - Roger Waialae 100+ win tenure (21 years)
+    - 2025 transition and Waialae retirement
+    - Chad Salisbury hiring
+  sources:
+    - https://en.wikipedia.org/wiki/West_Liberty_University
+    - https://en.wikipedia.org/wiki/2025_NCAA_Division_II_football_season
+    - https://www.westliberty.edu/athletics/

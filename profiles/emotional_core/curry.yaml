@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — App State  (curry)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: curry
+team_id: null
+program_name: Curry College
+program_tier: 7
+
+emotional_core:
+  primary: restoration  # the turnaround program that found its way back
+  secondary: house-money  # every win tastes like a miracle after the drought
+  one_line: "Curry is the historic Boston program that returned to winning after three decades of struggle, anchored by a historic 522-yard, 7-TD performance that proved the Colonels belong."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A 140-year-old program with the skeleton of tradition suddenly rediscovered how to win in 2025 — proof that patience and rebuilding can restore what seemed lost."
+
+the_wound:
+  name: "The three-decade drought"
+  detail: "From 1987 to 2017, Curry won only one Conference of New England title and suffered through losing season after losing season — a 30-year scar that made victory feel impossible."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Build a sustained winner in Boston where football had been forgotten — prove that Curry belongs at the top of the Conference of New England."
+  drought: { since: 2017, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "No chip, just hunger: Curry plays for the joy of finally being good, for vindication of patient rebuilding, for showing their own program they deserve respect."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that what Curry found in 2025 is sustainable — that a 522-yard, 7-TD night by Montie Quinn is proof the program has crossed into a new era, not a flash."
+
+the_grudge_texture:
+  rival: endicott
+  texture: blood-feud   # conference rivals, geographic neighbors
+
+the_coach_relationship: savior   # Todd Parsons' rebuild has returned Curry to winning
+the_internal_fracture: believers vs. skeptics who remember the drought
+register: boston-colonial-comeback-story
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Curry is a perennial doormat — 8-3 in 2025, first winning season since 2017 proves otherwise
+  - The program is small — founded 1879, legitimate Boston institution with century-plus history
+  - Montie Quinn's 522-yard game never happened — verified NCAA D3 single-game record vs. Nichols 2025
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "In 2025, RB Montie Quinn set an NCAA Division III single-game record with 522 rushing yards and 7 touchdowns against Nichols — a display of dominance that announced Curry's return to relevance after 30 years."
+  the_origin: "Founded 1879 in Milton, Massachusetts as a Boston regional institution, Curry College built football into a source of pride and conference competition."
+  golden_ages:
+    - { era: "1980s–early 1990s", what: "Competitive Conference of New England program, winning years" }
+    - { era: "2025–present", what: "Todd Parsons' restoration: 8-3, 6-1 CNE, return to winning and conference relevance" }
+  legends:
+    - { name: Montie Quinn, role: player, why: "522-yard, 7-TD single-game performance in 2025 — NCAA Division III record" }
+    - { name: Todd Parsons, role: coach, why: "Restored Curry to winning in his 4th season; 2025 breakthrough" }
+  canonical_moments:
+    - { name: "Montie Quinn 522-yard game", year: 2025, what: "522 rushing yards + 7 TDs vs. Nichols — NCAA D3 record", handling: glory }
+    - { name: "First winning season since 2017", year: 2025, what: "8-3 overall, 6-1 Conference of New England", handling: glory }
+  the_place: "Curry College Stadium in Milton, Massachusetts — the Boston regional institution's home, where Colonels football returned."
+  brand_of_football: "Efficient, ground-based football — the Montie Quinn model of dominance through the running game."
+  cultural_footprint: "A Boston-area program reclaiming pride after three decades of obscurity — proof that restoration is possible."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After a 30-year drought, Todd Parsons' Curry broke through in 2025 with an
+    8-3 record and 6-1 Conference of New England title contention. Montie Quinn's 522-yard, 7-TD night proved the
+    Colonels have a star athlete and a sustainable foundation. The question in Boston: can Curry sustain this
+    breakthrough and establish itself as a persistent Conference of New England contender, or was 2025 a spike?
+  research_checklist:
+    - Curry's 30-year drought (1987–2017)
+    - Todd Parsons' 4-year rebuilding arc
+    - Montie Quinn's 522-yard, 7-TD game and NCAA D3 record
+    - Conference of New England membership history
+    - The return-to-winning narrative
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Curry_Colonels_football_season
+    - https://www.ncaa.org/sports/2025/d3/football/curry-college/schedule
+    - https://www.ncollegefootball.com/teams/curry-colonels

@@ -1,0 +1,69 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+status: live
+slug: william-jewell
+program_name: William Jewell College
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: house-money
+  one_line: "William Jewell is the small Missouri college football program that's rebuilding with pride — the Cardinals are climbing again under Jason Ambroson, and Liberty, Missouri is watching closely."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A 131-year-old program that reached the 1982 NAIA National Championship game, now rebuilding in the GLVC under Jason Ambroson with steady improvement and the best start since 1983."
+
+the_wound:
+  name: "Decades of mediocrity and irrelevance"
+  detail: "William Jewell reached the 1982 NAIA national championship game (lost 33-15 to Linfield) but has spent most of the era since then in relative obscurity. The program played in the NAIA era with intermittent playoff appearances (1973, 1980-83, 1990) but never broke through to national prominence. The wound is generational obscurity."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Build a sustained GLVC competitor under Jason Ambroson. Get back to the postseason. Remind the Jewell community that the Cardinals can compete."
+  drought: { since: 1982, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. William Jewell plays for itself, for Liberty, Missouri, and for the 131-year legacy. The program is rebuilding with quiet pride."
+
+the_delusion:
+  tone: earnest
+  text: "That the best start since 1983 (3-0 in 2024) means William Jewell is about to break through. Fans see the improvement and believe Ambroson can sustain it, even if the 2025 season was more modest."
+
+the_grudge_texture:
+  rival: none
+  texture: none
+
+the_coach_relationship: savior
+  # Jason Ambroson (2nd season since 2024); rebuilding the program with steady improvement
+
+the_internal_fracture: "institutional-pride-vs-competitive-reality — the faction proud of the 1982 championship game appearance vs the faction facing reality of decades without relevance"
+
+register: jewell-pride-cardinals-liberty-rebuild
+
+never_use:
+  - '"William Jewell is irrelevant" — the program is rebuilding; 2024 best start since 1983 is real progress'
+  - '"The 1982 championship game appearance is ancient history" — it''s the only major achievement and deserves honoring'
+
+story_canon:
+  the_unique_thing: "A small Missouri college that reached the 1982 NAIA National Championship game (lost 33-15 to Linfield) and is now rebuilding under Jason Ambroson with the best start since 1983."
+  the_origin: "William Jewell College was founded in 1849 in Liberty, Missouri, as a Baptist-affiliated school. Football became part of the college's identity in the early 1900s. The program was a steady small-college presence for over a century."
+  golden_ages:
+    - { era: "1982 NAIA Championship Era", what: "William Jewell reached the 1982 NAIA National Championship game, the program's highest achievement" }
+    - { era: "2024 Ambroson Era Beginning", what: "3-0 start, best since 1983; rebuilding momentum under the new head coach", handling: miracle }
+  legends: []
+  canonical_moments:
+    - { name: "1982 NAIA National Championship Game", year: 1982, what: "William Jewell reached the national championship game but lost 33-15 to Linfield", handling: heartbreak }
+    - { name: "2024 Best Start Since 1983", year: 2024, what: "Jason Ambroson's Cardinals opened 3-0, the best start in 41 years", handling: miracle }
+  the_place: "Liberty, Missouri — a small town in northwest Missouri where William Jewell College sits and the Cardinals play."
+  brand_of_football: "Rebuilding with purpose; the program plays for its community and its history, hoping to bridge the gap from 1982 to a new era of competitiveness."
+  cultural_footprint: "William Jewell is a proof point that small Baptist colleges can build and maintain football programs; the 2024 breakthrough shows that even long-dormant programs can wake up."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: William Jewell had a 3-0 start in 2024 (best since 1983) under Jason Ambroson's first season. The 2025 season was more modest,
+    with the Cardinals showing solid wins (45-14 over McKendree, 49-13 over Lincoln) but also losses to stronger GLVC competition. Ambroson is in his second season and
+    working to stabilize the program. The goal is to continue the trajectory upward and get William Jewell back to postseason contention. The 1982 NAIA championship
+    game appearance remains the program's only major achievement; the Cardinals are trying to build on it.
+  sources:
+    - https://jewellcardinals.com/news/2025/10/4/football-jewell-drops-glvc-clash-with-no-19-greyhounds.aspx
+    - https://en.wikipedia.org/wiki/William_Jewell_Cardinals

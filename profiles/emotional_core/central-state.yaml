@@ -1,0 +1,68 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: central-state
+team_id: null
+program_name: Central State University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: restoration
+  one_line: "Central State is the Ohio HBCU that won D2 national championships when the sport was younger, and every season is a chance to reclaim that glory in the heart of the Midwest."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A program with five national championship banners (1990–1992 NAIA era, 1983 D2 runner-up), now rebuilding in the 2020s to remind the SIAC why Marauders were once feared."
+
+the_wound:
+  name: "Three decades since a national championship"
+  detail: "Central State's last national title was in 1992 (NAIA era). The program has been chasing that height ever since, becoming more proud and more determined but also more aware of the gap."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to national relevance — win a SIAC title and remind the college football world that Central State Marauders built something real and lasting decades ago, and can do it again."
+  drought: { since: 1992, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The fanbase believes: Central State has three NAIA national championships and a D2 runner-up finish, but nobody outside Ohio and the SIAC remembers. The Marauders play for the chance to be mentioned again."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that Central State's legacy is permanent and waiting to be reactivated — that the 1990s dynasty can be rekindled by the right coach and the right culture, and it will happen soon."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: savior
+the_internal_fracture: nostalgia-for-the-dynasty vs. pragmatic-rebuild — traditionalists who want the Marauders to roar again NOW vs. rebuilders who know the process takes time
+
+register: marauders-wilberforce-ohio-hbcu
+never_use:
+  - Never won anything. NAIA National Champions 1990/1992, D2 runner-up 1983.
+  - New program. Founded 1887, playing college football for over a century.
+
+story_canon:
+  the_unique_thing: "1990–1992 NAIA National Championships, proof that a small Ohio HBCU could build a dynasty in its era. Central State played the game at the highest level available and won."
+  the_origin: "Founded 1887 as Xenia Central State College, Central State became a pillar of Ohio HBCU education. Football was a centerpiece of the program's identity from early in the 20th century."
+  golden_ages:
+    - { era: "1983 (D2 Runner-up)", what: "Central State reached the NCAA Division II National Championship game, establishing the program as a legitimate national contender" }
+    - { era: "1990–1992 (NAIA Champions)", what: "Three NAIA National Championships in four years, marking the apex of Central State's modern dynasty" }
+  legends:
+    - { name: "Tony Carter", role: "Coach (2025–)", why: "Hired to rebuild Central State's program and restore Marauder football to championship contention" }
+  canonical_moments:
+    - { name: "1983 D2 Runner-up Finish", year: 1983, what: "Central State plays for the NCAA Division II National Championship, reaching the apex of Division II", handling: glory }
+    - { name: "1990 NAIA National Championship", year: 1990, what: "Central State wins its first NAIA title, beginning a three-year national championship run", handling: glory }
+    - { name: "1992 NAIA National Championship", year: 1992, what: "Last national championship in program history, capping the golden era", handling: glory }
+  the_place: "Wilberforce, Ohio — a small town in southwestern Ohio where Central State's campus sits at the center of historic Black education. The Marauders play in a program with roots in Reconstruction-era America."
+  brand_of_football: "Tough, disciplined SIAC football — a program that remembers winning at the highest level and plays with the hunger of teams trying to get back there."
+  cultural_footprint: "A sleeping giant in the SIAC landscape, a program with championship DNA and the confidence that comes from having won at the national level."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Central State hired Tony Carter in March 2025 from Southeastern University to begin a systematic rebuild. The 2025 season was a work in progress (early reports of 2–4 record by early October), but the program is in its first year under new leadership with a clear mandate to climb back toward championship contention. The Marauders are rebuilding with the memory of national titles and the confidence of a program that has won before.
+  sources:
+    - https://en.wikipedia.org/wiki/Central_State_University_Marauders_football
+    - https://www.centralstate.edu/news/central-state-football-garners-national-spotlight-program-rises
+    - https://thesiac.com/sports/football/

@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Ashland University — G-MAC elite-defense program, co-2025 champions
+
+status: live
+slug: ashland
+team_id: null
+program_name: Ashland University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Ashland is the G-MAC elite-defense fortress that built a championship on shutting down offenses, a small-school program proving that disciplined football wins titles."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program without national-title history but with a 2024 G-MAC championship and 2025 co-title that proves elite defense and player development win in Division II."
+
+the_wound:
+  name: "History as the always-runner-up"
+  detail: "Ashland spent decades as the competent-but-not-elite program in the G-MAC, a school with strong academics and culture but no conference titles until 2024. The program had to prove it belonged at the top tier."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Go beyond co-titles — win an outright G-MAC championship and make a statement run toward a D2 national playoff spot."
+  drought: { since: null, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe ashland has no chip; the program proved itself by building a defense that ranked 2nd nationally in total defense in 2025, forcing teams to play the Eagles' game."
+
+the_delusion:
+  tone: none
+  text: null
+
+the_grudge_texture:
+  rival: tiffin
+  texture: championship
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "Defense-first identity vs. maintaining offensive explosiveness as the program matures."
+register: eagles-ashland-northern-ohio-defense
+
+never_use:
+  - "Small-school ceiling: Ashland has proven it can compete for G-MAC titles with elite defense"
+  - "No tradition: defensive excellence and 2024-2025 conference titles are the new tradition"
+  - "Always rebuilding: the program has built sustained competitiveness"
+
+story_canon:
+  the_unique_thing: "Elite defensive fortress — Ashland's 2024-2025 back-to-back G-MAC title run was built on shutting down offenses, with the Eagles ranking 2nd nationally in total defense in 2025."
+  the_origin: "Ashland University began its football program in the modern era as a small Ohio Division II school in the Great Lakes Athletic Conference, building a reputation for strong academics and disciplined, defense-first football."
+  golden_ages:
+    - { era: "2024–2025", what: "Two consecutive G-MAC titles (2024 outright, 2025 co-title) and sustained defensive excellence" }
+  legends:
+    - { name: Doug Geiser, role: coach, why: "Defensive coordinator philosophy driving back-to-back G-MAC titles in 2024-2025" }
+    - { name: Tyler Sauder, role: player, why: "Safety and NCFCA DB of the Year with 318 tackles and 8 interceptions in 2025" }
+  canonical_moments:
+    - { name: "2024 G-MAC Championship", year: 2024, what: "Ashland wins its first outright conference title with elite defensive play", handling: glory }
+    - { name: "2025 Co-Championship", year: 2025, what: "Shares G-MAC title and ranks 2nd nationally in total defense", handling: glory }
+  the_place: "Ashland, Ohio — a small Division II program town with strong community pride in Eagles football."
+  brand_of_football: "Defense-first excellence — a program that wins through disciplined, physical play and player development rather than star power."
+  cultural_footprint: "Ashland represents what small-school football excellence looks like: a program that builds its identity through work ethic, defensive consistency, and conference title contention without the resources of larger institutions."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Ashland enters 2026 as the defending G-MAC co-champion with elite defensive continuity. Coach Doug Geiser is in his third year with the program, having established a defense-first culture that produced 2024-2025 back-to-back titles and a 2025 ranking of 2nd nationally in total defense. The question in Ashland: can the program sustain elite defense while developing more explosive offense, and can it convert defensive dominance into a D2 playoff run?
+  research_checklist:
+    - Elite defense ranking 2nd nationally in total defense (2025)
+    - 2024-2025 back-to-back G-MAC titles
+    - Tyler Sauder, NCFCA DB of the Year (318 tkls, 8 INTs)
+    - Doug Geiser coaching continuity (3rd year)
+    - Tiffin rivalry in G-MAC championship contention
+  sources:
+    - https://www.ashland.edu/academics/athletics
+    - https://d2football.com/2025-season-preview
+    - https://www.gmacports.com/news/

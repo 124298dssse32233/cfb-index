@@ -1,0 +1,122 @@
+# Emotional Core — UNLV  (unlv)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: unlv
+team_id: 289
+program_name: UNLV
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the longtime doormat turned legitimate Mountain West power overnight
+  secondary: spectacle    # Las Vegas, Allegiant Stadium, an offense built to entertain
+  core_variant: perpetual-rebuild
+  one_line: "UNLV is the desert program that spent decades as a punchline and is now the best team in the Mountain West that can't win the Mountain West — three straight title-game losses to Boise State, all in the brightest lights in college football."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A sudden run of double-digit-win seasons and back-to-back conference title-game trips vs the fact that Boise State keeps slamming the door, plus a program history that was mostly losing before 2023."
+
+the_wound:
+  name: "The title game keeps ending the same way"
+  detail: "UNLV went 10-3 in Dan Mullen's first year, 2025, and reached the Mountain West championship game — only to lose 38-21 to Boise State, the Rebels' third straight title-game defeat to the Broncos, then fell to Ohio 17-10 in the Frisco Bowl. The program is good enough to get to the last game and hasn't yet been good enough to win it."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Finally take the last step — beat Boise State, win the Mountain West outright, and put a championship next to the Las Vegas lights."
+  drought: { since: 1994, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Rebels fans are tired of being treated as a novelty act — the casino-town team nobody took seriously. They'll tell you UNLV has been one of the best stories in the Group of Five for three years running, even if the rankings keep forgetting."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Las Vegas is a sleeping football giant — that with Allegiant Stadium, the city's money and the right coach, the Rebels are a year away from being the program everyone else in the Mountain West fears."
+
+the_grudge_texture:
+  rival: boise-state
+  texture: championship   # the Broncos are the wall between UNLV and the title — three straight title-game losses
+
+the_coach_relationship: savior   # Barry Odom rebuilt the program (2023), Dan Mullen kept it climbing (2024-) — coaching is the engine of the rise
+the_internal_fracture: contender-now vs prove-it — the faction that says the title-game runs make UNLV a real power vs the faction that says it isn't real until Boise State is finally beaten
+register: las-vegas-rebels-allegiant-stadium   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always MW-bottom — 2024 Mountain West championship game disproves
+  - No identity — Allegiant + Odom + Mullen combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "UNLV plays its home games in Allegiant Stadium — a $2 billion NFL palace it shares with the Raiders — and turned itself, almost overnight, from one of the worst programs in the FBS into the Mountain West's most exciting team, all under the brightest lights in the sport."
+  the_origin: "A young university in the entertainment capital of the world, where football long played second fiddle to the Runnin' Rebels basketball dynasty — until a 2020s rebuild gave Las Vegas a football team worth watching."
+  golden_ages:
+    - { era: "1984 / 1994", what: "The program's early Big West peaks — the closest UNLV came to conference glory before the modern era" }
+    - { era: "2023–2025 (Odom / Mullen)", what: "Three straight winning seasons, a share of the 2023 Mountain West title, and back-to-back title-game appearances" }
+  legends:
+    - { name: Barry Odom, role: coach, why: "Engineered the 2023 turnaround that made UNLV relevant, then left for Purdue" }
+    - { name: Anthony Colandrea, role: player, why: "The 2025 Mountain West Offensive Player of the Year who ran Dan Mullen's high-scoring offense" }
+  canonical_moments:
+    - { name: "The 2023 turnaround", year: 2023, what: "Barry Odom takes a doormat to nine wins and a share of the Mountain West title", handling: glory }
+    - { name: "The title-game losses to Boise State", year: 2025, what: "A third straight Mountain West championship-game defeat to the Broncos, 38-21", handling: heartbreak }
+  the_place: "Allegiant Stadium — the Raiders' NFL home on the Las Vegas Strip, where a college program plays in front of pro-stadium lights and a tourist-and-local crowd."
+  brand_of_football: "Vegas spectacle — a fast, high-scoring, entertainment-first offense that fits the city, built to put on a show as much as win a game."
+  cultural_footprint: "Las Vegas's own football team — proof that a town defined by basketball, casinos and tourism can build a Saturday football identity, and that the Strip can host a real college program."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UNLV went 10-3 in Dan Mullen's first season, 2025, reached the Mountain
+    West championship game, and lost 38-21 to Boise State — a third straight title-game loss to the Broncos —
+    then fell to Ohio 17-10 in the Frisco Bowl. QB Anthony Colandrea was named Mountain West Offensive Player
+    of the Year. The question in Las Vegas: can Mullen finally break through Boise State and turn three years
+    of contention into the program's first conference championship of the modern era.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://www.si.com/college/group-five/mountain-west/unlv-survives-38-31-scare-from-idaho-state-in-dan-mullen-s-debut
+    - https://lasvegassun.com/news/2025/dec/05/unlv-football-falls-to-boise-state-in-mountain-wes/
+    - https://en.wikipedia.org/wiki/UNLV_Rebels_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: UNLV is the Mountain West program whose 2024 11-3 + Mountain West championship game under
+    Barry Odom + Allegiant Stadium NFL-stadium-shared identity define what Las-Vegas-football looks like.
+  mantra: Rebel Up.
+  cultural_anchors:
+    fan_archetype_dominant: Vegas-Rebel-Rebel-Up
+    outsider_archetype_dominant: MW-Mid-Pack-Diminisher
+    one_sentence: UNLV is the Las Vegas Mountain West program — Barry Odom 2023 reset + Dan Mullen 2024
+      Mountain West championship game + Allegiant Stadium NFL-share that anchor what Vegas-football resurrected
+      can look like.
+  selfname: the Rebels
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2024 11-3 + Mountain West championship game appearance
+    - 1984 11-2 + California Bowl championship
+    - Allegiant Stadium NFL-shared venue (Raiders co-tenant)
+    rituals:
+    - Allegiant Stadium (Raiders Share)
+    - Barry Odom 2023 / Dan Mullen 2024 Transition
+    - Vegas Strip Identity
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

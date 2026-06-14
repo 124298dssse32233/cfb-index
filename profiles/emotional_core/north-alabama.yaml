@@ -1,0 +1,72 @@
+# Emotional Core — North Alabama Lions (north-alabama)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: north-alabama
+team_id: 249
+program_name: North Alabama
+program_tier: 5
+
+emotional_core:
+  primary: delusion            # A 2–10 team clinging to Division I legitimacy
+  secondary: disbelief         # The shock of sudden irrelevance after joining FCS
+  one_line: "North Alabama is the Alabama program that climbed to Division I in 2022 and is learning the difference between reclassification and relevance."
+
+self_image:
+  archetype: orphaned
+  standard_gap_frame: "A program that was asked to move up but is discovering it was better suited to its previous level — caught between Big South heritage and UAC competitiveness."
+
+the_wound:
+  name: "The 2–10 2025 season — and the realization that D-II success didn't translate"
+  detail: "North Alabama moved to FCS/ASUN in 2022 with the belief that reclassification would elevate the program. Three years in, the Lions went 2–10 (1–7 UAC) in 2025 — the deepest losing season since transition, playing their final game at Braly Municipal Stadium before relocating to a new home."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the transition to FCS was the right move — reach 6 wins, become bowl-eligible, build a UAC contender in a new stadium."
+  drought: { since: 2022, unit: relevance }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe the chip is uncertain: North Alabama was told reclassification would make them relevant, that FCS legitimacy was worth the transition. Three years later, a 2–10 season suggests the move was the wrong choice."
+
+the_delusion:
+  tone: load-bearing
+  text: "That North Alabama belongs in FCS, that a new stadium and time will turn the program around. The fanbase clings to it because the alternative — that reclassification was a mistake — is unbearable."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: transition-believers-vs-step-down-advocates — the faction that thinks North Alabama will grow into FCS vs the one questioning whether the Lions should have stayed D-II
+register: north-alabama-lions-florence-transition-doubt
+never_use:
+  - Always irrelevant — D-II history shows competence at lower level
+  - Should never have transitioned — editorial judgment; let the data speak
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The 2025 final season at Braly Municipal Stadium (2–10, 1–7 UAC) — a symbolic moment when a program in reclassification struggles also has to say goodbye to its historic home."
+  the_origin: "A Division II program in Florence, Alabama that was invited to move to Division I FCS in 2022 with institutional optimism about reclassification."
+  golden_ages:
+    - { era: "2022–2024", what: "Early FCS years with modest records — settling into the new level" }
+  legends:
+    - { name: Brent Dearmon, role: coach, why: "The third-year coach navigating a difficult reclassification transition" }
+  canonical_moments:
+    - { name: "FCS Transition (2022)", year: 2022, what: "North Alabama moves from Division II to Division I FCS", handling: miracle }
+    - { name: "The 2025 2–10 Season", year: 2025, what: "Worst record since transition; final season at Braly Municipal Stadium", handling: wound }
+  the_place: "Braly Municipal Stadium (2022–2025) — historic D-II home; moving to a new facility in 2026."
+  brand_of_football: "Struggling to define itself — caught between the identity of a Division II success and Division I demands."
+  cultural_footprint: "A program in transition, discovering that reclassification changes more than just the conference."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: North Alabama finished 2–10 (1–7 UAC) in 2025, its worst record since moving to Division I FCS in 2022. Coach Brent Dearmon enters his third season facing institutional pressure to improve after the historic lows. The Lions are also relocating to a new stadium in 2026, marking a symbolic reset. The question in Florence: is North Alabama the victim of a reclassification mistake, or is the program simply in a rebuilding phase that will eventually yield FCS competitiveness?
+  research_checklist:
+    - the 2022 FCS transition from Division II
+    - the 2–10 2025 record and losing trajectory
+    - Brent Dearmon's coaching tenure
+    - the stadium relocation (Braly → new facility 2026)
+    - UAC competitive positioning and long-term viability
+  sources:
+    - https://en.wikipedia.org/wiki/2025_North_Alabama_Lions_football_team
+    - https://roarlions.com/sports/football/

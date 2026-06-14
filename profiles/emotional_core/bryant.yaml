@@ -1,0 +1,114 @@
+# Emotional Core — Bryant  (bryant)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: bryant
+team_id: 1102
+program_name: Bryant
+program_tier: 2
+
+emotional_core:
+  primary: restoration      # the Rhode Island program climbing from startup to FCS legitimacy
+  secondary: house-money    # building belonging after leap-frogging conferences
+  core_variant: first-ascension
+  one_line: "Bryant is the 1999 startup that climbed from a brand-new Division II program to FCS in 25 years — proof a program can be built from absolute zero if you pick the right founding coach."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program only 26 years old vs peers with 100-plus years of tradition; every season is playing with house money."
+
+the_wound:
+  name: "The conference wanderer"
+  detail: "Bryant has moved through a string of conferences in 25 years — Northeast-10 to Northeast Conference to Big South to the CAA in 2024. Each move re-tests whether the Bulldogs belong at the next level up."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Establish permanence in the CAA and reach the FCS playoffs — prove the latest conference home isn't another way-station but the place where Bryant finally takes root."
+  drought: { since: 1999, unit: relevance }
+
+the_chip:
+  villain: blue_bloods
+  text: "Bryant started from nothing in 1999 with a coach and a stadium; every program it faces has a century of tradition. Bryant fans say the chip isn't anger, it's hunger — the hunger to prove a 25-year-old startup can build something real."
+
+the_delusion:
+  tone: self-aware
+  text: "Bryant fans believe a program founded the year before the dot-com bust can catch schools with a hundred years of fan loyalty and donor networks — that method and investment can compress time."
+
+the_grudge_texture:
+  rival: sacred-heart
+  texture: little-brother   # two relatively young CAA members from the Northeast, competing for regional relevance
+
+the_coach_relationship: savior   # founding coach Jim Miceli (1999-2003) and Marty Fine (2004-2016) built the foundation
+the_internal_fracture: startup-ambition vs sustainable-growth — the faction wanting rapid FCS success vs the faction building the institutional depth legacy programs already have
+register: bryant-bulldog-rhode-island-startup
+never_use:   # LAW, do not violate in any authored line
+  - Never had a program (founded 1999; institutional growth is real)
+  - Perpetual mid-major dreamer (FCS status and CAA membership are legitimate, not aspirational)
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The startup story: founded in 1999 with zero tradition, Bryant made the Division I transition in 2008, then climbed through multiple FCS conferences to join the CAA in 2024 — proof a program can be built from scratch."
+  the_origin: "In 1999, Bryant University hired Jim Miceli to start a football program from absolute zero — no field, no tradition, no infrastructure. Miceli won 63% of his games (1999-2003) and Marty Fine carried the program through the Division I transition (2004-2016)."
+  golden_ages:
+    - { era: "2006 (Miceli era)", what: "First Division II playoff appearance, program-record crowd at Beirne Stadium" }
+    - { era: "2008-2016 (Marty Fine)", what: "NCAA Division I transition and sustained Northeast Conference success" }
+  legends:
+    - { name: Jim Miceli, role: coach, why: "Founded the program in 1999 from zero" }
+    - { name: Marty Fine, role: coach, why: "Carried Bryant through the Division II-to-FCS transition; all-time winningest coach" }
+  canonical_moments:
+    - { name: "Program founded", year: 1999, what: "Jim Miceli starts football from scratch at Bryant University", handling: glory }
+    - { name: "FCS transition", year: 2008, what: "NCAA Division I FCS membership; Marty Fine era", handling: glory }
+  the_place: "Beirne Stadium in Smithfield, Rhode Island — home since 1999; the stadium that grew from startup venue to an FCS house."
+  brand_of_football: "The startup method — a program built on coaching philosophy and institutional discipline, not tradition or booster wealth."
+  cultural_footprint: "Proof that a Northeast university can build a college football program from zero — not through inheritance, but through founding vision and steady execution."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Bryant joined the CAA in 2024 after moves through the Northeast
+    Conference and Big South. The program remains in its post-Marty-Fine era; every conference move re-tests
+    the Bulldogs' belonging, and the CAA transition is the latest bet that method and investment can build
+    permanence in a conference where other programs have a century of roots.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Bryant_Bulldogs_football
+    - https://bryantbulldogs.com/sports/football
+    - https://caasports.com
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Bryant is the 1999-founded startup program that climbed from Division II to FCS in 25 years.
+  mantra: Go Bulldogs.
+  cultural_anchors:
+    fan_archetype_dominant: Smithfield-Startup-Builder
+    outsider_archetype_dominant: FCS-Skeptic-Surprised
+    one_sentence: Bryant is the 1999-founded startup that climbed from Division II to FCS, proving programs can be built from zero.
+  selfname: the Bulldogs
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Program founded 1999 by Jim Miceli
+    - 2008 NCAA Division I transition
+    - CAA membership since 2024
+    rituals:
+    - Beirne Stadium (home since 1999)
+    - Startup from Zero
+    - Climbing the Ladder
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

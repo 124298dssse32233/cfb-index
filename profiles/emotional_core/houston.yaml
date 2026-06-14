@@ -1,0 +1,121 @@
+# Emotional Core — Houston  (houston)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: houston
+team_id: 288
+program_name: Houston
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # the Cougars spent decades locked out of the big-money league next door
+  secondary: restoration  # finally in the Big 12, Willie Fritz just delivered a 10-win season to prove they belong
+  core_variant: the-ceiling
+  one_line: "Houston is the program that once put up 100 points and produced Andre Ware's Heisman, then spent thirty years on the wrong side of the velvet rope — and is finally answering the bell in the Big 12 with a ten-win season."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Run-and-Shoot glory and a 1989 Heisman vs three decades shut out of a power conference while Texas and Texas A&M pulled away — a long climb the Big 12 invite finally interrupted."
+
+the_wound:
+  name: "Left behind in realignment"
+  detail: "When the Southwest Conference broke up in 1996, Houston — a Houston-based program with real history — was left out of the Big 12 while the in-state powers were waved in, condemning the Cougars to two decades of mid-major exile despite living in one of the country's richest talent beds."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "A Big 12 championship and a Playoff bid that erases the 'mid-major' tag for good — the trophy that says the wait in the cold was worth it."
+  drought: { since: 2006, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Cougar fans watched Texas and Texas A&M get the invitations and the TV money while a program in the nation's fourth-largest city was told to wait its turn; they carry the snub of being the third team in their own state into every Big 12 Saturday."
+
+the_delusion:
+  tone: earnest
+  text: "The faithful believe the deepest recruiting city in America has been theirs to mine all along — that with a power-conference platform finally under them, Houston has the talent at its doorstep to out-grow the very programs that locked them out."
+
+the_grudge_texture:
+  rival: rice
+  texture: border-war   # the Bayou Bucket — the in-city Houston rivalry, the trophy that's most personal
+
+the_coach_relationship: savior   # Willie Fritz arrived and in year two delivered the 10-win Big 12 breakthrough
+the_internal_fracture: built-different pride vs power-conference impatience — fans who cherish the scrappy climb vs fans who now demand the program act and recruit like the big-league member it became
+register: cougar-h-cogs-up
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always G5 — 2023 Big 12 entry resolved that question
+  - Case Keenum's program only — Tom Herman's 2015 era extended the canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Run-and-Shoot scoreboard machine: Houston's late-1980s offense under Jack Pardee and John Jenkins put up video-game numbers — including a 95-point game and Andre Ware's 1989 Heisman, the first won by an African-American quarterback — and rewrote what offense could look like."
+  the_origin: "A commuter-and-urban university in the nation's fourth-largest city, a charter member of the Southwest Conference's later years, that built an outsized football identity on offense and the deepest high-school talent pool in America."
+  golden_ages:
+    - { era: "1976–1984 (Bill Yeoman)", what: "The Veer offense, SWC titles, and the program's first sustained national relevance" }
+    - { era: "1987–1990 (Pardee / Jenkins)", what: "The Run-and-Shoot, the 95-point game, and Andre Ware's 1989 Heisman" }
+  legends:
+    - { name: Andre Ware, role: player, why: "1989 Heisman winner; the face of the Run-and-Shoot explosion" }
+    - { name: Case Keenum, role: player, why: "The NCAA's all-time leader in passing yards and touchdowns; the modern program's icon" }
+    - { name: Bill Yeoman, role: coach, why: "Inventor of the Veer offense and the program's winningest coach" }
+  canonical_moments:
+    - { name: "Ware wins the Heisman", year: 1989, what: "Houston's first and only Heisman, the first by a Black quarterback", handling: glory }
+    - { name: "Peach Bowl over Florida State", year: 2015, what: "Tom Herman's 13-1 Cougars beat FSU 38-24 — the high-water mark of the mid-major era", handling: glory }
+    - { name: "Big 12 breakthrough", year: 2025, what: "A 10-win season in just their third year in the league, capped by a 38-35 bowl win over LSU", handling: glory }
+  the_place: "Space City Financial Stadium (formerly TDECU Stadium) on the urban campus — an intimate, loud on-campus home in the middle of Houston, a city of pro teams the Cougars compete with for attention."
+  brand_of_football: "Offense as identity — from Yeoman's Veer to Pardee's Run-and-Shoot to Keenum's air raid, Houston's brand is points; under Fritz it's added a physical, ball-control toughness."
+  cultural_footprint: "The hometown college team of a sprawling pro-sports city, and a historic platform for the Black quarterback — Ware's Heisman a landmark the program still carries with pride."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Houston went 10-3 in 2025 — its first 10-win season since 2021 — and beat LSU
+    38-35 in its bowl game under second-year coach Willie Fritz, tying for fourth in the Big 12. Houston joined the
+    Big 12 in 2023 after decades shut out of a power league. Reloading through the portal (including ex-Tulane back
+    Makhi Hughes) and ranked in early 2026 top-25 projections, the Cougars enter the season as a genuine Big 12
+    contender chasing the program's first power-conference title.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Houston_Cougars_football_team
+    - https://www.si.com/college/houston/football/why-houston-football-can-win-its-first-big-12-conference-championship-in-2026
+    - https://en.wikipedia.org/wiki/Houston_Cougars_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Houston is the Big 12 newcomer whose Case Keenum + Tom Herman + Dana Holgorsen eras and
+    2024 Big 12 entry define what historic-Texas-football looks like outside Austin.
+  mantra: Eat 'em up.
+  cultural_anchors:
+    fan_archetype_dominant: Houston-Cougar-Paw-Loyalist
+    outsider_archetype_dominant: Always-G5-Diminisher
+    one_sentence: Houston is the Big 12 newcomer whose Case Keenum NCAA record + Tom Herman 2015 Peach Bowl
+      + 2023 Big 12 conference entry built the modern multi-era identity.
+  selfname: the Cougars
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2011 13-1 + Case Keenum NCAA passing record
+    - 2015 13-1 + Peach Bowl championship under Tom Herman
+    - 2023 Big 12 entry from American Athletic
+    rituals:
+    - Cougar Paw
+    - Case Keenum NCAA Record (2011)
+    - Tom Herman 2015 Peach Bowl
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (59/100, n=54)
+    voice_profile: absent
+    delusion_premium: absent

@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: saint-anselm
+team_id: null
+program_name: Saint Anselm College
+program_tier: 6
+
+emotional_core:
+  primary: honor         # a Catholic liberal-arts school competing for love of the game and institutional pride
+  secondary: restoration  # the return to football in 1999 after a 58-year hiatus, building something enduring
+  one_line: "Saint Anselm is the Hawk that brought football home in 1999 after a 58-year World War II-era hiatus, building a regional identity around Catholic education and grit, now a Northeast-10 fixture."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "An iconic pre-WWII undefeated era (1930s, including 1936 perfect season with zero points allowed) vs a 58-year absence (1942-1998) vs the modern 1999+ rebuilding that's becoming respectable."
+
+the_wound:
+  name: "The 58-year silence and the identity loss"
+  detail: "Saint Anselm suspended football in 1942 due to World War II — a decision that meant the program lost its institutional memory, its traditions, its heroes. When football returned in 1999, it was a new entity at a 500-year-old school, building from scratch with no living memory of the 1930s glory. The wound is not recent loss but long forgetting."
+  handling: never-a-punchline
+  freshness: generational
+
+the_dream:
+  text: "Prove that a Catholic liberal-arts college can compete sustainably in the Northeast-10 and restore the pride that the pre-war football team carried."
+  drought: { since: 1942, unit: relevance }  # 1936 was the last great era before the hiatus
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — just the quiet institutional determination to reclaim a tradition that was lost to history."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that the 1936 undefeated season with zero points allowed is somehow still part of 2025 Saint Anselm's DNA — it is, spiritually, but the modern Hawks are building their own arc."
+
+the_grudge_texture:
+  rival: assumption
+  texture: blood-feud   # fellow Catholic NE programs, regional neighbors, authentic New England rivalry
+
+the_coach_relationship: legends-shadow     # coaching in the shadow of pre-war heroes and 1999 rebuilders
+the_internal_fracture: tradition vs modernity — the faction preserving the pre-1942 memory vs those building a new identity for the current era
+register: goffstown-hawks-catholic-restoration
+never_use:
+  - "Saint Anselm has no history — 1930s undefeated seasons and the 1936 perfect season are legitimate glory"
+  - "The hiatus means they're a new program — Saint Anselm returned in 1999 with legitimacy and institutional pride"
+  - "Can't be competitive because they're small — 5-5 in 2025 (5-4 NE10) shows competence at the level"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "A program with split identity — legendary pre-war dynasty (1930s, including the undefeated 1936 season with zero points allowed), a 58-year WWII-era suspension, and a modern rebuilding that began in 1999 and is now becoming a regional Northeast-10 competitor."
+  the_origin: "Saint Anselm fielded football as early as 1894 and enjoyed particular success in the 1930s, but suspended the program in 1942 due to World War II. When football returned in 1999, it was a restoration of an old tradition with new people and new energy."
+  golden_ages:
+    - { era: "1930s", what: "Pre-war undefeated seasons, including the 1936 perfect season where Saint Anselm allowed zero points and defeated Holy Cross" }
+    - { era: "1999-present", what: "Modern restoration, building competence in the Northeast-10 (third-place finish 2024, picked second in 2025 preseason poll)" }
+  legends:
+    - { name: "1936 undefeated team", role: roster/coach, why: "Perfect season with zero points allowed, beat Holy Cross, representing the height of pre-war Saint Anselm football" }
+  canonical_moments:
+    - { name: "1936 Perfect Season", year: 1936, what: "Saint Anselm goes undefeated, allows zero points on defense, recognized as best defensive record in college football", handling: glory }
+    - { name: "1942 Suspension", year: 1942, what: "Football suspended due to World War II — 58 years of silence", handling: wound }
+    - { name: "1999 Restoration", year: 1999, what: "Football returns to the Hilltop after 57 years, beginning a new era of Hawks football", handling: glory }
+  the_place: "Grappone Stadium in Goffstown, New Hampshire (near Manchester) — the home of Saint Anselm Hawks, where the college has rebuilt a tradition that was lost to time."
+  brand_of_football: "The Catholic liberal-arts competitor — disciplined, smart, competing for institutional pride and the joy of the game, not glory."
+  cultural_footprint: "Saint Anselm is proof that a small, academically strong Catholic college can build real football credentials. The 1936 perfect season is a historical touchstone; the modern program is a testament to institutional persistence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Saint Anselm finished the 2025 season 5-5 overall and 5-4 in Northeast-10 Conference play, marking the program's
+    27th year back on the Hilltop since returning in 1999. The Hawks had been picked second in the 2025 preseason poll and finished third in the NE10 in 2024,
+    showing a program that has stabilized after the 1999 restart. QB Drew Forkner threw for 1,854 yards and 13 TDs as a sophomore, while RB Jake Croce recorded
+    443 yards and seven TDs as a freshman before exploding in 2025. The Hawks' third-place finish in 2024 and preseason high expectations suggest Saint Anselm
+    is becoming a consistent Northeast-10 player. The question in Goffstown is whether the modern era can build sustainable relevance to match the 1930s standard.
+  research_checklist:
+    - Football dating to 1894
+    - 1930s undefeated seasons
+    - 1936 perfect season (9-0, zero points allowed)
+    - Suspended 1942-1998 (WWII-era decision)
+    - Returned 1999, 27 years of rebuilding
+    - 2025: 5-5 overall, 5-4 NE10
+  sources:
+    - https://www.northeast10.org/sports/fball/2019-20/releases/20190926m2c3oe
+    - https://saintanselmhawks.com/sports/football/opponent-history
+    - https://en.wikipedia.org/wiki/Saint_Anselm_Hawks

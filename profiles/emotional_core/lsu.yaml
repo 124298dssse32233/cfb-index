@@ -1,0 +1,116 @@
+# Emotional Core — LSU  (lsu)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live  (AUTHORED 2026-06-13, web-verified)
+slug: lsu
+team_id: 99
+program_name: LSU
+program_tier: 1
+
+emotional_core:
+  primary: standard       # championship pedigree + the loudest night in the sport — anything less than contention is unacceptable
+  secondary: restoration  # the live Kiffin bet to end the boom-bust
+  one_line: "LSU has three national titles since 2003 and the loudest night in football — and just ate a $54M buyout to bet that Lane Kiffin is the wild card who finally ends the boom-bust."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Three national titles since 2003 (2003, 2007, 2019) and a bottomless Louisiana talent pipeline vs a boom-bust pattern that fires a coach every few years chasing the next perfect season."
+
+the_wound:
+  name: "The boom-bust — a title, then a teardown"
+  detail: "LSU's championship seasons (the 15-0 2019 team especially) are followed by collapses and firings — Orgeron out two years after a title, Brian Kelly fired in October 2025 the day after a 49-25 home loss to Texas A&M. Greatness here is real but never sustained."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Bottle the 2019 magic for good — a fourth title, and a coach who makes Death Valley at night the center of the sport every November."
+  drought: { since: 2019, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The take that LSU is a sleeping giant that keeps hiring wrong — all that talent, all that money, a revolving door of coaches. The fanbase made the boldest bet in the sport that Lane Kiffin is the answer to the joke."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes the talent alone should mean titles — that Louisiana produces enough NFL players that LSU is one right coach from a dynasty, not a decade. The 2019 team is the proof it clings to."
+
+the_grudge_texture:
+  rival: alabama
+  texture: championship   # the SEC measuring-stick games — Saban's LSU roots make it personal
+
+the_coach_relationship: savior   # Lane Kiffin, the boldest hire in the sport, the new bet to end the cycle
+the_internal_fracture: win-now-at-any-cost vs we-keep-doing-this — the faction thrilled LSU paid anything for Kiffin vs the faction exhausted by the fire-and-hire cycle
+register: bayou-aristocrat-with-fangs
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Bayou Bengals — too cute
+  - Cajun — regional, not LSU specifically
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Saturday night in Death Valley — Tiger Stadium after dark, 100,000 at their loudest, the most intimidating environment in the sport. LSU is where Louisiana's bottomless football talent meets a night game that feels like a coronation or an execution."
+  the_origin: "The flagship of the most football-fertile state per capita in America; a program that won under Paul Dietzel (1958), then Nick Saban (2003), Les Miles (2007), and Ed Orgeron's perfect 2019 team."
+  golden_ages:
+    - { era: "2003–2007", what: "Saban's 2003 title and Les Miles's 2007 title" }
+    - { era: "2019 (Orgeron)", what: "A 15-0 perfect season behind Joe Burrow — one of the greatest teams ever assembled" }
+  legends:
+    - { name: Joe Burrow, role: player, why: "The 2019 Heisman and the perfect season — the modern LSU peak" }
+    - { name: Billy Cannon, role: player, why: "LSU's 1959 Heisman and the Halloween punt-return legend" }
+  canonical_moments:
+    - { name: "The 2019 perfect season", year: 2019, what: "15-0 and a national title behind Joe Burrow's record-shattering offense", handling: glory }
+    - { name: "The 2007 title (Les Miles)", year: 2007, what: "A two-loss national championship and the Mad Hatter's gambles", handling: glory }
+  the_place: "Tiger Stadium — 'Death Valley' — at night: the loudest, most intimidating home environment in college football."
+  brand_of_football: "NFL talent and night-game chaos — LSU mines the deep Louisiana pipeline and plays its biggest games under the lights, where the program is at its most dangerous."
+  cultural_footprint: "The Saturday-night center of a football-mad state; a program whose talent base means it is never rebuilding, only between coaches."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: LSU fired Brian Kelly on Oct 26, 2025 — the day after a 49-25 home loss to
+    Texas A&M — eating a $54M buyout, then hired Lane Kiffin away from Ole Miss (55-19 over six years, Ole Miss's
+    first-ever CFP berth in 2025). QB Garrett Nussmeier exhausted his eligibility for the NFL Draft; Kiffin rebuilt
+    the room through the portal, headlined by Arizona State transfer Sam Leavitt. The bet: that the boldest hire in
+    the sport finally ends LSU's boom-bust.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://www.espn.com/college-football/story/_/id/47182491/lane-kiffin-final-days-ole-miss-move-lsu
+    - https://www.nola.com/sports/lsu/lsu-athletic-director-lane-kiffin-brian-kelly-football/article_ed5f30af-3b66-46ae-af24-863ad5a6646b.html
+    - https://www.si.com/fannation/college/cfb-hq/news/major-college-football-coach-labeled-biggest-story-heading-into-2026-season-lane-kiffin-lsu-tigers
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: LSU is the program that does its loudest thinking at night.
+  mantra: Geaux Tigers.
+  cultural_anchors:
+    fan_archetype_dominant: Bayou Cathedral-Builder
+    outsider_archetype_dominant: Big-Easy-Chaos-Agent
+    one_sentence: LSU is the SEC's swamp-rock dynasty — refinement and menace in the same Saturday night.
+  selfname: the Tigers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2019 national championship
+    - Billy Cannon's 1959 Halloween punt return
+    - Joe Burrow
+    rituals:
+    - Death Valley at Night
+    - Mike the Tiger Walk
+    - Pre-Game Band on the Field
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: cooking (60/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

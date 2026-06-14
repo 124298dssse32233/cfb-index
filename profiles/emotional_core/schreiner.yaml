@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: schreiner
+team_id: null
+program_name: Schreiner University
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: contentment
+  one_line: "Schreiner is the Kerrville, Texas college in its inaugural football season (2025 developmental), stepping into Division III football for 2026 and joining the ASC."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A small liberal-arts college in the Texas Hill Country launching its first official football program and joining the American Southwest Conference in 2026."
+
+the_wound:
+  name: "None — it's day one of the program"
+  detail: "Schreiner had no Division III football program until 2025, when they began a developmental season. This is a brand-new story with no history to reference."
+  handling: dated-grievance
+  freshness: this-era
+
+the_dream:
+  text: "Succeed in the inaugural official 2026 season and establish Schreiner as a credible ASC competitor."
+  drought: { since: 2026, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Schreiner is playing for the honor of building something from nothing."
+
+the_delusion:
+  tone: earnest
+  text: "That an inaugural Division III program can compete immediately in the ASC — fans believe in the dream of building something special, knowing year one is just the beginning."
+
+the_grudge_texture:
+  rival: tbd
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "excitement about new identity vs realism about being brand-new"
+register: kerrville-texas-mountaineers
+never_use:
+  - Invented Division III football history (this program has none)
+  - Exaggerated 2025 developmental season significance (it's not official)
+  - Made this sound established (it's brand new)
+
+story_canon:
+  the_unique_thing: "The inaugural Division III football program at Schreiner University — launching in 2025 as a developmental team and joining the American Southwest Conference officially in 2026."
+  the_origin: "Schreiner University in Kerrville, Texas launched its first football program in 2025, beginning with a developmental season before joining the ASC in 2026."
+  golden_ages:
+    - { era: "2025 (current)", what: "Inaugural developmental season and foundation for the program" }
+  legends: []
+  canonical_moments:
+    - { name: "2025 inaugural developmental season", year: 2025, what: "Schreiner launches its first football program", handling: glory }
+    - { name: "2026 ASC inaugural year", year: 2026, what: "Schreiner joins the American Southwest Conference as an official member", handling: glory }
+  the_place: "Kerrville, Texas — the home of Schreiner University, located in the Texas Hill Country."
+  brand_of_football: "New, ambitious, built on the dream of establishing something from the ground up."
+  cultural_footprint: "A brand-new Division III program writing its own story from page one."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Schreiner University launched its inaugural football program in 2025 with a 5-1 developmental season record.
+    The Mountaineers will officially join the American Southwest Conference in the 2026–27 academic year. The program is brand new and in the process of building infrastructure,
+    recruiting, and establishing a competitive foundation. The question in Kerrville is whether Schreiner can establish itself as a credible Division III program and compete
+    in the ASC, or whether the transition from launch to official competition will prove challenging.
+  research_checklist:
+    - 2025 inaugural developmental season
+    - ASC membership transition timeline
+    - Coaching and administrative hiring
+    - Initial recruiting and roster building
+    - Facility development and institutional commitment
+  sources:
+    - https://en.wikipedia.org/wiki/Schreiner_University
+    - https://www.d3football.com/schools/schreiner
+    - https://schreinermountaineers.com/sports/football

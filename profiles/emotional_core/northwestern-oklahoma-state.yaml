@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: northwestern-oklahoma-state
+team_id: null
+program_name: Northwestern Oklahoma State
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: contentment
+  one_line: "Northwestern Oklahoma State is the Rangers—a small D2 program in Alva, Oklahoma that competes for the love of the game and the place it holds in a tiny town."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A tiny school in Alva, Oklahoma (population ~5,000) that maintains a college football program because the Rangers matter to the community—not because of winning history."
+
+the_wound:
+  name: "Perpetual struggle at the bottom of the GAC"
+  detail: "Northwestern Oklahoma State finished 2-9 in 2025. The program has rarely been competitive in Division II, a chronic underdog that plays knowing the odds are always against them."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a game—just one win that matters, one moment where the Rangers can point to and say this is why we play."
+  drought: { since: 1970, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe northwestern Oklahoma State has no chip. The Rangers play because Alva, Oklahoma needs them—because a small town deserves a college football team."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase knows the Rangers are not going to win a lot of games. But they show up anyway, because being from Alva means something, and the Rangers are part of that identity."
+
+the_grudge_texture:
+  rival: southwestern-oklahoma-state
+  texture: border-war
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: Searching for stability after multiple coaching changes
+register: alva-rangers-tiny-town-pride
+
+never_use:
+  - "Northwestern Oklahoma State should fold football"
+  - "The Rangers don't matter"
+  - "Small towns can't support D2 programs"
+  - "Alva is too small for college football"
+
+story_canon:
+  the_unique_thing: "Northwestern Oklahoma State is the Rangers—a D2 program in a town of 5,000 that plays football because it's essential to the community identity, regardless of winning."
+  the_origin: "Northwestern Oklahoma State was founded in 1897 in Alva, Oklahoma. The football program has been part of Alva's identity for over a century, even through losing periods."
+  golden_ages:
+    - { era: "Pre-2010s", what: "Northwestern Oklahoma State had competitive seasons in earlier eras" }
+  legends:
+    - { name: Ronnie Jones, role: coach, why: "Outgoing coach tasked with maintaining the Rangers program through difficult years" }
+    - { name: Jerry Partridge, role: coach, why: "Incoming coach hired December 2025 to lead the Rangers into the 2026 season" }
+  canonical_moments:
+    - { name: "Sustained Participation", year: null, what: "Northwestern Oklahoma State continues to compete in D2 as a statement of community and place", handling: glory }
+  the_place: "Ranger Field in Alva, Oklahoma (capacity 6,000, built 1969)—home of the Rangers, where a tiny town's pride is played out every fall."
+  brand_of_football: "Community football. The kind where the stadium is the center of the town, and every game is a social event."
+  cultural_footprint: "Northwestern Oklahoma State is proof that a tiny Oklahoma town can maintain a D2 football program for over a century, because the Rangers are not just a team—they're Alva."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Northwestern Oklahoma State finished 2-9 (2-9 GAC) in 2025 under
+    outgoing head coach Ronnie Jones. The Rangers have struggled to find competitive footing in Division II.
+    Jerry Partridge was hired in December 2025 to take over as head coach and attempt to turn around the program.
+    The question for 2026: can Partridge bring stability and improvement to a Rangers program that has been searching
+    for consistency?
+  research_checklist:
+    - Northwestern Oklahoma State's founding in 1897
+    - the Rangers' history in Alva and the small-town connection
+    - Ranger Field construction and capacity
+    - recent coaching changes (Ronnie Jones to Jerry Partridge)
+    - 2025 season results and roster state
+    - conference standings
+  sources:
+    - https://en.wikipedia.org/wiki/Northwestern_Oklahoma_State_Rangers_football
+    - https://riderangersride.com/sports/football/schedule/2025
+    - https://greatamericanconference.com/standings.aspx?path=football

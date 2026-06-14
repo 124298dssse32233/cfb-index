@@ -1,0 +1,84 @@
+# Emotional Core — Seton Hill University  (seton-hill)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Status: live | Tier: 6 (Division II PSAC) | Authored 2026-06-13
+
+status: live             # todo | drafted | authored | reviewed | live
+slug: seton-hill
+team_id: 234            # placeholder; verify against CFBD ID mapping
+program_name: Seton Hill University
+program_tier: 6         # Division II PSAC
+
+emotional_core:
+  primary: restoration          # Kevin May in year two, rebuilding from a 4-7 inaugural season
+  secondary: house-money        # small Catholic program building identity with internal HC promotion
+  one_line: "Seton Hill is the PSAC program rebuilding with house money — Kevin May, promoted from defensive coordinator, takes year two to prove his elevation was the right call."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A 4-7 inaugural season under Kevin May vs a rebuilt 2026 roster that aims to prove the first year was foundation-building, not evidence of failure."
+
+the_wound:
+  name: "Inaugural year struggles"
+  detail: "Kevin May's first season as head coach (2025) produced a 4-7 record and 2-4 PSAC West mark, tied for 5th in the division. The program must prove year two brings improvement."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build a winning PSAC West program from within — Kevin May's elevation from DC signals that Seton Hill wants a coach who understands the program. Year two must show results."
+  drought: null  # new program regime; no historical drought
+
+the_chip:
+  villain: national_media
+  text: "Seton Hill is a small Catholic university not Alabama. The fanbase knows getting a 4-7 year is not unusual for a building program. They believe in May's elevation and trust his vision."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Kevin May's promotion proves the administration is patient and committed — that year two will show significant improvement from a young, building program."
+
+the_grudge_texture:
+  rival: none-defined
+  texture: border-war
+
+the_coach_relationship: savior       # May was promoted from DC; he understands the program culture
+the_internal_fracture: null                    # unified around giving May time to build
+register: seton-hill-griffin-believer
+never_use:
+  - "Failed program — 4-7 is year one of a rebuild, not evidence of collapse"
+  - "Seton Hill is too small for football — Catholic identity is an asset, not a liability"
+
+# ── STORY CANON (doc 64) ────────────────────────────────────────────────────
+story_canon:
+  the_unique_thing: "Seton Hill is the small Catholic PSAC program betting on internal coaching elevation — Kevin May, the defensive coordinator, was promoted to head coach to build sustained winning."
+  the_origin: "Seton Hill University (1883–), a small Catholic university in Greensburg, PA (east of Pittsburgh), fielding Griffins football with Catholic identity and regional pride."
+  golden_ages: []
+  legends:
+    - { name: Kevin May, role: coach, why: "Promoted from defensive coordinator to head coach in 2025; spent six seasons building the Seton Hill defense before elevation." }
+  canonical_moments: []  # program is building its modern narrative under May
+  the_place: "Seton Hill's football stadium in Greensburg — home to the Griffins, representing Catholic higher education in the PSAC."
+  brand_of_football: "Defensive-minded football — Kevin May's background as DC shows in the program's approach to the game."
+  cultural_footprint: "A small Catholic program building identity through internal investment — elevating May signals long-term commitment to sustainable winning."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Kevin May enters his second season as Seton Hill head coach after a 4-7
+    inaugural year and 2-4 PSAC West record. The Griffins finished tied for 5th in the division, showing room for
+    improvement across the roster. With an internal promotion from DC and a full year to shape the program,
+    May aims to demonstrate that year two brings marked improvement and that Seton Hill is building a sustainable
+    PSAC West contender.
+  research_checklist:
+    - Kevin May's background as Seton Hill's defensive coordinator
+    - The 2025 season breakdown: 4-7 record, PSAC West finish, key gaps
+    - Seton Hill's recruiting trajectory and returning talent
+    - Catholic university identity and how it ties to the program culture
+  sources:
+    - https://athletics.setonhill.edu/staff-directory/kevin-may/194
+    - https://athletics.setonhill.edu/news/2025/6/6/footballs-day-steps-down-dc-kevin-may-promoted-to-head-coach.aspx
+    - https://en.wikipedia.org/wiki/Kevin_May
+
+# ── BRIEFING (read-only context; NOT part of published core) ──
+briefing:
+  identity_phrase: "Seton Hill is the small Catholic PSAC program promoting from within — Kevin May elevated from DC to head coach, year two is the real test."
+  mantra: "Go, Griffins!"
+  cultural_anchors:
+    fan_archetype_dominant: "Seton-Hill-Griffin-May-Believer"
+    outsider_archetype_dominant: "Small-Program-Building-Observer"
+    one_sentence: "Seton Hill is the small Catholic PSAC program betting on Kevin May's elevation from DC to head coach to build sustained winning."
+  selfname: "the Griffins"

@@ -1,0 +1,121 @@
+# Emotional Core — BYU  (byu)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: byu
+team_id: 305
+program_name: BYU
+program_tier: 3
+
+emotional_core:
+  primary: honor          # a program that wins on its own terms — faith, the Honor Code, patience — and refuses to apologize for it
+  secondary: house-money  # after a generation of wandering, a 12-2 Big 12 near-title run is pure upside
+  one_line: "BYU is the program that won a national title in 1984, spent four decades in the wilderness waiting for a seat at the table, and in 2025 came within a Big 12 title game of cashing in the patience."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 1984 national championship and a Quarterback U lineage vs four decades of conference exile, a long independent purgatory, and a present finally spent proving it belongs in a Power league."
+
+the_wound:
+  name: "One game short of the breakthrough"
+  detail: "The 2025 Cougars went 12-2, but a 34-7 loss to Texas Tech in the Big 12 Championship Game ended the Playoff dream and the league-title chase in the same night — the closest BYU has come to validating the Big 12 move, and a reminder of exactly how much is left to finish."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Big 12 outright and reach the Playoff — turn the long road out of independence into a seat at the real table, and prove the patience was an investment, not a sentence."
+  drought: { since: 1984, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Cougar fans have heard for years that the schedule was soft, that the faith makes the program a curiosity, that the wins came against nobody — and they say the 2025 Big 12 run answered all of it at once, on the field, against Power competition."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes the patience always pays — that a program built on faith, the Honor Code, and a national following will outlast every realignment and every doubt, and that the seat at the table was always coming if they just kept the faith long enough."
+
+the_grudge_texture:
+  rival: utah
+  texture: blood-feud   # the Holy War — the in-state, cross-faith rivalry that defines Utah football
+
+the_coach_relationship: forever-ours   # Kalani Sitake, an alum, turned down Penn State to stay; he is the program's own
+the_internal_fracture: faith-first vs win-first — the faction that treats the religious identity and Honor Code as the whole point, even at a recruiting cost, vs the faction that wants BYU to do whatever the Power-conference arms race demands to win now
+register: independent-faith-tradition
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Cult program — Honor Code is structural, not pejorative
+  - Mormon Mafia — never used to describe the program
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "BYU is Quarterback U with a national championship and a religious mission — the only program whose identity is inseparable from its faith, the school of the LDS Church, that out-threw everyone in the 1980s and won it all in 1984 from outside the traditional power structure."
+  the_origin: "The flagship university of the Church of Jesus Christ of Latter-day Saints in Provo, Utah, with a worldwide following of members and returned missionaries — a program that built a passing dynasty under LaVell Edwards when the rest of the sport still ran the ball."
+  golden_ages:
+    - { era: "1972–2000 (LaVell Edwards)", what: "The forward-pass revolution and a 1984 national championship — a small religious school beating the blue bloods through the air" }
+    - { era: "1990 (Ty Detmer)", what: "Detmer's Heisman Trophy, the headline year of the Quarterback U era" }
+  legends:
+    - { name: LaVell Edwards, role: coach, why: "The passing-game pioneer who built the program and won 1984; the stadium bears his name" }
+    - { name: Ty Detmer, role: player, why: "1990 Heisman winner; the apex of the QB factory" }
+    - { name: Steve Young, role: player, why: "The All-American who became an NFL Hall of Famer — the most famous Cougar" }
+  canonical_moments:
+    - { name: "1984 national championship", year: 1984, what: "A 13-0 season ends with the title — a non-blue-blood out of the WAC wins it all", handling: glory }
+    - { name: "Detmer's Heisman", year: 1990, what: "Ty Detmer wins the Heisman, the crown of the QB-U lineage", handling: glory }
+    - { name: "Hail Mary vs SMU", year: 1980, what: "Jim McMahon's 'Miracle Bowl' comeback caps a 46-45 Holiday Bowl win", handling: miracle }
+  the_place: "LaVell Edwards Stadium in Provo — named for the architect of the program — set against the Wasatch Range, where 'Rise and Shout,' Cosmo the Cougar, and a national LDS following fill a venue that doubles as a gathering place for the faith."
+  brand_of_football: "The passing tradition — BYU threw the ball when no one else would and made it the program's signature; a disciplined, faith-anchored, Honor-Code program that wins on its own terms."
+  cultural_footprint: "The football team of a global faith — a program followed by Church members and returned missionaries worldwide, the rare school whose religious identity is the brand, not a footnote."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: BYU's 2025 season was one of the best in program history — 12-2 (8-1
+    Big 12), a run to the Big 12 Championship Game (a 34-7 loss to Texas Tech), and a Pop-Tarts Bowl win over
+    Georgia Tech. Kalani Sitake, the alumnus head coach, won Big 12 Coach of the Year and turned down Penn
+    State to stay. With Sitake and freshman-sensation QB Bear Bachmeier both returning, BYU enters 2026 a
+    consensus top-15 team and a genuine Big 12 contender — the patience of the long road out of independence
+    finally paying real dividends.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_BYU_Cougars_football_team
+    - https://byucougars.com/news/2026/01/29/highly-impactful-2025-football-season-among-byus-best-ever
+    - https://www.deseret.com/sports/2025/12/06/byu-cougars-football-lose-big-12-championship-texas-tech-3-takeaways/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: BYU is the program with a national title, a religious identity, and the longest patience
+    in college football.
+  mantra: Rise and Shout.
+  cultural_anchors:
+    fan_archetype_dominant: LDS-Faithful-Patient
+    outsider_archetype_dominant: Honor-Code-Skeptical-Outsider
+    one_sentence: BYU is the program whose religious identity and 1984 national title both predate every
+      modern conference move and survive every realignment.
+  selfname: the Cougars
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1984 national championship under LaVell Edwards
+    - Quarterback U lineage (Ty Detmer, Steve Young, Jim McMahon, Robbie Bosco)
+    - 2023 Big 12 move (post-independent)
+    rituals:
+    - Rise and Shout
+    - Cosmo the Cougar
+    - Honor Code Adherence
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (47/100, n=166)
+    voice_profile: absent
+    delusion_premium: absent

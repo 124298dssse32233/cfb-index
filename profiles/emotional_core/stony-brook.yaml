@@ -1,0 +1,110 @@
+# Emotional Core — Stony Brook  (stony-brook)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: stony-brook
+team_id: 1111
+program_name: Stony Brook
+program_tier: 2
+
+emotional_core:
+  primary: redemption
+  secondary: house-money
+  one_line: "Stony Brook went 0-10 in 2023, hired Billy Cosh, went 8-4 the next year, and finished 6-6 in 2025 — the Seawolves are the most dramatic FCS turnaround story in recent memory, still figuring out whether the Cosh era is a rebuild or the beginning of something real."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program with four straight Big South titles (2009-2012) and two FCS playoff wins that collapsed to 0-10 before Billy Cosh's immediate turnaround — the Seawolves know their ceiling and are chasing it again from Long Island."
+
+the_wound:
+  name: "The 0-10 collapse of 2023"
+  detail: "Stony Brook went winless in 2023 — a complete program implosion that led to the firing of Chuck Priore after years of below-.500 finishes. The 0-10 season was the nadir of a program that had won four straight conference titles from 2009 to 2012. The wound is recent and remembered; the Cosh era is the direct response."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the FCS playoffs and revive the Big South dynasty standard — win nine or more games in the CAA and prove Stony Brook is a returning FCS power, not a one-year bounce."
+  drought: { since: 2018, unit: relevance }
+
+the_chip:
+  villain: committee
+  text: "The room says Stony Brook won four straight conference titles, made multiple FCS playoff runs, and still gets treated as an afterthought from Long Island — that the 2023 collapse was a coaching problem, not a program problem, and Cosh has already proven it by going 8-4 in year one."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans say Billy Cosh's immediate 8-4 turnaround from 0-10 means the program culture is sound and the talent was always there — they believe the 6-6 2025 sophomore slide is noise, and Stony Brook will be back in the FCS playoff picture within two seasons."
+
+the_grudge_texture:
+  rival: albany
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: turnaround-believers vs prove-it-skeptics — the faction fully bought in on Billy Cosh after the 8-4 miracle vs the faction that saw the 0-10 foundation and needs a playoff bid before extending full faith
+
+register: stony-brook-seawolves-long-island-cosh-turnaround-caa
+never_use:
+  - "Long Island has no football culture — four straight Big South titles (2009-2012) and multiple FCS playoff wins disprove that"
+  - "The 0-10 defines them — Cosh's immediate 8-4 turnaround is the most relevant recent data point, not the floor"
+
+story_canon:
+  the_unique_thing: "The most dramatic FCS turnaround in recent memory — Stony Brook went 0-10 in 2023, hired Billy Cosh, went 8-4 the next season (winning CAA Coach of the Year), and did it all from a state research university on Long Island that most people think of as a basketball campus."
+  the_origin: "Stony Brook transitioned to Division I in 1999 and immediately built a dynasty — winning NEC and Big South championships and making multiple FCS playoff runs. The program joined the CAA in 2013, had two solid seasons, then spent five-plus years below .500 before the 2023 collapse and the Cosh rebuild."
+  golden_ages:
+    - { era: "2009-2012 (Big South dynasty)", what: "Four straight Big South championships and multiple FCS playoff wins — the program's peak, including two postseason victories" }
+    - { era: "2024 (Cosh miracle turnaround)", what: "From 0-10 in 2023 to 8-4 in 2024 — Billy Cosh wins CAA Coach of the Year in his first season, Roland Dempster rushes for 1,332 yards and 18 TDs" }
+  legends:
+    - { name: Chuck Priore, role: coach, why: "Built the 2009-2012 dynasty — four straight conference titles and the foundation that made Stony Brook an FCS playoff program" }
+    - { name: Billy Cosh, role: coach, why: "Turned a 0-10 disaster into an 8-4 season in one year — the fastest FCS turnaround in the modern era; CAA Coach of the Year 2024" }
+    - { name: Roland Dempster, role: player, why: "All-American running back who ran for 1,332 yards and 18 TDs in the 2024 turnaround season" }
+  canonical_moments:
+    - { name: "2009-2012 Big South four-peat", year: 2012, what: "Four straight Big South championships and the program's FCS playoff breakthrough era", handling: glory }
+    - { name: "2023 winless season", year: 2023, what: "Stony Brook goes 0-10 — the nadir of the program's history and the end of the Priore era", handling: wound }
+    - { name: "2024 turnaround — 8-4", year: 2024, what: "Billy Cosh's first season: from 0-10 to 8-4, the most dramatic FCS single-season turnaround in recent memory", handling: glory }
+  the_place: "LaValle Stadium in Stony Brook, New York — the Long Island home of a program whose championship history is one of FCS's underappreciated stories."
+  brand_of_football: "Run-first, defense-focused, blue-collar Long Island football — the Cosh system built around Roland Dempster and the run game that shocked the CAA in 2024."
+  cultural_footprint: "The FCS program that proved Long Island football is real — four straight Big South titles, a miracle turnaround, and a rivalry with Albany that defines the program's identity in the CAA era."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Stony Brook finished 6-6 (4-4 CAA) in 2025 — Billy Cosh's
+    second season, a step back from the 8-4 miracle year but still a winning record for a program that
+    was winless just two years earlier. The Seawolves averaged 238.2 passing yards per game (4th in CAA)
+    and 19 touchdown passes in 2024; the 2025 slide suggests defensive regression from Cosh's first year.
+    The rivalry with Albany — the Battle for the Apple — remains the emotional center of Stony Brook's
+    CAA schedule. The program enters 2026 needing a 7-plus win season to prove the turnaround era is
+    sustainable, not a one-year wonder.
+  sources:
+    - https://en.wikipedia.org/wiki/Stony_Brook_Seawolves_football
+    - https://greaterlongisland.com/how-billy-cosh-flipped-stony-brooks-football-program-around-in-1-year/
+    - https://en.wikipedia.org/wiki/2025_Stony_Brook_Seawolves_football_team
+
+briefing:
+  identity_phrase: Stony Brook is the 0-10 disaster that Billy Cosh turned into an 8-4 winner in one season — the most dramatic FCS turnaround in recent memory, built on four earlier Big South titles and a rivalry with Albany that defines Long Island FCS football.
+  mantra: Go Seawolves.
+  cultural_anchors:
+    fan_archetype_dominant: Long-Island-FCS-Believer
+    outsider_archetype_dominant: Research-School-Football-Skeptic
+    one_sentence: Stony Brook is the 0-10 to 8-4 turnaround story under Billy Cosh — built on four Big South titles, Roland Dempster's All-American season, and the belief that Long Island football is real.
+  selfname: the Seawolves
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Billy Cosh
+    era_name_overrides: {}
+    always_surface:
+      - Four straight Big South championships (2009-2012)
+      - 0-10 in 2023 and 8-4 in 2024 — the Cosh turnaround
+      - Roland Dempster All-American (1,332 yards, 18 TDs in 2024)
+      - Battle for the Apple vs Albany
+    rituals:
+      - LaValle Stadium
+      - Battle for the Apple
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

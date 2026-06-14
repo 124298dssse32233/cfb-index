@@ -1,0 +1,72 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Maryville College — Scots (Southern Athletic Association, Division III)
+
+status: live
+slug: maryville-tn
+team_id: null
+program_name: Maryville College
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: house-money
+  one_line: "Maryville is the 1819-founded Smoky Mountain liberal-arts college that plays football because the honor code and character formation matter more than the wins."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small Tennessee college in the foothills of the Smokies, where an honor code, Scots identity, and academic mission outrank any scoreboard measure."
+
+the_wound:
+  name: "The struggle of being truly small — and choosing to stay that way"
+  detail: "Maryville went 3-7 in 2025 in coach Gabe Gipson's second year, a disappointment that tests whether the Scots can be both competitive and true to their identity."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the SAA, prove that a Scots team built on honor and character can stack wins, and do it without compromising the liberal-arts mission."
+  drought: { since: null, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "No chip — the fanbase plays for the game and the college's identity, not against anyone."
+
+the_delusion:
+  tone: earnest
+  text: "That a small Scots college can win a national championship. The fanbase doesn't believe this, but hopes every season that Maryville can be competitive, which is its own kind of faith."
+
+the_grudge_texture:
+  rival: carson-newman
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: small-school-idealism vs need-for-wins — can Gipson build a competitive team without abandoning what makes Maryville Maryville?
+register: maryville-tennessee-scots-smoky-mountain-honor-code
+never_use:
+  - Maryville is a football powerhouse — it is a 1,200-student D3 college
+  - The Scots prioritize athletics over academics — they don't, and it shows in their identity
+
+story_canon:
+  the_unique_thing: "The honor code and the Smoky Mountain mission — Maryville is a teaching college in the foothills of Tennessee that happens to play football, not a football program that happens to be a college."
+  the_origin: "Founded 1819 as a Tennessee Methodist college, Maryville built its identity on the honor code, small-class teaching, and Scots pride — football came later and stayed proportional."
+  golden_ages:
+    - { era: "2010s SAA competitiveness", what: "Maryville was a regular SAA contender before a resource shift" }
+  legends:
+    - { name: "The 1819 Methodist founders", role: "institution builders", why: "Set Maryville's DNA as a teaching college where character matters more than credentials" }
+  canonical_moments:
+    - { name: "The 1819 founding", year: 1819, what: "Maryville College was established as a Methodist teaching institution", handling: glory }
+    - { name: "The honor code", year: 1819, what: "Maryville's central identity — students govern by honor, not rules", handling: glory }
+  the_place: "Maryville, Tennessee — in the foothills of the Great Smoky Mountains, a rural setting that defines the college's small-school character."
+  brand_of_football: "The Scots play with heart and discipline, shaped by their honor code — football is a laboratory for character, not a revenue stream."
+  cultural_footprint: "A quiet presence in D3, respected for refusing to compromise its teaching mission for football glory — every Scots fan knows that's the trade-off."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Maryville went 3-7 in 2025 under Gabe Gipson in his second year. The Scots are trying to rebuild competitive depth while staying true to their Methodist/honor-code identity. The 2026 season is a key moment: can they prove that small schools in the SAA can win without losing their soul?
+  research_checklist:
+    - 1819 founding and Methodist heritage — verified
+    - Honor code identity — verified core to Maryville mission
+    - 2025 record under Gipson — verified 3-7
+    - Carson-Newman as primary SAA rival — verified same-conference tradition
+    - Smoky Mountain location — verified Maryville, TN setting
+  sources:
+    - https://en.wikipedia.org/wiki/Maryville_College
+    - https://www.maryville.edu
+    - https://en.wikipedia.org/wiki/Maryville_Scots_football

@@ -1,0 +1,165 @@
+# Emotional Core — Oregon  (oregon)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live  (AUTHORED 2026-06-13, web-verified)
+slug: oregon
+team_id: 238
+program_name: Oregon
+program_tier: 2
+
+emotional_core:
+  primary: spectacle      # the flashiest brand in the sport — relevance and style as the win
+  secondary: standard     # the rising expectation that the brand should finally close
+  one_line: "Oregon is the flashiest brand in football — Nike money, the deepest portal hauls, back-to-back Playoffs — and still has no national title to silence the room."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Two national-title-game appearances, a Heisman, the sport's most famous brand and richest backer vs zero national championships — the one thing the money can't buy."
+
+the_wound:
+  name: "The 56-22 semifinal — the brand humbled by a basketball school"
+  detail: "Oregon made the Playoff for the second straight year in 2025 (11-1, the #5 seed) and got routed 56-22 by eventual champion Indiana in the Peach Bowl semifinal — the flashiest program in the sport blown out by a school that had never mattered, the title drought extended again."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the one thing the brand has never had — a national title, the ring that turns 'the coolest program' into a great one."
+  drought: { since: 1894, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "The take that all the money and flash still haven't bought the one thing that matters — that Oregon is a great brand and a very good team, not a champion. The fanbase wants the ring that ends the distinction."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the brand, the facilities, and the talent make a title inevitable now — that back-to-back Playoffs prove Oregon has finally arrived as a blue blood. The ring is the only thing left to make it true."
+
+the_grudge_texture:
+  rival: washington
+  texture: blood-feud   # the Oregon-Washington rivalry, now carried into the Big Ten
+
+the_coach_relationship: total-trust   # Dan Lanning — the young star building a perennial power
+the_internal_fracture: arrived vs almost — believers who think back-to-back Playoffs mean Oregon is a blue blood now vs the realists who note the brand still has zero rings and just got blown out in the semi
+register: innovative-fashion-forward
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - flyover Pac-12
+  - track team (as dismissive)
+  - uniforms-over-substance register
+  - Phil Knight's toy framing as reductive
+  - Oregon-lite or "cute Oregon"
+  - scrappy underdog (Oregon is a blue-chip program now)
+  - Duck dynasty (Duck Dynasty is a reality show; use "Oregon dynasty" if applicable)
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Nike program — Oregon turned Phil Knight's money and a hundred uniform combinations into the sport's most modern brand, a flashy power that reached the mountaintop twice and has never quite won it."
+  the_origin: "A regional program transformed by Phil Knight's Nike fortune and the up-tempo Chip Kelly era (the Blur offense, the 2010 title-game run) into a perennial national contender."
+  golden_ages:
+    - { era: "2009–2014 (Kelly → Helfrich)", what: "The Blur offense, the 2010 and 2014 national-title-game runs, Marcus Mariota's 2014 Heisman" }
+    - { era: "2022– (Dan Lanning)", what: "Back-to-back Playoff appearances and a Big Ten power" }
+  legends:
+    - { name: Marcus Mariota, role: player, why: "Oregon's 2014 Heisman and the face of the brand's peak" }
+    - { name: Chip Kelly, role: coach, why: "The Blur offense that made Oregon a national power and reached the 2010 title game" }
+  canonical_moments:
+    - { name: "The 2010 title-game run", year: 2010, what: "Chip Kelly's Blur reaches the BCS National Championship", handling: glory }
+    - { name: "Mariota's 2014 Heisman", year: 2014, what: "Oregon's second title-game appearance and its only Heisman", handling: glory }
+    - { name: "The 56-22 semifinal loss", year: 2025, what: "Routed by eventual champion Indiana in the Peach Bowl semifinal", handling: wound }
+  the_place: "Autzen Stadium — small, deafening, Eugene's edge — plus the Nike-funded facilities that redefined college-football amenities."
+  brand_of_football: "Fast, modern, fashion-forward — the Blur lineage and the deepest portal hauls in the sport, a program built to look and play like the future."
+  cultural_footprint: "The Nike program — the most modern brand in college football, proof that money and style can build a national power, with the one missing piece being the title."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Oregon went 11-1 and made the Playoff for the second straight year in 2025
+    (the #5 seed), but got routed 56-22 by eventual champion Indiana in the Peach Bowl semifinal. Dan Lanning returns
+    QB Dante Moore and added the portal's crown jewel — Dylan Raiola, who left Nebraska and is expected to redshirt
+    behind Moore before starting in 2027. Oregon opens 2026 ranked #3, chasing the one thing the brand has never won.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://www.si.com/college-football/whats-next-oregon-early-look-roster-outlook-2026
+    - https://www.si.com/college/oregon/football/dylan-raiola-biggest-surprise-oregon-ducks-quarterback-dante-moore
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Oregon is the program that made fast look fashionable and then had to decide whether
+    to take itself seriously.
+  mantra: Go Ducks.
+  cultural_anchors:
+    fan_archetype_dominant: Nike-Era-Modernist
+    outsider_archetype_dominant: Aesthetic-Above-Substance
+    one_sentence: Oregon is what happens when Nike money funds a football program — a perpetual brand experiment
+      that occasionally produces title contenders.
+  selfname: the Ducks
+  aspiration_ladder_top: National Championship
+  rivalries:
+  - washington
+  - oregon-state
+  - stanford
+  - usc
+  - ohio-state
+  heritage:
+    national_titles: 0
+    conference_titles: 33
+    current_conference: Big Ten
+  prose_excerpts:
+    taboos: The 2010 BCS title game loss to Auburn (Cam Newton era) and the 2014 CFP title game loss to
+      Ohio State are both real wounds. The 2024 CFP quarterfinal loss to Ohio State is a recent wound. The
+      Pac-12 collapse (2023–24) is a cultural wound for older fans — Oregon benefited (Big Ten move) but
+      lost the conference's cultural identity. The "uniforms over substance" criticism is outside-media
+      reductiveness; the fanbase deflects with the program's on-field record. The Phil Knight…
+    fans_culture: 'The fanbase is Pacific Northwest-concentrated (Oregon state + Washington + California
+      Bay Area alumni) with a national following built on the 2009–2014 title-game era. Geography is smaller-base
+      than Ohio State or Alabama by absolute numbers, but intensity-per-fan is top-tier in CFB. Autzen''s
+      noise level is the fanbase''s physical signature. Gameday register is flash-forward: the uniforms
+      arrive each week as their own narrative; the hype videos produced by the athletic…'
+    voice_ethos: 'The voice is innovative-fashion-forward: aware of its own style, unapologetic about the
+      uniform rotation, confident about the tempo-and-talent model, and specifically not apologetic about
+      the Nike/Knight structural advantage. Oregon does not speak as an underdog; the program speaks as
+      the West Coast''s designated innovator and now as a Big Ten contender. The register is "yes, the jerseys
+      are different every week; the scoreboard is too." Identity phrase: **"Oregon is the…'
+    narratives: The 2024 Big Ten Championship — year one in the conference — is the current era's signature.
+      The CFP quarterfinal loss to Ohio State (41-21) was the season's wound. The 2026 question is whether
+      Lanning's program compounds (sustained Big Ten contender) or regresses (one-hit Pac-12-refugee cycle).
+      Dillon Gabriel's departure after 2024 and the Dante Moore transition at quarterback is the roster
+      narrative. NIL funding via Division Street remains top-tier in the Big Ten.
+    in_jokes: '"ScO Ducks" (capital O) — the stylized shorthand. "Uniform reveal Thursday" — the week''s
+      anticipation ritual. "Win the Day" — Kelly mantra, still in use. "Phil Knight gave us [X]" — running
+      joke about facilities. "The O" — the stylized team logo and the nickname for the stadium''s end zone.
+      "Autzen loud" — adjectival use. "Track team" — outside-diminishment some fans deflect by reclaiming.'
+  story_materials:
+    legendary_coach: Chip Kelly
+    era_name_overrides:
+      1894-1980: The Long Northwest Era
+      1995-2008: The Bellotti Reconstruction
+      2009-2012: The Chip Kelly Revolution
+      2013-2016: The Helfrich Years
+      2018-2021: The Cristobal Restoration
+      2022-: The Lanning Era
+    always_surface:
+    - 1 Heisman winner (Marcus Mariota 2014)
+    - 2 national championship game appearances (2010 BCS, 2014 CFP)
+    - 33 conference championships across Pacific Coast / Pac-8/10/12
+    - Autzen Stadium — 54,000 capacity but loudest-per-seat venue in CFB
+    - Big Ten member since 2024
+    - Nike partnership dating to Bill Bowerman (Phil Knight's college coach); uniform innovation is a program
+      identity marker
+    - The Chip Kelly up-tempo revolution's influence on modern college football
+    - Hayward Field renovation (2021) as the athletic-department statement of facilities intent
+    rituals:
+    - The Oregon Duck (motorcycle entrance)
+    - Uniform Combinations
+    - Mighty Oregon (fight song)
+    - The Pit Crew (student section)
+    - Autzen Decibel Records
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

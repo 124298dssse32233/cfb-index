@@ -1,0 +1,69 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+status: live
+slug: howard
+team_id: null
+program_name: Howard University
+program_tier: 5
+
+emotional_core:
+  primary: standard
+  secondary: honor
+  one_line: "Howard is the prestige HBCU whose Showtime Marching Band and cultural legacy define Black excellence in Washington, D.C.—a program where reputation exceeds record but never dismisses ambition."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A historically premier HBCU with a worldwide-famous marching band and unmatched cultural prestige vs. a football program struggling to match the institution's renown—a paradox of status and performance."
+
+the_wound:
+  name: "The credibility gap"
+  detail: "Howard's Showtime Marching Band is globally respected, the football program is not. The 2025 season (5–7) felt like a continuation of a wound: the Bison have won just a handful of MEAC titles in the modern era, and recruiting struggles against peers who deliver on-field success alongside cultural prestige. For a program housed in the Chadwick A. Boseman College of Fine Arts, the football field has become a secondary stage."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that Howard football can be a platform worthy of the Showtime legacy—a MEAC title that forces national media to take the Bison seriously, not just the band."
+  drought: { since: 2007, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "The fanbase knows Showtime is globally recognized while the football team remains a footnote. Every Bison loss feels like a wound to institutional pride—the disconnect between what Howard is and what its football program achieves."
+
+the_delusion:
+  tone: earnest
+  text: "That the cultural gravity of the institution and the Showtime band's global reach will eventually translate to sustained football dominance—the fanbase believes Howard's time is coming, and a culture change can restore the Bison to title contention."
+
+the_grudge_texture:
+  rival: delaware-state
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: Band-first pride vs. football-first ambition—the faction that sees Showtime's legacy as sufficient institutional identity vs. those demanding Larry Scott's sixth season finally delivers a MEAC title
+register: washington-dc-bison-showtime-cultural-prestige
+never_use:
+  - "Howard is not an HBCU power" # 2007 conference title + decades of MEAC prominence
+  - "The band overshadows the team" # False dichotomy; both can succeed
+  - "A program in decline" # Stable under Coach Scott; 5–7 is rebuilding, not collapse
+
+story_canon:
+  the_unique_thing: "Showtime Marching Band—the world-renowned Howard University marching ensemble, central to the Chadwick A. Boseman College of Fine Arts. Showtime includes the Dazzlin' Diamonds baton twirlers, Flashy Flags, Ooh La La! dancers, and Thunder Machine percussion. The ensemble is globally recognized for choreography, musicality, and elaborate productions; Showtime is not a marching band—it's a cultural institution."
+  the_origin: "Howard University was founded in 1867 as one of the first Historically Black Universities. The football program was established in the early 1900s as part of the athletic tradition. Showtime Marching Band emerged as a cultural centerpiece of HBCU identity, representing Howard's commitment to excellence in the performing arts."
+  golden_ages:
+    - { era: "1990s–2000s", what: "Showtime Marching Band gains international reputation; Howard wins multiple MEAC championships and maintains competitive status in the conference" }
+    - { era: "2007 MEAC Championship", what: "Howard wins conference title and builds on decades of MEAC prominence" }
+  legends:
+    - { name: Showtime Marching Band, role: ensemble, why: "World-class performing ensemble integral to Howard's cultural identity and a global ambassador for HBCU excellence" }
+    - { name: Larry Scott, role: coach, why: "Six-year tenure (2020-present) attempting to stabilize and rebuild football program while competing with peer institutions" }
+  canonical_moments:
+    - { name: "Showtime's Global Recognition", year: 2000, what: "Howard's marching band becomes known worldwide for artistic excellence and cultural representation", handling: glory }
+    - { name: "2007 MEAC Championship", year: 2007, what: "Howard wins conference title, proving sustained competitiveness in MEAC football", handling: glory }
+  the_place: "William H. Greene Stadium on the Howard University campus in Washington, D.C.—a stage where Showtime's halftime performances are as anticipated as the game itself."
+  brand_of_football: "HBCU prestige football—Howard plays for institutional pride and cultural representation, where the marching band's excellence sets a standard that the team chases."
+  cultural_footprint: "Howard is the HBCU that proves performing arts and athletics are inseparable—Showtime is globally iconic, and the football program carries the weight of that legacy."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Howard went 5–7 (2–3 MEAC) in 2025, a disappointing season that reflects broader institutional struggles competing for MEAC titles against rising peers like South Carolina State and Delaware State. Head coach Larry Scott returns for his sixth season, tasked with proving he can elevate football recruiting to match the institutional prestige of Showtime. QB Tyriq Starks leads a young offense. The key narrative: can Howard leverage its Washington, D.C. location, institutional prestige, and Showtime's global reach to build a consistent winner? Or does the football program remain secondary to the band's cultural dominance?
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Howard_University_Bison_football
+    - https://www.espn.com/college-football/team/_/id/2302/howard-bison
+    - https://www.howard.edu/academics/colleges-schools/chadwick-boseman-college-fine-arts/departments-centers/music
+    - https://www.meacsports.com/sports/football/roster/2025/howard
+

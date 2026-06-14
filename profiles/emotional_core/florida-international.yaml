@@ -1,0 +1,117 @@
+# Emotional Core — Florida International  (florida-international)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: florida-international
+team_id: 202
+program_name: Florida International
+program_tier: 3
+
+emotional_core:
+  primary: house-money    # a young Miami commuter program that just had its best year in ages, expecting nothing
+  secondary: deprival     # starved for relevance in a city that only has eyes for the Hurricanes
+  one_line: "Florida International is the Miami commuter school that sold its stadium's name to Pitbull and just had its best season in years — a program that wins by surprising even itself."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A 2002-born program with a famous benefactor's name on the stadium vs a perennial place at the bottom of the South Florida pecking order, behind Miami and even the other young school across town."
+
+the_wound:
+  name: "The long quiet before 2025"
+  detail: "FIU hadn't reached a bowl since 2019 or finished above .500 since 2018 — years of irrelevance in its own city — until Willie Simmons' first season went 7-6 and ended the drought, a stretch long enough that fans had learned to expect nothing."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Stack winning seasons instead of one-off surprises, win a conference, and make a corner of football-obsessed Miami care about the team that isn't the Hurricanes."
+  drought: { since: 2018, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Panther fans live in the shadow of Miami and share a city that barely knows they exist; they say the only way FIU gets noticed is by winning, so they treat every bowl bid and every Shula Bowl scalp as a claim on attention nobody hands them."
+
+the_delusion:
+  tone: self-aware
+  text: "FIU fans believe Miami's bottomless talent pool is theirs to tap too — that the right coach and a little buzz could make the Panthers a legitimate second football program in the city, even as they know the Hurricanes will always get first call."
+
+the_grudge_texture:
+  rival: florida-atlantic
+  texture: little-brother   # the Shula Bowl — two young South Florida programs scrapping to be the bigger little school
+
+the_coach_relationship: savior   # Willie Simmons arrived and immediately delivered the first winning year since 2018
+the_internal_fracture: belief vs caution — the faction that thinks Simmons' 7-6 is the start of something real vs the faction that's been burned before and waits to see it sustained
+register: miami-panthers-cusa-newcomer   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Still FCS — 2005 FBS reclassification + 2018 bowl championship ended that
+  - No identity — Cristobal + Davis + 2002 founding combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Florida International is the only program in the country whose stadium is named after a rapper — FIU sold the naming rights to Miami-born Pitbull, turning 'Pitbull Stadium' into a one-of-a-kind branding move that captures the whole identity: a young, scrappy Miami program willing to do something nobody else would to get noticed."
+  the_origin: "Founded in 2002 as one of the newest programs in major-college football, FIU is a Miami commuter school that built its team from nothing in a city already owned by the Hurricanes, fighting for relevance from day one."
+  golden_ages:
+    - { era: "2010–2011 (Mario Cristobal)", what: "Two bowl appearances, a Sun Belt co-championship, and the first sustained success in program history" }
+    - { era: "2018 (Butch Davis)", what: "A 9-4 season and a Bahamas Bowl win — the program's most wins in a year" }
+  legends:
+    - { name: Mario Cristobal, role: coach, why: "Built FIU's first winning era before becoming a Power-conference head coach; the program's foundational name" }
+    - { name: T.Y. Hilton, role: player, why: "Cristobal-era star receiver and return man who became a four-time NFL Pro Bowler" }
+  canonical_moments:
+    - { name: "2010 Sun Belt title run", year: 2010, what: "Cristobal's Panthers win a share of the Sun Belt and reach the program's first bowl", handling: glory }
+    - { name: "2018 Bahamas Bowl season", year: 2018, what: "Butch Davis leads FIU to nine wins and a bowl title — the program's high-water mark", handling: glory }
+    - { name: "The 2025 breakthrough", year: 2025, what: "Willie Simmons' first year goes 7-6, the first winning season since 2018 and first bowl since 2019", handling: glory }
+  the_place: "Pitbull Stadium (formerly Riccardo Silva Stadium) in University Park — a modest, sun-baked Miami venue made famous by the rapper whose name now sits atop it."
+  brand_of_football: "Underdog Miami football — built on local South Florida speed and a willingness to be loud, brash, and unconventional to claim a sliver of attention in a crowded market."
+  cultural_footprint: "The team for the half of Miami that didn't go to the U — a young, diverse, commuter-campus program reaching for a foothold in one of the richest talent regions in the country."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Willie Simmons' debut season in 2025 went 7-6 (5-3 Conference USA),
+    clinching FIU's first bowl since 2019 and first winning season since 2018, and beating FAU 38-28 in the Shula
+    Bowl — before falling to UTSA in the First Responder Bowl. Year two is about proving the breakthrough wasn't a
+    fluke: turning one surprising season into the program's first real run of relevance in its own city.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_FIU_Panthers_football_team
+    - https://www.cbsnews.com/miami/news/florida-international-university-willie-simmons-football-bowl/
+    - https://en.wikipedia.org/wiki/FIU_Panthers_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Florida International is the Conference USA program whose 2002 program founding + Mario
+    Cristobal era + Riccardo Silva Stadium identity define what Miami-G5-football looks like.
+  mantra: Roar.
+  cultural_anchors:
+    fan_archetype_dominant: Miami-Panther-FIU
+    outsider_archetype_dominant: FBS-Newcomer-Diminisher
+    one_sentence: Florida International is the 2002-founded Miami Conference USA program — Mario Cristobal
+      era + 2018 Butch Davis Bahamas Bowl + Pitbull Stadium identity that anchor the modern G5 ascent.
+  selfname: the Panthers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2002 program founding
+    - Mario Cristobal 2007-2012 era + coaching tree
+    - 2018 9-4 + Bahamas Bowl championship under Butch Davis
+    rituals:
+    - 2002 Program Founding
+    - Mario Cristobal Era (2007-2012)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (48/100, n=48)
+    voice_profile: absent
+    delusion_premium: absent

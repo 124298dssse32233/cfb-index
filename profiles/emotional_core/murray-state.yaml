@@ -1,0 +1,89 @@
+# Emotional Core — Murray State (murray-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# status: live (web-researched 2026-06-13)
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: murray-state
+team_id: null
+program_name: Murray State
+program_tier: 3
+
+emotional_core:
+  primary: disbelief      # this is worse than it's ever been for the Racers
+  secondary: restoration  # seeking a way back from the historic 1-11 bottom
+  one_line: "Murray State is the Racers in their worst season ever — 1-11 in 2025, testing whether the program can climb out of the historic hole under new head coach Jody Wright."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A program with a football tradition that has been completely dismantled — now scraping the bottom of the MVFC at 1-11 overall and 1-7 in conference, looking for any sign of life."
+
+the_wound:
+  name: "The historic collapse"
+  detail: "Murray State won just one game in 2025 — a program that once competed in the MVFC is now the team to beat if you're trying to go undefeated. The fanbase is in shock and the program is in crisis mode."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Just win more than one game — prove that 2025 was the bottom and the climb back begins with baby steps toward respectability."
+  drought: { since: 2025, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "The fanbase knows Murray State has hit rock bottom. The only direction now is up — every win in 2026 will feel like a triumph because the bar is so low."
+
+the_delusion:
+  tone: self-aware
+  text: "That next year will be dramatically better — that the 1-11 crater was just a bad year and the program will snap back to competitiveness. The fanbase knows better; it will take years to rebuild from this."
+
+the_grudge_texture:
+  rival: ""
+  texture: none
+
+the_coach_relationship: legends-shadow   # Jody Wright's second year is make-or-break after the 1-11 disaster
+the_internal_fracture: ""
+register: murray-state-racers-historic-collapse
+never_use:
+  - Small program (Murray State has a tradition; 1-11 doesn't erase it; reframe as collapse)
+  - Always been bad (historical record shows periods of MVFC competitiveness; this is new darkness)
+
+# ── STORY CANON (doc 64) ──
+
+story_canon:
+  the_unique_thing: "Murray State's historic 2025 collapse — the Racers won just one game (1-11), the worst season in program history, and now face a complete rebuild in the Missouri Valley."
+  the_origin: "A Kentucky-based program with a football tradition in the MVFC, trying to rebuild from its lowest point ever."
+  golden_ages:
+    - { era: "MVFC past eras", what: "Periods of conference competitiveness" }
+  legends:
+    - { name: Jody Wright, role: coach, why: "Second-year head coach tasked with rebuilding from a 1-11 disaster" }
+  canonical_moments:
+    - { name: "2025 historic collapse", year: 2025, what: "Murray State wins only one game (1-11 overall, 1-7 MVFC) in the worst season in program history", handling: heartbreak }
+  the_place: "Murray, Kentucky — home of the Racers' deepest struggle."
+  brand_of_football: "Rebuilding from the absolute bottom — looking for any semblance of MVFC competitiveness."
+  cultural_footprint: "A program at its nadir, needing years to climb back to respectability."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Murray State finished 1-11 overall (1-7 MVFC) in 2025,
+    marking the worst season in program history. Head coach Jody Wright is in his second year
+    after a catastrophic first season that saw the Racers win just one game. The program is
+    in complete crisis mode. Every win in 2026 will feel significant. The question is whether
+    the Racers can climb toward 5-6 wins by year two, or if the problems are deeper than coaching.
+  research_checklist:
+    - the historic 1-11 season (the story of collapse)
+    - Jody Wright's role in the rebuild attempt
+    - the Kentucky footprint
+    - the MVFC context (how did it get this bad?)
+    - the recovery timeline
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Murray_State_Racers_football_team
+    - https://www.murraystate.edu/academics/colleges/sports
+
+# ── BRIEFING ──
+briefing:
+  identity_phrase: Murray State is the Racers in their worst season ever — 1-11 in 2025
+    and facing a complete rebuild in the Missouri Valley.
+  mantra: Climb Back. One Game. One Year.
+  cultural_anchors:
+    fan_archetype_dominant: Desperate-Racer-Believer
+    outsider_archetype_dominant: Collapse-Critic
+    one_sentence: Murray State is the Racers scraping the bottom of the MVFC at 1-11,
+      looking for the first step in a multi-year climb back to respectability.
+  selfname: the Racers

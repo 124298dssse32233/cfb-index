@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Walsh University — G-MAC rising program, first D2 win over Ashland, 6-5 in 2025
+
+status: live
+slug: walsh
+team_id: null
+program_name: Walsh University
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Walsh is the rising Cavaliers program that stunned Ashland with a watershed victory and proved a small Catholic university can compete in Division II's toughest conference."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program transitioning from NAIA to GLIAC to G-MAC (2012-present) vs. a historic 2024 victory over undefeated Ashland that proved Walsh belongs in modern D2 competitiveness."
+
+the_wound:
+  name: "Dominance by Ashland and the outsider status"
+  detail: "Walsh entered the G-MAC in 2017 as a program stepping up from GLIAC, and Ashland had dominated the series until 2024. Playing in the shadow of the Eagles' elite defense and conference dominance meant Walsh had to prove itself through upsets and growth, not consistency."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build on the Ashland upset and become a consistent .500+ G-MAC program that surprises national rankings every season, proving that Catholic university values and competitive excellence coexist."
+  drought: { since: 2017, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Walsh beat an undefeated Ashland (24-10, November 2024) that had dominated every prior meeting — the Cavaliers proved they could shock established powers and belong at the table."
+
+the_delusion:
+  tone: self-aware
+  text: "Walsh fans believe the 2024 Ashland upset proved the program is heading toward G-MAC title contention, and they know it requires another three-to-five seasons of sustained improvement to build that reality."
+
+the_grudge_texture:
+  rival: ashland
+  texture: championship
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "Upside potential vs. incremental reality — Walsh had one magnificent season (6-5) in 2025 but must prove consistency rather than one-season anomaly."
+register: cavaliers-walsh-ohio-catholic-rising
+
+never_use:
+  - "Irrelevant cellar-dweller program: Walsh went 6-5 in 2025 and defeated undefeated Ashland in 2024"
+  - "No victory tradition: the 2024 Ashland win (24-10) and 2025 6-5 record prove competitiveness"
+  - "Forever an underdog: the program showed it can compete at elite levels"
+
+story_canon:
+  the_unique_thing: "The 2024 upset of undefeated Ashland (24-10) — Walsh's watershed victory over the Ashland program that had dominated every prior meeting proved that the Cavaliers could compete with the G-MAC's elite and belonged in the conversation."
+  the_origin: "Walsh University began football in 1996 as an NAIA program in North Canton, Ohio. The program played NAIA football until 2012, when it transitioned to NCAA Division II and joined the GLIAC (2012-2016), then moved to the G-MAC (2017-present)."
+  golden_ages:
+    - { era: "1996–2011 (NAIA)", what: "Building era as a small Catholic university program in independent/NAIA competition" }
+    - { era: "2017–present (G-MAC)", what: "Division II competitiveness with incremental improvement toward conference contention" }
+    - { era: "2024–2025", what: "Breakthrough period: upset of Ashland in 2024, then a 6-5 season in 2025 marked the best results in NCAA Division II era" }
+  legends:
+    - { name: John Fankhauser, role: coach, why: "Ninth-year head coach (since 2018) providing stability and incremental improvement; led the program to its best NCAA D2 season in 2025" }
+    - { name: T.C. Molk, role: player, why: "Quarterback who led the program in the 24-10 Ashland victory (19-22, 314 yards, 2 TDs) and 2025 competitive season" }
+  canonical_moments:
+    - { name: "1996 First Varsity Season", year: 1996, what: "Walsh launches its football program as an NAIA institution", handling: glory }
+    - { name: "2024 Ashland Upset", year: 2024, what: "Walsh defeats undefeated Ashland 24-10, the most significant victory in program history", handling: glory }
+    - { name: "2025 Best D2 Season", year: 2025, what: "Walsh goes 6-5 overall (4-5 conference), the best result in the G-MAC era", handling: glory }
+  the_place: "North Canton, Ohio — home of Walsh University, a small Catholic institution with urban community roots."
+  brand_of_football: "Scrappy, competitive Division II football rooted in Catholic values and the determination to prove upward mobility within the G-MAC."
+  cultural_footprint: "Walsh represents the rising small-school program: a Catholic university that transitioned from NAIA to D2, steadily improved under one head coach, and proved it could upset elite rivals."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Walsh enters 2026 off its best NCAA Division II season (6-5 overall, 4-5 G-MAC) in program history. Head Coach John Fankhauser (ninth year since 2018) has provided stability and incremental growth, establishing a culture that led to the watershed 24-10 upset of undefeated Ashland in November 2024 and a 6-5 finish in 2025. The Cavaliers' challenge in 2026 is to prove that 2024-2025 represents the beginning of sustained competitiveness, not a two-year anomaly. The program has built momentum through Fankhauser's steady leadership and the validation of beating an elite rival. Every win is a step toward the goal of G-MAC title contention. Walsh University is proving that a small Catholic school can belong in Division II's toughest conference.
+  research_checklist:
+    - 1996 first varsity season (NAIA)
+    - GLIAC 2012-2016, G-MAC 2017-present
+    - 2024 upset of undefeated Ashland 24-10
+    - 2025: 6-5 overall, 4-5 G-MAC (best D2 season)
+    - Coach John Fankhauser (9th year, since 2018)
+    - T.C. Molk (QB, 19-22, 314 yards, 2 TDs vs. Ashland)
+  sources:
+    - https://www.walshuniversity.edu/athletics/football
+    - https://d2football.com/2025-season-preview
+    - https://www.gmacports.com/news/

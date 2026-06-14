@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — Western New England University (western-new-england)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: western-new-england
+team_id: null
+program_name: Western New England University
+program_tier: 7
+
+emotional_core:
+  primary: contentment  # transitional program finding new home
+  secondary: house-money  # every win in new conference is a statement
+  one_line: "Western New England is the Golden Bears program that recently transitioned to the Conference of New England — a Massachusetts institution rebuilding its identity after conference realignment."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A regional Massachusetts program recently shifted from NEWMAC to Conference of New England — transitioning between identities while maintaining competitive football."
+
+the_wound:
+  name: "Conference realignment"
+  detail: "Western New England's transition from NEWMAC to Conference of New England is a minor wound of institutional instability — not grave, but disruptive to program identity and conference relationships."
+  handling: dated-grievance
+  freshness: this-era
+
+the_dream:
+  text: "Establish Western New England as a solid performer in the Conference of New England — prove that the transition is positive and that the Golden Bears belong at the top of the new league."
+  drought: { since: 2014, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Western New England plays for stability and respect in a new conference home."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the Conference of New England move is a fresh start, not a demotion — an opportunity to compete at a consistent level after NEWMAC's more volatile competition."
+
+the_grudge_texture:
+  rival: springfield
+  texture: championship   # both are Massachusetts-based; NEWMAC/CNE neighbors
+
+the_coach_relationship: forever-ours   # Jason Lebeau in 7th season providing stability
+the_internal_fracture: optimism about new conference vs. identity loss from realignment
+register: golden-bears-transition-massachusetts
+never_use:
+  - Western New England is a recent NEWMAC powerhouse — transitional status and 4-0+ 2025 record don't indicate power
+  - The program was never competitive — 4-0+ home record by Nov 1 shows competitiveness in new league
+  - Conference realignment was a failure — it was an institutional move, not a reflection on program quality
+
+story_canon:
+  the_unique_thing: "Western New England recently transitioned from NEWMAC to Conference of New England, establishing itself as a competitive Massachusetts program in its new league home — a program rebuilding around Jason Lebeau's stability."
+  the_origin: "Western New England University fielded Golden Bears football as a NEWMAC member before transitioning to Conference of New England."
+  golden_ages:
+    - { era: "NEWMAC era", what: "Competitive NEWMAC membership" }
+    - { era: "2025–present (CNE)", what: "Transition to Conference of New England, rebuilding identity" }
+  legends:
+    - { name: Jason Lebeau, role: coach, why: "7th-season coach providing continuity through conference transition" }
+  canonical_moments:
+    - { name: "Conference transition", year: 2024, what: "Move from NEWMAC to Conference of New England", handling: miracle }
+  the_place: "Western New England University field in Springfield, Massachusetts — home of the Golden Bears."
+  brand_of_football: "Transitional, competitive football — rebuilding in a new conference home."
+  cultural_footprint: "A program proving that conference realignment can be a fresh start, not an ending."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Western New England University recently transitioned from NEWMAC to Conference
+    of New England and is establishing itself in the new league. By early November 2025, the Golden Bears had posted at least
+    a 4-0 home record, indicating competitiveness in Conference play. Jason Lebeau enters his 7th season providing coaching
+    continuity through the transition. The question: can Western New England quickly become a top-tier Conference of New England
+    program, or is the transition a longer, more difficult process?
+  research_checklist:
+    - Conference transition from NEWMAC to CNE
+    - Jason Lebeau 7-year tenure
+    - 2025 competitive record (at least 4-0 home)
+    - Golden Bears mascot and branding
+  sources:
+    - https://www.ncaa.org/sports/2025/d3/football/western-new-england-university/schedule
+    - https://www.ncollegefootball.com/teams/western-new-england-golden-bears

@@ -1,0 +1,124 @@
+# Emotional Core — Northwestern  (northwestern)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: northwestern
+team_id: 209
+program_name: Northwestern
+program_tier: 3
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+emotional_core:
+  primary: house-money    # the smallest school in the Big Ten, playing on borrowed time and winning anyway
+  secondary: restoration  # rebuilt on the fly after the hazing scandal that took its favorite son
+  one_line: "Northwestern is the academic outlier the Big Ten was never supposed to keep around — a private school playing out of a lakefront stadium-in-exile, and somehow David Braun keeps taking it bowling."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "The 1995 Cinderella that crashed the Rose Bowl and the Fitzgerald division titles vs the structural reality that a school this size shouldn't survive in this conference at all."
+
+the_wound:
+  name: "Fitzgerald and the hazing scandal"
+  detail: "Pat Fitzgerald — the All-American linebacker of the 1995 Rose Bowl team and the winningest coach in program history — was fired in July 2023 after a hazing investigation concluded he 'should have known.' Losing its favorite son in disgrace gutted the program just as it had to keep competing in the toughest conference in the sport."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Win the Big Ten outright — finish the job the 1995 team and the Fitzgerald years started, and earn the lakefront stadium with a banner the doubters can't explain away."
+  drought: { since: 2000, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Every preseason the Wildcats are picked to finish last, and every few years they don't — and the fanbase has stopped expecting credit for it. They've learned to treat being underestimated as the natural state of a program that was never supposed to belong."
+
+the_delusion:
+  tone: earnest
+  text: "Wildcat fans believe the brains-and-grit formula is a feature, not a handicap — that a school full of future doctors and lawyers playing disciplined, opportunistic football can keep beating programs with five times the talent, the way 1995 proved it could."
+
+the_grudge_texture:
+  rival: illinois
+  texture: border-war   # the Land of Lincoln Trophy — the in-state Big Ten rivalry
+
+the_coach_relationship: savior   # David Braun, the unexpected steady hand who rebuilt after the scandal
+the_internal_fracture: win-now ambition vs survive-with-dignity realism — the room split between believing Northwestern can actually contend and accepting that bowl-eligibility is the real ceiling for a school this size
+register: evanston-academic-elite-wildcats   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always last — 1995 Rose Bowl + 5 division titles disprove
+  - Academic-only — Fitzgerald era's competitive wins reset the frame
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The 1995 miracle. Northwestern had the longest losing tradition in major-college football — once the losingest program in Division I — when Gary Barnett's Wildcats went 10-1, won the Big Ten, beat Notre Dame and Michigan, and reached the Rose Bowl. It remains the most improbable turnaround in the sport, and the proof that the smallest, smartest school in the conference could win it."
+  the_origin: "A small, elite private university in Evanston on the shore of Lake Michigan — the academic standout of the Big Ten — that spent most of its football history losing before a single Cinderella season rewrote what was possible there."
+  golden_ages:
+    - { era: "1995–1996 (Gary Barnett)", what: "Back-to-back Big Ten titles, the 1995 Rose Bowl run, and the end of the longest losing tradition in the sport" }
+    - { era: "2006–2022 (Pat Fitzgerald)", what: "Five division titles, two Big Ten Championship Game trips, and sustained bowl relevance for a school never built to have it" }
+  legends:
+    - { name: Gary Barnett, role: coach, why: "Architect of the 1995 miracle — 'expect victory' — who made Northwestern football possible" }
+    - { name: Pat Fitzgerald, role: player, why: "Two-time national-defender-of-the-year LB on the 1995 team, later the program's winningest coach before his disgraced 2023 firing" }
+    - { name: Otto Graham, role: player, why: "The 1940s Wildcat who became a Pro Football Hall of Fame quarterback — the program's deepest historical root" }
+  canonical_moments:
+    - { name: "The 1995 Rose Bowl season", year: 1995, what: "10-1, Big Ten champions, the most improbable turnaround in college football history", handling: miracle }
+    - { name: "Fitzgerald fired in the hazing scandal", year: 2023, what: "The program's favorite son let go after a hazing investigation — a wound to the institution's identity", handling: wound }
+  the_place: "A temporary lakefront setup — Martin Stadium on campus and games at Wrigley Field — while a rebuilt Ryan Field rises on the Lake Michigan shoreline; the most scenic and unusual home situation in the Big Ten."
+  brand_of_football: "Brains-and-grit — disciplined, low-mistake, opportunistic football that wins on preparation and turnovers because it can't always win on talent; the thinking program's underdog."
+  cultural_footprint: "The proof that academic excellence and Big Ten football can coexist — a fanbase that wears its outlier status as a badge, and a program whose 1995 season is taught as the sport's ultimate example of belief."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Northwestern went 7-6 (4-5 Big Ten) in 2025 and won the GameAbove Sports
+    Bowl 34-7 over Central Michigan — David Braun's second bowl bid in his first three seasons, making him only the
+    second coach in program history to do so. The Wildcats are still in their lakefront-stadium interregnum, playing
+    at Martin Stadium and Wrigley Field while a new Ryan Field is built. Braun, the unexpected hire who steadied the
+    program after Pat Fitzgerald's 2023 firing, has 19 wins in three years and is trying to turn survival into
+    sustained relevance.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Northwestern_Wildcats_football_team
+    - https://www.espn.com/college-football/story/_/id/37995129/next-pat-fitzgerald-northwestern-football-hazing-fired
+    - https://nusports.com/sports/football/roster/coaches/david-braun/3807
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Northwestern is the Big Ten academic-elite program whose Pat Fitzgerald era produced
+    5 division titles + 2 Big Ten title games, and whose 2023 firing + Lake Michigan lakefront stadium era
+    defined what Big Ten survival looks like.
+  mantra: Go Cats.
+  cultural_anchors:
+    fan_archetype_dominant: Evanston-Academic-Elite-Wildcat
+    outsider_archetype_dominant: Always-Last-Big-Ten-Diminisher
+    one_sentence: Northwestern is the Big Ten academic-elite program whose 1995 Rose Bowl + Pat Fitzgerald
+      era + 2024 lakefront-stadium bridge era keep it relevant in a conference where it should not statistically
+      survive.
+  selfname: the Wildcats
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1995 10-2 + Big Ten championship + Rose Bowl under Gary Barnett
+    - Pat Fitzgerald era 2006-2022 (5 division titles, 2 Big Ten title games)
+    - 2024 lakefront stadium bridge era + Ryan Field reconstruction
+    rituals:
+    - 1995 Rose Bowl Run
+    - Pat Fitzgerald Era (2006-2022)
+    - Lakefront Stadium 2024
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (55/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

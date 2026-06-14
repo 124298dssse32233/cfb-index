@@ -1,0 +1,88 @@
+# Emotional Core — Millersville University  (millersville)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Status: live | Tier: 6 (Division II PSAC) | Authored 2026-06-13
+
+status: live             # todo | drafted | authored | reviewed | live
+slug: millersville
+team_id: 230            # placeholder; verify against CFBD ID mapping
+program_name: Millersville University
+program_tier: 6         # Division II PSAC
+
+emotional_core:
+  primary: restoration          # new HC rebuilding from down years; transition season narrative
+  secondary: standard          # Drew Folmar, an alum and legend as a player, returns to rebuild
+  one_line: "Millersville is the PSAC program entering a new era — Drew Folmar, a legendary Marauder as a player, returns as head coach to restore championship football to Lancaster."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A program that won 30 games as a four-year starter and played in the NCAA playoffs (Folmar era, 1997–2000) vs recent seasons of uncertainty — now led by the quarterback who won those games."
+
+the_wound:
+  name: "Era transition uncertainty"
+  detail: "Millersville's legacy HC retired after 2025, leaving the program in a transition year with a new hire who must rebuild the winning culture."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Restore Millersville to championship contention — leverage Folmar's alum status and FCS offensive coordinator experience to rebuild winning football in Lancaster."
+  drought: null  # program has not yet entered a championship drought; transition year is just beginning
+
+the_chip:
+  villain: none
+  text: "Millersville's fanbase believes in Folmar because he WAS Millersville — a four-time starting QB who led them to the playoffs. His return signals that winning is the standard, not the exception."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Folmar's return as an alum is destiny — that his legendary status as a player and his FCS offensive coordinator experience will rapidly restore a championship program."
+
+the_grudge_texture:
+  rival: shippensburg
+  texture: border-war        # Shippensburg also enters a transition year; both PSAC East programs rebuilding
+
+the_coach_relationship: savior         # Folmar is hired to break free from recent mediocrity
+the_internal_fracture: null              # program unified around the Folmar homecoming narrative
+register: millersville-marauder-alum-believer
+never_use:
+  - "Mid-tier PSAC — Folmar era proved championship-caliber football is possible"
+  - "Broken program — 2026 is a rebuilding year, not a death sentence"
+
+# ── STORY CANON (doc 64) ────────────────────────────────────────────────────
+story_canon:
+  the_unique_thing: "Drew Folmar, a legendary Millersville quarterback (1997–2000, 30-4 record, NCAA playoff captain), returns home as head coach to rebuild his alma mater into a championship program."
+  the_origin: "Millersville University (1855–), a public regional university in Lancaster, PA (Dutch Country), fielding Marauders football with deep community roots."
+  golden_ages:
+    - { era: "Folmar Era as Player (1997–2000)", what: "Drew Folmar led Millersville to a 30-4 record as a four-time starter and captain, earned NCAA playoff appearance in 1999, and set 17 school records that still stand." }
+  legends:
+    - { name: Drew Folmar, role: coach-and-player, why: "The legendary Marauders QB (1997–2000, 30-4, NCAA playoff captain) who returns as head coach to restore championship football." }
+  canonical_moments:
+    - { name: "1999 NCAA Playoff Appearance", year: 1999, what: "Folmar captained Millersville to the NCAA Division III playoffs — the program's most recent deep tournament run.", handling: glory }
+    - { name: "Drew Folmar's 30-4 Record (1997–2000)", year: 2000, what: "Folmar left Millersville as one of the winningest QBs in program history with 17 school records.", handling: glory }
+    - { name: "Folmar Named Hall of Fame (Millersville Athletics)", year: null, what: "Inducted into Millersville Athletics Hall of Fame as a legendary player, validating his status.", handling: glory }
+  the_place: "The Millersville football stadium in Lancaster — home to the Marauders in Lancaster's Dutch Country."
+  brand_of_football: "Offensive-minded, aggressive football — Folmar's FCS offensive coordinator experience brings a modern, high-tempo philosophy to a regional program."
+  cultural_footprint: "A program that believes in its legends — when Folmar left as a player, he left a blueprint. His return signals that standard, not sentiment."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Drew Folmar '01 takes over as Millersville head coach in 2026 after a legacy
+    HC retired. Folmar spent 25 years as a collegiate coach, serving as offensive coordinator at three FCS programs
+    and helping teams reach four NCAA playoffs. His return to Millersville as an alum (where he was a 30-4 four-year
+    starter and captain of the 1999 NCAA playoff team) signals a commitment to restoring championship football.
+    With a new coaching staff and a fresh vision, Folmar aims to rebuild Millersville into a PSAC East contender.
+  research_checklist:
+    - Drew Folmar's playing career at Millersville (1997–2000, records, playoff run)
+    - Folmar's 25-year coaching experience at FCS level (offensive coordinator roles)
+    - Millersville's recent program history and why the legacy HC retired
+    - Lancaster community ties to the Marauders and Folmar's alum status
+  sources:
+    - https://millersvilleathletics.com/news/2026/1/14/football-welcome-home-drew-folmar-01-named-millersville-footballs-new-head-coach.aspx
+    - https://lancasteronline.com/sports/football/millersville/new-millersville-football-coach-says-hes-committed-to-competing-for-championships/article_a6403bc8-ccf0-4a74-86d1-4d0713fa247a.html
+    - https://en.wikipedia.org/wiki/Drew_Folmar
+
+# ── BRIEFING (read-only context; NOT part of published core) ──
+briefing:
+  identity_phrase: "Millersville is the PSAC program returning home — Drew Folmar, a legendary Marauder QB (1997–2000, 30-4), hired as head coach to restore championship football."
+  mantra: "Go, Marauders!"
+  cultural_anchors:
+    fan_archetype_dominant: "Millersville-Marauder-Folmar-Alum-Believer"
+    outsider_archetype_dominant: "PSAC-Homecoming-Narrative-Watcher"
+    one_sentence: "Millersville is the PSAC program hiring its legendary QB (1997–2000, 30-4 record) as head coach to restore championship football to Lancaster."
+  selfname: "the Marauders"

@@ -1,0 +1,74 @@
+# Emotional Core — Western Illinois  (western-illinois)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: western-illinois
+team_id: null
+program_name: Western Illinois
+program_tier: 5
+
+emotional_core:
+  primary: restoration
+  secondary: redemption
+  core_variant: regime-reset
+  one_line: "Western Illinois is the historic Leatherneck program that left the Missouri Valley after two decades and joined the Big South-OVC, rebuilding its identity in a new conference."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A historic MVFC program with decades of Valley tradition vs the challenge of establishing relevance in the new Big South-OVC conference after leaving the Valley."
+
+the_wound:
+  name: "The MVFC departure"
+  detail: "Western Illinois spent decades competing in the Missouri Valley, building tradition and identity in the Valley landscape. But after 2023, the Leathernecks departed the MVFC to join the Big South-OVC, leaving behind history and tradition. The wound is the loss of the Valley identity, the separation from traditional rivals like SDSU and YSU, and the need to rebuild credibility in a new conference with different opponents and different expectations."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Establish Western Illinois as a Big South-OVC contender, build a winning culture in the new conference, and prove the departure from the Valley was the right decision for the program's future."
+  drought: { since: 2024, unit: relevance }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes Western Illinois' Leatherneck tradition carries into the new Big South-OVC era, that the program can rebuild and compete, and that leaving the Valley was necessary for progress."
+
+the_grudge_texture:
+  rival: eastern-illinois
+  texture: championship
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: valley-nostalgia-vs-new-era — the faction lamenting the MVFC departure vs the faction embracing the Big South-OVC transition
+register: macomb-illinois-leatherneck-valley-legacy
+never_use:
+  - Always MVFC (the program left the Valley after 2023)
+  - Lost tradition (Leatherneck identity carries forward despite conference change)
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Western Illinois is a historic Leatherneck program with two decades of Missouri Valley tradition that departed the MVFC after the 2023 season to join the Big South-OVC, a rare modern conference migration that required complete program reorientation."
+  the_origin: "A state school in Macomb, Illinois that built a Leatherneck football program in the MVFC, developing into a Valley competitor with sustained conference presence over decades."
+  golden_ages:
+    - { era: "MVFC Era (2000s-2023)", what: "Western Illinois competed as a consistent Valley program over two decades of MVFC play" }
+  legends:
+    - { name: none, role: none, why: none }
+  canonical_moments:
+    - { name: "MVFC departure", year: 2024, what: "Western Illinois leaves the Missouri Valley and joins the Big South-OVC, marking the end of an era and the beginning of a new program identity", handling: heartbreak }
+  the_place: "Hanson Field in Macomb, Illinois — the traditional home of Leatherneck football."
+  brand_of_football: "Competitive Valley football that emphasized winning within the MVFC structure, now transitioning to Big South-OVC competition."
+  cultural_footprint: "Western Illinois represents the historic Leatherneck tradition, a program rooted in Illinois FCS football that is now rebuilding its identity in a new conference home."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Western Illinois went 4-8 in 2025 in the Big South-OVC conference in its second year after leaving the Missouri Valley. The Leathernecks are in the early stages of Big South-OVC integration, facing the challenge of rebuilding conference identity and competitive status after decades in the Valley. Coach Joe Davis is in his second year, and the program faces questions about whether the conference change was the right move and whether the Leathernecks can establish themselves as Big South-OVC competitors.
+  research_checklist:
+    - Left Missouri Valley after 2023 (verified)
+    - Joined Big South-OVC in 2024 (verified)
+    - Leatherneck program identity and history (verified)
+    - 2025 season 4-8 record (verified)
+    - Joe Davis in second year as coach (verified)
+  sources:
+    - https://en.wikipedia.org/wiki/Big_South%E2%80%93OVC_Football_Association
+    - https://goleathernecks.com/news/2024/7/17/big-south-ovc-football-association-meets-the-leathernecks.aspx
+    - https://en.wikipedia.org/wiki/Western_Illinois_Leathernecks_football

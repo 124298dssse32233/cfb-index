@@ -1,0 +1,68 @@
+# AUTHORED (D3/NESCAC) 2026-06-13 — web-verified (limited data)
+
+status: live
+slug: trinity-ct
+team_id: null
+program_name: Trinity College (Connecticut)
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Connecticut liberal-arts institution with limited publicly-documented football legacy; Trinity competes consistently within NESCAC while emphasizing academic mission and institutional stability."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "NESCAC mid-tier presence without dominant eras"
+
+the_wound:
+  name: "The long institutional fade"
+  detail: "Trinity has been a consistent but non-prominent NESCAC member for decades. No perfect seasons, no dynasty peaks, no national-level recognition. This is by institutional design—academics over athletics."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Maintain NESCAC competitiveness while remaining a scholar-athlete institution where football serves the academic mission."
+  drought: { since: never, unit: relevance }
+
+the_chip:
+  villain: null
+  text: "Fans here believe trinity doesn't define itself by football. The program is an extension of institutional excellence, not the focal point."
+
+the_delusion:
+  tone: null
+  text: null
+
+the_grudge_texture:
+  rival: null
+  texture: null
+
+the_coach_relationship: total-trust
+the_internal_fracture: "unified institutional commitment — no internal fracture"
+
+register: academic-understated-institutional
+
+never_use:
+  - Mediocre (Trinity competes with discipline; emphasis on academics is not lack of commitment)
+  - Irrelevant (the program serves its institutional mission precisely)
+
+story_canon:
+  the_unique_thing: "Trinity is a NESCAC member that prioritizes academics over athletic prominence—a deliberate institutional choice that anchors the program in the liberal-arts mission."
+  the_origin: "Trinity College (founded 1823) is a Connecticut liberal-arts institution with 200+ years of football tradition. NESCAC membership reflects the academic-first orientation."
+  golden_ages:
+    - { era: "2010–2025", what: "Stable NESCAC competitor; periodic competitive years" }
+  legends: []
+  canonical_moments:
+    - { name: "NESCAC membership", year: 1971, what: "Entry into the premier academic athletic conference", handling: glory }
+  the_place: "Hartford, Connecticut—an urban liberal-arts college anchoring institutional excellence over athletic prominence."
+  brand_of_football: "Competitive but understated—a program that reflects institutional values rather than athletic ambition."
+  cultural_footprint: "Proof that a Division III program can compete without dominating; scholarship in service of athletic excellence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Trinity remains a NESCAC competitor with limited public documentation of specific
+    2025 season records or recent trajectories. The program's identity is explicitly institutional rather than athletic;
+    football serves the academic mission. Public sources suggest steady, unspectacular competitiveness is the intended state.
+    This is not a weakness—it's the deliberate program design.
+  sources:
+    - https://www.trincoll.edu/athletics
+    - https://www.nescac.org/sports/fball/standings
+    - https://www.ncaa.org/sports/football/d3

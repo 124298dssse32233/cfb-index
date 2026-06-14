@@ -1,0 +1,67 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: southwest-minnesota-state
+team_id: null
+program_name: Southwest Minnesota State
+program_tier: 6        # Division II
+
+emotional_core:
+  primary: honor        # defensive All-American despite 1-10 record; the program playing for pride, not wins
+  secondary: standard    # systemic underperformance despite individual excellence
+  one_line: "Southwest Minnesota State is a struggling NSIC South program that went 1-10 in 2025 — but produced defensive All-American honors and plays on, understanding that some programs compete for integrity rather than trophies."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A Division II program with limited resources and a 1-10 record that signals systemic struggle, not a single bad year."
+
+the_wound:
+  name: "The 1-10 collapse and sustained losing"
+  detail: "Southwest Minnesota State went 1-10 overall and 0-6 in the NSIC South in 2025, finishing in last place. This was not an outlier; head coach Scott Underwood has compiled a 7-37 record at SMSU across four seasons, despite prior success at St. Cloud State (10 winning seasons, 86-51 record). The program appears to have structural ceiling issues — insufficient resources, recruitment limitations, or institutional support. Despite the dismal record, defensive back Parker Knutson earned All-NSIC and All-American honors, proof that individual excellence can persist even in a losing program."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Find a path to .500 football and prove the program can compete, even in a limited capacity, within the NSIC."
+  drought: { since: 2015, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the Mustangs carry no external chip; the wound is systemic. The gap between SMSU's limited resources and the NSIC's competitive ceiling is the real barrier."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: concordia-st-paul
+  texture: championship    # the annual Ag Bowl opener
+
+the_coach_relationship: legends-shadow    # Scott Underwood has not succeeded at SMSU despite prior success elsewhere; program may be beyond coaching fix
+the_internal_fracture: institutional-patience vs coaching-accountability — the faction believing the right coach can turn SMSU around vs those accepting the program's resource/recruitment limitations as permanent
+register: marshall-minnesota-mustangs-honor-pride-d2-struggle
+never_use:
+  - "SMSU is a rising program: 1-10 and 7-37 in four seasons disprove any upward trajectory"
+  - "Parker Knutson proved the team is talented: one All-American defender amid a 1-10 record is exception, not rule"
+
+story_canon:
+  the_unique_thing: "Southwest Minnesota State is a struggling Division II program that produced defensive All-American honors (Parker Knutson, 2025) despite a 1-10 record — a paradox of individual excellence amid systemic collapse."
+  the_origin: "Southwest Minnesota State is a small Minnesota program that competes in the NSIC; the Mustangs have struggled to establish themselves as a competitive force."
+  golden_ages: []
+  legends: []
+  canonical_moments:
+    - { name: "2025 All-American honor (Knutson)", year: 2025, what: "Parker Knutson earned All-NSIC and All-American honors on defense despite 1-10 record", handling: miracle }
+  the_place: "Marshall, Minnesota; a small regional community; the Mustangs' home."
+  brand_of_football: "A program struggling at the Division II level; SMSU plays primarily for institutional pride and individual development rather than competitive success."
+  cultural_footprint: "Southwest Minnesota State is a modest D2 program with minimal national profile; the Mustangs represent a small-school football identity defined by perseverance rather than wins."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Southwest Minnesota State went 1-10 overall (0-6 NSIC South, last place) in 2025,
+    one of the worst seasons in NSIC history. Head coach Scott Underwood has compiled a 7-37 record in four seasons at SMSU,
+    despite winning 10 games at St. Cloud State (86-51 record there). Despite the dismal record, defensive back Parker Knutson
+    earned All-NSIC and All-American honors, proving individual excellence can persist even in a losing program. The question
+    for SMSU is whether the program has structural ceiling issues (resources, recruitment) that no coaching change will fix, or
+    whether the right institutional reset can return the Mustangs to competence.
+  sources:
+    - https://smsumustangs.com/news/2025/11/15/football-smsu-ends-season-with-setback-at-winona-state.aspx
+    - https://www.startribune.com/southwest-minnesota-state-coach-scott-underwood-lands-back-in-nsic/600202287
+    - https://northernsun.org/schedule.aspx?schedule=3876

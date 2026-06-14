@@ -1,0 +1,70 @@
+status: live            # authored 2026-06-13 via web research
+slug: east-tennessee-state
+team_id: null
+program_name: East Tennessee State
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the Will Healy first-year rebuild after 2024 slump
+  secondary: disbelief
+  core_variant: regime-reset
+  one_line: "East Tennessee State is the SoCon program that won it all in 2021 then vanished — a 2016 reinstatement story trying to prove the breakthrough wasn't a one-hit wonder."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A championship in 2021 followed by collapse and reinstated hope — the program that proved it could reach the top shelf and now must prove it wasn't a fluke."
+
+the_wound:
+  name: "The 2021 miracle fade"
+  detail: "East Tennessee State won the SoCon championship in 2021 as a program in transition, then couldn't sustain it. The Bucs fell back into the pack and watched rivals lap them on the way up. After reinstatement in 2016, the 2021 title was supposed to be the foundation of sustained success, not a one-off."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to SoCon contention and prove the 2021 championship was the beginning, not the peak — another title and a consistent tournament program that was never just a feel-good reinstatement story."
+  drought: { since: 2021, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "East Tennessee State won when it mattered in 2021, but Mercer's run, Furman's legacy, and Wofford's consistency have made the Bucs look like yesterday's champions. The 2021 title was supposed to launch a dynasty; instead it's a reminder of what the room couldn't hold."
+
+the_delusion:
+  tone: self-aware
+  text: "That a 2021 championship in year six of reinstatement proves East Tennessee State belongs in the SoCon's upper echelon. The fanbase knows better — but they also know they beat everyone for one magical season."
+
+the_grudge_texture:
+  rival: furman
+  texture: championship   # Furman won 1988 national title, ETSU peaked in 2021
+
+the_coach_relationship: total-trust   # Will Healy hired for 2025 to reset the program with full institutional backing
+the_internal_fracture: nostalgia_vs_future — those clinging to the 2021 magic vs. those embracing Healy's reset
+register: east-tennessee-state-reinstatement-promise
+never_use:
+  - "never a real program before 2016"
+  - "can't compete with historic powers"
+
+story_canon:
+  the_unique_thing: "The 2016 reinstatement story that peaked at the 2021 SoCon championship — a program that came back from the dead and won big, then couldn't hold it."
+  the_origin: "East Tennessee State rejoined FCS football in 2016 after a decade away, immediately began climbing, and crowned itself SoCon champion five years later."
+  golden_ages:
+    - { era: "2021", what: "SoCon championship and the resurrection of a program that had been dormant" }
+    - { era: "2016-2019", what: "The reinstatement climb that proved the Bucs belonged" }
+  legends:
+    - { name: Will Healy, role: coach, why: "2025 hire brought in to reset the program and reclaim championship culture" }
+  canonical_moments:
+    - { name: "2021 SoCon Championship", year: 2021, what: "East Tennessee State wins the conference title five years after reinstatement, the program's highest honor", handling: glory }
+    - { name: "2016 Reinstatement", year: 2016, what: "East Tennessee State returns to FCS football after a decade away", handling: glory }
+  the_place: "Greene Stadium — the home of Bucs football in Johnson City."
+  brand_of_football: "An reinstatement program climbing out of obscurity — proof that investment and patience can resurrect dead traditions."
+  cultural_footprint: "The SoCon's reinstatement miracle that peaked in 2021 but couldn't sustain — a cautionary tale about one magical season."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: East Tennessee State brought in first-year coach Will Healy in 2025 to reset a program that had faded after the 2021 SoCon championship. The Bucs are rebuilding with a new offensive identity and looking to prove the 2021 title wasn't a one-hit wonder. The room is watching to see if Healy can recapture championship culture.
+  research_checklist:
+    - ✓ 2021 SoCon championship
+    - ✓ 2016 reinstatement
+    - ✓ Will Healy hire (2025)
+    - ✓ Post-championship fade
+  sources:
+    - https://en.wikipedia.org/wiki/East_Tennessee_State_Buccaneers_football
+    - https://www.etsuathletics.com
+    - https://www.thescore.com/nfl/news

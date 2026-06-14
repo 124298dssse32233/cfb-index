@@ -1,0 +1,120 @@
+# Emotional Core — Louisiana Tech  (louisiana-tech)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: louisiana-tech
+team_id: 314
+program_name: Louisiana Tech
+program_tier: 3
+
+emotional_core:
+  primary: honor          # the program that gave the sport Terry Bradshaw carries that pedigree with pride
+  secondary: contentment  # a steady, unglamorous G5 stalwart at peace with what it is
+  one_line: "Louisiana Tech is the little Ruston school that produced Terry Bradshaw and a national title — a program that doesn't chase glamour but quietly carries a pedigree most of its peers will never have."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A Hall-of-Fame quarterback, a 1973 national championship, and a steady bowl-era stability vs a Group-of-Five ceiling that keeps a proud program from the spotlight its history earned."
+
+the_wound:
+  name: "Carrying a big-time pedigree at a small-time station"
+  detail: "Louisiana Tech sent Terry Bradshaw to four Super Bowl wins and won a national title in its division — yet lives as a quiet Conference USA stalwart, its biggest names long gone to bigger stages. The ache is gentle but real: a program with blue-blood roots stuck on the sport's back roads."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win a conference title in a new league and put North Louisiana football back on the map — to be more than a name on Terry Bradshaw's bio, a program that wins now the way it once produced legends."
+  drought: { since: 2011, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans are tired of their program being treated as a footnote — they'll remind anyone who'll listen that the sport's most famous quarterback came from Ruston, and that the Bulldogs have a national title most of their peers can only dream about."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the pedigree still counts for something — that a program which gave the NFL Terry Bradshaw belongs a notch above where the standings put it. They know the scoreboard says mid-major, and they carry the history like it outranks the rankings anyway."
+
+the_grudge_texture:
+  rival: southern-miss
+  texture: blood-feud   # the Rivalry in Dixie — the long-running, genuinely heated Gulf South series
+
+the_coach_relationship: total-trust   # Sonny Cumbie has the steady, unflashy stability the program prizes
+the_internal_fracture: pride-in-the-past vs hunger-for-the-present — the faction content to honor the Bradshaw legacy vs the faction that wants the Bulldogs to win something big again, not just remember when they did
+register: ruston-bulldogs-cusa-stalwart   # plainspoken, proud, North Louisiana pride that wears its history without apology
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always G5-bottom — Bradshaw + 1973 D-II title + 2014 bowl disprove
+  - Forgotten Bradshaw — Hall of Fame career gives permanent weight
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Louisiana Tech is the small Ruston school that produced Terry Bradshaw — a four-time Super Bowl champion and Hall of Famer — and won a Division II national title in 1973, a pedigree wildly outsized for a program that has spent its modern life as a quiet Group-of-Five stalwart."
+  the_origin: "A north Louisiana tech school in Ruston whose football roots run deep in the Gulf South — a program that punched above its size in the small-college era, producing NFL legends and a national championship before settling into the FBS mid-major ranks."
+  golden_ages:
+    - { era: "1968–1972 (Maxie Lambright)", what: "The Terry Bradshaw years and the small-college powerhouse that won the 1973 Division II national title" }
+    - { era: "2011–2016 (Sonny Dykes & Skip Holtz)", what: "A WAC title, explosive offenses, and a run of bowl seasons that revived the program" }
+  legends:
+    - { name: Terry Bradshaw, role: player, why: "Ruston's own — a four-time Super Bowl champion and Hall of Famer, the program's eternal calling card" }
+    - { name: Maxie Lambright, role: coach, why: "Coached the Bradshaw teams and won the 1973 Division II national championship" }
+    - { name: Tim Rattay, role: player, why: "The record-setting QB of the late-1990s air-raid Bulldogs" }
+  canonical_moments:
+    - { name: "1973 Division II national title", year: 1973, what: "Louisiana Tech wins the College Division / Division II national championship", handling: glory }
+    - { name: "Terry Bradshaw drafted No. 1 overall", year: 1970, what: "The Ruston QB goes first in the NFL draft, putting Louisiana Tech on the national map", handling: glory }
+    - { name: "2025 Independence Bowl win", year: 2025, what: "A 23-14 bowl win over Coastal Carolina caps an 8-5 season and the program's return to stability", handling: glory }
+  the_place: "Joe Aillet Stadium in Ruston — a modest, proud north Louisiana home where the program's history outsizes its profile."
+  brand_of_football: "Quarterback-developing, throw-it-around football — a lineage from Bradshaw through Rattay that prizes producing passers and stable, unflashy winning."
+  cultural_footprint: "The unlikely cradle of an NFL legend — a small-town program whose biggest export, Terry Bradshaw, remains one of football's most famous faces, and a steady G5 stalwart that carries that history with quiet pride."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Louisiana Tech went 8-5 (5-3 Conference USA) in 2025 and beat Coastal
+    Carolina 23-14 in the Independence Bowl under fourth-year head coach Sonny Cumbie. The program is set to leave
+    Conference USA and join the Sun Belt as a full member on July 1, 2026 — a new league and a fresh shot at the
+    conference title it last won (in the WAC) in 2011. The question in Ruston: can a steady program turn stability
+    into a championship worthy of its pedigree?
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Louisiana_Tech_Bulldogs_football_team
+    - https://www.sports-reference.com/cfb/schools/louisiana-tech/2025-schedule.html
+    - https://en.wikipedia.org/wiki/Louisiana_Tech_Bulldogs_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Louisiana Tech is the Conference USA program whose Terry Bradshaw 1968-1969 + Joshua
+    Williams 2014 + Skip Holtz era + Joe Aillet Stadium define what historic-North-Louisiana-football looks
+    like.
+  mantra: Dunkin' Dogs.
+  cultural_anchors:
+    fan_archetype_dominant: Ruston-Bulldog-Dunkin
+    outsider_archetype_dominant: G5-Forever-Diminisher
+    one_sentence: Louisiana Tech is the Ruston North Louisiana flagship — Terry Bradshaw QB development
+      + 1973 Division II national title + 2014 Heart of Dallas Bowl that anchor the historic Bulldog arc.
+  selfname: the Bulldogs
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Terry Bradshaw 1968-1969 + 1970 NFL
+    - 1973 NCAA Division II national championship
+    - 2014 9-5 + Heart of Dallas Bowl under Skip Holtz
+    rituals:
+    - Terry Bradshaw 1968-1969
+    - 1973 Division II National Championship
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

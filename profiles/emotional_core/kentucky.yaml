@@ -1,0 +1,121 @@
+# Emotional Core — Kentucky  (kentucky)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: kentucky
+team_id: 301
+program_name: Kentucky
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the program just fired its most successful coach ever and is choosing to chase more
+  secondary: grief        # but firing the winningest coach in school history is a loss, not just a reset
+  core_variant: regime-reset
+  one_line: "Kentucky is the basketball blue blood that spent a decade making football matter under Mark Stoops — then fired the winningest coach in its history rather than slide back, betting a 36-year-old can keep the gridiron alive in a basketball state."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A Mark Stoops decade of bowl streaks and 10-win seasons that finally made BBN care about football vs back-to-back losing years that ended his tenure — and a program unwilling to drift back to irrelevance."
+
+the_wound:
+  name: "Firing Mark Stoops"
+  detail: "Stoops left as the winningest coach in Kentucky football history after 13 years that dragged the program from doormat to ranked teams and bowl streaks — but back-to-back bowl-less seasons, capped by a 5-7 finish in 2025, ended it. Letting go of the man who built modern Kentucky football is a wound even for fans who wanted the change."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Hold onto what Stoops built and push past it — a sustained winner in the SEC, a program that competes in football the way the school always has in basketball, and finally an SEC title to chase rather than a bowl streak to protect."
+  drought: { since: 1976, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans are sick of hearing their school described as a basketball place that tolerates football — they remember the Stoops climb made the league take Kentucky seriously, and they refuse to be filed back under afterthought just because one era ended."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the program is past the point of no return — that the Stoops decade permanently changed what Kentucky football can be, so the next coach inherits a real job, not a graveyard. They've been the punchline before, and they're betting they never go back."
+
+the_grudge_texture:
+  rival: louisville
+  texture: border-war   # the Governor's Cup — the in-state, year-round, basketball-and-football grudge
+
+the_coach_relationship: savior   # Stoops WAS the savior; the program fired him anyway, betting the build outlives the man
+the_internal_fracture: gratitude-vs-ambition — the faction that mourns firing the program's greatest coach vs the faction that demanded it because Kentucky football should aim higher now
+register: bluegrass-basketball-school-football-arrived   # proud, a little defensive, a basketball state that learned to fill a football stadium and won't give it back
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Basketball-only — Mark Stoops's 10-3 in 2018 ended that frame
+  - Football afterthought — Kroger Field sells out
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Kentucky is a basketball blue blood that, under Mark Stoops, willed a real football program into existence in the toughest division in the sport — a decade-long climb from SEC doormat to ranked, bowl-streaking respectability that ended when the school fired its winningest coach ever rather than let it slide back."
+  the_origin: "A flagship state university whose soul lives at Rupp Arena, with a football history long defined by Bear Bryant's brief, brilliant early-1950s stint and not much sustained success after — until the Stoops era rewrote what was possible."
+  golden_ages:
+    - { era: "1950–1951 (Bear Bryant)", what: "Kentucky's first great football moment — an SEC title and a Sugar Bowl win before Bryant left for Alabama" }
+    - { era: "2018–2022 (Mark Stoops)", what: "A 10-3 season, four straight bowls, and back-to-back New Year's-adjacent bowl wins — the modern peak" }
+  legends:
+    - { name: Mark Stoops, role: coach, why: "The winningest coach in program history; built modern Kentucky football from nothing" }
+    - { name: Paul "Bear" Bryant, role: coach, why: "Won Kentucky's only SEC title and a Sugar Bowl before becoming a legend elsewhere" }
+    - { name: Lynn Bowden Jr., role: player, why: "The position-flexible star who carried the 2019 team and embodied the Stoops-era toughness" }
+  canonical_moments:
+    - { name: "2019 Belk Bowl / 10-3 season", year: 2019, what: "A signature Stoops-era year that proved the program had arrived", handling: glory }
+    - { name: "2022 Citrus Bowl win", year: 2022, what: "A New Year's Day bowl win over Iowa, the high point of the Stoops climb", handling: glory }
+    - { name: "Stoops fired", year: 2025, what: "After a 5-7 season and a second straight bowl miss, Kentucky fires its winningest coach and hires Will Stein", handling: wound }
+  the_place: "Kroger Field in Lexington — a stadium the Stoops era taught a basketball state to fill, in a town whose pulse still runs through Rupp Arena down the road."
+  brand_of_football: "Big, physical, run-it-and-defend football — a smashmouth identity Stoops used to survive and occasionally upset the SEC's heavyweights."
+  cultural_footprint: "A basketball cathedral that learned to care about football — proof that even a hoops-first SEC school can build a program its fans pack a stadium for, and refuse to surrender once they have it."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Kentucky went 5-7 (2-6 SEC) in 2025 and missed a bowl for the second
+    straight year, leading the school to fire Mark Stoops — the winningest coach in program history at 82-80 over
+    13 seasons. Kentucky hired 36-year-old offensive coordinator Will Stein, now the youngest head coach in the
+    SEC, to replace him. The bet in Lexington: that the Stoops decade made the job real enough that a young hire
+    can keep football alive in a basketball state.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Kentucky_Wildcats_football_team
+    - https://www.saturdaydownsouth.com/news/college-football/kentucky-insider-identifies-doomsday-scenario-record-for-mark-stoops/
+    - https://wildcatbluenation.com/will-2026-be-the-worst-recruiting-class-ever-for-kentucky-football-and-mark-stoops
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Kentucky is the basketball school whose football program arrived in the 2010s and now
+    refuses to leave.
+  mantra: Go Cats.
+  cultural_anchors:
+    fan_archetype_dominant: BBN-Loyalist-Football-Convert
+    outsider_archetype_dominant: Basketball-First-Diminisher
+    one_sentence: Kentucky is the basketball school whose football program made BBN show up — and stay —
+      under Mark Stoops's decade-long build.
+  selfname: the Wildcats
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2018 10-3 season + Citrus Bowl win under Mark Stoops
+    - Mark Stoops as longest-tenured SEC head coach
+    - Lynn Bowden Jr. position-flexible identity
+    rituals:
+    - Big Blue Nation
+    - Governor's Cup (vs Louisville)
+    - C-A-T-S Cheer
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (55/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

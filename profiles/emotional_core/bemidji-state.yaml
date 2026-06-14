@@ -1,0 +1,69 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: bemidji-state
+team_id: null
+program_name: Bemidji State
+program_tier: 6        # Division II
+
+emotional_core:
+  primary: restoration    # returning to blue-collar identity after worst season in recent cycle
+  secondary: contentment  # small northern program playing for pride, not playoffs
+  one_line: "Bemidji State is the Nordic timber-country program that built 10-win seasons in the early 2020s — and is now clawing back from a 4-7 collapse with its eye on the blue-collar roots that made it a contender."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A program that won 10 games in both 2021 and 2022 vs the 4-7 crash of 2025; from NSIC contender to basement dweller."
+
+the_wound:
+  name: "The 2025 collapse into rebuilding"
+  detail: "Bemidji State built winning programs in 2021 (10 wins) and 2022, establishing itself as a northern Minnesota power. The 2025 season was the worst in recent memory — 4-7 overall, 3-7 NSIC — a dramatic drop that forced a hard reset into 2026. Brent Bolte, the coach who built the 10-win seasons, signaled a return to 'blue-collar roots' rather than accept continued decline."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the 10-win seasons of the early 2020s and prove the Beavers' brief run as an NSIC contender wasn't a fluke."
+  drought: { since: 2023, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "The fanbase carries an internal chip: the gap between what Bemidji proved it could do (10 wins) and what it became (4-7)."
+
+the_delusion:
+  tone: earnest
+  text: "That the blue-collar identity will snap them back; fans believe the timber-country work ethic and the small-school pride can rebuild the program that briefly punched above its weight class in the early 2020s."
+
+the_grudge_texture:
+  rival: minnesota-duluth
+  texture: blood-feud   # northern Minnesota battle; UMD went 10-2 and won the NSIC in 2025 while Bemidji fell apart
+
+the_coach_relationship: legends-shadow    # Bolte built the 10-win era but can't recreate the magic (entering 100th anniversary of program)
+the_internal_fracture: quick-rebuild-hope vs reality-check — the faction believing a 30-commit recruiting class can return Bemidji to contention vs those who wonder if 2021-2022 was the peak
+register: northern-minnesota-beavers-timber-country-blue-collar
+never_use:
+  - "Never won an NSIC championship: accurate, no national titles"
+  - "2025 was the only down year: would erase the context of brief success"
+
+story_canon:
+  the_unique_thing: "A Nordic, timber-country program identity rooted in northern Minnesota and small-school pride; Bemidji built consecutive 10-win seasons in 2021-2022, proving the Beavers could compete at the NSIC level."
+  the_origin: "Bemidji State is a small school in the Minnesota northwoods, a regional program with a blue-collar, timber-country ethos and limited national profile."
+  golden_ages:
+    - { era: "2021–2022", what: "Consecutive 10-win seasons; the program's peak in the modern NSIC era" }
+  legends:
+    - { name: Brent Bolte, role: coach, why: "Built the 10-win seasons and has coached Bemidji for eight seasons; the architect of the brief contention window" }
+  canonical_moments:
+    - { name: "2021 10-win season", year: 2021, what: "Bemidji won 10 games under Bolte", handling: glory }
+    - { name: "2025 4-7 collapse", year: 2025, what: "The worst season in recent memory, triggering a reset", handling: wound }
+  the_place: "Bemidji, Minnesota; a small northern town with timber-country roots; Beaver football is community identity."
+  brand_of_football: "Blue-collar, regional northern program; Bemidji builds around hard work and small-school pride rather than recruiting advantage."
+  cultural_footprint: "Bemidji is a modest NSIC program with brief success in the early 2020s; the Beavers' 10-win seasons proved they could compete at a higher level, but the 2025 collapse raised questions about sustainability."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Bemidji State went 4-7 in 2025, the worst season in recent memory after
+    building 10-win seasons in 2021 and 2022. Coach Brent Bolte (8th season, 71-26 career) responded by signaling a reset
+    and return to "blue-collar roots"; the program recruited a 30-commit class for 2026 and is entering its 100th anniversary
+    season. The question for Bemidji is whether the Beavers can climb back to the brief 10-win contention window of the early
+    2020s, or if 2025 exposed permanent limitations in the program's ceiling.
+  sources:
+    - https://bsubeavers.com/sports/football/coaches/
+    - https://www.bemidjipioneer.com/sports/college/brent-bolte-vows-to-return-to-blue-collar-roots
+    - https://northernsun.org/schedule.aspx?schedule=3876

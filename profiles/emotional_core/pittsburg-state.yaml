@@ -1,0 +1,84 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Emotional Core — soul file for Pittsburg State Gorillas (MIAA)
+
+status: live
+slug: pittsburg-state
+team_id: null
+program_name: Pittsburg State
+program_tier: 6
+
+emotional_core:
+  primary: redemption
+  secondary: honor
+  one_line: "Pittsburg State is the Gorilla program with the most D2 wins in history — a four-time national champion that defined Kansas football and is proving the dynasty era isn't over."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A program with four national championships (1957, 1961, 1991, 2011), more all-time wins than any other D2 program, and the institutional gravity of Kansas regional football — the standard-bearer, proven and sustained."
+
+the_wound:
+  name: "The 2011-to-2025 gap — fourteen years without a national title in a program built on them"
+  detail: "Pittsburg State won national championships in 1957, 1961, 1991, and 2011 — the last one in 2011, fourteen years ago. That's the wound: a four-time champion in a championship drought. The fanbase hungers for a fifth title to prove the Gorillas still belong."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a fifth national championship and reclaim the elite tier — prove Pittsburg State is still among D2's best, not just its past."
+  drought: { since: 2011, unit: national_title }
+
+the_chip:
+  villain: committee
+  text: "The chip is history — the Gorillas have won more games than any D2 program ever, and the championship committee keeps overlooking them. Pittsburg State plays to remind the country why they have the most wins."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes Tom Anthony's second season (after an 8-3 debut in 2024) could spark a championship run — that the institutional knowledge and the winning tradition make another title not a dream, but inevitable. It's what Gorilla football means."
+
+the_grudge_texture:
+  rival: emporia-state
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "2024 debut success vs. 2025 co-championship hunger — fans debating whether the Gorillas are building something sustainable or one good season away"
+register: kansas-gorilla-all-time-wins-champion
+never_use:
+  - "One-time champion (four national titles: 1957, 1961, 1991, 2011)"
+  - "No recent success (2025 MIAA co-champions, three consecutive playoff appearances 2023–2025)"
+  - "Lost the winning tradition (more all-time D2 wins than any other program)"
+
+story_canon:
+  the_unique_thing: "Pittsburg State is the D2 program with more all-time wins than any other program in the division — a four-time national champion (1957, 1961, 1991, 2011) with the institutional legacy and football culture to prove it."
+  the_origin: "Pittsburg State football dates to the late 19th century and became a regional power in Kansas. The 1957 NAIA championship (later 1961 NAIA title) established the program as a legitimate contender. The move to NCAA Division II in 1991 and the immediate national championship proved the Gorillas belonged at every level."
+  golden_ages:
+    - { era: "1957, 1961 (NAIA)", what: "Two national championships in the NAIA era, establishing the Gorilla standard" }
+    - { era: "1991 (NCAA D2)", what: "Immediate national championship after joining NCAA; proved the Gorillas belonged" }
+    - { era: "2011 (Last Title)", what: "A fourth national championship, 20 years after the 1991 title" }
+    - { era: "2023–2025", what: "Three consecutive playoff appearances, 2025 co-MIAA champions; the dynasty era proving it's not over" }
+  legends:
+    - { name: "1957 Championship Team", role: "team", why: "The foundation of the Gorilla tradition; the first national title" }
+    - { name: "[Historic Coaches]", role: "coach", why: "Multiple coaches across seven decades built Pittsburg State's all-time wins record" }
+    - { name: "Tom Anthony", role: "coach", why: "Second season in 2026; led Pittsburg State to 10-3 record (2025), co-MIAA champions, playoff seeded #4" }
+  canonical_moments:
+    - { name: "1957 NAIA Championship", year: 1957, what: "The foundation championship", handling: glory }
+    - { name: "1961 NAIA Championship", year: 1961, what: "Second NAIA title", handling: glory }
+    - { name: "1991 NCAA D2 Championship", year: 1991, what: "First D2 title; immediate excellence in the new division", handling: glory }
+    - { name: "2011 NCAA D2 Championship", year: 2011, what: "The fourth and most recent national championship", handling: glory }
+    - { name: "2025 MIAA Co-Championship", year: 2025, what: "10-3 season, co-MIAA champions with NWMSU, seeded #4 with home field", handling: glory }
+    - { name: "Emporia State Rivalry (103 Meetings)", year: 2025, what: "The 7th-most-played D2 rivalry; Pittsburg State leads 66-35-2", handling: glory }
+  the_place: "Gorilla Stadium in Pittsburg, Kansas — home to the most-winningest D2 program in history and the center of southeastern Kansas football."
+  brand_of_football: "Championship-standard, historic, dominant — football built on the belief that the Gorillas belong among the elite, always."
+  cultural_footprint: "The D2 program that proved regional excellence could translate to national championships across multiple eras; the all-time wins leader and a four-time national champion."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Pittsburg State went 10-3 in 2025, co-won the MIAA with Northwest Missouri State, and earned the #4 playoff seed with home-field advantage. Tom Anthony is in his second season after an 8-3 debut in 2024. The Gorillas have won four national championships (1957, 1961, 1991, 2011) and have the most all-time wins of any D2 program in history. The 2025 co-championship and playoff positioning signal a potential return to the national-championship conversation. The question: can the Gorillas climb back to a fifth title, or is 2011 the final one?
+  research_checklist:
+    - Four national championships (1957 NAIA, 1961 NAIA, 1991 NCAA D2, 2011 NCAA D2)
+    - All-time wins record (more than any other D2 program)
+    - Tom Anthony's coaching tenure and 2025 results
+    - Emporia State rivalry (103 meetings, 7th-most-played D2 rivalry)
+    - 2025 MIAA co-championship and playoff seed
+    - Recent playoff runs (2023, 2024, 2025)
+  sources:
+    - https://en.wikipedia.org/wiki/Pittsburg_State_Gorillas_football
+    - https://pittstategorillas.com/
+    - https://themiaa.com/
+    - https://www.d2football.com/

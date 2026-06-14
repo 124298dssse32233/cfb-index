@@ -1,0 +1,124 @@
+# Emotional Core — Oklahoma State  (oklahoma-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: oklahoma-state
+team_id: 179
+program_name: Oklahoma State
+program_tier: 3
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+emotional_core:
+  primary: restoration    # the Gundy era ended in rubble; year one of putting it back together
+  secondary: grief        # 20 years of one man's mullet, gone three games into a 1-11 wreck
+  core_variant: regime-reset
+  one_line: "Oklahoma State spent twenty years as Mike Gundy's program — then fired him three games into a 1-11 collapse and handed a flattened roster to Eric Morris, the first sitting FBS coach Stillwater has ever hired."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "The 2011 Fiesta Bowl team that finished No. 3 and the two-decade run of winning seasons vs a winless Big 12 year that erased it all in a single autumn."
+
+the_wound:
+  name: "The 1-11 collapse and the end of Gundy"
+  detail: "Mike Gundy, the program's identity for 21 seasons, was fired on September 23 after a 1-2 start curdled into the worst year in modern memory: 1-11 overall, 0-9 in the Big 12, ten straight losses. The man who built Oklahoma State into a sustained winner left as the season that ended his tenure became the program's lowest point in a generation."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get the Cowboys back to bowl season and Big 12 contention — rebuild a winner from a roster torn down to the studs, and make the Gundy years a foundation rather than a peak."
+  drought: { since: 2011, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "The fanbase spent a generation insisting Stillwater was its own program, not a satellite of the school 80 miles south. A 1-11 season handed Oklahoma every easy joke — and the room is daring Morris to make the rivalry feel like a rivalry again."
+
+the_delusion:
+  tone: earnest
+  text: "Cowboy loyalists believe the Gundy-era foundation — the facilities, the donor base, the orange-out crowds — means this is a one-year crater, not a decline; that the right hire turns 1-11 back into a winner fast, because the program underneath the record is still real."
+
+the_grudge_texture:
+  rival: oklahoma
+  texture: little-brother   # Bedlam — the in-state grievance against the bigger Oklahoma program
+
+the_coach_relationship: savior   # Eric Morris inherits a flattened program after the Gundy era ended
+the_internal_fracture: gratitude for the Gundy era vs the conviction that it had run its course — the room split between honoring 20 years and admitting the last one made the firing necessary
+register: stillwater-loyal-mike-gundy   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - OU's little brother — 20 years of 8+ wins says otherwise
+  - Small-market program — Boone Pickens funded structural advantage
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Boone Pickens. The oilman alumnus poured a half-billion dollars into Oklahoma State athletics — the largest gift in the history of college sports at the time — turning a perennial also-ran into a program with the facilities of a blue blood. Few schools owe their modern existence so completely to one donor's checkbook."
+  the_origin: "An agricultural school in Stillwater that lived for most of the 20th century in Oklahoma's shadow, then was rebuilt — first by Pickens money, then by Mike Gundy — into one of the Big 12's most consistent winners."
+  golden_ages:
+    - { era: "2010–2014 (Gundy peak)", what: "The 2011 Big 12 title, a 12-1 Fiesta Bowl season, and a No. 3 final ranking" }
+    - { era: "2005–2024 (Mike Gundy)", what: "Two decades of bowl seasons and Big 12 relevance — the program's most sustained success" }
+  legends:
+    - { name: Mike Gundy, role: coach, why: "21 seasons, the 2011 Big 12 title, the most wins in program history — and the 'I'm a man, I'm 40' moment" }
+    - { name: Barry Sanders, role: player, why: "The 1988 Heisman winner and one of the greatest college running backs ever — the program's untouchable icon" }
+    - { name: Boone Pickens, role: coach, why: "Not a coach, but the donor whose gifts built the modern program; the stadium bore his name" }
+  canonical_moments:
+    - { name: "2011 Big 12 championship", year: 2011, what: "Beat No. 13 Oklahoma 44-10 in Bedlam to clinch the title, then won the Fiesta Bowl and finished No. 3", handling: glory }
+    - { name: "Barry Sanders' 1988 Heisman", year: 1988, what: "The most statistically dominant season by a college running back in history", handling: glory }
+    - { name: "Gundy fired amid the 1-11 collapse", year: 2025, what: "The 21-year coach let go after a 1-2 start became a winless Big 12 season", handling: wound }
+  the_place: "Boone Pickens Stadium in Stillwater — the orange-out crowds and Bedlam atmosphere, a venue funded into the modern era by the donor whose name it carried."
+  brand_of_football: "Stillwater-tough and Gundy-built — for years an up-tempo, high-scoring Big 12 attack paired with a chip-on-the-shoulder defense; now a brand to be rebuilt from scratch."
+  cultural_footprint: "Pistol Pete, the cowboy mythology, and the rural-Oklahoma loyalty of a fanbase that defined itself by being its own program — not the other school's little brother."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Oklahoma State cratered to 1-11 (0-9 Big 12) in 2025, losing its final ten
+    games. Mike Gundy was fired on September 23 after 21 seasons; Doug Meacham finished as interim. On November 25,
+    the Cowboys hired North Texas head coach Eric Morris — the first time since 1969 OSU hired a sitting head coach,
+    and the first time ever from an FBS program. Morris inherited a roster gutted by the portal (85-plus new players
+    in the overhaul) and the job of restoring a program that the Gundy collapse left at its lowest point in a
+    generation.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Oklahoma_State_Cowboys_football_team
+    - https://www.cbssports.com/college-football/news/mike-gundy-fired-oklahoma-state-head-coach
+    - https://news.okstate.edu/articles/communications/2025/morris_named_osus_25th_football_coach
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Oklahoma State is the program that lived in Mike Gundy's mullet for 20 years and built
+    a Big 12 identity around being not-Oklahoma.
+  mantra: Go Pokes.
+  cultural_anchors:
+    fan_archetype_dominant: Stillwater-Cowboy-Loyalist
+    outsider_archetype_dominant: Not-Oklahoma-Diminisher
+    one_sentence: Oklahoma State is the program that became distinct from Oklahoma by being more Oklahoma
+      — the cowboy mythology, the Pistol Pete iconography, the rural-Stillwater patience.
+  selfname: the Cowboys
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2011 12-1 Fiesta Bowl season
+    - Mike Gundy's 20-year tenure (2005-2024)
+    - Boone Pickens' $500M+ in athletic department donations
+    rituals:
+    - Mike Gundy Tenure
+    - Bedlam Series
+    - Pistol Pete Mascot
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

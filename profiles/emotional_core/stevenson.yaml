@@ -1,0 +1,84 @@
+# AUTHORED (D3 MAC) 2026-06-13 — web-verified
+# Middle Atlantic Conference | Owings Mills, MD | Championship Contender Mustangs
+# 2025: Lost MAC Championship game to Eastern (16-10, Nov 15); coach transition (Ed Hottle → Josh Hoeg)
+
+status: live
+slug: stevenson
+team_id: null
+program_name: Stevenson University
+program_tier: 7
+
+emotional_core:
+  primary: restoration      # post-championship-game loss; rebuilding under new coach Josh Hoeg
+  secondary: honor          # championship-caliber program; consistent MAC contender
+  core_variant: perpetual-rebuild
+  one_line: "Stevenson is the Mustang built on elite facilities and institutional commitment, running to the MAC Championship game in 2025 before losing to Eastern, now rebuilding with new coaching leadership."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A young program (launched 2010) with some of the best facilities in Division III, consistently competing at the top of the MAC, yet unable to break through the final barrier to a conference crown."
+
+the_wound:
+  name: "The 2025 MAC Championship game loss and the question of breakthrough"
+  detail: "On November 15, 2025, Eastern defeated Stevenson 16-10 in the MAC Championship game—a close, competitive loss that marked the Mustangs' near-miss at their first conference title. The wound isn't failure; it's proximity. Stevenson has been knocking on the championship door for years; 2025 was perhaps the closest. Did the Mustangs let it slip away?"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a MAC championship and prove that 15 years of institutional investment, world-class facilities, and sustained competitiveness can translate into a title—and that Stevenson Mustangs belong in Division III's elite tier."
+  drought: { since: 2010, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no external villain—just the internal hunger to prove that the Mustangs aren't cursed, that the facilities and commitment will eventually yield a championship, not just competitive seasons."
+
+the_delusion:
+  tone: self-aware
+  text: "That a new coach could flip the championship-game loss into motivation for 2026 success—that one loss defines the trajectory. Stevenson knows close calls hurt; it believes the next one goes different."
+
+the_grudge_texture:
+  rival: eastern-pa
+  texture: championship    # 2025 MAC Championship game opponent; Stevenson 16-10 loss defines the rivalry moment
+
+the_coach_relationship: hot-seat-churn      # Ed Hottle (2010-2025) departed; Josh Hoeg named 2026 coach (Feb 12, 2026)
+the_internal_fracture: vindication-anxiety — the faction believing the Mustangs are a title-contender vs those wondering if the facilities exceed the football reality
+register: owings-mills-mustang-contender-bridesmaid-pride
+never_use:
+  - "Stevenson is not a real contender — a MAC Championship game appearance in 2025 proves otherwise"
+  - "The facilities don't matter — Stevenson's competitive presence every season is built on infrastructure investment"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The Owings Mills Mustang—a 15-year-old program with elite facilities (home to the Ravens' first Super Bowl training camp in 2000) and institutional commitment, reaching the 2025 MAC Championship game but falling just short against upstart Eastern."
+  the_origin: "Stevenson University, located in Owings Mills, Maryland, began fielding a Division III football team in 2010 as part of its athletic expansion and commitment to NCAA Division III athletics."
+  golden_ages:
+    - { era: "2010-2025 institutional arc", what: "15 years of consistent MAC competitiveness and facility investment, building a program that competes at the championship level" }
+    - { era: "2025 near-championship", what: "Stevenson reached the MAC Championship game, losing 16-10 to Eastern on November 15" }
+  legends:
+    - { name: Ed Hottle, role: coach, why: "Coached from 2010-2025 (16 seasons); built Stevenson into a MAC contender and established the program's winning identity" }
+    - { name: "Mustang Stadium", role: facility, why: "Built on one of the region's most storied athletic sites (Ravens Super Bowl XXXV training camp, 2000)" }
+  canonical_moments:
+    - { name: "2010 program launch", year: 2010, what: "Stevenson University begins Division III football with institutional commitment to elite facilities and student-athlete development", handling: glory }
+    - { name: "2025 MAC Championship game", year: 2025, what: "Mustangs reach conference championship game, losing 16-10 to Eastern on November 15", handling: heartbreak }
+  the_place: "Mustang Stadium in Owings Mills, MD—home of the Mustangs, built on a historic athletic site that hosted the Baltimore Ravens' first Super Bowl-winning training camp in 2000."
+  brand_of_football: "The near-miss Mustang—a well-resourced program that competes every year at the championship level but hasn't yet broken through the final barrier to a title."
+  cultural_footprint: "Stevenson represents the possibility of building rapid institutional competitiveness through facility investment and commitment, even if the championship title remains elusive."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Stevenson reached the 2025 MAC Championship game, losing to upstart Eastern 16-10
+    on November 15, 2025. Head coach Ed Hottle, who built the program from 2010-2025, departed, and Josh Hoeg was named
+    the new head coach (effective February 12, 2026). Hoeg, a 16-year associate head coach and offensive coordinator under
+    Hottle, becomes the second head coach in program history. The Mustangs' 2025 near-miss at a conference title, combined
+    with coaching transition, raises the stakes for 2026: can new leadership translate the 15-year culture and facilities
+    into a championship season, or will Stevenson remain a perennial contender without a crown?
+  research_checklist:
+    - Founded 2010 (15-year-old program)
+    - Owings Mills, MD; Mustang Stadium
+    - Ed Hottle coached 2010-2025
+    - Josh Hoeg named 2026 coach (Feb 12, 2026); second coach in history
+    - 2025: Lost MAC Championship 16-10 to Eastern (Nov 15)
+    - No athletic scholarships offered
+  sources:
+    - https://gomustangsports.com/
+    - https://www.d3football.com/teams/stevenson
+    - https://gomacsports.com/
+    - https://en.wikipedia.org/wiki/Stevenson_Mustangs_football

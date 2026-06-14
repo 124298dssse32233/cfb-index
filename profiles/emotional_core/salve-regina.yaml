@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — Salve Regina University (salve-regina)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: salve-regina
+team_id: null
+program_name: Salve Regina University
+program_tier: 7
+
+emotional_core:
+  primary: contentment  # stable, well-coached program
+  secondary: house-money  # consistent 6-4 excellence is reward
+  one_line: "Salve Regina is the Rhode Island Seahawks — a stable NEWMAC program anchored by Kevin Gilmartin's 13-season tenure (70-33 record, winningest coach in program history), proving that patience and continuity build lasting football success."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A NEWMAC consistent performer (6-4, 6-4, 9-2 recent seasons) with the longest-tenured and most successful coach in program history, sitting just outside the championship conversation but commanding respect."
+
+the_wound:
+  name: "None to reference"
+  detail: "Salve Regina's identity is built on stability and quiet competence, not on trauma or grievance. Kevin Gilmartin has eliminated past dysfunction through consistent excellence."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Capture a NEWMAC championship under Kevin Gilmartin and prove that sustained excellence and coaching stability build championship-caliber football."
+  drought: { since: 1975, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Salve Regina plays for the satisfaction of consistent winning and for loyalty to Kevin Gilmartin, the program's greatest coach."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that Salve Regina's consistent 6-4, 9-2 performances are the prelude to a NEWMAC title — that Gilmartin's system is close to breaking through."
+
+the_grudge_texture:
+  rival: endicott
+  texture: championship   # both are NEWMAC competitors
+
+the_coach_relationship: forever-ours   # Kevin Gilmartin, 13 seasons, 70-33 record
+the_internal_fracture: championship expectations vs. consistent 6-4 reality
+register: seahawks-rhode-island-gilmartin-dynasty
+never_use:
+  - Salve Regina is a weak program — 6-4 in 2025, 9-2 in 2023, consistent winning proves otherwise
+  - Kevin Gilmartin is a passing phase — 13 seasons with 70-33 record makes him the program's greatest coach and central to identity
+  - The Seahawks have no tradition — 6 consecutive winning seasons under Gilmartin (implied) proves sustained competitive culture
+
+story_canon:
+  the_unique_thing: "Salve Regina is a NEWMAC program built on coaching stability and consistent excellence: Kevin Gilmartin has won 70 games in 13 seasons (winningest coach in program history), posting 9-2 (2023) and 6-4 (2024, 2025) records that keep the Seahawks consistently competitive."
+  the_origin: "Salve Regina University in Newport, Rhode Island, fielded football as a NEWMAC member."
+  golden_ages:
+    - { era: "2013–present (Gilmartin)", what: "13-season coaching tenure; 70-33 record; consistent NEWMAC competitiveness" }
+  legends:
+    - { name: Kevin Gilmartin, role: coach, why: "13-season tenure with 70-33 record; winningest and longest-tenured coach in Salve Regina history" }
+  canonical_moments:
+    - { name: "2023 season 9-2", year: 2023, what: "Best recent season under Gilmartin; top-tier NEWMAC finish", handling: glory }
+    - { name: "13 seasons, 70 wins", year: 2025, what: "Gilmartin's tenure total as of 2025", handling: glory }
+  the_place: "Salve Regina University field in Newport, Rhode Island — home of the Seahawks on the Rhode Island coast."
+  brand_of_football: "Stable, well-coached football — Gilmartin's consistent system."
+  cultural_footprint: "Proof that coaching continuity and consistent winning build lasting program identity and fan loyalty."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Salve Regina posted a 6-4 overall record and 3-4 NEWMAC mark in 2025, continuing
+    a pattern of consistent NEWMAC competitiveness. Kevin Gilmartin is in his 13th season as head coach with a career 70-33
+    record — the winningest and longest-tenured coach in program history. Recent seasons show a stable pattern: 2023 (9-2),
+    2024 (6-4), 2025 (6-4). Gilmartin has transformed Salve Regina from a perennial also-ran into a NEWMAC respectable,
+    keeping the Seahawks consistently in title contention, if not claiming the crown. The question: can Gilmartin's stable,
+    consistent system finally break through for a NEWMAC championship, or is 6-4/9-2 excellence the program's ceiling?
+  research_checklist:
+    - Kevin Gilmartin 13-season tenure (70-33 record)
+    - 2023 (9-2), 2024 (6-4), 2025 (6-4) recent seasons
+    - NEWMAC membership and competitiveness
+    - Seahawks mascot (rare variant in NCAA)
+  sources:
+    - https://www.ncaa.org/sports/2025/d3/football/salve-regina-university/schedule
+    - https://www.ncollegefootball.com/teams/salve-regina-seahawks
+    - https://en.wikipedia.org/wiki/Salve_Regina_University_Seahawks_football

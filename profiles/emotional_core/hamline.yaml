@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: hamline
+team_id: null
+program_name: Hamline University
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: house-money
+  one_line: "Hamline is a program turning the page—a new era beginning after a brutal 1-10 season, betting everything on fresh culture and the belief that rock bottom is a foundation."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A small Minneapolis school that hit bottom in 2025 (1-10, 0-9 MIAC), then immediately responded by hiring a new head coach—the ultimate small-school reset."
+
+the_wound:
+  name: "The 2025 collapse—1-10, 0-9 MIAC"
+  detail: "Hamline went 1-10 (0-9 in conference) in 2025, a winless season in league play that represented institutional failure. The program had grown stale, the culture broken, the team unable to win a single conference game. Everything was wrong. That's the wound."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Rebuild from zero—prove the new coach and the new culture can restore Hamline to competitiveness, show the MIAC that this disaster was a low, not a direction."
+  drought: { since: 2020, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Hamline's identity is about restoration, not revenge. The fanbase isn't angry at anyone else—just committed to the belief that 2025 was the bottom and 2026 is the start of climbing out."
+
+the_delusion:
+  tone: earnest
+  text: "Hamline fans believe Bob Davies (hired December 2025) brings new energy and culture. They've accepted the 1-10 season, learned what it feels like to lose everything, and are ready to build something real from that rubble."
+
+the_grudge_texture:
+  rival: augsburg
+  texture: border-war
+
+the_coach_relationship: savior
+the_internal_fracture: "Accept the reset vs rush back to respectability—should the fanbase embrace the rebuild or demand immediate improvement?"
+register: hamline-pipers-minneapolis-reset
+never_use:
+  - Once-dominant program—Hamline was never a MIAC elite
+  - Perennial contender—this program has mostly played in the middle tier
+  - Habitual winner—1-10 in 2025 was the real truth, not the anomaly
+
+story_canon:
+  the_unique_thing: "The hiring of Bob Davies in December 2025, chosen to rebuild a program that went 1-10 (0-9 MIAC) in 2025. Davies represents a fresh start, new culture, and the fanbase's collective bet that rock bottom is not a direction but a reset point."
+  the_origin: "Hamline University, a small Methodist-rooted school in Minneapolis, has competed in the MIAC since the conference's founding era, playing solid if undistinguished football for decades. The program has never been dominant but had maintained respectability until the 2025 collapse."
+  golden_ages:
+    - { era: "1990s–2010s", what: "Hamline's steady era; the program won 6-8 games consistently, competing in the MIAC middle tier" }
+  legends:
+    - { name: Bob Davies, role: coach, why: "Hired December 2025 to rebuild after the 1-10 disaster; represents the reset and the fresh start" }
+    - { name: Dawson Schaffer, role: player, why: "Senior WR; part of the veteran roster that must lead the restoration in 2026" }
+  canonical_moments:
+    - { name: "The 2025 collapse", year: 2025, what: "Hamline goes 1-10 (0-9 MIAC)—the worst season in program history and the catalyst for change", handling: wound }
+    - { name: "Bob Davies hired", year: 2025, what: "December 2025 hiring of new head coach signals institutional commitment to rebuilding and restoring culture", handling: glory }
+  the_place: "Minneapolis, Minnesota—a small school in a city with big football history, playing quiet college football without the prestige of larger institutions."
+  brand_of_football: "Scrappy, committed, rebuilding—Hamline plays with the energy of a program that has nothing to lose and everything to prove in 2026."
+  cultural_footprint: "Hamline represents the D3 resilience story: institutional collapse followed by immediate commitment to restoration, proof that a small program can reset and rebuild."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Hamline hit bottom in 2025 with a 1-10 record (0-9 MIAC),
+    a winless conference season that forced institutional action. The Pipers responded by hiring Bob Davies as
+    head coach in December 2025—a clear signal of commitment to rebuilding. The 2026 season is about culture,
+    not wins: can Davies establish a foundation that allows Hamline to be competitive in 2027-2028, or will the
+    program spiral further? Senior receivers (Schaffer), backs (Wynn), and linebackers (Zacharias) will lead the
+    restoration effort.
+  research_checklist:
+    - The 2025 1-10 (0-9 MIAC) disaster season
+    - Bob Davies hiring (December 2025) as institutional reset
+    - Senior leadership in restoration year
+    - Small-school pride and commitment to rebuilding
+    - Rock-bottom as inflection point narrative
+  sources:
+    - https://www.hamline.edu/athletics/football/
+    - https://miachome.org/sports/football/
+    - https://www.d3football.com/

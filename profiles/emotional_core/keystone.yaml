@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: keystone
+team_id: null
+program_name: Keystone College
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Keystone College is the Landmark Conference program that revived football in 2019 after a 72-year hiatus, a small Pennsylvania college playing every fall with the joy of a program given a second chance and the historic legacy of Christy Mathewson."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Keystone's football program was dormant for 72 years (1947–2019) and has been rebuilding for just 7 seasons. The program's identity is defined by resurrection, not conquest."
+
+the_wound:
+  name: "The 72-year silence and the mystery of what was lost"
+  detail: "Keystone didn't play football for 72 years. The wound is historical absence — the program has no recent identity to build on, and every season is about establishing what Keystone football means in 2026."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build a sustainable Division III football program, achieve bowl eligibility, and honor the Christy Mathewson legacy by proving Keystone can be a football school again."
+  drought: { since: 1947, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Keystone plays for the pure joy of football, newly restored. The motivation is gratitude for the opportunity and pride in being a football program again."
+
+the_delusion:
+  tone: earnest
+  text: "That the revived program is building toward something special, that every season is a building block toward relevance — the fanbase believes in resurrection and the power of starting fresh."
+
+the_grudge_texture:
+  rival: none
+  texture: none
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Building the program infrastructure vs. winning games now"
+register: keystone-giants-revival-2019-christy-mathewson-legacy
+
+never_use:
+  - Storied football power — Keystone never was; it stopped playing in 1947
+  - Perennial bowl team — revival program, early stages
+  - Historic championship tradition — Keystone's football history ended in 1947
+
+story_canon:
+  the_unique_thing: "Keystone College revived its football program in 2019 after a 72-year hiatus (1947–2019), giving a second life to a sport that had been dormant for three-quarters of a century. The college also carries the historical legacy of hosting Christy Mathewson, the legendary pitcher who played for Keystone (1895–1897) before his Hall of Fame career."
+  the_origin: "A small liberal-arts college in La Plume, Pennsylvania (founded 1868). Football was part of Keystone's early history but ceased in 1947. In 2019, the college made the bold decision to revive the program and join the Landmark Conference."
+  golden_ages:
+    - { era: "2019–present", what: "The modern resurrection: Keystone rebuilds its football program from scratch in Division III, joining the Landmark Conference and establishing a new identity" }
+  legends:
+    - { name: "Christy Mathewson", role: "hall-of-famer", why: "Legendary Major League Baseball pitcher who played for Keystone College (1895–1897) before his Hall of Fame career with the Pittsburgh Alleghenys and New York Giants" }
+  canonical_moments:
+    - { name: "Football Revival (2019)", year: 2019, what: "Keystone revives its football program after 72 years of dormancy, joining the Landmark Conference and beginning a new era", handling: glory }
+  the_place: "La Plume, Pennsylvania — a small rural community in northeastern Pennsylvania, home to Keystone College."
+  brand_of_football: "Joyful, building football rooted in resurrection. Keystone's game is about establishing a new identity, competing with heart, and proving that a revived program can succeed."
+  cultural_footprint: "A testament to the power of athletic resurrection. Keystone's revival after 72 years and its connection to Christy Mathewson represent the possibility of honoring legacy while building anew."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Keystone revived football in 2019 and is now in its seventh season of rebuilding
+    under head coach Hugh Kirwan (promoted 2025). The program has no record verified for 2025, but the overall narrative
+    is clear: this is a young program in growth mode, competing in the Landmark Conference and working to establish
+    consistency and culture. Every season is a building block toward making Keystone a sustainable football school again.
+
+  research_checklist:
+    - Football revived 2019 (after 72-year hiatus from 1947) verified
+    - Christy Mathewson connection (1895–1897 at Keystone) verified
+    - Hugh Kirwan promoted to head coach 2025 verified
+    - Landmark Conference affiliation verified
+    - Small-school Pennsylvania context
+
+  sources:
+    - https://en.wikipedia.org/wiki/Keystone_College
+    - https://keystonecollegeathletics.com/sports/football
+    - https://en.wikipedia.org/wiki/Christy_Mathewson
+    - https://en.wikipedia.org/wiki/Keystone_College_Giants_football

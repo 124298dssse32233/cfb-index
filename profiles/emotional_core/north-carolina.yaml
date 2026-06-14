@@ -1,0 +1,120 @@
+# Emotional Core — North Carolina  (north-carolina)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: north-carolina
+team_id: 90
+program_name: North Carolina
+program_tier: 3
+
+emotional_core:
+  primary: spectacle      # the basketball school that hired the most famous NFL coach alive — and it went sideways
+  secondary: disbelief    # a 4-8 first year and a Jordon Hudson circus nobody in Chapel Hill imagined
+  one_line: "North Carolina is the basketball school that stunned the sport by hiring Bill Belichick — six Super Bowl rings walking into a football program that had never quite committed, and a 4-8 first year that turned a coronation into a spectacle."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "138 years of football, a 1980 top-ten team, and a genuine NFL talent record against zero outright ACC titles in the modern era and a program forever ranked behind the gym next door."
+
+the_wound:
+  name: "The Belichick first year"
+  detail: "The boldest hire in college football history opened 4-8 (2-6 ACC), ending a six-year bowl streak — three season-opening losses by a combined 120-33, a 19.3-points-per-game offense, a coordinator purge, and a tabloid storyline around Belichick's personal life that swallowed the football."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Vindicate the bet — turn the most-watched coaching experiment in the sport into the program's first conference title since Lawrence Taylor's 1980 team, and finally make football matter as much as the banners in the Smith Center."
+  drought: { since: 1980, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans grew tired of being a national punchline — the basketball school in over its head, the tabloid story, the 4-8 schadenfreude — and want the people enjoying the experiment's stumble to remember it's only year one of a five-year bet."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes the genius will eventually be the genius — that the greatest defensive mind in football history just needs a full recruiting cycle and the right quarterback, and that the names lining up to play for Belichick will turn a 4-8 embarrassment into a program nobody laughs at."
+
+the_grudge_texture:
+  rival: nc-state
+  texture: blood-feud   # the in-state Tobacco Road rivalry with the Wolfpack
+
+the_coach_relationship: savior   # the all-in, sport-shaking bet that this hire is the answer
+the_internal_fracture: faith vs buyer's remorse — the faction that says a six-ring legend deserves the full build vs the faction that watched a 4-8 circus and wonders if a 73-year-old NFL coach was ever the right fit for college football
+register: tarheel-basketball-school-football-experiment   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Football is an afterthought — Mack Brown's return contradicts that frame
+  - Basketball-only program — 138 years of football, 700+ wins
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "North Carolina hired Bill Belichick — the most accomplished coach in NFL history, six Super Bowl rings, to run a college program at a basketball school. No hire in the sport's history was bolder or more improbable, and the eyes of all of football are now on Chapel Hill to see whether the genius translates."
+  the_origin: "The nation's oldest public university, chartered 1789 in Chapel Hill — a basketball blue blood whose football program has 138 years of history but has always lived in the long shadow of the gym."
+  golden_ages:
+    - { era: "1980–1981 (Dick Crum / Lawrence Taylor)", what: "An 11-1 ACC championship in 1980 and a top-ten finish — the program's last conference title and its high-water mark" }
+    - { era: "1992–1997 (Mack Brown's first tenure)", what: "Back-to-back top-ten seasons in 1996-97; the era that proved UNC football could be nationally relevant" }
+  legends:
+    - { name: Lawrence Taylor, role: player, why: "The greatest defensive player in football history; his #98 is honored at Kenan and his 1980 team won the last ACC title" }
+    - { name: Mack Brown, role: coach, why: "Built modern UNC football across two tenures; the program's defining coach until his 2024 firing" }
+    - { name: Bill Belichick, role: coach, why: "Six-time Super Bowl champion; the most stunning hire in college football history, now running the program" }
+  canonical_moments:
+    - { name: "The 1980 ACC title", year: 1980, what: "Lawrence Taylor's 11-1 Tar Heels win the ACC and finish top ten — still the last conference championship in program history", handling: glory }
+    - { name: "Belichick hired", year: 2024, what: "North Carolina hires Bill Belichick, the boldest move any program has ever made, betting an NFL legend can build a college winner", handling: glory }
+    - { name: "The 4-8 first year", year: 2025, what: "Belichick's debut ends 4-8, snapping a six-year bowl streak amid a coordinator purge and a tabloid storyline", handling: wound }
+  the_place: "Kenan Memorial Stadium — tucked in the pines of campus, the most picturesque setting in the ACC, where a basketball school keeps funding the football experiment."
+  brand_of_football: "Historically finesse and skill-position rich; now, under Belichick, a deliberate NFL-style rebuild — pro structure, pro discipline, and the patience the experiment demands."
+  cultural_footprint: "The ultimate test case of whether a basketball school can will itself into football relevance by hiring the biggest name available — the most-watched program-building experiment in the sport."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Bill Belichick's first season ended 4-8 (2-6 ACC), ending a six-year bowl
+    streak. UNC fired coordinators Freddie Kitchens and Mike Priefer, hired Bobby Petrino to run the offense, and
+    reshaped the roster — losing QBs Gio Lopez and Bryce Baker to the portal while signing Wisconsin transfer
+    Billy Edwards Jr. Entering year two of a five-year bet, Chapel Hill is asking whether the genius will translate
+    to college football, or whether the most famous hire in the sport's history was a mismatch from the start.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_North_Carolina_Tar_Heels_football_team
+    - https://dailytarheel.com/article/sports-football-bill-belichick-first-season-analysis-and-review-dec-2025-20251202
+    - https://www.boston.com/sports/college-sports/2025/12/12/bill-belichick-unc-freddie-kitchens-mike-priefer-fired/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: North Carolina is the basketball school with a 138-year football program and the patience
+    to keep funding the experiment.
+  mantra: Go Heels.
+  cultural_anchors:
+    fan_archetype_dominant: Basketball-First-Football-Curious
+    outsider_archetype_dominant: Football-Afterthought-Diminisher
+    one_sentence: North Carolina is the basketball school whose football program lives in the shadow of
+      Dean Smith's gym next door and whose patience with that asymmetry is the longest in CFB.
+  selfname: the Tar Heels
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1980 Lawrence Taylor 11-1 top-10 season
+    - Mack Brown 1988-1997 first tenure (building modern UNC football)
+    - Mack Brown 2019+ return
+    rituals:
+    - Carolina Blue
+    - Rameses the Ram
+    - Mack Brown Era (2019-present)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (54/100, n=62)
+    voice_profile: absent
+    delusion_premium: absent

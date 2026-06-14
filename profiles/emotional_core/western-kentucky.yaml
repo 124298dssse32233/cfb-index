@@ -1,0 +1,123 @@
+# Emotional Core — Western Kentucky  (western-kentucky)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: western-kentucky
+team_id: 278
+program_name: Western Kentucky
+program_tier: 3
+
+emotional_core:
+  primary: contentment     # a program that quietly makes a bowl every single year and is at peace being the steady one
+  secondary: grievance     # the chip of being Kentucky's other program, forever overshadowed by Lexington
+  one_line: "Western Kentucky is the program that just makes a bowl, every year, no drama — seven straight under Tyson Helton, the latest a New Orleans Bowl win, while the rest of the state only watches Lexington."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A 2002 national championship at the FCS level and Jeff Brohm's pass-happy 2015-16 peak vs a Conference USA ceiling that says the steady bowl trips don't count where it matters."
+
+the_wound:
+  name: "Living in Kentucky's shadow"
+  detail: "There is a whole state of basketball blue between Bowling Green and any national football spotlight, and the Hilltoppers' biggest fight is for attention they rarely get — a reliably-good program in a state that only looks toward Lexington's basketball and, lately, Wildcat football."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win Conference USA again and crash a January bowl conversation — to turn 'reliably good' into a season the whole state, for once, has to notice."
+  drought: { since: 2016, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Hilltopper Nation knows the joke — that people hear 'Kentucky football' and never think of Bowling Green. They say the program that wins eight or nine games like clockwork deserves more than to be the state's footnote, and they keep the receipts."
+
+the_delusion:
+  tone: self-aware
+  text: "Hilltopper fans believe Bowling Green is quietly one of the best jobs in the Group of Five — a quarterback factory that can hang with anyone on the right night. They know the resources are modest, and they trust the program to keep overachieving anyway."
+
+the_grudge_texture:
+  rival: middle-tennessee
+  texture: blood-feud   # the 100 Miles of Hate — the I-65/I-24 rivalry with MTSU, the game that means most
+
+the_coach_relationship: total-trust   # Tyson Helton has made a bowl every year; the fanbase trusts the steady hand
+the_internal_fracture: steady-is-enough vs swing-for-more — the faction content with a bowl every December vs the faction that remembers the Brohm-era fireworks and wants a league title, not just bowl eligibility
+register: bowling-green-ky-hilltoppers-air-raid   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always G5 — 2002 FCS championship + Brohm era top-25 finishes disprove
+  - Just an FCS program — 2007 FBS reclassification + sustained competitive cycles ended
+    that
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Western Kentucky won an FCS national championship in 2002, climbed to the FBS, and under Jeff Brohm turned itself into one of the most prolific passing programs in the country — a quarterback factory hiding in plain sight in basketball-mad Kentucky."
+  the_origin: "A regional university in Bowling Green, Kentucky — long an Ohio Valley Conference power — that won a Division I-AA (FCS) national title under Jack Harbaugh before reclassifying to the FBS in 2007."
+  golden_ages:
+    - { era: "2002 (Jack Harbaugh)", what: "A Division I-AA national championship — the program's first title and the foundation of its modern ambition" }
+    - { era: "2014–2016 (Jeff Brohm)", what: "An Air Raid explosion, a 12-2 Conference USA championship season in 2015, and Top-25 buzz behind record-setting offenses" }
+  legends:
+    - { name: Jeff Brohm, role: coach, why: "Built the high-flying offenses that made WKU a national name and a quarterback pipeline" }
+    - { name: Jack Harbaugh, role: coach, why: "Coached the 2002 national champions — the program's defining title" }
+    - { name: Brandon Doughty, role: player, why: "The record-setting quarterback at the heart of the Brohm-era passing peak" }
+  canonical_moments:
+    - { name: "The 2002 national championship", year: 2002, what: "Western Kentucky wins the I-AA title under Jack Harbaugh", handling: glory }
+    - { name: "The 2015 Conference USA title", year: 2015, what: "A 12-2 season and league championship behind one of the nation's best offenses", handling: glory }
+    - { name: "New Orleans Bowl win", year: 2025, what: "A 27-16 comeback over Southern Miss extends a streak of bowl trips under Tyson Helton", handling: glory }
+  the_place: "Houchens Industries–L.T. Smith Stadium in Bowling Green, home to Big Red — the wordless, shapeless red mascot that's become one of college sports' most beloved oddballs."
+  brand_of_football: "Hilltopper Nation — pass-first, score-fast football in the Brohm tradition, with Big Red as the cheerful face of a program that wins more than its profile suggests."
+  cultural_footprint: "The proof that Kentucky football lives beyond Lexington — a steady, fun, quietly successful program that keeps producing quarterbacks and bowl trips from a basketball state's blind spot."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Tyson Helton returns for 2026 having made a bowl in all seven of his seasons.
+    Western Kentucky went 9-4 (6-2 Conference USA) in 2025 and won the New Orleans Bowl 27-16 over Southern Miss,
+    plus a seventh straight win over rival Middle Tennessee (42-26). Transfer quarterback Maverick McIvor anchored
+    the offense and projects to return. The question in Bowling Green: can the program turn its steady bowl habit
+    back into a Conference USA title, or stay the league's reliable, overlooked overachiever?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Western_Kentucky_Hilltoppers_football_team
+    - https://wkusports.com/news/2025/12/23/football-hilltoppers-rally-late-to-earn-27-16-win-over-southern-miss-in-new-orleans-bowl
+    - https://en.wikipedia.org/wiki/100_Miles_of_Hate
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Western Kentucky is the Conference USA program whose Mike Sanford / Jeff Brohm Air Raid
+    eras + 2002 FCS championship + 2024 8-5 bowl eligibility define what historic-Kentucky-football looks
+    like outside Lexington.
+  mantra: Hilltopper Nation.
+  cultural_anchors:
+    fan_archetype_dominant: Bowling-Green-KY-Hilltopper-Nation
+    outsider_archetype_dominant: G5-Where-Is-That-Diminisher
+    one_sentence: Western Kentucky is the Bowling Green KY football flagship — 2002 FCS championship + Jeff
+      Brohm Air Raid era + Big Red mascot iconography + 2024 bowl eligibility that keep the Hilltoppers
+      in Conference USA competitive cycles.
+  selfname: the Hilltoppers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2015 12-2 + Conference USA championship + Boca Raton Bowl under Jeff Brohm
+    - 2002 FCS national championship under Jack Harbaugh
+    - Big Red mascot (1979-present)
+    rituals:
+    - Jeff Brohm Air Raid Era (2014-2016)
+    - 2002 FCS National Championship
+    - Big Red Mascot
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

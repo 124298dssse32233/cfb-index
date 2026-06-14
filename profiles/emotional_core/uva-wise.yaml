@@ -1,0 +1,110 @@
+# Emotional Core — UVA Wise  (uva-wise)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: uva-wise
+team_id: 999  # Placeholder — may need D2 DB assignment
+program_name: UVA Wise
+program_tier: 6
+
+emotional_core:
+  primary: house-money      # a Division II program finding its footing in the SAC under a new coach
+  secondary: restoration    # Gary Bass's first season (2024) rebuild leading to improvement in 2025
+  one_line: "UVA Wise moved to Division II in 2019 and has spent the last six seasons learning what it means to be a SAC program — and Gary Bass just took over with a winning record in 2025, the best start since joining the conference."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A Mountain East Conference program (2013–2019) that reclassified to SAC (2019–present) and is finally finding success in Division II."
+
+the_wound:
+  name: "Six years of searching for identity"
+  detail: "UVA Wise reclassified to Division II and joined the SAC in 2019. For six seasons, the Cavaliers struggled to find the right formula. In December 2024, Gary Bass (formerly of Quincy University) took over and 2025 brought the program's best record since joining the SAC — but it's still a work in progress."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that UVA Wise belongs in the SAC; win the conference consistently and plant the Cavaliers' flag as a Division II contender in Appalachia."
+  drought: { since: 2019, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "UVA Wise moved to Division II and the SAC betting they could compete at the higher level. The chip is proving the reclassification was right, that the Cavaliers belong here, and that patience pays off."
+
+the_delusion:
+  tone: self-aware
+  text: "UVA Wise fans believe a UVA regional campus can be a SAC powerhouse; that the Charlottesville name carries recruiting weight in the Appalachian foothills; that Gary Bass found the formula in his first year and 2026 is the breakout season."
+
+the_grudge_texture:
+  rival: ""
+  texture: none
+
+the_coach_relationship: savior   # Gary Bass arrived December 2024 with a charge to rebuild; 2025 showed early improvement
+the_internal_fracture: ""
+register: uva-wise-cavaliers-sac-climber
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - "Always Division I — reclassified to D2 in 2019"
+  - "Consistently competitive in SAC — first winning record since joining SAC came in 2025"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The UVA Wise reclassification: A University of Virginia regional campus that moved to Division II (2019) and joined the SAC, betting it could compete at the higher level. After six seasons of searching, Gary Bass arrived in 2024 and brought immediate improvement in 2025."
+  the_origin: "UVA Wise is the University of Virginia's College at Wise, a regional campus in the Appalachian foothills. Football was established in 1991. The program reclassified from Mountain East Conference (2013–2019) to SAC (2019–present)."
+  golden_ages:
+    - { era: "2024–2025 (Gary Bass)", what: "Early seasons of improvement and the first winning record since joining the SAC in 2019" }
+  legends: []
+  canonical_moments:
+    - { name: "2025 winning record", year: 2025, what: "UVA Wise achieves its best overall record since joining the SAC in 2019, signaling a turnaround under Gary Bass", handling: glory }
+  the_place: "Carl Smith Stadium and Beaty–Richmond Field in Wise, Virginia — home of the Cavaliers in the Appalachian foothills."
+  brand_of_football: "Emerging Division II football — a program still establishing its identity at the SAC level."
+  cultural_footprint: "A test case for regional university reclassification: UVA Wise proved the move to Division II was right once the right coach arrived."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UVA Wise achieved its best record since joining the SAC in 2019 during the 2025
+    season under new head coach Gary Bass (arrived December 2024 from Quincy University). The Cavaliers are ascending
+    after six seasons of mid-tier SAC standing. Bass's first season showed improvement and set the foundation for 2026
+    contention.
+  research_checklist:   # what to look up (web) when we author this team together
+    - Gary Bass's coaching history and why he was hired
+    - UVA Wise's 2019 reclassification story and challenges
+    - Notable 2025 wins and the improvement trajectory
+    - Current roster and SAC competitive outlook
+  sources:
+    - https://en.wikipedia.org/wiki/UVA_Wise_Cavaliers
+    - https://en.wikipedia.org/wiki/UVA_Wise_football
+    - UVA Wise Athletics official site
+    - WCYB (2025) — Bass coaching tenure
+    - Tim's News (2025) — UVA Wise 2025 season preview
+    - FloFootball (2024-2025)
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: UVA Wise is the regional-campus program that reclassified to Division II and the SAC in 2019
+    and is finding its footing under new coach Gary Bass.
+  mantra: ''
+  cultural_anchors:
+    fan_archetype_dominant: UVA-Wise-Cavaliers-D2-Climber
+    outsider_archetype_dominant: Regional-Campus-Reclassification
+    one_sentence: UVA Wise is the Cavaliers — 2019 SAC reclassification + Gary Bass 2025 improvement that anchor
+      the regional-campus-rise arc.
+  selfname: the Cavaliers / Highlanders
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: SAC (South Atlantic Conference)
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2019 SAC reclassification (from Mountain East Conference)
+    - 2025 Gary Bass coaching arrival and improvement
+    rituals: []
+    modules_already_rendering: ''
+  live_fingerprint:
+    backometer: ''
+    voice_profile: absent
+    delusion_premium: absent

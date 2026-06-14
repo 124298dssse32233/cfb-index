@@ -1,0 +1,82 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+# Virginia State University Trojans (CIAA Division II)
+
+status: live
+slug: virginia-state
+team_id: null
+program_name: Virginia State University
+program_tier: 6
+
+emotional_core:
+  primary: restoration       # returning to championship tradition under committed leadership
+  secondary: honor           # the historic CIAA champions of 1930s-1970s era
+  one_line: "Virginia State is a historic CIAA power navigating the modern era under Head Coach Dr. Henry Frazier III, who is committed through the 2030s and pursuing championship football again."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A program with genuine championship pedigree (1936, 1945, 1970, 1972, 1995), now competitive but seeking to break a 30-year title drought."
+
+the_wound:
+  name: "Three decades without a CIAA championship"
+  detail: "Virginia State won the CIAA in 1995 under a championship team that felt like the return of the golden age. Then nothing for 30 years. The program has been competitive, Co-CIAA champions in 2024, but cannot finish the job in championship games or CIAA playoffs."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win a CIAA championship and return Virginia State to five-title status (the 1995 team broke a 23-year drought). The dream is also about sustained excellence — not one title, but a new era of consistent championship contention."
+  drought: { since: 1995, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe a quiet chip against Virginia Union's 12-title CIAA dominance. The Magic City Classic rivalry is the avenue — beat Virginia Union in the playoff race and claim the CIAA. The chip is not angry; it is hungry."
+
+the_delusion:
+  tone: self-aware
+  text: "That a 2024 Co-CIAA regular season championship validates a program for sustained success. The fanbase knows 2024 was one step; now comes the hard part: winning the CIAA Championship and sustaining it."
+
+the_grudge_texture:
+  rival: virginia-union
+  texture: championship       # Magic City Classic — 120+ year rivalry; Virginia State lost 14-3 playoff game in 2025
+
+the_coach_relationship: forever-ours          # Dr. Henry Frazier III, given long-term contract through 2030s, is locked in as Virginia State's coach
+the_internal_fracture: championship hunger vs. resource scarcity — the tension between being competitive and being able to close the final gap
+register: virginia-state-trojans-magic-city-classic-championship-hunger
+never_use:
+  - Virginia State has been to multiple recent championships — one (1995), 30 years ago
+  - A consistent CIAA power — competitive but not dominant in the modern era
+  - Frazier's teams have won championships — Frazier is in his 4th season; no CIAA title yet
+  - Virginia State dominates Virginia Union — Virginia Union is 12-time CIAA champ; VSU has one title to VU's 12
+
+story_canon:
+  the_unique_thing: "The Magic City Classic rivalry with Virginia Union — a 120+ year rivalry that defines Virginia State's identity. Every year, the two universities battle for CIAA supremacy. It is the oldest, fiercest rivalry in the CIAA."
+  the_origin: "Virginia State University was founded in 1882 and has been a CIAA member since the conference's formation, competing at the highest level of Black college football for over a century."
+  golden_ages:
+    - { era: "1930s-1970s championship era", what: "Virginia State wins CIAA titles in 1936, 1945, 1970, and 1972, establishing dominance" }
+    - { era: "1995 championship", what: "After a 23-year drought, Virginia State wins a CIAA title, restoring championship identity" }
+    - { era: "2024 Co-CIAA regular season champions", what: "Virginia State wins the CIAA regular season alongside Virginia Union, reaching championship contention" }
+  legends:
+    - { name: Dr. Henry Frazier III, role: coach, why: "Hired in 2022, given a long-term contract through the 2030s; building a 2024 Co-CIAA championship program" }
+    - { name: Virginia State Institution, role: school, why: "Founded 1882, historic CIAA member, fierce competitor in the Magic City Classic" }
+  canonical_moments:
+    - { name: "1936 CIAA Championship", year: 1936, what: "Virginia State wins an early CIAA title", handling: glory }
+    - { name: "1945 CIAA Championship", year: 1945, what: "Virginia State wins a CIAA title in the post-war era", handling: glory }
+    - { name: "1970-1972 back-to-back titles", year: 1972, what: "Virginia State wins back-to-back CIAA championships", handling: glory }
+    - { name: "1995 championship (breakthrough)", year: 1995, what: "After a 23-year drought, Virginia State wins a CIAA title and restores championship identity", handling: glory }
+    - { name: "2024 Co-CIAA regular season championship", year: 2024, what: "Virginia State wins the regular season title alongside Virginia Union", handling: glory }
+  the_place: "Petersburg, Virginia — home to Virginia State University, located along the James River in the historic Piedmont region."
+  brand_of_football: "Competitive, defensively-oriented CIAA football. Virginia State plays tough, methodical football in a rivalry context. The Magic City Classic frame elevates every Virginia State game."
+  cultural_footprint: "The Magic City Classic is the cultural center of Virginia State football. Every year, the two universities meet in one of the fiercest rivalries in college football. Virginia State's identity is inseparable from that contest."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Virginia State went approximately 7-3 overall and 5-2 in CIAA in 2025, earning a spot in the CIAA divisional playoff against Virginia Union. The Trojans lost 14-3 to the defending champions on November 8, 2025, ending their season. Head Coach Dr. Henry Frazier III, in his 4th season, is committed through the 2030s and has built a competitive program (2024 Co-CIAA champions). The 2026 season begins with the goal of finishing the job — winning the CIAA Championship and ending the 30-year title drought.
+  research_checklist:
+    - Virginia State CIAA championship history (1936, 1945, 1970, 1972, 1995)
+    - Dr. Henry Frazier III's coaching tenure and long-term commitment
+    - Magic City Classic rivalry with Virginia Union (120+ years)
+    - 2024 Co-CIAA regular season championship
+    - 2025 CIAA playoff loss to Virginia Union (14-3)
+    - Current roster and key players
+  sources:
+    - https://govsutrojans.com
+    - https://theciaa.com/sports/fball/index
+    - https://hbcugameday.com/virginia-state-trojans
+    - https://en.wikipedia.org/wiki/Virginia_State_Trojans_football

@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+status: live
+slug: west-alabama
+program_name: University of West Alabama
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "West Alabama is the Gulf South program that hired a legendary strength coach (Scott Cochran) and is betting the whole season on Alabama-era knowledge and discipline — the Tigers are back and hungry."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A university that won an NAIA Division I championship in 1971 and now recruits under Scott Cochran (Nick Saban's strength coach at Alabama and Georgia's special teams coach) — a coaching-staff reunion that smells like ambition."
+
+the_wound:
+  name: "Decades of irrelevance after the 1971 NAIA title"
+  detail: "West Alabama won an NAIA Division I National Championship in 1971 (11-1 record) and reached the NCAA D-II semifinals in 1975 (lost 28-26 to Northern Michigan). Since then, the program has been a mid-tier Gulf South competitor with occasional playoff appearances (2017 GSC champions/quarterfinal loss, 2018 playoff loss) but no sustained success. The wound is a 54-year drought since that national championship."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Get to a bowl game. Build a program that Scott Cochran can be proud of. Use Alabama-era knowledge and discipline to climb the Gulf South."
+  drought: { since: 1971, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. West Alabama plays for the Tigers, for the community, and for the chance to prove that a small Alabama university can compete. The hiring of Scott Cochran is the statement — this program wants to be taken seriously."
+
+the_delusion:
+  tone: earnest
+  text: "That Scott Cochran can turn West Alabama into a bowl-game program in his first season. Fans know the hire is special (Saban's strength coach!), and they believe a program built on Alabama-era standards could climb quickly."
+
+the_grudge_texture:
+  rival: valdosta-state
+  texture: championship
+  # Regular GSC opponent; Valdosta is the dominant program
+
+the_coach_relationship: savior
+  # Scott Cochran (1st season, hired Feb 3, 2025); legendary Saban strength coach + Georgia special teams coach
+
+the_internal_fracture: "ambition-vs-reality — the faction excited by the Cochran hire vs the faction skeptical about first-year coaching success"
+
+register: saban-era-strength-coach-tigers-alabama-pride
+
+never_use:
+  - '"Scott Cochran can''t win immediately" — Cochran is a legendary figure; respect the hire'
+  - '"West Alabama is irrelevant" — the program is building something under Cochran'
+
+story_canon:
+  the_unique_thing: "The University of West Alabama hired Scott Cochran (Nick Saban's strength coach at Alabama and Georgia's special teams coach) as head coach in 2025 — a coaching-staff reunion of legendary Alabama-era figures and a statement that West Alabama is ambitious."
+  the_origin: "The University of West Alabama was founded in 1835 in Livingston, Alabama. Football became part of the program's identity in the mid-1900s. The Tigers built a steady small-college reputation, winning an NAIA National Championship in 1971."
+  golden_ages:
+    - { era: "1971 NAIA Era", what: "West Alabama won the NAIA Division I National Championship (11-1 record); the program's only national title" }
+    - { era: "1975 NCAA D-II Semifinal", what: "West Alabama reached the NCAA Division II semifinals (lost 28-26 to Northern Michigan)" }
+    - { era: "2017 GSC Championship Era", what: "West Alabama won the Gulf South Conference championship and made the NCAA D-II playoff (quarterfinal loss)" }
+  legends: []
+  canonical_moments:
+    - { name: "1971 NAIA Division I National Championship", year: 1971, what: "West Alabama defeated opponents to win the national championship (11-1 record)", handling: glory }
+    - { name: "1975 NCAA D-II Semifinal", year: 1975, what: "West Alabama reached the NCAA Division II semifinals but lost a close game 28-26 to Northern Michigan", handling: heartbreak }
+    - { name: "Scott Cochran Hire (2025)", year: 2025, what: "West Alabama hired Scott Cochran (legendary Saban strength coach) as head coach — a statement of intent", handling: miracle }
+  the_place: "Livingston, Alabama — a small town in west-central Alabama where the University of West Alabama sits and the Tigers play."
+  brand_of_football: "Discipline, strength, and Alabama-era standards — the program is being rebuilt under a legendary coach known for his work at Alabama and Georgia."
+  cultural_footprint: "West Alabama proved that a small Alabama university could win a national championship; the 2025 Cochran hire is a statement that the program intends to climb back to national relevance."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: West Alabama went 5-4 in 2025 under new head coach Scott Cochran, hired on February 3, 2025. Cochran is a legendary figure
+    from the Nick Saban Alabama era and served as Georgia's special teams coach, bringing Alabama-era discipline and knowledge to Livingston. The 2025 season was a
+    rebuild; QB Spencer Arceneaux returns as a key returner for 2026. The Tiger program is betting on Cochran's reputation and Alabama connections to drive recruiting
+    and culture. The GSC rivalry with Valdosta State is ongoing; West Alabama looks to build toward bowl contention. The Scott Cochran hire is the story — it's an
+    unconventional move that signals West Alabama is thinking big.
+  sources:
+    - https://www.brobible.com/sports/article/west-alabama-football-coaching-staff-is-a-nostalgic-reunion-of-nick-saban-legendary-players/
+    - https://uwaathletics.com/news/2025/2/3/-12-football-university-of-west-alabama-announces-scott-cochran-as-new-head-football-coach.aspx
+    - https://www.wtok.com/2022/10/09/west-alabama-continues-perfect-road-record-taking-down-gsc-rival-valdosta-state/

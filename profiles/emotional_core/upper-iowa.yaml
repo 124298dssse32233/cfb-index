@@ -1,0 +1,71 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+status: live
+slug: upper-iowa
+program_name: Upper Iowa University
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: restoration
+  one_line: "Upper Iowa is the 132-year-old program that just won its first bowl game in school history — the Peacocks are flying, and Fayette, Iowa has never felt smaller or bigger."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "Founded in 1893, Upper Iowa had never been to a bowl game until 2025. A 9-3 season and a 37-28 Albanese Candy Bowl victory over Hillsdale proves that even ancient small-college programs can break through."
+
+the_wound:
+  name: "132 years without a bowl game"
+  detail: "Upper Iowa played football since the early 1900s but had never won enough games to go bowling — 132 years of consistent play without ever reaching that milestone. The drought wasn't about failure; it was about the scale of the program and its ceiling. Then 2025 happened."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Make the bowl game a tradition, not a miracle. Build on 9-3 and aim for 10+ wins and a playoff berth. Prove that Upper Iowa belongs in the conversation."
+  drought: { since: 1893, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "No chip. Upper Iowa plays for pride, for Fayette, for the 132-year legacy and the students who finally get to say 'we won a bowl game.'"
+
+the_delusion:
+  tone: self-aware
+  text: "That the Peacocks are now a bowl-game dynasty and will make the tournament every year. Fans know 9-3 and a bowl win are outliers for this program, and they're savoring every moment of it."
+
+the_grudge_texture:
+  rival: drake
+  texture: championship
+  # Drake leads 3-0 in modern era; not a blood feud, just a recent opponent
+
+the_coach_relationship: forever-ours
+  # Jason Hoskins (5th season); built this team from 4-7 to 9-3
+
+the_internal_fracture: "tradition-vs-ambition — the faction satisfied with the bowl game as a capstone vs the faction that wants Upper Iowa to become a playoff contender"
+
+register: first-bowl-game-peacocks-fayette-iowa-142-years
+
+never_use:
+  - '"Upper Iowa is irrelevant" — a 9-3 season and a bowl win prove otherwise'
+  - '"This is a fluke" — one year won''t define it, but two in a row (16 wins in two seasons, per research) proves trajectory'
+
+story_canon:
+  the_unique_thing: "A 132-year-old college football program that just won its first bowl game in 2025 — the Peacocks went 9-3 and beat Hillsdale 37-28 in the Albanese Candy Bowl, breaking a drought that had defined the program since its founding."
+  the_origin: "Upper Iowa University was founded in 1893 in Fayette, Iowa. Football became part of the program's identity early in the 1900s. For over a century, the Peacocks were a steady small-college presence, but never quite reached the postseason until 2025."
+  golden_ages:
+    - { era: "Pre-2025: Steady Competitiveness", what: "Upper Iowa played .500-ish football for decades, a known quantity in small-college circles" }
+    - { era: "2024–2025 Breakthrough", what: "Jason Hoskins' program broke through with 9-3 and a bowl win in 2025, the first in program history", handling: miracle }
+  legends: []
+  canonical_moments:
+    - { name: "First Bowl Game Win (Albanese Candy Bowl 2025)", year: 2025, what: "Upper Iowa beat Hillsdale 37-28, winning the program's first bowl game in 132 years", handling: miracle }
+    - { name: "9-3 Season and 16 Wins in Two Years", year: 2025, what: "The Peacocks went 9-3 in 2025, their best season in program history, after posting a strong 2024", handling: glory }
+  the_place: "Fayette, Iowa — a small town in northeast Iowa where Upper Iowa University sits and where the Peacocks have played for 132 years."
+  brand_of_football: "Scrappy, improving, building real success from generations of steady work. Upper Iowa plays for pride, for the program's history, and now for the future."
+  cultural_footprint: "Upper Iowa proved that a 132-year-old program can break through to the postseason and that small-college dreams can come true with the right coaching and development."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Upper Iowa went 9-3 in 2025 (6-2 GLVC), the best season in program history. The Peacocks won the Albanese Candy Bowl 37-28
+    over Hillsdale, capturing the program's first bowl win in 132 years. QB Darryl Overstreet Jr. threw for 331 yards and 3 TDs in the bowl game. Coach Jason Hoskins
+    (5th season) has engineered a remarkable turnaround; the program posted 16 wins in the last two seasons (program record). The 2026 season is about proving this wasn't
+    a one-year spike — can Upper Iowa get back to nine wins and contend for a playoff spot?
+  sources:
+    - https://uiupeacocks.com/news/2025/12/6/football-peacocks-snag-sweet-victory-in-albanese-candy-bowl-showdown.aspx
+    - https://www.kjan.com/index.php/2025/12/upper-iowa-football-set-for-albanese-candy-bowl-on-saturday/
+    - https://www.thegazette.com/small-college-sports/5-upper-iowa-football-storylines-peacocks-open-the-season-thursday-at-drake-picked-3rd-in-great-la/

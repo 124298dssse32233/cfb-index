@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: henderson-state
+team_id: null
+program_name: Henderson State
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Henderson State is the D2 program defined by the Battle of the Ravine—a 131-year-old rivalry where the Reddies walk five minutes across Route 67 to play their neighbors, Ouachita Baptist, for pride that money can't buy."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small school in Arkadelphia, Arkansas that has turned a geographic accident into a cultural institution—two rival campuses on opposite sides of a ravine, separated by a rivalry older than most Division I programs."
+
+the_wound:
+  name: "The perpetual David-and-Goliath at the regional level"
+  detail: "Henderson State competes in a conference where Ouachita Baptist has won 7 conference titles since 2011, making every Battle of the Ravine a fight against a perennial power five minutes away."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the Battle of the Ravine—every year, prove that the Reddies belong on the same field as their purple-and-gold neighbors, and that geography and rivalry matter more than resources."
+  drought: { since: 2011, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe henderson State's chip is not anger—it's ancient pride. The Reddies have been beating Ouachita since 1895, and that record matters in Arkadelphia more than any national ranking."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that the five-minute walk across Route 67 somehow compresses the distance between a program in climb-mode and one of the most decorated teams in D2 history. They show up because it's the game that defines Arkadelphia."
+
+the_grudge_texture:
+  rival: ouachita-baptist
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: None; Henderson State is unified around Greg Holsworth's steady rebuild
+register: arkadelphia-reddies-route-67-ravine-walk
+
+never_use:
+  - "Henderson State is a stepping stone"
+  - "The Battle of the Ravine is just another game"
+  - "Geographic proximity makes a rivalry less real"
+  - "Small schools can't build sustained programs"
+
+story_canon:
+  the_unique_thing: "The Battle of the Ravine—a 131-year-old rivalry where two college football programs sit on opposite sides of a ravine five minutes apart, and the Reddies walk across Route 67 to face their neighbors every season."
+  the_origin: "Henderson State began in 1890 in Arkadelphia, Arkansas. The rivalry with Ouachita Baptist, which started in 1895, is the oldest continuous college football game in Division II—a 131-year-old tradition."
+  golden_ages:
+    - { era: "1895-present", what: "131 years of the Battle of the Ravine, the longest continuous rivalry in D2" }
+    - { era: "Early 2000s", what: "Henderson State was competitive in the GAC and built a reputation as a spoiler" }
+  legends:
+    - { name: Greg Holsworth, role: coach, why: "Second-year HC (2024-present) who has the Reddies trending upward with a 16-6 record" }
+  canonical_moments:
+    - { name: "Battle of the Ravine", year: 1895, what: "The rivalry is born when Henderson State first beats Ouachita Baptist; it becomes the oldest continuous D2 rivalry", handling: glory }
+    - { name: "2025 Battle Win", year: 2025, what: "Henderson State defeats Ouachita Baptist 41-14 in the 98th edition of the Battle of the Ravine", handling: glory }
+  the_place: "Cliff Harris Stadium in Arkadelphia, Arkansas—a 20-minute walk across Route 67 to Ouachita Baptist, the five-minute walk that defines an entire region's sports identity."
+  brand_of_football: "Pride-driven, neighborhood football. The kind where every game matters because everyone knows everyone, and the Ravine is not just geography but history."
+  cultural_footprint: "Henderson State is proof that a small Division II program can own a region's sports culture through consistency, rivalry, and the simple fact that two schools chose to be neighbors and competitors for 131 years."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Henderson State finished 8-3 (8-3 GAC) under second-year head coach
+    Greg Holsworth with a 16-6 overall record. The Reddies defeated Ouachita Baptist 41-14 in the 98th edition
+    of the Battle of the Ravine, reasserting dominance in the region's most important game. Holsworth's program
+    is building momentum, and the question in Arkadelphia is whether the Reddies can challenge for a GAC title
+    while maintaining the cultural primacy of the five-minute walk across Route 67.
+  research_checklist:
+    - the history of Henderson State and the 1890s founding
+    - the Battle of the Ravine origin (1895) and continuous 131-year history
+    - the geography and Route 67 connection to Ouachita Baptist
+    - Greg Holsworth's tenure and program trajectory
+    - recent rivalry games and results
+  sources:
+    - https://en.wikipedia.org/wiki/Henderson_State_Reddies_football
+    - https://en.wikipedia.org/wiki/Battle_of_the_Ravine
+    - https://hsusports.com/sports/football/roster/coaches/greg-holsworth/2904
+    - https://bvmsports.com/2025/11/13/98th-battle-of-the-ravine-game-notes/
+    - https://www.ncaa.com/news/football/article/2025-11-11/college-footballs-battle-ravine-rivalry

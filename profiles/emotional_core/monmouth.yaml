@@ -1,0 +1,110 @@
+# Emotional Core — Monmouth  (monmouth)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: monmouth
+team_id: 1106
+program_name: Monmouth
+program_tier: 2
+
+emotional_core:
+  primary: grief
+  secondary: honor
+  one_line: "Monmouth is the program Kevin Callahan built from nothing over 33 years into a 197-win institution — and 2025 was his last season, leaving the Hawks to carry a legend's legacy into an uncertain new era."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program Kevin Callahan built from the ground floor in 1993 into a seven-conference-title, 197-win institution — now in transition after the architect stepped away, the Hawks have to prove the culture outlasts the founder."
+
+the_wound:
+  name: "The end of the Callahan era"
+  detail: "Kevin Callahan retired after 33 seasons and 197 wins — the most among active FCS coaches — following the 2025 campaign. His departure closes the only coaching era Monmouth has ever known at the FCS level. Jeff Gallo takes over a program that won 9-3 in Callahan's final season, but the identity question is real: who are the Hawks when the man who built them is gone?"
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Win the CAA title and prove that Jeff Gallo's Hawks are the continuation of what Callahan built — that the program's winning culture is institutional, not personal."
+  drought: { since: 2021, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The fanbase says Monmouth spent 30 years proving you can build an FCS program without a big-school budget or a century of tradition — Callahan's 197 wins against programs with exponentially more resources is the chip, and they believe Gallo carries it forward."
+
+the_delusion:
+  tone: earnest
+  text: "They believe the Callahan culture — the work ethic, the recruiting philosophy, the winning expectation — is baked into Monmouth football and that Jeff Gallo is simply the next steward of something too sturdy to break."
+
+the_grudge_texture:
+  rival: albany
+  texture: border-war
+
+the_coach_relationship: savior
+the_internal_fracture: legacy-preservation vs new-era-reinvention — the faction that wants Gallo to run Callahan's system unchanged vs the faction that believes the Callahan farewell is permission to evolve the program's identity for the CAA era
+
+register: monmouth-hawks-callahan-era-caa-transition
+never_use:
+  - "Small Jersey school with no football pedigree — seven conference championships and 197 wins under Callahan disprove that frame entirely"
+  - "Miles Austin and Chris Hogan were flukes — two NFL stars from the same FCS program is a recruiting and development story, not luck"
+
+story_canon:
+  the_unique_thing: "Kevin Callahan built Monmouth football from its inaugural season in 1993 to 197 wins and seven conference titles across 33 seasons — the most wins among active FCS coaches at retirement, including NFL stars Miles Austin (two-time Pro Bowl) and Chris Hogan (two-time Super Bowl champion) from a program most fans had never heard of."
+  the_origin: "Monmouth University started football in 1993 with Kevin Callahan as the founding head coach. The Hawks posted a winning record in year one and never looked back — winning five NEC titles (1996, 1998, 2003, 2004, 2006), climbing to the Big South, and joining the CAA in 2023, where Callahan won two more conference crowns before retiring after the 2025 season."
+  golden_ages:
+    - { era: "2003-2006 (NEC dynasty)", what: "Three NEC championships in four years — the peak of the Callahan-building era" }
+    - { era: "2019-2021 (Big South and first FCS playoff wins)", what: "Two Big South titles (2019, 2021) and the program's first FCS playoff victory (2019 over Holy Cross)" }
+    - { era: "2025 (Callahan farewell)", what: "9-3 final season for Callahan — the most wins by Monmouth in recent years and a fitting send-off" }
+  legends:
+    - { name: Kevin Callahan, role: coach, why: "197 wins in 33 seasons as the program's only FCS-era coach; seven conference titles; the definitive figure in Monmouth football history" }
+    - { name: Miles Austin, role: player, why: "Two-time Pro Bowl wide receiver who went undrafted from Monmouth to NFL stardom with the Dallas Cowboys" }
+    - { name: Chris Hogan, role: player, why: "Two-time Super Bowl champion wide receiver (New England Patriots) — the most decorated NFL player in program history" }
+  canonical_moments:
+    - { name: "First FCS playoff victory", year: 2019, what: "Monmouth defeats Holy Cross 44-27 in the first-round — the program's first-ever FCS postseason win", handling: glory }
+    - { name: "Callahan's final season", year: 2025, what: "Kevin Callahan goes 9-3 in his 33rd and final season, closing the only coaching era Monmouth has known at the FCS level", handling: glory }
+    - { name: "Program founding", year: 1993, what: "Monmouth starts football under Callahan and posts a winning record in year one", handling: glory }
+  the_place: "Kessler Stadium in West Long Branch, New Jersey — the home Callahan built into a winning environment over three decades."
+  brand_of_football: "Fundamentally sound, program-culture football — the Callahan model of winning through discipline, player development, and expectations built over 33 years."
+  cultural_footprint: "The New Jersey FCS program that produced two Super Bowl champions and a Pro Bowl receiver while winning seven conference titles — proof that a small private school on the Jersey Shore can build real FCS infrastructure."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Monmouth went 9-3 (6-2 CAA) in 2025 — Kevin Callahan's final
+    season after 33 years and 197 wins. Jeff Gallo was named head coach in December 2025 as Callahan
+    transitioned to a special advisory role. Gallo inherits the best record in the program's recent
+    history and the hardest possible question: how do you replace the only FCS-era coach the program
+    has ever known? The Hawks enter 2026 as a program in genuine transition — talented enough to compete
+    in the CAA but carrying the weight of an identity that was entirely one man's construction.
+  sources:
+    - https://patch.com/new-jersey/longbranch/legendary-monmouth-head-coach-kevin-callahan-steps-down-after-33-seasons
+    - https://caasports.com/news/2025/12/11/monmouth-names-jeff-gallo-as-new-head-football-coach-as-kevin-callahan-transitions-to-advisory-role.aspx
+    - https://www.flofootball.com/articles/7535769-from-ground-floor-to-the-caa-kevin-callahan-built-monmouth
+
+briefing:
+  identity_phrase: Monmouth is the program Kevin Callahan built from its 1993 founding to 197 wins and seven conference titles — the most wins among active FCS coaches — now transitioning to Jeff Gallo after the only coach the program has ever known at the FCS level stepped away.
+  mantra: Go Hawks.
+  cultural_anchors:
+    fan_archetype_dominant: Callahan-Era-Loyalist
+    outsider_archetype_dominant: Small-Jersey-School-Dismisser
+    one_sentence: Monmouth is the Kevin Callahan creation — 197 wins, seven conference titles, Miles Austin and Chris Hogan as NFL proof — now testing whether the culture outlasts its founder.
+  selfname: the Hawks
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Kevin Callahan
+    era_name_overrides: {}
+    always_surface:
+      - Kevin Callahan 197 wins in 33 seasons — most among active FCS coaches at retirement
+      - Seven conference championships (five NEC, two Big South)
+      - Miles Austin two-time Pro Bowl; Chris Hogan two-time Super Bowl champion
+      - First FCS playoff win 2019 over Holy Cross
+    rituals:
+      - Kessler Stadium
+      - The Callahan Way
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

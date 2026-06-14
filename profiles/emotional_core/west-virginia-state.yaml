@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: west-virginia-state
+team_id: null
+program_name: West Virginia State University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: restoration
+  one_line: "West Virginia State is the HBCU that produced 900+ Army officers (including 15 generals) through ROTC and proved that a historically Black college could claim both martial excellence and football pedigree."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A historic HBCU (1891) with deep roots in Army ROTC and military service, whose football program has always been secondary to the school's larger mission of leadership and civic duty."
+
+the_wound:
+  name: "The long championship drought"
+  detail: "West Virginia State won the 1936 Black College football national co-championship and held conference titles (1948, 1951, 1968), but has gone nearly 90 years without a national title or sustained relevance in modern D2 football."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to conference contention and prove that Yellow Jacket football can matter again in the Mountain East — restore the program's standing as a credible D2 competitor."
+  drought: { since: 1936, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe the chip runs deep: a historic HBCU that produced 900+ Army officers and 15 generals through ROTC, yet football has never been recognized as part of that legacy. Yellow Jacket football exists in the shadows of bigger programs, always trying to be seen."
+
+the_delusion:
+  tone: self-aware
+  text: "That an HBCU in West Virginia, operating with smaller resources than state flagship programs, can build a D2 football program that competes for championships — the fanbase believes in the Yellow Jackets anyway, because they believe in the school."
+
+the_grudge_texture:
+  rival: university-of-charleston
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: pride-in-legacy-vs-football-relevance — the tension between honoring the HBCU and military heritage and the practical struggle to field competitive football teams
+register: wvsu-hbcu-1891-900-officers-1936-champ-yellow-jackets-army-rotc
+never_use:
+  - Consistent national contenders (one championship 90 years ago does not define the program)
+  - Flagship military football program (the school's legacy is ROTC and officers, not football dominance)
+  - Historic football dynasty (the 1936 title is an outlier, not a pattern)
+
+story_canon:
+  the_unique_thing: "West Virginia State's identity is rooted in the Army ROTC Yellow Jacket Battalion, which has produced 900+ officers (including 15 generals) — a legacy that predates and transcends football. The football program exists within that larger context of military service and leadership. The 1936 Black College National Championship is a footnote to the school's real mission."
+  the_origin: "Founded 1891 as West Virginia Colored Institute (one of the original 19 Morrill Act land-grant colleges), the school became West Virginia State College in 1929. The Army ROTC program was authorized early and became central to the school's identity. Football followed as a secondary enterprise, but the Yellow Jackets played with the pride of their ROTC heritage."
+  golden_ages:
+    - { era: "1930s–1950s", what: "The 1936 Black College National Championship co-win, MWAA conference titles, sustained regional competitiveness" }
+    - { era: "1968", what: "Conference division title, the last echo of sustained success" }
+  legends:
+    - { name: "Yellow Jacket ROTC Battalion", role: military, why: "900+ officers produced, 15 generals, a legacy that defines the school more than any football team" }
+    - { name: John Pennington, role: coach, why: "9th-year coach (2025-2026), representing continuity and steady effort in a rebuilding era" }
+  canonical_moments:
+    - { name: "1936 Black College National Co-Championship", year: 1936, what: "West Virginia State won the Black College National Championship co-title, the program's only national title", handling: glory }
+    - { name: "ROTC Excellence", year: 1939, what: "West Virginia State was the first HBCU authorized to have an aviation program (pre-Tuskegee Airmen), setting a standard for Black military excellence", handling: glory }
+  the_place: "Institute, West Virginia, a small Appalachian town named after the school itself."
+  brand_of_football: "Secondary to the ROTC mission — football is the field where the Yellow Jacket commitment to excellence and service plays out, but the school's real identity is military leadership."
+  cultural_footprint: "West Virginia State's cultural footprint is the 900+ ROTC officers, the 15 generals, the aviation program pioneer status — and football is a proud but small part of that legacy."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: West Virginia State finished 5-6 overall (4-4 MEC) in 2025 under ninth-year coach John Pennington. The
+    Yellow Jackets are a stable, rebuilding program that prioritizes the school's ROTC heritage and military mission over football dominance. Pennington
+    represents continuity and steady effort. The 2026 season is about maintaining that stability and proving that West Virginia State football can
+    be a credible Mountain East contender, even if it will never be the school's primary identity.
+  research_checklist:
+    - Founded 1891 as West Virginia Colored Institute (HBCU)
+    - 900+ ROTC officers produced, 15 generals
+    - 1936 Black College National Championship
+    - 1939 first HBCU aviation program authorization
+    - Current conference standings in MEC
+  sources:
+    - https://en.wikipedia.org/wiki/West_Virginia_State_University
+    - https://en.wikipedia.org/wiki/1936_College_football_season
+    - https://www.wvsu.edu/athletics/

@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: hiram
+team_id: null
+program_name: Hiram
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Hiram University is the Presidents' Athletic Conference program rebuilding with fresh coaching and young talent, a small Ohio college playing with the hope of a program learning to win again."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Hiram went 3-7 in 2025 under new coach Xavier Dupree but carries the belief that a program can be rebuilt year by year with the right culture and talent development."
+
+the_wound:
+  name: "The gap between aspiration and recent results"
+  detail: "Hiram went 3-7 in 2025 with a junior QB (Sean Tejada) still learning the system. The wound is not historic collapse but current gap — a program that knows it should be better and believes it will be."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Develop Sean Tejada into a PAC quarterback and build around him to reach a bowl game and prove Hiram football is rising, not falling."
+  drought: { since: 2019, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Hiram's motivation is internal. The chip is belief: young coach, young QB, growing confidence that the program is heading in the right direction."
+
+the_delusion:
+  tone: earnest
+  text: "That Sean Tejada will become an All-PAC quarterback and Hiram will find the pieces to compete for a conference title — the fanbase can see the potential and believes it's coming."
+
+the_grudge_texture:
+  rival: none
+  texture: none
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Building for the future vs. needing wins now"
+register: hiram-terriers-small-ohio-college-rebuild
+
+never_use:
+  - Storied football power — Hiram has not been that
+  - Consistent PAC contender — recent years have been lean
+  - Deep playoff history — playoff appearances are rare; 1987 was notable but not recent
+
+story_canon:
+  the_unique_thing: "Hiram had an NCAA Division III playoff appearance in 1987 (8-2, 6-2 PAC), a high-water mark that represents what the program has proven capable of achieving."
+  the_origin: "A small liberal-arts college in Hiram, Ohio (founded 1850), located between Cleveland and Akron. The football program is one of many traditions at this academic community."
+  golden_ages:
+    - { era: "1987", what: "The program's most celebrated season: an 8-2 record, 6-2 PAC, and an NCAA Division III playoff appearance" }
+  legends:
+    - { name: "Xavier Dupree", role: "coach", why: "New head coach for 2025 and beyond, tasked with rebuilding the program and developing young talent like QB Sean Tejada" }
+  canonical_moments:
+    - { name: "1987 Playoff Season", year: 1987, what: "Hiram goes 8-2 and makes the NCAA Division III playoffs, the program's signature achievement", handling: glory }
+  the_place: "Hiram, Ohio — a small college town between Cleveland and Akron, home to a liberal-arts institution with deep Appalachian roots."
+  brand_of_football: "Developing football, built on youth and hope. Hiram's game is about growing players and building a culture where kids want to stay and compete."
+  cultural_footprint: "A small college where football is a unifying fall tradition. Hiram's identity is tied to its community and its mission to develop scholar-athletes."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Hiram went 3-7 overall in 2025 under first-year head coach Xavier Dupree. The
+    program is in rebuild mode with junior QB Sean Tejada learning the offense and system. Dupree's task is clear:
+    develop talent, build culture, and show incremental progress toward PAC competitiveness. The 2026 season will be
+    critical to establishing that Dupree is the right fit and that the program can climb back to bowl eligibility.
+
+  research_checklist:
+    - Xavier Dupree hiring for 2025
+    - Sean Tejada QB (junior, verified)
+    - 1987 playoff season (8-2, 6-2 PAC)
+    - Recent coaching history and program trajectory
+    - Small-school Ohio context
+
+  sources:
+    - https://en.wikipedia.org/wiki/Hiram_College
+    - https://hiramterriers.com/sports/football
+    - https://en.wikipedia.org/wiki/Hiram_Terriers_football

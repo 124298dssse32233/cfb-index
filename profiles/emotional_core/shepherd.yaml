@@ -1,0 +1,85 @@
+# Emotional Core — Shepherd University  (shepherd)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Status: live | Tier: 6 (Division II PSAC) | Authored 2026-06-13
+
+status: live             # todo | drafted | authored | reviewed | live
+slug: shepherd
+team_id: 231            # placeholder; verify against CFBD ID mapping
+program_name: Shepherd University
+program_tier: 6         # Division II PSAC
+
+emotional_core:
+  primary: contentment          # stable program under long-tenured HC, competitive PSAC East member
+  secondary: standard     # Shepherd represents West Virginia pride in a Pennsylvania-dominant conference
+  one_line: "Shepherd is the West Virginia PSAC anchor — a stable program under Ernie McCook that competes every year and represents Mountain State pride in a Northeastern conference."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "An 8th-year HC with a 66–22 record and PSAC East championship history vs a program that punches above its weight in a conference dominated by Pennsylvania schools."
+
+the_wound:
+  name: null  # no wound; this is a stable, consistently competitive program
+  detail: null
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a PSAC championship and advance deep into the NCAA tournament — prove that a West Virginia school can compete with and beat the Pennsylvania powers."
+  drought: null  # no championship drought; recent seasons are competitive
+
+the_chip:
+  villain: blue_bloods
+  text: "Shepherd fans know the PSAC is Pennsylvania's conference. Getting an 8-year stable HC and consistent winning is Shepherd's way of saying the Rams belong at the table, too."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Shepherd's competitive record and McCook's stability put them closer to a PSAC title than the national narrative suggests — that one good year breaks through."
+
+the_grudge_texture:
+  rival: gannon
+  texture: border-war   # both are stable, mid-tier PSAC programs competing for regional respect
+
+the_coach_relationship: forever-ours      # Ernie McCook's 8-year tenure grounds the program's identity
+the_internal_fracture: null        # program unified around McCook's steady excellence
+register: shepherd-ram-west-virginia-proud
+never_use:
+  - "Doormat program — 66–22 record and PSAC competitive status contradict that"
+  - "Out of place in the PSAC — Shepherd's consistent winning proves otherwise"
+
+# ── STORY CANON (doc 64) ────────────────────────────────────────────────────
+story_canon:
+  the_unique_thing: "Shepherd is the West Virginia school that competes in a Pennsylvania-dominated PSAC — a program that stands apart by winning with Appalachian pride under Ernie McCook's 8-year tenure."
+  the_origin: "Shepherd University (1871–), a public regional university in Shepherdstown, West Virginia (the Eastern Panhandle), fielding Rams football with deep Appalachian roots."
+  golden_ages:
+    - { era: "McCook Era (2018–)", what: "Elevated Shepherd into a competitive PSAC East contender with a 66–22 record, including a 13-2 season and PSAC East Coach of the Year in 2022." }
+  legends:
+    - { name: Ernie McCook, role: coach, why: "Eight-year head coach who built Shepherd into a stable, competitive PSAC program with a 66–22 record and regional respect." }
+  canonical_moments:
+    - { name: "2022 Season (13-2, PSAC East Coach of the Year)", year: 2022, what: "McCook led Shepherd to a 13-win season and earned PSAC East and AFCA Region One Coach of the Year honors.", handling: glory }
+  the_place: "Shepherd's football stadium in Shepherdstown, West Virginia — home to the Rams on the banks of the Potomac River in historic Appalachia."
+  brand_of_football: "Tough, physical Appalachian football — McCook's system builds strong defense and tough-minded execution."
+  cultural_footprint: "A program that represents West Virginia pride in a Northeastern conference — Shepherd's consistent winning proves the Mountain State belongs."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Ernie McCook enters his ninth season as Shepherd head coach in 2026 with a program
+    that has established itself as a competitive PSAC East member. The 2025 season produced a 7-4 record and 6-1 conference mark,
+    maintaining Shepherd's standard of annual competitiveness. With stable leadership and winning tradition,
+    Shepherd aims to contend for a PSAC East title and advance in the NCAA tournament.
+  research_checklist:
+    - Ernie McCook's background and his commitment to Shepherd
+    - The 2022 13-2 season and Coach of the Year honors
+    - Shepherd's recent PSAC East finishes and playoff appearances
+    - West Virginia regional identity and Appalachian football culture
+  sources:
+    - https://shepherdrams.com/staff-directory/ernie-mccook/17
+    - https://en.wikipedia.org/wiki/Ernie_McCook
+    - https://en.wikipedia.org/wiki/2025_Shepherd_Rams_football_team
+
+# ── BRIEFING (read-only context; NOT part of published core) ──
+briefing:
+  identity_phrase: "Shepherd is the West Virginia PSAC anchor under Ernie McCook, a stable program with an 8-year HC and consistent competitive record in a Pennsylvania-dominated conference."
+  mantra: "Go, Rams!"
+  cultural_anchors:
+    fan_archetype_dominant: "Shepherd-Ram-West-Virginia-Loyalist"
+    outsider_archetype_dominant: "Appalachian-PSAC-Regional-Observer"
+    one_sentence: "Shepherd is the West Virginia school that competes every year in the PSAC under Ernie McCook's 8-year stable tenure."
+  selfname: "the Rams"

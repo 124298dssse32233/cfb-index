@@ -1,0 +1,99 @@
+# Emotional Core — Ursinus (ursinus)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III — program_tier: 7, graceful degradation applies (small school, regional focus, academic mission).
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: ursinus
+team_id: null
+program_name: Ursinus
+program_tier: 7
+
+emotional_core:
+  primary: disbelief     # breaking a 25-year NCAA tournament drought
+  secondary: redemption  # proving long tenures can work
+  one_line: "Ursinus went 25 years without making an NCAA tournament (1999–2024) until Peter Gallagher's patience finally paid off with a 9–1 breakthrough season in his 25th year as head coach."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "One NCAA appearance in 25 years (1999) vs. a Centennial anchor that just proved it could return to the postseason."
+
+the_wound:
+  name: "The 25-year NCAA tournament drought (1999–2024)"
+  detail: "Ursinus made the NCAA tournament in 1999 and didn't return until 2024—a quarter-century of near-misses and tournament-bubble anguish under a coach who never gave up."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove 2024 was the start of a sustained era, not a one-year fluke — return to the NCAA tournament and finally establish Ursinus as a Centennial contender."
+  drought: { since: 1999, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is the drought itself—the program was talented enough to make tournaments but couldn't quite break through for 25 years. 2024 is the proof it belonged all along."
+
+the_delusion:
+  tone: earnest
+  text: "Ursinus fans believe Peter Gallagher's 25-year tenure isn't the patience of a patient loser—it's the patience of someone building something sustainable that finally broke through."
+
+the_grudge_texture:
+  rival: dickinson
+  texture: championship    # Centennial peer, no blood feud
+
+the_coach_relationship: forever-ours    # Gallagher's 25 years in one place; loyalty rewarded with 2024 breakthrough
+the_internal_fracture: trust-vs-frustration — between those who believed Gallagher's long tenure would pay off and those who doubted it
+register: earnest-vindicated
+never_use:
+  - "Irrelevant (one NCAA tournament appearance in program history, 1999, before 2024)"
+  - "Failed program (25 years of near-misses and now a breakthrough proves patience, not failure)"
+
+story_canon:
+  the_unique_thing: "Ursinus is the smallest college in the Centennial Conference (1,500 students) and just broke a 25-year NCAA tournament drought under Peter Gallagher's 25-year tenure—a story of patience rewarded."
+  the_origin: "Ursinus College was founded in 1869 in Collegeville, Pennsylvania. The program became a Centennial Conference charter member in 1981 and made one NCAA tournament appearance in 1999 before enduring a 25-year drought."
+  golden_ages:
+    - { era: "1999 NCAA appearance", what: "The only modern NCAA tournament appearance before 2024; a high-water mark for 25 years" }
+    - { era: "2024 breakthrough (9–1, at-large)", what: "Peter Gallagher's 25-year tenure finally yields a return to the NCAA tournament" }
+  legends:
+    - { name: Peter Gallagher, role: coach, why: "25 years at one small school; patience rewarded with a 9–1 breakthrough in 2024 and the NCAA tournament return" }
+  canonical_moments:
+    - { name: "1999 NCAA Tournament appearance", year: 1999, what: "Ursinus' only NCAA tournament appearance before 2024", handling: glory }
+    - { name: "25-year drought (1999–2024)", year: 2024, what: "The longest period without an NCAA tournament appearance, then broken with a 9–1 season", handling: glory }
+    - { name: "2024 NCAA At-Large Bid (9–1)", year: 2024, what: "Peter Gallagher's breakthrough in his 25th season", handling: glory }
+  the_place: "Founder's Field in Collegeville, Pennsylvania — the smallest college in the Centennial Conference; a hidden gem where football is taken seriously but academics are paramount."
+  brand_of_football: "Patient, long-term building under one coach—Gallagher's 25 years is the anti-trend in modern college football. Ursinus represents loyalty and institutional stability."
+  cultural_footprint: "The proof that staying with one coach for 25 years can work—Gallagher's patience and Ursinus's institutional commitment rewarded in 2024."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Ursinus made the NCAA Division III tournament in 2024 for the first time in 25 years with a 9–1 regular season and an at-large bid. Head coach Peter Gallagher, in his 25th year, finally broke the program's NCAA tournament drought. The 2025–2026 question: can Gallagher and Ursinus sustain this breakthrough, or does 2024 remain an outlier in an otherwise solid but tournament-absent career?
+  research_checklist:
+    - 1999 NCAA Tournament appearance (only appearance pre-2024)
+    - 25-year drought (1999–2024)
+    - Peter Gallagher 25-year tenure
+    - 2024 NCAA at-large bid (9–1 regular season)
+  sources:
+    - https://www.audacy.com/kywnewsradio/local-sports/ursinus-football-advances-ncaa-playoffs-first-time-since-1999
+
+briefing:
+  identity_phrase: Ursinus is the smallest Centennial school that broke a 25-year NCAA tournament drought in 2024 under 25-year coach Peter Gallagher—patience rewarded.
+  mantra: Bear Pride.
+  cultural_anchors:
+    fan_archetype_dominant: Collegeville-Bear-Patient
+    outsider_archetype_dominant: Overlooked-Underdog
+    one_sentence: Ursinus is the Centennial's smallest school (1,500 students) that broke a 25-year NCAA tournament drought in 2024 (9–1) under long-tenured coach Peter Gallagher.
+  selfname: the Bears
+  heritage:
+    conference: Centennial
+    championships: None (1999 NCAA appearance, 2024 return)
+  story_materials:
+    always_surface:
+    - 1999 NCAA appearance
+    - 25-year drought (1999–2024)
+    - Peter Gallagher 25-year tenure
+    - 2024 breakthrough (9–1, at-large bid)
+    rituals:
+    - Gallagher's long-term stability
+    - Small-school identity (1,500 students)
+    modules_already_rendering: none (D3 module set pending)
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal (canon-only, D3 small program)

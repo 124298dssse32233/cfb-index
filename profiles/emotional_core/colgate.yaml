@@ -1,0 +1,111 @@
+# Emotional Core — Colgate Raiders (colgate)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — FCS Patriot League
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: colgate
+team_id: null
+program_name: Colgate Raiders
+program_tier: 3
+
+emotional_core:
+  primary: restoration      # the Andy Kerr legacy haunting a recent collapse
+  secondary: redemption
+  core_variant: regime-reset
+  one_line: "The upstate mountain program living in the shadow of a legendary past, desperate to reclaim it."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "The undefeated, untied, unscored-upon 1932 team and Andy Kerr's reign vs. recent seasons of 2-10 record and coaching turnover."
+
+the_wound:
+  name: "The 2024 collapse and the pattern of coaching instability"
+  detail: "Colgate won only 2 games in 2024 (1-5 Patriot League) under coach Stan Dakosty and parted ways after the season. The wound is not one bad year but a series of coaching changes and the inability to translate the Kerr legacy into sustained success. The program has cycled through coaches, each leaving Colgate in rebuilding mode."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the 2003 form when the program reached the FCS runner-up game, proving the Kerr lineage still matters."
+  drought: { since: 2003, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The chip is the Kerr name itself — when Andy Kerr coached Colgate 1929-1946, he built a dynasty that seems impossible now. The program and the fanbase are haunted by the question: how did we have the legend and lose the tradition?"
+
+the_delusion:
+  tone: earnest
+  text: "Fans believe the Kerr legacy is something that can be reclaimed with the right coach — that the Andy Kerr stadium and the 1932 team mean the program is destined to be good again. They know the game has moved on; Colgate football competes in a different era, but they believe the legacy will find its way back."
+
+the_grudge_texture:
+  rival: bucknell
+  texture: championship
+
+the_coach_relationship: hot-seat-churn  # cycling through coaches, each departure a reset
+the_internal_fracture: nostalgia vs. acceptance — the old-guard faithful clinging to the Kerr era vs. those accepting that modern Patriot League football requires new building blocks
+register: nostalgic-earnest
+never_use:
+  - scrappy
+  - overachieving
+  - minor league
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. ──
+story_canon:
+  the_unique_thing: "The 1932 team that went undefeated, untied, unscored-upon, and uninvited to the bowl game — a ghost team whose perfection was never tested on the national stage. It lives in Colgate lore as the ultimate 'what-if.'"
+  the_origin: "Colgate football dates to the 1800s, part of the upstate New York athletic tradition. The program was known as the Red Raiders until 2001, when the name changed to Raiders due to cultural sensitivity around the prior term."
+  golden_ages:
+    - { era: "1932", what: "The undefeated, untied, unscored-upon season — football perfection with no playoff stage" }
+    - { era: "1929–1946 (Andy Kerr era)", what: "The legendary coach who built Colgate into a national power and left a stadium bearing his name" }
+    - { era: "2003", what: "FCS runner-up season, the program's most recent Deep playoff run" }
+  legends:
+    - { name: "Andy Kerr", role: "coach", why: "Legendary coach 1929-1946 who built Colgate into a national power; the stadium is named after him" }
+  canonical_moments:
+    - { name: "1932 Undefeated Season", year: 1932, what: "Colgate went undefeated, untied, unscored-upon — perfect football with no bowl or playoff to prove it", handling: glory }
+    - { name: "2003 FCS Runner-Up", year: 2003, what: "The most recent significant playoff run, reaching the FCS title game", handling: glory }
+  the_place: "Andy Kerr Stadium (Crown Field) in Hamilton, New York — a mountain venue named for the legendary coach, overlooking a small upstate community."
+  brand_of_football: "The ghost of Eastern dominance — a program that once held its own nationally, now competing in a smaller conference with fading memory of greatness."
+  cultural_footprint: "A cautionary tale in college football: a program with genuine national legacy (1932, Kerr) that could not sustain it into the modern era."
+  the_ongoing_story: >
+    LIVE ARC — 2026-06-13: Colgate finished 2-10 (1-5 Patriot League) in 2024 and parted ways with coach Stan Dakosty after the season. The program enters 2025 searching for new leadership and a path forward. The Andy Kerr legacy looms — a reminder of what Colgate football once was, but offers no roadmap for what it must become.
+  research_checklist:
+    - The 1932 undefeated season and its place in college football lore
+    - Andy Kerr's 1929-1946 era and why his legacy towers over modern football
+    - The 2003 FCS runner-up game and how far Colgate has fallen since
+    - The name change from Red Raiders to Raiders (2001) and its cultural meaning
+    - The coaching instability pattern since 2000
+  sources:
+    - https://en.wikipedia.org/wiki/Andy_Kerr_Stadium
+    - https://en.wikipedia.org/wiki/2024_Colgate_Raiders_football_team
+    - https://www.footballscoop.com/2025/03/03/colgate-parts-ways-with-head-coach-stan-dakosty
+    - https://en.wikipedia.org/wiki/2003_Colgate_Raiders_football_team
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Colgate is the upstate New York program built by legendary Andy Kerr and haunted by a perfect 1932 season, seeking to escape the pattern of coaching churn and loss.
+  mantra: "1932 — Perfect (the ghost that haunts recruitment)"
+  cultural_anchors:
+    fan_archetype_dominant: Nostalgic Blue-Blood Defender
+    outsider_archetype_dominant: "The Fallen Hope"
+    one_sentence: Colgate measures itself against Andy Kerr's 1929-1946 dynasty and the undefeated 1932 team, a legacy that both defines and imprisons modern football ambitions.
+  selfname: Raiders
+  aspiration_ladder_top: "Return to 2003 runner-up form or beyond"
+  rivalries:
+    - bucknell
+    - lehigh
+    - lafayette
+  heritage:
+    national_titles: "1932 Undefeated Season (no bowl; uninvited)"
+    conference_titles: "Multiple (pre-Patriot League era)"
+    current_conference: Patriot League
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Andy Kerr (1929-1946)
+    era_name_overrides: {}
+    always_surface:
+      - "1932: Undefeated, untied, unscored upon"
+      - "Andy Kerr era (1929-1946) — the legend that defines the program"
+      - "2003 FCS runner-up (most recent deep playoff run)"
+    rituals: []
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    signal: "no live signal yet (canon-only) — FCS program not covered by discourse fingerprint"

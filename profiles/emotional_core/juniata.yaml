@@ -1,0 +1,97 @@
+# Emotional Core — Juniata (juniata)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III — program_tier: 7, graceful degradation applies (small school, regional focus, academic mission).
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: juniata
+team_id: null
+program_name: Juniata
+program_tier: 7
+
+emotional_core:
+  primary: contentment   # acceptance of place and modest ambitions
+  secondary: grief       # mourning a distant glory
+  one_line: "Juniata is a rural Pennsylvania school clinging to one shining moment (1973 NCAA runner-up)—a program that has struggled in recent years and accepts its place in the small-school landscape."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "One 1973 NCAA Division III runner-up finish vs. 50+ years of modest mid-pack existence and recent collapse."
+
+the_wound:
+  name: "Chronic modern-era underperformance (2000–2025)"
+  detail: "Juniata has not won a Landmark or predecessor-conference championship in at least 25 years. Recent years (0–10 in 2022, 1–9 in 2023, 2–8 in 2024) show a program in deep struggle. This is not a wound; it's a condition."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Climb out of the Landmark basement and win a game consistently — prove that Juniata can be competitive in a small-school conference again."
+  drought: { since: 1973, unit: national_title }  # 52-year championship drought
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is internal: Juniata had one perfect moment (1973 runner-up) and has never come close since. That gap haunts the program."
+
+the_delusion:
+  tone: self-aware
+  text: "Juniata fans believe the 1973 runner-up finish proves the program can win — that one more rebuild, one more coach, the Eagles can climb out of the basement."
+
+the_grudge_texture:
+  rival: susquehanna
+  texture: border-war    # no historic blood feud; Landmark peers, no bitter rivalry
+
+the_coach_relationship: hot-seat-churn    # Blake Treadwell (2023+, 3–17 so far) is transitional
+the_internal_fracture: pride-vs-reality — between those clinging to 1973 glory and those accepting current reality
+register: earnest-nostalgic
+never_use:
+  - "Never-had-success (1973 NCAA runner-up is real success, even if distant)"
+  - "Dead program (Juniata is down but not out; it competes in the Landmark League)"
+
+story_canon:
+  the_unique_thing: "Juniata had one shining moment—a 1973 NCAA Division III runner-up finish (10–2)—that the program celebrated its 40th anniversary of in 2013, signaling it remains the crowning achievement."
+  the_origin: "Juniata College was founded in 1876 in Huntingdon, Pennsylvania (enrollment ~1,200). The football program made the NCAA Division III tournament in 1973 and lost in the finals (10–2 record), the program's only significant modern glory."
+  golden_ages:
+    - { era: "1973 NCAA Runner-Up", what: "Juniata's only NCAA tournament appearance and the program's only national championship contention" }
+  legends:
+    - { name: "The 1973 Eagles", role: "program identity", why: "The only team to reach the NCAA Division III championship game" }
+  canonical_moments:
+    - { name: "1973 NCAA Division III Runner-Up (10–2)", year: 1973, what: "Juniata's only national championship contention and modern glory", handling: glory }
+    - { name: "40th Anniversary of 1973 (2013)", year: 2013, what: "Program celebrates 1973 as defining moment even 40 years later", handling: glory }
+  the_place: "Frank Osborne Stadium in Huntingdon, Pennsylvania — a small rural Pennsylvania town where football is one of many small-college activities."
+  brand_of_football: "D3 baseline competence with aspirations; the Eagles play small-school football in a rural setting with regional recruits."
+  cultural_footprint: "Proof that one moment of national relevance (1973) can define a program for 50+ years, even in modern irrelevance. Juniata carries the weight of 1973 more than most programs."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Juniata has struggled in recent years, going 0–10 (2022), 1–9 (2023), and 2–8 (2024, 1–5 Landmark). Head coach Blake Treadwell is in his second Landmark season with a combined 3–17 record. The program is rebuilding from a low point; the 2026 question is whether Treadwell can stabilize Juniata or whether the program settles into chronic underperformance in the Landmark Conference.
+  research_checklist:
+    - 1973 NCAA Division III runner-up (10–2)
+    - 50-year drought (1973–2023)
+    - 2023–2024 Landmark era struggles
+    - Blake Treadwell tenure (2023+, 3–17)
+  sources:
+    - https://www.ncaa.com/schools/juniata
+    - https://www.flofootball.com/articles/14400465-how-to-watch-juniata-football-in-2025
+    - https://landmarkconference.org/index.aspx?path=juniata
+
+briefing:
+  identity_phrase: Juniata is the rural PA school clinging to 1973 NCAA runner-up glory (10–2)—a program celebrated that 40th anniversary in 2013 and now struggles in the Landmark Conference (3–17 since 2023).
+  mantra: Eagle Pride.
+  cultural_anchors:
+    fan_archetype_dominant: Huntingdon-Eagle-Nostalgic
+    outsider_archetype_dominant: Forgotten-One-Moment
+    one_sentence: Juniata is the rural Pennsylvania program whose 1973 NCAA runner-up finish (10–2) remains its only national championship contention—now struggling in the Landmark Conference.
+  selfname: the Eagles
+  heritage:
+    conference: Landmark
+    championships: None (1973 NCAA runner-up only)
+  story_materials:
+    always_surface:
+    - 1973 NCAA runner-up (10–2)
+    - 50-year championship drought
+    - Recent Landmark struggles (3–17 since 2023)
+    rituals:
+    - 1973 glory invoked annually
+    modules_already_rendering: none (D3 module set pending)
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal (canon-only, D3 small program)

@@ -1,0 +1,64 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: concordia-st-paul
+team_id: null
+program_name: Concordia-St. Paul
+program_tier: 6        # Division II
+
+emotional_core:
+  primary: restoration    # new HC Joshua Schumacher tasked with rebuilding from 2-9 basement
+  secondary: house-money  # a modest urban program playing for incremental progress, not titles
+  one_line: "Concordia-St. Paul is the Twin Cities urban program that bottomed out at 2-9 in 2025 — and is now under new HC Joshua Schumacher with a mandate to restore dignity to a basement-dwelling franchise."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A regional Twin Cities program with limited playoff success vs the 2-9 collapse that forced a coaching reset."
+
+the_wound:
+  name: "The 2025 institutional collapse"
+  detail: "Concordia-St. Paul finished 2-9 overall and 2-8 in the NSIC (last place/12th), marking a historic low-point for the program. The disastrous season forced a coaching change; Shannon Currier stepped down and Joshua Schumacher was brought in from outside to rebuild from the foundation up. The Golden Bears discovered that an urban Twin Cities program has limits when talent and execution both fail."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Under new HC Joshua Schumacher, climb back to .500 and prove the urban program can be respectable again — one recruiting class at a time."
+  drought: { since: 2015, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the Golden Bears carry no external chip; the wound is self-inflicted. CSP couldn't find the right formula and finally admitted it needed total reset."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: southwest-minnesota-state
+  texture: little-brother    # the annual Ag Bowl opener; CSP is the junior partner
+
+the_coach_relationship: savior    # Joshua Schumacher tasked with rebuilding a 2-9 program
+the_internal_fracture: reset-patience vs show-me-skeptics — new regime believers vs institutional skeptics who've seen this before
+register: twin-cities-urban-golden-bears-ag-bowl
+never_use:
+  - "Historic D2 program: CSP has limited historical footprint compared to UMD/Mankato/Sioux Falls"
+  - "Program was competitive before this year: 2-9 wasn't sudden; program has struggled for years"
+
+story_canon:
+  the_unique_thing: "An urban Twin Cities program with limited national profile; Concordia-St. Paul competes as a regional NSIC participant, not a national force."
+  the_origin: "Concordia-St. Paul is a small Lutheran college in St. Paul, Minnesota; the Golden Bears have competed in the NSIC but have never established themselves as a power."
+  golden_ages: []
+  legends: []
+  canonical_moments:
+    - { name: "2025 2-9 collapse", year: 2025, what: "Bottomed out at 2-9 (12th in NSIC), forcing institutional reset", handling: wound }
+  the_place: "St. Paul, Minnesota; an urban Twin Cities location; the Golden Bears' modest community base."
+  brand_of_football: "A small urban program with limited prestige and modest resources; Concordia-St. Paul plays for institutional survival, not titles."
+  cultural_footprint: "CSP is a regional D2 participant with minimal national footprint; the program is rebuilding from one of the worst seasons in recent NSIC history."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Concordia-St. Paul went 2-9 in 2025, finishing last in the NSIC (2-8 conference).
+    The disastrous season forced a coaching change; new HC Joshua Schumacher was hired to rebuild the program from scratch.
+    Schumacher inherits a 12th-place roster and a program needing total institutional reset. The 2026 season is Year 1 of
+    a multi-year rebuild with no immediate playoff expectations.
+  sources:
+    - https://northernsun.org/schedule.aspx?schedule=3876
+    - https://cspbears.com/news/2026/2/13/football-golden-bear-football-announces-coaching-staff-additions.aspx

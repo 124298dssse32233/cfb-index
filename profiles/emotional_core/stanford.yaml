@@ -1,0 +1,121 @@
+# Emotional Core — Stanford  (stanford)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: stanford
+team_id: 24
+program_name: Stanford
+program_tier: 4
+
+emotional_core:
+  primary: restoration    # the proud think-tank power trying to rebuild itself in an era it helped make obsolete
+  secondary: grievance    # the conviction that the gatekeeping that built the brand is now the thing strangling it
+  core_variant: perpetual-rebuild
+  one_line: "Stanford ran power football out of an admissions office and reached two Rose Bowls doing it — now it's the program watching the NIL era treat its highest standards as a recruiting handicap, with Andrew Luck in a suit trying to reverse-engineer the climb back."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "Harbaugh-and-Shaw top-five teams and the 2013 Rose Bowl vs a decade in the wilderness — five straight losing seasons and a 4-8 finish in the program's third coaching change in a year."
+
+the_wound:
+  name: "The slide from Rose Bowls to the ACC basement"
+  detail: "After Harbaugh and David Shaw made Stanford a Pac-12 power, the program collapsed into a half-decade of losing; in 2025 Troy Taylor was fired in March over staff-bullying allegations, GM Andrew Luck installed Frank Reich as a one-year interim, and the Cardinal went 4-8 before Luck handed the rebuild to ex-Stanford QB Tavita Pritchard."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the brain-and-brawn formula still works — that Stanford can recruit, pay, and win at the highest level without lowering the bar that made it Stanford."
+  drought: { since: 2015, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans hear the same verdict on a loop — that the academic standard is now an anchor, that paying players broke the only model Stanford had, that the smart school can't survive a sport that stopped rewarding being smart. They think the obituary is premature."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes the formula is dormant, not dead — that the same admissions office that produced Andrew Luck and two Rose Bowls can, with Luck himself now running it, out-think the checkbook era instead of losing to it."
+
+the_grudge_texture:
+  rival: california
+  texture: blood-feud   # the Big Game and the Axe — Stanford reclaimed it 31-10 in 2025 for the first time since 2020
+
+the_coach_relationship: savior   # not the coach — the GM: Andrew Luck, the program's own legend, is the one fans are trusting to fix it
+the_internal_fracture: standards vs survival — the faction that says the academic bar IS the identity and must never bend vs the faction that says winning in the pay era requires Stanford to act like everyone else
+register: nerd-with-line-of-scrimmage   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Just academics — football's worse
+  - Cinderella — built it on purpose
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Stanford is the program that ran physical, pro-style power football out of one of the most selective admissions offices in America — proof that you could win top-five-level college football without lowering an academic standard, the model every smart school points to and no other one has matched."
+  the_origin: "A West Coast academic institution with a football pedigree dating to the leather-helmet era — Pop Warner coached here, the 'Vow Boys' of the 1930s, John Elway in the early '80s — but the modern identity was forged when Jim Harbaugh turned a 1-11 team into a Rose Bowl program and David Shaw kept it elite."
+  golden_ages:
+    - { era: "2010-2015 (Harbaugh, then Shaw)", what: "Top-five finishes, three Pac-12 titles, two Rose Bowls (2013, 2014), and Andrew Luck's back-to-back Heisman-runner-up seasons" }
+    - { era: "1930s (the Vow Boys)", what: "Three straight Rose Bowl trips and a 1940 national-title claim — the deep-canon golden age" }
+  legends:
+    - { name: Andrew Luck, role: player, why: "Two-time Heisman runner-up and No. 1 overall pick — the face of the Harbaugh-Shaw peak, and now the program's general manager" }
+    - { name: Jim Harbaugh, role: coach, why: "Took Stanford from 1-11 to a Rose Bowl program — the architect of the modern rise" }
+    - { name: Christian McCaffrey, role: player, why: "The 2015 Heisman runner-up who set the FBS all-purpose-yards record — the brain-and-brawn ideal" }
+  canonical_moments:
+    - { name: "The 2013 Rose Bowl win", year: 2013, what: "Stanford beats Wisconsin in the Rose Bowl, the modern peak of the program", handling: glory }
+    - { name: "Reclaiming the Axe", year: 2025, what: "A 31-10 Big Game win over Cal returns the Axe for the first time since 2020 — a bright spot in a 4-8 year", handling: glory }
+    - { name: "The slide to the ACC basement", year: 2024, what: "Five straight losing seasons after the Shaw era ended — the program's fall from a power to an afterthought", handling: wound }
+  the_place: "Stanford Stadium on The Farm — palm trees, the Tree mascot, and the Stanford Band as the most chaotic, irreverent marching unit in the sport."
+  brand_of_football: "Nerd-with-a-line-of-scrimmage — physical, downhill, pro-style power football run by the smartest roster in the country; the deliberate opposite of finesse-school stereotype."
+  cultural_footprint: "The standing argument that you can win big without compromising who you admit — a program watched as a referendum on whether elite academics and elite football can still coexist in the pay-for-play era."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Stanford fired Troy Taylor in March 2025 amid staff-bullying
+    allegations; GM Andrew Luck installed Frank Reich as a one-year interim, and the Cardinal went 4-8
+    (3-5 ACC) — their best record since 2020, with home wins over Boston College and Florida State and a
+    31-10 Big Game win that reclaimed the Axe. With Reich's deal expiring by design, Luck hired former
+    Stanford QB Tavita Pritchard as the permanent head coach. The question on The Farm: can a program built
+    on admissions standards rebuild itself in an era that rewards checkbooks?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Stanford_Cardinal_football_team
+    - https://www.nfl.com/news/stanford-hires-commanders-assistant-tavita-pritchard-as-next-head-football-coach
+    - https://gostanford.com/news/2025/03/31/stanford-football-announces-frank-reich-as-interim-head-coach-for-2025-season
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Stanford is the program that ran power football out of an admissions office.
+  mantra: Fear the tree.
+  cultural_anchors:
+    fan_archetype_dominant: Academic-Loyalist
+    outsider_archetype_dominant: Smug-Diminisher
+    one_sentence: Stanford is the program that built a top-25 football identity inside an elite university's
+      admissions standards — and is now negotiating whether that combination still works in the NIL era.
+  selfname: the Cardinal
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2010-2015 era (Jim Harbaugh + David Shaw, 5 BCS/NY6 bowls)
+    - Andrew Luck's 2010-2011 Heisman finalist seasons
+    - The 2013 Rose Bowl run
+    rituals:
+    - The Tree
+    - The Stanford Band
+    - The Big Game Axe
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

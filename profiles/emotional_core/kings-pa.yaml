@@ -1,0 +1,84 @@
+# AUTHORED (D3 MAC) 2026-06-13 — web-verified
+# Middle Atlantic Conference | Wilkes-Barre, PA | Resurgent Monarchs
+# 2024: First outright MAC title (10-2, 9-0 MAC); 2025: 5-5 regression post-title
+
+status: live
+slug: kings-pa
+team_id: null
+program_name: King's College
+program_tier: 7
+
+emotional_core:
+  primary: restoration      # post-title building; proving 2024 wasn't a one-year flash
+  secondary: contentment    # historical success over a long period; defending Monarch legacy
+  core_variant: perpetual-rebuild
+  one_line: "King's is the Monarch from Wilkes-Barre that won its first outright MAC championship in 2024 after a decades-long drought, now rebuilding to prove the title wasn't a novelty."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A historic institution (founded 1946) that competed for decades without a conference crown, finally broke through in 2024 with a perfect 9-0 MAC record and 10-2 overall mark, now facing the harder challenge: proving it wasn't accidental."
+
+the_wound:
+  name: "The championship title and the expectation it created"
+  detail: "After winning the first outright MAC championship in program history (2024, 10-2 overall, 9-0 MAC), King's College faced a 5-5 season in 2025—a regression that fed doubt about whether the title was earned or lucky. The wound is specific: the question of sustainability. Did King's finally arrive, or was 2024 an outlier?"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that 2024 was the beginning of a Monarch era, not a singular moment—back-to-back MAC contention, NCAA tournaments, a program that belongs in championship conversations."
+  drought: { since: 2024, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no external villain—just the internal hunger to prove doubters wrong. King's College wants to silence anyone who said the 2024 championship was a fluke."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 5-5 season in year-two-post-championship doesn't erase what the 2024 squad accomplished—that one down year doesn't undo institutional growth. King's knows one year doesn't make a dynasty, but believes anyway."
+
+the_grudge_texture:
+  rival: albright
+  texture: championship    # MAC Commonwealth divisional rivals competing for conference supremacy
+
+the_coach_relationship: hot-seat-churn      # Mike Cebrosky (2nd season, 2024 MAC Coach of the Year) faces rebuild pressure
+the_internal_fracture: championship-standard vs rebuilding-realism — the faction demanding immediate return to 9-0 MAC vs those accepting the two-year rebuild
+register: wilkes-barre-monarch-historic-breakthrough-hunger
+never_use:
+  - "King's is back to being irrelevant — a 10-2 season with a perfect 9-0 MAC record and conference championship proves institutional capacity"
+  - "One good year doesn't mean anything — championships require sustained culture and coaching excellence"
+  - "King's College football was always minor league — the 2024 run proves otherwise"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The Wilkes-Barre Monarch—a historic program that competed in relative obscurity until 2024, when it won the first outright MAC championship in history (9-0 MAC, 10-2 overall) before facing the harder challenge of sustainability."
+  the_origin: "King's College, founded 1946 in Wilkes-Barre, PA, began fielding a football program in the 1950s and competed through multiple eras of college football within the Middle Atlantic Conference."
+  golden_ages:
+    - { era: "Competitive years (1950s-1990s)", what: "King's competed in MAC play, building a regional program identity" }
+    - { era: "2024 breakthrough", what: "First outright MAC championship (9-0 MAC, 10-2 overall, NCAA tournament Round 2)" }
+  legends:
+    - { name: Mike Cebrosky, role: coach, why: "2024 MAC Coach of the Year; led King's to first outright conference title in program history" }
+    - { name: "Monarch athletic tradition", role: institution, why: "Decades of institutional commitment to Division III football in northeast Pennsylvania" }
+  canonical_moments:
+    - { name: "2024 MAC championship", year: 2024, what: "King's College wins first outright MAC title (9-0 MAC, 10-2 overall), ending a long championship drought", handling: glory }
+    - { name: "2024 NCAA tournament", year: 2024, what: "Monarchs advance to Round 2 of Division III playoffs following championship season", handling: glory }
+  the_place: "Monarch Field in Wilkes-Barre, PA—home of the Monarchs, representing a northeast Pennsylvania athletic tradition."
+  brand_of_football: "The breakthrough Monarch—a historic program that finally broke through a long championship drought, proving institutional capability in a single season and betting it's just the beginning."
+  cultural_footprint: "King's College 2024 represents the possibility of institutional transformation in Division III—a decades-long competitor suddenly emerging as a conference champion."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After winning the 2024 MAC championship (9-0 conference, 10-2 overall), King's
+    College finished 5-5 overall (5-4 MAC) in 2025—a regression that tested the sustainability of the breakthrough.
+    Head coach Mike Cebrosky (2024 MAC Coach of the Year) faces the rebuilding task of maintaining championship culture
+    despite a second-year letdown. The 2025 season was characterized as a year of learning and roster rebuilding, not
+    a sign of permanent decline. The question facing Wilkes-Barre in 2026: can the Monarchs return to championship form,
+    or was 2024 truly a one-year anomaly?
+  research_checklist:
+    - Founded 1946; football since 1950s
+    - Wilkes-Barre, PA; Monarch Field home
+    - 2024: 10-2 overall, 9-0 MAC, first outright championship
+    - 2024 coach: Mike Cebrosky (MAC Coach of the Year)
+    - 2025: 5-5 overall, 5-4 MAC (5th place, tied)
+  sources:
+    - https://kingscollegeathletics.com/
+    - https://www.d3football.com/teams/kings
+    - https://gomacsports.com/
+    - https://en.wikipedia.org/wiki/Kings_Monarchs_football

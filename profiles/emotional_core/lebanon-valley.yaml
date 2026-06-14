@@ -1,0 +1,87 @@
+# AUTHORED (D3 MAC) 2026-06-13 — web-verified
+# Middle Atlantic Conference | Annville, PA | Historic Flying Dutchmen
+# 1897 program (129 years old); only team to beat 2025 MAC champion Eastern; strong 2025
+
+status: live
+slug: lebanon-valley
+team_id: null
+program_name: Lebanon Valley College
+program_tier: 7
+
+emotional_core:
+  primary: honor            # historic program defending institutional football heritage and credibility
+  secondary: restoration    # post-coaching transition; Chris Thompson named 28th head coach
+  one_line: "Lebanon Valley is the Flying Dutchman—a historic 1897 program in Annville, PA, holding its own against newer MAC powers while proving the oldest colleges build the deepest wells of football culture."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A 129-year-old football institution competing in a modern MAC dominated by newer programs, defending a heritage that predates most rivals while navigating coaching transitions and resource constraints."
+
+the_wound:
+  name: "The coaching transition and the question of sustained identity"
+  detail: "Lebanon Valley cycled through interim coaching in 2025, eventually naming Chris Thompson the 28th head coach (December 11, 2025). The wound is existential: can a historic program with changing leadership maintain the culture and football philosophy that defined it for over a century?"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that Lebanon Valley football—rooted in 1897—is not a relic but a living tradition. Achieve sustained MAC contention and return to the level of the 2009 and 2011 ECAC Southwest Bowl championship years."
+  drought: { since: 2011, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no villain—just the drive to prove that institutional heritage matters, that 129 years of football history confer something real: the ability to compete against younger, better-resourced peers."
+
+the_delusion:
+  tone: self-aware
+  text: "That a historic program with deep roots but newer peers could return to the glory of the 2009-2011 ECAC era—that history compounds into advantage. The fanbase knows it's harder than nostalgia; they believe anyway."
+
+the_grudge_texture:
+  rival: delaware-valley
+  texture: championship    # MAC divisional rivals competing for conference respect
+
+the_coach_relationship: hot-seat-churn      # Chris Thompson named 28th head coach (Dec 11, 2025); new era
+the_internal_fracture: heritage-vs-modernity — the faction valuing history and tradition vs those demanding immediate modern competitive results
+register: annville-flying-dutchman-heritage-continuity
+never_use:
+  - "Lebanon Valley is not a real program — 129 years of continuous football, 11 all-Americans, ECAC bowl championships prove otherwise"
+  - "Old schools are obsolete — Lebanon Valley's competitive 2025 season (only team to beat eventual MAC champion Eastern) proves heritage + culture matter"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The Flying Dutchman—a 1897 program (129 years old) in Annville, PA, competing at Division III while defending nearly a century and a half of football heritage, the only team to defeat 2025 MAC champion Eastern."
+  the_origin: "Lebanon Valley College began fielding a football program in 1897, one of the oldest continuous programs in the nation—a fixture in Lancaster County, Pennsylvania athletics for over a century."
+  golden_ages:
+    - { era: "Historic era (1897-2011)", what: "Over a century of continuous football, producing 11 all-Americans and building a regional institution" }
+    - { era: "ECAC dominance (2009-2011)", what: "Two bowl championships (ECAC Southwest Bowl, 2009 and 2011)" }
+    - { era: "2025 competitive season", what: "Only team to defeat eventual MAC champion Eastern; near-undefeated MAC record" }
+  legends:
+    - { name: "Flying Dutchman football", role: institution, why: "129 years of continuous play represent one of the deepest wells of institutional football culture" }
+    - { name: "11 all-Americans", role: achievement, why: "Production of elite individual players across generations" }
+  canonical_moments:
+    - { name: "1897 program launch", year: 1897, what: "Lebanon Valley begins fielding football, becoming one of the oldest continuous programs", handling: glory }
+    - { name: "2009 ECAC Bowl championship", year: 2009, what: "Flying Dutchmen win ECAC Southwest Bowl championship", handling: glory }
+    - { name: "2011 ECAC Bowl championship", year: 2011, what: "Back-to-back ECAC Southwest Bowl championship", handling: glory }
+    - { name: "2025 victory over Eastern", year: 2025, what: "Lebanon Valley defeats eventual 2025 MAC champion Eastern, proving competitive substance", handling: glory }
+  the_place: "Arnold Field in Annville, PA—home of the Flying Dutchmen, representing over 120 years of Division III football tradition in Lancaster County."
+  brand_of_football: "The historic guardian—a program holding its own against newer peers through institutional depth and a tradition that compounds across generations."
+  cultural_footprint: "Lebanon Valley represents the possibility of staying relevant in Division III football through heritage and institutional commitment, even while competing against programs with larger modern resources."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Lebanon Valley finished approximately 6-3 overall in 2025 (details pending full season
+    close), competing strongly in the MAC despite being one of the oldest programs in the conference. The Flying Dutchmen were
+    the only team to defeat eventual 2025 MAC champion Eastern, nearly achieving an undefeated MAC record (five points separated
+    the team from perfection). Chris Thompson was named the 28th head coach (December 11, 2025) after interim leadership in 2025.
+    The program faces 2026 with questions about sustainability under new coaching while celebrating 129 years of continuous
+    football tradition.
+  research_checklist:
+    - Founded 1897 (129-year-old program)
+    - Arnold Field, Annville PA
+    - 11 all-Americans produced
+    - 2009, 2011 ECAC Southwest Bowl championships
+    - 2025: ~6-3 record; only team to beat eventual MAC champion Eastern
+    - 2026 coach: Chris Thompson (28th head coach, Dec 11, 2025)
+  sources:
+    - https://godutchmen.com/
+    - https://www.d3football.com/teams/lebanon-valley
+    - https://gomacsports.com/
+    - https://www.stadiumjourney.com/articles/arnold-field-lebanon-valley-college
+    - https://en.wikipedia.org/wiki/Lebanon_Valley_Flying_Dutchmen_football

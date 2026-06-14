@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: northern-michigan
+team_id: null
+program_name: Northern Michigan University
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: grievance
+  one_line: "Northern Michigan is the sleeping giant waking up — a program with a 1975 national championship buried in history and a new coaching regime that signals a serious bid to climb back into relevance."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A program with one national title (1975) that has spent decades in the mid-tier, now energized by a bold hiring of a proven winner from outside the GLIAC."
+
+the_wound:
+  name: "50 years in the shadow of one title"
+  detail: "Northern Michigan won its only national championship in 1975 — a half-century ago. The wound is the gap between 'we were champions' and the prolonged silence afterward. The program has had moments of competitiveness but never another title run."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Another national championship that proves the 1975 title was the foundation of something, not a distant anomaly. Climb back to the national stage."
+  drought: { since: 1975, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe northern Michigan's chip is that it had a national championship when Ferris State was nobody. The current pain is watching Ferris win four in five years while NMU searches for a way back."
+
+the_delusion:
+  tone: earnest
+  text: "Fans see Matt Janus's hiring (45-14 record at Wisconsin-La Crosse, two WIAC titles) as a signal that the program is serious again — and they believe this could be the coach who brings the nation back to Marquette."
+
+the_grudge_texture:
+  rival: michigan-tech
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "Old program identity vs new ambitious direction — the tension between honoring the 1975 legacy and building something immediate."
+register: michigan-wildcat-1975-champion-resurrection
+never_use:
+  - Never had a title — incorrect; Northern Michigan won the national championship in 1975
+  - Ferris has always been ahead — Ferris is the recent usurper; NMU was the first in the GLIAC to claim a national title
+  - New coaching hire signals decline — Janus's hiring (45-14 record) signals ambition and investment
+
+story_canon:
+  the_unique_thing: "A program that won the national championship in 1975 and has spent 50 years searching for a way back — now energized by a proven coach hired to restore national relevance."
+  the_origin: "Northern Michigan has competed in college football since the early 1900s and claimed the NCAA Division II national championship in 1975 under the legendary program of that era."
+  golden_ages:
+    - { era: "1975 (National Championship)", what: "Northern Michigan won the NCAA Division II national championship — the program's only title" }
+  legends: []
+  canonical_moments:
+    - { name: "1975 national championship", year: 1975, what: "Northern Michigan claims the NCAA Division II national championship", handling: glory }
+  the_place: "Marquette, Michigan — a city on Lake Superior's south shore in the Upper Peninsula, surrounded by natural beauty and a tight-knit community."
+  brand_of_football: "Historically tough and prepared; the new vision under Matt Janus is to build a systematic, high-winning-percentage program that competes for titles."
+  cultural_footprint: "Northern Michigan's 1975 championship proved that Upper Peninsula programs could achieve national excellence; the current challenge is to prove that wasn't a one-era miracle."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Northern Michigan made a bold coaching hire in Matt Janus, bringing in
+    a proven winner from Wisconsin-La Crosse (45-14 record, two WIAC titles) to lead the program. Janus's hiring
+    signals serious investment in restoring competitiveness. The Wildcats finished 3-8 in 2025 under the transition,
+    but the new coaching regime and philosophy suggest 2026 could begin a climb back to GLIAC contention and
+    eventual national relevance. The program is betting that Janus is the coach who can return Northern Michigan
+    to the national stage for the first time since 1975.
+  research_checklist:
+    - 1975 national championship verified
+    - Matt Janus hire (Wisconsin-La Crosse, 45-14 record, 2 WIAC titles)
+    - 2025 record (3-8, transition season)
+    - Marquette location and community identity
+  sources:
+    - https://en.wikipedia.org/wiki/Northern_Michigan_Wildcats_football
+    - https://www.nmu.edu/
+    - https://www.gliac.org/

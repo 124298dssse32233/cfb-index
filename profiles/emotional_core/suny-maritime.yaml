@@ -1,0 +1,84 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — SUNY Maritime College (suny-maritime)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: suny-maritime
+team_id: null
+program_name: State University of New York Maritime College
+program_tier: 7
+
+emotional_core:
+  primary: honor      # maritime service mission
+  secondary: house-money  # every game earned through unique dual mission
+  one_line: "SUNY Maritime is the Privateers — state maritime officers all required to play sports, posting a 5-5 regular season and 10-1 all-time bowl record, where every student athlete fulfills U.S. Coast Guard licensing requirements while competing in NEWMAC."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A state maritime college where mandatory sports participation builds officers licensed for U.S. Coast Guard duty — a singular program where athletics and service are inseparable and 10-1 bowl record proves the culture works."
+
+the_wound:
+  name: "None to reference"
+  detail: "SUNY Maritime's identity is built on the dual mission of officer training and sports excellence, not on historical trauma. The program is optimistic and forward-facing."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Sustain the SUNY Maritime bowl record legacy (10-1 all-time) and prove that mandatory sports participation produces elite football athletes who are also officers and sailors."
+  drought: { since: 1985, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — SUNY Maritime plays for honor: the honor of seafaring, the honor of U.S. Coast Guard officer licensing, the honor of the Privateer motto 'Loyalty, Valor.'"
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that SUNY Maritime's mandatory sports requirement creates better officers and athletes — that the dual mission is not a burden but a forge."
+
+the_grudge_texture:
+  rival: coast-guard
+  texture: blood-feud   # fellow maritime service rivals
+
+the_coach_relationship: savior   # Anthony Trotta newly hired 2025-26
+the_internal_fracture: bowl-record legacy vs. 5-5 regular-season expectations
+register: privateers-maritime-mandatory-sports-loyal
+never_use:
+  - SUNY Maritime football is new — program founded 1985, 40 years of history by 2025
+  - Mandatory sports participation is a handicap — 10-1 bowl record proves it builds elite athletes
+  - The Privateers are a weak NEWMAC team — 5-5 in 2025 with ECAC bowl selection shows competitive standing
+
+story_canon:
+  the_unique_thing: "SUNY Maritime College is the only NEWMAC program where all students are required to participate in sports — and where every athlete is licensed for U.S. Coast Guard officer duty. The 10-1 all-time bowl record (including a 10-1 2010 season, 7-0 ECFC) proves that mandatory sports participation produces elite football."
+  the_origin: "SUNY Maritime College was founded 1985 as a state maritime academy. All students complete officer licensing and fulfill mandatory athletics participation."
+  golden_ages:
+    - { era: "2010 season (10-1, 7-0 ECFC)", what: "Perfect regular season, bowl championship" }
+    - { era: "ongoing", what: "Sustained 10-1 all-time bowl record across three decades" }
+  legends:
+    - { name: Anthony Trotta, role: coach, why: "Hired for 2025-26 season to continue Privateers tradition" }
+  canonical_moments:
+    - { name: "Program founded", year: 1985, what: "SUNY Maritime College launches football with mandatory sports requirement", handling: glory }
+    - { name: "2010 season 10-1", year: 2010, what: "7-0 ECFC record, perfect regular season, bowl championship", handling: glory }
+    - { name: "10-1 all-time bowl record", year: 2025, what: "40 years of football with sustained bowl success (10 wins, 1 loss across all bowl appearances)", handling: glory }
+  the_place: "SUNY Maritime College in Throggs Neck, New York, overlooking the East River — where maritime officers train and Privateers play."
+  brand_of_football: "Disciplined, officer-focused football — the mandatory sports model builds leadership."
+  cultural_footprint: "The only NCAA program where all athletes are licensed maritime officers and mandatory sports participation is the model — proving that enforced athletic participation builds character and excellence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: SUNY Maritime College posted a 5-5 regular season record in 2025 and was selected to
+    the ECAC James Lynah Bowl (post-season competition). The Privateers are in their 40th year of football (1985–2025) with a
+    remarkable 10-1 all-time bowl record, including a perfect 2010 season (10-1 regular, 7-0 ECFC, bowl win). Anthony Trotta was
+    newly hired for the 2025-26 season to continue the tradition. All SUNY Maritime students are required to participate in
+    sports and are licensed U.S. Coast Guard officers upon graduation. The question: can Trotta maintain the Privateers' unique
+    bowl-record legacy while building sustainable NEWMAC competitiveness?
+  research_checklist:
+    - 1985 program founding
+    - Mandatory sports participation for all students
+    - U.S. Coast Guard officer licensing mission
+    - 10-1 all-time bowl record
+    - 2010 season (10-1 regular, 7-0 ECFC)
+    - 2025 record (5-5 regular) and ECAC bowl selection
+    - Anthony Trotta hired 2025-26
+  sources:
+    - https://www.ncaa.org/sports/2025/d3/football/suny-maritime-college/schedule
+    - https://www.ncollegefootball.com/teams/suny-maritime-privateers
+    - https://en.wikipedia.org/wiki/SUNY_Maritime_College_Privateers_football
+    - https://www.sunymaritime.edu/ (official college site)

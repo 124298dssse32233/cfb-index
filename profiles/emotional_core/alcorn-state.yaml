@@ -1,0 +1,118 @@
+# Emotional Core — Alcorn State  (alcorn-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: alcorn-state
+team_id: 7
+program_name: Alcorn State
+program_tier: 3
+
+emotional_core:
+  primary: honor        # five black college national championships (1968, 1969, 1974, 1984, 2014), 13 SWAC titles, Hall of Famers including Steve McNair
+  secondary: restoration   # Cedric Thomas rebuilding in year 2 after a 11-12 record, searching for the next dynasty
+  one_line: "Alcorn State is the Mississippi HBCU that won five black college national championships and featured Hall of Famer Steve McNair — a program rebuilding under Cedric Thomas in year two, searching for the next dynasty."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Five black college national championships (1968, 1969, 1974, 1984, 2014), 13 SWAC titles, and the Steve McNair legacy vs a 502-396-38 all-time record and the 2025 11-12 rebuilding phase under Cedric Thomas."
+
+the_wound:
+  name: "The post-2014 championship drought"
+  detail: "Alcorn State won a black college national championship in 2014 (the most recent title) but has been competitive without returning to the peak. Cedric Thomas is in year two (11-12 overall record) as the program searches for the formula that produced the 2014 championship."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build a championship contender; honor the five national championships and the Steve McNair legacy; prove that Alcorn State is a perennial SWAC power; return to the Celebration Bowl and a black college national title game."
+  drought: { since: 2014, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "The fanbase has seen Alcorn win five national championships across different eras and knows the standard is reachable. The program has proven it can reach the peak multiple times and refuses to accept being a mid-tier SWAC team; the next championship is the goal, not a surprise."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that a program with five national championships and the Steve McNair legacy is always capable of contending for titles. The 2014 championship is close enough that the next one feels achievable; the motor is still there."
+
+the_grudge_texture:
+  rival: jackson-state
+  texture: blood-feud   # the Soul Bowl — two schools, two cities, pure Mississippi rivalry heat
+
+the_coach_relationship: legends-shadow   # Cedric Thomas is rebuilding; Marino Casem (legendary coach) and Steve McNair (Hall of Famer) are the anchors of the program's identity
+the_internal_fracture: patience with thomas vs immediate results — the faction that says year two is too early to judge vs the faction that says Alcorn has won five national championships and 11-12 is unacceptable
+register: championship-lineage — five titles across different eras; the standard is established
+never_use:   # LAW — do not violate in any authored line
+  - one-hit-wonder framing (five national championships)
+  - scrappy
+  - just trying to have fun
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep canon ──
+story_canon:
+  the_unique_thing: "Alcorn State is the Mississippi HBCU that has won five black college national championships (1968, 1969, 1974, 1984, 2014) and has established itself as a SWAC powerhouse. Hall of Famer Steve McNair (dual-threat QB, NFL legend) is an Alcorn State product. The program has won 13 SWAC titles and produced three College Football Hall of Famers (Marino Casem, Steve McNair, Doug Porter)."
+  the_origin: "A land-grant university in Lorman, Mississippi that joined the SWAC in 1961 and built itself into a dynasty under coach Marino Casem. Alcorn State proved that a SWAC program could win at the national level and compete for multiple championships across eras."
+  golden_ages:
+    - { era: "1968–1974 (Marino Casem)", what: "Three consecutive national championships (1968, 1969, 1974) and the foundation of the modern program" }
+    - { era: "1984 (Marino Casem)", what: "The fourth national championship under Casem; two-decade dynasty" }
+    - { era: "2014", what: "The most recent black college national championship" }
+  legends:
+    - { name: Marino Casem, role: coach, why: "Four national championships in two decades; the architect of Alcorn's dynasty" }
+    - { name: Steve McNair, role: player, why: "Hall of Famer; two-time Super Bowl champion; the greatest Alcorn State product" }
+    - { name: Doug Porter, role: player, why: "College Football Hall of Famer" }
+  canonical_moments:
+    - { name: "Three consecutive titles", year: 1974, what: "1968, 1969, 1974 national championships under Marino Casem", handling: glory }
+    - { name: "The 1984 national championship", year: 1984, what: "Alcorn's fourth national title; the capstone of Casem's dynasty", handling: glory }
+    - { name: "The 2014 national championship", year: 2014, what: "Alcorn State's most recent black college national championship", handling: glory }
+  the_place: "Casem-Spinks Stadium in Lorman, Mississippi (cap 22,500); home of Alcorn's tradition."
+  brand_of_football: "Championship-proven: a program that has won national titles across multiple eras and remains a SWAC power; Marino Casem's legacy is the foundation."
+  cultural_footprint: "Alcorn State is the Mississippi HBCU that proved five times it could win a black college national championship. The program's legacy includes Hall of Famer Steve McNair and is anchored by Marino Casem's coaching dynasty. Alcorn is a peer to any HBCU program."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Alcorn State is in the second season under head coach Cedric Thomas (11-12
+    overall record, .478 winning percentage). The program has five black college national championships (1968, 1969,
+    1974, 1984, 2014) and is searching for the next dynasty. Cedric Thomas is tasked with rebuilding Alcorn into a
+    SWAC contender and returning the program to national championship contention. The most recent title in 2014 is
+    over a decade old, suggesting that the program is in a rebuild phase. The foundation is there (Hall of Famer
+    Steve McNair, legendary coach Marino Casem), and the question is whether Thomas can access that standard.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Alcorn_State_Braves_football
+    - https://en.wikipedia.org/wiki/Steve_McNair
+    - https://en.wikipedia.org/wiki/2025_Alcorn_State_Braves_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Alcorn State is the Mississippi HBCU with five national championships and Hall of Famer Steve McNair.
+  mantra: Go Braves.
+  cultural_anchors:
+    fan_archetype_dominant: Championship-Lineage-Keeper
+    outsider_archetype_dominant: Legacy-Power
+    one_sentence: Alcorn State is the Mississippi HBCU that won five black college national championships across multiple eras.
+  selfname: the Braves
+  aspiration_ladder_top: ''
+  rivalries:
+  - jackson-state
+  heritage:
+    national_titles: 5
+    conference_titles: 13
+    current_conference: SWAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: 'Marino Casem'
+    era_name_overrides: {}
+    always_surface:
+    - Five black college national championships (1968, 1969, 1974, 1984, 2014)
+    - Steve McNair (Hall of Famer, dual-threat QB)
+    - Marino Casem (legendary coach)
+    rituals:
+    - Soul Bowl vs Jackson State
+    - Annual SWAC competition
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

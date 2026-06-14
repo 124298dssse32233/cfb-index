@@ -1,0 +1,72 @@
+status: live            # authored 2026-06-13 via web research
+slug: vmi
+team_id: null
+program_name: VMI
+program_tier: 3
+
+emotional_core:
+  primary: redemption     # the 2020 breakthrough after 39-year playoff drought
+  secondary: grievance    # stuck behind Citadel in the Military Classic and SoCon for decades
+  one_line: "VMI is the military college that finally broke through in 2020 after 39 years without a winning season — the Keydets are rebuilding under Danny Rocco, trying to prove the breakthrough wasn't a one-hit wonder."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A 39-year playoff drought (1981-2020) that ended in breakthrough, followed by inconsistent results — the military college proving it belongs, then struggling to sustain."
+
+the_wound:
+  name: "The 39-year drought"
+  detail: "VMI went from 1981 to 2020 without a winning season or playoff appearance — 39 years of losing. When the Keydets finally broke through in 2020 (the program's first winning season in nearly four decades), it felt like vindication. But subsequent seasons have been inconsistent, and Danny Rocco's tenure (year 3) is under pressure to prove the Keydets can sustain success."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the 2020 breakthrough was the start of consistent success, not a one-year miracle — win a SoCon title, make the FCS playoffs again, and establish VMI as a competitive force in the military college rivalry with the Citadel."
+  drought: { since: 2020, unit: relevance }
+
+the_chip:
+  villain: big_brother
+  text: "The Keydets believe VMI has been chasing the Citadel in the Military Classic for 82 games and in SoCon competition for decades — and they see the 2020 breakthrough and the Rocco rebuild as the chance to finally compete with their rival."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 2020 winning season proved VMI's drought was over and the Keydets belong among conference contenders. The fanbase knows better — but they also know 39 years of waiting made that first breakthrough real."
+
+the_grudge_texture:
+  rival: the-citadel
+  texture: blood-feud   # Military Classic of the South — 82 games, Citadel leads 46-33-2, one of the fiercestrivalries in FCS
+
+the_coach_relationship: hot-seat-churn   # Danny Rocco (year 3) is under pressure after the 2020 breakthrough and subsequent struggles
+the_internal_fracture: breakthrough_patience_vs_immediate_wins — those giving Rocco time to build vs. those demanding the Keydets win now
+register: vmi-military-college-39-year-drought
+never_use:
+  - "VMI will never compete with Citadel"
+  - "the 2020 season was a fluke"
+
+story_canon:
+  the_unique_thing: "The 39-year playoff drought (1981-2020) that finally ended with a winning season in 2020 — a military college program that proved it could break through and compete, then had to prove it wasn't an accident."
+  the_origin: "VMI was a consistent football program until 1981, after which the Keydets entered a 39-year drought that lasted until 2020."
+  golden_ages:
+    - { era: "1957-1962 (John McKenna)", what: "The John McKenna era won four SoCon titles and made VMI a conference power" }
+    - { era: "2020", what: "The Keydets' first winning season in 39 years, ending the longest drought in program history" }
+  legends:
+    - { name: John McKenna, role: coach, why: "Historic coach who won four SoCon titles (1957-1962) and established VMI as a conference power" }
+    - { name: Danny Rocco, role: coach, why: "Hired to rebuild VMI after the 2020 breakthrough; currently in year 3 of the rebuild" }
+  canonical_moments:
+    - { name: "The 39-Year Drought", year: 1981, what: "VMI enters the longest losing streak in its history, ending in 2020", handling: wound }
+    - { name: "2020 Breakthrough", year: 2020, what: "VMI posts its first winning season in 39 years, ending a historic drought", handling: miracle }
+  the_place: "Foster Stadium — the home of Keydets football in Lexington, Virginia, on the VMI campus."
+  brand_of_football: "Military-college football with an honor code that runs deep — a program built on integrity as much as wins."
+  cultural_footprint: "The military college that endured 39 years and broke through, proving that patience and commitment can overcome drought."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: VMI's 2020 breakthrough after a 39-year drought was a monumental achievement, but subsequent seasons have been inconsistent. Danny Rocco is in year 3 as head coach and faces pressure to prove the Keydets' success is sustainable. The Military Classic rivalry remains fierce, with Citadel maintaining dominance (2025: 35-24). The question in Lexington: can Rocco build on the breakthrough, or will VMI regress to the mean?
+  research_checklist:
+    - ✓ 39-year playoff drought (1981-2020)
+    - ✓ 2020 breakthrough winning season
+    - ✓ John McKenna era (four SoCon titles, 1957-1962)
+    - ✓ Danny Rocco hire (year 3, struggling)
+    - ✓ Military Classic rivalry (Citadel leads 46-33-2)
+    - ✓ 2025 Military Classic loss (24-35 to Citadel)
+  sources:
+    - https://en.wikipedia.org/wiki/VMI_Keydets_football
+    - https://www.vmihokie.com
+    - https://www.thescore.com/nfl/news/vmi-football

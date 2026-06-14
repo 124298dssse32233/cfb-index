@@ -1,0 +1,73 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: rochester
+team_id: null
+program_name: University of Rochester
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Rochester is a historic liberal-arts university with two perfect seasons in the 1950s and a tradition of quiet excellence in western New York."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A prestigious academic institution where football is respected but secondary to the university's academic mission."
+
+the_wound:
+  name: "Post-1958 silence"
+  detail: "Rochester's second perfect season came in 1958. For 67 years since, the Yellowjackets have not returned to that level, leading to a generational gap between the program's golden era and modern reality."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Build a consistent competitive program in Liberty League and prove that Rochester football can return to the postseason contention level."
+  drought: { since: 1958, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Rochester plays for institutional pride and the honor of continuing academic tradition."
+
+the_delusion:
+  tone: earnest
+  text: "That the 1950s perfection is repeatable in the modern era. The fanbase treasures the memory of 1952 and 1958 but knows the landscape has changed."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Academic excellence vs athletic ambition; the university's strength is not Division III football."
+register: rochester-yellowjackets-perfect-seasons
+never_use:
+  - Recent national power — last perfect season was 1958 (67 years ago)
+  - Consistent championship contender — two undefeated seasons were anomalies, not dynasty
+
+story_canon:
+  the_unique_thing: "Two perfect seasons in 1952 (8–0) and 1958 (8–0), marking Rochester as one of Division III's historic programs with undefeated records."
+  the_origin: "University of Rochester founded 1850 as a historic liberal-arts college. Football began in the early 1900s and built regional success in the mid-20th century."
+  golden_ages:
+    - { era: "1952", what: "First perfect season in 63-year history (8–0 record)" }
+    - { era: "1958", what: "Second perfect season (8–0 record), proving the 1952 success was not a fluke" }
+  legends: []
+  canonical_moments:
+    - { name: "Perfect 1952 Season", year: 1952, what: "Rochester went undefeated (8–0) for the first time in 63 years", handling: glory }
+    - { name: "Perfect 1958 Season", year: 1958, what: "Second perfect season (8–0), back-to-back excellence in the 1950s", handling: glory }
+  the_place: "University of Rochester in Rochester, New York — an academic powerhouse where football is part of a broader educational mission."
+  brand_of_football: "Quiet excellence from an academic-first institution."
+  cultural_footprint: "Rochester represents the older tradition of small-college football, where two perfect seasons in the 1950s represent the pinnacle of institutional athletic achievement."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Rochester compiled a 5–5 record (2–5 Liberty League) in 2025. The Yellowjackets remain a competitive
+    regional program competing in Liberty League without recent postseason success. The program plays for institutional pride and the memory
+    of the 1952 and 1958 perfect seasons while seeking to return to consistent postseason contention in the modern era.
+  research_checklist:
+    - Founded 1850 (historic liberal-arts college)
+    - Perfect 1952 season (8–0)
+    - Perfect 1958 season (8–0)
+    - 67-year drought since last perfect season
+    - 2025 record: 5–5 (2–5 Liberty League)
+  sources:
+    - https://en.wikipedia.org/wiki/Rochester_Yellowjackets_football
+    - https://www.d3football.com/teams/rochester
+    - https://libertyleagueathletics.com

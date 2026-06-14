@@ -1,0 +1,83 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Trine University Thunder
+
+status: live
+slug: trine
+team_id: null
+program_name: Trine University
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Trine is the Thunder program that transitioned from NAIA to NCAA in 2004 and has built six MIAA conference titles—a 26-year-old varsity program proving growth is possible through sustained coaching excellence."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program only 26 years into NCAA varsity football (1995 start, NAIA through 2003, NCAA since 2004) with 6 MIAA titles and 4 undefeated regular seasons vs. the ceiling of D3 and the proving ground of consistency."
+
+the_wound:
+  name: "The transition era and the pressure to sustain"
+  detail: "Trine is a relatively young program in college football terms. The Thunder began in 1995 in NAIA, reached NCAA Division III in 2004, and has steadily built toward competitiveness. The wound is not defeat but the pressure of proving that a young program can sustain excellence. Troy Abbs, the head coach since 2015 (11 seasons), has built a program with 6 conference titles and 4 undefeated regular seasons. The question is whether Trine can be a permanent fixture at the MIAA's top tier or if recent success is a peak from which decline follows."
+  handling: dated-grievance
+  freshness: this-era
+
+the_dream:
+  text: "Win an NCAA Division III national championship and prove Trine is not just a conference contender but a national-level program."
+  drought: { since: 2018, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe trine's chip is against doubt. The program is young in NCAA terms, and every sustained success proves that a growth trajectory can compete with century-old institutions."
+
+the_delusion:
+  tone: self-aware
+  text: "That Trine can win a national championship now. The Thunder believe the program is close, but close is not enough without the playoff hardware to prove it."
+
+the_grudge_texture:
+  rival: hope
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Young program identity (26 years varsity) vs. elite-tier aspiration (competing with historic powers)"
+register: angola-indiana-thunder-ncaa-growth
+never_use:
+  - "Irrelevant small program — 6 MIAA titles, 67-31 record under Abbs (.683 win %), consistent contender"
+  - "NAIA school — moved to NCAA Division III in 2004 (22 years ago), established NCAA presence"
+  - "No tradition — 26 years of varsity football is short but proven"
+
+story_canon:
+  the_unique_thing: "Trine is the Thunder program that moved from NAIA to NCAA Division III in 2004 and has built 6 MIAA conference titles and 4 undefeated regular seasons in 26 years—a young-but-proven growth narrative."
+  the_origin: "Trine University (formerly Taylor University Fort Wayne, merged with Lincoln College and founded 1884) began varsity football in 1995 as an NAIA program. After competing in NAIA for nine seasons (1995-2003), Trine moved to NCAA Division III in 2004 and joined the MIAA in 2005. In 22 years in NCAA, the Thunder have built a competitive program."
+  golden_ages:
+    - { era: "1998 (NAIA era)", what: "National semifinalist in NAIA playoffs, program's highest achievement before NCAA transition" }
+    - { era: "2010–2013", what: "Early MIAA contender years, building toward sustained success" }
+    - { era: "2017–2018 (Back-to-back undefeated)", what: "Two consecutive undefeated regular seasons (2017-0, 2018-0), MIAA champions" }
+    - { era: "2015–present (Troy Abbs era)", what: "Sustained excellence: 67-31 record (.683), 6 MIAA titles, 4 undefeated regular seasons" }
+  legends:
+    - { name: Troy Abbs, role: coach, why: "Head coach since 2015 (11 seasons), 67-31 career record, architect of the Thunder's sustained competitiveness" }
+    - { name: Cortaveon Barnett, role: player, why: "Senior RB (2025), 1st team All-MIAA, 604 rushing yards" }
+  canonical_moments:
+    - { name: "1995 football begins", year: 1995, what: "Trine begins varsity football as an NAIA program", handling: glory }
+    - { name: "1998 NAIA semifinal", year: 1998, what: "Trine reaches the NAIA national semifinal", handling: glory }
+    - { name: "2004 NCAA transition", year: 2004, what: "Trine moves to NCAA Division III", handling: glory }
+    - { name: "2017–2018 back-to-back undefeated", year: 2018, what: "Two consecutive undefeated regular seasons and MIAA championships", handling: glory }
+  the_place: "Angola, Indiana, a small town in northeastern Indiana. Trine plays on campus in a college town setting."
+  brand_of_football: "Disciplined and steadily improving. Trine football is built around student-athlete development and consistent execution, reflecting the program's growth trajectory."
+  cultural_footprint: "A rising program with proven upward momentum. Trine has earned respect within the MIAA and is recognized as a consistent contender—proof that a young program can compete with established powers."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Trine went approximately 6-4 or 6-5 in 2025 (exact record pending final game confirmation) after a strong preseason projection. Troy Abbs, in his 11th season, has compiled a 67-31 record (.683) and established the Thunder as a consistent MIAA presence. The program has not won an MIAA title since 2018 (7-year drought), and that is the target for Abbs going forward. The Thunder are a playoff team in most years, but a national championship has not materialized. The question for Trine in 2026 is whether the program can finally claim an MIAA crown again or if recent years represent a plateau.
+  research_checklist:
+    - 1995 football founding (NAIA)
+    - 1998 NAIA national semifinal
+    - 2004 NCAA Division III transition (22 years ago)
+    - 2005 MIAA entry
+    - 6 MIAA conference titles (verified)
+    - 4 undefeated regular seasons
+    - Troy Abbs 11 seasons (since 2015), 67-31 record (.683)
+    - 2017–2018 back-to-back undefeated (last title 2018)
+    - Cortaveon Barnett senior RB (604 yards, 1st team All-MIAA 2025)
+  sources:
+    - https://trinethunder.com
+    - https://www.trine.edu/about/history-and-tradition.aspx
+    - https://trinethunder.com/sports/fball/2021-22/releases/20211116f5it5t

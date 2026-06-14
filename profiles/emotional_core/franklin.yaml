@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Franklin College Grizzlies — The Historic Coach Return
+
+status: live
+slug: franklin
+team_id: null
+program_name: Franklin
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Franklin College is the HCAC program that brought back its all-time winningest coach Mike Leonard — the Grizzlies are betting the 129-win legend can restore the program to championship contention."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A program that struggled without its legendary coach vs the return of Mike Leonard, the 129-win architect who can unlock Franklin's potential again."
+
+the_wound:
+  name: "The post-Leonard decline"
+  detail: "After Mike Leonard retired in 2019 with 129 wins and six HCAC Coach-of-the-Year awards, Franklin struggled to maintain the standard. The wound is the realization that Leonard's absence left a championship-size gap."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Restore Franklin to HCAC championship contention — to prove Mike Leonard's return signals a restoration of the winning tradition."
+  drought: { since: 2019, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Franklin is honoring its past by bringing back the greatest coach in program history."
+
+the_delusion:
+  tone: self-aware
+  text: "That Mike Leonard can replicate the magic of his first tenure — the fanbase knows he is older, but believes the institutional knowledge and recruiting network are still there."
+
+the_grudge_texture:
+  rival: mount-st-joseph
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Managing expectations — honoring Leonard's legacy while building a new competitive era."
+register: franklin-grizzlies-hcac-leonard-return
+never_use:
+  - "Franklin never had great football — Leonard's 129 wins and six Coach of the Year awards disprove this"
+  - "Leonard is too old — he brings proven championship experience"
+  - "The return signals desperation — it signals conviction that the right coach makes all the difference"
+
+story_canon:
+  the_unique_thing: "A small liberal arts college in Franklin, Indiana that won multiple HCAC championships under legendary coach Mike Leonard (129-55 record, 2003-2019, six Coach-of-the-Year awards) and brought him back for another run at the crown."
+  the_origin: "Founded in 1834 in Franklin, Indiana, Franklin College has built a modest athletic tradition."
+  golden_ages:
+    - { era: "2003–2019", what: "The Mike Leonard era — 129 wins, six HCAC Coach-of-the-Year honors, the championship years" }
+    - { era: "2025–forward", what: "The Leonard return and the belief in restoration" }
+  legends:
+    - { name: Mike Leonard, role: coach, why: "All-time winningest coach with 129 wins and six HCAC Coach-of-the-Year awards (2003-2019), brought back in 2025" }
+  canonical_moments:
+    - { name: "Mike Leonard era (2003-2019)", year: 2019, what: "129 wins and the golden age of Franklin football", handling: glory }
+    - { name: "Mike Leonard's return (2025)", year: 2025, what: "The legendary coach comes back to restore championship contention", handling: miracle }
+  the_place: "Franklin College in Franklin, Indiana — a small liberal arts school in central Indiana."
+  brand_of_football: "Historic excellence and the belief that great coaching transcends time — Franklin football is betting that Mike Leonard's return restores the championship standard."
+  cultural_footprint: "The proof that legendary coaches create legacies that last beyond their tenure. Leonard's return signals that Franklin is not settling for mediocrity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Franklin College brought back legendary head coach Mike Leonard for the 2025
+    season after he retired in 2019 with a 129-55 record and six HCAC Coach-of-the-Year awards. Leonard's first tenure
+    (2003-2019) was marked by sustained excellence and multiple HCAC championships. The Grizzlies' 2025 homecoming game
+    features Rose-Hulman (October 11 at Faught Stadium), and the program is betting Leonard can restore championship
+    contention.
+  research_checklist:
+    - "Mike Leonard: 129-55 record, six HCAC Coach-of-the-Year (2003-2019)"
+    - "Leonard returns in 2025 after six-year retirement"
+    - "2025 homecoming game vs Rose-Hulman"
+    - "HCAC contender expectations"
+  sources:
+    - https://franklingrizzlies.com/news/2025/3/26/news-franklin-football-rolls-out-2025-schedule.aspx
+    - https://dailyjournal.net/2025/09/05/franklin-college-football-season-preview-4/

@@ -1,0 +1,88 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: montana
+team_id: 334
+program_name: Montana
+program_tier: 5
+
+emotional_core:
+  primary: grievance
+  secondary: restoration
+  one_line: "Montana is the Big Sky blue-blood that won two FCS national championships and went 25 years without losing more than one conference game in a row — and now watches Montana State hoist the 2025 trophy, a humiliation that defines this moment."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A program that owned the FCS for two decades (1995, 2001 national titles + 12 consecutive Big Sky championships 1997–2008) now faces a rival who has supplanted it, a fall from dominance that stings like no other."
+
+the_wound:
+  name: "Montana State's 2025 championship and 41-year exile from glory"
+  detail: "Montana last won the FCS national championship in 2001 (13–6 vs Furman). In 2025, Montana State — the rival, the neighbor, the little brother — won the FCS title (35–34 OT vs Illinois State). Montana went 13–2 but lost the playoff semifinal to the Bobcats 48–23. The pain is not the loss to a rival — it's the loss to a rival who is now the national champion, breaking a 41-year trophy drought while Montana watches."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Reclaim the Brawl of the Wild, return to the FCS Finals, prove that Montana — not Montana State — is the Treasure State's true program."
+  drought: { since: 2001, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe montana State is not the chip — they're the mirror. The real chip is the national media that wrote Montana off as yesterday's power and elevated the Bobcats. Montana carries the resentment of a program that built an empire and lost custody of it."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes Bobby Kennedy's first year as head coach (2026) can recalibrate the program, that losing Jerry Hauck (who retired Feb 2026) creates a reset moment, and that the Grizzlies can storm back to the Finals. Fans know the Bobcats are defending champs, and believe the Grizzlies are better anyway."
+
+the_grudge_texture:
+  rival: montana-state
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Legacy vs renewal — the Hauck dynasty is over; does Kennedy honor it or reimagine it?"
+register: missoula-montana-grizzlies-brawl-of-the-wild
+never_use:
+  - Montana is still the dominant Brawl team — Montana State won the 2025 national championship; the Bobcats are now the standard-bearer
+  - The Brawl is equal — Montana led 74–43–5 all-time through 2024, but momentum has shifted to Montana State
+  - Jerry Hauck is still coaching — he retired February 4, 2026; Bobby Kennedy took over as the 2026 coach
+  - Montana has never been to an FCS Finals — the Grizzlies made two Finals appearances (1995, 2001) and won both
+
+story_canon:
+  the_unique_thing: "The Brawl of the Wild — the fourth-oldest rivalry in FCS history (first played 1897, 129 years ago), a trophy named after the Great Divide (the continental watershed between east and west), and the singular defining game in college football's most beautiful state. Montana-MSU is not a conference game; it's a state identity battle."
+  the_origin: "The University of Montana in Missoula built a football program in 1897 by playing neighbor Montana State. The Grizzlies climbed to national prominence in the 1990s under Jerry Hauck, winning FCS national championships in 1995 and 2001."
+  golden_ages:
+    - { era: "1995–2001 (Hauck Dynasty I)", what: "Montana won two FCS national championships (1995 vs Marshall, 2001 vs Furman) and went to two Finals under Jerry Hauck" }
+    - { era: "1997–2008 (12 Big Sky titles)", what: "Montana won 12 consecutive Big Sky championships, a streak that defined an entire generation and proved the Grizzlies were the conference's permanent king" }
+    - { era: "2014–2017 (Hauck Dynasty II Resurgence)", what: "Jerry Hauck returned and took Montana back to the playoffs four straight years (2014–17), proving the dynasty could resurrect" }
+  legends:
+    - { name: Jerry Hauck, role: coach, why: "Won two FCS national championships (1995, 2001), 12 Big Sky titles (1997–2008), and 25 straight winning seasons (1986–2011). The greatest coach in program history and the architect of the Grizzlies identity." }
+    - { name: Dave Dickenson, role: player, why: "Quarterback who led Montana to the 1995 national championship, the program's first; a Montana icon" }
+  canonical_moments:
+    - { name: "1995 National Championship", year: 1995, what: "Montana defeats Marshall 22–20 for the FCS national title, Hauck's first championship", handling: glory }
+    - { name: "2001 National Championship", year: 2001, what: "Montana beats Furman 13–6 for the second national title, cementing the dynasty", handling: glory }
+    - { name: "Brawl of the Wild establishment", year: 1897, what: "Montana and Montana State play their first game, beginning what would become the fourth-oldest rivalry in FCS", handling: glory }
+    - { name: "1997–2008 (12 Big Sky titles)", year: 2008, what: "Montana's era of conference dominance, winning 12 straight Big Sky championships", handling: glory }
+  the_place: "Washington-Grizzly Stadium in Missoula, Montana — a 33,000-seat cathedral in a college town of 35,000 people, one of the most intimate FCS atmospheres in America"
+  brand_of_football: "Championship-caliber football — the program that proved a small-town FCS program could win national titles and sustain excellence for decades"
+  cultural_footprint: "Montana is the proof that FCS can produce national champions, college-football royalty, and sustained multi-generational dominance. The Grizzlies made FCS matter."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Montana went 13–2 in 2025, the best regular season record in program history, led by Walter Payton
+    finalist QB Keali'i Ah Yat. But the Grizzlies lost the Big Sky championship game to Montana State 48–23, then fell in the FCS playoff
+    semifinal to the Bobcats again 48–23. Montana State won the national championship (35–34 OT vs Illinois State). Coach Jerry Hauck
+    retired February 4, 2026, after 25 seasons and 25 winning seasons (1986–2011). Bobby Kennedy, a Hauck assistant, was named the 2026
+    head coach. Kennedy enters an impossible moment: the Hauck dynasty is over, the Bobcats are the new power, and the fanbase is grieving
+    the loss of both Hauck and the Brawl trophy to Bozeman. Kennedy's job is to honor the 25-year legacy while building a new standard.
+    The question: can Kennedy reset the culture, or will Montana be defined by the Bobcats' shadow?
+  research_checklist:
+    - 1995 national championship vs Marshall (22–20)
+    - 2001 national championship vs Furman (13–6)
+    - 1997–2008 era of 12 consecutive Big Sky titles
+    - The Brawl of the Wild as the emotional center (4th-oldest rivalry, first played 1897)
+    - 2025 regular-season success (13–2) marred by playoff loss to Montana State
+    - Jerry Hauck's retirement and Bobby Kennedy's arrival
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Montana_Grizzlies_football_team
+    - https://en.wikipedia.org/wiki/Montana_Grizzlies_football
+    - https://en.wikipedia.org/wiki/Brawl_of_the_Wild
+    - https://en.wikipedia.org/wiki/Jerry_Hauck
+    - https://en.wikipedia.org/wiki/1995_Montana_Grizzlies_football_team
+    - https://en.wikipedia.org/wiki/2001_Montana_Grizzlies_football_team

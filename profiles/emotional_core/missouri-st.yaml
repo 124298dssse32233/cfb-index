@@ -1,0 +1,67 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+status: live
+slug: missouri-st
+program_name: Missouri University of Science & Technology
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Missouri S&T is the STEM powerhouse that built a winning football program on engineering precision — 8 conference titles and a .500-plus culture that never quits."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "An engineering-focused university with a surprising football pedigree — 8 GLVC conference championships and a 2-0 bowl record prove that brains and brawn coexist."
+
+the_wound:
+  name: "The perennial ceiling — being the best small-school team that nobody outside Rolla knows"
+  detail: "Missouri S&T has won 8 GLVC titles and played in bowl games, but the program remains invisible nationally. The wound isn't a loss; it's being great at a scale nobody watches."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Keep the conference-title pipeline running. Stay in bowl games. Prove that a STEM university can compete at the same level as schools twice the size."
+  drought: { since: 2000, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. S&T plays for itself and for Rolla, Missouri. The program is built on Miner pride — the belief that hard work and precision beat flash every time."
+
+the_delusion:
+  tone: earnest
+  text: "That Missouri S&T could one day win a national title. Fans know the ceiling is real, and they're fine with it — eight conference titles and bowl games at a STEM school is already exceeding expectations."
+
+the_grudge_texture:
+  rival: lincoln-mo
+  texture: championship
+  # Recent conference opponent; Truman is the actual traditional rival, but Truman plays Lincoln now too
+
+the_coach_relationship: forever-ours
+  # Andy Ball since 2022; stability and continuity are S&T's hallmark
+
+the_internal_fracture: "ambition-vs-realism — the faction that wants S&T to break through to national contention vs the faction satisfied with GLVC dominance"
+
+register: stem-powerhouse-miners-precision-rolla
+
+never_use:
+  - '"Missouri S&T is a one-trick pony" — 8 conference titles and a 2-0 bowl record prove depth'
+  - '"Nobody cares about S&T football" — irrelevant; the program plays for Rolla and the alumni, not national media'
+
+story_canon:
+  the_unique_thing: "A STEM university — engineering and science focused — that has won 8 GLVC conference championships and maintains a 2-0 bowl record. Rare proof that brains and football talent coexist."
+  the_origin: "Missouri University of Science & Technology (formerly Missouri School of Mines) was founded in 1870 in Rolla, Missouri. The school's identity is engineering and applied science; football became part of that identity early, anchored in the Miner tradition of hard work and precision."
+  golden_ages:
+    - { era: "Conference Championship Era", what: "8 GLVC conference titles and sustained bowl appearances" }
+  legends: []
+  canonical_moments:
+    - { name: "8 GLVC Conference Championships", year: 2000, what: "Missouri S&T built a consistent winner in the GLVC, proving a STEM school could compete", handling: glory }
+  the_place: "Rolla, Missouri — a small town in the Ozarks where the Miners play and where engineering precision is the code."
+  brand_of_football: "Methodical, well-coached, disciplined. S&T plays football like engineers build bridges — with precision and respect for the fundamentals."
+  cultural_footprint: "Missouri S&T proved that a STEM university can sustain a winning football program and compete at the highest small-college level."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Missouri S&T went 6-5 (T-4th GLVC) in 2025 under coach Andy Ball, continuing the program's tradition of competitiveness
+    and stability. The Miners have been a consistent GLVC presence for over two decades; Andy Ball (since 2022) has maintained that standard. S&T plays
+    in a tough GLVC alongside Truman and Indianapolis, but the program remains a perennial bowl contender.
+  sources:
+    - https://minerathletics.com/news/2025/2/5/football-announces-2025-signing-class.aspx
+    - https://minerathletics.com/sports/football/coaches

@@ -1,0 +1,73 @@
+# Emotional Core — West Florida Argonauts (west-florida)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: west-florida
+team_id: 251
+program_name: West Florida
+program_tier: 5
+
+emotional_core:
+  primary: disbelief           # A Division II power leaping to FCS — the improbable ambition
+  secondary: house-money       # The thrill of a brand-new identity
+  one_line: "West Florida is the Division II program that just announced a jump to FCS in 2026 — a Gulf South champion stepping into unknown waters."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A Division II powerhouse in the Gulf South Conference that has decided its ceiling is too low — transitioning to FCS to compete at the next level."
+
+the_wound:
+  name: "The Division II ceiling — excellence in a smaller pond"
+  detail: "West Florida dominated the Gulf South Conference at Division II level (10–2 in 2025), but the program's ambition was constrained by its division. The Argonauts made the institutional choice in April 2026 to transition to FCS and join the UAC — a three-year reclassification leap that signals faith in the program's ability to scale up."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Become the first D-II program to leap directly into FCS and succeed — win the UAC, prove Division II success translates, establish West Florida as a permanent mid-major power."
+  drought: { since: 2026, unit: relevance }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe the chip is institutional: West Florida was told it was too good for Division II, that the program belonged at the FCS level. The Argonauts are betting their success story will follow them up."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that Division II dominance predicts FCS success, that West Florida can replicate its Gulf South Conference championship culture in the UAC."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: ambition-believers-vs-comfort-seekers — the fans excited about FCS elevation vs those who preferred the program dominating at Division II
+register: west-florida-argonauts-pensacola-fcs-transition
+never_use:
+  - Never won anything — Gulf South Conference champions at D-II level
+  - Small program — 10–2 record shows competitive power
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The April 2026 announcement of a Division II to FCS transition — West Florida's jump from Gulf South Conference dominance to UAC membership, a reclassification leap on a three-year timeline."
+  the_origin: "A Division II powerhouse in Pensacola, Florida that dominated the Gulf South Conference and decided its ambition required a move to Division I."
+  golden_ages:
+    - { era: "2026 onwards", what: "The beginning of the FCS era — transitioning from Gulf South Conference to UAC" }
+  legends:
+    - { name: Kaleb Nobles, role: coach, why: "The fourth-year Argonauts coach who led the program's Gulf South success and will guide the FCS transition" }
+    - { name: Marcus Stokes, role: player, why: "The redshirt freshman QB who started 2025 and will be part of West Florida's FCS journey" }
+  canonical_moments:
+    - { name: "The April 2026 FCS Transition Announcement", year: 2026, what: "West Florida announces a move from Division II (Gulf South) to FCS (UAC), beginning a three-year reclassification period", handling: miracle }
+    - { name: "The 2025 Gulf South Season", year: 2025, what: "West Florida finishes 10–2 (2–1 Gulf South) before the FCS leap", handling: glory }
+  the_place: "Pensacola, Florida — a Division II stronghold becoming an FCS program."
+  brand_of_football: "Dominant at Division II level — disciplined, fundamentally sound, successful."
+  cultural_footprint: "A riser program with ambition: proof that Division II dominance can become the foundation for FCS relevance."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: West Florida announced in April 2026 its transition from NCAA Division II (Gulf South Conference) to Division I FCS (United Athletic Conference), effective Fall 2026. The Argonauts finished 10–2 (2–1 Gulf South) in their final Division II season in 2025 under fourth-year coach Kaleb Nobles. West Florida's transition will take three years (2026–2028) before becoming postseason-eligible in 2029. The question in Pensacola: can a Division II power transition successfully to FCS, or will the leap prove too ambitious?
+  research_checklist:
+    - the April 2026 FCS transition announcement
+    - the 2025 Gulf South Conference success (10–2 record)
+    - Kaleb Nobles' coaching tenure and commitment to the transition
+    - the three-year reclassification timeline and postseason-eligibility date (2029)
+    - UAC membership and conference competitive landscape
+  sources:
+    - https://www.si.com/college/fcs/uac/west-florida-announces-jump-to-division-i-becomes-newest-fcs-football-program
+    - https://uwf.edu/go/division-i/

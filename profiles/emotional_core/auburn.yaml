@@ -1,0 +1,168 @@
+# Emotional Core — Auburn  (auburn)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: auburn
+team_id: 140
+program_name: Auburn
+program_tier: 2
+
+emotional_core:
+  primary: grievance      # the defiance — refusing the state's shadow — is the permanent Auburn core
+  secondary: restoration  # the live work is a fourth coaching reset trying to convert resources into wins
+  core_variant: the-chronic-chip
+  one_line: "Auburn is the program that lives in the same state, recruits the same ground, and refuses the role the rivalry tries to assign it — now on its fourth coach in a decade, betting an offense-minded outsider can finally cash the resources in."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A 2010 national title, two Heismans and a Jordan-Hare that swallows ranked teams whole vs a 5-7 season, a coach fired in November, and a decade of starting over before the last build could finish."
+
+the_wound:
+  name: "The Freeze firing and the reset under it"
+  detail: "Hugh Freeze was let go in November 2025 at 15-19 — fired mid-season after a 4-5 start and an SEC record that never matched the recruiting — the third straight regime to leave Auburn searching, and proof the resources still aren't translating into Saturdays."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Turn the talent and the money into a season that contends — an SEC run, a third star on the program, and an end to the cycle of promising builds that never reach year four."
+  drought: { since: 2013, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Auburn fans know exactly what the ledger says across the state and refuse to wear the role it implies; the chip is that the same recruiting ground and the same league bid go to two programs, and one of them is told to be grateful for the scraps. War Eagle is said with an edge for a reason."
+
+the_delusion:
+  tone: self-aware
+  text: "Auburn fans believe the program is always one right hire and one wild Saturday from the top of the sport — that a place this loud and this stocked is built to do the impossible on cue, even as they admit the last three coaches all said the same thing."
+
+the_grudge_texture:
+  rival: alabama
+  texture: blood-feud   # the Iron Bowl — same state, same recruiting ground, an annual identity event
+
+the_coach_relationship: hot-seat-churn   # Tuberville→Chizik→Malzahn→Harsin→Freeze→Golesh; the cycle is the relationship
+the_internal_fracture: patience vs proof — the room that says a new staff with a real offense and a portal QB deserves time vs the room that's watched four resets and wants a contender now, not another year-one promise
+register: defiant-underdog-with-teeth   # DRAFT (from voice_register) — confirmed
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - little-brother framing
+  - glorified ag-school framing
+  - Cinderella
+  - scrappy (at this tier)
+  - plucky
+  - Kick Six as a we-own-the-rivalry boast (it was one play and the other side has decades
+    of ledger)
+  - Bo knows as a copy device detached from Bo Jackson the person
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Auburn is the program that specializes in the impossible Saturday — the 2013 'Kick Six' and 'Prayer at Jordan-Hare' in a single month, Bo Jackson and Cam Newton, a place where the most chaotic outcomes in the sport feel like home games, all rolled in toilet paper at Toomer's Corner."
+  the_origin: "A land-grant school in Auburn, Alabama whose football grew up in the same state and the same recruiting ground as its archrival; Ralph 'Shug' Jordan built the modern program and the 1957 national title, and the identity hardened around being the state's defiant other half."
+  golden_ages:
+    - { era: "1957 (Shug Jordan)", what: "The program's first claimed national championship and the foundation of the modern identity" }
+    - { era: "1983–1989 (Pat Dye)", what: "SEC titles, Bo Jackson's 1985 Heisman, and the move of the Iron Bowl into Jordan-Hare" }
+    - { era: "2010 (Gene Chizik)", what: "A 14-0 national championship behind Cam Newton's Heisman season — the crown jewel" }
+  legends:
+    - { name: Bo Jackson, role: player, why: "1985 Heisman; the most electric athlete in program history (on-field legacy)" }
+    - { name: Cam Newton, role: player, why: "2010 Heisman and the undefeated national title — the modern peak" }
+    - { name: Pat Dye, role: coach, why: "Brought the Iron Bowl home to Jordan-Hare and built the 1980s SEC contender" }
+  canonical_moments:
+    - { name: "The Kick Six", year: 2013, what: "Chris Davis returns a missed field goal 109 yards to beat Alabama as time expires", handling: glory }
+    - { name: "The Prayer at Jordan-Hare", year: 2013, what: "A tipped Hail Mary beats No. 7 Georgia weeks before the Kick Six", handling: miracle }
+    - { name: "The 2010 national title", year: 2011, what: "Newton's undefeated Tigers win the BCS championship over Oregon", handling: glory }
+  the_place: "Jordan-Hare Stadium (cap 88,043), where the eagle flies before kickoff, the student section chants 'War Eagle,' and the program celebrates by rolling Toomer's Corner in toilet paper."
+  brand_of_football: "Defiant-underdog-with-teeth: physical, opportunistic, comfortable taking a swing at a bigger program; a culture built opposite Alabama's in the same state and proud of the edge that requires."
+  cultural_footprint: "The state's other identity — proof that two programs can share a recruiting footprint and a league bid while one of them refuses, loudly, to be defined by the other."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Auburn went 5-7 (1-7 SEC) in 2025 and fired Hugh Freeze in November at 15-19
+    overall; DJ Durkin finished the year as interim. On Nov. 30 Auburn hired USF's Alex Golesh — a former Tennessee
+    coordinator with one of the FBS's most explosive offenses — and Golesh brought his USF quarterback Byrum Brown
+    (3,158 passing yards, 1,008 rushing in 2025) through the portal. Facing heavy roster turnover, Golesh is the
+    fourth head coach of the post-Malzahn decade, betting that a real scheme and a dual-threat QB finally convert
+    Auburn's resources into the contender the program keeps starting over to find.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Auburn_Tigers_football_team
+    - https://www.si.com/college-football/auburn-fires-coach-hugh-freeze-4-5-start-2025-season
+    - https://atozsports.com/college-football/auburn-tigers-news/auburn-tigers-finally-elite-transfer-portal-talent-new-head-coach-alex-golesh-usf-bull-bryson-washington-jeremiah-cobb-byrum-brown/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Auburn is the program the SEC West cannot schedule around.
+  mantra: War Eagle.
+  cultural_anchors:
+    fan_archetype_dominant: Defiant Underdog
+    outsider_archetype_dominant: Chaos-Agent
+    one_sentence: Auburn is the SEC's defiant underdog with a 1,200-year history of doing the impossible
+      when nobody asked it to.
+  selfname: the Tigers
+  aspiration_ladder_top: National Championship
+  rivalries:
+  - alabama
+  - georgia
+  - lsu
+  - tennessee
+  - florida
+  heritage:
+    national_titles: 2
+    conference_titles: 15
+    current_conference: SEC
+  prose_excerpts:
+    taboos: The 2013 Kick Six is a real memory that can be referenced; it should not be leaned on as evidence
+      the rivalry ledger favors Auburn, because it does not. The 2011 Toomer's Oaks poisoning (by an Alabama
+      fan) is a real story and should be handled with care, not humor. Bryan Harsin's tenure is recent and
+      not a target for light mockery — the program and the athletic department have moved on. Any implication
+      that Auburn is "Alabama's little brother" reads as a rival's line and…
+    fans_culture: 'The Auburn fanbase is structurally defiant — a culture built opposite Alabama''s in the
+      same state, with the same recruiting footprint, for the same SEC bid. The register tilts toward earned-not-given:
+      Auburn fans know what the ledger says against Alabama, and the fans'' relationship with their own
+      identity is closer to a fight-song than a dynasty-song. "War Eagle" is greeting and parting; "All
+      In" is the recruiting-era stock phrase; the toomer''s corner toilet-paper rolling…'
+    voice_ethos: 'The voice is defiant-underdog-with-teeth: proud, edged, unwilling to accept the state''s
+      little-brother framing, and comfortable taking a swing. Auburn does not apologize for itself, does
+      not pretend to be Alabama, and does not romanticize losing. "War Eagle" is said with a straight face
+      and a sharp edge; performative humility reads as phony in Auburn just as it does in Tuscaloosa. Identity
+      phrase: **"Auburn is the program the SEC West cannot schedule around."** Mantra:…'
+    narratives: The Hugh Freeze bet is the single open narrative thread. Freeze arrived with a top-tier
+      recruiting profile and a reputation for offensive innovation paired with off-field risk; his record
+      in three seasons at Auburn is uneven, his recruiting has been strong, and the program's fan intelligence
+      is measuring whether 2026 is the year the infrastructure converts into a 10-win SEC-contender season.
+      The roster, the schedule, and the NIL operation are all aligned with that question.…
+    in_jokes: '"Bo knows" — real, attached to Bo Jackson the actual person, not a detached pop-culture reference.
+      "Toomer''s Corner" — the post-victory tree-rolling tradition; a Lincoln Riley reference from 2010
+      is still quoted by older fans. "All In" — the Chizik-era stock phrase that survives.'
+  story_materials:
+    legendary_coach: Ralph 'Shug' Jordan
+    era_name_overrides:
+      1957-1975: The Jordan Era
+      1981-1992: The Dye Era
+      1999-2008: The Tuberville Run
+      2009-2012: The Chizik Title Window
+      2013-2020: The Malzahn Era
+      2021-2023: The Harsin Interruption
+      2024-: The Freeze Era
+    always_surface:
+    - 2010 national championship (Cam Newton, 14-0, the crown jewel)
+    - 1957 national championship (the program's claimed first)
+    - 3 Heisman winners (Pat Sullivan 1971, Bo Jackson 1985, Cam Newton 2010)
+    - The Iron Bowl as an annual identity event, not a secondary rivalry
+    - Jordan-Hare Stadium capacity 88,043
+    - The Hugh Freeze era (since December 2022) and the bet it represents
+    rituals:
+    - Eagle Flight Pre-Game
+    - Rolling Toomer's Corner
+    - War Eagle Cheer
+    - Tiger Walk
+    - Iron Bowl Week
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

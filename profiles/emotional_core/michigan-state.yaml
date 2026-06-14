@@ -1,0 +1,119 @@
+# Emotional Core — Michigan State  (michigan-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: michigan-state
+team_id: 127
+program_name: Michigan State
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the live arc: a third coach in a decade, betting on Pat Fitzgerald to rebuild
+  secondary: grievance    # the Spartan chip — the program that beats the giant when nobody picks it to
+  core_variant: regime-reset
+  one_line: "Michigan State is the program that knocks off the giant down the road when no one sees it coming — and is now on its third coach of the decade, betting Pat Fitzgerald can rebuild the chip into a contender again."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Dantonio's Rose Bowl and Playoff teams and an 8-of-11 run over Michigan vs a 4-8 present and a roster that needs rebuilding from the studs."
+
+the_wound:
+  name: "The Smith firing"
+  detail: "Michigan State went 4-8 (1-8 Big Ten) in 2025 — a 3-0 start that collapsed into eight straight losses before a season-ending win — and fired Jonathan Smith after two seasons at 9-15. It hired former Northwestern coach Pat Fitzgerald the next day: another reset for a program still searching for stable ground since the Dantonio peak."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Climb back into the Big Ten's upper tier — a division-caliber team, a bowl streak, and the kind of season that ends with beating the giant down the road again."
+  drought: { since: 2015, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "The fanbase measures itself against the program 60 miles west and savors every upset of it — the conviction that Michigan State is at its truest when it walks in unranked and walks out with the rivalry trophy."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes the program is a sleeping contender, not a rebuild — that the right coach reawakens the Dantonio-era toughness, and Spartans insist they belong in any conversation that tries to write them off."
+
+the_grudge_texture:
+  rival: michigan
+  texture: blood-feud   # the in-state grudge for the Paul Bunyan Trophy
+
+the_coach_relationship: savior   # Fitzgerald is the bet to end the churn and restore the standard
+the_internal_fracture: faith vs fatigue — the believers who say Fitzgerald is the right hire to restore the program vs the worn-down faction tired of resets since Dantonio walked away
+register: chip-on-shoulder-spartan
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Little Brother — never apologize for the program
+  - Mid-tier Big Ten — internal voice rejects it
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Dantonio run against Michigan — 8 wins in 11 years over the in-state giant, capped by miracles like the 2015 blocked punt returned as time expired. Michigan State's identity is built on being the program that refuses to be the smaller story in its own state."
+  the_origin: "The land-grant flagship in East Lansing, a Duffy Daugherty national power in the 1960s that became, under Mark Dantonio, the rare program to consistently bloody its blue-blood neighbor."
+  golden_ages:
+    - { era: "1965–1966 (Duffy Daugherty)", what: "Back-to-back national championships and the integration-era 'Game of the Century' vs Notre Dame" }
+    - { era: "2010–2015 (Mark Dantonio)", what: "Big Ten titles, a Rose Bowl, and a 2015 College Football Playoff berth" }
+  legends:
+    - { name: Mark Dantonio, role: coach, why: "Winningest coach in program history; built the modern era and the dominance over Michigan" }
+    - { name: Bubba Smith, role: player, why: "Defensive icon of the 1965-66 national champions" }
+    - { name: Kirk Cousins, role: player, why: "Quarterback who helped relaunch the program in the early Dantonio years" }
+  canonical_moments:
+    - { name: "The 1966 Game of the Century", year: 1966, what: "Michigan State and Notre Dame tie 10-10 in a landmark integration-era showdown", handling: glory }
+    - { name: "The 2015 blocked punt vs Michigan", year: 2015, what: "MSU returns a botched punt for a touchdown as time expires — the rivalry's defining miracle", handling: miracle }
+    - { name: "The 2013 Rose Bowl run", year: 2013, what: "A Big Ten title and Rose Bowl win, the Dantonio peak", handling: glory }
+  the_place: "Spartan Stadium in East Lansing — Sparty out front, a green-and-white crowd that lives for one Saturday in November above all others."
+  brand_of_football: "Hard-nosed, physical, defense-and-toughness football — the Dantonio template of out-hitting opponents who are supposed to be more talented."
+  cultural_footprint: "Go Green — a program whose self-respect is non-negotiable, built on never conceding the state, the rivalry, or the conversation to anyone."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Michigan State went 4-8 (1-8 Big Ten) in 2025, started 3-0 then lost eight
+    straight, and fired Jonathan Smith (9-15 over two years). The school hired former Northwestern coach Pat
+    Fitzgerald the next day to end the post-Dantonio churn. Entering 2026, the program is again rebuilding —
+    betting Fitzgerald restores the toughness that once owned its rivalry with Michigan.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Michigan_State_Spartans_football_team
+    - https://msuspartans.com/news/2025/12/1/pat-fitzgerald-named-michigan-state-head-football-coach
+    - https://www.espn.com/college-football/story/_/id/46645090/michigan-state-spartans-fire-jonathan-smith-candidates-transfers-recruits
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Michigan State is the program that beat Michigan when nobody else thought to.
+  mantra: Go Green.
+  cultural_anchors:
+    fan_archetype_dominant: Chip-Shoulder-Spartan
+    outsider_archetype_dominant: Michigan-Adjacent-Diminisher
+    one_sentence: Michigan State is the program defined entirely by its proximity to a more famous neighbor
+      and its periodic insistence on beating that neighbor.
+  selfname: the Spartans
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1965 + 1966 national championships (Daugherty)
+    - 2013 Rose Bowl + 2015 CFP appearance (Dantonio)
+    - The 2007-2017 11-year run against Michigan (8 wins)
+    rituals:
+    - Sparty Statue
+    - The Old Brass Spittoon (vs Indiana)
+    - Paul Bunyan Trophy (vs Michigan)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (56/100, n=51)
+    voice_profile: absent
+    delusion_premium: absent

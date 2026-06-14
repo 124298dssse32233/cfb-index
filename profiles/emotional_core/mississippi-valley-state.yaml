@@ -1,0 +1,117 @@
+# Emotional Core — Mississippi Valley State  (mississippi-valley-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: mississippi-valley-state
+team_id: 10
+program_name: Mississippi Valley State
+program_tier: 3
+
+emotional_core:
+  primary: grievance     # never won a SWAC championship, one of two SWAC teams never to reach a championship game, produces Hall of Famers (Jerry Rice, Deacon Jones)
+  secondary: redemption  # Terrell Buckley rebuilding in year one after a 2-10 season; the motor is there, searching for spark
+  core_variant: the-chronic-chip  # the program produces Hall of Famers but can't win as a team
+  one_line: "Mississippi Valley State is the SWAC program that has never won a conference championship despite producing Hall of Famers Jerry Rice and Deacon Jones — now rebuilding under Terrell Buckley in year one after a 2-10 season, proving the talent pipeline still exists."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "The program that produced Jerry Rice (NFL legend) and Deacon Jones (Hall of Famer), two of the greatest football players of all time, vs a 249-333-10 all-time record (.429) and the unique burden of never having won a SWAC championship in 119 years."
+
+the_wound:
+  name: "The eternal SWAC championship drought"
+  detail: "Mississippi Valley State is one of two SWAC teams to have never won a conference championship. The program has produced Hall of Famers (Jerry Rice, Deacon Jones) and over 25 NFL alumni, proving the talent exists; but championship success has remained elusive. Terrell Buckley enters year one tasked with breaking the spell."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a SWAC championship; prove that Mississippi Valley State is not cursed but unlucky; show that the Jerry Rice and Deacon Jones legacy can translate into sustained SWAC contention; reach the Celebration Bowl and compete for a black college national title."
+  drought: { since: 1961, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe mississippi Valley State has produced two Hall of Famers and 25+ NFL alumni, proving the program is capable of developing elite talent. The chip is that the program knows it can field NFL-quality players but has never translated that into a SWAC championship; the standard is set by what leaves, not what stays."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that a program that produces Jerry Rice and Deacon Jones is never out of a championship conversation — that the talent DNA is there and it's a matter of keeping the pieces together for 12 games. The next SWAC title is achievable; it always has been."
+
+the_grudge_texture:
+  rival: alcorn-state
+  texture: little-brother   # SWAC East neighbor; Alcorn has multiple championships and titles, MVSU has none
+
+the_coach_relationship: total-trust   # Terrell Buckley, year one, former Hall of Famer DBs coach bringing NFL pedigree; the room believes
+the_internal_fracture: patience with buckley vs immediate championship — the faction that says the Hall of Famer coach needs time vs the faction that says Mississippi Valley State's talent should immediately contend
+register: talent-pipeline-curse — produce Hall of Famers but can't win a championship as a program
+never_use:   # LAW — do not violate in any authored line
+  - "doormat framing (two Hall of Famers, 25+ NFL alumni)"
+  - scrappy
+  - "forever a feeder program (the talent is elite; the championship is the missing piece)"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep canon ──
+story_canon:
+  the_unique_thing: "Mississippi Valley State is the SWAC program that has produced two of the greatest American football players of all time — Jerry Rice (NFL legend) and Deacon Jones (Hall of Famer) — yet has never won a SWAC championship. The program is one of two SWAC teams to have never competed in a SWAC Championship Game. Despite this, Mississippi Valley has produced 25+ NFL alumni and maintains a long legacy of talent development. The program's identity is shaped by the contradiction: elite player production meets championship futility."
+  the_origin: "A historically black university in Itta Bena, Mississippi that joined the SWAC in 1961 and has been competitive but never won a championship. The program built itself around talent development, not titles."
+  golden_ages:
+    - { era: "1960s–1970s (Jerry Rice era)", what: "The program produced Jerry Rice, one of the greatest football players of all time; Hall of Fame proof of elite talent" }
+    - { era: "1970s–1980s (Deacon Jones era)", what: "Deacon Jones and Hall of Famer production; the talent pipeline was always elite" }
+  legends:
+    - { name: Jerry Rice, role: player, why: "Hall of Famer; arguably the greatest receiver in NFL history; the program's greatest product" }
+    - { name: Deacon Jones, role: player, why: "Hall of Famer; legendary defensive end; proof of Mississippi Valley's talent" }
+  canonical_moments:
+    - { name: "Jerry Rice to the NFL", year: 1985, what: "Rice's NFL journey began at Mississippi Valley; Hall of Fame proof", handling: glory }
+    - { name: "Deacon Jones' Hall of Fame career", year: 1980s, what: "Jones' Hall of Fame career and Mississippi Valley origin", handling: glory }
+    - { name: "25+ NFL alumni", year: 2025, what: "The pipeline has been continuous; the championship has not", handling: glory }
+  the_place: "Rice-Totten Stadium in Itta Bena, Mississippi (cap 10,000); home of the Delta Devils."
+  brand_of_football: "Talent-producer-without-titles: a program that develops Hall of Famers but hasn't won a SWAC championship; the program's identity is shaped by the gap between individual success and team success."
+  cultural_footprint: "Mississippi Valley State is the SWAC program known for producing elite NFL talent (Jerry Rice, Deacon Jones, 25+ NFL alumni) without winning a conference championship. The program's identity is one of perpetual promise and championship drought — a unique burden that defines the program's narrative."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Mississippi Valley State went 2-10 (.167) in 2025 under first-year head coach
+    Terrell Buckley (Hall of Famer DBs coach with NFL pedigree). The program is rebuilding after a difficult season,
+    but the fundamental contradiction remains: the program produces Hall of Famers (Jerry Rice, Deacon Jones) and 25+
+    NFL alumni, yet has never won a SWAC championship. Terrell Buckley is tasked with breaking the championship curse
+    and converting the elite talent production into sustained SWAC contention. The 2-10 season suggests the work is
+    ahead, but the foundation (talent development) is proven.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Mississippi_Valley_State_Delta_Devils_football
+    - https://en.wikipedia.org/wiki/Jerry_Rice
+    - https://en.wikipedia.org/wiki/Deacon_Jones
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Mississippi Valley State produces Hall of Famers (Jerry Rice, Deacon Jones) but has never won a SWAC championship.
+  mantra: Go Delta Devils.
+  cultural_anchors:
+    fan_archetype_dominant: Talent-Pride-Keeper
+    outsider_archetype_dominant: Championship-Cursed
+    one_sentence: Mississippi Valley State is the SWAC program that produced Jerry Rice and Deacon Jones but has never won a conference championship.
+  selfname: the Delta Devils
+  aspiration_ladder_top: ''
+  rivalries:
+  - alcorn-state
+  heritage:
+    national_titles: 0
+    conference_titles: 0
+    current_conference: SWAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Jerry Rice (Hall of Famer, greatest receiver in NFL history)
+    - Deacon Jones (Hall of Famer)
+    - 25+ NFL alumni
+    - Never won a SWAC championship (unique SWAC distinction)
+    rituals:
+    - Annual SWAC competition
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

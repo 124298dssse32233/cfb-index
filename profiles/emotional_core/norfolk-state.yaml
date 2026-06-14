@@ -1,0 +1,68 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+status: live
+slug: norfolk-state
+team_id: null
+program_name: Norfolk State University
+program_tier: 5
+
+emotional_core:
+  primary: redemption
+  secondary: spectacle
+  one_line: "Norfolk State is the HBCU fortress hosting the Battle of the Bay—a program betting its future on Michael Vick's star power and coaching acumen to rebuild from a 1–11 disaster into Black college football relevance."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A program with one of the highest FCS home attendances (5th in nation) and the storied Battle of the Bay rivalry vs. a team that just endured 1–11 (0–5 MEAC)—where fan commitment outpaces on-field product, but belief in Vick's vision runs deep."
+
+the_wound:
+  name: "The 2025 collapse and the Vick gamble"
+  detail: "Norfolk State went 1–11 (0–5 MEAC) in 2025, a catastrophic season marked by 1,100+ penalty yards and offensive futility. Head coach Michael Vick, the former NFL MVP and Atlanta Legends offensive coordinator, took over in 2026. The wound is fresh but the remedy is high-profile: the institution is betting that Vick's name, credibility, and coaching vision can shock the program back to relevance."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Michael Vick transforms Norfolk State into a MEAC contender—a sudden turnaround where star power and a new offensive scheme prove the Spartans can compete. The 2026 turnaround would silence doubters and prove the Vick hire was visionary, not desperate."
+  drought: { since: 2019, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "The fanbase knows the Battle of the Bay crowd is real—21,000+ fans showing up every year despite losing seasons. Norfolk State punches above its weight in fan loyalty, and the institution is banking on Vick to deliver a product worthy of that devotion."
+
+the_delusion:
+  tone: earnest
+  text: "That Michael Vick's NFL fame and coaching pedigree can instantly reverse a 1–11 roster—the fanbase believes Vick sees something the rest of college football missed, and Year 2 will prove it."
+
+the_grudge_texture:
+  rival: hampton
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: Hope vs. skepticism—the faction that believes Vick will deliver Year 1 magic vs. those cautioning that rebuilds take time even with star coaches
+register: norfolk-battle-of-bay-vick-redemption
+never_use:
+  - "No tradition" # Battle of the Bay is 67+ years old; one of longest HBCU rivalries
+  - "Minor program" # 5th-highest FCS home attendance; marquee rivalry
+
+story_canon:
+  the_unique_thing: "The Battle of the Bay—one of the longest-running HBCU rivalries, Norfolk State vs. Hampton University (67 years as of 2026). The rivalry is rooted in regional pride and the geography of Hampton Roads, Virginia. It's the signature game that draws 20,000+ fans annually and defines the program's identity independent of conference play."
+  the_origin: "Norfolk State University was founded in 1935 in Norfolk, Virginia. The football program was established as part of the university's athletic mission. The Battle of the Bay rivalry with Hampton University began in 1959 (first meeting) and has been continuous since, making it one of the most storied regional rivalries in Black college football."
+  golden_ages:
+    - { era: "1970s–1990s", what: "Norfolk State builds a competitive program with multiple MEAC titles and consistent bowl appearances" }
+    - { era: "2015–2019", what: "Norfolk State competes for MEAC championships and makes FCS playoff appearances; last conference title in 2019" }
+  legends:
+    - { name: Michael Vick, role: coach, why: "Former NFL MVP (2010 Atlanta Falcons), cultural icon, and Atlanta Legends offensive coordinator hired 2026 to rebuild the program" }
+    - { name: The Battle of the Bay Fanbase, role: community, why: "21,000+ annual attendees demonstrate unshakeable loyalty despite on-field struggles" }
+  canonical_moments:
+    - { name: "The Battle of the Bay (Rivalry Inception)", year: 1959, what: "Norfolk State vs. Hampton University begins a 67-year rivalry rooted in Hampton Roads pride", handling: glory }
+    - { name: "Michael Vick Era Begins", year: 2026, what: "NFL legend and two-time Pro Bowler Michael Vick takes over as head coach, signaling institutional commitment to rapid turnaround", handling: miracle }
+  the_place: "William 'Dick' Price Stadium in Norfolk, Virginia (5th-highest FCS home attendance; 21,212 average). A fortress where the Battle of the Bay draws a devoted fanbase year after year."
+  brand_of_football: "Pride and loyalty—Norfolk State football is defined by the Battle of the Bay atmosphere, where fans show up because of the rivalry and the regional identity, not recent wins."
+  cultural_footprint: "Norfolk State's contribution to HBCU football is the Battle of the Bay—a regional rivalry that transcends on-field record and represents the deep community bonds of Hampton Roads Black college culture."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Norfolk State endured the worst season in recent history, going 1–11 (0–5 MEAC) in 2025, with a 10-game losing streak and 1,100+ penalty yards. The single bright spot: a Week 2 OT victory vs. Virginia State (34–31), which snapped an ugly skid. The institutional response was dramatic—hiring Michael Vick as head coach in December 2025. Vick arrives as an NFL legend and cultural icon, with recent coaching experience (Atlanta Legends offensive coordinator). The 2026 question is profound: can Vick's star power, offensive vision, and institutional investment reverse course? The Battle of the Bay crowd is ready; the team must prove worthy of that loyalty.
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Norfolk_State_Spartans_football
+    - https://www.espn.com/college-football/team/_/id/2411/norfolk-state-spartans
+    - https://www.meacsports.com/sports/football/2025/norfolk-state-schedule
+    - https://www.battleofthebay.com/
+

@@ -1,0 +1,113 @@
+# Emotional Core — Campbell  (campbell)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: campbell
+team_id: 1103
+program_name: Campbell
+program_tier: 2
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Campbell is the Fighting Camels who built a football program from scratch in 2008 and climbed from non-scholarship Pioneer League to CAA in 17 years — every winning season feels like found money."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A 17-year-old program that went from zero to CAA in one generation vs peers who have been playing since the 1890s — the Camels are still writing the first lines of their story."
+
+the_wound:
+  name: "The 2025 reset under Braxton Harris"
+  detail: "Campbell went 2-10 (2-6 CAA) in 2025 — the program's second straight losing season and the first full year under new head coach Braxton Harris after Mike Minter was fired following an 11-season tenure. For a program still proving it belongs in the CAA, back-to-back 2-win seasons test the faith that the aggressive reclassification was the right call."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win seven games, make the FCS playoffs, and prove the 2023 CAA jump was earned — the Camels want one moment that puts Buies Creek on the FCS map."
+  drought: { since: 2019, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The fanbase says Campbell started with nothing in 2008 while every other CAA program had 50 to 100 years of history — the Camels believe the climb itself proves they belong, even when the scoreboard disagrees."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans believe that a program only 17 years old can jump from Pioneer League to CAA and compete within a decade — that the Caleb Snead All-American and the back-to-back Big South titles mean the foundation is real, not borrowed time."
+
+the_grudge_texture:
+  rival: elon
+  texture: border-war
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: aggressive-move-now vs patient-build — the faction wanting the CAA leap to pay off immediately vs the faction that believes a 17-year-old program simply needs more time than peers with a century of history
+
+register: campbell-camels-buies-creek-startup-climber
+never_use:
+  - "Joke program — back-to-back Big South titles (2018-2019) and the first NFL player (Julian Hill, Miami Dolphins 2020) disprove that"
+  - "Never competitive — Caleb Snead 2018 Consensus All-American and Big South conference titles show institutional growth"
+
+story_canon:
+  the_unique_thing: "The startup story — Campbell didn't play football until 2008 and climbed from non-scholarship Pioneer League through the Big South to the CAA in just 15 years, the fastest reclassification arc in modern FCS. Every win is genuinely new territory."
+  the_origin: "Campbell University started football in 2008 under Dale Steele as a non-scholarship Pioneer League program. The Camels went 14-41 in five founding seasons, then reclassified to the scholarship Big South in 2018 and won back-to-back conference titles that same year."
+  golden_ages:
+    - { era: "2018-2019 (Big South breakout)", what: "Back-to-back Big South championships in the program's first two scholarship seasons; Caleb Snead 2018 Consensus All-American" }
+    - { era: "2020 (NFL breakthrough)", what: "Julian Hill becomes first Campbell player to make an NFL roster (Miami Dolphins); Brevin Allen becomes first to play in an NFL game (LA Chargers)" }
+  legends:
+    - { name: Dale Steele, role: coach, why: "Founded the program in 2008 and posted 14-41 as the builder of the foundation" }
+    - { name: Mike Minter, role: coach, why: "Led Big South reclassification and back-to-back conference titles; 49 wins over 11 seasons" }
+    - { name: Caleb Snead, role: player, why: "2018 Consensus All-American wide receiver — highest individual honor in program history" }
+    - { name: Julian Hill, role: player, why: "First Campbell player on an NFL roster (Miami Dolphins, 2020)" }
+  canonical_moments:
+    - { name: "Program founded", year: 2008, what: "Campbell fields its first football team in the non-scholarship Pioneer League", handling: glory }
+    - { name: "2018 Big South Championship", year: 2018, what: "First conference title in the program's first scholarship season; Caleb Snead All-American", handling: glory }
+    - { name: "2019 Big South Championship", year: 2019, what: "Back-to-back conference crowns in only the program's second scholarship season", handling: glory }
+    - { name: "2020 NFL breakthrough", year: 2020, what: "Julian Hill becomes the first Campbell player to make an NFL roster", handling: glory }
+  the_place: "Barker-Lane Stadium in Buies Creek, North Carolina (6,200 capacity) — the stadium that watched a program grow from scratch to conference champion."
+  brand_of_football: "The aggressive climb — a program that chose the leap over incremental growth, betting that reclassifying fast was the only way to matter."
+  cultural_footprint: "The proof-of-concept that a rural North Carolina school with no football history can build an FCS program in one generation — every milestone is the first of its kind."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Campbell went 2-10 (2-6 CAA) in 2025 under first-year head coach
+    Braxton Harris, the program's second straight losing season after Mike Minter was let go following the
+    3-9 2024 campaign. Harris, who previously led Houston Christian, inherits a roster still finding its footing
+    in the CAA's competitive landscape. The question in Buies Creek is whether the infrastructure from the
+    Big South era — the recruiting footprint, the stadium, the scholarship depth — is enough to eventually
+    compete in the CAA, or whether the gap between a 17-year-old program and century-old peers is simply
+    too wide to close on this timeline.
+  sources:
+    - https://en.wikipedia.org/wiki/Campbell_Fighting_Camels_football
+    - https://www.gobigcamels.com
+    - https://caasports.com/news/2025/12/11/monmouth-names-jeff-gallo-as-new-head-football-coach-as-kevin-callahan-transitions-to-advisory-role.aspx
+
+briefing:
+  identity_phrase: Campbell is the 2008-founded Fighting Camels that climbed from Pioneer non-scholarship to Big South to CAA in 17 years — still writing the first chapter of a program that didn't exist when most CAA rivals were celebrating their centennials.
+  mantra: Go Camels.
+  cultural_anchors:
+    fan_archetype_dominant: Buies-Creek-Believer
+    outsider_archetype_dominant: FCS-Skeptic
+    one_sentence: Campbell is the startup program that climbed three conference tiers in 15 years and produced back-to-back Big South titles and an NFL player — now proving the CAA jump wasn't premature.
+  selfname: the Fighting Camels
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Mike Minter
+    era_name_overrides: {}
+    always_surface:
+      - Program founded 2008 in Pioneer League
+      - 2018 reclassification to Big South
+      - Back-to-back Big South titles (2018-2019)
+      - Caleb Snead 2018 Consensus All-American
+      - Julian Hill first Campbell NFL player (2020)
+    rituals:
+      - Barker-Lane Stadium since 2008
+      - The Aggressive Climb
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

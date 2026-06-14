@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — Maine Maritime (maine-maritime)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: maine-maritime
+team_id: null
+program_name: Maine Maritime Academy
+program_tier: 7
+
+emotional_core:
+  primary: restoration  # return after a 5-year hiatus
+  secondary: honor     # the maritime service mission
+  one_line: "Maine Maritime is the federal maritime academy whose football returned in 2025 after a 5-year pandemic suspension — Mariners honoring the service mission with every game."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A 74-year program suspended in 2020, brought back in 2025 with a new coaching staff and the challenge of rebuilding infrastructure from zero."
+
+the_wound:
+  name: "The 2020 suspension"
+  detail: "After 74 continuous years (1946–2020), Maine Maritime's football was suspended due to pandemic financial pressures. Sub-varsity play (2023–2024) bridged the gap, but the official program pause represented a genuine loss for the maritime community."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Restore Maine Maritime football to its 74-year legacy — prove that the Mariners mission requires the program, that service and athletics belong together."
+  drought: { since: 2020, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is one of restoration: Maine Maritime plays for vindication of the service mission, proof that maritime officers need the discipline and team-building of college football."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase — and the academy — believes that a 0-10 inaugural 2025 is a beginning, not a portent. Fans know the foundation is being built, and they're grateful it's being built at all."
+
+the_grudge_texture:
+  rival: husson
+  texture: blood-feud   # Maine regional, Conference of New England rivals
+
+the_coach_relationship: savior   # Nick Sheehan tasked with rebuilding from zero
+the_internal_fracture: gratitude for return vs. frustration with the 0-10 record
+register: maritime-academy-resurrection-honor
+never_use:
+  - Maine Maritime football is new — 74 years (1946–2020) proves otherwise; 2025 is a return
+  - The academy is small or non-selective — it's a federal maritime academy with rigorous engineering curriculum
+  - A 0-10 season means failure — it's year one after 5-year hiatus with mostly new roster; context matters
+
+story_canon:
+  the_unique_thing: "Maine Maritime is one of only four NCAA maritime academies fielding football — and the only one whose program was suspended and restored. The 2025 return marks the Mariners' rebuilding from near-total roster and coaching rebuild."
+  the_origin: "Maine Maritime Academy began football in 1946, establishing a continuous 74-year program that trained officers for the maritime service mission."
+  golden_ages:
+    - { era: "1946–2020 (continuous)", what: "74-year program, steady maritime academy tradition" }
+    - { era: "2025–present (return)", what: "Restoration after pandemic suspension; rebuilding" }
+  legends:
+    - { name: Nick Sheehan, role: coach, why: "Tasked with rebuilding the program in 2025 after 5-year suspension" }
+  canonical_moments:
+    - { name: "Founded", year: 1946, what: "Maine Maritime Academy launches football program", handling: glory }
+    - { name: "Suspended", year: 2020, what: "Program suspended due to pandemic financial pressures after 74 years", handling: wound }
+    - { name: "Restored", year: 2025, what: "Football returns after 5-year hiatus; inaugural 2025 season", handling: miracle }
+  the_place: "Maine Maritime Academy in Castine, Maine — training ground for U.S. maritime officers on the coast."
+  brand_of_football: "Discipline and mission — maritime officers play for service, not glory."
+  cultural_footprint: "The only NCAA maritime academy football program with a 74-year legacy interrupted and restored; proof that service missions require athletics."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Maine Maritime Academy brought football back in 2025 after a 5-year pandemic suspension,
+    starting from near-zero roster and coaching staff under first-year coach Nick Sheehan. The 2025 inaugural season was 0-10
+    in the Conference of New England, but this is context-appropriate: the program is rebuilding infrastructure, not expecting
+    immediate success. The question: how quickly can Maine Maritime rebuild a sustainable program that honors its 74-year legacy
+    and the maritime service mission?
+  research_checklist:
+    - 1946 founding date
+    - 74-year continuous run (1946–2020)
+    - 2020 suspension and 5-year hiatus
+    - 2025 return and 0-10 inaugural season
+    - Maritime academy mission (federal officer training)
+  sources:
+    - https://en.wikipedia.org/wiki/Maine_Maritime_Academy_Mariners_football
+    - https://www.ncaa.org/sports/2025/d3/football/maine-maritime-academy/schedule
+    - https://www.ncollegefootball.com/teams/maine-maritime-mariners

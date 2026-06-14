@@ -1,0 +1,121 @@
+# Emotional Core — Newberry  (newberry)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: newberry
+team_id: 999  # Placeholder — may need D2 DB assignment
+program_name: Newberry
+program_tier: 6
+
+emotional_core:
+  primary: restoration  # Todd Knight's 17-year ascent reaches peak: 2025 SAC champs, D2 Semifinals (historic)
+  secondary: standard
+  core_variant: first-ascension
+  one_line: "Newberry quietly built a powerhouse under Todd Knight for 17 years, won the 2025 SAC championship, and became the first program in school history to reach the Division II National Championship Semifinals — a Wolves team that made the quiet program impossible to ignore."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A small South Carolina program that spent decades in the middle of the SAC vs a 2025 championship and D2 semifinal appearance that forced the sport to take notice."
+
+the_wound:
+  name: ""
+  detail: ""
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the 2025 Wolves weren't a one-year wonder — return to the playoffs, make another run at the national championship, and establish Newberry as a perennial SAC contender."
+  drought: { since: null, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Newberry fans watched their program spend decades building in silence under Todd Knight. The chip they carry is that nobody paid attention until a 12–2 championship season forced the sport to look. The Wolves are hungry to remind the sport that quiet excellence is still excellence."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that a small South Carolina program can be a consistent Division II power; that Todd Knight's culture-building survives the coaching carousel and the Wolves stay a playoff team for years to come."
+
+the_grudge_texture:
+  rival: ""
+  texture: none
+
+the_coach_relationship: total-trust   # Todd Knight is the all-time winningest coach (96+ wins) and was extended through 2031 after 2025 success
+the_internal_fracture: ""
+register: newberry-wolves-knight-quiet-powerhouse
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - "Never made playoffs before 2025 — made D2 playoffs 7 times before 2025 semifinal"
+  - "Todd Knight just arrived — arrived in 2003, promoted to HC 2009 (17 years as head coach)"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The quiet powerhouse: Newberry built a Division II champion under Todd Knight without fanfare, won the 2025 SAC Championship, and became the first program in school history to reach the Division II National Championship Semifinals (losing 49–17 to defending champion Ferris State). A small South Carolina program proved patience and culture can produce majors wins."
+  the_origin: "Newberry College was founded in 1856 in Newberry, South Carolina. Football became a South Carolina Piedmont tradition. Todd Knight arrived in 2003 and built the program into a powerhouse over two decades."
+  golden_ages:
+    - { era: "2009–2025 (Todd Knight)", what: "17 years of steady improvement, 96+ career victories, 7 NCAA D2 playoff bids, culminating in a 2025 national semifinal run and Todd Knight named 2025 National Coach of the Year" }
+    - { era: "2025 championship season", what: "12–2 overall, 7–1 SAC, SAC Champions, NCAA D2 Semifinals (first in program history)" }
+  legends:
+    - { name: Todd Knight, role: coach, why: "All-time winningest coach (96+ wins), built the program from middle-tier SAC team to national semifinalist; extended through 2031 after 2025 championship" }
+  canonical_moments:
+    - { name: "2025 SAC Championship", year: 2025, what: "Newberry defeats Carson-Newman 28–21 to win the SAC Championship; first major title in the modern era", handling: glory }
+    - { name: "2025 D2 Playoff upset", year: 2025, what: "Newberry defeats #1 Albany State 31–24 in the quarterfinals — a stunning upset win that propelled the Wolves to the semifinals", handling: glory }
+    - { name: "2025 D2 Semifinals", year: 2025, what: "First NCAA Division II National Championship Semifinal appearance in program history (lost 49–17 to Ferris State)", handling: glory }
+  the_place: "Setzler Field in Newberry, South Carolina — home of the Wolves and a Piedmont landmark."
+  brand_of_football: "Todd Knight's culture-first football — steady, defensive-minded, built on institutional depth and patience."
+  cultural_footprint: "Proof that quiet excellence in Division II can produce national contention; that small programs can reach the summit with the right coach for the long haul."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Newberry went 12–2 (7–1 SAC) in 2025, won the SAC Championship with a 28–21
+    victory over Carson-Newman, and advanced to the NCAA Division II National Championship Semifinals (lost 49–17 to
+    defending champion Ferris State). Todd Knight was named D2football.com National Coach of the Year. The university
+    extended Knight through 2031. The Wolves enter 2026 as defending SAC champs and a perennial playoff contender.
+  research_checklist:   # what to look up (web) when we author this team together
+    - Todd Knight's coaching history before and at Newberry
+    - Notable wins in the 2025 season (especially the Albany State upset)
+    - The 2025 D2 Semifinal game vs Ferris State
+    - Key players in the 2025 championship run
+    - Post-championship roster outlook for 2026
+  sources:
+    - https://en.wikipedia.org/wiki/Newberry_Wolves_football
+    - https://en.wikipedia.org/wiki/Todd_Knight_(football_coach)
+    - Newberry College Athletics official site
+    - WISTV (2025) — playoff coverage
+    - WLTX (2025) — SAC Championship and coaching extension
+    - D2football.com Coach of the Year (2025)
+    - FloFootball (2024-2025)
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Newberry is the quiet South Carolina program whose 17-year Todd Knight era (2009–present) —
+    96+ wins, 7 playoff bids, 2025 SAC championship, and D2 semifinal appearance — defined quiet excellence into national contention.
+  mantra: ''
+  cultural_anchors:
+    fan_archetype_dominant: Newberry-Wolves-Knight-Quiet-Powerhouse
+    outsider_archetype_dominant: Small-Program-National-Contender
+    one_sentence: Newberry is the Wolves — Todd Knight 17-year era (2009–present) + 2025 SAC championship + D2
+      Semifinals that anchor the quiet-excellence-to-national-glory arc.
+  selfname: the Wolves
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: "1 SAC (2025)"
+    current_conference: SAC (South Atlantic Conference)
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Todd Knight (2009–present, extended through 2031)
+    era_name_overrides: {}
+    always_surface:
+    - 2025 SAC Championship (defeated Carson-Newman 28–21)
+    - 2025 NCAA D2 Semifinals (first in program history)
+    - Todd Knight 17-year tenure and 96+ career wins
+    rituals:
+    - 2025 SAC Championship Victory
+    - Todd Knight Culture-Building Era
+    - White v. Scarlet Spring Game
+    modules_already_rendering: ''
+  live_fingerprint:
+    backometer: ''
+    voice_profile: absent
+    delusion_premium: absent

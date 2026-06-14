@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Washington University in St. Louis Bears
+
+status: live
+slug: washington-stl
+team_id: null
+program_name: Washington University in St. Louis
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Washington University is the historic program pivoting from the CCIW to the NCAC—an academic powerhouse moving closer to peers, chasing competitive relevance in a new conference home."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 139-year-old program (since 1887) with a .524 all-time record and an 8-3 season in 2025 vs. the uncertainty of joining the NCAC and needing to prove the program belongs among new peers."
+
+the_wound:
+  name: "The CCIW exit and the search for the right conference home"
+  detail: "Washington University spent five seasons as a CCIW affiliate (2021-2025), compiling a 33-12 conference record but never winning a title. The program went 8-3 in 2025 but lost the Isthmus Bowl to Wisconsin-Stout. The wound is one of institutional fit: WashU is academically elite but athletically mid-tier in the CCIW. Moving to the NCAC is about finding the right home, not running from failure."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win an NCAC title and prove Washington University belongs among the conference elite after joining in 2026."
+  drought: { since: 1887, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe there is no chip. WashU is moving to a new conference home where the athletic and academic caliber align. The chip, if anything, is internal: proving the transition was the right call."
+
+the_delusion:
+  tone: earnest
+  text: "That joining the NCAC will immediately unlock conference titles. WashU fans know the program will need to adjust to new competition and build new rivalries."
+
+the_grudge_texture:
+  rival: ncac-peers
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Academic prestige vs. mid-tier athletic performance; CCIW veteran vs. NCAC newcomer"
+register: st-louis-missouri-bears-ncac-arrival
+never_use:
+  - Small program — WashU is academically elite and 139 years old
+  - Failed in CCIW — never won title, but 33-12 record shows competitive presence
+  - New program — founded 1887, not new; new to NCAC, established elsewhere
+
+story_canon:
+  the_unique_thing: "Washington University is a historic program (founded 1887, 139 years) joining the NCAC in 2026 after five seasons in the CCIW, representing a strategic pivot toward an academic and athletic peer conference."
+  the_origin: "Washington University in St. Louis began playing football in 1887, making it one of the oldest programs in Division III (the school itself was founded in 1853). The program has maintained a presence for 139 years, though it has competed in multiple conferences and athletic alignments."
+  golden_ages:
+    - { era: "Early 20th century", what: "Historic era competing in Midwest conference landscape" }
+    - { era: "2021–2025 (CCIW era)", what: "33-12 conference record over five seasons as CCIW affiliate, consistent but not championship-tier" }
+    - { era: "2025", what: "8-3 season and Isthmus Bowl appearance before NCAC transition" }
+  legends:
+    - { name: Aaron Keen, role: coach, why: "Coach since 2020 (WashU '94 grad), leading the program through the CCIW exit and into the NCAC" }
+  canonical_moments:
+    - { name: "1887 football begins", year: 1887, what: "Washington University begins football, establishing one of the oldest D3 programs", handling: glory }
+    - { name: "2026 NCAC entry", year: 2026, what: "WashU joins the NCAC after five seasons in the CCIW, seeking a peer conference", handling: glory }
+  the_place: "St. Louis, Missouri. Francis Olympic Field (3,300 capacity) is the home stadium. The program operates in a major metropolitan area with academic prestige."
+  brand_of_football: "Academic-first and competitive. WashU football is built around student-athletes who meet rigorous academic standards. The program competes but is not an athletic draw."
+  cultural_footprint: "A quiet, consistent program. WashU football is respected in academic circles but does not have the fan engagement of larger schools or the tradition of historic powers. The program is known for stability and integrity."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Washington University finished the 2025 season (their final in the CCIW) with an 8-3 record, including a loss to #1-ranked North Central and a bowl loss to Wisconsin-Stout (31-23, Isthmus Bowl). The program transitions to the NCAC in 2026 under Aaron Keen (since 2020, a WashU alumnus from 1994). The transition is about finding the right conference fit—academically and athletically—not about escaping failure. WashU's goal in the NCAC is to build sustainable success and compete for conference titles within a peer institution framework.
+  research_checklist:
+    - 1887 founding (139 years old)
+    - CCIW membership 2021-2025 (5 seasons)
+    - 33-12 CCIW record (never won title)
+    - 2025 season 8-3 (Isthmus Bowl loss 31-23)
+    - Aaron Keen coach since 2020 (WashU '94)
+    - NCAC entry 2026 (verified)
+    - Francis Olympic Field 3,300 capacity
+  sources:
+    - https://washubears.com
+    - https://en.wikipedia.org/wiki/Washington_University_Bears_football
+    - https://northcoast.org/news/2024/10/18/ncac-welcomes-washington-university-in-st-louis-football.aspx

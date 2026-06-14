@@ -1,0 +1,116 @@
+# Emotional Core — Mars Hill  (mars-hill)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: mars-hill
+team_id: 999  # Placeholder — may need D2 DB assignment
+program_name: Mars Hill
+program_tier: 6
+
+emotional_core:
+  primary: house-money      # a new era beginning after 32 years of Tim Clifton stability
+  secondary: restoration    # Kevin Barnette is tasked with restoring the program after the Clifton transition
+  one_line: "Mars Hill spent 32 years under Tim Clifton — the longest-tenured North Carolina college football coach — and Kevin Barnette now inherits a program defined by stability and tasked with finding the next mountain."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "Three decades of consistent Division II football under one coach vs a rebuilding era with a new voice and the weight of continuity on his shoulders."
+
+the_wound:
+  name: "After 32 years, everything is new"
+  detail: "Tim Clifton coached Mars Hill football for 32 years (1993–2024), a tenure that made him the longest-serving college football coach in North Carolina and defined what the Lions were. When he retired, the program lost not just a coach but an entire identity. Kevin Barnette, a Mars Hill native, took over in a program where everyone had known only Clifton."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that Kevin Barnette isn't a successor but a founder of a new Lions era — win the SAC, establish a new tradition that honors Clifton but belongs to Barnette."
+  drought: { since: 1993, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Mars Hill's chip is being haunted by continuity — 32 years under Clifton set a bar so high that even success under Barnette risks reading as a falloff. The Lions carry the weight of a legacy they have to honor while writing their own story."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that Kevin Barnette, a Mars Hill alum and a defender under Clifton for 31 years, carries some of the 32-year magic in him; that the transition won't be as hard as it looks because Barnette was there the whole time."
+
+the_grudge_texture:
+  rival: ""
+  texture: border-war
+
+the_coach_relationship: total-trust   # Kevin Barnette is a Mars Hill lifer and native; the community trusts him
+the_internal_fracture: clifton-purists vs barnette-believers — the faction that wonders if anyone can follow Clifton vs the faction that knows Barnette was there building it
+register: mars-hill-lions-clifton-era
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - "Tim Clifton is still coaching — retired after 32 years (1993–2024)"
+  - "Mars Hill is dominant — competitive in SAC, but Clifton era gave way to rebuilding 2025"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Tim Clifton era: 32 years (1993–2024) of stability, 173 victories, and a tenure that made Clifton the longest-serving college football coach in North Carolina history. Mars Hill became synonymous with consistency and durability."
+  the_origin: "Mars Hill University is in the North Carolina mountains. Football became a regional power in the Piedmont. Tim Clifton arrived in 1993 and built a program that would define Division II in the state."
+  golden_ages:
+    - { era: "1993–2024 (Tim Clifton)", what: "32 years of stability, 173 victories, and a coaching tenure that made Mars Hill a model of continuity" }
+  legends:
+    - { name: Tim Clifton, role: coach, why: "32-year tenure, 173 wins, and the longest-serving North Carolina college football coach in history; the architect of Mars Hill consistency" }
+  canonical_moments:
+    - { name: "32-year tenure begins", year: 1993, what: "Tim Clifton arrives at Mars Hill and stays for 32 years, defining what the program is", handling: glory }
+    - { name: "Clifton retirement", year: 2024, what: "After 32 years, Clifton retires as the longest-tenured coach in North Carolina college football", handling: glory }
+  the_place: "Meares Stadium in Mars Hill, North Carolina (opened 1965) — home of the Lions and a mountain landmark."
+  brand_of_football: "Clifton's steady, defensive-minded Division II football — built on stability and the belief that continuity wins."
+  cultural_footprint: "The longest coaching tenure in North Carolina college football proves that stability, in an era of churn, is a superpower."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Tim Clifton retired after 32 years, and Kevin Barnette, a Mars Hill native and
+    longtime defensive coordinator (31 years under Clifton), took over in August 2025. Barnette's first season (2025)
+    went 5–6 as the program transitioned. The Lions are in a rebuilding year after the longest coaching tenure in
+    North Carolina history. The question in Mars Hill: can Barnette honor the Clifton legacy while building his own?
+  research_checklist:   # what to look up (web) when we author this team together
+    - Tim Clifton's 32-year record and notable wins
+    - Clifton's coaching style and defensive philosophy
+    - Kevin Barnette's background and his 31-year tenure as DC
+    - Notable 2025 season results and the transition narrative
+    - Player recruitment and the post-Clifton outlook
+  sources:
+    - https://en.wikipedia.org/wiki/Mars_Hill_Lions_football
+    - https://en.wikipedia.org/wiki/Tim_Clifton
+    - Mars Hill University Athletics official site
+    - WLOS (2025) — coaching transition
+    - NCFootballNews (2025)
+    - FloFootball (2024-2025)
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Mars Hill is the North Carolina mountain program whose 32-year Tim Clifton era (1993–2024) —
+    the longest coaching tenure in state history — defined what consistency and stability look like.
+  mantra: ''
+  cultural_anchors:
+    fan_archetype_dominant: Mars-Hill-Lions-Clifton-Stability
+    outsider_archetype_dominant: Mountain-School-Transition
+    one_sentence: Mars Hill is the Lions — 32-year Tim Clifton tenure (1993–2024) and the Kevin Barnette transition
+      that anchor the stability-to-succession arc.
+  selfname: the Lions
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: SAC (South Atlantic Conference)
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Tim Clifton (1993–2024)
+    era_name_overrides: {}
+    always_surface:
+    - 32-year Tim Clifton era (1993–2024)
+    - 173 career victories under Clifton
+    - Longest North Carolina college football coaching tenure in history
+    rituals:
+    - Tim Clifton Era (32 years)
+    - Mars Hill Mountain Tradition
+    modules_already_rendering: ''
+  live_fingerprint:
+    backometer: ''
+    voice_profile: absent
+    delusion_premium: absent

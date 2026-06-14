@@ -1,0 +1,69 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: northern-state
+team_id: null
+program_name: Northern State
+program_tier: 6        # Division II
+
+emotional_core:
+  primary: grievance      # 1950s-60s golden era (14 South Dakota state titles) vs modern decline
+  secondary: restoration  # Mike Schmidt in Year 6+ rebuilding toward competence
+  one_line: "Northern State is a South Dakota regional program that won 14 state championships in the 1950s-1970s — and has spent the modern NSIC era rebuilding from a generational decline, hunting for relevance again."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "14 state championships and two perfect seasons (1953, 1969) in the mid-20th century vs modern NSIC struggles."
+
+the_wound:
+  name: "The generational decline from 1970s to present"
+  detail: "Northern State built an extraordinary golden age in the 1950s and 1960s, winning 14 South Dakota state championships and posting two perfect seasons (8-0 in 1953, 9-0 in 1969). The Wolves were 21-of-24 winning seasons from 1953-1976 (.762 winning percentage). But the transition to D2 and the NSIC brought decline; the program has never recovered the championship-level status of its mid-20th century peak. Mike Schmidt is in his sixth season rebuilding, but the Wolves remain a modest NSIC competitor."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to the winning tradition that defined the Wolves in the 1950s-60s; build back to relevance in the modern NSIC."
+  drought: { since: 1976, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the Wolves carry nostalgia instead of a chip: the gap between what Northern State once was (1950s-60s champion) and what it became."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 1950s-60s glory can be recreated in the modern NSIC. Northern State fans remember the perfect seasons and state titles, but they understand the modern game is vastly different."
+
+the_grudge_texture:
+  rival: none
+  texture: none
+
+the_coach_relationship: legends-shadow    # Mike Schmidt rebuilding from 1970s legacy; not at the level of the old coaches
+the_internal_fracture: golden-age-nostalgia vs present-reality — fans who remember the perfect seasons and state titles vs those accepting Northern State as a modest modern program
+register: south-dakota-wolves-golden-era-mid-century-state-championships
+never_use:
+  - "Northern State is a power program: the Wolves' power is historical only"
+  - "Recent success proves modern relevance: Schmidt's rebuild hasn't yet produced championship-level consistency"
+
+story_canon:
+  the_unique_thing: "Northern State is a South Dakota program with extraordinary mid-20th century success (14 state championships, two perfect seasons in 1953 and 1969) that has never recaptured that glory in the modern NSIC era."
+  the_origin: "Northern State is a South Dakota regional program that dominated state football in the 1950s-60s under legendary coach Billy Johnson and others, building a championship tradition."
+  golden_ages:
+    - { era: "1953–1976 (State Championship Era)", what: "14 state championships including perfect seasons (1953: 8-0, 1969: 9-0); 21-of-24 winning seasons (.762)" }
+  legends:
+    - { name: Billy Johnson, role: coach, why: "Legendary coach who led the state championship era and the 1953 perfect season" }
+  canonical_moments:
+    - { name: "1953 Perfect Season", year: 1953, what: "Northern State goes 8-0, perfect season", handling: glory }
+    - { name: "1969 Perfect Season", year: 1969, what: "Northern State goes 9-0, another undefeated campaign", handling: glory }
+  the_place: "Aberdeen, South Dakota; a small South Dakota regional program."
+  brand_of_football: "A once-dominant state powerhouse that has not recovered its mid-century championship status in the modern NSIC era."
+  cultural_footprint: "Northern State is remembered for its 1950s-60s golden age; the program has limited modern national profile."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Northern State completed a game on November 15, 2025 (defeated Jamestown 46-40),
+    finishing a season of modest results. Head coach Mike Schmidt is in his sixth season rebuilding the program; the Wolves
+    have not established themselves as NSIC contenders since transitioning to D2. The gap between Northern State's 1950s-60s
+    golden era (14 state titles, perfect seasons) and modern struggles remains the program's defining tension. Schmidt's
+    recruiting class focus (staff additions for 2026) signals continued institutional patience with the rebuild.
+  sources:
+    - https://exponentnsu.wordpress.com/2021/09/20/northern-state-footballs-winning-tradition/
+    - https://nsuwolves.com/news/2026/2/4/football-schmidts-seventh-signing-class
+    - https://northernsun.org/schedule.aspx?schedule=3876

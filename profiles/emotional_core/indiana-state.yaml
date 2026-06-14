@@ -1,0 +1,92 @@
+# Emotional Core — Indiana State (indiana-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# status: live (web-researched 2026-06-13)
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: indiana-state
+team_id: null
+program_name: Indiana State
+program_tier: 3
+
+emotional_core:
+  primary: restoration      # the Curt Mallory rebuild after difficult years
+  secondary: standard
+  core_variant: perpetual-rebuild
+  one_line: "Indiana State is the Sycamores grinding through a rebuild under Curt Mallory — a program tied for last in the Missouri Valley but fighting for the next winning phase."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A Missouri Valley program in the depths of a rebuild, tied for last in conference play but holding to the belief that Curt Mallory's leadership will eventually reverse the tide."
+
+the_wound:
+  name: "The MVFC collapse"
+  detail: "Indiana State's 3-9 record (1-7 MVFC) in 2025 represents years of struggle in a conference full of stronger programs. Curt Mallory is in year eight and the Sycamores are still looking for the turnaround moment."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Climb out of the MVFC basement and prove that Indiana State belongs with the mid-tier programs in the conference — a winning season and a bowl game to prove the rebuild works."
+  drought: { since: 2015, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The MVFC is tough, but Indiana State's struggle is real — 1-7 in conference is a call for change. The fanbase is waiting for Mallory to prove the program is on the rise, not in permanent decline."
+
+the_delusion:
+  tone: self-aware
+  text: "That Curt Mallory's veteran presence will suddenly break the losing streak — that year nine is the turnaround year. The Sycamores hope it's true, but eight years of struggle tests even the most patient fanbase."
+
+the_grudge_texture:
+  rival: ""
+  texture: none
+
+the_coach_relationship: hot-seat-churn   # Curt Mallory's job security is increasingly questionable
+the_internal_fracture: ""
+register: indiana-state-sycamores-mvfc-rebuild
+never_use:
+  - Historic program (reframe as mid-tier MVFC member, not a blue blood)
+  - Already competitive (3-9 and 1-7 MVFC shows the team is struggling badly)
+
+# ── STORY CANON (doc 64) ──
+
+story_canon:
+  the_unique_thing: "Indiana State as a struggling MVFC member trying to climb out of the basement — a program that once competed in the conference but now fights for respectability under Curt Mallory in year eight."
+  the_origin: "A Missouri Valley program with a football tradition but currently fighting through years of losing seasons and conference struggles."
+  golden_ages:
+    - { era: "1990s–2000s", what: "Periods of MVFC competitiveness" }
+    - { era: "Mallory era (2018–present)", what: "Ongoing rebuild through multiple losing seasons" }
+  legends:
+    - { name: Curt Mallory, role: coach, why: "Eight years of leadership attempting to rebuild the Sycamores out of MVFC irrelevance" }
+  canonical_moments:
+    - { name: "2025 basement finish", year: 2025, what: "Indiana State ties for last in MVFC with 1-7 conference record, testing the fanbase's patience with the rebuild", handling: wound }
+  the_place: "Terre Haute, Indiana — home of the Sycamores' struggle for MVFC relevance."
+  brand_of_football: "Defensive, tough MVFC football — trying to build from the ground up through discipline and effort."
+  cultural_footprint: "A program that competes in a tough conference but is currently struggling to find its way back to competitive standing."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Indiana State finished 3-9 overall (1-7 MVFC) in 2025,
+    tied for last in conference play under Curt Mallory in his eighth season as head coach.
+    Notable wins came over McKendree and South Dakota State, but the overall record shows a
+    program still searching for the turnaround. Year nine for Mallory will be critical — the
+    fanbase is growing impatient with the rebuild timeline. Can the Sycamores finally climb
+    toward .500 and conference respectability?
+  research_checklist:
+    - the MVFC tradition (what was Indiana State?)
+    - Curt Mallory's coaching tenure and rebuilds
+    - the Terre Haute footprint
+    - the basement struggle narrative
+    - the current-era rebuild urgency
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Indiana_State_Sycamores_football_team
+    - https://www.isusports.com/sports/football
+
+# ── BRIEFING ──
+briefing:
+  identity_phrase: Indiana State is the MVFC program tied for last place, fighting through
+    a rebuild under Curt Mallory in his eighth season.
+  mantra: Climb. Build. Belong.
+  cultural_anchors:
+    fan_archetype_dominant: Patience-Tested-Sycamore
+    outsider_archetype_dominant: Rebuild-Skeptic
+    one_sentence: Indiana State is the Sycamores testing whether Curt Mallory's veteran
+      leadership can reverse a multi-year MVFC struggle.
+  selfname: the Sycamores

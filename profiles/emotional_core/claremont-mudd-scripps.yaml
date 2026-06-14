@@ -1,0 +1,65 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Claremont-Mudd-Scripps — the Athenaeum in the Sixth Street Rivalry
+
+status: live
+slug: claremont-mudd-scripps
+team_id: null
+program_name: Claremont-Mudd-Scripps
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Claremont-Mudd-Scripps is a consortium of three prestigious liberal arts schools fielding the Athenaeum, competing in the Sixth Street Rivalry with Pomona-Pitzer — a program rooted in scholarship and tradition."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A joint program of three elite small colleges, competing in SCIAC not for fame but for pride and the integrity of the game."
+
+the_wound:
+  name: "Shared identity across three schools"
+  detail: "The Athenaeum represents Claremont McKenna, Harvey Mudd, and Scripps colleges — a unique structure requiring consensus and shared resources, which limits ambition but strengthens character."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the Sixth Street Rivalry with Pomona-Pitzer, compete honorably in SCIAC, and prove that academic excellence and athletic pride coexist."
+  drought: { since: null, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — the identity is academic and communal, not resentful."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: pomona-pitzer
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: none — three schools, one mission
+register: claremont-athenaeum-sixth-street-scholars
+never_use:
+  - "Single-school program — this is a consortium"
+  - "National champion — SCIAC is the measure"
+  - "Wealthy powerhouse — small liberal arts, full stop"
+  - "Dominant — honesty and balance are the values"
+
+story_canon:
+  the_unique_thing: "The Sixth Street Rivalry with Pomona-Pitzer — two joint-program consortiums in the Claremont Colleges separated by a single street, competing annually in SCIAC."
+  the_origin: "The Claremont-Mudd-Scripps athletic program represents Claremont McKenna University, Harvey Mudd College, and Scripps College, three elite consortiums in the Claremont Colleges cluster. The joint structure reflects the academic cooperative spirit of the cluster."
+  golden_ages: []
+  legends: []
+  canonical_moments:
+    - { name: "Sixth Street Rivalry", year: null, what: "Annual competition with Pomona-Pitzer, two neighboring consortiums separated by a single street in Claremont", handling: glory }
+  the_place: "Claremont, California — the Claremont Colleges consortium in the San Gabriel Valley."
+  brand_of_football: "Academic and collegiate — football as one part of liberal arts education."
+  cultural_footprint: "Part of the unique Claremont Colleges ecosystem; the program embodies collaborative excellence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Claremont-Mudd-Scripps represents the joint athletic programs of three elite Claremont Colleges. The Athenaeum
+    compete in SCIAC and maintain the Sixth Street Rivalry with Pomona-Pitzer. The program's identity is rooted in the academic mission and collaborative
+    spirit of the Claremont Colleges.
+  sources:
+    - https://en.wikipedia.org/wiki/Claremont_McKenna_College

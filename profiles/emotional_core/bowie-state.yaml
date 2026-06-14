@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+# Bowie State University Bulldogs (CIAA Division II)
+
+status: live
+slug: bowie-state
+team_id: null
+program_name: Bowie State University
+program_tier: 6
+
+emotional_core:
+  primary: house-money       # every win a gift in a season of rebuilding
+  secondary: restoration     # new leadership under Dawson Odums in 2026, stepping back from the edge
+  one_line: "Bowie State is the Maryland HBCU navigating its own season of silence, trusting that new coaching leadership restores what was lost in 2025."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A proud CIAA program in transition, rebuilding its football identity after a winless 2025 coaching change."
+
+the_wound:
+  name: "The 2025 collapse and losing a coach"
+  detail: "Kyle Jackson's tenure ended with a 3-7 record and a 2-5 CIAA finish, leaving the program in need of fresh leadership. The season felt like an ending, not a beginning."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to competitive CIAA football under new leadership; Dawson Odums, a championship-builder from Southern University, brings a proven system. The dream is quiet and steady: rebuild the foundation, restore the standard."
+  drought: { since: 2023, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no burning grievance — just the internal push to prove that Bulldogs football can rise again, that a coaching change returns the program to its proper place in CIAA standings."
+
+the_delusion:
+  tone: earnest
+  text: "That a fresh coach and roster can turn years of underperformance around faster than anyone thinks. The fanbase hopes this is the year; the calendar says it will take time."
+
+the_grudge_texture:
+  rival: virginia-union
+  texture: championship       # CIAA rival in pursuit of league standing
+
+the_coach_relationship: savior           # Odums arriving with championship pedigree from SWAC
+the_internal_fracture: patience vs. results — the tension between giving Odums time to build vs. the immediate need to compete in CIAA
+register: bowie-maryland-hbcu-rebuild
+never_use:
+  - Bowie State is a power — the 2025 record disproves this
+  - Three straight winning seasons — not in recent memory; 2025 was 3-7
+  - Historic championships — verify any title claims; none found in modern era
+  - A football factory — the program is rebuilding, not dominant
+
+story_canon:
+  the_unique_thing: "Bowie State is part of the Maryland HBCU legacy — a school rooted in community, culture, and the historic African American educational mission. Football is one chapter of a larger story."
+  the_origin: "Founded as a small HBCU in Maryland, Bowie State has maintained a CIAA presence for decades, competing with modest resources and steady determination."
+  golden_ages:
+    - { era: "CIAA membership era", what: "Sustained participation in the CIAA conference, maintaining the program's place in Black college football tradition" }
+  legends:
+    - { name: Kyle Jackson, role: coach, why: "Tenure of five seasons; left the program at a crossroads requiring new leadership" }
+  canonical_moments:
+    - { name: "CIAA football tradition", year: null, what: "Competing as a member of one of the oldest historically Black conferences", handling: glory }
+  the_place: "Bowie, Maryland — a small HBCU campus in the Mid-Atlantic, part of the larger Maryland educational landscape."
+  brand_of_football: "Grassroots, community-based HBCU football — modest resources, steady culture, the love of the game and the school."
+  cultural_footprint: "A quiet presence in CIAA football, part of the broader HBCU homecoming and band tradition that defines fall in the conference."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Kyle Jackson's tenure ended after 2025 with a 3-7 record, and Bowie State hired Dawson Odums, a championship builder from Southern University (63-32 record, 9 years at SWAC). Odums enters 2026 with a mandate to rebuild a program that finished 2-5 in CIAA. The question: can a proven system from the Southwest Athletic Conference transfer to Maryland? The fanbase watches quietly, hoping new leadership restores the standard.
+  research_checklist:
+    - Coaching history and the Jackson era
+    - CIAA standing and conference standing (2024-2025)
+    - Recent recruiting pipeline and player development
+    - Homecoming and band culture at Bowie State
+    - Community presence in Bowie/Maryland region
+  sources:
+    - https://bsubulldogs.com
+    - https://theciaa.com/sports/fball/index
+    - https://hbcugameday.com/bowie-state-bulldogs
+    - https://en.wikipedia.org/wiki/Bowie_State_Bulldogs_football

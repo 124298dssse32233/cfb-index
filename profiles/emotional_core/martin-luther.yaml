@@ -1,0 +1,73 @@
+# AUTHORED (D3/UMAC) 2026-06-13 — web-verified
+
+status: live
+slug: martin-luther
+team_id: null
+program_name: Martin Luther University
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: contentment
+  one_line: "Minnesota evangelical institution with resurrection narrative—restarted football in 1972 after 35-year dormancy and built stable UMAC presence through 31-year legendary coach tenure."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "1972 resurrection after 35-year dormancy vs. stable UMAC mid-tier presence (1972–2025)"
+
+the_wound:
+  name: "The original 35-year dormancy"
+  detail: "Martin Luther College played football until 1937, then went dormant for 35 years (1937–1972). The decision to restart football in 1972 was a major institutional commitment. Dennis Gorsline's 31-year tenure (1972–2003) was the resurrection architect."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build on Gorsline's 31-year foundation into a new era of UMAC competitiveness and prove that patient institutional commitment can sustain excellence."
+  drought: { since: 2003, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe martin Luther resurrected football after 35 years dormant. The program exists because of institutional commitment, not athletic ambition. That commitment endures."
+
+the_delusion:
+  tone: self-aware
+  text: "Martin Luther fans believe Gorsline's 31-year tenure proved the foundation is solid—that the program can build sustained UMAC competitiveness again with the right coaching alignment."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: gorsline-legacy-vs-modern-coaching — whether the post-2003 era can match Gorsline's organizational consistency
+
+register: minnesota-evangelical-resolute
+
+never_use:
+  - "Failed resurrection (50+ years of continuous football since 1972 proves the program is real)"
+  - "Weak program (Gorsline's 31-year tenure is an anchor of institutional strength)"
+
+story_canon:
+  the_unique_thing: "1972 resurrection after 35-year dormancy (1937–1972); Dennis Gorsline 31-year tenure (1972–2003) building stable UMAC presence from zero."
+  the_origin: "Martin Luther College (founded 1884 as prep school, reformed as 4-year college) played football until 1937, then went dormant for 35 years. The 1972 restart was a major institutional recommitment."
+  golden_ages:
+    - { era: "1937–1954 (pre-dormancy)", what: "Original program era; data limited on accomplishments" }
+    - { era: "1972–2003 (Gorsline era)", what: "Resurrection and 31-year tenure; rebuilding phase establishing UMAC competitive presence" }
+    - { era: "2003–2025", what: "Post-Gorsline continuity; stable UMAC mid-tier presence" }
+  legends:
+    - { name: Dennis Gorsline, role: coach, why: "1972–2003, 31 years; program architect; resurrected football after 35-year dormancy; 123 wins; transformed institution from zero to competitive UMAC member" }
+  canonical_moments:
+    - { name: "1972 program resurrection", year: 1972, what: "Football restarted after 35-year dormancy; institutional recommitment to athletics", handling: glory }
+    - { name: "Dennis Gorsline 31-year tenure", year: 2003, what: "Longest-serving coach of rebuild-phase programs; organizational stability anchor; 123 wins", handling: glory }
+    - { name: "2000s UMAC competitive entry", year: 2000, what: "Program established competitive standing in conference", handling: glory }
+  the_place: "New Ulm, Minnesota—a small Midwestern town anchoring an evangelical college that resurrected its football program after four decades dormant."
+  brand_of_football: "Resilient, institutional football—a program that proved commitment can rebuild from dormancy into genuine competitiveness."
+  cultural_footprint: "Proof that patience, long-tenured coaching, and institutional alignment can resurrect a program from zero to UMAC contention."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Martin Luther remains a stable UMAC competitor. The program's identity is anchored in
+    Gorsline's 31-year tenure (1972–2003) and the resurrection narrative. Post-Gorsline, the program has maintained competitive
+    presence without dominance. The question is whether the modern era will produce Gorsline-level longevity or cycle through
+    coaching tenures. Institutional commitment to football is clear; the trajectory is stability rather than growth.
+  sources:
+    - https://www.mlutop.edu/athletics
+    - https://www.umacathletics.org
+    - https://www.ncaa.org/sports/football/d3

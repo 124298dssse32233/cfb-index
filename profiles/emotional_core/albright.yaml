@@ -1,0 +1,82 @@
+# AUTHORED (D3 MAC) 2026-06-13 — web-verified
+# Middle Atlantic Conference | Reading, PA | Historic Lions
+# GRACEFUL DEGRADATION: No D3 national championship history; competing in established regional power conference
+
+status: live
+slug: albright
+team_id: null
+program_name: Albright College
+program_tier: 7
+
+emotional_core:
+  primary: restoration      # new coach (Shaun Weaver, 2025) after coaching transition; rebuilding trajectory
+  secondary: honor          # historic institution defending conference reputation, crosstown pride
+  core_variant: regime-reset
+  one_line: "Albright is the historic Reading Lion that competes in the MAC's fiercest crosstown rivalry, rebuilding identity after a coaching transition while defending two centuries of athletic heritage."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A historic liberal arts program with deep Reading roots competing against larger, newer conference rivals, defined by the intense Albright-Alvernia crosstown rivalry and the desire to prove Lion football belongs in MAC discussions."
+
+the_wound:
+  name: "Coaching transition and the search for sustained MAC success"
+  detail: "The 2024 coaching reassignment left Albright searching for direction at a moment when conference competition intensified. The Lions have cycled through head coaches in recent years, raising the question: can Albright stabilize leadership and compete consistently in the MAC?"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that Albright football is a MAC contender, not a MAC doormat — win the crosstown rivalry reliably and climb back into playoff conversations."
+  drought: { since: 2019, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe the chip isn't against one team — it's against the perception that Albright is outmatched in the MAC. Crosstown rival Alvernia (despite being newer) proved that a Reading school can compete in Division III. Albright is determined to prove the Lions are the superior program."
+
+the_delusion:
+  tone: self-aware
+  text: "That a young, hungry coaching staff could turn a historic program into a MAC surprise overnight — Albright fans know rebuilds take time, but they want to believe the corner is being turned."
+
+the_grudge_texture:
+  rival: alvernia
+  texture: blood-feud   # two Reading, PA schools in the same conference; crosstown pride at stake
+
+the_coach_relationship: hot-seat-churn      # new head coach Shaun Weaver (2025) inherits the rebuild
+the_internal_fracture: pride-vs-patience — the faction that wants immediate MAC relevance vs those accepting the rebuild timeline
+register: reading-lion-mac-crosstown-pride
+never_use:
+  - "Not a real program — Albright has been fielding football since 1878; two centuries of athletic heritage"
+  - "Always loses to Alvernia — Albright defeated Alvernia 22-19 in OT in 2024; the rivalry is competitive"
+  - "Too small for the MAC — Albright competes in a historic conference with peer institutions"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The historic Reading Lion—a two-century-old Division III program competing in the fiercest crosstown rivalry in the MAC against younger rival Alvernia, defending a heritage while rebuilding for the future."
+  the_origin: "Albright College, founded 1856 in Reading, PA, began fielding a football program in 1878 — one of the oldest in the nation. The program has competed through multiple eras of college football, building an identity as a Reading athletic institution."
+  golden_ages:
+    - { era: "Historic liberal arts football", what: "Nearly 150 years of continuous athletic competition; Albright as a fixture in Reading sports culture" }
+    - { era: "MAC era (2016–present)", what: "Competing in the Middle Atlantic Conference as a peer to fellow Pennsylvania and New Jersey Division III programs" }
+  legends:
+    - { name: Reading athletic heritage, role: institution, why: "Two centuries of Albright football represent permanence and pride in a mid-Atlantic liberal arts tradition" }
+  canonical_moments:
+    - { name: "Crosstown rivalry established", year: 2018, what: "Alvernia begins football; Albright-Alvernia becomes the MAC's fiercest geographic rivalry", handling: glory }
+    - { name: "2024 crosstown victory", year: 2024, what: "Albright defeats Alvernia 22-19 in OT — proving the Lions belong in the rivalry conversation", handling: glory }
+  the_place: "Shirk Stadium in Reading, PA—home of the Lions since the early 20th century, a fixture in the Berks County athletic landscape."
+  brand_of_football: "The historic liberal arts competitor—a program built on institutional permanence and the pride of defending a two-century athletic legacy against rivals with fresher paint."
+  cultural_footprint: "Albright represents continuity in Division III—a program that has seen the sport evolve from leather helmets to modern playoff structures, yet remains a constant presence in Reading culture."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Albright finished 4-6 overall (2025 season) with new head coach Shaun Weaver
+    (21st in program history, taking over after Isaac Collins was reassigned to Director of Admissions in November 2024).
+    The Lions split the crosstown rivalry with younger rival Alvernia in recent years (22-19 OT win in 2024, 28-16 loss in 2023).
+    The 2025 season represented a fresh start under new leadership as Albright seeks to stabilize the program and prove
+    that the historic Lions belong in MAC playoff discussions, not as also-rans.
+  research_checklist:
+    - Founded 1856; football program began 1878
+    - Shirk Stadium home field, Reading, PA
+    - Crosstown rival: Alvernia (2018–present)
+    - 2024-2025 coaching transition
+    - 2025 record: 4-6
+  sources:
+    - https://albrightathletics.com/
+    - https://www.d3football.com/teams/albright
+    - https://en.wikipedia.org/wiki/Albright_Lions_football
+    - https://gomacsports.com/

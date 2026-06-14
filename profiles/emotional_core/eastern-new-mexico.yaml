@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: eastern-new-mexico
+team_id: null
+program_name: Eastern New Mexico
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: grievance
+  one_line: "Eastern New Mexico is the Portales Greyhounds rebuilding from a 3–8 collapse under a Hall-of-Fame coach—Art Briles arrives to restore the LSC power that won six conference titles and once stood alongside Division II's elite."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "Six LSC championships (1991–2013) and a 100-year football tradition vs. a 2025 season that tested whether the program could recover from mid-season chaos."
+
+the_wound:
+  name: "The 2025 collapse and mid-season coaching change"
+  detail: "Eastern New Mexico went 3–8 in 2025, a season that saw head coach Kelley Lee relieved mid-season in November; the program that once contended for LSC titles spiraled into a lost year. The fanbase had to sit through the worst season in recent memory knowing the program had bottomed out."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Art Briles restores the Greyhound standard — a return to LSC contention, a bowl game, a championship that proves 2025 was a crater, not a crater. The program rebuilds from ash."
+  drought: { since: 2013, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe eastern New Mexico's chip is internal—a program that knows it built something real (six LSC titles, regional dominance) and refuses to accept that the 2025 failure is its final chapter. The Greyhounds are too proud to sink."
+
+the_delusion:
+  tone: self-aware
+  text: "That Art Briles, a Hall-of-Famer with a national championship pedigree, can rebuild a fallen program in one year. The fanbase doesn't expect it, but they believe Briles can plant the seeds for a 2026–2027 climb back to relevance."
+
+the_grudge_texture:
+  rival: west-texas-am
+  texture: championship
+  # Eastern New Mexico and West Texas A&M compete for the Wagon Wheel Trophy (since 1986), a rivalry that defines East Texas vs. West Texas regional pride.
+
+the_coach_relationship: savior
+  # Art Briles, hired December 2025, is the program's lifeline—a Hall-of-Famer tasked with restoration after the 2025 implosion.
+
+the_internal_fracture: "Institutional pride vs. recent failure—the Greyhound faithful know the program's real identity is champion-level, but 2025 forced a reckoning."
+
+register: "portales-greyhound-lsc-legacy-wagon-wheel-briles-rebuild"
+
+never_use:
+  - "Eastern New Mexico has never won an LSC championship — six titles (1991, 1999, 2000, 2004, 2005, 2013)"
+  - "Art Briles is a new-school coach — Hall of Famer with 99–65 record; hired as national-level restoration figure"
+  - "The Greyhounds are a small-time program — 100-year football tradition; six LSC titles; regional power"
+  - "2025 was an expected decline — mid-season coaching change is severe; the collapse was shocking given recent history"
+
+story_canon:
+  the_unique_thing: "Six Lone Star Conference championships in the 1990s–2010s, a tradition of regional dominance that made the Greyhounds one of the Division II's quieter dynasties—until 2025."
+  the_origin: "Eastern New Mexico University in Portales, founded 1927; football established in 1934; built a regional power in the high plains."
+  golden_ages:
+    - { era: "1991–2013", what: "Six LSC/TIAA championships (1991, 1999, 2000, 2004, 2005, 2013); a dynasty of sustained excellence in the Lone Star Conference" }
+  legends:
+    - { name: Art Briles, role: coach, why: "Hired December 2025 to rebuild; Hall-of-Famer (Baylor 2013 national championship coach); 99–65 career record at FBS level; national-profile restoration figure" }
+  canonical_moments:
+    - { name: "2013 LSC Championship", year: 2013, what: "Eastern New Mexico's last conference title; the crown jewel of the six-championship run", handling: glory }
+    - { name: "Six LSC Titles (1991–2013)", year: 2013, what: "A 23-year run of regional dominance and playoff appearances", handling: glory }
+    - { name: "2025 Collapse", year: 2025, what: "3–8 record and mid-season coaching change; the nadir that forced institutional reckoning", handling: wound }
+  the_place: "Greyhound Stadium in Portales, New Mexico—a high-plains stadium where 90+ years of tradition live, now hosting a restoration effort."
+  brand_of_football: "Gritty, regional, high-plains Division II football—a program that built its identity on toughness and sustained excellence."
+  cultural_footprint: "A quiet dynasty; Eastern New Mexico never had the national profile of other LSC powers, but the six titles and consistent competence proved the Greyhounds belonged at the table."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Eastern New Mexico bottomed out in 2025 with a 3–8 record and mid-season coaching change. In December 2025, the program hired Art Briles—a Hall-of-Famer who won a national championship at Baylor in 2013 (AP Coach of the Year, 99–65 FBS record)—to rebuild from scratch. Briles arrives with national-profile credibility and a clear mandate: restore the Greyhound standard. The question: can a FBS-level restoration figure rebuild a Division II program and return the Greyhounds to LSC contention?
+  research_checklist:
+    - Six LSC championships (1991, 1999, 2000, 2004, 2005, 2013) ✓
+    - 2025 collapse (3–8, mid-season coaching change) ✓
+    - Art Briles (Hall of Famer, Baylor 2013, AP COTY) ✓
+    - Wagon Wheel rivalry (vs. West Texas A&M since 1986) ✓
+    - Portales, New Mexico location ✓
+  sources:
+    - https://en.wikipedia.org/wiki/Eastern_New_Mexico_Greyhounds_football
+    - https://americanfootballdatabase.fandom.com/wiki/Eastern_New_Mexico_Greyhounds
+    - https://www.newschannel10.com/2025/11/25/eastern-new-mexico-hires-art-briles-as-head-football-coach/
+    - https://gobuffsgo.com/news/2025/10/17/football-buffaloes-battle-eastern-new-mexico-in-the-37th-wagon-wheel-game.aspx

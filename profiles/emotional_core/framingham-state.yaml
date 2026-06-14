@@ -1,0 +1,82 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Framingham State University Division III emotional core
+
+status: live
+slug: framingham-state
+team_id: null
+program_name: Framingham State University
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Framingham State is the Massachusetts Ram with five undefeated regular seasons (2013–2021) under Tom Kelley's 18-year tenure, a program that has built sustained excellence at the regional MASCAC level without chasing national prominence."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A Massachusetts state university with 54 years of football history (club team 1972, varsity 1974), 11 MASCAC/NEFC conference titles, and a culture of sustained competence anchored in Tom Kelley's 18-year coaching tenure and five undefeated regular seasons."
+
+the_wound:
+  name: "The regional ceiling — excellence that goes unrecognized"
+  detail: "Framingham State has won 11 conference titles and produced five undefeated regular seasons, but zero national championships and minimal national media recognition. The program is content with regional dominance, but the ceiling is real — a small Massachusetts state school will never compete for Division III national hardware with the same resources as larger programs."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Another undefeated regular season. Another conference title. Framingham State's dream is not a national championship but sustained regional excellence and the respect of MASCAC peers."
+  drought: { since: 2021, unit: relevance }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe five undefeated regular seasons merit exactly zero national media coverage. The chip is the invisibility of excellence — Framingham State football is real, but nobody outside Massachusetts knows it."
+
+the_delusion:
+  tone: self-aware
+  text: "That one more undefeated season could spark a playoff run that matters nationally. The fanbase knows it's unlikely, knows the resource gap is real, but believes another perfect regular season would put Framingham State in contention."
+
+the_grudge_texture:
+  rival: bridgewater-state
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: sustainability-vs-replacement — Tom Kelley is in his 18th season; the question is whether he will stay long enough to reach coaching legend status (Mezzoferro territory) or whether the next coach will have to rebuild
+register: framingham-ram-five-undefeated
+
+never_use:
+  - Framingham State is a new program (club football began 1972, varsity 1974, 52 years old)
+  - Tom Kelley is a new coach (18 seasons, since 2007)
+  - The Rams have never had success (11 conference titles, five undefeated regular seasons)
+  - Framingham State won a national championship (no national championship, regional dominance)
+
+story_canon:
+  the_unique_thing: "Five undefeated regular seasons (2013, 2014, 2015, 2019, 2021) — a program that has learned to build perfect campaigns repeatedly under Tom Kelley's 18-year tenure."
+  the_origin: "Framingham State University began football as a club team in 1972 and elevated to varsity status in 1974. The program joined the MASCAC (then NEFC) and has competed regionally for 52 years with steady competence."
+  golden_ages:
+    - { era: "2007–present (Tom Kelley)", what: "18 years of coaching, 11 MASCAC/NEFC conference titles, five undefeated regular seasons, sustained excellence" }
+    - { era: "2013–2021", what: "Five undefeated regular-season campaigns, the program's sustained peak" }
+  legends:
+    - { name: Tom Kelley, role: coach, why: "18-year tenure (2007–present), 11 conference titles, five undefeated regular seasons, the defining voice of Framingham State football" }
+  canonical_moments:
+    - { name: "First Undefeated Regular Season (2013)", year: 2013, what: "Framingham State goes 8–0 in the regular season, beginning an era of repeated perfection under Tom Kelley", handling: glory }
+    - { name: "Five Undefeated Regular Seasons (2013–2021)", year: 2021, what: "In nine seasons, Framingham State produces five perfect regular seasons, proving sustained excellence", handling: glory }
+    - { name: "11 MASCAC/NEFC Conference Titles", year: 2025, what: "Over 18 seasons under Kelley, Framingham State has captured 11 conference championships", handling: glory }
+    - { name: "2025 Shared MASCAC Title", year: 2025, what: "Framingham State shares a MASCAC championship with a 7–2 conference record, continuing sustained regional dominance", handling: glory }
+  the_place: "Framingham, Massachusetts — a small Massachusetts town where the state university's football program is a civic identity."
+  brand_of_football: "Disciplined, competent football built on Tom Kelley's consistency and sustained excellence at the regional level."
+  cultural_footprint: "Framingham State football is a Framingham institution, known for undefeated regular seasons and MASCAC dominance, if not national recognition."
+  the_ongoing_story: >
+    LIVE MASCAC — researched 2026-06-13: Framingham State shared a MASCAC championship in 2025 with a 7–2
+    conference record under Tom Kelley's 18th season. The Rams remain a consistent MASCAC contender. The
+    fanbase is content with regional excellence and the knowledge that perfect regular seasons, while rare,
+    are within reach under Kelley's system.
+  research_checklist:
+    - Club football (1972), varsity (1974)
+    - Tom Kelley tenure (2007–present, 18 seasons)
+    - Five undefeated regular seasons (2013, 2014, 2015, 2019, 2021)
+    - 11 MASCAC/NEFC conference titles
+    - 2025 shared MASCAC title (7–2 conference record)
+    - Ramsee mascot debut (1972 home opener)
+  sources:
+    - https://en.wikipedia.org/wiki/Framingham_State_Rams_football
+    - https://www.framinghamstate.edu/athletics/football
+    - https://mascac.com/sports/fball/index

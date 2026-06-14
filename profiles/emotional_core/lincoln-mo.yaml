@@ -1,0 +1,68 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+status: live
+slug: lincoln-mo
+program_name: Lincoln University (Missouri)
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: restoration
+  one_line: "Lincoln is the historic HBCU program that walked away from NAIA and into the GLVC in 2024, betting everything on one more mountain-climb to relevance."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "Founded in 1866, Lincoln carries 158 years of Black education and pride — a program that played in NAIA for four decades, now rebuilding in Division II with a team that went 1-10 in year one."
+
+the_wound:
+  name: "The 1-10 stumble in the GLVC transition year"
+  detail: "Lincoln made the leap from NAIA to NCAA Division II in 2024, joining the GLVC. The inaugural season (2025) brought a 1-10 record and the sting of a program still finding its footing in a tougher conference. But a 1-win season is not the story — the story is a 158-year-old university that refused to disappear."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Climb back to .500 and prove that the GLVC move was a bridge, not a graveyard. Build a defense that can slow down Truman and Missouri S&T. Find a QB who can sling it."
+  drought: { since: 1997, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "No chip — just the quiet weight of history. Lincoln players don't play for revenge; they play because their great-grandfather played in 1952, and their family name is on the program's bones."
+
+the_delusion:
+  tone: earnest
+  text: "That one recruiting cycle, one transfer portal haul, one new coach can turn a 1-10 team into a bowl contender. Fans know the GLVC is tougher than NAIA was, and they're not deluded — they're determined."
+
+the_grudge_texture:
+  rival: truman-state
+  texture: championship
+  # Renewed rivalry: Truman leads 24-4-1 all-time; these programs didn't meet for decades, now back in same conference
+
+the_coach_relationship: hot-seat-churn
+  # Moses Harper (1st season, 2025) inherits a transitional team; next year will define his tenure
+
+the_internal_fracture: "pride-vs-realism — the faction that sees Lincoln's HBCU legacy as unshakeable vs the faction facing the reality of back-to-back losing seasons"
+
+register: hbcu-pride-blue-tigers-boone-transition-glvc
+
+never_use:
+  - '"Lincoln is the program with the most losses in D-II" — reductive; ignores NAIA success and the 2024 transition choice'
+  - '"Lincoln''s program is broken" — one year is not death; institutional will is measurable'
+
+story_canon:
+  the_unique_thing: "The only Division II program founded in 1866 as a Historically Black University in Missouri — 158 years of education, athletics, and community pride in Lincoln, Missouri."
+  the_origin: "Lincoln was founded in 1866 (the same year as the final Reconstruction Act) as a school for freed people. Football became part of that mission in the early 1900s. For nearly a century, Lincoln played in regional NAIA conferences and built a quiet, steady reputation."
+  golden_ages:
+    - { era: "1970s–1990s (NAIA era)", what: "Consistent NAIA competition and conference titles; Lincoln was a known quantity in small-college football" }
+  legends: []
+  canonical_moments:
+    - { name: "Transition to GLVC (2024)", year: 2024, what: "Lincoln left NAIA and joined the NCAA Division II Great Lakes Valley Conference — a historic upgrade and bet on institutional growth", handling: miracle }
+  the_place: "Hardin Stadium in Lincoln, Missouri — a small city in the heart of the state, where HBCU tradition and Midwestern pride meet."
+  brand_of_football: "Rebuilding competitiveness in a tougher conference; the program plays for its alumni, its city, and the next generation of Lincoln students."
+  cultural_footprint: "Lincoln is a proof point that HBCUs can compete at every level — the 2024 move to NCAA D-II is a statement that the program belongs."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Lincoln went 1-10 in 2025, its first season in the GLVC after transitioning from NAIA. Head coach Moses Harper
+    is in his first year, inheriting a program in transition. The 2026 season will be critical — if Lincoln can build depth through the portal and recruiting,
+    the 1-10 year becomes a footnote. The Truman rivalry has renewed (Truman leads 24-4-1 all-time); that game becomes the measuring stick for Lincoln's rebuild.
+  sources:
+    - https://americanfootball.fandom.com/wiki/Lincoln_(MO)_Blue_Tigers
+    - https://www.newstribune.com/news/2025/nov/09/lincoln-football-blanked-by-missouri-st-in-home-finale/
+    - https://lubluetigers.com/news/2024/11/1/football-blue-tigers-renew-rivalry-with-truman-on-saturday.html

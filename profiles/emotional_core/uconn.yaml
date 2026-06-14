@@ -1,0 +1,168 @@
+# Emotional Core — UConn  (uconn)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: uconn
+team_id: 209
+program_name: UConn
+program_tier: 5
+
+emotional_core:
+  primary: restoration    # a basketball blue-blood building real football legitimacy from independent scratch
+  secondary: house-money  # no conference, no expectations — every good Saturday is found money
+  core_variant: regime-reset
+  one_line: "UConn is the basketball blue-blood deciding, in public, what its football chapter will be — and it just played the best season it has ever had, then watched the coach who built it walk out the door."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Fifteen basketball national championships across the men's and women's programs vs a football team writing its first real chapter as a conference-less independent."
+
+the_wound:
+  name: "Best-ever season, then the coach walks"
+  detail: "UConn went 9-3 in the 2025 regular season — the program's first nine-win seasons in back-to-back years, never losing in regulation — and immediately lost head coach Jim Mora to Colorado State, then the Fenway Bowl 41-16 to Army. The high-water mark and the gut-punch arrived in the same December."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Turn the independent experiment into something permanent — sustained winning, a bowl streak, a football identity to set beside the basketball banners."
+  drought: { since: 2010, unit: relevance }
+
+the_chip:
+  villain: national_media
+  text: "UConn fans are tired of the 'why is this a football school' shrug. They'll tell you the program just won nine games as a conference-less independent that has to schedule everyone, and that the basketball banners don't make the football any less real to the people in the stands."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the independent path is a feature, not a sentence — that a basketball school can build football its own way, on its own schedule, and that the question of what UConn football is supposed to be is the program's to answer, not anyone else's."
+
+the_grudge_texture:
+  rival: massachusetts
+  texture: border-war   # the New England neighbor; UConn's regional rivalry, a measuring stick more than a blood-feud
+
+the_coach_relationship: hot-seat-churn   # Edsall→Pasqualoni→Diaco→Edsall II→Mora (left for Colorado State)→now Candle
+the_internal_fracture: ambition vs acceptance — the faction that wants UConn chasing a conference invite and a bowl streak vs the faction content to be a proud basketball school that also plays good football
+register: basketball-school-with-football   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - basketball-school framing as diminishment (it is the identity, not the insult)
+  - scrappy (not the voice — basketball program is a blue-blood)
+  - Cinderella (not the frame)
+  - just found itself as resignation framing
+  - reductive framings of the 2020 opt-out (it was a pandemic decision, not a capitulation)
+  - framing the program as "trying to be Notre Dame" (it isn't; it is independent for
+    structural reasons)
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "UConn is one of the great basketball schools in America — fifteen-plus national titles across the men's and women's programs — that plays FBS football as a conference-less independent, building a football identity from scratch in the shadow of its own banners."
+  the_origin: "A Storrs, Connecticut land-grant university whose athletic soul is basketball, that climbed to FBS football in 2002 and has spent the years since figuring out what the football half is supposed to be."
+  golden_ages:
+    - { era: "2003–2010 (Randy Edsall)", what: "The rise from I-AA to FBS, a Big East title, and the 2010 Fiesta Bowl — the football program's high-water mark" }
+    - { era: "2022–2025 (Jim Mora)", what: "Back-to-back nine-win seasons and bowl appearances as an independent — the program's modern peak" }
+  legends:
+    - { name: Randy Edsall, role: coach, why: "Built UConn football from I-AA to a BCS bowl; the program's defining coach" }
+    - { name: Donald Brown, role: player, why: "The bruising back who led the nation in rushing in 2008 and powered the Big East era" }
+  canonical_moments:
+    - { name: "The Fiesta Bowl", year: 2010, what: "UConn wins the Big East and reaches a BCS bowl — the football program's ceiling", handling: glory }
+    - { name: "Back-to-back nine-win independent seasons", year: 2025, what: "The Mora era's twin nine-win years, a first for the program", handling: glory }
+    - { name: "Mora to Colorado State", year: 2025, what: "The coach who built the modern peak leaves right after it", handling: heartbreak }
+  the_place: "Rentschler Field — 'The Rent' — in East Hartford, an off-campus venue 30 miles from Storrs that caps the atmosphere but anchors the football Saturdays."
+  brand_of_football: "Independent grit — a basketball school's football team that schedules anyone, leans on a power run game, and proves itself one good Saturday at a time."
+  cultural_footprint: "Proof that a basketball blue-blood can also care about football — a Connecticut fanbase that shows up at The Rent on its own terms, refusing to let the hardwood banners answer the football question for them."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UConn went 9-3 in the 2025 regular season (a back-to-back nine-win
+    first for the program, with all three losses in overtime), then lost head coach Jim Mora to Colorado State
+    and the Fenway Bowl 41-16 to Army under an interim staff. The Huskies hired Toledo's Jason Candle as their
+    new head coach. The question in Storrs: can the football program hold the ground it just gained, or does
+    the coaching churn reset the chapter again.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_UConn_Huskies_football_team
+    - https://www.espn.com/college-football/story/_/id/47104262/colorado-state-expected-hire-uconn-jim-mora-coach
+    - https://www.si.com/college/uconn/football/uconn-huskies-announce-new-jason-candle
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: UConn is a basketball school that is deciding, in public, what its football chapter will
+    be.
+  mantra: Go Huskies.
+  cultural_anchors:
+    fan_archetype_dominant: Football-Loyalist-In-Basketball-Town
+    outsider_archetype_dominant: Why-Is-UConn-FBS
+    one_sentence: UConn is the program perpetually figuring out what football means at a basketball school
+      — and refusing to give up the question.
+  selfname: the Huskies
+  aspiration_ladder_top: Return to a conference
+  rivalries:
+  - massachusetts
+  - syracuse
+  - rhode-island
+  - temple
+  heritage:
+    national_titles: 0
+    conference_titles: 2
+    current_conference: FBS Independent
+  prose_excerpts:
+    taboos: The 2020 pandemic-year opt-out is not a capitulation story; the program chose not to play and
+      the fanbase respects that choice. The 2019 program-instability year is institutional memory and not
+      a target for mockery. The 2013 Big East football dissolution is real-structural-history and not a
+      "they left us" frame — the league dissolved around the program. Randy Edsall's second tenure (2017–2018)
+      is uneven fact and doesn't need to be romanticized. The "basketball school"…
+    fans_culture: The fanbase is Connecticut-centered with heavy representation from Hartford, New Haven,
+      and New London county. The program's fans are fundamentally dual — UConn fans are UConn basketball
+      fans first, and the football fanbase overlaps heavily but operates at smaller scale. Gameday at Rentschler
+      is quieter than on-campus rivals of similar population; the off-campus stadium structurally caps the
+      atmosphere ceiling. The "Come with the Flow" student-section chant from basketball…
+    voice_ethos: 'The voice is basketball-school-with-football: confident about the basketball legacy, honest
+      about the football chapter still being written, and aware that the program''s identity is not a ladder
+      UConn has to climb but a distinct chapter the program is writing. UConn does not pretend to be a Power
+      conference program; UConn does not apologize for being a basketball-first institution. The register
+      is closer to a dual-track progress report than to a traditional football-program…'
+    narratives: 'The Jim Mora rebuild is the single open narrative thread. Three specific questions: (1)
+      can the program''s recruiting footprint (Connecticut + southern New England + the Boston metro-adjacent)
+      produce enough FBS-caliber roster depth to sustain a 7+ win season annually; (2) does the independent
+      scheduling model produce bowl eligibility in three of every four years; (3) does the program''s institutional
+      commitment — facilities investment, NIL resources, coaching salary pool —…'
+    in_jokes: '"Both teams are Huskies." — used across basketball and football; structural institutional
+      voice. "The Rent" — universal nickname for Rentschler Field. "Storrs to Hartford" — the 30-mile commute
+      that defines gameday Saturdays. "Basketball season starts in a week" — recurring wry phrase after
+      football losses, not resignation but honest calibration.'
+  story_materials:
+    legendary_coach: Randy Edsall
+    era_name_overrides:
+      2000-2010: The Edsall Era
+      2011-2013: The Pasqualoni Era
+      2014-2016: The Diaco Era
+      2017-2018: The Edsall II Era
+      2019-2020: The Hiatus / COVID
+      2020-2021: The Mora Arrival
+      2022-: The Mora Rebuild
+    always_surface:
+    - UConn men's basketball national championships (1999, 2004, 2011, 2014, 2023, 2024) and the women's
+      11 titles
+    - The 2010 Fiesta Bowl appearance (the football program's high-water mark)
+    - Rentschler Field capacity 40,642 (East Hartford, CT — off-campus)
+    - FBS independent membership (since 2020, after Big East football dissolution + AAC exit)
+    - Jim Mora head coach since 2022
+    - The 2023 Myrtle Beach Bowl win — first bowl win since 2009
+    rituals:
+    - Jonathan the Husky (live mascot)
+    - Husky Walk
+    - Husky Stadium 'UConn' Cheer
+    - Husky Stadium Bell
+    - Football-in-a-Basketball-School Identity
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (55/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

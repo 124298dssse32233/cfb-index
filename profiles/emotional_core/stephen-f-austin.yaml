@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Emotional Core — Stephen F. Austin
+# Status: live
+
+status: live
+slug: stephen-f-austin
+team_id: null
+program_name: Stephen F. Austin
+program_tier: 5
+
+emotional_core:
+  primary: restoration  # returning to Southland dominance after 15 years away from a conference title
+  secondary: spectacle  # undefeated conference play and a playoff run in the same breath
+  one_line: "Stephen F. Austin is the Nacogdoches Lumberjacks that won three straight Southland titles (2008-2010) and disappeared, then returned in 2025 with an undefeated 8-0 conference record and a playoff bid — the program that promised to never be forgotten, and kept its word."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "SFA was a Southland powerhouse (2008-2010) with three consecutive conference titles and consistent playoff appearances. A decade-plus lull raised questions about whether the program could rebuild. The 2025 season (11-3, 8-0 SLC, playoff quarterfinal) is the definitive answer: yes."
+
+the_wound:
+  name: "The 15-year drought without a conference title (2010-2025)"
+  detail: "Stephen F. Austin won three consecutive Southland titles (2008-2010) and made the FCS playoffs multiple times. Then the program faded: no Southland titles for 15 years, no playoff bids after 2010 (until 2025). Nacogdoches felt the program drift, and the fanbase wondered whether the 2008-2010 era was the program's only chapter. The 2025 season erased that doubt."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Prove the 2025 title is the beginning of renewed sustained dominance, not a one-year resurrection — win the Southland again, make the FCS playoffs regularly, and establish SFA as a permanent fixture in the Gulf Coast football conversation."
+  drought: { since: 2010, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is vindication: Stephen F. Austin was invisible for 15 years and returned to prove the program's 2008-2010 legacy was real. The 2025 season is proof that Nacogdoches football still slays giants."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the 2025 undefeated conference run (8-0 SLC) means SFA is about to become a perennial Southland champion again — and also believes one year doesn't erase 15 years of doubt, so nothing is guaranteed."
+
+the_grudge_texture:
+  rival: northwestern-state
+  texture: blood-feud    # Chief Caddo rivalry — the oldest cross-state battle
+
+the_coach_relationship: savior  # Coach not named in research, but assume stability given the 2025 success
+the_internal_fracture: playoff-momentum vs. skepticism-from-the-drought — the faction riding the 11-3 high vs. those who remember 15 years of mediocrity
+register: nacogdoches-lumberjacks-sleeper-awakened
+never_use:
+  - "Never won anything before 2025"
+  - "Finally got good"
+  - "Should be grateful for one win"
+  - "Fluke undefeated season"
+
+story_canon:
+  the_unique_thing: "Stephen F. Austin is the Nacogdoches Lumberjacks that won three consecutive Southland Conference titles (2008-2010) and made sustained FCS playoff appearances, then disappeared for 15 years before returning in 2025 with an undefeated 8-0 conference record and an 11-3 season — the program that proved the ghosts of dominance were real."
+  the_origin: "Stephen F. Austin joined the Southland Conference and quickly became competitive, with the first major success coming in the mid-2000s before the 2008-2010 dynasty."
+  golden_ages:
+    - { era: "2008–2010", what: "Three consecutive Southland Conference titles and regular FCS playoff appearances; the peak of SFA football before the long drought" }
+    - { era: "2025", what: "Return to form: undefeated conference play (8-0 SLC), 11-3 overall record, FCS playoff quarterfinal appearance" }
+  legends:
+    - { name: "SFA's 2008-2010 dynasty era", role: "era", why: "Defined the program as a Southland power and established the standard that 2025 returned to" }
+  canonical_moments:
+    - { name: "Three straight Southland titles (2008-2010)", year: 2010, what: "Stephen F. Austin wins consecutive Southland Conference championships, establishing the program's identity", handling: glory }
+    - { name: "2025 undefeated Southland season (8-0)", year: 2025, what: "Stephen F. Austin returns from 15-year drought to win the Southland Conference with an undefeated 8-0 league record", handling: glory }
+  the_place: "Homer Bryce Stadium in Nacogdoches, Texas — home of the Lumberjacks, where championship traditions were built and resurrected."
+  brand_of_football: "Disciplined, resilient, defined by the ability to rebuild after a long silence — SFA football is about proving champions don't stay gone forever."
+  cultural_footprint: "A program that shows championship identity can survive a 15-year drought and return stronger."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Stephen F. Austin won the 2025 Southland Conference title with an undefeated 8-0
+    conference record, capping an 11-3 overall season and reaching the FCS playoff quarterfinal. This marks the program's
+    first conference title since 2010 — a 15-year drought that raised questions about whether SFA's 2008-2010 dynasty was
+    the program's only chapter. The 2025 title answers that question decisively: yes. Coach and roster details are limited
+    in research, but key offensive performers include QB Sam Vidlak (357 yards, 3 TDs in playoff game), WR Kylon Harris, and
+    RBs Jerrell Wimbley and Richard Reese. The narrative of 2025: a sleeping giant woke up, proved the doubters wrong, and
+    reminded the Southland that Nacogdoches football still slays.
+  research_checklist:
+    - Three consecutive Southland titles (2008-2010)
+    - FCS playoff history (1989 Georgia Southern, 1995 Montana, 2009-2010 consecutive apps)
+    - 15-year drought without conference title (2010-2025)
+    - 2025 undefeated Southland season (8-0) and playoff quarterfinal
+    - Roster composition and key players
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Stephen_F._Austin_Lumberjacks_football_team
+    - https://en.wikipedia.org/wiki/Stephen_F._Austin_Lumberjacks_football

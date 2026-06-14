@@ -1,0 +1,65 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# La Verne Leopards — SCIAC small-school pride with the undefeated 2015 moment
+
+status: live
+slug: la-verne
+team_id: null
+program_name: University of La Verne
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: contentment
+  one_line: "La Verne is a small liberal arts university in Southern California whose Leopards compete with scrappy pride in SCIAC — a program that knows it belongs among peers."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A mission-driven small school competing with dignity in SCIAC, content to play well and represent the valley with pride."
+
+the_wound:
+  name: "Small-school ceiling in SCIAC"
+  detail: "La Verne faces the reality that SCIAC has well-resourced schools; the Leopards compete knowing they're outmanned on paper but not in heart."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Repeat the undefeated 2015 conference season, compete annually for SCIAC titles, prove the Leopards are a steady presence."
+  drought: { since: 2015, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — La Verne plays to win SCIAC, not to prove anything."
+
+the_delusion:
+  tone: earnest
+  text: "That a small San Gabriel Valley school can stay competitive in SCIAC year after year. The fanbase believes in steady effort over time."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: none — the program is aligned
+register: san-gabriel-leopards-sciac-steady
+never_use:
+  - "Historic powerhouse — La Verne is a steady small school"
+  - "Perennial champion — one undefeated conference season is the high mark"
+  - "Elite program — competitive, not elite"
+  - "National contender — SCIAC is the right measure"
+
+story_canon:
+  the_unique_thing: "The 2015 undefeated conference season — La Verne's moment of perfect balance in SCIAC competition."
+  the_origin: "University of La Verne, founded 1891, is a private liberal arts university in the San Gabriel Valley. The Leopards football program represents the university's commitment to competitive athletics alongside academics."
+  golden_ages:
+    - { era: "2015", what: "Undefeated SCIAC conference season — the high-water mark for La Verne football" }
+  legends: []
+  canonical_moments:
+    - { name: "2015 undefeated season", year: 2015, what: "La Verne goes undefeated in conference play, a singular achievement in modern program history", handling: glory }
+  the_place: "La Verne, California — the San Gabriel Valley, a small liberal arts campus."
+  brand_of_football: "Small-school competitive — the Leopards play to win with the resources they have."
+  cultural_footprint: "Part of the San Gabriel Valley's constellation of liberal arts schools; La Verne is steady SCIAC presence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: La Verne competes in SCIAC as a small liberal arts program. The Leopards' hallmark achievement is the 2015 undefeated conference season.
+    The program continues to compete with pride in SCIAC, representing the university and the valley with steady effort and clear values.
+  sources:
+    - https://en.wikipedia.org/wiki/University_of_La_Verne

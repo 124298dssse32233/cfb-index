@@ -1,0 +1,122 @@
+# Emotional Core — Duke  (duke)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: duke
+team_id: 133
+program_name: Duke
+program_tier: 4
+
+emotional_core:
+  primary: house-money    # an academic-first basketball school just won the league — every football win is gravy
+  secondary: disbelief    # is this real, or are we about to wake up?
+  one_line: "Duke is the basketball school that quietly became an ACC football champion — winning the league outright for the first time since 1962 and still half-checking the scoreboard to make sure it's true."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A program that for two decades was the ACC's polite afterthought vs a Manny Diaz team that just won the conference and a Sun Bowl — far more than Durham ever asked of its football."
+
+the_wound:
+  name: "The decades of being the ACC's easy week"
+  detail: "Before Diaz, Duke football spent most of the 2000s and 2010s as the conference's scheduled win — David Cutcliffe stole a Coastal title or two, but the program lived as the basketball school's polite second sport. The fear underneath the 2025 title: that a thin academic-first program can't keep this up once the league adjusts."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Hold the altitude — prove the 2025 ACC title was the start of something and not a one-year lightning strike, and keep a brainy private school punching at the weight of state-school football factories."
+  drought: { since: 1962, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans hear the same backhand every fall — that Duke is a basketball school whose football is a curiosity, that the academic standard caps the ceiling. They point at the 2025 ACC trophy and ask the talking heads to say it again."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase half-believes the brains-over-brawn formula is a permanent edge — that a school this selective can keep out-coaching the talent gap forever. They know the math is hard, and they believe it anyway because they just watched it work."
+
+the_grudge_texture:
+  rival: north-carolina
+  texture: little-brother   # the Tobacco Road neighbor that owns the basketball story; football is Duke's place to flip it
+
+the_coach_relationship: savior   # Manny Diaz turned the afterthought into a champion; Durham knows exactly what it has
+the_internal_fracture: enjoy-the-house-money vs guard-against-the-fall — the faction savoring an unthinkable title vs the faction bracing for the league to figure Duke out and bring the program back to earth
+register: durham-academic-football-second   # the wry, self-aware voice of a brainy school that football forgot, now caught grinning
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Football is an afterthought — Mike Elko era contradicts that frame
+  - Basketball-only program — football predates basketball at Duke
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Duke is the elite academic basketball school whose football team, against every expectation, won the ACC outright in 2025 — the program's first conference championship since 1962, delivered by a school the rest of the league had penciled in as a win for two decades."
+  the_origin: "Football at Duke actually predates the Cameron-Crazies basketball identity — the Blue Devils played in (and won) a Rose Bowl, and hosted the only Rose Bowl ever played outside Pasadena, the 1942 wartime game relocated to Durham — but the modern program lived in basketball's shadow until the Cutcliffe and Diaz revivals."
+  golden_ages:
+    - { era: "1938–1945 (Wallace Wade)", what: "Unbeaten 1938 regular season and two Rose Bowl trips — the original proof Duke could play big-time football" }
+    - { era: "2013–2014 (David Cutcliffe)", what: "Back-to-back Coastal Division titles that ended decades of irrelevance" }
+    - { era: "2024–2025 (Manny Diaz)", what: "Consecutive nine-win seasons and the 2025 ACC Championship — the program's first outright league title since 1962" }
+  legends:
+    - { name: Wallace Wade, role: coach, why: "Built the pre-war power and lent his name to the stadium" }
+    - { name: David Cutcliffe, role: coach, why: "Dragged Duke football back to respectability and developed the Manning-school QB room" }
+    - { name: Manny Diaz, role: coach, why: "Won the ACC in year two and got extended through 2032 — the architect of the house-money era" }
+  canonical_moments:
+    - { name: "The 1942 Rose Bowl in Durham", year: 1942, what: "The only Rose Bowl ever played outside Pasadena, moved to Duke after Pearl Harbor", handling: glory }
+    - { name: "The 2025 ACC Championship", year: 2025, what: "Duke beats Virginia 27-20 in overtime to win the league outright for the first time since 1962", handling: glory }
+    - { name: "Sun Bowl 2025", year: 2025, what: "A 42-39 bowl win over Arizona State to cap a 9-5 championship season", handling: glory }
+  the_place: "Wallace Wade Stadium, a stone-bowled stadium older than most of the league's, sitting a short walk from Cameron Indoor — the geography of a school whose heart is at the basketball arena and whose football just stole the spotlight."
+  brand_of_football: "Brains-over-brawn — disciplined, opportunistic, fourth-quarter football from a roster recruited under the strictest academic bar in the league; built to win the close ones it has no business winning."
+  cultural_footprint: "A top-tier private research university where football was long the friendly afterthought to basketball — now a place re-learning that the football team can carry the school's name on a Saturday in December."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Duke went 9-5 (6-2 ACC) in 2025 and won the ACC Championship 27-20 in
+    overtime over Virginia — its first outright conference title since 1962 — then beat Arizona State 42-39 in
+    the Sun Bowl. Manny Diaz, in just his second season, has back-to-back nine-win years and a contract
+    extension through 2032. The 2026 question in Durham: can an academic-first basketball school actually
+    sustain football at this altitude, or was the league title a glorious one-off?
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Duke_Blue_Devils_football_team
+    - https://goduke.com/news/2026/1/21/looking-back-at-footballs-2025
+    - https://balldurham.com/duke-football-does-right-by-manny-diaz-following-historic-2025-season
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Duke is the program whose football team plays in Wallace Wade Stadium while the school's
+    identity stays with Cameron Indoor — and whose patience with that asymmetry just brought a competitive
+    era under Mike Elko.
+  mantra: Go Duke.
+  cultural_anchors:
+    fan_archetype_dominant: Durham-Academic-Football-Curious
+    outsider_archetype_dominant: Basketball-Only-Diminisher
+    one_sentence: Duke is the program whose football lives in the shadow of basketball but whose Mike Elko
+      era recently proved an academic-first school can build a P5-competitive football program.
+  selfname: the Blue Devils
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1942 Rose Bowl (wartime-relocated to Durham)
+    - David Cutcliffe 2013-2014 Coastal Division titles
+    - Mike Elko 2022-2023 nine-win seasons
+    rituals:
+    - Cameron Crazies (Adjacent)
+    - Wallace Wade Stadium
+    - Mike Elko Era
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (55/100, n=11)
+    voice_profile: absent
+    delusion_premium: absent

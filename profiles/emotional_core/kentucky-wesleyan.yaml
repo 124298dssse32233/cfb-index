@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Kentucky Wesleyan University — G-MAC restored program, restarted 1983 after 53-year discontinuation
+
+status: live
+slug: kentucky-wesleyan
+team_id: null
+program_name: Kentucky Wesleyan University
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Kentucky Wesleyan is the Panther program restored to life — discontinued in 1930 for 53 years, then restarted in 1983 — a small Kentucky school playing Division II football with the pride of a second chance."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A program with deep historical roots (first season 1907) vs. a modern restart (1983) that requires rebuilding identity after half a century away from football."
+
+the_wound:
+  name: "Discontinuation and the 53-year gap"
+  detail: "Kentucky Wesleyan discontinued football in 1930 due to financial constraints, leaving a 53-year void where the program could have been competitive. The restart in 1983 meant beginning from zero with no championship history in the modern era, only the memory of what was."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Build a modern Kentucky Wesleyan dynasty that honors the 1907-1930 heritage while establishing new tradition in Division II, proving a small Kentucky school can compete."
+  drought: { since: 1930, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe kentucky Wesleyan carries no chip — the program's strength is the second-chance narrative and the determination to honor its past by building something real in the present."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that small schools with pride and community support can compete in Division II, and that Kentucky Wesleyan's restoration proves that football at a Methodist university is sustainable and meaningful."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "Heritage preservation vs. modern competitiveness — balancing the memory of pre-1930 football with building a contemporary winning program."
+register: panthers-kentucky-wesleyan-methodist-restored
+
+never_use:
+  - "Irrelevant NAIA program: Kentucky Wesleyan has been NCAA Division II since 1994"
+  - "No history: the 1907-1930 era established deep roots; the restart in 1983 is the modern narrative"
+  - "Never belonged: the program's resurrection and 30+ years in Division II prove competitiveness"
+
+story_canon:
+  the_unique_thing: "Resurrected program — Kentucky Wesleyan discontinued football in 1930 and restarted in 1983, making the Methodistuniversity's modern Division II story one of recovery and second chances."
+  the_origin: "Kentucky Wesleyan University began football in 1907 as a small Methodist college in Owensboro, Kentucky. The program ran until 1930 when financial constraints forced discontinuation. Fifty-three years later, in 1983, the university revived football, joining the Mid-South Football Conference and later progressing through GLFC and GLVC before joining the G-MAC in 2015."
+  golden_ages:
+    - { era: "1907–1930", what: "Original era of Kentucky Wesleyan football with roots in small-college tradition" }
+    - { era: "1983–present", what: "Restoration and rebuild as a modern Division II program, joining multiple conferences and establishing contemporary tradition" }
+  legends:
+    - { name: Tyrone Young, role: coach, why: "Coaching the Panthers' 2026 season in his third year, building modern tradition" }
+  canonical_moments:
+    - { name: "Football Begins", year: 1907, what: "Kentucky Wesleyan University starts its football program as a Methodist college", handling: glory }
+    - { name: "The 53-Year Discontinuation", year: 1930, what: "Financial constraints force the discontinuation of football for over half a century", handling: wound }
+    - { name: "The Restart", year: 1983, what: "Kentucky Wesleyan resurrects football, joining the Mid-South Football Conference and beginning the modern era", handling: miracle }
+  the_place: "Owensboro, Kentucky — a small Methodist university town with deep community roots."
+  brand_of_football: "Honest, community-centered football — a small program playing for pride, tradition, and the second chance."
+  cultural_footprint: "Kentucky Wesleyan represents the resilience of small-school football: a program erased and resurrected, now building modern identity while honoring the past."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Kentucky Wesleyan enters 2026 under head coach Tyrone Young in his third year, building on the program's steady Division II presence. The Panthers joined the G-MAC in 2015 after successful runs in the GLFC and GLVC, and now operate as a modest competitor within the conference. The 2025 season saw the program navigate G-MAC play with the focus on sustaining competitiveness and building modern tradition. Coach Young's task is to develop a program identity that honors the 1907-1930 heritage while establishing real Division II success in the 21st century. Kentucky Wesleyan is a small program with deep roots — a school playing for community pride and the honor of representing a Methodist university.
+  research_checklist:
+    - 1907 founding of football program
+    - 1930 discontinuation (53-year gap)
+    - 1983 restart in Mid-South Football Conference
+    - 2015 G-MAC joining
+    - Coach Tyrone Young (3rd year, 2026)
+    - Methodist university identity and community focus
+  sources:
+    - https://www.kwu.edu/athletics/football
+    - https://d2football.com/2025-season-preview
+    - https://www.gmacports.com/news/

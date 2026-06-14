@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: east-central
+team_id: null
+program_name: East Central
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "East Central is the Tigers—a historic NAIA power that won the 1993 National Championship and now competes in D2, carrying the pride of Ada, Oklahoma."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small university in Ada, Oklahoma that once won a national title in NAIA and has transitioned to Division II, where the program maintains regional pride."
+
+the_wound:
+  name: "The NAIA national championship that defines and limits the program"
+  detail: "East Central won the 1993 NAIA National Championship, defeating Glenville State 49-35. That title is the pinnacle of program history—and also a ceiling that the Tigers have not surpassed since moving to Division II."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Compete at a high level in Division II and build toward a national championship that equals or exceeds the 1993 NAIA title."
+  drought: { since: 1993, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe east Central has no external chip. The Tigers play for Ada, Oklahoma, and for the legacy of 1993."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase holds the 1993 national championship as the defining moment—and believes that with the right coach and players, East Central can return to that level in Division II."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: Living in the shadow of the 1993 championship vs. building something new in D2
+register: ada-tigers-1993-champions
+
+never_use:
+  - "East Central is not a real program"
+  - "NAIA success doesn't count"
+  - "The Tigers can't compete in Division II"
+  - "1993 was just luck"
+
+story_canon:
+  the_unique_thing: "East Central won the 1993 NAIA National Championship, defeating Glenville State 49-35—a moment that defines program identity and remains the highest achievement in Tigers history."
+  the_origin: "East Central University was founded in 1909 in Ada, Oklahoma. The football program built a strong regional reputation and became an NAIA power by the 1990s."
+  golden_ages:
+    - { era: "1993", what: "East Central wins the NAIA National Championship, defeating Glenville State 49-35; the pinnacle of program history" }
+    - { era: "NAIA era", what: "East Central was a competitive NAIA program before transitioning to Division II" }
+  legends:
+    - { name: John Litrenta, role: coach, why: "Third-year head coach tasked with maintaining program pride in Division II" }
+  canonical_moments:
+    - { name: "1993 NAIA National Championship", year: 1993, what: "East Central defeats Glenville State 49-35 to win the NAIA National Championship", handling: glory }
+  the_place: "Norris Field in Ada, Oklahoma—home of the Tigers, where the legacy of 1993 is carried forward."
+  brand_of_football: "Pride football. A program that plays for the history and the community, knowing that the 1993 championship is their baseline for excellence."
+  cultural_footprint: "East Central is proof that a small Oklahoma university can win a national championship and build a lasting legacy around that achievement."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: East Central finished the 2025 season with a competitive record in the
+    GAC and made a bowl game appearance. Under third-year head coach John Litrenta, the Tigers are working to
+    establish themselves in Division II while honoring the legacy of the 1993 NAIA National Championship. The
+    question for 2026: can Litrenta build a winning tradition that reaches toward the 1993 standard?
+  research_checklist:
+    - the 1993 NAIA National Championship and the 49-35 victory over Glenville State
+    - East Central's transition from NAIA to Division II
+    - the Tigers' history in Ada, Oklahoma
+    - John Litrenta's coaching tenure and vision
+    - recent season results and bowl eligibility
+  sources:
+    - https://en.wikipedia.org/wiki/East_Central_Tigers_football
+    - https://greatamericanconference.com/standings.aspx?path=football

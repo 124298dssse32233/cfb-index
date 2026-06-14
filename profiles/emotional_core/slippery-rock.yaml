@@ -1,0 +1,86 @@
+# Emotional Core — Slippery Rock University  (slippery-rock)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Status: live | Tier: 6 (Division II PSAC) | Authored 2026-06-13
+
+status: live             # todo | drafted | authored | reviewed | live
+slug: slippery-rock
+team_id: 233            # placeholder; verify against CFBD ID mapping
+program_name: Slippery Rock University
+program_tier: 6         # Division II PSAC
+
+emotional_core:
+  primary: standard         # PSAC West champion with 5 titles, defending West power, the measure of dominance
+  secondary: standard              # competitive excellence that demands continued winning; no resting on titles
+  one_line: "Slippery Rock is the PSAC West's defining power — an 88-25 record and five conference titles under Shawn Lutz prove that 'The Rock' is built for winning."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "88 wins in 11 seasons, five PSAC West championships, six NCAA playoff appearances vs Kutztown's emergence as a national power — Rock is the West king, now chasing national respect."
+
+the_wound:
+  name: null  # no wound; this is a dominant regional program
+  detail: null
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove The Rock belongs in the national championship conversation — win a PSAC title and advance deep in the NCAA tournament to claim regional and national respect."
+  drought: null  # no drought; The Rock is the PSAC West's standard
+
+the_chip:
+  villain: national_media
+  text: "Slippery Rock fans know their program is elite — 88 wins and five PSAC titles prove it — but the national media overlooks The Rock because it's not Kutztown or a Power-Five school."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes Slippery Rock is as good as any D2 program, that the 88-25 record and PSAC West dominance prove The Rock can win a national title if the playoff draw breaks right."
+
+the_grudge_texture:
+  rival: kutztown
+  texture: championship    # Kutztown is the new national power, but Slippery Rock is the historic PSAC West king
+
+the_coach_relationship: total-trust      # Shawn Lutz built The Rock's dynasty
+the_internal_fracture: null           # program unified around winning culture
+register: slippery-rock-power-believer
+never_use:
+  - "Second-rate PSAC — 88 wins and five West titles prove otherwise"
+  - "In Kutztown's shadow — Rock is still the PSAC West's undisputed power"
+
+# ── STORY CANON (doc 64) ────────────────────────────────────────────────────
+story_canon:
+  the_unique_thing: "Slippery Rock is the PSAC West's defining power — 88 victories, five conference championships, and 11 years of regional dominance under Shawn Lutz prove that 'The Rock' is built to win."
+  the_origin: "Slippery Rock University (1889–), a public regional university in Slippery Rock, PA (northwest of Pittsburgh), fielding Rockets football with Appalachian roots and conference pride."
+  golden_ages:
+    - { era: "Lutz Dynasty (2015–)", what: "Shawn Lutz elevated Slippery Rock into the PSAC West's undisputed power with 88 wins over 11 seasons, five conference titles (2018, 2019, 2021, 2022, 2023), and six NCAA playoff appearances." }
+  legends:
+    - { name: Shawn Lutz, role: coach, why: "The architect of Slippery Rock's PSAC West dynasty — 88 wins in 11 years, five conference titles, six NCAA playoffs, and a program identity built on relentless winning." }
+  canonical_moments:
+    - { name: "Five PSAC West Championships (2018, 2019, 2021, 2022, 2023)", year: 2023, what: "Lutz delivered five conference titles, establishing The Rock as the West's dominant program.", handling: glory }
+    - { name: "88 Wins in 11 Seasons", year: 2025, what: "The Rock's consistent excellence and winning culture defined a decade of PSAC West domination.", handling: glory }
+  the_place: "Slippery Rock Stadium — home to the Rockets in rural northwest Pennsylvania, a setting that grounds the program's identity in working-class pride."
+  brand_of_football: "Physical, defense-first PSAC football — Lutz's system is built on tough-minded execution and discipline."
+  cultural_footprint: "A program that proved regional power is possible — Slippery Rock's 11-year run of West dominance set the standard for PSAC excellence before Kutztown emerged nationally."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Shawn Lutz enters his twelfth season as Slippery Rock head coach with a program
+    that has established itself as the PSAC West's defining power. With 88 wins and five conference titles, The Rock
+    aims to compete for another West championship while continuing to push for a deeper NCAA tournament run. The 2026
+    season represents an opportunity to prove that Slippery Rock belongs in the national championship conversation.
+  research_checklist:
+    - Shawn Lutz's background and his path to building The Rock's dynasty
+    - Five PSAC West championship runs (2018, 2019, 2021, 2022, 2023)
+    - Six NCAA playoff appearances and tournament performance
+    - The Rock's 2025 season performance and off-season player retention
+  sources:
+    - https://rockathletics.com/staff-directory/shawn-lutz/19
+    - https://en.wikipedia.org/wiki/Shawn_Lutz
+    - https://www.butlereagle.com/20260108/college-football-playoff-why-slippery-rock-coach-shawn-lutz-is-pulling-for-curt-cignetti-trinidad/
+
+# ── BRIEFING (read-only context; NOT part of published core) ──
+briefing:
+  identity_phrase: "Slippery Rock is the PSAC West's defining power — 88 wins, five conference titles, and Shawn Lutz's 11-year dynasty prove that The Rock is built for winning."
+  mantra: "Go, Rockets!"
+  cultural_anchors:
+    fan_archetype_dominant: "Slippery-Rock-PSAC-West-Dynasty-Believer"
+    outsider_archetype_dominant: "PSAC-West-Power-Observer"
+    one_sentence: "Slippery Rock is the PSAC West's defining power under Shawn Lutz — 88 wins, five conference titles, and a program identity built on relentless winning."
+  selfname: "the Rockets"

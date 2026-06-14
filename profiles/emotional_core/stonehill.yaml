@@ -1,0 +1,91 @@
+# Emotional Core — Stonehill (stonehill)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# status: live (web-researched 2026-06-13)
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: stonehill
+team_id: null
+program_name: Stonehill
+program_tier: 3
+
+emotional_core:
+  primary: restoration      # transitioning from D-II to FCS and proving capability
+  secondary: standard
+  core_variant: first-ascension
+  one_line: "Stonehill is the Skyhawks in their first year of FCS eligibility — overachieving in the Northeast Conference and proving the D-II powerhouse belongs at the FCS level."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A Division II transition program now eligible for FCS competition and conference titles, climbing a competitive Northeast Conference in its very first year with immediate credibility."
+
+the_wound:
+  name: "The eligibility wait — finally arriving"
+  detail: "After building a strong D-II program, Stonehill had to wait for FCS eligibility. Now that the 2025 season is here, every win and loss in the NEC matters in ways it never could in D-II. The program is proving the wait was worth it with a 4-8 record in year one."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Become a Northeast Conference power and prove that Stonehill's D-II success translates immediately to FCS competitiveness — a conference title within three years."
+  drought: { since: 2025, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Plenty of skeptics thought Stonehill would get buried in the NEC. Instead, the Skyhawks are 4-8 (3-4 in conference) in year one, overachieving against predictions and proving they belong."
+
+the_delusion:
+  tone: self-aware
+  text: "That the D-II pedigree is immediately enough — that Stonehill is already a tournament threat in the NEC. The fanbase knows the jump takes time, but year one proves the program can hang with anyone."
+
+the_grudge_texture:
+  rival: ""
+  texture: none
+
+the_coach_relationship: savior   # Eli Gardner navigating the D-II-to-FCS transition
+the_internal_fracture: ""
+register: stonehill-skyhawks-d2-fcs-climb
+never_use:
+  - Still building (year one shows Stonehill is ready, not learning; reframe as arrival)
+  - Small-school program (Stonehill is respectable FCS-level now; the jump is real)
+
+# ── STORY CANON (doc 64) ──
+
+story_canon:
+  the_unique_thing: "Stonehill's immediate FCS arrival — a D-II powerhouse that became eligible in 2025 and immediately proved it could compete in the Northeast Conference with a 4-8 record (3-4 in NEC) despite preseason predictions of last place."
+  the_origin: "A Massachusetts-based Division II program that built a strong winning tradition before transitioning to FCS eligibility in 2025."
+  golden_ages:
+    - { era: "D-II era (pre-2025)", what: "Strong Division II program with established winning record" }
+    - { era: "2025 NEC debut", what: "4-8 record in first FCS year proves the Skyhawks can compete at the higher level" }
+  legends:
+    - { name: Eli Gardner, role: coach, why: "Nine years of leadership guiding the program through the D-II-to-FCS transition successfully" }
+  canonical_moments:
+    - { name: "2025 NEC debut", year: 2025, what: "Stonehill goes 4-8 (3-4 NEC) in its first year of FCS eligibility, overachieving expectations", handling: miracle }
+  the_place: "Stonehill University in Easton, Massachusetts — home of the Skyhawks' climb to FCS."
+  brand_of_football: "Disciplined, competitive FCS football — proving D-II pedigree translates upward."
+  cultural_footprint: "A New England program that proved the D-II-to-FCS jump was real, earning immediate respect in the Northeast Conference."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Stonehill finished 4-8 overall (3-4 NEC) in its first
+    year of FCS eligibility in 2025, overachieving against predictions and earning respect in
+    the Northeast Conference. Coach Eli Gardner navigated the transition successfully. Year two
+    is about building on the arrival — consolidating the win total and moving toward NEC
+    competitiveness. The question: can the Skyhawks climb from 4 wins to 6-7 wins by year three?
+  research_checklist:
+    - the D-II pedigree (foundation story)
+    - the NEC arrival and overachievement
+    - Eli Gardner's coaching tenure
+    - the New England footprint
+    - the current-era growth trajectory
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Stonehill_Skyhawks_football_team
+    - https://www.stonehillathletics.com/sports/football
+
+# ── BRIEFING ──
+briefing:
+  identity_phrase: Stonehill is the D-II-to-FCS transition program that overachieved in its
+    inaugural year of Northeast Conference eligibility.
+  mantra: Climb. Compete. Prove it.
+  cultural_anchors:
+    fan_archetype_dominant: New-England-D2-Believer
+    outsider_archetype_dominant: FCS-Skeptic
+    one_sentence: Stonehill is the Skyhawks proving their D-II pedigree translates immediately
+      to FCS competitiveness in the Northeast Conference.
+  selfname: the Skyhawks

@@ -1,0 +1,117 @@
+# Emotional Core — Southern University  (southern-university)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: southern-university
+team_id: 3
+program_name: Southern University
+program_tier: 3
+
+emotional_core:
+  primary: spectacle      # the Human Jukebox marching band is the soul; the Bayou Classic is the event
+  secondary: honor        # SWAC tradition, 43-34 all-time series lead vs Grambling, four-game win streak (2022-2025)
+  one_line: "Southern University is the HBCU whose Human Jukebox marching band and Bayou Classic rivalry with Grambling define what it means to be a SWAC power — a 250,000-person event that generates $50 million annually and draws national television."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A long SWAC tradition, a 43-34 all-time series lead over Grambling, and a four-game Bayou Classic win streak (2022-2025) vs FCS classification and the resource ceiling that comes with it; the Human Jukebox carries more cultural weight than most Power Conference bands."
+
+the_wound:
+  name: "The post-championship era"
+  detail: "Southern has not won a SWAC championship since 1980; the Bayou Classic wins (four straight, 2022-2025) are victories against the program's biggest rival, but they don't translate to conference titles. The program is competitive within the SWAC East but hasn't broken through to the championship game."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Hoist a SWAC championship trophy; prove that the Bayou Classic dominance and the Human Jukebox's national reputation can translate into a title run; show that New Orleans has a program that can compete for the conference."
+  drought: { since: 1980, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Southern fans know the ledger: 43-34 over Grambling all-time, four straight Bayou Classics, a cultural footprint that rivals programs twice the size. The chip is that winning the rivalry game doesn't equal winning the conference, and the program is tired of being known for the rivalry when it could be known for titles."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that a program with this much Bayou Classic history and this much Human Jukebox reputation is capable of competing for SWAC titles — that the rivalry wins are proof of the motor and the next step is the conference. The program knows better and believes it anyway."
+
+the_grudge_texture:
+  rival: grambling
+  texture: blood-feud   # the Bayou Classic — 43-34 Southern lead all-time, four-game recent win streak, 250,000 attendance, $50 million impact, Battle of the Bands
+
+the_coach_relationship: legends-shadow   # Southern coaches live in the shadow of the program's tradition and the Human Jukebox identity
+the_internal_fracture: bayou-classic-pride vs championship-ambition — the faction that says the rivalry dominance IS the win and the faction that says SWAC titles are the next frontier
+register: bayou-classic-soul — the program is defined by the rivalry, the band, and the moment
+never_use:   # LAW — do not violate in any authored line
+  - just trying to have fun
+  - scrappy
+  - "one-off rivalry framing (the Classic is the program's annual identity event)"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep canon ──
+story_canon:
+  the_unique_thing: "Southern University is the HBCU whose Human Jukebox marching band and Bayou Classic rivalry with Grambling define HBCU spectacle — 250,000 visitors, $50 million annual economic impact, one of the biggest college football games of the year, and Southern leads the all-time series 43-34. The program has won 4 straight Bayou Classics (2022-2025) and is a SWAC tradition dating back to the conference's founding."
+  the_origin: "A historically black university in Baton Rouge, Louisiana that joined the SWAC and built a tradition around the Bayou Classic rivalry (formalized in 1974) and the Human Jukebox marching band. Southern has been competitive in SWAC play and produced multiple SWAC championships."
+  golden_ages:
+    - { era: "1974–1990 (Bayou Classic era)", what: "The rivalry is formalized and becomes one of the biggest games in college football; Southern wins multiple SWAC titles" }
+    - { era: "2022–2025 (Recent dominance)", what: "Four straight Bayou Classic wins and a competitive SWAC East record" }
+  legends:
+    - { name: Eddie G. Robinson, role: coach, why: "Legendary SWAC coach and Southern rival; the rivalry he shaped is the program's lasting identity" }
+    - { name: Jaguars, role: mascot, why: "The program's identity in the rivalry and the cultural fabric of Baton Rouge" }
+  canonical_moments:
+    - { name: "The 1974 Bayou Classic formalization", year: 1974, what: "Southern vs Grambling becomes 'the Classic' — the biggest HBCU game", handling: glory }
+    - { name: "Four straight Bayou Classic wins", year: 2025, what: "Southern defeated Grambling 28-27 in 2025, extending the win streak to four straight (2022-2025)", handling: glory }
+    - { name: "The Human Jukebox halftime show", year: 1974, what: "The marching band becomes nationally renowned; the Battle of the Bands is the main event", handling: glory }
+  the_place: "Jaguars Stadium in Baton Rouge, Louisiana; the Human Jukebox takes the field and the halftime show is a national spectacle."
+  brand_of_football: "Spectacle-and-rivalry: Southern is defined by the Bayou Classic, the Human Jukebox, and the annual moment that draws a quarter-million people to New Orleans and the Superdome."
+  cultural_footprint: "Southern is the SWAC program whose Bayou Classic rivalry and Human Jukebox marching band define what a historic HBCU rivalry looks like. The program is a peer to Grambling in cultural weight and historical significance."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Southern defeated Grambling 28-27 on November 29, 2025, extending
+    the Bayou Classic win streak to four straight (2022-2025). Southern leads the all-time series 43-34.
+    The program is competitive in SWAC East play but has not won a conference championship since 1980.
+    The Human Jukebox remains nationally renowned, and the rivalry continues to generate $50 million annually
+    for the Louisiana economy and draw 250,000 visitors. The 2025 Bayou Classic win suggests the program is
+    competitive and the cultural machinery is running; the next question is whether the rivalry dominance
+    translates into a SWAC title.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Southern_University_football
+    - https://en.wikipedia.org/wiki/Bayou_Classic
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Southern University is the Bayou Classic rival and the Human Jukebox — the HBCU whose rivalry with Grambling matters most.
+  mantra: Go Jaguars.
+  cultural_anchors:
+    fan_archetype_dominant: Bayou-Classic-Pride
+    outsider_archetype_dominant: Spectacle-Keeper
+    one_sentence: Southern University is the HBCU whose Bayou Classic rivalry and Human Jukebox are one of the biggest annual events in college football.
+  selfname: the Jaguars
+  aspiration_ladder_top: ''
+  rivalries:
+  - grambling
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: SWAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Bayou Classic (250,000 visitors, $50 million impact, 43-34 Southern all-time lead)
+    - Human Jukebox marching band
+    - Four-game Bayou Classic win streak (2022-2025)
+    rituals:
+    - Bayou Classic (Battle of the Bands)
+    - Human Jukebox Halftime Performance
+    - Annual rivalry with Grambling
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

@@ -1,0 +1,73 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: st-john-fisher
+team_id: null
+program_name: St. John Fisher University
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: contentment
+  one_line: "St. John Fisher is the returning-postseason program that ended a nine-year NCAA Tournament drought in 2025 with a 7–4 record and renewed hope for sustained success."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A university program that disappeared from postseason contention after 2016, then suddenly returned to a bowl game in 2025."
+
+the_wound:
+  name: "Nine years away from postseason"
+  detail: "St. John Fisher made the NCAA Tournament in 2016 (8–3 record) and then vanished from playoff contention for nine consecutive seasons."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Establish a new era of consistent postseason play and build on the 2025 return to show it wasn't a one-year fluke."
+  drought: { since: 2016, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Fisher plays to end its own drought."
+
+the_delusion:
+  tone: earnest
+  text: "That the 2025 return to the postseason (Clayton Chapman Bowl loss to Rowan 35–24) marks the beginning of a new winning era. The fanbase is hopeful but cautious after nine years away."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Optimism about the return to postseason vs institutional patience to build sustained success."
+register: st-john-fisher-cardinals-postseason-return
+never_use:
+  - Consistent powerhouse — last sustained success was pre-2016
+  - Recent postseason dynasty — only one bowl appearance (2025) since 2016
+
+story_canon:
+  the_unique_thing: "The long-awaited return to postseason play in 2025 after a nine-year drought, capped with a Clayton Chapman Bowl appearance."
+  the_origin: "St. John Fisher College (now University as of 2021) founded 1948. Football program established in the modern era. Built regional success in the 2010s."
+  golden_ages:
+    - { era: "2010s", what: "Period of regular postseason contention, culminating in 2016 NCAA Tournament berth" }
+  legends: []
+  canonical_moments:
+    - { name: "2016 NCAA Tournament", year: 2016, what: "St. John Fisher made the NCAA Division III Tournament with an 8–3 record", handling: glory }
+    - { name: "2025 Clayton Chapman Bowl Return", year: 2025, what: "Returned to postseason play after nine years with 7–4 record; lost to Rowan 35–24", handling: miracle }
+  the_place: "St. John Fisher University in Rochester, New York — a Basilian Catholic liberal-arts university."
+  brand_of_football: "A program seeking to rebuild postseason consistency through renewed competitive excellence."
+  cultural_footprint: "St. John Fisher represents Division III programs that can disappear from contention for nearly a decade and rebuild through focused effort."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: St. John Fisher compiled a 7–4 record (5–2 Empire 8) in 2025 and earned a Clayton Chapman Bowl
+    invitation, losing 35–24 to Rowan. The bowl appearance marked the first postseason berth since 2016. The Cardinals finished 2nd in
+    Empire 8 regular season, validating the competitive turnaround. Head coach (name not available in sources) has restored the program to
+    postseason relevance after nine seasons of regional play.
+  research_checklist:
+    - 2016 NCAA Tournament berth (8–3 record)
+    - Nine-year postseason drought (2017–2024)
+    - 2025 record: 7–4 (5–2 Empire 8), 2nd place finish
+    - 2025 Clayton Chapman Bowl: lost to Rowan 35–24
+    - First postseason since 2016
+  sources:
+    - https://en.wikipedia.org/wiki/Saint_John_Fisher_Cardinals_football
+    - https://www.d3football.com/teams/st-john-fisher
+    - https://empire8.com

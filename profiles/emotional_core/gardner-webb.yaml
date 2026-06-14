@@ -1,0 +1,77 @@
+# Emotional Core — Gardner-Webb  (gardner-webb)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: gardner-webb
+team_id: null
+program_name: Gardner-Webb
+program_tier: 5
+
+emotional_core:
+  primary: restoration
+  secondary: redemption
+  core_variant: first-ascension
+  one_line: "Gardner-Webb is the North Carolina Bulldog program that climbed from Division II to FCS in 2008 and won its first Big South championship in 2022, proving small-school relentlessness can build something."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "From Division II obscurity to a Big South championship in 2022 and a historic FCS playoff appearance — the Bulldogs are still proving they belong at the highest level of the FCS."
+
+the_wound:
+  name: "The FCS adjustment"
+  detail: "Gardner-Webb joined the FCS in 2008 and spent fourteen years building toward relevance before winning the Big South championship in 2022. The wound is the long climb, the decades of being the newest and smallest program at the level, the constant proving you belong. And the deeper wound came when head coach Cris Reisert stepped down in December 2025, just as the program seemed to be establishing itself."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Sustain Big South contention, build a second FCS playoff appearance, and prove that the journey from Division II to FCS power is not a one-year story but the foundation for a program."
+  drought: { since: 2022, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The FCS establishment treated Gardner-Webb as the newest and smallest, and the fanbase believes they were overlooked as a Division II refugee who had no business competing. The Bulldogs won a conference title to prove otherwise."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that Gardner-Webb's 2022 Big South championship proved they can sustain relevance, that the climb from Division II means something, and that the Bulldogs have found their level — even though the coaching change raises questions about whether the momentum will last."
+
+the_grudge_texture:
+  rival: liberty
+  texture: championship
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: momentum-preservation-vs-rebuild — the faction defending the 2022 title run vs the faction rebuilding after Reisert's departure
+register: north-carolina-boiling-springs-bulldog-climber
+never_use:
+  - Still minor-league (won a Big South championship in 2022)
+  - Division II leftovers (the transition to FCS is complete)
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Gardner-Webb joined the FCS from Division II in 2008 and won a Big South championship in 2022 — the program's first FCS playoff appearance, proving that relentless small-school building can result in major-conference titles at the FCS level."
+  the_origin: "A small university in Boiling Springs, North Carolina that transitioned from Division II to FCS in 2008, beginning a fourteen-year climb to FCS relevance under the leadership of coach Cris Reisert."
+  golden_ages:
+    - { era: "2022 (Big South Championship)", what: "Gardner-Webb wins its first FCS conference championship and makes its first playoff appearance, validating the fourteen-year climb from Division II" }
+    - { era: "2018-2022 (Build phase)", what: "Steady improvement culminating in the 2022 Big South title" }
+  legends:
+    - { name: Cris Reisert, role: coach, why: "Built Gardner-Webb from a Division II program into an FCS championship contender over two decades" }
+  canonical_moments:
+    - { name: "2022 Big South Championship", year: 2022, what: "Gardner-Webb defeats Liberty to win the Big South championship and earn an FCS playoff berth, the program's first since joining the FCS", handling: glory }
+    - { name: "Division II to FCS transition", year: 2008, what: "Gardner-Webb joins the FCS after success in Division II, beginning the climb to relevance", handling: miracle }
+  the_place: "Witherspoon Field in Boiling Springs, North Carolina — the home of Bulldog football and a symbol of the small-school rise to FCS competence."
+  brand_of_football: "Disciplined, building FCS football that emphasizes steady improvement and the kind of program-development that turns small schools into conference contenders."
+  cultural_footprint: "Gardner-Webb represents the possibility that a small-school transition to FCS can result in major-conference success, a story of relentless building and patience that paid off with a championship."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Gardner-Webb went 7-5 in 2025 in the Big South-OVC conference but faced a significant setback when head coach Cris Reisert stepped down in December 2025 after building the program to its 2022 championship. The program is now in a transition phase, with the challenge of maintaining the momentum built over two decades of steady improvement. The loss of Reisert raises questions about whether the Bulldogs can sustain their climb or whether the 2022 title was the peak.
+  research_checklist:
+    - FCS transition in 2008 (verified, from Division II)
+    - 2022 Big South championship (verified)
+    - Cris Reisert stepped down December 2025 (verified)
+    - 2025 season 7-5 record (verified)
+    - Conference affiliation Big South-OVC (verified)
+  sources:
+    - https://fbschedules.com/lindenwood-to-move-up-to-the-fcs-join-ohio-valley-conference-in-2022/
+    - https://www.wcnc.com/article/sports/gardner-webb-wins-big-south-heads-to-fcs-playoffs-for-first-time/275-7679ebd9-0690-4d26-975c-ce94baa85bd0
+    - https://gwusports.com/news/2025/12/15/reisert-steps-down-as-head-coach-of-gardner-webb-football.aspx
+    - https://en.wikipedia.org/wiki/Gardner%E2%80%93Webb_Runnin%27_Bulldogs_football

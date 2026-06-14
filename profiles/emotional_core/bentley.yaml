@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: bentley
+team_id: null
+program_name: Bentley University
+program_tier: 6
+
+emotional_core:
+  primary: spectacle        # first-year magic, the cinderella underdog that stormed the NE10
+  secondary: restoration    # back to glory (2019 was last title) after a drought
+  one_line: "Bentley is the Falcon that went from club-football obscurity in 1972 to a stunning 2025 Northeast-10 championship under first-year coach CJ Scarpa, upsetting the nationally-ranked favorite."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A transformational 30-year coaching era (Peter Yetten, 1979-2008, 225-81-2 record) that built the varsity program vs a drought-then-surge pattern in recent years."
+
+the_wound:
+  name: "The long drought after 2019 and the question of identity without Yetten"
+  detail: "Bentley won five NE10 titles in its history (2003, 2004 co, 2009 tri, 2010 4-way, 2019), with the last crown in 2019. Six years of title drought followed, raising doubts about whether the Falcons had lost the formula that made them perennial contenders. Until 2025."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Reclaim the Yetten standard — a program that competes for titles every other year and stacks NCAA tournament appearances."
+  drought: { since: 2019, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — just the internal hunger to prove the Falcon program is a permanent Northeast-10 fixture."
+
+the_delusion:
+  tone: self-aware
+  text: "That first-year coach CJ Scarpa has solved all of Bentley's structural problems and the Falcons are now in a new era — fans hope, but the real test is 2026 consistency."
+
+the_grudge_texture:
+  rival: assumption
+  texture: championship    # two program at the top of the Northeast-10; 2025 title game rivalry
+
+the_coach_relationship: savior         # CJ Scarpa's first-year success, breakthrough in an unexpected way
+the_internal_fracture: championship-window vs building process — the faction riding the 2025 high vs those wanting to prove it's not a fluke
+register: waltham-falcons-northeast-resurgence
+never_use:
+  - "Club-team forever — varsity since 1972, NE10 champion in 2025"
+  - "Peter Yetten is the only era that matters — 2025 shows Bentley can win without him"
+  - "Never got close to the Yetten standard — five conference titles and four NCAA appearances prove sustained competence"
+  - "One-year fluke — six losses after being picked first and still won the conference title shows resilience"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The program that evolved from Sprint Club football in 1972 to become a .665-career-winning-percentage Division II power under legendary coach Peter Yetten (1979-2008, 225-81-2), then slumped after his retirement before surging back to win the 2025 NE10 title on the strength of a first-year coaching hire."
+  the_origin: "Bentley's football program started as a club team in 1972 and transitioned to varsity status during the coaching tenure that would define the program for three decades."
+  golden_ages:
+    - { era: "1979–2008 (Peter Yetten)", what: "225-81-2 record, .665 winning percentage (5th best in Division II history), five conference championships, built Bentley from club to varsity powerhouse" }
+    - { era: "2003–2010", what: "Four conference championships in eight years (2003, 2004 co, 2009 tri, 2010 4-way)" }
+    - { era: "2025 surge", what: "CJ Scarpa's first year: 7-3, NE10 title, upset of nationally-ranked Assumption, NCAA tournament qualification" }
+  legends:
+    - { name: Peter Yetten, role: coach, why: "30-year architect of Bentley football, 225-81-2 record, transformed a club team into a Division II power, .665 career winning percentage 5th-best in D2 history" }
+  canonical_moments:
+    - { name: "Peter Yetten's 30-year tenure", year: 2008, what: "225-81-2 record, .665 winning percentage, established Bentley as a regional power", handling: glory }
+    - { name: "2025 NE10 Championship", year: 2025, what: "First-year coach CJ Scarpa leads Bentley to a stunning 20-17 upset of nationally-ranked Assumption for the NE10 title", handling: glory }
+  the_place: "Bentley University athletics complex in Waltham, Massachusetts — the home of Falcon football, a program that transformed itself from club-sport obscurity to Division II contender."
+  brand_of_football: "The disciplined Northeast program — competitive, well-coached, with a .665 career winning percentage that's a badge of honor."
+  cultural_footprint: "Proof that a small business school can build real football credentials. The Yetten legacy is untouchable; the 2025 breakthrough proves the program can win in new eras."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Bentley finished the 2025 season 7-3 (6-1 NE10) and upset nationally-ranked No. 24 Assumption
+    20-17 to win the Northeast-10 Conference championship, earning the automatic NCAA Division II tournament bid as the conference's first
+    automatic qualifier. The Falcons fell to No. 3 Kutztown 52-0 in the first round, but the championship run and resurgence under first-year
+    coach CJ Scarpa proved the program has more life in it after the 2019 title. The question is whether Bentley can repeat in 2026 or if 2025
+    was the surprise breakthrough that resets expectations.
+  research_checklist:
+    - Club team 1972 → varsity transition
+    - Peter Yetten era 1979-2008: 225-81-2, .665 career winning pct
+    - Five total NE10 titles (2003, 2004, 2009, 2010, 2019, 2025)
+    - 2025: 7-3, NE10 title, NCAA tournament
+  sources:
+    - https://www.northeast10.org/sports/fball/2019-20/releases/20191003ijk1cp
+    - https://northeast10.org/news/2025/11/8/ticket-punched-bentley-football-wins-ne10-championship.aspx
+    - https://bentleyfalcons.com/sports/2024/6/11/bentley-university-football-history.aspx

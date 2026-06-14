@@ -1,0 +1,85 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: northeastern-state
+team_id: null
+program_name: Northeastern State University
+program_tier: 6
+
+emotional_core:
+  primary: spectacle        # the new independent making headlines, the President's Cup being won again
+  secondary: honor          # 117 years of football tradition, NAIA national championships, the RiverHawk pride
+  one_line: "Northeastern State is the RiverHawk that became an independent in 2024, rekindled the President's Cup rivalry with Central Oklahoma in 2025, and proved Oklahoma's forgotten rival is still formidable."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "Two NAIA national championships (1958, 1994) and 117 years of continuous football (since 1909) vs a recent era of mediocrity, now surging under independence."
+
+the_wound:
+  name: "The MIAA transition and the search for identity"
+  detail: "Northeastern State played in the Mid-America Intercollegiate Athletics Association (MIAA) for decades, a comfortable regional fit. In 2024, the program opted out as an independent, seeking a larger stage — a decision that was bold but risky. Now the RiverHawks are trying to prove they belong outside the conference structure, competing against bigger programs with less institutional support."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the President's Cup outright, reestablish Northeastern State as Oklahoma's second-strongest football program, and prove independence was the right call."
+  drought: { since: 1994, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe the President's Cup is the chip — 86 years of rivalry, two programs that have been going at it since 1912, and Northeastern State wants to prove the RiverHawks are the state's other power."
+
+the_delusion:
+  tone: self-aware
+  text: "That independence will instantly elevate Northeastern State to power-D2 status — the fanbase knows they beat Central Oklahoma in 2025 to win the President's Cup, but one trophy doesn't make the program a national contender. Yet."
+
+the_grudge_texture:
+  rival: central-oklahoma
+  texture: blood-feud    # 86+ years of rivalry since 1912, newest Chapter with independence and 2025 President's Cup victory
+
+the_coach_relationship: savior         # the coaching staff that won the President's Cup in first year as independent
+the_internal_fracture: independence euphoria vs reality check — the faction celebrating the 2025 breakthrough vs those wondering about long-term sustainability
+register: tahlequah-riverhawks-oklahoma-independence
+never_use:
+  - "Northeastern State has no history — 117 years of football, two NAIA national championships (1958, 1994), 86-year rivalry"
+  - "Going independent was a mistake — the 2025 President's Cup win in the first independent year suggests the move was justified"
+  - "Can't beat Central Oklahoma — beat UCO to win the President's Cup in 2025, ending years of frustration"
+  - "Mid-tier forever — NAIA titles in 1958 and 1994 prove Northeastern State can compete at high levels"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "A program with 117 years of continuous football and two NAIA national championships (1958, 1994) that opted for independence in 2024 and immediately reclaimed the President's Cup against Central Oklahoma in 2025 — a statement that Northeastern State is a power in its own right, not a MIAA member school."
+  the_origin: "Northeastern State began football in 1909 in Tahlequah, Oklahoma, competing through the regional MIAA for decades before electing to go independent in 2024."
+  golden_ages:
+    - { era: "1958 (NAIA Championship)", what: "Northeastern State wins the NAIA national title, establishing itself as a power in the regional landscape" }
+    - { era: "1994 (NAIA Division I Championship)", what: "A second NAIA national championship proves the RiverHawks are a sustained force" }
+    - { era: "2025 independence resurgence", what: "After years of MIAA competence, NSU goes independent and wins the President's Cup in year one" }
+  legends:
+    - { name: "1958 NAIA Championship team", role: roster/coach, why: "The first national title that put Northeastern State on the map" }
+    - { name: "1994 NAIA Division I Championship team", role: roster/coach, why: "A second national championship 36 years later, proving sustained excellence" }
+  canonical_moments:
+    - { name: "1958 NAIA National Championship", year: 1958, what: "Northeastern State captures the first NAIA national title in program history", handling: glory }
+    - { name: "1994 NAIA Division I National Championship", year: 1994, what: "A second national championship, establishing Northeastern State as a power", handling: glory }
+    - { name: "2024 Independence Decision", year: 2024, what: "Northeastern State elects to compete as an independent in NCAA Division II, seeking a larger stage", handling: glory }
+    - { name: "2025 President's Cup Victory", year: 2025, what: "NSU beats Central Oklahoma to win the President's Cup in the first year as an independent, a dramatic statement", handling: glory }
+  the_place: "Tahlequah, Oklahoma — home of the RiverHawks since 1909, where a program of 117 years competes proudly for regional and national respect."
+  brand_of_football: "The Oklahoma independent — not in the blue-blood tier, not in the FBS world, but a tough regional power that has proven it can compete at the national Division II level (in NAIA terms)."
+  cultural_footprint: "Northeastern State is proof that a small-town Oklahoma program can build national credentials. Two NAIA titles over 70+ years, 86 years of rivalry with Central Oklahoma, and now the audacity to go independent — this is a program that knows who it is."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Northeastern State finished the 2025 season 5-5 overall (including conference play and non-conference) as an independent
+    competitor in NCAA Division II. The RiverHawks beat Central Oklahoma 28-21 on October 25 to win the 2025 President's Cup, their first President's Cup victory in
+    recent memory and a statement win in their first year as an independent. NSU also dominated Lincoln (California) 68-0 in homecoming and participated in the
+    First Americans Bowl on December 6, 2025, where they defeated East Central 56-21. The program's move to independence has been validated by the President's Cup
+    victory. Central Oklahoma leads the all-time series 55-28-2 and the President's Cup trophy series 17-10, but the 2025 victory and bowl appearance suggest
+    Northeastern State is building something real outside the MIAA structure.
+  research_checklist:
+    - Football since 1909 (117 years)
+    - NAIA national champion 1958
+    - NAIA Division I national champion 1994
+    - President's Cup rivalry with Central Oklahoma since 1912 (86+ years)
+    - Independent status 2024-present
+    - 2025: beat Central Oklahoma (President's Cup), 68-0 vs Lincoln, First Americans Bowl 56-21 vs East Central
+  sources:
+    - https://en.wikipedia.org/wiki/Central_Oklahoma%E2%80%93Northeastern_State_football_rivalry
+    - https://goriverhawksgo.com/news/2025/10/22/football-riverhawks-travel-to-face-bronchos-for-presidents-cup.aspx
+    - https://themiaa.com/news/2023/11/20/miaa-approves-northeastern-states-request-to-play-as-an-independent-institution-in-football.aspx

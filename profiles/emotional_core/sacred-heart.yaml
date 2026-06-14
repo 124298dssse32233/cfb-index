@@ -1,0 +1,107 @@
+# Emotional Core — Sacred Heart  (sacred-heart)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: sacred-heart
+team_id: 1110
+program_name: Sacred Heart
+program_tier: 2
+
+emotional_core:
+  primary: house-money
+  secondary: contentment
+  one_line: "Sacred Heart is the Connecticut Catholic school that started FCS football in 1999, went independent for a decade, and joins the CAA in 2026 — the Pioneers are a winning program on the verge of testing itself against the FCS's most competitive conference."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "An 8-4 independent season in 2025 and 14 seasons under Mark Nofri who built the program into consistent winners — now stepping into the CAA in 2026 to find out what the Pioneers are actually worth."
+
+the_wound:
+  name: "Independent limbo — winning seasons without a conference home or marquee postseason moment"
+  detail: "Sacred Heart spent years in the NEC and then as an FCS independent, earning winning records without a conference championship to define the era. The program's one postseason appearance (2013, first round loss to Fordham) remains its only FCS playoff moment. Joining the CAA in 2026 is both an opportunity and a test."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a CAA game in year one and build toward a conference title — prove that the Nofri-era winning culture translates from the independent schedule to the FCS's premier mid-major conference."
+  drought: { since: 2013, unit: relevance }
+
+the_chip:
+  villain: national_media
+  text: "Fans say Sacred Heart has been winning games in FCS for 26 years and no one in national media has paid attention — they believe joining the CAA in 2026 is the program finally demanding the spotlight it has earned through consistent winning."
+
+the_delusion:
+  tone: self-aware
+  text: "They believe that 14 seasons of Nofri-era competitiveness — including NEC titles and 8-win independent seasons — proves Sacred Heart can compete in the CAA right away, and that the only reason they haven't been taken seriously is the independent scheduling."
+
+the_grudge_texture:
+  rival: monmouth
+  texture: border-war
+
+the_coach_relationship: forever-ours
+the_internal_fracture: comfort-vs-ambition — the faction that appreciated the independent-era consistency and worries about exposure in the CAA vs the faction that believes joining the conference is the only way to prove the program is real
+
+register: sacred-heart-pioneers-fairfield-caa-arrival-nofri
+never_use:
+  - "Small Catholic school also-ran — NEC championships, FCS playoff appearances, and 8-win independent seasons disprove any dismissal"
+  - "FCS lightweight — Sacred Heart has competed above .500 for most of the Nofri era across 14 seasons"
+
+story_canon:
+  the_unique_thing: "Sacred Heart is the FCS program that spent 14 years under one coach (Mark Nofri) winning consistently in the NEC and as an independent — and joins the CAA in 2026 as an established program testing itself in the FCS's most competitive conference for the first time."
+  the_origin: "Sacred Heart University started football in 1999 and competed in the Northeast Conference (NEC). Mark Nofri was named head coach in 2012 and built the program into an NEC contender, winning a co-championship in 2013 in his second year and returning to winning records repeatedly. The Pioneers went independent before joining the CAA in 2026."
+  golden_ages:
+    - { era: "2013 (NEC co-championship and first FCS playoff)", what: "Sacred Heart wins a shared NEC title and earns its first-ever FCS playoff bid, losing in the first round to Fordham" }
+    - { era: "2025 (8-4 independent farewell)", what: "Sacred Heart goes 8-4 in Nofri's 14th season as an independent — the program's best recent record heading into CAA membership" }
+  legends:
+    - { name: Mark Nofri, role: coach, why: "14 seasons of consistent winning, two NEC co-championships, and the architect who brought Sacred Heart to CAA membership" }
+  canonical_moments:
+    - { name: "First FCS playoff appearance", year: 2013, what: "Sacred Heart wins the NEC co-championship and earns its first-ever FCS playoff bid — the defining moment of the Nofri era", handling: glory }
+    - { name: "2025 independent farewell", year: 2025, what: "Pioneers go 8-4 in their final independent season before CAA membership — a winning capstone for the pre-CAA era", handling: glory }
+  the_place: "Campus Field in Fairfield, Connecticut — the home that Nofri built into a consistent FCS winner over 14 seasons."
+  brand_of_football: "Disciplined, program-first, Nofri-system football — consistent winning through 14 seasons without a big budget or national attention, built on the belief that the right system wins anywhere."
+  cultural_footprint: "The Connecticut FCS program that won quietly in the NEC and as an independent for over a decade — now the newest CAA member, arriving with more winning pedigree than most programs that enter major FCS conferences."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Sacred Heart went 8-4 in 2025 — Mark Nofri's 14th season as head
+    coach and the program's final year as an FCS independent before joining the CAA in 2026. The 8-4
+    result is the Pioneers' best recent record and a winning send-off from the independent era. The 2026
+    season is the program's true debut — competing in the CAA against Rhode Island, New Hampshire, and
+    the rest of the conference's established programs. Nofri enters the CAA chapter having built more
+    winning seasons than losing ones across his tenure; the question is whether the system translates
+    to conference football at the FCS's highest mid-major level.
+  sources:
+    - https://en.wikipedia.org/wiki/Sacred_Heart_Pioneers_football
+    - https://en.wikipedia.org/wiki/2025_Sacred_Heart_Pioneers_football_team
+    - https://en.wikipedia.org/wiki/2013_Sacred_Heart_Pioneers_football_team
+
+briefing:
+  identity_phrase: Sacred Heart is the Connecticut Catholic FCS program that Mark Nofri built into a consistent winner over 14 seasons — NEC championships, 8-win seasons — now joining the CAA in 2026 to test the pedigree against FCS's best.
+  mantra: Go Pioneers.
+  cultural_anchors:
+    fan_archetype_dominant: Connecticut-FCS-Loyalist
+    outsider_archetype_dominant: Small-Catholic-School-Dismisser
+    one_sentence: Sacred Heart is the Nofri-built program that won consistently in the NEC and as an independent for 14 seasons — now arriving in the CAA to find out what that winning was worth.
+  selfname: the Pioneers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Mark Nofri
+    era_name_overrides: {}
+    always_surface:
+      - Mark Nofri 14 seasons of consistent winning
+      - 2013 NEC co-championship and first FCS playoff appearance
+      - 2025 8-4 independent farewell season
+      - CAA debut in 2026
+    rituals:
+      - Campus Field in Fairfield
+      - The Pioneer Way
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

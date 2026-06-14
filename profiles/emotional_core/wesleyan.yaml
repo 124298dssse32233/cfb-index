@@ -1,0 +1,76 @@
+# AUTHORED (D3/NESCAC) 2026-06-13 — web-verified
+
+status: live
+slug: wesleyan
+team_id: null
+program_name: Wesleyan University
+program_tier: 7
+
+emotional_core:
+  primary: standard
+  secondary: disbelief
+  one_line: "Connecticut intellectual powerhouse cycling between peaks and rebuilds—Wesleyan is the Little Three's current champion with explosive recent success and four consecutive titles (2022–2025)."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Four consecutive Little Three titles (2022–2025) and 9–1 (2025) represent recent dominance; 58-year All-American drought ended by Dylan Connors (2025)"
+
+the_wound:
+  name: "The 58-year All-American drought"
+  detail: "Wesleyan went from 1967 to 2025 without an AP All-American player—58 years. Dylan Connors 2025 All-American ended the drought, but the long wait proves the program cycled through peaks and valleys."
+  handling: referenceable
+  freshness: recent
+
+the_dream:
+  text: "Build the four-title streak into a decade of Little Three dominance and establish Wesleyan as the cycle-peak program that defines NESCAC excellence."
+  drought: { since: 1967, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe wesleyan has won more Little Three titles (2022–2025) than either Amherst or Williams recently. The program is not the underdog anymore—it's the standard."
+
+the_delusion:
+  tone: self-aware
+  text: "Wesleyan fans believe Dylan Connors and the four-title run prove the program can sustain excellence—that this is not a cycle but the beginning of Wesleyan's decade."
+
+the_grudge_texture:
+  rival: williams
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: none — unified institutional commitment to sustaining dominance
+
+register: connecticut-ascending-electric
+
+never_use:
+  - "Consistently mediocre (four consecutive titles disprove)"
+  - "Usually second-tier (Wesleyan is the current champion)"
+
+story_canon:
+  the_unique_thing: "Four consecutive Little Three titles (2022–2025); Dylan Connors 2025 AP All-American (first AP All-American since 1967, 58-year gap); 9–1 record and NESCAC championship contention."
+  the_origin: "Wesleyan University (founded 1831) is a Connecticut liberal-arts institution with 190+ years of football tradition. Little Three membership since 1899 anchors program identity."
+  golden_ages:
+    - { era: "2000s–2010s", what: "Competitive NESCAC participant; periodic tournament appearances" }
+    - { era: "2020–2025", what: "Modern dynasty; four consecutive Little Three titles (2022–2025); Dylan Connors 2025 All-American" }
+  legends:
+    - { name: Dan Sloand, role: coach, why: "19+ years (2005–present); architect of modern Wesleyan success; four consecutive Little Three titles; 100+ career wins" }
+    - { name: Dylan Connors, role: player, why: "2025 AP All-American; first AP All-American since 1967 (58-year gap); transformational recent talent" }
+  canonical_moments:
+    - { name: "2022 Little Three title", year: 2022, what: "Dynasty announcement; Sloand-era peak begins", handling: glory }
+    - { name: "2023 back-to-back Little Three title", year: 2023, what: "Dynasty confirmed; consecutive championships", handling: glory }
+    - { name: "2024 third consecutive Little Three title", year: 2024, what: "Sustained excellence; institutional dominance", handling: glory }
+    - { name: "2025 Dylan Connors All-American + fourth Little Three title", year: 2025, what: "Peak of dynasty; 58-year All-American drought ended; 9–1 record", handling: glory }
+  the_place: "Middletown, Connecticut—a historic liberal-arts college in the heart of the Little Three and emerging as the regional power."
+  brand_of_football: "Dynamic, electric football—a program building modern excellence through sustained coaching tenure and institutional alignment."
+  cultural_footprint: "Proof that patient institutional commitment (Sloand's 19+ years) can create a dynasty from a sleeping-giant position."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Wesleyan won 9–1 (2025), the Little Three Championship and NESCAC tournament contender;
+    Dylan Connors 2025 AP All-American (first AP honor since 1967). The program is at its modern apex. The question is whether
+    the four-title streak and Connors' All-American signal the beginning of a Wesleyan decade or represent a peak that will cycle.
+    Institutional confidence is warranted; the evidence suggests sustained excellence is now the baseline, not the exception.
+  sources:
+    - https://www.wesleyan.edu/athletics/sports/football
+    - https://www.nescac.org/sports/fball/standings
+    - https://en.wikipedia.org/wiki/Little_Three
+    - https://apnews.com/hub/college-football
+    - https://www.ncaa.org/sports/football/d3

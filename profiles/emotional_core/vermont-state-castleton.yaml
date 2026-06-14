@@ -1,0 +1,89 @@
+# Emotional Core — Vermont State Castleton (vermont-state-castleton)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: vermont-state-castleton
+team_id: null
+program_name: Vermont State University Castleton
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: standard
+  core_variant: regime-reset
+  one_line: "The Vermont Spartans arriving in the NJAC in fall 2026 — a new program identity after 16 years of Eastern Conference play, seeking regional credibility through transitional excellence."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A historic Vermont institution moving from independent/regional conference status to the NJAC, rebranded as Vermont State University Castleton, with a fresh competitive chapter ahead."
+
+the_wound:
+  name: "The conference goodbye"
+  detail: "Castleton played 13 seasons in the ECFC (2009–2024, 45–40 record) and moved briefly to the MASCAC before joining the NJAC in fall 2025–26. The transition is not a failure, but a reset — leaving one regional home to find a larger stage."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Establish credibility in the NJAC; build a new competitive identity as an associate member; compete with programs 100+ years old and prove that a new identity can scale."
+  drought: { since: 2009, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that a Vermont school can claim the same football tradition as eastern powerhouses. Castleton knows it's starting fresh, but is competing like it belongs anyway."
+
+the_grudge_texture:
+  rival: njac-circuit
+  texture: border-war
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Vermont regional identity vs. NJAC national competitive expectations"
+register: spartan-castleton-arrival
+never_use:
+  - "No tradition — Historic Castleton institution; 2009–2024 ECFC/MASCAC play (45–40); transitioning to new identity"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "The 2025–26 arrival in the NJAC — Vermont State University Castleton begins its new competitive chapter as the newest NJAC member, transitioning from 13 years of Eastern Conference play into a new regional/national stage."
+  the_origin: "Castleton College/Vermont State University Castleton, Castleton, Vermont — a historic Vermont institution rebranded as VTSU Castleton and moving to the NJAC in fall 2025–26 after 13 seasons in the ECFC (2009–2024)."
+  golden_ages:
+    - { era: "2009–2024 (ECFC era)", what: "13 seasons in the Eastern College Football Conference; 45–40 overall record; founding member of ECFC" }
+    - { era: "2024–2025", what: "Brief MASCAC membership before NJAC move" }
+    - { era: "2025–26 (NJAC arrival)", what: "Joins NJAC as newest member and begins new competitive chapter" }
+  legends:
+    - { name: "Tyler Higley", role: coach, why: "Current head coach steering Castleton through NJAC transition" }
+  canonical_moments:
+    - { name: "2009 ECFC founding", year: 2009, what: "Castleton becomes founding member of Eastern College Football Conference", handling: glory }
+    - { name: "2024 NJAC announcement", year: 2024, what: "October 30, 2024: Castleton announces transition to NJAC effective 2025–26", handling: glory }
+    - { name: "2025–26 NJAC arrival", year: 2025, what: "Castleton joins NJAC as newest member and begins regional/national competitive era", handling: glory }
+  the_place: "Castleton campus, Vermont — home of the Spartans in the Green Mountains."
+  brand_of_football: "Vermont football in transition — a school bridging regional identity and national competitive expectations."
+  cultural_footprint: "The newest NJAC member, arriving with Vermont distinctiveness and 16 years of Eastern Conference play as proof of capability. Castleton is beginning its NJAC story in 2025–26."
+  the_ongoing_story: "LIVE as of 2025–26: Vermont State University Castleton officially joins the NJAC in fall 2025–26 after 13 seasons in the ECFC (2009–2024, 45–40 record) and brief MASCAC membership (2024–25). Head Coach Tyler Higley leads the Spartans through the transition. This is the opening chapter of a new Castleton identity — not a fallen program or a rising one, but a program moving from one stage to a larger one. The NJAC arrival is the story, and every season will measure whether the transition proves wise."
+  sources:
+    - https://en.wikipedia.org/wiki/Castleton_University_Spartans_football
+    - https://www.castleton.edu/athletics/football/
+    - https://www.castleton.edu/about/
+    - https://www.njac.org/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Vermont State Castleton is the newest NJAC member (effective 2025–26), transitioning from 13 years of ECFC play.
+  mantra: Spartan arrival.
+  cultural_anchors:
+    fan_archetype_dominant: Castleton-Vermont-Faithful
+    outsider_archetype_dominant: NJAC-Newest-Member
+    one_sentence: Vermont State University Castleton is transitioning from the Eastern College Football Conference to the NJAC in fall 2025–26 as the league's newest member.
+  selfname: the Spartans
+  rituals:
+    - 2009 ECFC founding
+    - 2024 NJAC transition announcement
+    - 2025–26 NJAC arrival
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

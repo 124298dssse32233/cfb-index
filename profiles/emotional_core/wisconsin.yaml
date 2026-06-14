@@ -1,0 +1,119 @@
+# Emotional Core — Wisconsin  (wisconsin)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: wisconsin
+team_id: 275
+program_name: Wisconsin
+program_tier: 2
+
+emotional_core:
+  primary: grief          # the loss of the identity that made the program what it was
+  secondary: restoration  # the unfinished argument over whether to reclaim it
+  one_line: "Wisconsin spent twenty years building the same machine — a 250-pound running back behind a 320-pound line, three yards and a cloud of dust — and watched a new staff trade it for a passing game that went 4-8, leaving the fanbase to wonder whether the thing that made the Badgers the Badgers is recoverable."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Two decades as the Big Ten West's bully — a running-back and offensive-line factory that bullied into Rose Bowls — vs a 4-8 floor in 2025 and an offense that abandoned the run for an identity that didn't take."
+
+the_wound:
+  name: "The 2025 collapse and the identity that went with it"
+  detail: "Wisconsin finished 4-8 (2-7 Big Ten) in Luke Fickell's third year, dropping six straight in the middle of the schedule and getting shut out 37-0 by Iowa. Quarterback injuries forced four passers onto the field behind a remade scheme — the running-game program now searching for any identity at all, on the program's worst footing in a generation."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the league trophy again the way the program earned the last ones — by lining up, running it down the field, and daring the rest of the Big Ten to stop a machine they always knew was coming."
+  drought: { since: 2012, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans heard it for years — that the program was a throwback that couldn't keep up, too plodding for the modern game, a system that printed yards against everyone but the playoff teams. Wisconsin always answered by running it down their throats anyway, which is exactly the answer the 2025 team couldn't give."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the blueprint still works — that the running-back factory and the offensive-line pipeline are dormant, not obsolete, and that the right staff lining up and committing to the run gets Wisconsin straight back to bullying the Big Ten."
+
+the_grudge_texture:
+  rival: minnesota
+  texture: border-war   # Paul Bunyan's Axe — the most-played rivalry in FBS, a literal border war for the trophy
+
+the_coach_relationship: hot-seat-churn   # Fickell's seat is on fire after a 4-8 third year and the 37-0 Iowa loss
+the_internal_fracture: identity vs adaptation — the faction that wants Wisconsin to go back to smashmouth and the line-and-back factory vs the faction that says the modern game demands the offense Fickell tried to build
+register: blue-collar-running-game-cathedral — plain-spoken, physical, proud of the work; treats the run game as a worldview, not a tactic
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Finesse — not the brand
+  - Soft — never applied to a Wisconsin program
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The running-back factory — Wisconsin turned 'establish the run' from cliché into a two-decade identity, producing a conveyor belt of 1,000-yard backs (Ron Dayne, Montee Ball, Melvin Gordon, Jonathan Taylor) behind a perpetual NFL-pipeline offensive line. No program made the run game more of a worldview. Add 'Jump Around' shaking Camp Randall between the third and fourth quarters and you have the most distinctive home identity in the Big Ten."
+  the_origin: "A flagship Wisconsin university that became a national program under Barry Alvarez, who took over a moribund team in 1990 and built it on the offensive line and the running back — three Rose Bowl wins in the 1990s that set the template every Badger team since has run."
+  golden_ages:
+    - { era: "1993–1999 (Barry Alvarez)", what: "Three Rose Bowl appearances, two wins, and Ron Dayne's 1999 Heisman as the NCAA career rushing king" }
+    - { era: "2010–2012", what: "Three straight Rose Bowl trips and the 2011-2012 Big Ten Championship Game wins" }
+  legends:
+    - { name: Barry Alvarez, role: coach, why: "Built the program from nothing; the field at Camp Randall bears his name" }
+    - { name: Ron Dayne, role: player, why: "1999 Heisman winner and the NCAA's career rushing leader at the time — the back the factory was named for" }
+    - { name: Jonathan Taylor, role: player, why: "The modern era's defining back; one of the most productive rushers in college history" }
+  canonical_moments:
+    - { name: "Dayne's Heisman", year: 1999, what: "Ron Dayne breaks the NCAA career rushing record and wins the Heisman at Camp Randall", handling: glory }
+    - { name: "First Rose Bowl win", year: 1994, what: "Alvarez's program wins the Rose Bowl, announcing Wisconsin as a national factor", handling: glory }
+    - { name: "37-0 to Iowa", year: 2025, what: "A shutout loss that crystallized the program's worst season in a generation", handling: wound }
+  the_place: "Camp Randall Stadium (cap ~76,000) — built on a Civil War training ground, 'Jump Around' (House of Pain) erupting before the fourth quarter, the Fifth Quarter band show after wins, and Bucky Badger's pushups for every point."
+  brand_of_football: "Blue-collar-running-game-cathedral — the line and the back, three yards and a cloud of dust, physical football as a stated identity rather than a phase; defense that gets out of the offense's way."
+  cultural_footprint: "The Big Ten's purest expression of the run-it-and-line-up ethos and a cultural touchstone — 'Jump Around,' the Fifth Quarter, the cheesehead — a program beloved for refusing to be anything other than itself."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Wisconsin went 4-8 (2-7 Big Ten) in Luke Fickell's third season, losing six
+    straight at one stretch and getting shut out 37-0 by Iowa, with QB Billy Edwards Jr. hurt and four quarterbacks
+    pressed into duty behind a remade offense. It was the program's worst season in a generation and left Fickell's
+    seat on fire. The open question: does Wisconsin reclaim the running-game identity that built it, or is the factory
+    floor permanently retooled?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Wisconsin_Badgers_football_team
+    - https://www.si.com/college/wisconsin/football/badgers-iowa-hawkeyes-loss-ended-luke-fickell-chance-to-save-job
+    - https://www.sports-reference.com/cfb/schools/wisconsin/2025-schedule.html
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Wisconsin is the program that turned the Big Ten's clichés into actual football.
+  mantra: On Wisconsin.
+  cultural_anchors:
+    fan_archetype_dominant: Hard-Work-Cheesehead
+    outsider_archetype_dominant: Underrated-Annoyer
+    one_sentence: Wisconsin is the program that turned 'establish the run' from cliché to identity — running
+      back factory, offensive line factory, defense that gets out of the way.
+  selfname: the Badgers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1962 Rose Bowl (the first time Wisconsin entered the national conversation)
+    - 1999 + 2000 Heisman finalist Ron Dayne (and the 1999 win)
+    - The running back factory (1999 to present)
+    rituals:
+    - Jump Around
+    - Fifth Quarter
+    - Bucky Badger Push-ups
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

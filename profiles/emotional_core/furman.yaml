@@ -1,0 +1,71 @@
+status: live            # authored 2026-06-13 via web research
+slug: furman
+team_id: null
+program_name: Furman
+program_tier: 2
+
+emotional_core:
+  primary: grievance      # the 1988 national champion haunted by "what if we'd won more"
+  secondary: restoration  # the post-Dick Sheridan climb back to relevance
+  core_variant: the-snub
+  one_line: "Furman is the Deep South's only FCS national champion, but 1988 feels like a lifetime ago — a program built on one golden era that's spent 37 years trying to prove the title wasn't a fluke."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A 1988 national championship vs. a conference that has since moved on — the historic power that won once and has spent generations defending its seat at the table."
+
+the_wound:
+  name: "The 1988 phantom"
+  detail: "Furman won the FCS national championship in 1988 under Dick Sheridan and came within a game in 1985 (44-42 loss to Georgia Southern in the final). But that was 37 years ago. The program has won seven SoCon titles since 1988, but none have matched that national stage — and the fanbase knows the Paladins may never be that team again."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the national championship stage and prove 1988 wasn't a lightning strike — another FCS title, another tournament run, another reminder to the country that Furman belongs in the conversation."
+  drought: { since: 1988, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Furman won a national championship and ruled the SoCon for a generation, but Wofford has made ten playoff runs, Mercer has won back-to-back titles, and the room has slowly moved on. The Paladins are the historic power that got left behind."
+
+the_delusion:
+  tone: earnest
+  text: "That the 1988 national championship proves Furman is still a championship program. The fanbase honors that history, but they also know 37 years without another title has changed the conversation."
+
+the_grudge_texture:
+  rival: wofford
+  texture: blood-feud   # Deep South's oldest rivalry since 1889, Wofford has dominated lately (2 straight wins)
+
+the_coach_relationship: legends-shadow   # Furman football lives in Dick Sheridan's shadow; current coach must honor the 1988 era
+the_internal_fracture: dynasty_vs_new_era — those who believe Furman should be national champions again vs. those accepting a SoCon-power identity
+register: furman-1988-champion-defending
+never_use:
+  - "never really a national power"
+  - "Furman's time has passed"
+
+story_canon:
+  the_unique_thing: "The 1988 FCS National Championship — the only national title on Furman's shelf and the defining moment that launched a conference dynasty. One game shy in 1985 (44-42 final to Georgia Southern), the Paladins got it right three years later."
+  the_origin: "Furman became an FCS power in the 1980s under legendary coach Dick Sheridan, establishing one of the most dominant programs in the Deep South."
+  golden_ages:
+    - { era: "1978-1989 (Dick Sheridan)", what: "The 1988 national championship capped by Sheridan, including an 1985 runner-up finish — the most dominant era in Furman football" }
+    - { era: "1980s", what: "Seven consecutive SoCon titles and consistent FCS national contention" }
+  legends:
+    - { name: Dick Sheridan, role: coach, why: "The architect of Furman's only national championship and the 1980s dynasty" }
+  canonical_moments:
+    - { name: "1988 National Championship", year: 1988, what: "Furman wins the FCS National Championship under Dick Sheridan, the program's only national title", handling: glory }
+    - { name: "1985 Runner-Up Finish", year: 1985, what: "Furman loses 44-42 in the national final to Georgia Southern — one game away from the trophy", handling: heartbreak }
+  the_place: "Paladin Stadium — the home of Furman football in Greenville, South Carolina, a program steeped in Deep South tradition."
+  brand_of_football: "Championship-pedigree football — a program built on winning conference titles and competing for national crowns."
+  cultural_footprint: "The Deep South's national champion, the program that proved a historic college town can win it all in the FCS."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Furman remains a SoCon heavyweight with multiple conference titles and consistent tournament appearances. The 2023 season saw the Paladins win a playoff game (beating Chattanooga), evidence the program is still competing at a high level. But 1988 remains the ceiling — the season that defined Furman, and the one the fanbase chases every October.
+  research_checklist:
+    - ✓ 1988 FCS National Championship
+    - ✓ 1985 runner-up (44-42 to Georgia Southern)
+    - ✓ Dick Sheridan dynasty (1978-1989)
+    - ✓ 7 SoCon titles total
+    - ✓ Furman-Wofford rivalry (Deep South's oldest, since 1889)
+  sources:
+    - https://en.wikipedia.org/wiki/Furman_Paladins_football
+    - https://www.furman.edu/athletics
+    - https://www.thescore.com/nfl/news/furman-football

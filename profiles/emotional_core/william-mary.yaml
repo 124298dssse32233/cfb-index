@@ -1,0 +1,108 @@
+# Emotional Core — William & Mary Tribe (william-mary)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — FCS Patriot League
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: william-mary
+team_id: null
+program_name: "William & Mary Tribe"
+program_tier: 2
+
+emotional_core:
+  primary: restoration      # the Colonial power returning to regional roots
+  secondary: redemption
+  core_variant: first-ascension
+  one_line: "The second-oldest FCS program rejoining the Patriot League to align with history and regional rivals."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "National semifinals in 2004 and 2009 (11-3 seasons, program record) vs. the challenge of sustaining excellence in a new conference alignment."
+
+the_dream:
+  text: "Reclaim the 2004 and 2009 form when the Tribe reached national semifinals — prove the Colonial program belongs in the conversation with the best of FCS."
+  drought: { since: 2009, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — William & Mary owns the choice. Moving to the Patriot League is about geographic alignment and reconnecting with Richmond (120 meetings since 1898). The chip is internal: prove the program hasn't peaked."
+
+the_wound:
+  name: "The 2004-2009 semifinal peak that won't repeat"
+  detail: "William & Mary reached two national semifinals (11-3 seasons in 2004 and 2009) and has spent the last 16 years chasing that form. The wound is not recent collapse but the long, slow realization that the semifinal era may have been an anomaly, not a dynasty. That peak was real, but repeating it feels increasingly impossible."
+  handling: referenceable
+  freshness: generational
+
+the_delusion:
+  tone: self-aware
+  text: "Fans believe the 2004 and 2009 semifinal runs prove the Tribe can get back there regularly — that Colonial history matters in modern FCS football. They know reaching a national semifinal twice in 20 years is the exception, not the rule, but they believe anyway."
+
+the_grudge_texture:
+  rival: richmond
+  texture: championship
+
+the_coach_relationship: total-trust   # Coach Mike London, sixth season
+the_internal_fracture: history-nostalgia vs. present-acceptance — the old guard clinging to 2004/2009 vs. those focused on rebuilding
+register: colonial-self-aware
+never_use:
+  - scrappy
+  - Ivy
+  - mid-major
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. ──
+story_canon:
+  the_unique_thing: "The second-oldest FCS program (founded 1893) with the longest rivalry in CFB history vs. Richmond (120 meetings since 1898). The program is defined by historic depth and the Richmond rivalry."
+  the_origin: "William & Mary football was founded in 1893, making it the second-oldest FCS program. The nickname evolved from 'Orange and White' (1893-1916) to 'Indians' (1916-1977) to 'Tribe' (1978-present), reflecting cultural sensitivity changes over time."
+  golden_ages:
+    - { era: "2004 and 2009", what: "Two national semifinal appearances (11-3 seasons, program record) under national championship contention" }
+    - { era: "2007-2010", what: "Sustained success with multiple playoff appearances" }
+  legends:
+    - { name: "Coach Jimmye Laycock", role: "coach", why: "Legendary coach who defined the program's era and brought national prominence" }
+    - { name: "Coach Lou Holtz", role: "coach", why: "Legendary coach who passed through the program" }
+  canonical_moments:
+    - { name: "2004 National Semifinal", year: 2004, what: "William & Mary reached the FCS national semifinal with an 11-3 record, the program's peak achievement", handling: glory }
+    - { name: "2009 National Semifinal", year: 2009, what: "William & Mary reached the FCS national semifinal again with an 11-3 record, the second of two semifinal runs", handling: glory }
+  the_place: "Williamsburg, Virginia — a historic Colonial town home to a historic football program."
+  brand_of_football: "Historic and disciplined — a Colonial program that defined itself by 2000s excellence and is now rebuilding."
+  cultural_footprint: "William & Mary football is the second-oldest FCS program and represents Colonial tradition. The Richmond rivalry (120 meetings) is a defining legacy."
+  the_ongoing_story: >
+    LIVE ARC — 2026-06-13: William & Mary finished 7-5 (6-2 CAA) in 2025 under sixth-year coach Mike London, who won the 2008 national title at Richmond and the 2011 ACC Coach of Year at Virginia. The Tribe led the nation in fewest turnovers (6) in 2025 and ranked top 10 in penalty discipline. The program announced it will join the Patriot League in 2026 as an associate member (other sports remain CAA), reuniting with Richmond. The question in Williamsburg: can the program climb back to the 2004/2009 semifinal form, or has that era passed?
+  research_checklist:
+    - The 2004 and 2009 national semifinal runs and what built them
+    - The Richmond rivalry (120 meetings since 1898) and its significance
+    - The nickname evolution (Orange and White → Indians → Tribe) and cultural sensitivity
+    - Jimmye Laycock's legendary coaching tenure
+    - Lou Holtz's connection to the program
+  sources:
+    - https://news.wm.edu/2025/04/25/william-mary-football-to-join-patriot-league/
+    - https://en.wikipedia.org/wiki/William_%26_Mary_Tribe_football
+    - https://en.wikipedia.org/wiki/2025_William_%26_Mary_Tribe_football_team
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: William & Mary is the second-oldest FCS program (1893) rejoining the Patriot League in 2026, carrying two national semifinal appearances (2004, 2009) and a 120-meeting rivalry with Richmond.
+  mantra: "Colonial Pride + Discipline"
+  cultural_anchors:
+    fan_archetype_dominant: Colonial Tradition
+    outsider_archetype_dominant: "The Historic Nearly-It"
+    one_sentence: William & Mary is the second-oldest FCS program (1893) with a defining 120-game rivalry vs. Richmond (since 1898), two national semifinal runs (2004, 2009), and is rejoining the Patriot League in 2026 to align with history.
+  selfname: Tribe
+  aspiration_ladder_top: "National FCS championship + sustained playoff contention"
+  rivalries:
+    - richmond
+  heritage:
+    national_titles: "None"
+    conference_titles: "Multiple (pre-CAA era)"
+    current_conference: "CAA (transitioning to Patriot League in 2026)"
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: "Jimmye Laycock (program legend)"
+    era_name_overrides: {}
+    always_surface:
+      - "2004 National Semifinal (11-3)"
+      - "2009 National Semifinal (11-3)"
+      - "Richmond rivalry (120 meetings since 1898)"
+    rituals: []
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    signal: "no live signal yet (canon-only) — FCS program not covered by discourse fingerprint"

@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Muskingum University Fighting Muskies — The OAC Steady
+
+status: live
+slug: muskingum
+team_id: null
+program_name: Muskingum
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Muskingum is the OAC stalwart with individual All-conference stars but no championship narrative — the Fighting Muskies win games and build players, content with steady respect."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A program with excellent individual players — nine All-OAC honors in 2025 — vs the lack of a unifying championship story that defines the program."
+
+the_wound:
+  name: "The lack of a defining moment"
+  detail: "Muskingum is full of good football players and wins OAC recognition, but the program lacks a championship story or a signature run. The wound is the quiet frustration of building excellence that never quite crests into glory."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Build a playoff team and make the NCAA tournament — to prove that individual excellence can stack into team success."
+  drought: { since: 1900, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Muskingum is content with being a good program in a tough league."
+
+the_delusion:
+  tone: none
+  text: null
+
+the_grudge_texture:
+  rival: mount-union
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: "None. The program is at peace with its place."
+register: muskingum-fighting-muskies-oac-steady
+never_use:
+  - "Muskingum is mediocre — nine All-OAC honors in 2025 prove otherwise"
+  - "No talented players — WR John Christopher Gore won the Sherman Award, QB Garrett Gurney is elite"
+  - "Irrelevant to the conference — Muskingum competes every year"
+
+story_canon:
+  the_unique_thing: "A small liberal arts college in New Concord, Ohio that has built a program full of individual All-conference talent but lacks the unifying championship story."
+  the_origin: "Founded in 1810 in New Concord, Ohio, Muskingum has played football for over a century with quiet consistency."
+  golden_ages:
+    - { era: "1950s–1970s", what: "Mid-century respectability in conference play" }
+    - { era: "2020–2025", what: "The modern era of All-OAC talent and consistent winning" }
+  legends:
+    - { name: John Christopher Gore, role: player, why: "Sophomore WR, 2025 Sherman Award (WR of the Year), 59 receptions for 735 yards" }
+    - { name: Garrett Gurney, role: player, why: "Senior quarterback, 2,257 passing yards, 63.3% completion" }
+    - { name: Conner Gurney, role: player, why: "Senior linebacker, 86 tackles, 11.5 TFL, second in OAC in total tackles" }
+  canonical_moments:
+    - { name: "2025 All-OAC Recognition", year: 2025, what: "Nine Fighting Muskies earn All-OAC honors", handling: glory }
+  the_place: "Muskingum University in New Concord, Ohio — a small rural campus in Appalachian Ohio."
+  brand_of_football: "Individual excellence, character building, development — Muskingum football is built on finding and refining talent."
+  cultural_footprint: "The steady program that produces All-conference players every year but lacks the championship narrative that larger programs build."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Muskingum in 2025 was anchored by senior QB Garrett Gurney (2,257 passing
+    yards, 63.3% completion), sophomore sensation WR John Christopher Gore (59 rec, 735 yards, Sherman Award winner),
+    and senior linebacker Conner Gurney (86 tackles, 11.5 TFL). Nine Fighting Muskies earned All-OAC recognition,
+    continuing the program's tradition of building individual talent. The question for Muskingum: can the roster of
+    all-conference talent finally translate into a playoff run?
+  research_checklist:
+    - "Nine All-OAC honors in 2025"
+    - "WR John Christopher Gore: Sherman Award (WR of the Year)"
+    - "QB Garrett Gurney: 2,257 passing yards"
+    - "LB Conner Gurney: 86 tackles, 11.5 TFL"
+  sources:
+    - https://www.fightingmuskies.com/sports/fball/2025-26/releases/202511243l19aq
+    - https://www.fightingmuskies.com/sports/fball/index

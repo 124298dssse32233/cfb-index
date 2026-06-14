@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — MIT (mit)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: mit
+team_id: null
+program_name: Massachusetts Institute of Technology
+program_tier: 7
+
+emotional_core:
+  primary: contentment  # engineers balancing rigor and sport
+  secondary: spectacle  # elite institution playing elite football
+  one_line: "MIT is the Engineers — elite STEM minds playing Division III football since 1881, proving that the world's most rigorous engineering curriculum and competitive football coexist."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "The world-class engineering school that treats football as a leadership-development tool and a source of campus pride — a program where Rhodes Scholars and Fulbright Fellows also happen to be NEWMAC athletes."
+
+the_wound:
+  name: "None to reference"
+  detail: "MIT football is built on intellectual and athletic excellence, not on overcoming trauma. The program's identity is aspirational: elite in mind and body."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Build sustained NEWMAC competitiveness while maintaining MIT's identity as the ultimate engineer-athlete program — prove that the hardest school produces the toughest competitors."
+  drought: { since: 1950, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — MIT plays for pride in intellectual and athletic excellence, for the satisfaction of engineering success applied to football."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that MIT athletes are the best-trained minds in D3 — that the rigor of the curriculum builds mental toughness no other program can match."
+
+the_grudge_texture:
+  rival: worcester-tech
+  texture: championship   # fellow New England tech-school rivals (WPI is NEWMAC)
+
+the_coach_relationship: legends-shadow   # Brian Bubna in 8th year, inheriting a storied program
+the_internal_fracture: excellence standards vs. recruiting challenges of STEM rigor
+register: engineers-elite-stem-continuous-since-1881
+never_use:
+  - MIT football began in 1873 — program founded 1881; 1873 refers to Yale-Princeton rules codification elsewhere
+  - MIT is a weak football program — 6-3, 4-3 NEWMAC in 2025 proves competitive NEWMAC member
+  - Engineering rigor prevents competitive football — MIT balances both; proof is ongoing 145+ years of football
+
+story_canon:
+  the_unique_thing: "MIT has fielded Engineers football continuously since 1881 — one of the oldest programs in the nation, playing from the start of American football's codification, and proving for 145 years that elite STEM education and competitive athletics coexist."
+  the_origin: "MIT began football in 1881 in Cambridge, Massachusetts, establishing a continuous program that has never ceased."
+  golden_ages:
+    - { era: "1881–present (145 years)", what: "Continuous program through the evolution of college football, from early rules to modern D3 NEWMAC" }
+    - { era: "2010s–2020s", what: "Consistent NEWMAC membership and competitive football under Brian Bubna" }
+  legends:
+    - { name: Brian Bubna, role: coach, why: "8-season head coach providing modern-era continuity and NEWMAC competitiveness" }
+  canonical_moments:
+    - { name: "Program founding", year: 1881, what: "MIT launches football; oldest continuously played program", handling: glory }
+    - { name: "145 years of continuous football", year: 2025, what: "MIT has never ceased football operations since 1881", handling: glory }
+  the_place: "MIT Stadium in Cambridge, Massachusetts — home of the Engineers, overlooking the Charles River."
+  brand_of_football: "Rigorous, intelligent football — the sport played by the world's most demanding minds."
+  cultural_footprint: "Proof that elite STEM education and competitive athletics are not mutually exclusive — MIT is the 145-year-old testament to this."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: MIT posted a 6-3 overall record and 4-3 NEWMAC mark in 2025, maintaining competitive
+    standing in a challenging NEWMAC. Brian Bubna is in his 8th season as head coach, providing continuity in the modern era.
+    The Engineers have fielded football continuously since 1881 — 145 years without interruption. The program continues to prove
+    that admission to MIT (mean SAT ~1535) and competitive NEWMAC football are not mutually exclusive. The question: can MIT
+    build on its 6-3 baseline to approach the NEWMAC upper tier while maintaining MIT's singular identity as the world's
+    most elite engineering school playing college football?
+  research_checklist:
+    - 1881 founding date (NOT 1873)
+    - 145 years continuous operation (1881–2025)
+    - Brian Bubna 8-year tenure
+    - 2025 record (6-3 overall, 4-3 NEWMAC)
+    - NEWMAC membership and competitive history
+  sources:
+    - https://en.wikipedia.org/wiki/MIT_Engineers_football
+    - https://www.ncaa.org/sports/2025/d3/football/mit/schedule
+    - https://www.ncollegefootball.com/teams/mit-engineers
+    - https://alumweb.mit.edu/s/1640/alumnus/index.aspx?sid=1640&gid=12&pgid=450 (historical program info)

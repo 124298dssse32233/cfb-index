@@ -1,0 +1,72 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: north-park
+team_id: null
+program_name: North Park University
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: contentment
+  one_line: "North Park is the Chicago CCIW program that has built six consecutive winning seasons, proving institutional commitment to competitive Division III football."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 1,500-student liberal-arts university in Chicago that has established itself as a consistent CCIW contender through steady coaching and player development."
+
+the_wound:
+  name: "None; the program is in a good place"
+  detail: "North Park has built winning momentum through the 2020s and competes consistently within the CCIW. The program is not wounded — it is content and proud."
+  handling: dated-grievance
+  freshness: this-era
+
+the_dream:
+  text: "Win a CCIW conference title and establish North Park as a permanent playoff fixture."
+  drought: { since: 2010, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — North Park plays for the institution and the city."
+
+the_delusion:
+  tone: self-aware
+  text: "That six consecutive winning seasons means a CCIW title is inevitable — fans believe the program is on the edge of breaking through, and they might be right."
+
+the_grudge_texture:
+  rival: aurora
+  texture: border-war
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "satisfaction with consistent winning vs hunger for a conference title"
+register: chicago-illinois-vikings
+never_use:
+  - Minimized the six consecutive winning seasons (that's sustainable excellence)
+  - Invented a national championship or major trophy
+  - Made this a story of desperation (it's one of consistency)
+
+story_canon:
+  the_unique_thing: "Six consecutive winning seasons (2019–2024) — North Park University has built a consistent CCIW contender from a small Chicago liberal-arts college."
+  the_origin: "North Park University in Chicago has established a competitive Division III football program with strong institutional support and coaching stability."
+  golden_ages:
+    - { era: "2019–2024", what: "Six consecutive winning seasons under head coach Kyle Rooker" }
+  legends:
+    - { name: Kyle Rooker, role: coach, why: "Built the North Park winning culture and six consecutive winning seasons" }
+  canonical_moments:
+    - { name: "Six consecutive winning seasons", year: 2024, what: "North Park reaches six straight winning seasons and establishes CCIW credibility", handling: glory }
+  the_place: "Chicago, Illinois — the home of North Park University, a small liberal-arts school on the north side."
+  brand_of_football: "Disciplined, consistent, rooted in coaching excellence and institutional pride."
+  cultural_footprint: "A small Division III program that has proven sustainable excellence through the 2020s."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: North Park has built a winning foundation with six consecutive winning seasons under head coach Kyle Rooker (7th year).
+    The 2025 season saw the program continue competitive Division III football. The question in Chicago is whether the Vikings can finally break through and win a CCIW
+    conference title, or whether North Park remains a solid contender without a crown.
+  research_checklist:
+    - Six consecutive winning seasons documentation
+    - Kyle Rooker coaching tenure and stability
+    - 2025 season record and playoff appearance
+    - Roster depth and recruiting
+  sources:
+    - https://en.wikipedia.org/wiki/North_Park_University
+    - https://www.d3football.com/schools/north-park
+    - https://npu-vikings.com/sports/football

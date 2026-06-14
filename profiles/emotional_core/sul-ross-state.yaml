@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: sul-ross-state
+team_id: null
+program_name: Sul Ross State
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: contentment
+  one_line: "Sul Ross State is the Alpine Lobos—a small, proudly independent Big Bend program that plays football for love of the game, knowing that every win, every season, every student who wears the name is the real victory."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "90+ years of football tradition in the Texas Big Bend and a tailgate revival at Jackson Field vs. the reality that the Lobos are one of Division II's smallest and most resource-constrained programs."
+
+the_wound:
+  name: "The 2025 winless season (0–11, 0–9 LSC)"
+  detail: "Sul Ross went 0–11 in 2025, outscored 666–129 (60.5 ppg allowed); the worst season in recent memory. But for a program defined by house-money pride and tailgate tradition, the wound is less about the record and more about the humility of being lapped in a tough league. The Lobos showed up, played hard, and learned they have work to do."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Win six games. Get bowl-eligible. Prove that the small school in the Big Bend belongs—not in a Power 5 boardroom, but in the tailgate culture and the regional pride that defines a real university town."
+  drought: { since: 1997, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe sul Ross has no chip against the world. The program's pride is not about proving doubters wrong, but about showing up every Saturday in the desert and honoring the game and the uniform."
+
+the_delusion:
+  tone: earnest
+  text: "That the 2025 season is a pit stop, not a permanent station. The fans believe the Lobos can get back to being competitive, can build around new coach Lee Hays, can surprise someone in October. It's a small delusion, but a real one."
+
+the_grudge_texture:
+  rival: midwestern-state
+  texture: championship
+  # Sul Ross and Midwestern State competed in the TIAA era; the Mustangs dominate (69–23 in 2025). No blood feud, just a gap.
+
+the_coach_relationship: savior
+  # Lee Hays, hired in February 2025, inherits a 0–11 season and the task of rebuilding from ash.
+
+the_internal_fracture: "Pride in the program vs. realism about resources—how do Lobo fans celebrate a losing season and still believe in a turnaround?"
+
+register: "alpine-lobo-big-bend-jackson-field-house-money-football"
+
+never_use:
+  - "Sul Ross won the LSC in the 1990s — no modern LSC titles on record; last success era was pre-2000"
+  - "The Lobos are a dying program — 90+ years of continuous football; recent revival of tailgate tradition; stable institutional identity"
+  - "2025 was the start of a permanent decline — 0–11 is bad, but it's one season; new coach Lee Hays is building"
+  - "Sul Ross is a tiny DIII school — Division II, full scholarship sport; university with 2,000+ students"
+
+story_canon:
+  the_unique_thing: "A small, proudly independent Big Bend program with 90+ years of tradition and a recent tailgate revival that keeps the culture alive despite a winless 2025 season—a program that plays for love of the game."
+  the_origin: "Sul Ross State University in Alpine, Texas (founded 1917); football established in 1938; built a regional identity in the remote, beautiful Big Bend region."
+  golden_ages:
+    - { era: "1990s", what: "A period of competitive success and regional relevance; the last true golden age before the modern era of decline" }
+  legends:
+    - { name: Lee Hays, role: coach, why: "Hired February 2025; former Lubbock Cooper HC, Texas Tech OL coach; tasked with rebuilding from a 0–11 nadir" }
+  canonical_moments:
+    - { name: "Jackson Field 100+ Year Tradition", year: 1924, what: "Built in 1924, renovated 2016 with artificial turf; 3,000-capacity stadium that hosts Big Bend pride", handling: glory }
+    - { name: "Tailgate Revival", year: 2024, what: "Basketball coach Clif Carroll spearheaded a tailgate renaissance, bringing the community back to Jackson Field", handling: glory }
+    - { name: "2025 Winless Season", year: 2025, what: "0–11 overall, 0–9 LSC, outscored 666–129; the nadir that tested program resilience", handling: heartbreak }
+  the_place: "Jackson Field in Alpine, Texas—a small, intimate stadium in the heart of Big Bend country, where football is woven into the fabric of a remote mountain community."
+  brand_of_football: "Heart-over-talent, house-money Division II football—a program that shows up because it loves the game, not because it expects to win."
+  cultural_footprint: "A small-school treasure; Sul Ross football is proof that Division II exists not just for upward mobility, but for the pure love of the game and regional pride in a place most of America doesn't know."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Sul Ross went 0–11 in 2025, a winless season that tested the program's faith. But the hire of Lee Hays—a hard-nosed coach with FBS experience at Texas Tech and Lubbock Cooper—suggests the university is serious about a rebuild. The basketball coach's tailgate revival brought community back to Jackson Field, and that cultural foundation might be the real asset the Lobos have. The question: can Lee Hays convert house-money pride and community love into six wins and bowl eligibility?
+  research_checklist:
+    - 2025 winless season (0–11, 0–9 LSC, outscored 666–129) ✓
+    - Lee Hays (hired Feb 2025, Texas Tech/Lubbock Cooper background) ✓
+    - Jackson Field (built 1924, renovated 2016, 3,000 capacity) ✓
+    - Tailgate revival (basketball coach Clif Carroll 2024) ✓
+    - Big Bend regional identity ✓
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Sul_Ross_Lobos_football_team
+    - https://www.sulross.edu/skyline/its-lobo-tailgate-time-and-our-lobos-know-how-to-tailgate/
+    - https://gobuffsgo.com/news/2025/10/17/football-buffaloes-battle-eastern-new-mexico-in-the-37th-wagon-wheel-game.aspx

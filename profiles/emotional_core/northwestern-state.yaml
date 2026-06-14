@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Emotional Core — Northwestern State
+# Status: live
+
+status: live
+slug: northwestern-state
+team_id: null
+program_name: Northwestern State
+program_tier: 5
+
+emotional_core:
+  primary: grievance    # the only FCS program with two NFL Rookies of the Year, still invisible
+  secondary: grief       # the 2025 season was 1-11, the worst in recent memory
+  one_line: "Northwestern State is the Natchitoches Demons that produced two NFL Rookies of the Year and won the Southland four times — and nobody in the Power Four cares, which is the entire story."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "Northwestern State is a unique power: the only FCS program with two NFL Rookies of the Year, a four-time Southland champion (1988, 1997, 1998, 2004), and historical credibility. The 2025 season (1-11) represents a catastrophic collapse, not a normal down year."
+
+the_wound:
+  name: "The 2025 disaster (1-11) and the loss of institutional footing"
+  detail: "Northwestern State went 1-11 (0-8 SLC) in 2025, suffering a complete season-long collapse. The single win (vs. Alcorn State) underscores how bad it was. For a program with four Southland titles and two NFL Rookies of the Year, the 2025 season is an existential crisis, not a rebuilding year. Natchitoches is shell-shocked."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Get back to .500 and prove 2025 was a nightmare outlier, not the new baseline — make the playoffs, reclaim Southland respectability, and remind the conference that Northwestern State has won here before and will again."
+  drought: { since: 2005, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe the chip is recognition: Northwestern State produced two NFL Rookies of the Year (a distinction unmatched by almost any other FCS program) and won the Southland four times, yet the program is invisible in the broader college-football narrative. Nobody knows Northwestern State, even though the evidence is in the NFL."
+
+the_delusion:
+  tone: none
+  text: "Removed — the fanbase has no delusion right now; they are in survival mode after 2025."
+
+the_grudge_texture:
+  rival: nicholls
+  texture: blood-feud    # NSU Challenge — annual rivalry
+  # Also rivals: Southeastern Louisiana, Stephen F. Austin (Chief Caddo)
+
+the_coach_relationship: hot-seat-churn  # Blaine McCorkle in Year 2, under intense scrutiny after 2025
+the_internal_fracture: keep-the-coach vs. clean-house — the faction willing to give McCorkle Year 3 vs. those demanding immediate change
+register: natchitoches-demons-pro-pedigree-southland-collapse
+never_use:
+  - "Never did anything"
+  - "Small school with small dreams"
+  - "2025 was expected"
+  - "2025 is the real NSU"
+
+story_canon:
+  the_unique_thing: "Northwestern State is the only FCS program to produce two NFL Rookies of the Year, a unique distinction that proves institutional capacity to develop talent. The Demons also won the Southland four times (1988, 1997, 1998, 2004) and produced credible playoff teams. The mystery is why the national media doesn't know this."
+  the_origin: "Northwestern State joined the Southland Conference and quickly established itself as a competitive regional power, winning four conference titles in the first 20 years of conference membership (1988-2004)."
+  golden_ages:
+    - { era: "1988–2004", what: "Four Southland Conference championships and sustained playoff contention; peak era of Northwestern State football" }
+  legends:
+    - { name: "Two NFL Rookies of the Year", role: "achievement", why: "Northwestern State is the only FCS program to produce this distinction; proof of elite talent development" }
+  canonical_moments:
+    - { name: "Four Southland titles", year: 2004, what: "Northwestern State wins conference championships in 1988, 1997, 1998, and 2004", handling: glory }
+  the_place: "Harry Turpin Stadium in Natchitoches, Louisiana — one of the oldest college towns in the U.S., home of the Demons."
+  brand_of_football: "Tough, defensive-minded, defined by the ability to develop talent for the NFL and win regionally — Northwestern State football is about proving Natchitoches can produce on national stages."
+  cultural_footprint: "A program with unmatched NFL Rookie of the Year pedigree that remains invisible to mainstream college football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Northwestern State suffered a catastrophic 2025 season, finishing 1-11 (0-8 SLC)
+    under second-year coach Blaine McCorkle. The lone victory came against Alcorn State; conference play was a complete
+    washout. This represents a complete institutional collapse for a program with four Southland titles and the unique
+    distinction of having produced two NFL Rookies of the Year. The 2025 season is an existential crisis: either the
+    program recovers in 2026 under McCorkle, or a complete rebuild is required. The fanbase is in shock and demanding
+    answers. Whether the turnaround is a coaching change or a roster rebuild remains unclear, but 1-11 is not a sustainable
+    baseline for a program that has proven it can win.
+  research_checklist:
+    - Four Southland Conference titles (1988, 1997, 1998, 2004)
+    - Two NFL Rookies of the Year (the only FCS program with this distinction)
+    - 2025 catastrophic collapse (1-11, 0-8 SLC)
+    - Blaine McCorkle's second year as head coach
+    - Roster composition and draft-eligible players
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Northwestern_State_Demons_football_team
+    - https://en.wikipedia.org/wiki/Northwestern_State_Demons_football

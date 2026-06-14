@@ -1,0 +1,114 @@
+# Emotional Core — UW-Platteville  (wisconsin-platteville)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Researched 2026-06-13 from live web research — see story_canon.sources.
+#
+# Back-to-back WIAC champions. The sustained contender building a new era of conference dominance.
+
+status: live
+slug: wisconsin-platteville
+team_id: null
+program_name: UW-Platteville
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  core_variant: perpetual-rebuild
+  one_line: "The program that's winning now: back-to-back WIAC titles under Ryan Munz — Platteville is the conference contender building its own standard."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Platteville is the WIAC program that's figured out how to be a consistent conference champion — two straight WIAC titles, a 9-3 record in 2025, and the belief that the Pioneers can sustain contention in a conference where River Falls just won a national title and Whitewater won six."
+
+the_wound:
+  name: "The perpetual-contender ceiling"
+  detail: "Platteville has been good for years — consistent WIAC contender, conference titles, solid records — but has never won a Stagg Bowl. The program has learned to win the WIAC, but the next step (national championship) remains elusive. With River Falls breaking through in 2025, Platteville feels the urgency to prove the back-to-back titles are a launchpad, not a ceiling."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a Stagg Bowl. Take the back-to-back WIAC titles and translate them into a national championship run — prove that Platteville's 9-3 seasons and conference dominance can climb to the highest stage."
+  drought: { since: 1985, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — just the knowledge that River Falls just won a national championship while Platteville keeps winning the WIAC. The question is whether the Pioneers' conference dominance can translate to Stagg Bowl contention."
+
+the_delusion:
+  tone: earnest
+  text: "That Platteville football, with the right trajectory, could be competing for Stagg Bowls in the next few years. The back-to-back WIAC titles prove the program is built right. The fanbase believes the Pioneers are one elite team away from breaking through nationally."
+
+the_grudge_texture:
+  rival: wisconsin-oshkosh
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: present-success vs future-aspiration — the faction savoring back-to-back WIAC titles vs the faction frustrated that conference dominance hasn't translated to Stagg Bowl appearances
+register: platteville-wiac-champion-riser
+never_use:
+  - Mid-tier program (Two straight WIAC championships is elite-tier conference play)
+  - One-year wonder (Back-to-back titles prove sustainability)
+
+story_canon:
+  the_unique_thing: "The program that's turned the WIAC into a Platteville territory — back-to-back conference championships (2024-2025) and a 9-3 record in 2025, proof that the Pioneers are the conference's current standard-setters."
+  the_origin: "A Wisconsin-Platteville program with a long WIAC history, building toward modern contention under coach Ryan Munz. The Pioneers have been steady conference competitors for years, but the back-to-back titles mark a shift toward sustained dominance."
+  golden_ages:
+    - { era: "2024–2025 (Ryan Munz)", what: "Back-to-back WIAC championships and consistent 8+ win seasons" }
+  legends:
+    - { name: Ryan Munz, role: coach, why: "Built the back-to-back WIAC championship teams; in fourth season, establishing Platteville as a conference dynasty in the making" }
+  canonical_moments:
+    - { name: "2024 WIAC Championship", year: 2024, what: "Platteville wins the WIAC conference title", handling: glory }
+    - { name: "2025 WIAC Championship", year: 2025, what: "Back-to-back conference titles and a 9-3 overall record, positioning the Pioneers as WIAC elite", handling: glory }
+    - { name: "Back-to-back WIAC titles", year: 2025, what: "Two straight conference championships prove Platteville's sustained competency", handling: glory }
+  the_place: "Johnston Field — home of Platteville football and the WIAC championship tradition the Pioneers are building."
+  brand_of_football: "Disciplined, conference-savvy execution — Platteville football is about winning the WIAC, week after week, and proving the Pioneers belong among the elite D3 programs."
+  cultural_footprint: "The WIAC's current standard-setter — Platteville has learned to win the conference and is now positioned to break through nationally, proving that sustained conference dominance can become Stagg Bowl contention."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UW-Platteville went 9-3 in 2025 (5-2 WIAC) and won the WIAC conference title
+    for the second straight year under head coach Ryan Munz, now in his fourth season. The Pioneers did not earn an
+    NCAA playoff bid despite the strong record and conference title, deepening the question of why Platteville's
+    conference dominance hasn't translated to national tournament contention. The next phase for the Pioneers is either
+    proving the back-to-back titles are the foundation for a Stagg Bowl run, or accepting that the WIAC championship
+    is the highest ceiling. Munz's next team will face that crossroads.
+  research_checklist:
+    - back-to-back WIAC championships 2024-2025
+    - Ryan Munz tenure and sustained success
+    - 9-3 record in 2025, 5-2 WIAC conference play
+    - rivalry with UW-Oshkosh (55-50-4 all-time series, Platteville won 2025)
+    - Stagg Bowl droughts and national tournament access
+  sources:
+    - https://en.wikipedia.org/wiki/Wisconsin-Platteville_Pioneers_football
+    - https://letsgopioneers.com/sports/m-footbl/
+    - https://www.d3football.com/conf/WIAC/2025/standings
+
+briefing:
+  identity_phrase: UW-Platteville is the WIAC program that's won back-to-back conference championships and is
+    building toward sustained elite D3 contention.
+  mantra: Go Pioneers
+  cultural_anchors:
+    fan_archetype_dominant: Conference-Champion-Builder
+    outsider_archetype_dominant: Underrated-Contender
+    one_sentence: UW-Platteville is the D3 riser that won back-to-back WIAC championships in 2024-2025 and is
+      positioned to break into national Stagg Bowl contention.
+  selfname: the Pioneers
+  aspiration_ladder_top: ''
+  rivalries:
+    - wisconsin-oshkosh
+  heritage:
+    national_titles: null
+    conference_titles: 2 straight (2024-2025 WIAC)
+    current_conference: WIAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Ryan Munz
+    era_name_overrides: {}
+    always_surface:
+      - Back-to-back WIAC championships (2024-2025)
+      - 9-3 record in 2025
+      - Sustained conference contention
+    rituals: []
+    modules_already_rendering: []
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

@@ -1,0 +1,121 @@
+# Emotional Core — Miami (OH)  (miami-oh)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: miami-oh
+team_id: 210
+program_name: Miami (OH)
+program_tier: 3
+
+emotional_core:
+  primary: honor          # the Cradle of Coaches — heritage IS the identity, deeper than any record
+  secondary: grievance    # three straight MAC title games, no banner — the league keeps slamming the door
+  one_line: "Miami is the Cradle of Coaches — the small Ohio school that taught the sport its giants, from Paul Brown to Woody Hayes to Bo Schembechler — and a program whose history runs deeper than the conference it now keeps falling one game short in."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A coaching lineage that shaped college football itself vs a present that reached three straight MAC Championship Games and lost the last one — proximity to a title without the title."
+
+the_wound:
+  name: "Three title games, no banner"
+  detail: "Miami reached its third straight MAC Championship Game in 2025 and lost it 23-13 to Western Michigan, then dropped the Arizona Bowl 18-3 to Fresno State to finish 7-7 — the recurring ache of a program that keeps arriving at the doorstep and getting turned away."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the MAC outright — a banner that finally matches the program's outsized name and ends the run of close-but-short Championship Saturdays."
+  drought: { since: 2019, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "The fanbase points to the names Oxford gave the sport — and watches the program get filed as just another MAC team, as if the place that produced college football's great coaches were a footnote instead of a foundation."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the Cradle of Coaches name still means something on the field — that a program with this lineage and Chuck Martin's steady title-game contenders is one Championship Saturday from turning heritage back into hardware."
+
+the_grudge_texture:
+  rival: cincinnati
+  texture: blood-feud   # the Victory Bell, contested since 1888 — the oldest non-Ivy rivalry in the sport
+
+the_coach_relationship: total-trust   # Martin has the RedHawks in three straight title games
+the_internal_fracture: heritage-pride vs present-frustration — the faction that leans on the Cradle of Coaches legend vs the faction tired of losing the games that would make new legend
+register: oxford-cradle-of-coaches-honor
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always MAC-only — Cradle of Coaches lineage transcends conference
+  - No identity — Cradle of Coaches + Love and Honor + Victory Bell are CFB-foundational
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Cradle of Coaches — the small Oxford, Ohio school that produced an astonishing share of the men who built college and pro football: Paul Brown, Woody Hayes, Ara Parseghian, Bo Schembechler, Weeb Ewbank, Sid Gillman and more, all tied to Miami. No program of its size has shaped the sport so profoundly."
+  the_origin: "One of the nation's oldest public universities, nicknamed the 'Mother of Fraternities' and, in football, the Cradle of Coaches — a heritage program whose influence dwarfs its on-field profile."
+  golden_ages:
+    - { era: "1947–1955 (Brown/Hayes/Parseghian lineage)", what: "The coaching pipeline that earned the Cradle of Coaches name, including a 1955 undefeated season under Ara Parseghian" }
+    - { era: "2003 (Ben Roethlisberger)", what: "A 13-1 season and MAC title behind the program's most famous quarterback" }
+  legends:
+    - { name: Ara Parseghian, role: coach, why: "Coached Miami before his Notre Dame national titles; emblem of the Cradle of Coaches" }
+    - { name: Ben Roethlisberger, role: player, why: "Led the 2003 peak; first-round NFL pick and Super Bowl-winning quarterback" }
+    - { name: Paul Brown, role: coach, why: "Miami man who became one of pro football's founding architects" }
+  canonical_moments:
+    - { name: "Parseghian's 1955 unbeaten season", year: 1955, what: "A 9-0 year and Tangerine Bowl, the on-field flower of the coaching dynasty", handling: glory }
+    - { name: "Roethlisberger's 2003 MAC title", year: 2003, what: "A 13-1 season behind the program's signature QB", handling: glory }
+    - { name: "The 2025 MAC title game loss", year: 2025, what: "A third straight Championship Game ends 23-13 short against Western Michigan", handling: heartbreak }
+  the_place: "Yager Stadium in Oxford — and the Cradle of Coaches plaza honoring the legends, with the Victory Bell waiting each year for Cincinnati."
+  brand_of_football: "Sound, fundamentals-first football — the discipline you'd expect from the program that trained the sport's great teachers, carried in the alma mater 'Love and Honor.'"
+  cultural_footprint: "Love and Honor — a heritage that belongs to all of college football, the Oxford classroom where the coaching profession's icons learned their craft."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Miami went 7-7 (6-2 MAC) in 2025, reaching its third straight MAC
+    Championship Game under Chuck Martin and losing 23-13 to Western Michigan, then falling 18-3 to Fresno State
+    in the Arizona Bowl. Martin returns for 2026 with the RedHawks again among the MAC's contenders — chasing
+    the outright title that keeps slipping away on Championship Saturday.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Miami_RedHawks_football_team
+    - https://www.hustlebelt.com/miami-redhawks/43929/2025-mac-championship-game-deep-dive-miami-oh-redhawks
+    - https://miamiredhawks.com/news/2026/3/24/2026-football-schedule-announced
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Miami (OH) is the MAC program whose 'Cradle of Coaches' legacy + Paul Brown / Woody Hayes
+    / Bo Schembechler coaching pipeline + 2024 9-4 Sun Bowl appearance define what historic-football-coaching-lineage
+    looks like.
+  mantra: Beat ___ (anyone).
+  cultural_anchors:
+    fan_archetype_dominant: Oxford-Love-And-Honor-RedHawk
+    outsider_archetype_dominant: MAC-Refugee-Diminisher
+    one_sentence: Miami (OH) is the Cradle of Coaches — Paul Brown / Woody Hayes / Ara Parseghian / Bo Schembechler
+      coaching lineage + Victory Bell rivalry + Love and Honor alma mater that make the program one of CFB's
+      most-storied historical anchors.
+  selfname: the RedHawks
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Cradle of Coaches coaching lineage (Paul Brown / Woody Hayes / Ara Parseghian / Bo Schembechler)
+    - Victory Bell vs Cincinnati (since 1888, oldest non-Ivy rivalry)
+    - 1955 9-0 + Tangerine Bowl under Ara Parseghian
+    rituals:
+    - Cradle of Coaches Lineage
+    - Victory Bell (vs Cincinnati)
+    - Love and Honor (Alma Mater)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: assumption
+team_id: null
+program_name: Assumption University
+program_tier: 6
+
+emotional_core:
+  primary: restoration      # the 2023-2025 rise under new coach after a lean stretch
+  secondary: house-money    # competing and winning with modest resources, punch-above-weight athletics
+  one_line: "Assumption is the Worcester Greyhound that climbed into the national top-25 in 2025 after a humbling 2023, proving a small Catholic program can make a statement at Division II."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A strong 2013-2017 Bob Chesney dynasty (44-16 overall, 36-9 NE10) vs struggling years after his departure, then a sudden 2025 resurge into the national polls."
+
+the_wound:
+  name: "The post-Chesney drought and the question of sustainability"
+  detail: "After Bob Chesney's transformative 2013-2017 run turned Assumption into a regional power, the program stumbled for several years, raising doubts about whether the Greyhounds could maintain elite status without their architect. Years of rebuilding, no conference titles, and whispers that 2013-2017 was lightning in a bottle — until 2025."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the 2013-2017 standard — a program that competes for NE10 titles every year and makes NCAA tournaments."
+  drought: { since: 2017, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "No villain — just the internal urgency to prove the Greyhounds are back where they belong."
+
+the_delusion:
+  tone: self-aware
+  text: "That a single 8-2 season in 2025 means Assumption is a permanent national contender — the fanbase knows one strong year doesn't erase the lean years, but wants to believe the climb is real."
+
+the_grudge_texture:
+  rival: bentley
+  texture: championship    # two strong Northeast-10 programs battling for conference supremacy; 2025 title game 20-17
+
+the_coach_relationship: savior        # current coach has Greyhounds back in national rankings
+the_internal_fracture: vindication vs sustainability — the faction celebrating the 2025 return vs those wondering if it'll last
+register: worcester-greyhounds-northeast-regional-power
+never_use:
+  - "Always struggling — the 2013-2017 era and 2025 rise prove Assumption can win big"
+  - "One-year fluke — 8-2 season with NCAA tournament qualification shows structural strength"
+  - "Not a real power — national ranking + playoff qualification demonstrate legitimate contender status"
+  - "Bob Chesney's era is the only success — the 2025 squad is building its own arc"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The program that went from a transformative Bob Chesney dynasty (2013-2017, 44-16 overall, 36-9 NE10) to struggling years after his departure, then climbed back into the national top-25 in 2025 as an 8-2 playoff team — proof that sustained excellence is possible at small Catholic schools."
+  the_origin: "Assumption University fielded football in the Northeast-10 Conference, with the transformative Bob Chesney era defining modern Greyhound identity from 2013-2017."
+  golden_ages:
+    - { era: "2013–2017 (Bob Chesney)", what: "44-16 overall record, 36-9 NE10 mark, transformed Assumption into a regional power" }
+    - { era: "2025 surge", what: "8-2 overall, 6-1 NE10, national ranking, NCAA tournament qualification" }
+  legends:
+    - { name: Bob Chesney, role: coach, why: "Built Assumption into a 2013-2017 dynasty and forever changed expectations at Worcester" }
+  canonical_moments:
+    - { name: "2013-2017 Chesney era", year: 2017, what: "Bob Chesney's five-year run establishes Assumption as an NE10 power", handling: glory }
+    - { name: "2025 national ranking", year: 2025, what: "Assumption climbs into the Division II national top-25 and earns NCAA tournament selection", handling: glory }
+  the_place: "Brian Kelly '83 Stadium (Multi-Sport Stadium) — the home of the Greyhounds in Worcester, Massachusetts, where pride runs deep and expectations grew after 2013."
+  brand_of_football: "The punching-up Greyhound — a small Catholic program that competes above its weight class when the coaching and chemistry click."
+  cultural_footprint: "Proof that a mid-sized Catholic school can stack real postseason credentials. The Brian Kelly connection (now LSU head coach, Assumption alum) adds prestige; three NFL scouts watching from the Greyhounds in any given year."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Assumption finished 8-2 (6-1 NE10) in 2025, climbed into the national Division II top-25
+    polls, and qualified for the NCAA Championship. Defensive lineman Tindell Frick earned All-America honors with 11.0 sacks.
+    The Greyhounds' only two losses came against Kutztown and Bentley (20-17 conference title game). The question facing Worcester now
+    is whether 2025 is the start of a new dynasty or a one-year bounce-back — but the resurgence is real and the fanbase dares to dream.
+  research_checklist:
+    - Bob Chesney era 2013-2017: 44-16, 36-9 NE10
+    - Post-Chesney struggles (2018-2024)
+    - 2025 resurgence: 8-2, national top-25, NCAA tournament
+    - Home: Brian Kelly '83 Stadium, Worcester
+  sources:
+    - https://northeast10.org/news/2025/11/17/twice-as-nice-assumption-and-bentley-qualify-for-division-ii-football-championship.aspx
+    - https://assumptiongreyhounds.com/news/2025/11/3/football-breaks-into-two-national-polls.aspx
+    - https://northeast10.org/news/2024/9/6/general-division-ii-history-assumption-university.aspx

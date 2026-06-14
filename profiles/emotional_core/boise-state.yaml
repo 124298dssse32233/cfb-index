@@ -1,0 +1,111 @@
+# Emotional Core — Boise State  (boise-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # EXAMPLE (Claude 2026-06-12, web-researched) — shows the unified feeling+story canvas
+slug: boise-state
+team_id: 218
+program_name: Boise State
+program_tier: 3
+
+emotional_core:
+  primary: grievance
+  secondary: spectacle
+  core_variant: the-ceiling
+  one_line: "The little program on the blue turf that keeps beating the giants — and keeps being told it doesn't count."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Two decades of blue-blood scalps, still asked to re-prove it belongs every single year."
+
+the_wound:
+  name: "The closed door"
+  detail: "The 2006 team beat Oklahoma in the Fiesta Bowl and finished as the country's only undefeated team, ranked No. 5 — and the old system had no lane for a team like Boise to play for a title."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Win the access the old system denied — and, now that the door is open, win the game that makes the giants stop qualifying it."
+  drought: { since: never, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Broncos fans note the giants schedule them only when they have to — and still rank them behind teams they'd beat."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: fresno-state
+  texture: border-war
+
+the_coach_relationship: total-trust
+the_internal_fracture: "loyalty to the blue vs. the gravity of the power conferences poaching every coach and star who wins here"
+register: smurf-turf-g5-disruptor
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always G5 — 2024 CFP appearance disproves the ceiling
+  - Fiesta-Bowl-only program — Ashton Jeanty's 2024 Heisman finalist run expanded the
+    canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The blue turf — the first non-green field in football (1986) and the trademarked 'Smurf Turf' — which became the stage for the sport's definitive giant-slayer program."
+  the_origin: "A junior college until 1968 and an FBS program only since 1996, Boise built a national name from almost nothing — including, famously, on a $750,000 blue carpet its athletic director dreamed up on an airplane."
+  golden_ages:
+    - {era: "2004-2014 (Hawkins → Petersen)", what: "two undefeated Fiesta Bowl runs and a stretch that made a non-power program a fixture in the national top 10"}
+  legends:
+    - {name: "Chris Petersen", role: coach, why: "92-12 over eight years; the architect of the giant-slayer era and its trick-play folklore"}
+    - {name: "Ian Johnson", role: player, why: "took the Statue of Liberty into the end zone to beat Oklahoma in 2007 — then proposed to his cheerleader girlfriend on the field"}
+    - {name: "Ashton Jeanty", role: player, why: "ran for 2,497 yards in 2024 (4th-most in a season in FBS history), a Heisman finalist on the program's first Playoff team"}
+  canonical_moments:
+    - {name: "The 2007 Fiesta Bowl", year: 2007, what: "beat Oklahoma 43-42 in OT — a hook-and-ladder on 4th-and-18 to force overtime, then the Statue of Liberty two-point conversion to win; Boise finished as the nation's only undefeated team, No. 5 AP, its highest ranking ever", handling: miracle}
+    - {name: "The 2024 Playoff run", year: 2024, what: "Jeanty's historic season carried a fifth Mountain West title and the No. 3 seed and a first-round bye in the inaugural 12-team College Football Playoff — the only loss to No. 1 Oregon", handling: glory}
+  the_place: "Albertsons Stadium and its blue turf — a genuine home-field weapon Boise has defended at one of the best home win rates in the country."
+  brand_of_football: "Petersen's 'OKG' ethos — ordinary great guys, supremely prepared, willing to run the trick play in the biggest moment — out-scheming more-talented rosters."
+  cultural_footprint: "the proof-of-concept that a program from Idaho can play with anyone — the patron saint of every mid-major's Playoff dream, and a test case the expanded 12-team format was arguably built to include."
+  the_ongoing_story: "LIVE as of 2026-06: fresh off a 9-5 season and a fifth Mountain West title (with a chastening 38-10 LA Bowl loss to Washington), Boise leaves the conference it dominated for the rebuilt Pac-12 in 2026 — the original giant-slayer becoming a charter member of a new power league, where 'do they belong' gets its truest test yet, with Spencer Danielson entering year three."   # CURRENCY: refresh from live data/research each cycle, never training (doc 65 §4)
+  sources:
+    - https://www.ncaa.com/news/football/article/2017-01-01/david-vs-goliath-retold-looking-back-boise-states-2007-fiesta-bowl
+    - https://www.boisestate.edu/about/boise-states-blue-turf/
+    - https://broncosports.com/news/2024/9/13/football-boise-state-celebrates-38th-anniversary-of-the-blue
+    - https://www.espn.com/college-football/story/_/id/43217595/2024-boise-state-college-football-spencer-danielson-ashton-jeanty-adversity
+    - https://en.wikipedia.org/wiki/2025_Boise_State_Broncos_football_team
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Boise State is the G5 program that refused to stay small — Statue of Liberty in the 2007
+    Fiesta Bowl, blue turf, 2024 CFP appearance under Spencer Danielson.
+  mantra: Be the smurf.
+  cultural_anchors:
+    fan_archetype_dominant: Boise-Blue-Turf-True-Believer
+    outsider_archetype_dominant: G5-Forever-Diminisher
+    one_sentence: Boise State is the original G5 disruptor — blue turf, Statue of Liberty, Ashton Jeanty,
+      and a 2024 CFP appearance that proved the G5 ceiling rose with them.
+  selfname: the Broncos
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2007 Fiesta Bowl + Statue of Liberty vs Oklahoma
+    - 2024 11-2 + CFP appearance under Spencer Danielson
+    - Ashton Jeanty Heisman finalist 2024
+    rituals:
+    - Blue Turf
+    - 2007 Fiesta Bowl Statue of Liberty
+    - Smurf Turf Identity
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (56/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

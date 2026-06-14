@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: morrisville
+team_id: null
+program_name: SUNY Morrisville
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: house-money
+  one_line: "Morrisville is a SUNY program that won the Scotty Whitelaw Bowl and built recent postseason success, returning to relevance after decades in regional obscurity."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A small SUNY school that proved it could compete with Empire 8 powers by winning bowl games and making the postseason in recent seasons."
+
+the_wound:
+  name: "Decades of obscurity"
+  detail: "Morrisville played in regional irrelevance for most of its modern history before suddenly building competitive teams in the 2010s-2020s."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Sustain the recent bowl-game success and establish Morrisville as a consistent Empire 8 contender, not a one-year wonder."
+  drought: { since: 2024, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Morrisville's motivation is proving the recent success is real and repeatable."
+
+the_delusion:
+  tone: self-aware
+  text: "That a small SUNY school in rural central New York can sustain bowl-game success annually. The fanbase knows the talent has improved, but maintaining it requires luck and effort."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Building momentum vs the coaching change: Eric Jendryaszek is new (2025), replacing the previous coaching staff."
+register: morrisville-mustangs-scotty-whitelaw-bowl
+never_use:
+  - Historic program — Morrisville is young, founded in the modern era
+  - Consistent national contender — only recent success (2010s-2020s)
+
+story_canon:
+  the_unique_thing: "Recent postseason success including the 2024 Robert M. 'Scotty' Whitelaw Bowl victory, representing a rapid rise from obscurity to Empire 8 relevance."
+  the_origin: "Morrisville founded as a modern SUNY agricultural/technical school. Football began in the later 20th century and played in regional anonymity for decades."
+  golden_ages:
+    - { era: "2010s–2024", what: "Recent resurgence with bowl wins and postseason appearances" }
+    - { era: "2024", what: "Won the Robert M. 'Scotty' Whitelaw Bowl" }
+  legends:
+    - { name: "2014 Team", role: historical, why: "Inducted into Morrisville Wall of Fame (2024) as foundational to the program's modern identity" }
+    - { name: Eric Jendryaszek, role: coach, why: "Named head coach April 2025 to lead the next chapter of the resurgence" }
+  canonical_moments:
+    - { name: "2014 Team Ascension", year: 2014, what: "Team that began the modern competitive era (later inducted to Wall of Fame in 2024)", handling: glory }
+    - { name: "2024 Scotty Whitelaw Bowl Victory", year: 2024, what: "Defeated opponents to win the regional bowl game", handling: glory }
+  the_place: "Morrisville, New York — a small SUNY college in rural central New York seeking to build identity through athletic success."
+  brand_of_football: "An emerging program building momentum through postseason play and consistent conference competition."
+  cultural_footprint: "Morrisville represents the path of a small SUNY school using football success to build institutional pride."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Morrisville competed in 2025 under new head coach Eric Jendryaszek (appointed April 2025,
+    replacing the previous staff). The 2024 Scotty Whitelaw Bowl victory and 2014 team's Wall of Fame induction (2024) mark the program's
+    recent ascent. The 2025 season represents the transition year with new coaching as Morrisville seeks to maintain postseason momentum
+    and establish itself as a fixture in Empire 8 contention.
+  research_checklist:
+    - 2014 team: foundational to modern success, inducted to Wall of Fame 2024
+    - 2024 Robert M. 'Scotty' Whitelaw Bowl victory (7–4 overall record)
+    - Eric Jendryaszek: head coach 2025 (previously position coach)
+    - Recent resurgence from regional obscurity
+    - 2025: First season under Jendryaszek
+  sources:
+    - https://www.d3football.com/teams/morrisville
+    - https://empire8.com
+    - https://en.wikipedia.org/wiki/Morrisville_Mustangs_football

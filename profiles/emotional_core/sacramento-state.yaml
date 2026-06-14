@@ -1,0 +1,130 @@
+# Emotional Core — Sacramento State  (sacramento-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+#
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+# (Aggressive FBS riser: Sacramento State bet $18M+, a new stadium, and a new coach on the biggest
+#  jump in program history — MAC membership 2026, two-year transition before postseason eligibility,
+#  the most expensive institutional gamble in a mid-major California program's history.)
+
+status: live
+slug: sacramento-state
+team_id: null
+program_name: Sacramento State
+program_tier: 2
+
+emotional_core:
+  primary: restoration
+  secondary: grievance
+  core_variant: first-ascension
+  one_line: "Sacramento State is the California state school that built a Big Sky dynasty — three titles in four years — then bet everything on an $18 million FBS leap to the MAC, the most ambitious program build in the history of a city that Sacramento considers its own."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Three Big Sky championships in four years under Troy Taylor vs. a new coach, a two-year bowl ban, an $18M price tag, and a MAC schedule that will test whether the Sacramento market and a brand-new stadium can fund a legitimate FBS program."
+
+the_wound:
+  name: "Troy Taylor leaving for Stanford — and the coach who replaced him leaving too"
+  detail: "Sacramento State won three Big Sky titles under Troy Taylor (2019, 2021, 2022) before Taylor took the Stanford FBS job in December 2022, taking the formula to a Power program on the way out. Brennan Marion rebuilt the program's buzz in 2025 with a Go-Go offense and a 7-5 record — then resigned after one season to become offensive coordinator at Colorado. Sacramento State has now lost two coaches to bigger programs in three years, the defining wound of a program that keeps producing something others cash in."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Become a real FBS program in the heart of a top-20 media market — fill a new stadium, win MAC games, and prove that a California state school with Sacramento's NIL infrastructure can sustain what Troy Taylor built at a level the Big Sky never could test."
+  drought: { since: 2022, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Sac State fans believe the Sacramento market, a $57M NIL base, and a new stadium are exactly what Power programs take for granted — and that the Hornets are building it themselves, from scratch, with no inherited infrastructure. They say the FBS will learn what the Big Sky already knows: this program punches up."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the Sacramento market is the moat — that a top-20 media market with committed NIL donors, a new stadium, and a MAC landing spot makes this a different kind of FBS reclassification, not a financial overreach but a business case the sport hasn't seen from a program this size. They believe Sacramento is not a mid-major bet; it is a real market finally getting a real program."
+
+the_grudge_texture:
+  rival: uc-davis
+  texture: blood-feud   # the Causeway Classic — the in-city rivalry that defines Sacramento-area college football identity
+
+the_coach_relationship: hot-seat-churn   # Taylor to Stanford, Marion to Colorado in one year — Alonzo Carter is the third head coach since 2022
+the_internal_fracture: bet-the-future vs guard-the-gains — the faction that believes the $18M FBS leap is the defining move that unlocks Sacramento's potential vs the faction that watched two coaches leave and worries the institution is outrunning its stability
+register: hornets-big-sky-dynasty-sacramento-market-mac-ascent
+never_use:
+  - Mid-major forever — the program's own institutional bet rejects this; $18M, a new stadium, and MAC membership say otherwise
+  - Troy Taylor's program — three coaches have built here; the identity is the school, not the man
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The institutional bet — Sacramento State assembled $57M in NIL funds, announced a new 25,000-seat stadium, and paid $18M to join the MAC at the FBS level in 2026, the most aggressive infrastructure build by a California state school in the sport's history, anchored by a Big Sky dynasty that proved the Sacramento market could sustain winning football."
+  the_origin: "Sacramento State began football in 1954, joined the Big Sky Conference in 1996, and spent its first 23 years in the conference as a middling program — until Troy Taylor arrived in 2019, won three Big Sky titles in four seasons (2019, 2021, 2022), and built the FCS case for a Sacramento FBS program. The school withdrew from the Big Sky in 2026 and joined the MAC as a football-only member, leaving every other sport for the Big West."
+  golden_ages:
+    - { era: "2019–2022 (Troy Taylor)", what: "Three Big Sky Conference championships in four seasons (2019, 2021, 2022), back-to-back titles (2021-22), four FCS Playoff appearances, the first dynasty in program history" }
+    - { era: "2026– (FBS/MAC era)", what: "First year in the Football Bowl Subdivision — MAC membership, new stadium announced, $57M NIL base, Alonzo Carter head coach" }
+  legends:
+    - { name: Troy Taylor, role: coach, why: "The dynasty architect — three Big Sky titles, 30-8 record (.789 win pct), FCS Coach of the Year in 2019, the man who proved Sacramento could sustain championships before Stanford called" }
+    - { name: Brennan Marion, role: coach, why: "Rebuilt buzz in one season with the Go-Go offense, 7-5 from 3-9, best rushing team in the FCS — then left for Colorado, the second departure in three years" }
+  canonical_moments:
+    - { name: "The 2019 Big Sky title — the first", year: 2019, what: "Sacramento State's first-ever Big Sky championship under Troy Taylor in his first season, ending 23 years of conference futility", handling: glory }
+    - { name: "Back-to-back Big Sky titles (2021-22)", year: 2022, what: "A 23-1 Big Sky record over three seasons and the most dominant run in program history", handling: glory }
+    - { name: "Beating Stanford in the FCS era", year: 2023, what: "Sacramento State defeated Power-conference Stanford — Troy Taylor's former employer — in a regular-season game, the Hornets announcing themselves on a bigger stage", handling: glory }
+    - { name: "The FBS announcement", year: 2026, what: "Sacramento State joins the MAC as a football-only FBS member — the culmination of the institutional bet that began with Taylor's dynasty", handling: glory }
+  the_place: "Hornet Stadium in Sacramento, California — a 21,195-seat venue on the CSUS campus in one of the top-20 media markets in the nation, soon to be replaced by a new 25,000-seat multi-use stadium announced in September 2024. The Causeway Classic against UC Davis is its biggest day."
+  brand_of_football: "Aggressive and market-aware — a program that pairs scheme-first football (Go-Go spread under Marion, multiple-title methodologies under Taylor) with a Sacramento-native identity built on the idea that a California state school in a major market deserves an FBS address."
+  cultural_footprint: "The Sacramento bet — the Hornets are the first mid-major to use a top-20 urban market, a committed NIL donor base (SAC-12 collective, $57M+), and a new stadium announcement to build a credible FBS infrastructure from the ground up. The Causeway Classic against UC Davis is the local identity anchor."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Sacramento State enters the MAC as a football-only FBS member in 2026,
+    its first year in the Football Bowl Subdivision after 33 years in the FCS (Big Sky). The school paid
+    approximately $18M in entry costs, announced a new 25,000-seat stadium, and holds a $57M NIL base through
+    the SAC-12 collective. Alonzo Carter — hired in December 2025 after Brennan Marion resigned to join
+    Colorado's staff — is in his first season as head coach. Sacramento State is bowl-ineligible for 2026
+    and 2027 per NCAA transition rules, making Carter's first job to win MAC games, develop roster depth,
+    and prove the market thesis before postseason access opens in 2028. The foundational question: does
+    Sacramento's market, money, and momentum outlast two coaching departures and a two-year transition wall?
+  sources:
+    - https://hornetsports.com/news/2026/2/16/hornet-football-to-join-the-mac-in-2026.aspx
+    - https://www.cbssports.com/college-football/news/sacramento-state-mac-fbs-2026/
+    - https://www.cbssports.com/college-football/news/sacramento-state-withdraws-from-big-sky-as-hornets-move-forward-with-risky-bet-on-future-fbs-football-success/
+    - https://www.csus.edu/news/newsroom/stories/2024/9/new-stadium-announcement.html
+    - https://sactownsports.com/48392/ncaa-sacramento-state-football-nil-funds-update-sac-12/
+    - https://en.wikipedia.org/wiki/2025_Sacramento_State_Hornets_football_team
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Sacramento State is the Big Sky dynasty (three titles 2019-2022 under Troy Taylor)
+    that made the most aggressive FBS reclassification bet of any California state school — $18M, MAC
+    membership, a new stadium, and a top-20 media market as the infrastructure moat.
+  mantra: Go Hornets.
+  cultural_anchors:
+    fan_archetype_dominant: Sacramento-Market-True-Believer
+    outsider_archetype_dominant: FCS-Small-School-Doubter
+    one_sentence: Sacramento State is the California state school that built an FCS dynasty and bet
+      its institutional future on an $18M FBS leap to the MAC in 2026, backed by a top-20 media
+      market and $57M in NIL infrastructure.
+  selfname: the Hornets
+  aspiration_ladder_top: MAC championship + bowl eligibility (2028)
+  rivalries:
+    - uc-davis  # Causeway Classic — the in-city rivalry, the most important annual game
+  heritage:
+    national_titles: 0
+    conference_titles: 3  # Big Sky: 2019, 2021, 2022
+    current_conference: MAC (football-only, 2026)
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Troy Taylor (dynasty architect, three Big Sky titles)
+    era_name_overrides: {}
+    always_surface:
+      - Three Big Sky championships (2019, 2021, 2022) — first dynasty in program history
+      - MAC / FBS reclassification 2026 ($18M entry, bowl-eligible 2028)
+      - SAC-12 NIL collective ($57M raised), new stadium announced 2024
+      - Causeway Classic vs UC Davis — the local identity anchor
+    rituals:
+      - Causeway Classic (vs UC Davis)
+      - Big Sky Dynasty Banner Years (2019/2021/2022)
+      - The Sacramento Market Bet
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet — enrich as source-expansion grows MAC and California coverage

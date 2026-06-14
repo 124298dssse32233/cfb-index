@@ -1,0 +1,67 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: miles
+team_id: null
+program_name: Miles College
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Miles is the Golden Bear that won the 2024 SIAC Championship and has been climbing toward conference relevance, now rebuilding after a coaching transition and aiming to defend championship credibility."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A small Alabama HBCU that captured the 2024 SIAC Championship (53–25 over Clark Atlanta) and is now navigating a new coaching era while defending its place as a legitimate SIAC contender."
+
+the_wound:
+  name: "Long climb from mid-tier obscurity"
+  detail: "Miles played in the SIAC shadows for decades before emerging as a contender in the 2020s. The program had to prove it belonged at the championship table, and 2024's SIAC title proved it did."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Defend the 2024 SIAC Championship and establish Miles as a multi-year contender — make the Bears' 2024 title the beginning of a run, not a one-time achievement."
+  drought: { since: 2024, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "The fanbase believes: Miles doesn't have a chip, it has momentum. The 2024 SIAC Championship proved the Bears could win at the highest level in the conference, and now the program plays to defend that credibility."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that the 2024 championship was the key that unlocked something permanent in the Miles program — that the Bears can sustain SIAC competence for years and make another run at a title."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: savior
+the_internal_fracture: defend-the-title vs. rebuild-the-roster — those wanting to maximize the championship window vs. those building for long-term sustainability
+
+register: golden-bears-birmingham-alabama-hbcu
+never_use:
+  - Never won anything. 2024 SIAC Champions (beat Clark Atlanta 53-25).
+  - New program. Founded 1898; only the modern competitive window is recent.
+
+story_canon:
+  the_unique_thing: "2024 SIAC Championship (defeated Clark Atlanta 53–25) — Miles' only recent conference title, establishing the Bears as legitimate SIAC contenders and proving the program could compete at the championship level."
+  the_origin: "Founded 1898 as Miles Memorial College. Originally called the Golden Tornadoes, renamed Golden Bears by ~1920. A pillar of Birmingham's HBCU community with a long football tradition."
+  golden_ages:
+    - { era: "1914 (Undefeated)", what: "Miles' recorded undefeated season, one of the few championship-level moments in early program history" }
+    - { era: "2024 (SIAC Championship)", what: "Miles wins the SIAC Championship with a 53–25 victory over Clark Atlanta, proving modern competitive credibility" }
+  legends:
+    - { name: "Chris Goode", role: "Coach (2025–)", why: "Hired as new head coach in 2025; former Alabama star and NFL player (Colts 1987–1993), bringing elite football pedigree to Miles" }
+  canonical_moments:
+    - { name: "1914 Undefeated Season", year: 1914, what: "Miles records an undefeated season, establishing early program pedigree", handling: glory }
+    - { name: "2024 SIAC Championship", year: 2024, what: "Miles wins the SIAC Championship with a 53–25 victory over Clark Atlanta, the program's most recent championship", handling: glory }
+  the_place: "Birmingham, Alabama — a historic HBCU city where Miles College serves as a cultural and educational anchor. The program plays in one of America's great HBCU ecosystems."
+  brand_of_football: "Competitive, disciplined SIAC football — a program that proved in 2024 it could compete at the championship level and is now defending that credibility."
+  cultural_footprint: "An emerging SIAC power. Miles' 2024 championship proved that a program can climb from mid-tier obscurity to conference relevance in a single season."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Miles College finished the 2025 season 3–8 (3–5 SIAC) after winning the 2024 SIAC Championship, a significant decline that prompted a coaching change. Chris Goode (hired early 2025), a former Alabama star and NFL player (Indianapolis Colts 1987–1993), was brought in to stabilize the program and rebuild toward championship contention. The 2025 drop shows the volatility of small-program football and the importance of roster stability; Goode enters 2026 with the mandate to restore Miles to SIAC championship contention.
+  sources:
+    - https://en.wikipedia.org/wiki/Miles_College_Golden_Bears_football
+    - https://www.si.com/college/hbcu/football/chris-goode-replaces-sam-shade-as-head-coach-of-miles-college
+    - https://thesiac.com/sports/football/

@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: north-central-il
+team_id: null
+program_name: North Central College
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: spectacle
+  one_line: "North Central is the CCIW powerhouse that won national championships in 2019 and 2024, cementing itself as one of Division III's elite programs."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 2,500-student liberal-arts college in Naperville, Illinois that has become a Division III national championship program in the 2010s-2020s."
+
+the_wound:
+  name: "The near-miss in 2025"
+  detail: "North Central went undefeated in the regular season in 2025 but lost the Stagg Bowl final to UW-River Falls 24–14, denying them a third title in seven years."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the Stagg Bowl and win another national championship — complete the potential three-title run."
+  drought: { since: 2024, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe north Central proves that elite Division III football is built on coaching excellence and institutional commitment, not FBS resources. The Cardinals are a national power from a small Illinois college."
+
+the_delusion:
+  tone: load-bearing
+  text: "That North Central belongs among the greatest programs in college football history, not just Division III — fans believe the Cardinal dynasty is the real version of the sport, played with integrity and excellence."
+
+the_grudge_texture:
+  rival: monmouth
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "urgency after the 2025 Stagg Bowl loss vs perspective that the program is still among the elite"
+register: naperville-illinois-cardinal-dynasty
+never_use:
+  - Minimized the 2019 and 2024 national championships
+  - Made the 2025 Stagg Bowl loss feel like failure (it was loss in the championship game)
+  - Questioned the program's legitimacy as a national power
+
+story_canon:
+  the_unique_thing: "Two national championships (2019, 2024) in six years — North Central College is one of Division III's elite programs, a powerhouse from Naperville, Illinois."
+  the_origin: "North Central College in Naperville, Illinois has built one of the great modern Division III dynasties under head coach Brad Spencer."
+  golden_ages:
+    - { era: "2018–2024", what: "The Brad Spencer era: three Stagg Bowl appearances and two national championships (2019, 2024)" }
+  legends:
+    - { name: Brad Spencer, role: coach, why: "The architect of the North Central dynasty — three Stagg Bowl appearances in seven years and two national titles" }
+  canonical_moments:
+    - { name: "2019 national championship", year: 2019, what: "North Central wins the Stagg Bowl for the first time", handling: glory }
+    - { name: "2024 national championship", year: 2024, what: "North Central wins the Stagg Bowl again, cementing elite status", handling: glory }
+    - { name: "2025 Stagg Bowl loss", year: 2025, what: "North Central goes undefeated but loses to UW-River Falls 24–14 in the national championship game", handling: heartbreak }
+  the_place: "Naperville, Illinois — the home of North Central College, a liberal-arts school in the Chicago suburbs."
+  brand_of_football: "Disciplined, innovative, built on coaching excellence and institutional commitment to Division III football."
+  cultural_footprint: "One of the greatest modern programs in Division III, proof that a small Illinois college can compete for national championships."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: North Central College went undefeated (12-0) in the regular season in 2025 before losing the Stagg Bowl final to
+    UW-River Falls 24–14. Head coach Brad Spencer has now led the Cardinals to three Stagg Bowl appearances and two national championships (2019, 2024) in his tenure.
+    The 2025 season was a near-miss heartbreak, losing in the final game after perfection in conference play. The question in Naperville: can the Cardinals
+    return to the Stagg Bowl and complete the dynasty with a third title in seven years?
+  research_checklist:
+    - 2019 and 2024 national championships
+    - Brad Spencer coaching record and philosophy
+    - 2025 regular season undefeated run
+    - 2025 Stagg Bowl loss and team composition
+    - Current roster strength and recruiting
+  sources:
+    - https://en.wikipedia.org/wiki/North_Central_Cardinals_football
+    - https://www.d3football.com/schools/north-central-il
+    - https://ncccardinals.com/sports/football
+    - https://www.ncaa.org/news/football/article/2026-01-04/uw-river-falls-clinches-first-ever-national-title-2025-diii-football-championship

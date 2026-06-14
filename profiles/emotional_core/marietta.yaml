@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Marietta College Pioneers — The New Coaching Bet
+
+status: live
+slug: marietta
+team_id: null
+program_name: Marietta
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: contentment
+  one_line: "Marietta is the OAC competitor placing its faith in new coach Tom Hinkle — the Pioneers went 5-5 in 2025 under Tom Kaufman, then promoted Hinkle in December 2025 to lead the next chapter."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "An 8-3 program with strong players like RB Vante' Hodges vs the persistent frustration of finishing third in the OAC every year, always behind Mount Union."
+
+the_wound:
+  name: "The eternal third-place finish"
+  detail: "Marietta has built a solid program with consistent winning seasons — 8-3 in 2024, 7-2 OAC record — but the Pioneers always find themselves in the third or fourth slot when the standings settle. The wound is the creeping doubt that third is their ceiling."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the OAC championship and prove the third-place finishes were just preparation, not destiny."
+  drought: { since: 1900, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Mount Union and Baldwin Wallace are not blue bloods, but they function like gatekeepers. Marietta has the talent to compete, but the narrative always puts them behind."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that the right coaching hire — Tom Hinkle promoted in December 2025 — could be the ingredient that breaks through the third-place ceiling."
+
+the_grudge_texture:
+  rival: mount-union
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: "High expectations vs the reality that competing at 8-3 and 7-2 is already a success in a tough league."
+register: marietta-pioneers-oac-contender
+never_use:
+  - "Marietta is not competitive — 8-3 and 7-2 records prove otherwise"
+  - "Never won the OAC — the program is new to contention, not irrelevant"
+  - "Hinkle is wrong for the job — he was promoted to take the next step after a strong tenure as defensive line coach"
+
+story_canon:
+  the_unique_thing: "A small liberal arts college in Marietta, Ohio that has built a steady OAC contender with strong players and a new coaching mandate to finally break through to the conference title."
+  the_origin: "Founded in 1797 in Marietta, Ohio, the college has built a modest football tradition with steady improvement in the OAC."
+  golden_ages:
+    - { era: "2020–2025", what: "The modern era of 8+ win seasons and OAC competitiveness" }
+  legends:
+    - { name: Vante' Hodges, role: player, why: "Senior running back with 727 yards and 10 TDs in 2024, the heart of the Pioneers offense" }
+    - { name: Tom Hinkle, role: coach, why: "Promoted to head coach December 2025 after Tom Kaufman departed for St. Ignatius HS; longtime defensive line coach and associate HC" }
+  canonical_moments:
+    - { name: "2024 season (8-3, 7-2 OAC)", year: 2024, what: "The springboard season that justified the Kaufman hire", handling: glory }
+  the_place: "Marietta College in the town of Marietta, Ohio — a small Ohio River town with roots in Ohio's early settlement history."
+  brand_of_football: "Steady, prepared, hungry — Marietta football is learning how to compete at a high level in the OAC."
+  cultural_footprint: "The Pioneers are proof that consistency builds credibility, even if championships haven't come yet."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Marietta went 8-3 with a 7-2 OAC record in 2024, good for third place,
+    and hired Tom Kaufman as head coach for 2025. The Pioneers went 5-5 in 2025 (3-5 OAC). Kaufman then departed
+    December 2025 to take the head coaching job at St. Ignatius High School. Tom Hinkle, longtime defensive line
+    coach and associate head coach, was promoted to head coach for 2026. The program heads into 2026 with internal
+    continuity and a belief that Hinkle can restore OAC contention.
+  research_checklist:
+    - "2024: 8-3 overall, 7-2 OAC (third place)"
+    - "RB Vante' Hodges: 727 yards, 10 TDs in 2024"
+    - "Tom Kaufman coached 2025 (5-5, 3-5 OAC); departed December 2025 to St. Ignatius HS"
+    - "Tom Hinkle promoted to head coach December 2025"
+    - "Zero conference titles in program history"
+  sources:
+    - https://pioneers.marietta.edu/news/2025/8/15/marietta-picked-third-in-oac-preseason-football-poll.aspx
+    - https://www.flofootball.com/articles/14369914-marietta-pioneers-football-2025-schedule-roster-and-more-oac-football

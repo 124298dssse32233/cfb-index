@@ -1,0 +1,119 @@
+# Emotional Core — NC State  (nc-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: nc-state
+team_id: 71
+program_name: NC State
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # the overlooked third school on Tobacco Road with a real QB lineage and no respect
+  secondary: contentment  # a base that has made peace with a decade of stable nine-win football
+  core_variant: the-chronic-chip
+  one_line: "NC State is the program that put Philip Rivers, Russell Wilson, and Mike Glennon through the same building — a quarterback factory whose ceiling has always been the ACC's upper-middle, never the top."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A decade of Dave Doeren eight- and nine-win seasons and a genuine NFL quarterback pipeline against zero ACC titles since 1979 — always good, never quite a champion."
+
+the_wound:
+  name: "The 2002 team that didn't break through"
+  detail: "Philip Rivers' four-year run produced the most talented Wolfpack teams of the modern era and a string of bowl wins, but never an ACC title or a major-bowl breakthrough — the standing reminder that talent in Raleigh has rarely translated to a conference crown."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win the ACC outright for the first time since 1979 and finish a top-ten season — to convert a decade of nine-win near-misses into the breakthrough Raleigh has been promised, brick by brick."
+  drought: { since: 1979, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans are tired of being the forgotten school on Tobacco Road — the one nobody mentions when the cameras find Carolina blue and Duke's gym, even after producing more starting NFL quarterbacks than either of them."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the 'Brick by Brick' build is finally close — that with CJ Bailey back, Doeren's patient program is one elite recruiting class and one healthy November from the ACC title that's eluded Raleigh for over four decades."
+
+the_grudge_texture:
+  rival: north-carolina
+  texture: little-brother   # the in-state, Tobacco Road resentment of the basketball-blue neighbor
+
+the_coach_relationship: total-trust   # Doeren is the program's all-time wins leader; long-tenured and backed
+the_internal_fracture: patience vs ceiling — the faction grateful for a decade of stable winning under Doeren vs the faction that says the program has plateaued and a real title push requires more than steady eight-win years
+register: raleigh-wolfpack-loud   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Tobacco Road afterthought — Doeren's 8+ win seasons break that frame
+  - Always-football-second school — agricultural heritage is the brand
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Quarterback U — NC State developed Philip Rivers, Russell Wilson, and Mike Glennon in roughly a decade, an NFL-quarterback pipeline no other ACC program can match. The talent has always been real; the conference title has not come since 1979."
+  the_origin: "A land-grant agricultural and engineering university in Raleigh, founded 1887 — the working, technical school of the Research Triangle, the loud red wolf among Tobacco Road's blue bloods."
+  golden_ages:
+    - { era: "2000–2003 (Philip Rivers / Chuck Amato)", what: "The most talented modern Wolfpack run — four straight bowls and a quarterback who'd rewrite the record book" }
+    - { era: "1973–1979 (Lou Holtz era and after)", what: "The program's last ACC championships, capped by the 1979 title" }
+  legends:
+    - { name: Philip Rivers, role: player, why: "The program's passing king and the face of Quarterback U; a four-year starter and NFL star" }
+    - { name: Russell Wilson, role: player, why: "ACC Rookie of the Year, Super Bowl champion — the most accomplished QB the building produced" }
+    - { name: Roman Gabriel, role: player, why: "The 1960s star who established NC State's quarterback tradition decades before Rivers" }
+  canonical_moments:
+    - { name: "The 1979 ACC title", year: 1979, what: "NC State beats Duke to claim the conference — the last ACC championship Raleigh has won", handling: glory }
+    - { name: "Wilson's departure", year: 2011, what: "Russell Wilson leaves for Wisconsin amid a baseball/coaching standoff, then wins a Rose Bowl elsewhere — the one who got away", handling: heartbreak }
+  the_place: "Carter-Finley Stadium — 'the Howl,' the wolf siren, and a red-clad crowd in the heart of the Research Triangle, fighting for oxygen against the blue next door."
+  brand_of_football: "Quarterback-driven and defensively stout under Dave Doeren — 'Brick by Brick,' a patient, development-first build that prizes the long game over the splash."
+  cultural_footprint: "The technical, agricultural counterweight to Tobacco Road's basketball royalty — a fanbase whose chip is the conviction that NC State has produced more than it's ever been credited for."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: NC State went 8-5 in 2025 (4-4 ACC) and won the Gasparilla Bowl 31-7
+    over Memphis behind sophomore QB CJ Bailey, who threw for 3,105 yards and 31 total touchdowns and chose to
+    return for 2026 rather than enter the portal. Dave Doeren, in his 13th season and the program's all-time
+    wins leader, is back for year 14 — with the 1979 ACC drought, the longest in the conference, still unbroken.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_NC_State_Wolfpack_football_team
+    - https://gopack.com/news/2013/5/21/Elite_Era_of_Quarterbacking_Rivers_Wilson_Glennon
+    - https://www.espn.com/college-football/story/_/id/47483103/starting-qb-cj-bailey-returning-nc-state-2026-season
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: NC State is the program with the loudest fanbase on Tobacco Road and the football team
+    that produced Philip Rivers, Russell Wilson, and Mike Glennon at the same school.
+  mantra: Go Pack.
+  cultural_anchors:
+    fan_archetype_dominant: Raleigh-Wolfpack-Loud-Loyalist
+    outsider_archetype_dominant: Where-Is-NC-State
+    one_sentence: NC State is the program that built the most-cited college QB pipeline in the ACC — Rivers,
+      Wilson, Glennon — and whose 'Brick by Brick' Dave Doeren era continues the patient build.
+  selfname: the Wolfpack
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Philip Rivers / Russell Wilson / Mike Glennon QB pipeline
+    - Dave Doeren 2013-present tenure
+    - 2022 Pop-Tarts Bowl + 9-win seasons
+    rituals:
+    - Howl
+    - Tuffy the Wolf
+    - Brick by Brick
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (54/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

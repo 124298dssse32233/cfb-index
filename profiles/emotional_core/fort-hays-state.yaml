@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Emotional Core — soul file for Fort Hays State Tigers (MIAA)
+
+status: live
+slug: fort-hays-state
+team_id: null
+program_name: Fort Hays State
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: disbelief
+  core_variant: perpetual-rebuild
+  one_line: "Fort Hays State is the Tiger program climbing back from recent heartbreak — a program in Chris Brown's 14th year, hunting for the playoff breakthrough that has eluded three near-misses."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A program that joined the MIAA in 2012 and has built steady competence, reaching the regional cusp multiple times — 14 All-MIAA selections in 2025 — but can't break through to the national stage."
+
+the_wound:
+  name: "The playoff curse — three near-misses (8-3 in 2024, other close seasons) that keep the Tigers knocking on the door but not walking through"
+  detail: "Fort Hays went 8-3 in 2024 and ranked 8th in their super region, just missing the expanded 8-team MIAA playoff bracket. That's the wound: good enough to be competitive, never quite enough to get in. It's happened multiple times, and each miss stings."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "End the playoff drought — break into the MIAA postseason and prove the Tigers belong among the conference's elite."
+  drought: { since: 2015, unit: conference_title }
+
+the_chip:
+  villain: committee
+  text: "The chip is the selection committee — the Tigers play hard and win games, but the bracket doesn't fall their way. Fort Hays believes they deserve an invite, and doesn't get one."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that Chris Brown's stability and next year's portal haul will finally crack the code — that the Tigers are one recruiting class away from a playoff season. They see the wins and the talent, and refuse to accept the plateau."
+
+the_grudge_texture:
+  rival: nebraska-kearney
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "patience vs. urgency — some fans ready to move on from the near-miss cycle, others trusting Brown's long-term build"
+register: kansas-tiger-bootstrap-heartland
+never_use:
+  - "Doormat program (14 All-MIAA selections in 2025, consistently competitive)"
+  - "Never won anything (conference-competitive since 2012)"
+
+story_canon:
+  the_unique_thing: "Fort Hays State is the MIAA program that has gotten tantalizingly close to the playoffs — 8-3 record, ranked 8th in their super region, just missing the expanded bracket — three times in recent memory. The program embodies the tragedy of near-misses."
+  the_origin: "Fort Hays State joined the MIAA in 2012 after years in other conferences. The move was meant to elevate the program, and it has — consistent competence, multiple playoff-caliber seasons — but the breakthrough hasn't come."
+  golden_ages:
+    - { era: "2012–2020", what: "The Chris Brown era begins; building a competitive MIAA program from transition" }
+    - { era: "2021–2025", what: "Sustained competence, 14 All-MIAA players, but no playoff berths" }
+  legends:
+    - { name: "Chris Brown", role: "coach", why: "14 seasons (95-63 record); the architect of FHS competence and the near-miss cycle" }
+  canonical_moments:
+    - { name: "2024 Season (8-3 Near-Miss)", year: 2024, what: "Finished 8-3, ranked 8th in super region, just missed the expanded 8-team MIAA playoff", handling: heartbreak }
+    - { name: "14 All-MIAA Selections (2025)", year: 2025, what: "The deepest, most talented roster, but playoff dreams still uncertain", handling: glory }
+  the_place: "Lewis Field (or Fort Hays football home) in Hays, Kansas — the stage where Tigers have come close and fallen short."
+  brand_of_football: "Steady, ambitious, development-driven — football that builds year-round but struggles to convert regular-season excellence into postseason entry."
+  cultural_footprint: "A program that proved MIAA transition can work competitively, but hasn't yet proven it can reach the national playoff field."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Fort Hays State is in Chris Brown's 14th year, and the Tigers showed up with 14 All-MIAA selections in 2025 — their most talented roster in memory. Preseason rankings had FHS 3rd in the MIAA, signaling playoff ambitions. The 2024 near-miss (8-3, 8th ranking, just outside the 8-team playoff bracket) is the wound; the 2025 roster is the chance. Can the Tigers finally break through?
+  research_checklist:
+    - Chris Brown's 14-year record and system
+    - 2024 near-miss (8-3 season, playoff bracket exclusion)
+    - The Nebraska-Kearney rivalry
+    - Roster depth and portal activity 2025
+    - Preseason rankings and playoff prospects
+  sources:
+    - https://en.wikipedia.org/wiki/Fort_Hays_State_Tigers_football
+    - https://www.fhsu.edu/athletics/
+    - https://themiaa.com/
+    - https://www.d2football.com/

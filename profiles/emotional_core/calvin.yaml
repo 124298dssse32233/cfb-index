@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Calvin University Knights
+
+status: live
+slug: calvin
+team_id: null
+program_name: Calvin University
+program_tier: 7
+
+emotional_core:
+  primary: spectacle
+  secondary: house-money
+  one_line: "Calvin is the brand-new varsity football program (started 2024) that exploded from 2-10 to 7-3 in year two—the Knights are writing their identity from scratch and proving growth is possible at D3."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program only two years old with a 7-3 record in 2025 vs. the ceiling of novelty—Calvin is building identity and tradition on the fly, no past to defer to."
+
+the_wound:
+  name: "The 2024 inaugural loss and the burden of building from zero"
+  detail: "Calvin started varsity football in 2024 and went 2-10 (0-7 MIAA). Every program has a first season; Calvin's was brutal. But the Knights did not sulk or quit. They doubled their wins in year two (7-3). The wound is not defeat but the weight of newness—Calvin must build tradition where none exists."
+  handling: dated-grievance
+  freshness: this-era
+
+the_dream:
+  text: "Make the NCAA Division III playoff tournament and prove Calvin football is not a novelty but a permanent fixture in the MIAA."
+  drought: { since: 2024, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe calvin's chip is against doubt. Everyone thought the Knights would be bad for years. Proving them wrong in year two is everything."
+
+the_delusion:
+  tone: self-aware
+  text: "That Calvin can be a national contender within five years. The Knights believe their explosive growth is sustainable and that the program can compete with 100-year-old MIAA schools quickly."
+
+the_grudge_texture:
+  rival: hope
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Ambitious growth trajectory vs. realistic MIAA learning curve; two-year-old team vs. century-old peers"
+register: grand-rapids-michigan-knights-born-yesterday
+never_use:
+  - "Established MIAA program — founded 2024, only 2 years old"
+  - "Perennial loser — 2-10 → 7-3 is trajectory up, not down"
+  - "Irrelevant — beat Oberlin 88-6, Albion 53-24, Olivet 50-20"
+
+story_canon:
+  the_unique_thing: "Calvin University started varsity football in 2024 and went from 2-10 (0-7 MIAA) in year one to 7-3 (4-3 MIAA) in year two—one of the most explosive growth trajectories in recent Division III history."
+  the_origin: "Calvin University, an academically elite Christian institution, did not have varsity football until 2024. The school hired Trent Figg, a veteran D3 coach, and launched the program. In year one, the Knights went 2-10 and 0-7 in the MIAA. But in year two (2025), they went 7-3, 4-3 MIAA, and beat multiple established programs decisively (Oberlin 88-6, Albion 53-24). The growth is unprecedented at this level."
+  golden_ages:
+    - { era: "2024 (Year 1)", what: "Inaugural season 2-10, learning the MIAA and establishing baseline culture" }
+    - { era: "2025 (Year 2)", what: "Explosive growth to 7-3, 4-3 MIAA, multiple wins over established programs" }
+  legends:
+    - { name: Trent Figg, role: coach, why: "Inaugural and current head coach (since 2023), hired before program began; architect of the rapid ascension" }
+  canonical_moments:
+    - { name: "2024 inaugural season", year: 2024, what: "Calvin football begins varsity play, goes 2-10 (0-7 MIAA)", handling: glory }
+    - { name: "2025 Oberlin victory", year: 2025, what: "Calvin defeats Oberlin 88-6, dominant statement win", handling: glory }
+    - { name: "2025 season 7-3", year: 2025, what: "Calvin's second season reaches 7-3, 4-3 MIAA", handling: glory }
+  the_place: "Grand Rapids, Michigan. Calvin plays at Grand Rapids Christian High School (temporary facility, no on-campus stadium). The program is building infrastructure and facilities alongside the team."
+  brand_of_football: "Aggressive and ambitious. Calvin football is built on high expectations and rapid growth. The program is not content to be a doormat; year two proves competitive ambition."
+  cultural_footprint: "A novelty with proven staying power. Calvin football captured national attention in 2024 as a new D3 program. The 2025 season validated that attention—this is not a failed experiment but a successful launch."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Calvin went 7-3 in 2025 (4-3 MIAA) after a brutal 2-10 inaugural season. The Knights beat established MIAA programs decisively: Oberlin 88-6 (the worst loss for the Yeomen in recent memory), Albion 53-24, Trine 34-31, Olivet 50-20. The growth from year one to year two is extraordinary. Trent Figg, the inaugural and continuing coach, has established a culture of ambition and growth. The question for Calvin is whether the 7-3 season is the start of sustained excellence or a peak from which the program regresses. The Knights have no history to lean on, only the future to build.
+  research_checklist:
+    - 2024 inaugural season (2-10, 0-7 MIAA)
+    - Trent Figg hired before 2023 season
+    - 2025 season 7-3, 4-3 MIAA
+    - Oberlin 88-6 victory
+    - Albion 53-24 victory
+    - Trine 34-31 victory
+    - Olivet 50-20 victory
+    - Temporary facility at Grand Rapids Christian HS (no on-campus stadium)
+  sources:
+    - https://calvinknights.com
+    - https://calvin.edu/news-stories/calvin-university-announces-first-head-football-coach
+    - https://www.d3football.com/teams/Calvin/2025/index

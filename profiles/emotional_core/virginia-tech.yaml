@@ -1,0 +1,122 @@
+# Emotional Core — Virginia Tech  (virginia-tech)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: virginia-tech
+team_id: 154
+program_name: Virginia Tech
+program_tier: 3
+
+emotional_core:
+  primary: restoration     # the live arc: a marquee hire to drag the program back to the Beamer-era standing
+  secondary: grief         # mourning the years between then and now — the slow drift from a top-10 fixture to a 3-9 team
+  core_variant: regime-reset
+  one_line: "Virginia Tech is the program that runs out to Enter Sandman in front of 65,000 still chasing the altitude of the Frank Beamer years — and just bet its restoration on James Franklin, hired the same fall both he and the Hokies hit bottom."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "Twelve straight bowls and a 1999 national-title-game run vs a 3-9 collapse in 2025 that started 0-3 and got the head coach fired in September."
+
+the_wound:
+  name: "The 0-3 collapse that ended the Pry era"
+  detail: "Virginia Tech opened 2025 with three straight losses — including a home defeat to Old Dominion — its worst start in nearly four decades, and fired Brent Pry the next day. The Hokies limped to 3-9 under an interim staff while the crowd at Lane Stadium booed a program that used to terrify people."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Climb back to where the program lived under Beamer — a conference contender that travels well, wins ten, and makes Lane Stadium a place visitors dread again."
+  drought: { since: 2010, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Hokie fans are tired of being written up as a faded name, a program whose best days are spoken about in the past tense. They say the foundation never left — it just needed a coach who could finally use it."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes Virginia Tech is a sleeping power one right hire from returning to the top ten — that the brand, the entrance, and the recruiting footprint were always there, and that James Franklin is the proof the wait is over."
+
+the_grudge_texture:
+  rival: virginia
+  texture: border-war   # the Commonwealth Cup — the in-state fight for Virginia, the game that defines the season locally
+
+the_coach_relationship: savior   # James Franklin hired as the man to end the drift; the whole fanbase is staking the future on him
+the_internal_fracture: faith vs fatigue — the faction electrified by the Franklin hire vs the faction that's watched a decade of "this is the year we're back" and won't believe it until Lane Stadium is feared again
+register: hokie-lunch-pail-tradition   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Past their peak — every program has cycles; the Beamer foundation remains
+  - Vick was the program — Beamer's defenses won the Big East before Vick
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Enter Sandman — 65,000 people jumping in unison as Metallica drops at Lane Stadium, the single most famous entrance in college football, the sound of a program built on defense, special teams, and a lunch-pail identity Frank Beamer made national."
+  the_origin: "A land-grant military-tradition school in the Blue Ridge town of Blacksburg that Frank Beamer turned from a regional afterthought into a sustained national power across the 1990s and 2000s."
+  golden_ages:
+    - { era: "1995–2011 (Frank Beamer)", what: "Twelve straight bowl games, a 1999 national-title-game run with Michael Vick, and 'Beamerball' — defense and special teams as a brand" }
+  legends:
+    - { name: Frank Beamer, role: coach, why: "Built the program from nothing into a national fixture; the namesake of Beamerball and the foundation everything since is measured against" }
+    - { name: Michael Vick, role: player, why: "The electric freshman quarterback who carried the 1999 team to the national title game and remade the program's profile" }
+    - { name: Bruce Smith, role: player, why: "The 1984 Outland Trophy winner and Hall of Fame defensive end — the original proof Virginia Tech could produce the best" }
+  canonical_moments:
+    - { name: "The 1999 national-title-game run", year: 1999, what: "An undefeated regular season behind freshman Michael Vick, ending in the BCS title game against Florida State", handling: glory }
+    - { name: "Enter Sandman becomes tradition", year: 2000, what: "Lane Stadium adopts the Metallica entrance that becomes the sport's signature pregame ritual", handling: glory }
+    - { name: "The 0-3 start and a firing", year: 2025, what: "A three-loss September, an Old Dominion home defeat, and the end of the Brent Pry era", handling: wound }
+  the_place: "Lane Stadium, hewn from Hokie Stone, where Enter Sandman turns kickoff into an earthquake — routinely rated among the loudest, most intimidating venues in the country."
+  brand_of_football: "Beamerball — hard-nosed defense, game-breaking special teams, and a blue-collar lunch-pail identity that prizes effort over flash."
+  cultural_footprint: "The emotional center of a school bound together by tradition and, since 2007, by resilience — a fanbase whose loyalty runs deeper than any single season's record."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Virginia Tech opened 2025 at 0-3, fired Brent Pry the day after a home loss
+    to Old Dominion, and finished 3-9 (2-6 ACC) under interim coach Philip Montgomery. In November the Hokies
+    landed the offseason's biggest hire — James Franklin, fired by Penn State mid-2025 after 104 wins there — and
+    he is rebuilding the roster aggressively through the portal, even bringing Brent Pry back as his defensive
+    coordinator. The 2026 quarterback is unsettled. Blacksburg is staking its whole restoration on Franklin
+    being the man to make Lane Stadium feared again.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Virginia_Tech_Hokies_football_team
+    - https://www.espn.com/college-football/story/_/id/46257938/hokies-set-fire-brent-pry-starting-0-3-sources-say
+    - https://hokiesports.com/welcome-home-james-franklin
+    - https://www.wdbj7.com/2026/02/04/james-franklin-announces-coaching-staff-including-brent-prys-return/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Virginia Tech is the program with Enter Sandman, the Lunch Pail defense, and the heaviest
+    1999 hangover in college football.
+  mantra: Let's Go Hokies.
+  cultural_anchors:
+    fan_archetype_dominant: Hokie-Lunch-Pail-Loyalist
+    outsider_archetype_dominant: 1999-Was-Their-Peak-Diminisher
+    one_sentence: Virginia Tech is the program whose 1999 Michael Vick BCS title-game run still casts the
+      longest shadow over the modern Hokie experience.
+  selfname: the Hokies
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1999 BCS title-game appearance (Michael Vick freshman year)
+    - Frank Beamer's 12 straight bowl games (1995-2006)
+    - The Enter Sandman entrance as cultural artifact
+    rituals:
+    - Enter Sandman
+    - The Lunch Pail
+    - Hokie Stone
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (59/100, n=54)
+    voice_profile: absent
+    delusion_premium: absent

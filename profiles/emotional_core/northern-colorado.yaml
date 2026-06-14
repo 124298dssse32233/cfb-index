@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: northern-colorado
+team_id: 337
+program_name: Northern Colorado
+program_tier: 5
+
+emotional_core:
+  primary: contentment
+  secondary: standard
+  one_line: "Northern Colorado is the small mountain school that won back-to-back NCAA Division II national championships (1996–97) and has spent 30 years in FCS contentedly settling into mid-tier football, naming itself after a totem pole and never chasing the titles that are gone."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A program that touched national excellence in Division II, then reclassified to FCS and accepted a permanent step down, making peace with a smaller stage."
+
+the_wound:
+  name: "Division II success that evaporated in the transition to FCS"
+  detail: "Northern Colorado won back-to-back NCAA Division II national championships in 1996 and 1997 under coach Joe Glenn. Upon transition to I-AA in 1998, the Bears entered a tier they couldn't sustain. For 28 years, they have been the lower-tier Big Sky team (39–146 FCS record), a cautionary tale of mismatched reclassification."
+  handling: dated-grievance
+  freshness: all-time
+
+the_dream:
+  text: "Win a Big Sky title, make the FCS playoffs with consistency, remind people that the Bears once mattered at the national level."
+  drought: { since: 1997, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Northern Colorado carries no resentment — the fanbase has made peace with the Div II era being a separate, cherished chapter."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: northern-arizona
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "None; the program is aligned on realistic expectations."
+register: greeley-northern-colorado-bears-division-ii-legacy
+never_use:
+  - Never won Division II championships — the back-to-back titles (1996–97) are real
+  - Consistently competitive in FCS — the Bears are 39–146 in FCS, placing them in the lower tier
+
+story_canon:
+  the_unique_thing: "The back-to-back NCAA Division II national championships (1996, 1997) under coach Joe Glenn — the program's singular greatest achievement, now a historical reference."
+  the_origin: "A small university in Greeley, Colorado that became a Division II powerhouse in the mid-1990s under Joe Glenn, winning two consecutive national titles."
+  golden_ages:
+    - { era: "1996–1997 (Division II Dynasty)", what: "Northern Colorado wins back-to-back NCAA Division II national championships under Joe Glenn, the program's apex" }
+  legends:
+    - { name: Joe Glenn, role: coach, why: "Won back-to-back Division II national championships (1996–1997), the greatest coach in program history" }
+  canonical_moments:
+    - { name: "1996 Division II Championship", year: 1996, what: "Northern Colorado wins the NCAA Division II national championship", handling: glory }
+    - { name: "1997 Division II Championship", year: 1997, what: "Northern Colorado wins back-to-back Division II titles, cementing the dynasty", handling: glory }
+  the_place: "Nottingham Field in Greeley, Colorado — a small-town facility on the Colorado plains"
+  brand_of_football: "Small-school toughness — built by Joe Glenn's system on discipline and execution"
+  cultural_footprint: "Northern Colorado proved that a very small program could win national titles in Division II, then accepted the reality that FCS was a different game entirely."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Northern Colorado went 4–8 (2–6 Big Sky) in 2025 under third-year coach Ed Lamb
+    (signed a 2-year extension December 2024). The Bears are perpetually in the lower-Big Sky tier, managing expectations and
+    building incrementally. Lamb's extension signals the athletic department's confidence in his patience approach. 2026 continues
+    the long, steady build toward occasional .500 seasons and rare playoff berths. The Division II trophies are museum pieces;
+    the job is to make FCS football work in Greeley, even if it never reaches the heights of 1996–1997.
+  research_checklist:
+    - Back-to-back Division II championships (1996, 1997)
+    - Joe Glenn as the legendary coach
+    - 39–146 FCS record overall (lower tier)
+    - Ed Lamb as third-year coach (2-year extension 2024)
+    - 2025 as continuing the low-tier pattern
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Northern_Colorado_Bears_football_team
+    - https://en.wikipedia.org/wiki/Northern_Colorado_Bears_football
+    - https://en.wikipedia.org/wiki/1996_Northern_Colorado_Bears_football_team
+    - https://en.wikipedia.org/wiki/1997_Northern_Colorado_Bears_football_team

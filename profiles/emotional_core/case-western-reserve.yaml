@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: case-western-reserve
+team_id: null
+program_name: Case Western Reserve
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Case Western Reserve is the Division III program where engineering and science excellence drive the football team — a small university playing with Spartan discipline and the quiet confidence of 144+ consecutive wins under one legendary coach."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A rigorous engineering college where the football team punches above typical academic-heavy school weight. Case's 144-win record under Greg Debeljak is built on discipline, not flashiness."
+
+the_wound:
+  name: "The ceiling of small-school excellence"
+  detail: "Case Western Reserve has never broken through to a national championship despite sustained success. The wound is not failure but aspiration — a program that plays the game right but can't quite reach the summit."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win a national championship and prove that an engineering school with admission standards can build not just a winning team but a dynasty."
+  drought: { since: 1987, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe the chip is quiet but real: the belief that Case's disciplined, academically honest game is purer than the money-driven powerhouses, and that someday the scoreboard will prove it."
+
+the_delusion:
+  tone: self-aware
+  text: "That the team's next great class will finally have the talent to match Case's discipline and coaching — the fanbase knows how good it is right now, and believes it could be even better."
+
+the_grudge_texture:
+  rival: carnegie-mellon
+  texture: blood-feud
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "Academic prestige vs. athletic competitiveness — how much can Case compromise on admission standards?"
+register: case-western-reserve-spartans-engineering-discipline-ohio
+
+never_use:
+  - Engineering school can't compete — Case's record disproves this
+  - Perennial national title contender — sustained success, but never won one
+  - Soft school that plays defense — Case is known for discipline, not weakness
+
+story_canon:
+  the_unique_thing: "Case Western Reserve has built sustained Division III excellence under head coach Greg Debeljak, accumulating 144+ career wins over 21 seasons — a record of engineering-school discipline and coaching consistency."
+  the_origin: "Case Institute of Technology merged with Western Reserve University in 1967 to form Case Western Reserve University in Cleveland. The football program embodies the university's ethos: rigorous, disciplined, academically uncompromising."
+  golden_ages:
+    - { era: "2004–2016", what: "The program's most successful stretch under Greg Debeljak, with regular playoff appearances and conference titles" }
+  legends:
+    - { name: "Greg Debeljak", role: "coach", why: "21-year head coach with 144+ career wins, the architect of sustained Case excellence and the program's greatest champion" }
+  canonical_moments:
+    - { name: "144-win milestone", year: 2024, what: "Greg Debeljak becomes the winningest coach in Case Western Reserve football history, symbolizing sustained excellence", handling: glory }
+  the_place: "Case Western Reserve University in Cleveland, Ohio — a rigorous engineering and science research university where football is a proud but secondary pursuit."
+  brand_of_football: "Disciplined, fundamental, smart football. Case plays the game the way it's supposed to be played: execution, conditioning, gap integrity, and decision-making over talent and flash."
+  cultural_footprint: "Proof that a rigorous academic institution can build a winning football program without compromising its core mission. Case's success is measured not just in wins but in student-athletes who graduate with real degrees."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Case Western Reserve had a successful 2025 season and continues under head coach
+    Greg Debeljak in his 21st year. The program remains a PAC conference power and a model of what sustained coaching and
+    discipline can build at a rigorous academic university. The challenge heading into 2026 is maintaining consistency and
+    finding the talent level needed for a national championship run.
+
+  research_checklist:
+    - Greg Debeljak 21-year tenure (144+ wins)
+    - Recent playoff history and conference standing
+    - Case Western Reserve University's academic mission and athletics balance
+    - Notable players (Noah Coyne WR confirmed)
+    - Rivalry context within PAC and among engineering schools
+
+  sources:
+    - https://en.wikipedia.org/wiki/Case_Western_Reserve_Spartans_football
+    - https://www.cwru.edu/athletics/sports/mfoot
+    - https://d3football.com/

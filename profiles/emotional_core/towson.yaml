@@ -1,0 +1,110 @@
+# Emotional Core — Towson  (towson)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: towson
+team_id: 1112
+program_name: Towson
+program_tier: 2
+
+emotional_core:
+  primary: grievance
+  secondary: restoration
+  core_variant: the-snub
+  one_line: "Towson is the only program in FCS history to earn playoff berths at Division III, Division II, and Division I — reached the FCS championship game in 2013 — and still gets overlooked as a Maryland commuter school instead of a genuine FCS flagship."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "An FCS championship game appearance (2013), playoff appearances at three different NCAA division levels, and the Johnny Unitas Stadium legacy vs a program that keeps getting dismissed as a suburban Baltimore afterthought."
+
+the_wound:
+  name: "The 2013 championship game loss — the title that would have changed everything"
+  detail: "Towson reached the FCS national championship game in 2013 under Rob Ambrose, losing to North Dakota State. The program has not returned to that height, cycling through winning and losing seasons while the championship appearance sits as the defining moment of a program that came within one game of FCS immortality."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to the FCS championship game and finish it — prove the 2013 title run was the standard, not the peak, and give Towson the championship that would anchor a Baltimore-region football identity."
+  drought: { since: 2013, unit: relevance }
+
+the_chip:
+  villain: national_media
+  text: "The room says Towson is the only program in FCS history with playoff berths at all three division levels, played for a national championship in 2013, and still gets identified in national media as the commuter school next to Towson University's basketball team — they believe the resume earns more respect than it gets."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans say Pete Shinnick's steady 6-6 seasons are building blocks, not a ceiling — that the program that played for a national title in 2013 is structurally too good to stay at .500 for long, and that one good recruiting class returns Towson to the CAA title race."
+
+the_grudge_texture:
+  rival: delaware
+  texture: little-brother
+
+the_coach_relationship: total-trust
+the_internal_fracture: patience-vs-nostalgia — the faction willing to let Shinnick's rebuild play out vs the faction measuring every season against the 2013 championship run and losing patience with middling CAA records
+
+register: towson-tigers-baltimore-fcs-champion-game-2013-shinnick
+never_use:
+  - "The only program at three division playoff levels is a fun trivia note, not a real football achievement — it is: it proves sustained program-building across 50 years of reclassification"
+  - "2013 was a fluke — a conference championship game appearance requires more than luck in FCS; it represents a genuine program peak"
+
+story_canon:
+  the_unique_thing: "The only program in NCAA football history to earn playoff berths at Division III, Division II, and Division I — capped by the 2013 FCS championship game appearance under Rob Ambrose — and home to the legacy of Johnny Unitas, the greatest quarterback in NFL history, who played for Towson (then Maryland State) in the 1950s."
+  the_origin: "Towson has played football since 1969 as a Division III program, climbed to Division II in 1979, and became a Division I-AA/FCS program in 1987. The Tigers made the FCS championship game in 2013, losing to North Dakota State — the culmination of a Rob Ambrose era that produced the program's best football."
+  golden_ages:
+    - { era: "2011-2014 (Ambrose peak)", what: "Multiple FCS playoff appearances and the 2013 national championship game appearance — the most successful sustained stretch in Towson football history" }
+    - { era: "2019 (final Ambrose season)", what: "7-4 record in Rob Ambrose's final season — the last winning campaign before the program's recent transition to Pete Shinnick" }
+  legends:
+    - { name: Johnny Unitas, role: player, why: "The greatest quarterback in NFL history played at Towson (then Maryland State) in the 1950s — the program's most famous alumni connection" }
+    - { name: Rob Ambrose, role: coach, why: "Led Towson to the 2013 FCS championship game and multiple playoff appearances — the most successful head coach in program history" }
+  canonical_moments:
+    - { name: "2013 FCS championship game", year: 2013, what: "Towson reaches the FCS national championship game, losing to North Dakota State — the program's all-time peak", handling: heartbreak }
+    - { name: "Three-division playoff breakthrough", year: 1987, what: "Towson becomes one of the few programs in history to reach the postseason at Division III, Division II, and now Division I levels", handling: glory }
+    - { name: "Johnny Unitas legacy", year: 1955, what: "The greatest NFL quarterback in the game's history played his college ball at what is now Towson — the stadium bears his name", handling: glory }
+  the_place: "Johnny Unitas Stadium in Towson, Maryland — named for the most famous player in program history and the greatest quarterback in the history of the sport."
+  brand_of_football: "Physical, CAA-competitive, Baltimore-metropolitan football — a program that recruits the Mid-Atlantic corridor and plays in one of the most storied named stadiums in FCS."
+  cultural_footprint: "The suburban Baltimore FCS program that nearly won a national championship in 2013 and plays in a stadium named for Johnny Unitas — a program with more history than its regional reputation suggests."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Towson went 6-6 (4-4 CAA) in 2025 under Pete Shinnick's third
+    season — a .500 result that continues the program's pattern of competitive-but-not-dominant CAA
+    football since the Ambrose era ended. Shinnick led Towson to its first seven-win season since 2019
+    in 2024 (7-4), then followed with the 6-6 2025 campaign. The Johnny Unitas Stadium setting and the
+    2013 championship game appearance define what Towson could be; the 6-win plateau defines where it
+    is. The rivalry with Delaware remains the program's biggest game — a little-brother dynamic that
+    the Tigers have historically had trouble resolving in their favor.
+  sources:
+    - https://en.wikipedia.org/wiki/Towson_Tigers_football
+    - https://towsontigers.com/sports/football/roster/coaches/pete-shinnick/8324
+    - https://en.wikipedia.org/wiki/2025_Towson_Tigers_football_team
+
+briefing:
+  identity_phrase: Towson is the only FCS program with playoff appearances at Division III, Division II, and Division I — capped by the 2013 championship game — playing in Johnny Unitas Stadium and rebuilding toward that standard under Pete Shinnick.
+  mantra: Go Tigers.
+  cultural_anchors:
+    fan_archetype_dominant: Baltimore-Metro-FCS-Loyalist
+    outsider_archetype_dominant: Commuter-School-Dismisser
+    one_sentence: Towson is the only program with FCS playoff berths at three NCAA levels, a 2013 national championship game appearance, and Johnny Unitas's name on the stadium — still waiting to return to the height they know is possible.
+  selfname: the Tigers
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Rob Ambrose
+    era_name_overrides: {}
+    always_surface:
+      - 2013 FCS national championship game (lost to North Dakota State)
+      - Only program with playoff berths at Division III, II, and I levels
+      - Johnny Unitas played at Towson (then Maryland State) — stadium bears his name
+      - Pete Shinnick third season (2025) 6-6
+    rituals:
+      - Johnny Unitas Stadium
+      - The Championship Standard
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

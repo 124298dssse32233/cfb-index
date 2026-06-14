@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: northern-arizona
+team_id: 336
+program_name: Northern Arizona
+program_tier: 5
+
+emotional_core:
+  primary: grief
+  secondary: contentment
+  one_line: "Northern Arizona is the Flagstaff-mountain program that dominated NCAA Division II (four straight titles 1978–81), entered I-AA in 1996 and never found the same standard, now living in the Big Sky with the memory of greatness and the reality of mid-tier comfort."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A Division II dynasty that won four consecutive national championships, then spent three decades in I-AA / FCS chasing that standard and never approaching it, resigned to the identity of 'once was great.'"
+
+the_wound:
+  name: "Division II success that did not translate to I-AA relevance"
+  detail: "Northern Arizona won four consecutive NCAA Division II national championships (1978, 1979, 1980, 1981) under coach Jerry Dunn, creating the Flagstaff program legend. Upon reclassifying to I-AA in 1996, the Lumberjacks entered a national stage they could not compete at. Three decades later, they have settled into a mid-Big Sky program with a trophy case that feels from another era."
+  handling: referenceable
+  freshness: all-time
+
+the_dream:
+  text: "Compete for Big Sky titles every year, return to .500+ winning, make the FCS playoffs with regularity — prove Flagstaff football is not just memory."
+  drought: { since: 1996, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Northern Arizona doesn't carry resentment — the fanbase has accepted the transition from Division II dominance to FCS respectability."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: southern-utah
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Division II nostalgia vs current FCS reality — should we celebrate the past or focus on building the present?"
+register: flagstaff-northern-arizona-lumberjacks-dunn-era
+never_use:
+  - Never won Division II championships — the four straight titles (1978–81) are documented and real
+  - Successful I-AA transition — the 1996 entry was a struggle; Northern Arizona has never returned to the dominance it had in Div II
+  - Jerry Dunn still represents the modern program — he coached 1978–1989; his legacy is historical, not current
+
+story_canon:
+  the_unique_thing: "The four consecutive NCAA Division II national championships (1978, 1979, 1980, 1981) under coach Jerry Dunn — a dynasty that made Flagstaff synonymous with mountain football excellence before the reclassification to I-AA."
+  the_origin: "A high-altitude university in Flagstaff, Arizona (7,000 feet elevation) that built a small-college football dynasty under Jerry Dunn, winning four Division II titles in succession."
+  golden_ages:
+    - { era: "1978–1981 (Division II Dynasty)", what: "Northern Arizona wins four consecutive NCAA Division II national championships under Jerry Dunn" }
+    - { era: "1996 (I-AA debut)", what: "Upon reclassification to I-AA, the Lumberjacks go 9–3 and appear in the FCS playoffs, winning their first I-AA playoff game" }
+  legends:
+    - { name: Jerry Dunn, role: coach, why: "Won four consecutive Division II national championships (1978–1981), the greatest coach in program history" }
+  canonical_moments:
+    - { name: "1978–1981 Division II Dynasty", year: 1981, what: "Northern Arizona wins four straight NCAA Division II national championships, the program's golden era", handling: glory }
+    - { name: "1996 I-AA Debut", year: 1996, what: "Upon reclassification to I-AA, Northern Arizona goes 9–3 and makes the playoffs, winning its first I-AA game (beat Austin Peay)", handling: glory }
+  the_place: "Walkup Skydome in Flagstaff, Arizona — a high-altitude facility at 7,000 feet in the San Francisco Peaks"
+  brand_of_football: "Mountain football — built on altitude, toughness, and the Flagstaff identity of small-school pride"
+  cultural_footprint: "Northern Arizona is proof that a small college program can dominate its subdivision for a generation; the 1978–1981 dynasty is untouched in NAU history and unlikely to be repeated."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Northern Arizona went 7–5 (4–4 Big Sky) in 2025 under second-year coach Brian Wright
+    (2026 status unconfirmed). The Lumberjacks are a mid-pack Big Sky team, neither rising nor falling dramatically. Wright's job is
+    to stabilize the program, win enough to make occasional playoff appearances, and build sustainable Big Sky competitiveness. The
+    Division II trophies hang in the facility; the job now is to build an I-AA / FCS identity that can approach them, even if it never
+    matches them.
+  research_checklist:
+    - Four consecutive Division II national championships (1978–1981)
+    - Jerry Dunn as the legendary architect
+    - 1996 reclassification and entry to I-AA
+    - Mountain identity and Flagstaff location
+    - 2025 as respectable mid-Big Sky performance
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Northern_Arizona_Lumberjacks_football_team
+    - https://en.wikipedia.org/wiki/Northern_Arizona_Lumberjacks_football
+    - https://en.wikipedia.org/wiki/1996_Northern_Arizona_Lumberjacks_football_team
+    - https://en.wikipedia.org/wiki/Jerry_Dunn_(football_coach)

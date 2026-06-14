@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: franklin-pierce
+team_id: null
+program_name: Franklin Pierce University
+program_tier: 6
+
+emotional_core:
+  primary: house-money      # the expansion program that just achieved its first winning season — everything is bonus
+  secondary: redemption     # proving the Ravens can climb after years of struggle
+  one_line: "Franklin Pierce is the Raven that just captured its first winning season in program history (6-4 in 2025), a landmark breakthrough for a young Division II program that has paid its dues."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Five winless seasons and an uphill battle from 2019-2024 vs the magical 2025 breakthrough that finally proves FPU football is more than a building project."
+
+the_wound:
+  name: "The grinding expansion years and the wait for 'winning'"
+  detail: "Franklin Pierce joined Division II in 2019 with a 19-year drought of varsity football (1995-2014). The program entered the Northeast-10 in 2020 and spent the first five years in the league losing more than winning — a punching bag, a place where recruits went to learn toughness through failure. Year six brought redemption."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the 2025 was the start of a new era, not a one-year fluke. Build a program that competes for bowls."
+  drought: { since: 2025, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — just pride in being the team that refused to quit, that finally reached winning."
+
+the_delusion:
+  tone: load-bearing
+  text: "That because we finally won six games in 2025, the Ravens can now contend for conference titles immediately — the fanbase knows the climb from 1-win seasons to 6-4 is incredible, and that belief in sustained ascent is the whole story."
+
+the_grudge_texture:
+  rival: bentley
+  texture: championship    # FPU shocked Bentley 35-21 in September 2025, a landmark win for the program
+
+the_coach_relationship: savior        # coaching staff that built the first winner
+the_internal_fracture: patience vs impatience — the faction ready to celebrate winning vs those demanding immediate conference titles
+register: keene-ravens-northeast-breakthrough
+never_use:
+  - "Always losing — 6-4 in 2025 is a landmark achievement, not a floor"
+  - "Never will be competitive — Adrian Parker and the 2025 roster proved otherwise"
+  - "Expansion programs can't win — FPU is now in year seven with a winning record"
+  - "6-4 is not an accomplishment — for Franklin Pierce, it's historic vindication"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "A program reborn — Franklin Pierce restarted varsity football in 2019 after a 24-year hiatus and just captured its first winning season (6-4 in 2025) on the strength of QB Adrian Parker and a first-year head coach that believed the Ravens could climb from perennial losers to the postseason."
+  the_origin: "Franklin Pierce discontinued football in 1995 but restarted the program in 2019 with Division II aspirations, joining the Northeast-10 Conference in 2020. Six years of struggle preceded the 2025 breakthrough."
+  golden_ages:
+    - { era: "2025 landmark", what: "First winning season in program history, 6-4 overall, 6-2 NE10, first postseason bowl eligibility" }
+  legends:
+    - { name: Adrian Parker, role: quarterback, why: "Reigning NE10 Offensive Player of the Year, threw for 2,888 yards and 22 TDs in 2024, led the Ravens to their first winning season" }
+  canonical_moments:
+    - { name: "First Winning Season (2025)", year: 2025, what: "Franklin Pierce achieves 6-4 record and 6-2 NE10 mark, reaching the postseason for the first time in the modern era", handling: glory }
+    - { name: "Upset of Bentley", year: 2025, what: "Franklin Pierce shocks the top-seed Falcons 35-21 in September 2025, a landmark win for a young program", handling: glory }
+  the_place: "Grappone Field in Keene, New Hampshire — the home of the Ravens, where a young program has fought for every win."
+  brand_of_football: "The resilient expansion program — proof that patience, coaching, and portal additions can turn a perennial loser into a winner in six years."
+  cultural_footprint: "A story of institutional grit. Franklin Pierce is proof that restarting a program doesn't doom you if you commit for the long haul. The 2025 breakthrough is a beacon for other FCS/D2 expansion efforts."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Franklin Pierce finished 6-4 overall and 5-2 (actually 6-2 per sources reviewed) in Northeast-10 play during the 2025 season,
+    capping the first winning season in program history. QB Adrian Parker, the reigning NE10 Offensive Player of the Year, led the Ravens to three consecutive
+    wins to close the season. Linebacker Geno Facchetti earned Second Team All-American honors from D2CCA and was named NE10 Defensive Player of the Year.
+    The Ravens shocked nationally-ranked Bentley early in the season with a 35-21 victory, a landmark win that proved the program had arrived. The question facing
+    Keene now is whether 2025 is the breakthrough that launches a new era or the summit of this particular rise.
+  research_checklist:
+    - Restarted 2019 after 24-year hiatus (last football 1995)
+    - Joined NE10 in 2020
+    - 2025: first winning season, 6-4, 6-2 NE10
+    - QB Adrian Parker, LB Geno Facchetti, All-American honors
+  sources:
+    - https://www.keenesentinel.com/sports/local_sports/franklin-pierce-football-earns-first-winning-season-with-win/article_896ff9ab-c5a0-456e-9b63-c0a8c2710e8d.html
+    - https://fpuravens.com/news/2025/9/20/football-franklin-pierce-secures-landmark-victory-downs-bentley-35-21.aspx
+    - https://en.wikipedia.org/wiki/Franklin_Pierce_Ravens_football

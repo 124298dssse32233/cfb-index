@@ -1,0 +1,63 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: adams-state
+program_name: Adams State University
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Adams State is the high-altitude mountain school that plays football because the mission is the game itself, not the winning — every victory at 7,544 feet is a bonus."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A tiny school in Alamosa, Colorado playing D2 against regional rivals, building program culture in the shadow of recent collapse."
+
+the_wound:
+  name: "The 2025 winless season (0-11)"
+  detail: "Adams State went 0-11 (0-9 RMAC) in 2025, the worst record in program history — a catastrophic first season under head coach Levi Gallas that tested whether the program could recover from institutional collapse."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Climb out of the basement and rebuild a competitive RMAC program on the mountain — not to dominate, but to compete with pride."
+  drought: { since: 2025, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: fort-lewis
+  texture: border-war
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Rebuild patience vs. fan despair — the tension between believing in Gallas' Year 2 overhaul and the 0-11 hangover."
+register: mountain-school-alamosa-D2-football-pride
+never_use:
+  - Recent RMAC powerhouse — 0-11 and rebuilding from ground up
+  - Historic program success — 2025 was the worst season on record
+
+story_canon:
+  the_unique_thing: "A college town in the mountains at 7,544 feet elevation — the highest-altitude home field in college football, creating a unique home-field advantage for players acclimated to thin air."
+  the_origin: "A small school in Alamosa, Colorado with a modest football tradition, playing D2 football regionally against the Rocky Mountain athletic family."
+  golden_ages: []
+  legends: []
+  canonical_moments: []
+  the_place: "Virtue Field in Alamosa, Colorado, 7,544 feet above sea level — the mountains shape every game."
+  brand_of_football: "High-altitude grind — a program built on toughness and regional pride, not national ambition."
+  cultural_footprint: "A small D2 school proving that college football exists at every level, and every victory counts for the people who live it."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Adams State endured a 0-11 season in 2025, the worst in program history.
+    Coach Levi Gallas enters Year 2 with a mandate to rebuild: the question now is whether the program can climb back
+    to RMAC competitiveness and restore faith in a fan base that watched the bottom fall out. The mountain school's
+    identity rests on resilience.
+  sources:
+    - https://en.wikipedia.org/wiki/Adams_State_University_athletics
+    - https://adamsstategriz.com/
+    - https://www.rmac.org/

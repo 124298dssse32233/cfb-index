@@ -1,0 +1,101 @@
+# Emotional Core — Muhlenberg (muhlenberg)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III — program_tier: 7, graceful degradation applies (small school, regional focus, academic mission).
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: muhlenberg
+team_id: null
+program_name: Muhlenberg
+program_tier: 7
+
+emotional_core:
+  primary: restoration   # transformed from mid-pack to consistent playoff contender
+  secondary: spectacle   # the Milne-era offensive explosion
+  one_line: "Muhlenberg went from mid-pack to playoff regular under Nate Milne—a program that discovered it could win big and now believes it belongs in the national tournament every year."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Five Centennial titles (2000–2004) followed by 12 years of mid-pack irrelevance, then Milne's 2018+ transformation into a consistent playoff contender."
+
+the_wound:
+  name: "The 2005–2017 drought"
+  detail: "After five straight Centennial titles (2000–2004), Muhlenberg fell into a 13-year NCAA tournament drought. The program bottomed out 2005–2017 until Milne's elevation in 2018."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to the 2000–2004 glory — win Centennial titles annually and make Milne's current success a sustained era, not a blip."
+  drought: { since: 2004, unit: conference_title }  # Milne may have changed this; verify 2025
+
+the_chip:
+  villain: none
+  text: "Fans here believe no external chip; Muhlenberg's drive is internal—reclaiming the 2000–2004 era when the program was untouchable."
+
+the_delusion:
+  tone: earnest
+  text: "Muhlenberg fans believe the Milne formula (69–16 record since 2018, consistent NCAA tournament appearances) is sustainable and can return the program to annual Centennial titles."
+
+the_grudge_texture:
+  rival: dickinson
+  texture: championship    # Centennial peer, no blood feud
+
+the_coach_relationship: total-trust    # Milne is the savior; proven by 69–16 record
+the_internal_fracture: sustainability-doubt — between those who believe Milne's formula is permanent and those cautious after the 2005–2017 drought
+register: earnest-ambitious
+never_use:
+  - "Small-school irrelevance (Milne-era 69–16 and hosting NCAA tournament games prove otherwise)"
+  - "Lucky (11 years of consistent playoff contention is structural, not luck)"
+
+story_canon:
+  the_unique_thing: "Muhlenberg transformed from a mid-pack Centennial school (2005–2017, 13-year NCAA tournament drought) into a playoff regular in one coaching hire—Nate Milne's 2018+ era of 69–16 and consistent NCAA tournament hosting."
+  the_origin: "Founded in 1848 in Allentown, Pennsylvania, Muhlenberg became a Centennial Conference charter member in 1981 and was competitive throughout the 1980s and 1990s, winning five straight Centennial titles (2000–2004) under previous coaching."
+  golden_ages:
+    - { era: "2000–2004 (Five straight titles)", what: "Five consecutive Centennial championships; the pre-Milne peak" }
+    - { era: "2018–2025 (Nate Milne era)", what: "69–16 record in 7+ seasons, consistent NCAA tournament appearances and hosting, 2018 quarterfinals, offensive explosion (33.3 ppg in 2018)" }
+  legends:
+    - { name: Nate Milne, role: coach, why: "Transformed the program from mid-pack (2005–2017) to playoff contender in one hire; 69–16 career record through 2025" }
+  canonical_moments:
+    - { name: "Five straight Centennial titles (2000–2004)", year: 2004, what: "The pre-Milne peak; the dynasty Muhlenberg chases", handling: glory }
+    - { name: "Milne's 2018 NCAA Quarterfinals appearance", year: 2018, what: "First NCAA tournament appearance since 2004; the transformation begins", handling: glory }
+    - { name: "2025 NCAA First-Round Hosting", year: 2025, what: "Milne's consistent NCAA tournament presence and hosting rights prove sustainability", handling: glory }
+  the_place: "Schollmaier Stadium in Allentown, Pennsylvania — a small liberal arts home where Milne has built a program that hosts playoff games."
+  brand_of_football: "High-octane offensive explosion under Milne—33.3 ppg in 2018 set the tone; disciplined, well-coached, scores fast and often."
+  cultural_footprint: "The proof that one coaching hire can transform a program—Muhlenberg is the case study of a mid-pack team becoming a playoff staple in one season."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Muhlenberg is hosting an NCAA Division III first-round playoff game in November 2025, continuing the Nate Milne-era run of seven straight playoff appearances. Milne's career record stands at 69–16 through the 2025 season, with consistent Centennial contention and annual NCAA tournament participation. The 2026 question: is this a sustainable era, or does Milne's coaching success invite departures (to FBS) as it did before?
+  research_checklist:
+    - Five straight Centennial titles (2000–2004)
+    - 2005–2017 drought and Milne hiring (2018)
+    - Nate Milne 69–16 record (2018–2025)
+    - 2018 NCAA Quarterfinals, consistent hosting since 2018
+  sources:
+    - https://en.wikipedia.org/wiki/Muhlenberg_Mules_football
+    - https://bvmsports.com/2021/02/09/nate-milne-seeing-success-as-muhlenberg-football-coach/
+    - https://muhlenbergsports.com/news/2025/11/16/football-to-host-ncaa-first-round-game.aspx
+
+briefing:
+  identity_phrase: Muhlenberg is the transformed program whose 2018 Nate Milne hire elevated it from 13-year mid-pack (2005–2017) to 69–16 playoff regular—the one-coach renaissance.
+  mantra: Mule Pride.
+  cultural_anchors:
+    fan_archetype_dominant: Allentown-Mule-Riser
+    outsider_archetype_dominant: Underestimated-Awakened
+    one_sentence: Muhlenberg is the transformed Centennial program that went from 13-year drought (2005–2017) to 69–16 playoff regular under coach Nate Milne (2018+), hosting NCAA tournaments.
+  selfname: the Mules
+  heritage:
+    conference: Centennial
+    championships: 5 straight (2000–2004); Milne-era consistent Centennial contention
+  story_materials:
+    always_surface:
+    - Five straight titles (2000–2004)
+    - 2005–2017 drought
+    - Nate Milne 69–16 record (2018+)
+    - 2018 NCAA Quarterfinals, consistent hosting
+    rituals:
+    - Milne-era high-octane offense (33.3 ppg baseline)
+    - Annual NCAA tournament hosting
+    modules_already_rendering: none (D3 module set pending)
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal (canon-only, D3 small program)

@@ -1,0 +1,89 @@
+# Emotional Core — Harvard Crimson (harvard)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-14 from live web research — Ivy League founding member, old-money prestige, dynasty anchor.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: harvard
+team_id: null           # non-FBS; no team_id in canonical DB
+program_name: Harvard Crimson
+program_tier: 1         # academic prestige tier; oldest & most sustained excellence
+division: FCS (Ivy)
+
+emotional_core:
+  primary: honor        # the guardian of the oldest tradition in American sports
+  secondary: standard   # living up to eight generations of expectation
+  one_line: "Harvard football is the old-money dynasty that has played football longer than anyone else, won more games than almost anyone else, and acts like winning is just what Crimson teams do."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "918 wins, seven national championships, and the nation's oldest stadium vs the Ivy League's democratic structure that says no one program can dominate forever."
+
+the_wound:
+  name: "The Ivy ceiling — a program built for national dominance now locked in a league that forbids it"
+  detail: "Harvard could compete with any FBS program on any Saturday (the Crimson have proven this historically), but the Ivy League's no-scholarship rule and the self-imposed playoff ban mean the program will never get to prove it again. The oldest football program in the nation is bound by the academic compact it helped create."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Dominate the Ivy League every year — the only throne left available. Three straight Ivy titles (2023-2025) is proof the Crimson haven't forgotten how to win."
+  drought: null
+
+the_chip:
+  villain: none
+  text: "Fans here believe there is no chip. Harvard doesn't resent being in the Ivy League; it built the Ivy League. The only competitor is history itself — the standard set by Haughton and the undefeated teams of 1912–1913."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that Harvard football belongs in any conversation about the greatest programs in America — and the facts back it up. Ten thousand men of Harvard isn't a chant; it's a statement of fact: the program's legitimacy comes from its age and its record, not from being told it matters."
+
+the_grudge_texture:
+  rival: yale
+  texture: championship    # The Game: the oldest rivalry in American sports (1875), not bitter, but historic
+
+the_coach_relationship: legends-shadow   # living in the shadow of Haughton's 72-7-5 record and undefeated seasons
+the_internal_fracture: null
+register: crimson-old-money-stadium-1903-ten-thousand-men
+never_use:
+  - Ivy basketball school — football is the oldest program
+  - Overrated — 918 wins is the 10th most in NCAA history
+
+story_canon:
+  the_unique_thing: "Harvard Stadium (1903) — the nation's oldest football stadium and the world's first massive reinforced-concrete structure. The program that invented the blueprint for American football."
+  the_origin: "Harvard started football in 1873, when American football didn't yet exist as a codified sport. The Crimson are the tenth-winningest program in NCAA history (918–415–50)."
+  golden_ages:
+    - { era: "1912–1914 (Percy Haughton)", what: "Two perfect seasons (1912, 1913) and 72–7–5 record — the gold standard for early football dominance" }
+    - { era: "2023–2025", what: "Three consecutive Ivy League championships (8–2, 8–2, 9–2) under Andrew Aurich" }
+  legends:
+    - { name: Percy Haughton, role: coach, why: "72–7–5 record; two undefeated seasons; the architect of Harvard football's identity" }
+    - { name: Dick Kazmaier, role: player, why: "Princeton's Heisman; face of Ivy League football prestige" }
+  canonical_moments:
+    - { name: "Harvard Stadium dedication", year: 1903, what: "The nation's oldest college football stadium opens; a reinforced-concrete revolution", handling: glory }
+    - { name: "The Game (ongoing since 1875)", year: 1875, what: "The longest-running rivalry in American sports; Harvard-Yale defines Ivy football", handling: glory }
+  the_place: "Harvard Stadium (1903) in Cambridge, Massachusetts — 'Ten Thousand Men of Harvard' — the oldest stadium in the nation."
+  brand_of_football: "The academic dynasty — a program where football is one of many pursuits for exceptionally accomplished athletes."
+  cultural_footprint: "Harvard football proved that elite academic institutions could sustain excellence on the field. The Ivy League itself is the program's cultural footprint."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-14: Harvard won three consecutive Ivy League championships
+    (2023, 2024, 2025) under coach Andrew Aurich, posting records of 8–2, 8–2, and 9–2. The Crimson are
+    sustaining excellence in a league designed to prevent it. The question isn't whether Harvard can win the Ivy;
+    it's whether they can keep doing it in an era where every Ivy team aspires to the same democratic ideal.
+  research_checklist:
+    - Harvard Stadium (1903) — oldest in the nation
+    - Percy Haughton (72–7–5, undefeated seasons)
+    - The Game vs Yale (1875 start, ongoing)
+    - 918 all-time wins (10th most in NCAA history)
+    - Seven national championships (1890–1919 era)
+    - Ivy League dominance (three straight titles 2023–2025)
+  sources:
+    - https://en.wikipedia.org/wiki/Harvard_Crimson_football
+    - https://en.wikipedia.org/wiki/The_Game_(football)
+    - https://en.wikipedia.org/wiki/Harvard_Stadium
+
+briefing:
+  identity_phrase: Harvard is the oldest football program in the nation, a blue-blood dynasty now bound by the Ivy League's democratic ideal.
+  mantra: "Ten Thousand Men of Harvard"
+  selfname: the Crimson
+  heritage:
+    national_titles: 7
+    conference_titles: "3 Ivy (2023-2025)"
+    current_conference: Ivy League (FCS)

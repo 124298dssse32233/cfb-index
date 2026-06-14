@@ -1,0 +1,85 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: west-texas-am
+team_id: null
+program_name: West Texas A&M
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: spectacle
+  one_line: "West Texas A&M is the Canyon Buffaloes—a quarterback-powered 2025 season (RJ Martinez: LSC Offensive Back of the Year, 3,715 yards, 33 TDs) that brought the first bowl game since 2011 and restored the program to relevance."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Seven wins, first bowl since 2011, RJ Martinez as LSC Offensive Back of the Year vs. a program that has spent 14 years searching for the way back to the postseason."
+
+the_wound:
+  name: "The 2011–2025 bowl drought"
+  detail: "West Texas A&M didn't play in a bowl game from 2011 to 2024—14 years of relevance below the surface of postseason consideration. The program that built Bain–Schaeffer Stadium in 2019 to return to prominence had to wait six years just to get bowl-eligible again. The wound is generational silence."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Make the playoffs. Build around RJ Martinez's senior year (2026), establish a Panhandle dynasty, and prove that the Wagon Wheel rivalry (vs. Eastern New Mexico) is a championship-level battle, not a consolation matchup."
+  drought: { since: 2011, unit: bowl }
+
+the_chip:
+  villain: big_brother
+  text: "West Texas A&M's chip is regional: overshadowed by Texas Tech, relegated to Division II by circumstance, the Buffaloes have to prove they can matter in the Lone Star Conference now that A&M-Commerce moved up to FCS. The 2025 bowl eligibility is the first evidence they can."
+
+the_delusion:
+  tone: self-aware
+  text: "That RJ Martinez will stay, that the culture Josh Lynn is building will sustain, that West Texas won't regress back to mediocrity. The fanbase has waited 14 years; they're afraid to believe again, but they do."
+
+the_grudge_texture:
+  rival: eastern-new-mexico
+  texture: championship
+  # West Texas A&M and Eastern New Mexico compete for the Wagon Wheel Trophy (since 1986); Buffaloes won 42–24 in 2024.
+
+the_coach_relationship: savior
+  # Josh Lynn, in year 2 (hired Dec 2022 from Nebraska-Kearney), authored the 2025 breakthrough.
+
+the_internal_fracture: "Caution (don't overstate 2025) vs. hope (this could be the start of something)—how much faith does the fanbase put in Lynn and Martinez?"
+
+register: "canyon-buffalo-wagon-wheel-14-year-drought-rb-martinez-breakout"
+
+never_use:
+  - "West Texas A&M won the LSC more than once in the modern era — no recent LSC championships noted; program history dating to 1910"
+  - "The Buffaloes have consistent bowl success — 14-year drought (2011–2024) is the dominant narrative"
+  - "RJ Martinez is a junior — senior in 2025, heading into final collegiate year"
+  - "Bain–Schaeffer Stadium is 20 years old — opened 2019 (6 years old in 2025)"
+
+story_canon:
+  the_unique_thing: "A 14-year bowl drought broken in 2025 by a quarterback-powered season (RJ Martinez: 3,715 passing yards, 33 TDs, LSC Offensive Back of the Year) that brought the Wagon Wheel rivalry into championship-level relevance."
+  the_origin: "West Texas A&M University in Canyon, Texas (founded 1909); football established in the early 1900s; built a Panhandle regional identity."
+  golden_ages:
+    - { era: "pre-2011", what: "The Buffaloes competed consistently in bowl games and built a regional presence" }
+    - { era: "2025", what: "RJ Martinez's breakout season (3,715 yards, 33 TDs) and bowl eligibility (first since 2011)" }
+  legends:
+    - { name: RJ Martinez, role: player, why: "Senior QB; 2025 Division II leader in passing yards (3,715) and yards per game; LSC Offensive Back of the Year; 33 TDs; 281 rushing yards; catalyst for the 2025 breakthrough" }
+    - { name: Zach Phipps, role: player, why: "Sophomore WR; 33 receptions, 591 yards, 9 TD receptions; LSC Newcomer of the Year; part of the 2025 offensive explosion" }
+    - { name: Josh Lynn, role: coach, why: "Year 2 (hired Dec 2022 from Nebraska-Kearney); author of the 2025 breakthrough; tasked with sustaining the momentum" }
+  canonical_moments:
+    - { name: "RJ Martinez Breakout Season", year: 2025, what: "3,715 passing yards, 33 TDs, 281 rushing yards, 7 RUSHing TDs; Division II leader in passing yards; LSC Offensive Back of the Year", handling: glory }
+    - { name: "Bowl Eligibility (First Since 2011)", year: 2025, what: "7–4 overall (7–2 LSC); first bowl-eligible season in 14 years", handling: glory }
+    - { name: "14-Year Bowl Drought (2011–2024)", year: 2024, what: "A generational gap in postseason play; ended in 2025", handling: wound }
+    - { name: "Wagon Wheel Trophy Rivalry", year: "ongoing", what: "Annual championship-level battle vs. Eastern New Mexico; Buffaloes won 42–24 in 2024", handling: glory }
+  the_place: "Bain–Schaeffer Stadium in Canyon, Texas—opened 2019, 8,500 capacity, a modern on-campus stadium built to restore West Texas football to prominence."
+  brand_of_football: "Quarterback-centric, high-octane Panhandle football; West Texas plays fast and aggressive when it has the personnel to do so."
+  cultural_footprint: "A regional Panhandle program that disappeared from the national consciousness for 14 years and clawed back in 2025; proof that one good QB and one good coach can resurrect a dormant program."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: West Texas A&M went 7–4 (7–2 LSC) in 2025, earning bowl eligibility for the first time since 2011—a 14-year drought. The breakthrough was authored by QB RJ Martinez (3,715 passing yards, 33 TDs, Division II leader in passing yards, LSC Offensive Back of the Year) and WR Zach Phipps (LSC Newcomer of the Year, 9 TD receptions). Coach Josh Lynn, in year 2, built an offensive machine that surprised the Lone Star. The question: is 2025 the start of a sustained rise, or a one-year peak? RJ Martinez is a senior heading into 2026, and the Buffaloes must keep the momentum without their star QB.
+  research_checklist:
+    - 2025 record (7–4, 7–2 LSC) ✓
+    - First bowl since 2011 ✓
+    - RJ Martinez (3,715 yards, 33 TDs, LSC OBOY) ✓
+    - Zach Phipps (9 TD receptions, LSC Newcomer of the Year) ✓
+    - Josh Lynn (year 2, from Nebraska-Kearney) ✓
+    - Wagon Wheel rivalry (vs. Eastern New Mexico) ✓
+    - Bain–Schaeffer Stadium (opened 2019) ✓
+  sources:
+    - https://en.wikipedia.org/wiki/West_Texas_A%26M_Buffaloes_football
+    - https://www.newschannel10.com/2025/11/21/west-texas-am-football-earns-17-all-lone-star-conference-honors/
+    - https://gobuffsgo.com/news/2024/10/19/football-buffs-race-past-eastern-new-mexico-to-reclaim-the-wagon-wheel-42-24.aspx

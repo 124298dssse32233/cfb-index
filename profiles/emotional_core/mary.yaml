@@ -1,0 +1,65 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: mary
+team_id: null
+program_name: University of Mary
+program_tier: 6        # Division II
+
+emotional_core:
+  primary: standard      # modest young program, no special wound
+  secondary: contentment  # 3-5 season shows modest development trajectory
+  one_line: "University of Mary is a young North Dakota regional program building from the ground up — a small school competing for pride and incremental progress in the NSIC North Division."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A Division II newcomer with limited history and modest 3-5 results."
+
+the_wound:
+  name: "No significant championship tradition or recent wound"
+  detail: "University of Mary is a small North Dakota school that transitioned to Division II football relatively recently (FCS-to-D2 transition). The program has no deep historical identity, no conference championships, and no championship window — just a young program building incrementally. The 3-5 record in Year 3 under head coach Shann Schillinger shows modest progress. There is no wound, no great failure — just a program starting from the baseline."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Build toward .500 football and establish the Marauders as a respectable NSIC North competitor."
+  drought: { since: 2020, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the Marauders have no external chip. Mary is a program playing for institutional establishment, not against external forces."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: legends-shadow    # Shann Schillinger Year 3; building institutional identity
+the_internal_fracture: development-patience vs tangible-progress — the faction supporting multi-year build vs those questioning whether incremental gains will ever reach competence
+register: north-dakota-marauders-regional-young-program-d2-transition
+never_use:
+  - "Mary has a storied tradition: the program is young; no historical footprint exists"
+  - "Mary is a power program: 3-5 record disproves any contention narrative"
+
+story_canon:
+  the_unique_thing: "University of Mary is a young North Dakota program transitioning to Division II, competing as a regional program without deep historical identity."
+  the_origin: "University of Mary is a small school in North Dakota that recently transitioned to Division II football; the Marauders are building from the ground up."
+  golden_ages: []
+  legends: []
+  canonical_moments: []
+  the_place: "Bismarck, North Dakota; a small North Dakota regional program."
+  brand_of_football: "A young program building incrementally; Mary competes primarily for institutional development rather than championships."
+  cultural_footprint: "University of Mary has minimal national profile; the Marauders are a modest D2 program with regional significance only."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: University of Mary went 3-5 overall and 2-5 in the NSIC North Division in 2025.
+    Head coach Shann Schillinger is in his third season; the program is building a recruiting class with 29 commits for 2026.
+    The Marauders are a young D2 program with limited historical identity, competing as a regional North Dakota competitor.
+    The question for Mary is whether the incremental progress will eventually reach .500 and tournament contention, or whether
+    the program has found a baseline ceiling.
+  sources:
+    - https://goumary.com/sports/football/schedule/2025
+    - https://goumary.com/news/2026/2/4/football-schillinger-announces-29-marauders-football-commits
+    - https://northernsun.org/schedule.aspx?schedule=3876

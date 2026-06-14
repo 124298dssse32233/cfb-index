@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: southwestern-oklahoma-state
+team_id: null
+program_name: Southwestern Oklahoma State
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: house-money
+  one_line: "Southwestern Oklahoma State is the Bulldogs back from a decade in the desert—2025 brought the first winning season since 2015, a 6-5 record and a perfect in-state sweep."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program that spent a decade struggling, unable to find stability or momentum—and finally, under new leadership, is climbing back to respectability."
+
+the_wound:
+  name: "The lost decade (2016-2024)"
+  detail: "After a winning season in 2015, Southwestern Oklahoma State went on a ten-year stretch without a winning record. The wound is not dramatic—it's the quiet erosion of a program that lost its footing."
+  handling: dated-grievance
+  freshness: this-era
+
+the_dream:
+  text: "Build on the 2025 winning season and establish Southwestern Oklahoma State as a consistent GAC competitor—prove that the turnaround is real and sustainable."
+  drought: { since: 2015, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe southwestern Oklahoma State has no chip against anyone. The motivation is internal—the desire to prove that 2025 was the beginning of a climb, not a one-year blip."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that a 6-5 season and a perfect in-state record means the Bulldogs are back. They're cautiously optimistic, knowing that one good year doesn't erase a decade of struggle."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: savior
+the_internal_fracture: None; Southwestern Oklahoma State is unified around the climb
+register: weatherford-bulldogs-first-winning-season-decade
+
+never_use:
+  - "Southwestern Oklahoma State can't win"
+  - "The Bulldogs are permanently down"
+  - "One good season doesn't mean anything"
+  - "Weatherford can't support a competitive program"
+
+story_canon:
+  the_unique_thing: "Southwestern Oklahoma State earned the first winning season since 2015 in 2025—a 6-5 record including a perfect 5-0 in-state sweep (first since 2016)."
+  the_origin: "Southwestern Oklahoma State was founded in 1901 in Weatherford, Oklahoma. The football program has competed in the GAC for decades, with varying degrees of success."
+  golden_ages:
+    - { era: "Pre-2016", what: "Southwestern Oklahoma State had competitive seasons and made bowl games regularly" }
+    - { era: "2025", what: "A return to winning with a 6-5 record and perfect in-state sweep—the first winning season in ten years" }
+  legends:
+    - { name: Unknown, role: coach, why: "The coaching staff that reversed the decade-long decline" }
+  canonical_moments:
+    - { name: "2025 First Winning Season Since 2015", year: 2025, what: "Southwestern Oklahoma State finishes 6-5 with a perfect 5-0 in-state record", handling: glory }
+    - { name: "2016 First Loss to Northwestern", year: 2016, what: "The beginning of the lost decade after the 2015 winning season", handling: wound }
+  the_place: "Weatherford, Oklahoma—home of the Bulldogs, a small town where football matters because there's not much else."
+  brand_of_football: "Tough, determined football. A program that plays for the community and for pride."
+  cultural_footprint: "Southwestern Oklahoma State is proof that a decade of struggle can be reversed with the right coaching and player development."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Southwestern Oklahoma State finished 6-5 in 2025, earning the first
+    winning season since 2015. The Bulldogs completed a perfect 5-0 in-state record, their first in-state sweep
+    since 2016. This turnaround comes after a decade of sub-.500 seasons, suggesting that new coaching and
+    player development are beginning to reverse the program's trajectory. The question for 2026: can the Bulldogs
+    build on this momentum and establish themselves as consistent GAC competitors?
+  research_checklist:
+    - Southwestern Oklahoma State's coaching history and recent changes
+    - the 2015 winning season and the subsequent decade of decline
+    - 2025 season results and in-state record
+    - roster composition and recruiting outlook
+    - conference standings and positioning
+  sources:
+    - https://en.wikipedia.org/wiki/Southwestern_Oklahoma_State_Bulldogs_football
+    - https://swosuathletics.com/news/2025/11/15/football-swosu-secures-first-winning-season-since-2015-with-rout-of-rangers.aspx
+    - https://greatamericanconference.com/standings.aspx?path=football

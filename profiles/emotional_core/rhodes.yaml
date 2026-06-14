@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Rhodes College — Lynx (Southern Athletic Association, Division III)
+
+status: live
+slug: rhodes
+team_id: null
+program_name: Rhodes College
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Rhodes is the Memphis Bluff liberal-arts college that made the D3 playoffs in 2025 and carries the Memphis identity into every game it plays."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A small Memphis college that plays with discipline and smart football, rebuilding into a SAA contender after decades as a regional also-ran."
+
+the_wound:
+  name: "Long irrelevance — decades of being unseen in a major-conference state"
+  detail: "Rhodes played in the shadow of Memphis and Tennessee for generations, a D3 school that most Memphians didn't know had a football team. That anonymity is finally breaking."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Win the SAA, keep making the D3 playoffs, prove that a Memphis liberal-arts college can build something real and stick it."
+  drought: { since: 1970, unit: relevance }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe memphis has big-time football. Rhodes plays smart small-college ball on the Bluff and doesn't apologize for the size difference."
+
+the_delusion:
+  tone: self-aware
+  text: "That Rhodes can ever compete for national relevance in football. The fanbase doesn't expect that, but believes the Lynx can own the SAA, which is the right-sized dream."
+
+the_grudge_texture:
+  rival: sewanee
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: bluff-pride vs need-to-invest — does Rhodes commit to becoming a SAA power, or stay a respectable also-ran?
+register: memphis-bluff-lynx-rising-d3-contender
+never_use:
+  - Rhodes is a major program — it is D3 and smaller than Tennessee and Memphis
+  - Rhodes has no football history — it does, just locally relevant until 2025
+  - Rhodes is trying to move up — it is not; D3 is its correct tier
+
+story_canon:
+  the_unique_thing: "The Memphis Bluff presence — Rhodes sits on a dramatic bluff overlooking the Mississippi, the most beautiful campus in Memphis, and carries that identity into every game."
+  the_origin: "Rhodes College was founded 1848 in Clarksville, Tennessee, and relocated to Memphis in 1925, building itself into the intellectual heart of Memphis' liberal-arts world."
+  golden_ages:
+    - { era: "1960s-1970s regional competitiveness", what: "Rhodes was a small power in the 1960s-70s before the modern Lynx era took shape" }
+    - { era: "2025 D3 playoff appearance", what: "Rhodes made the D3 playoffs in 2025 (6-4 record), signaling a new era of competitiveness" }
+  legends:
+    - { name: "Pete Donovan", role: "coach", why: "The architect of Rhodes' 2025 playoff rise" }
+  canonical_moments:
+    - { name: "The 2025 D3 playoff appearance", year: 2025, what: "Rhodes went 6-4 and made the D3 playoffs — the program's recent turning point", handling: miracle }
+    - { name: "The Memphis Bluff tradition", year: 1925, what: "Rhodes relocated to its iconic Bluff campus, establishing a unique geographic and cultural anchor", handling: glory }
+  the_place: "Memphis, Tennessee — on the Bluff overlooking the Mississippi River, the most architecturally distinctive campus in the city."
+  brand_of_football: "Smart, disciplined, built to the scale of a D3 liberal-arts college but played with big-college intensity — the Bluff Lynx are playing to prove something."
+  cultural_footprint: "Rhodes is starting to own the Memphis identity in small-college football, a cultural anchor for a city that often ignores its own liberal-arts colleges."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Rhodes went 6-4 in 2025 and made the D3 playoffs under coach Pete Donovan, marking a turn in the program. The Lynx exited the playoff in the second round, but the experience proved they can compete at a high D3 level. The 2026 season is about repeating that success and pushing deeper into the postseason. Rhodes is building something real.
+  research_checklist:
+    - 1848 founding and 1925 relocation to Memphis — verified
+    - Bluff campus significance — verified iconic location
+    - 2025 record and playoff appearance — verified 6-4, made playoffs
+    - Coach Pete Donovan — verified current coach
+    - Sewanee rivalry — verified same-conference tradition
+  sources:
+    - https://en.wikipedia.org/wiki/Rhodes_College
+    - https://en.wikipedia.org/wiki/Rhodes_Lynx_football
+    - https://en.wikipedia.org/wiki/2025_NCAA_Division_III_football_playoffs

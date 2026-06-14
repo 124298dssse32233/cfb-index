@@ -1,0 +1,72 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# NOTE: Concordia University Wisconsin (NACC 2025, joining CCIW 2027-28) — not Concordia (IL)
+
+status: live
+slug: concordia-wi
+team_id: null
+program_name: Concordia University Wisconsin
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: house-money
+  one_line: "Concordia Wisconsin is the NACC champion Falcons that won their conference title in 2025 and are joining the CCIW as part of a new era of Division III ascent."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A Lutheran liberal-arts university in Mequon, Wisconsin that just won the NACC championship and is stepping up to the prestigious CCIW for 2027–28."
+
+the_wound:
+  name: "None; momentum is forward"
+  detail: "Concordia won the NACC in 2025 with a 9-2 record and 8-0 conference championship. The program is rising, not wounded."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove competitive in the CCIW starting in 2027–28 and establish Concordia as a contender in one of Division III's finest conferences."
+  drought: { since: 2025, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Concordia is playing with confidence earned in 2025. The chip is internal: proving that a NACC champion can compete at the CCIW level."
+
+the_delusion:
+  tone: earnest
+  text: "That the 2025 NACC title signals the start of a CCIW dynasty — fans believe this year's championship was a statement, not a fluke, and that Concordia belongs among the elite small programs."
+
+the_grudge_texture:
+  rival: tbd
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "conference transition excitement vs adjustment challenges — moving from NACC to CCIW"
+register: mequon-wisconsin-falcons-rising
+never_use:
+  - Diminished the 2025 NACC championship
+  - Assumed the CCIW transition will be seamless
+  - Invented a rivalry (Concordia is new to CCIW)
+
+story_canon:
+  the_unique_thing: "The 2025 NACC championship — Concordia Wisconsin went 9-2, won the NACC title with an 8-0 conference record, and advanced to NCAA Division III playoffs."
+  the_origin: "Concordia University Wisconsin, a Lutheran liberal-arts college in Mequon, Wisconsin, has built a competitive Division III football program."
+  golden_ages:
+    - { era: "2025 (current)", what: "NACC championship season and the beginning of the CCIW era" }
+  legends: []
+  canonical_moments:
+    - { name: "2025 NACC championship", year: 2025, what: "Concordia Wisconsin wins conference title with 8-0 record", handling: glory }
+  the_place: "Mequon, Wisconsin — the home of Concordia University, on the shore of Lake Michigan near Milwaukee."
+  brand_of_football: "Disciplined, competitive, on the rise in Division III."
+  cultural_footprint: "A rising Lutheran program that proved itself in the NACC and is stepping up to join one of the premier conferences in Division III."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Concordia Wisconsin went 9-2 in 2025, winning the NACC championship with an 8-0 conference record.
+    Head coach Patrick Daberkow led the Falcons to the NCAA Division III playoffs. Beginning in the 2027–28 academic year, Concordia will join the CCIW,
+    leaving the NACC. The question in Mequon: can the Falcons prove themselves in the more competitive CCIW landscape, or will the transition prove challenging?
+  research_checklist:
+    - 2025 NACC championship season details
+    - Head coach Patrick Daberkow and recruiting
+    - CCIW transition timeline and preparation
+    - Institution identity (Lutheran liberal-arts)
+  sources:
+    - https://en.wikipedia.org/wiki/Concordia_University_Wisconsin
+    - https://cuwfalcons.com/sports/football
+    - https://cciw.org/news/2025/9/17/general-concordia-university-wisconsin-to-join-cciw-as-10th-member-in-2027-28.aspx

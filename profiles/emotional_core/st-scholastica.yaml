@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: st-scholastica
+team_id: null
+program_name: University of St. Scholastica
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "St. Scholastica is a program embracing its new identity in the MIAC—the newest member finding its place, playing for the pride of the institution and the honor of representing a Benedictine legacy."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A recent arrival to the MIAC, a small Benedictine Catholic college, still writing its story in the conference and playing with the energy of a program with nothing to lose and everything to prove."
+
+the_wound:
+  name: "The newcomer gap"
+  detail: "St. Scholastica is the newest MIAC member, still finding its identity in a conference with 90+ years of established tradition. The program is young, the resources are limited, and there's no dynasty to fall back on. The wound is the distance from the established powers."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Become a competitive and respected member of the MIAC—not to win everything, but to prove that St. Scholastica belongs among the conference's elite, that a small Benedictine school from Duluth can compete with the established powers."
+  drought: { since: 2025, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "St. Scholastica's identity is about belonging, not revenge. The fanbase is proud to be in the MIAC and is committed to proving the conference made the right call in inviting them."
+
+the_delusion:
+  tone: earnest
+  text: "St. Scholastica fans believe the program is on an upward trajectory, that 2025 was a first year and 2026 is when the Oles start competing. They have the institutional commitment and the Benedictine values to build something real."
+
+the_grudge_texture:
+  rival: macalester
+  texture: border-war
+
+the_coach_relationship: savior
+the_internal_fracture: "Building competitive depth vs maintaining Benedictine values—the balance between athletic ambition and institutional mission."
+register: st-scholastica-saints-duluth-benedictine-newcomer
+never_use:
+  - Longstanding MIAC tradition—St. Scholastica just joined the conference
+  - Historic program—this is a young program in a new conference
+  - Uncompetitive by design—the program is committed to competing at MIAC level
+
+story_canon:
+  the_unique_thing: "St. Scholastica is the newest MIAC member—a small Benedictine Catholic college in Duluth, Minnesota, recently joining the historic conference, still writing its story, still proving it belongs. The program represents a next chapter in MIAC expansion and small-school pride."
+  the_origin: "University of St. Scholastica, a Benedictine Catholic liberal-arts college in Duluth, is a relatively young institution with a strong commitment to athletics as an extension of its educational mission. The program's recent entry into the MIAC marks a significant step in its identity and competitive aspirations."
+  golden_ages: []
+  legends:
+    - { name: Matt Bremer, role: coach, why: "1st year head coach, hired to establish culture and competitive presence in a new MIAC home" }
+  canonical_moments:
+    - { name: "MIAC membership", year: 2025, what: "St. Scholastica joins the MIAC, marking a major institutional achievement and new competitive era", handling: glory }
+  the_place: "Duluth, Minnesota—a small liberal-arts college campus in the North, representing Benedictine values and community."
+  brand_of_football: "Building, committed, honorable—St. Scholastica plays with the energy of a program still establishing its identity, guided by Benedictine principles of community and excellence."
+  cultural_footprint: "St. Scholastica represents the D3 story of institutional growth: a small Catholic school embracing athletic competition as part of a broader mission to serve and inspire its community."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: St. Scholastica went 3-7 (3-6 MIAC) in 2025, its first year
+    in the MIAC after joining the conference. Matt Bremer, hired as head coach for this inaugural season,
+    faced the challenge of establishing culture and competitive presence in a storied conference. The 2026
+    question is whether the Saints can improve and establish themselves as regular MIAC competitors, or
+    whether the gap between tradition and newcomer status will take years to bridge. The program is young
+    and committed, but the work of building is just beginning.
+  research_checklist:
+    - St. Scholastica's recent MIAC membership (2025)
+    - Benedictine Catholic identity and mission
+    - 3-7 (3-6 MIAC) inaugural season
+    - Matt Bremer as new head coach establishing culture
+    - Small-school pride and institutional growth
+    - Building vs established narrative
+  sources:
+    - https://www.css.edu/athletics/football/
+    - https://miachome.org/sports/football/
+    - https://www.d3football.com/

@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: utica
+team_id: null
+program_name: Utica University
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Utica is the mid-Major program in its 25th-anniversary season, led by long-tenured coach Blaise Faggiano in his 18th consecutive year, competing consistently in Empire 8."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small university with a long-standing football program built on coaching stability and a record of consistent regional competitiveness."
+
+the_wound:
+  name: "No wound"
+  detail: "Utica carries no historic grievance. The program has competed steadily without trauma or systemic failure."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Win the Asa S. Bushnell Bowl (the university's signature postseason game) and compete regularly for Empire 8 championship contention."
+  drought: { since: 2025, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Utica plays for continuous improvement."
+
+the_delusion:
+  tone: earnest
+  text: "That Utica can sustain the 8–3 seasons and bowl appearances on a reliable basis. The fanbase knows the program competes but also recognizes the limitations of a small university."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "Stability vs stagnation: Faggiano has been the coach for 18 years, building loyalty but also raising questions about long-term growth."
+register: utica-university-pioneers-faggiano-era
+never_use:
+  - Historic power — Utica is modern, founded as a program in the 1990s
+  - Multi-bowl program — only occasional postseason appearances
+
+story_canon:
+  the_unique_thing: "18-year tenure by head coach Blaise Faggiano, bringing rare coaching stability to Division III, and the 25th-anniversary season in 2025."
+  the_origin: "Utica University (formerly Utica College) football program began around 1995 as part of modern athletic expansion. Blaise Faggiano arrived and has built continuity."
+  golden_ages:
+    - { era: "2008–present (Faggiano Era)", what: "18 consecutive seasons under Faggiano with a 90–79 career record (.533)" }
+  legends:
+    - { name: Blaise Faggiano, role: coach, why: "18 consecutive seasons, only constant in program history, built culture of consistency and competitiveness" }
+    - { name: QB Szalkowski, role: player, why: "Record-breaking debut in 2025 vs Washington & Jefferson (49–31 win, Sept 2025)" }
+  canonical_moments:
+    - { name: "Faggiano's 18-Year Tenure", year: 2008, what: "Unprecedented coaching stability in Division III, 90–79 career record", handling: glory }
+    - { name: "2025 Record-Breaking QB Debut", year: 2025, what: "QB Szalkowski set records in debut vs Washington & Jefferson (49–31 win)", handling: glory }
+    - { name: "2025 Asa S. Bushnell Bowl Loss", year: 2025, what: "Lost to Rowan 26–20 in signature postseason game", handling: heartbreak }
+  the_place: "Utica, New York — a small city where a consistent football program builds community pride."
+  brand_of_football: "A program built on coaching continuity and the belief that steady work beats shortcuts."
+  cultural_footprint: "Utica represents the value of long-term coaching stability in building culture and identity in Division III."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Utica compiled an 8–3 record in 2025 (6–1 Empire 8), marking the university's 25th-anniversary season.
+    Coach Blaise Faggiano led the team to its second consecutive postseason appearance, though the Pioneers lost the Asa S. Bushnell Bowl to Rowan
+    26–20. Quarterback Szalkowski had a record-breaking debut in September 2025 vs Washington & Jefferson (49–31 win), providing optimism for the
+    future. Faggiano's 18-year tenure provides the program with rare stability and institutional memory.
+  research_checklist:
+    - Founded ~1995
+    - 25th-anniversary season in 2025
+    - Blaise Faggiano: 18 consecutive seasons, 90–79 career record
+    - 2025 record: 8–3 (6–1 Empire 8)
+    - 2025 Asa S. Bushnell Bowl: lost to Rowan 26–20
+    - QB Szalkowski: record-breaking debut Sept 2025 vs Washington & Jefferson (49–31)
+  sources:
+    - https://en.wikipedia.org/wiki/Utica_University_football
+    - https://www.d3football.com/teams/utica
+    - https://empire8.com

@@ -1,0 +1,71 @@
+# Emotional Core — University of North Carolina at Greensboro
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III (program_tier: 7) — graceful degradation, canon-first
+# Authored 2026-06-13 from live web research
+
+status: live
+slug: greensboro
+team_id: null
+program_name: University of North Carolina at Greensboro
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: standard
+  one_line: "A North Carolina public university with USA South football rooted in Piedmont regional identity and institutional mission."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "D3 identity within North Carolina's public university system."
+
+the_wound: {}
+
+the_dream:
+  text: "USA South success and competitive regional football."
+  drought: null
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: null
+register: north-carolina-piedmont-regional
+never_use: []
+
+story_canon:
+  the_unique_thing: "A public university in the North Carolina Piedmont with a USA South football program rooted in regional competition."
+  the_origin: "UNCG, founded 1891 as part of the UNC system, developed football as part of its comprehensive educational mission."
+  golden_ages: []
+  legends: []
+  canonical_moments: []
+  the_place: "Greensboro, North Carolina — the Piedmont region."
+  brand_of_football: "Regional tradition and public university values."
+  cultural_footprint: "A regional D3 identity within North Carolina college football."
+  the_ongoing_story: "LIVE 2026: UNCG competes in the USA South conference."
+  sources:
+    - https://en.wikipedia.org/wiki/UNCG_Spartans_football
+    - https://uncgspartans.com/sports/football/
+
+briefing:
+  identity_phrase: UNCG is a North Carolina public university with USA South football tradition.
+  mantra: null
+  cultural_anchors:
+    fan_archetype_dominant: null
+    outsider_archetype_dominant: null
+  selfname: the Spartans
+  story_materials:
+    always_surface: []
+    rituals: []
+    modules_already_rendering: null
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

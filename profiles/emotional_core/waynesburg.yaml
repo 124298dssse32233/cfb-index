@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: waynesburg
+team_id: null
+program_name: Waynesburg
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Waynesburg University is the Presidents' Athletic Conference program anchored by a 1966 national championship, a small Pennsylvania school where football tradition runs through the legacy of Hall of Famer Stan Keck."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Waynesburg won a national championship in 1966 and has spent 60 years proving it was no accident. The program carries real history and steady respect within the PAC."
+
+the_wound:
+  name: "The 1966 championship as the unrepeated pinnacle"
+  detail: "Waynesburg went 4-6 in 2025 (4-4 PAC), an eight-win swing from dominance in 1966. The wound is time and plateau — the program has remained respectable but has never recaptured that season."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to a season where Waynesburg is competing for a PAC championship and proving that the 1966 national title established something durable."
+  drought: { since: 1966, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Waynesburg carries the pride of 1966 with quiet dignity. The motivation is internal: honor the tradition and build another special season."
+
+the_delusion:
+  tone: self-aware
+  text: "That this year's roster has the pieces to compete for a title, that the right coaching decision will unlock championship potential — the fanbase knows 1966 was special and believes lightning can strike again."
+
+the_grudge_texture:
+  rival: bethany-wv
+  texture: blood-feud
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Pride in 1966 legacy vs. rebuilding for the present"
+register: waynesburg-yellow-jackets-small-pennsylvania-1966-champions
+
+never_use:
+  - Perennial national title contender — one championship in 1966
+  - Dominant PAC program — respected conference player, not dominant
+  - Multiple national championships — only one in 1966
+
+story_canon:
+  the_unique_thing: "Waynesburg won the NCAA Division III national championship in 1966 and produced Hall of Famer Stan Keck, whose legacy has become the program's anchor and the evidence that Waynesburg was truly built for excellence."
+  the_origin: "A small liberal-arts college in Waynesburg, Pennsylvania (founded 1849). The football program was built on Appalachian small-school values and competitive spirit."
+  golden_ages:
+    - { era: "1966", what: "The program's national championship year, the pinnacle of Waynesburg football" }
+  legends:
+    - { name: "Stan Keck", role: "player/hall-of-famer", why: "College Football Hall of Fame inductee and the most famous Waynesburg Yellow Jacket, symbol of the program's championship-era legacy" }
+  canonical_moments:
+    - { name: "1966 National Championship", year: 1966, what: "Waynesburg wins the NCAA Division III national championship", handling: glory }
+  the_place: "Waynesburg, Pennsylvania — a small college town in southwestern Pennsylvania, home to a liberal-arts institution with deep Appalachian roots."
+  brand_of_football: "Tough, disciplined football rooted in small-school tradition. Waynesburg plays with the belief that hard work and character can compete at the highest level."
+  cultural_footprint: "A small college with a real national championship. Waynesburg's 1966 title and the Stan Keck legacy prove that a Pennsylvania Division III school can reach the mountaintop."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Waynesburg went 4-6 overall (4-4 PAC) in 2025 and brought in new head coach Larry
+    Wilson for the 2026 season. The program faces the challenge of rebuilding competitiveness while honoring a legacy that
+    stretches back to 1966 and Stan Keck. Wilson's task is to restore Waynesburg to PAC contention and, eventually, another
+    special season.
+
+  research_checklist:
+    - 1966 national championship verified
+    - Stan Keck (Hall of Famer) legacy verified
+    - Larry Wilson hired for 2026
+    - 2025 record (4-6 overall, 4-4 PAC) verified
+    - Small-school Pennsylvania context
+
+  sources:
+    - https://en.wikipedia.org/wiki/Waynesburg_University
+    - https://waynesburgYellowJackets.com/sports/football
+    - https://en.wikipedia.org/wiki/Waynesburg_Yellow_Jackets_football

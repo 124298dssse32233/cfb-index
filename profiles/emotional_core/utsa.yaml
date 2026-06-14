@@ -1,0 +1,120 @@
+# Emotional Core — UTSA  (utsa)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: utsa
+team_id: 211
+program_name: UTSA
+program_tier: 3
+
+emotional_core:
+  primary: disbelief       # a program that didn't exist in 2010 is now winning bowls — the city still can't believe it has this
+  secondary: restoration   # the live arc: clawing the Traylor magic back after a wobble to .500
+  one_line: "UTSA is the program San Antonio willed into existence in a decade — no football before 2011, a 12-2 ranked season by 2021, and a third straight bowl win to prove the city's team is permanent."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 2021 12-2 Conference USA championship and a top-25 ranking vs a 2025 that needed a bowl win just to finish above .500 — the gap between arriving and staying."
+
+the_wound:
+  name: "The plateau after the breakthrough"
+  detail: "After back-to-back 12-2 and 11-3 seasons that announced UTSA as the model FBS newcomer, the Roadrunners settled into the muddle of the middle — a 7-6 finish in 2025 that only became a winning year by routing FIU 57-20 in the First Responder Bowl. The fear in San Antonio is that the rocket-ship rise has leveled off."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get back to the top of the league and into the national conversation the 2021 team owned — to prove the climb wasn't a moment but a floor."
+  drought: { since: 2021, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "The fanbase's chip isn't aimed at a rival or the media — it's the founding insult, the years outsiders assumed San Antonio's seventh-largest-city market would never field a real team. Every bowl win is the answer they keep needing to give."
+
+the_delusion:
+  tone: earnest
+  text: "Roadrunner fans believe San Antonio is a sleeping Power-conference market — that a city this size with the Alamodome behind it is one good run from forcing the big leagues to notice. They say the ceiling was never Conference USA."
+
+the_grudge_texture:
+  rival: texas-state
+  texture: little-brother   # the I-35 Texas-on-the-rise feud — two young Texas programs fighting over the same ground
+
+the_coach_relationship: savior   # Jeff Traylor built the identity from raw material; he IS the program's adulthood
+the_internal_fracture: arrival vs ambition — the faction grateful UTSA is a winning FBS program at all vs the faction that tasted 2021 and refuses to call a 7-6 bowl team a good year
+register: san-antonio-roadrunners-jeff-traylor   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Still FCS — 2012 FBS reclassification + 2021 #24 AP ended that frame'
+  - No identity — Founding + Traylor + Alamodome + Birds Up combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "UTSA played its first football game in 2011 and won a Conference USA championship at 12-2 by 2021 — one of the fastest rises from zero to ranked in the sport's history, built by a city, not a tradition."
+  the_origin: "San Antonio, the largest U.S. city long without its own FBS program, founded a team at the University of Texas at San Antonio — first snap in 2011 inside the NFL-grade Alamodome, Larry Coker the founding coach."
+  golden_ages:
+    - { era: "2021–2022 (Jeff Traylor)", what: "12-2 and 11-3 back-to-back, the 2021 Conference USA title, a top-25 AP ranking, and UTSA's arrival as the model FBS newcomer" }
+  legends:
+    - { name: Jeff Traylor, role: coach, why: "Took a young program to a 12-2 conference title and made winning the expectation; the architect of UTSA's adulthood" }
+    - { name: Frank Harris, role: player, why: "The winningest quarterback in program history and the face of the 2021-2022 peak" }
+    - { name: Larry Coker, role: coach, why: "The founding head coach who put the first UTSA team on the field in 2011" }
+  canonical_moments:
+    - { name: "First-ever game", year: 2011, what: "UTSA plays its first football game in the Alamodome in front of 56,000 — a city's team comes to life", handling: glory }
+    - { name: "Conference USA championship", year: 2021, what: "A 12-2 season and the program's first conference title, capped by a top-25 ranking", handling: glory }
+    - { name: "First Responder Bowl rout", year: 2025, what: "A 57-20 win over FIU for a third straight bowl victory, salvaging a winning season", handling: glory }
+  the_place: "The Alamodome — an NFL-sized indoor stadium downtown, far bigger than a young program needs, a statement that San Antonio built this to last."
+  brand_of_football: "Birds Up — a fast, modern, recruiting-rich Texas program that mines a giant untapped metro and plays with the confidence of a team that knows it's the city's own."
+  cultural_footprint: "Proof that a major American city can will a football program into existence and make it matter in a single decade — San Antonio's team, not a hand-me-down."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Jeff Traylor returns for 2026 (no coaching change) after a 7-6 (4-4 AAC)
+    season that he salvaged with a 57-20 First Responder Bowl rout of FIU — a third straight bowl win, but a
+    clear step back from the 2021-2022 peak. Quarterback Owen McCown returns as the starter; UTSA reaffirmed
+    its American Athletic Conference commitment amid Pac-12 expansion chatter. The question in San Antonio:
+    can Traylor climb back to a league title, or has the rocket ship leveled off into the middle?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_UTSA_Roadrunners_football_team
+    - https://goutsa.com/news/2025/12/26/roadrunners-erase-early-deficit-roll-past-fiu-in-servpro-first-responder-bowl
+    - https://bleacherreport.com/articles/10136506-memphis-tulane-usf-utsa-commit-to-aac-amid-pac-12-conference-realignment-rumors
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: UTSA is the American Athletic program whose 2011 program founding + 2021 12-2 Jeff Traylor
+    Conference USA championship + Alamodome NFL-grade venue define what most-recent-FBS-newcomer-ascent
+    looks like.
+  mantra: Birds Up.
+  cultural_anchors:
+    fan_archetype_dominant: San-Antonio-Roadrunner-Birds-Up
+    outsider_archetype_dominant: FBS-Newcomer-Diminisher
+    one_sentence: 'UTSA is the 2011-founded FBS-newcomer powerhouse — Jeff Traylor 2021 #24 AP run + Alamodome
+      NFL-grade venue + Birds Up identity that anchor the most-recent G5 ascent arc.'
+  selfname: the Roadrunners
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2011 program founding (most-recent FBS-newcomer ascent)
+    - 2021 12-2 + Conference USA championship +
+    - Alamodome NFL-grade venue (since 1993)
+    rituals:
+    - 2011 Program Founding
+    - Jeff Traylor 2021 Run
+    - Alamodome NFL-Grade Venue
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (52/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

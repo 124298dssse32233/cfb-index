@@ -1,0 +1,84 @@
+# Emotional Core — TCNJ (The College of New Jersey) (tcnj)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: tcnj
+team_id: null
+program_name: The College of New Jersey
+program_tier: 7
+
+emotional_core:
+  primary: standard
+  secondary: standard
+  one_line: "An NJAC founding member (1957) and comprehensive athletic power, content as a steady voice in the conference that built them."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "An NJAC founding institution with 44 team national championships across all sports, competing steadily in football within a powerhouse athletic ecosystem."
+
+the_wound:
+  name: ""
+  detail: ""
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win an NJAC football championship; compete for NCAA tournament berths; honor the comprehensive athletic tradition."
+  drought: { since: null, unit: "" }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: rowan
+  texture: border-war
+
+the_coach_relationship: forever-ours
+the_internal_fracture: ""
+register: lion-njac-founding
+never_use:
+  - "No athletic tradition — 44 team national championships across all sports as NJAC founding member"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "NJAC founding member since 1957 (originally Trenton State) — a comprehensive athletic powerhouse with 44 team national championships across all sports, proving institutional excellence transcends football."
+  the_origin: "The College of New Jersey (formerly Trenton State), founded 1957 as NJAC founding member. Comprehensive athletic tradition."
+  golden_ages:
+    - { era: "1957–present", what: "NJAC founding member era; 44 team national championships across all sports" }
+    - { era: "2023–2025", what: "Recent competitive football era in NJAC play" }
+  legends:
+    - { name: "TCNJ athletics", role: institution, why: "44 team national championships across all sports demonstrate institutional excellence" }
+  canonical_moments:
+    - { name: "NJAC founding (1957)", year: 1957, what: "TCNJ becomes founding member of NJAC and begins founding-member tradition", handling: glory }
+    - { name: "44 team national championships", year: null, what: "Comprehensive athletic success across all sports", handling: glory }
+  the_place: "Lions Stadium, Ewing, New Jersey — home of the Lions."
+  brand_of_football: "Steady conference football — built on comprehensive athletic excellence rather than football-first identity."
+  cultural_footprint: "An NJAC founding institution that competes in football as part of a larger athletic ecosystem; the Lions are steady conference voices, not singular heroes."
+  the_ongoing_story: "LIVE as of 2025: TCNJ went 6–4 overall, 3–4 NJAC in 2025, losing to Christopher Newport 27–7 (Nov. 14). Preseason polls picked the Lions 4th in NJAC coaches poll. The program competes in the conference it helped found, with a comprehensive athletic tradition (44 team national championships) as the institutional backdrop. TCNJ is not rebuilding or rising; it's a steady, founding-member voice in the NJAC."
+  sources:
+    - https://en.wikipedia.org/wiki/TCNJ_Lions_football
+    - https://www.tcnj.edu/athletics/football/
+    - https://www.tcnj.edu/about/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: TCNJ is the NJAC founding member (1957) and comprehensive athletic power (44 team national championships across all sports).
+  mantra: Lion tradition.
+  cultural_anchors:
+    fan_archetype_dominant: TCNJ-Founding-Faithful
+    outsider_archetype_dominant: NJAC-Steady-Voice
+    one_sentence: TCNJ is the NJAC founding member (1957, originally Trenton State) with 44 team national championships across all sports.
+  selfname: the Lions
+  rituals:
+    - NJAC founding member (1957)
+    - 44 team national championships
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

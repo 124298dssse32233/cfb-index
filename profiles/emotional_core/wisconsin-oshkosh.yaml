@@ -1,0 +1,115 @@
+# Emotional Core — UW-Oshkosh  (wisconsin-oshkosh)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Researched 2026-06-13 from live web research — see story_canon.sources.
+#
+# The crossroads program: 79-year rivalry record vs UW-Whitewater (31-79-5) tells the story.
+# Oshkosh is the perennial contender in a historic conference rivalry.
+
+status: live
+slug: wisconsin-oshkosh
+team_id: null
+program_name: UW-Oshkosh
+program_tier: 7
+
+emotional_core:
+  primary: grievance
+  secondary: contentment
+  core_variant: the-chronic-chip
+  one_line: "The program that's always there: UW-Oshkosh is the WIAC rival that has lived in Whitewater's shadow for 79 years and carries the chronic chip of the little brother who shows up every year."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Oshkosh is the WIAC program that does everything right — wins bowl games, stays competitive, makes playoff runs — but plays in a conference where Whitewater won six titles, River Falls just won a national championship, and Platteville is winning back-to-back WIAC crowns. The Titans have the right DNA and the wrong era."
+
+the_wound:
+  name: "The 79-year record: 31-79-5 vs Whitewater"
+  detail: "The all-time series record against UW-Whitewater is 31-79-5. Not even close in the win-loss, but 79 meetings proves Oshkosh belongs at the same table. The wound is living in a legacy rivalry where your program is objectively the weaker sibling — not for a year, not for a decade, but for 79 years of measured underachievement."
+  handling: referenceable
+  freshness: all-time
+
+the_dream:
+  text: "Win a Stagg Bowl. End the title drought. The Titans belong in the national conversation, and the dream is translating the WIAC competency into a championship that changes the all-time narrative."
+  drought: { since: 1985, unit: national_title }
+
+the_chip:
+  villain: wisconsin-whitewater
+  text: "Fans here believe oshkosh's chip is measured in the series record: 31-79-5 all-time against Whitewater. The Titans know they're the more athletic, more consistent program on some years — but the record is the record. The chip is the belief that Oshkosh is built for more than a legacy rivalry that favors the Warhawks 2-to-1."
+
+the_delusion:
+  tone: self-aware
+  text: "That Oshkosh is, on paper, a national-championship-level program — that the pieces are right, the execution is fine, and the only thing between the Titans and a Stagg Bowl is a scheduling break or a playoff year. The fanbase knows the historical record. They also believe Oshkosh can be different."
+
+the_grudge_texture:
+  rival: wisconsin-whitewater
+  texture: blood-feud
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: pride-in-contention vs hunger-for-breakthrough — the faction satisfied with consistent 5+ win seasons and WIAC bowl games vs the faction demanding a Stagg Bowl appearance
+register: oshkosh-whitewater-little-brother-chronic-chip
+never_use:
+  - Not a real competitor (79-year series record proves Oshkosh belongs)
+  - Never had a great team (Oshkosh has fielded elite squads; question is coaching and era)
+
+story_canon:
+  the_unique_thing: "The 79-year rivalry record: 31-79-5 all-time against UW-Whitewater — the little-brother program in college football's most storied D3 blood feud, fighting for respect in a conference the Warhawks own."
+  the_origin: "A Wisconsin-Oshkosh program with roots in early-20th-century WIAC play (first meeting with Whitewater in 1897). The Titans have been a steady conference presence for over a century, but Whitewater's six-title dynasty (2007-2014) cemented Oshkosh as the program that does things right but lives in the shadow."
+  golden_ages:
+    - { era: "1980s-1990s", what: "WIAC conference contention and bowl game appearances; the era when Oshkosh was competitive with Whitewater" }
+  legends:
+    - { name: Peter Jennings, role: coach, why: "In fourth season, rebuilding the Titans toward contention after drought years" }
+  canonical_moments:
+    - { name: "Historic rivalry with Whitewater", year: 1897, what: "First meeting in the 79-year series record that now reads 31-79-5", handling: wound }
+    - { name: "WIAC conference titles", year: 1985, what: "Most recent conference championship, proving Oshkosh can rise to the top of the WIAC", handling: glory }
+  the_place: "Titan Stadium — the home of Oshkosh football and the stage where the Titans have played 79 meetings with the Warhawks, seeking validation."
+  brand_of_football: "Disciplined, conference-level execution — Oshkosh football is about winning the WIAC battles and proving that consistency translates to national respect."
+  cultural_footprint: "The little brother in the most storied D3 blood feud — Oshkosh represents the program that does everything right but lives in the shadow of institutional excellence, the all-time record a daily reminder of the gap."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UW-Oshkosh went 5-5 in 2025 (3-4 WIAC) under fourth-year coach Peter Jennings.
+    The Titans missed the NCAA playoff again, continuing a title drought that stretches back to 1985. The all-time
+    series record vs Whitewater stands at 31-79-5, a 79-year chronicle of underachievement in the rivalry that
+    defines Oshkosh football. The next phase for the Titans is building consistency that challenges both the Whitewater
+    legacy and the WIAC dominance that Platteville and River Falls are currently establishing.
+  research_checklist:
+    - 79-year rivalry history with Whitewater (31-79-5 record)
+    - Peter Jennings tenure as coach (4th year in 2025)
+    - 5-5 record in 2025, 3-4 WIAC
+    - last WIAC championship 1985
+    - WIAC tournament and playoff contention patterns
+  sources:
+    - https://en.wikipedia.org/wiki/Wisconsin-Oshkosh_Titans_football
+    - https://uwoshkosh-athletics.com/sports/m-footbl/
+    - https://www.d3football.com/conf/WIAC/2025/standings
+
+briefing:
+  identity_phrase: UW-Oshkosh is the WIAC program with a 79-year rivalry record of 31-79-5 against Whitewater
+    and a 40-year conference title drought — the little brother chasing breakthrough.
+  mantra: Go Titans
+  cultural_anchors:
+    fan_archetype_dominant: Faithful-Contender
+    outsider_archetype_dominant: Perennial-Almost
+    one_sentence: UW-Oshkosh is the D3 perennial-contender that's lived 79 years in the shadow of the Whitewater
+      rivalry and is chasing its first Stagg Bowl breakthrough.
+  selfname: the Titans
+  aspiration_ladder_top: ''
+  rivalries:
+    - wisconsin-whitewater
+    - wisconsin-platteville
+    - wisconsin-la-crosse
+  heritage:
+    national_titles: null
+    conference_titles: 1 (1985)
+    current_conference: WIAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+      - 79-year rivalry record vs Whitewater (31-79-5)
+      - WIAC conference contention history
+      - Last conference title 1985
+    rituals: []
+    modules_already_rendering: []
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

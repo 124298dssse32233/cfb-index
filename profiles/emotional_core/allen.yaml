@@ -1,0 +1,67 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: allen
+team_id: null
+program_name: Allen University
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Allen is the HBCU that resurrected its football program from a 12-year grave and is playing every Saturday as a gift, proving Payne's legacy never died."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A historically significant HBCU that walked away from football in 2005 and came roaring back in 2018, learning the game anew with the joy of a second wind."
+
+the_wound:
+  name: "The 12-year hiatus (2005–2017)"
+  detail: "Allen, founded as Payne Institute in 1870 and one of the oldest HBCU teaching traditions in America, closed its football program for 12 years. When the Yellow Jackets returned in 2018, they were starting from near-zero institutional knowledge."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Climb from SIAC mid-tier to a championship contender — every win in the Jackets' resurrection feels like vindication, and the goal is to build something that lasts."
+  drought: { since: 2018, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "The fanbase believes: Allen doesn't have a chip, it has gratitude. They are playing bonus football, and every season of competitive success is a win for the program."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans believe that the resurrection can accelerate faster than any HBCU program rebuilding has done before — that the original Allen tradition can skip intermediate steps and be excellent right away."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: patience-with-process vs. championship-now — rebuilders who understand the long climb vs. traditionalists who want immediate SIAC contention
+
+register: yellow-jackets-columbia-payne-institute
+never_use:
+  - Always been strong. The 12-year hiatus is the defining story, not weakness to hide.
+  - New program, no tradition. Payne Institute founded 1870; the tradition is 150 years, the football program is 8 seasons old.
+
+story_canon:
+  the_unique_thing: "Resurrection after 12 years in the grave — Allen returned to football in 2018 and has been climbing ever since, a second-chance HBCU learning how to compete in the modern SIAC."
+  the_origin: "Founded 1870 as Payne Institute for Male Colored Youth, one of the oldest HBCU institutions in America. Football was a part of the Allen tradition from the early 1900s until the program was discontinued in 2005."
+  golden_ages:
+    - { era: "1870–2005 (Long Tradition)", what: "Allen played college football for over a century as Payne Institute and then Allen University, establishing itself as a dignified HBCU with competitive tradition" }
+    - { era: "2018–present (Resurrection)", what: "Allen returned to football and has been building toward SIAC contention, growing year by year" }
+  legends:
+    - { name: "Cedric Pearl", role: "Coach (2023–)", why: "Guiding Allen through the crucial years of institutional football rebuilding" }
+  canonical_moments:
+    - { name: "Football Returns (2018)", year: 2018, what: "Allen boots up a new football program after 12 years, joining the SIAC in 2020", handling: glory }
+    - { name: "SIAC Membership (2020)", year: 2020, what: "Allen officially joins the SIAC, entering one of the toughest D2 conferences in the nation", handling: glory }
+  the_place: "Columbia, South Carolina — the Allen campus sits at the heart of historic Black education in the Midlands. The program represents Allen's full reintegration into the college football landscape."
+  brand_of_football: "Disciplined, developmental football — a program that is teaching the game to a new generation of Jackets while honoring the original Allen tradition of academic excellence."
+  cultural_footprint: "A resurrection story in the HBCU landscape, proof that a program can walk away and come back stronger if the institution cares enough to rebuild it right."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Allen finished the 2025 season 6–5 (5–3 SIAC, 4th place), showing steady progress in year 8 of the resurrection. The Yellow Jackets are now a stable mid-tier SIAC competitor, with stars like Fabian Duncan (RB) and Amerie Fleming (sack leader) helping the program claw toward conference contention. Coach Cedric Pearl has stabilized the culture after multiple early-era coaching changes, and the 2025 roster suggests a program ready to push for a SIAC title in the next 1–2 seasons.
+  sources:
+    - https://en.wikipedia.org/wiki/Allen_University
+    - https://thesiac.com/sports/football/roster/coaches/cedric-pearl/588
+    - https://www.si.com/college/hbcu/football/allen-university-football

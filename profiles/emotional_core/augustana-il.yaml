@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: augustana-il
+team_id: null
+program_name: Augustana College (Illinois)
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Augustana is the small Illinois liberal-arts program that won four straight national titles in the 1980s and still plays with the pride of a dynasty."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "Four national championships (1983–1986) from a 2,000-student campus in Rock Island, Illinois — proof that real national power doesn't require 100,000 fans."
+
+the_wound:
+  name: "The 1980s ended"
+  detail: "Augustana won four consecutive Division III national championships from 1983–1986 under legendary coach Bob Reade, a run that defined the program. The titles stopped, but the memory never did."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Another Stagg Bowl championship, another national title to match the legacy."
+  drought: { since: 1986, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Augustana plays for the honor of wearing the same uniform as the '83 through '86 teams that put a 2,000-person school on the national college football map."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 1980s dynasty is still alive in the bones of the program — that those four titles earned something that never fades. Fans know it's been 40 years, but they believe it anyway."
+
+the_grudge_texture:
+  rival: monmouth
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: pride-in-legacy vs rebuilding-patience — the memory of Reade's dynasty hangs over every decision
+register: rock-island-illinois-dynasty-program
+never_use:
+  - Invented rivalry
+  - Fabricated modern success
+  - Minimized the 1983-1986 titles (they are real and should be central)
+  - Turned the program into something it is not (small, proud, genuine)
+
+story_canon:
+  the_unique_thing: "Four consecutive NCAA Division III national championships (1983, 1984, 1985, 1986) — a dynasty from a 2,000-student college in Rock Island, Illinois."
+  the_origin: "Augustana College, founded in 1860 in Rock Island, built one of the greatest dynasties in Division III football history under legendary coach Bob Reade."
+  golden_ages:
+    - { era: "1983–1986 (Bob Reade)", what: "Four consecutive national championships — the Stagg Bowl dynasty" }
+  legends:
+    - { name: Bob Reade, role: coach, why: "Architect of the four-title dynasty and one of the greatest coaches in Division III history" }
+  canonical_moments:
+    - { name: "1986 Stagg Bowl championship", year: 1986, what: "Fourth consecutive national title caps the Reade dynasty", handling: glory }
+    - { name: "Four straight crowns", year: 1986, what: "1983–1986 national championships define the program forever", handling: glory }
+  the_place: "Augustana's campus in Rock Island, Illinois — a small liberal-arts college that punched far above its size."
+  brand_of_football: "Disciplined, proud, built on institutional strength and coaching excellence."
+  cultural_footprint: "Proof that national championships in college football are not reserved for big schools — a small Illinois liberal-arts program that won the biggest prize in Division III."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Augustana went 7-3 in 2025 under coach Steve Bell (11th year).
+    The program carries the legacy of the 1980s dynasty with pride and respect, playing competitive Division III
+    football within the CCIW. The question for the fanbase: can Augustana build the next great run, or is the
+    program content to honor and preserve the four titles that will always define it?
+  research_checklist:
+    - the 1983-1986 four-title dynasty
+    - Bob Reade's legacy and coaching record
+    - The Stagg Bowl tradition
+    - Current CCIW competitiveness
+    - The size and nature of the institution (small liberal-arts school identity)
+  sources:
+    - https://en.wikipedia.org/wiki/Augustana_College_(Illinois)
+    - https://en.wikipedia.org/wiki/2025_NCAA_Division_III_football_season
+    - https://www.d3football.com/schools/augustana-il
+    - https://augustana.edu/athletics/football/

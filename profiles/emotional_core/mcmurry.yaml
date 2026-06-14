@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: mcmurry
+team_id: null
+program_name: McMurry University
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: restoration
+  one_line: "McMurry is the Abilene, Texas Methodist college that just won back-to-back SCAC titles (2024–2025) before joining the ASC in 2026–27."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A small Methodist liberal-arts college in Abilene, Texas that has emerged as a SCAC champion and is stepping up to the ASC conference."
+
+the_wound:
+  name: "None — momentum is upward"
+  detail: "McMurry won the SCAC in 2024 and 2025, going 6-4 in 2025. The program is rising, not wounded."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Compete in the ASC starting in 2026–27 and prove that McMurry's SCAC success translates to a higher-level conference."
+  drought: { since: 2020, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — McMurry is playing with earned confidence from two consecutive SCAC championships."
+
+the_delusion:
+  tone: self-aware
+  text: "That SCAC success will transfer directly to ASC success — fans believe the War Hawks can compete in the new league, and they might be right, but ASC is a step up."
+
+the_grudge_texture:
+  rival: howard-payne
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: "confidence from SCAC titles vs uncertainty about ASC-level competition"
+register: abilene-texas-war-hawks
+never_use:
+  - Minimized the back-to-back SCAC championships
+  - Invented a higher-level championship (SCAC titles are the real ones)
+  - Made the ASC move sound inevitable or certain to succeed
+
+story_canon:
+  the_unique_thing: "Back-to-back SCAC championships (2024, 2025) — McMurry University just won the SCAC title and is stepping up to join the American Southwest Conference."
+  the_origin: "McMurry University, a Methodist liberal-arts college in Abilene, Texas, has built a competitive SCAC football program under head coach Jordan Neal."
+  golden_ages:
+    - { era: "2024–2025", what: "Back-to-back SCAC conference championships" }
+  legends:
+    - { name: Jordan Neal, role: coach, why: "Built McMurry into a SCAC champion (7 years tenure)" }
+  canonical_moments:
+    - { name: "Back-to-back SCAC titles", year: 2025, what: "McMurry wins its second consecutive SCAC championship", handling: glory }
+    - { name: "ASC transition", year: 2026, what: "McMurry joins the American Southwest Conference for 2026–27 season", handling: glory }
+  the_place: "Abilene, Texas — the home of McMurry University, a Methodist liberal-arts college in West Texas."
+  brand_of_football: "Disciplined, competitive, rooted in Methodist values and West Texas toughness."
+  cultural_footprint: "A rising West Texas program that proved itself in the SCAC and is stepping up to compete in the ASC."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: McMurry went 6-4 in 2025 (5-1 SCAC, conference champion) under head coach Jordan Neal (7th year).
+    The War Hawks won their second consecutive SCAC title. Beginning in the 2026–27 academic year, McMurry will join the American Southwest Conference,
+    leaving the SCAC. The question in Abilene is whether the War Hawks can maintain their championship level in the more competitive ASC, or whether the transition
+    will prove challenging.
+  research_checklist:
+    - Back-to-back SCAC championship years (2024, 2025)
+    - Jordan Neal coaching tenure and success
+    - 2025 season 6-4 record and SCAC title
+    - ASC transition preparation
+    - Rivalry with Howard Payne history
+  sources:
+    - https://en.wikipedia.org/wiki/McMurry_University
+    - https://www.d3football.com/schools/mcmurry
+    - https://mcmurrywarhawks.com/sports/football

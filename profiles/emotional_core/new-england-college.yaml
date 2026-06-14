@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — New England College (new-england-college)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: new-england-college
+team_id: null
+program_name: New England College
+program_tier: 7
+
+emotional_core:
+  primary: house-money  # every win is a gift after 50 years
+  secondary: restoration  # return from the dead
+  one_line: "New England College is the Pilgrim program that returned from a 50-year hiatus in 2025 — its first win came against Maine Maritime, marking 51 years of silence broken in a single season."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A 1-9 inaugural 2025 season masks the true story: a program returning from 50 years of dormancy, playing its first varsity football in half a century."
+
+the_wound:
+  name: "The 50-year suspension"
+  detail: "New England College football suspended after the 1974 season and did not return to varsity play until 2025 — a half-century silence that makes the 2025 inaugural year monumental regardless of record."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Establish New England College football as a stable Conference of New England presence — transform the historic 50-year gap into a redemption narrative."
+  drought: { since: 1974, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is simple: 50 years without varsity football. Every game is a statement that New England College belongs in the modern D3 landscape."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the 2025 inaugural season is a true beginning, not just a novelty. They see the 1-9 record as groundwork, the first win vs. Maine Maritime as proof of concept."
+
+the_grudge_texture:
+  rival: maine-maritime
+  texture: blood-feud   # Conference of New England rivals; shared 2025 inaugural victory
+
+the_coach_relationship: savior   # Coach (name not confirmed) rebuilding from scratch
+the_internal_fracture: optimism for the future vs. sobering 1-9 inaugural reality
+register: pilgrim-five-decade-resurrection
+never_use:
+  - New England College is a new program — varsity football suspended after 1974; 2025 is a return, not a founding
+  - The 1-9 record is a failure — it's inaugural 2025 after 50-year absence; the result reflects roster-building stage
+  - 50 years is exaggerated — confirmed 1974 final season through 2025 inaugural return (50-year gap)
+
+story_canon:
+  the_unique_thing: "New England College's 1-win 2025 inaugural season was momentous because it ended a 50-year drought: the program's first varsity season since 1974. That lone win came against Maine Maritime (14-10, Oct 25), marking 51 years since the last New England College victory."
+  the_origin: "New England College fielded varsity football through 1974, when the program was suspended."
+  golden_ages:
+    - { era: "pre-1974", what: "Historic New England College football program (era dates unknown)" }
+    - { era: "2025–present (return)", what: "Inaugural varsity season after 50-year hiatus" }
+  legends:
+    - { name: "First 2025 win team", role: team, why: "Defeated Maine Maritime 14-10 on Oct 25, 2025 — first New England College victory in 51 years" }
+  canonical_moments:
+    - { name: "Last pre-suspension game", year: 1974, what: "New England College's final varsity football game before 50-year pause", handling: wound }
+    - { name: "First win in 51 years", year: 2025, what: "14-10 victory vs. Maine Maritime, Oct 25, 2025 — inaugural season breakthrough", handling: glory }
+  the_place: "New England College field in Henniker, New Hampshire — home of the returned Pilgrims."
+  brand_of_football: "Rebuilding football — the honor is in the return itself, not the record."
+  cultural_footprint: "A program proving that even 50-year gaps can be bridged by institutional commitment to restoration."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: New England College returned varsity football in 2025 after a 50-year suspension,
+    posting a 1-9 record (1-6 Conference of New England). The Pilgrims' sole victory came against Maine Maritime (14-10, Oct 25, 2025),
+    marking the first New England College win in 51 years (since 1974). The 2025 inaugural season was a foundation-building year,
+    assembling roster and staff for sustainable Conference of New England competition. The ongoing narrative: how quickly can New England
+    College build from a 1-win inaugural into a competitive D3 program?
+  research_checklist:
+    - 1974 program suspension date
+    - 50-year dormancy (1974–2025)
+    - 2025 inaugural varsity return
+    - 14-10 win vs. Maine Maritime (Oct 25, 2025)
+    - Conference of New England membership
+  sources:
+    - https://en.wikipedia.org/wiki/New_England_College_Pilgrims_football
+    - https://www.ncaa.org/sports/2025/d3/football/new-england-college/schedule
+    - https://www.ncollegefootball.com/teams/new-england-college-pilgrims

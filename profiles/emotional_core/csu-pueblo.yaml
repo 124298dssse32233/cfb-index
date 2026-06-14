@@ -1,0 +1,67 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: csu-pueblo
+program_name: Colorado State University – Pueblo
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "CSU Pueblo is the 2014 Division II National Champions — a program that resurrected itself after near extinction and proved that a young D2 school can win at the highest level."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program born from institutional struggle (merger in 2002) that won a national title in 2014 and has built into a consistent RMAC powerhouse."
+
+the_wound:
+  name: "The pre-2014 rebuild"
+  detail: "CSU Pueblo's football program nearly didn't exist — a young institution (merged in 2002) with minimal resources and tradition, climbing from nothing toward a national title in just 12 years."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Defend the 2014 national title and return to the championship game — establish CSU Pueblo as a sustained RMAC power and D2 contender."
+  drought: { since: 2014, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe cSU Pueblo's chip is one of doubt overcome — a young program that shouldn't have won a national title but did, and now plays to prove the 2014 championship was no accident."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: regional-rmac
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "Championship legacy vs plateauing risk — the tension between defending the 2014 title and the reality that returning to that peak is historically hard."
+register: csu-pueblo-thunderwolves-national-champions-pueblo
+never_use:
+  - Two-time national champions — won in 2014 only (not 2025)
+  - Recent playoff collapses — made RMAC title game 2024-2025 (consistent contender)
+
+story_canon:
+  the_unique_thing: "Division II National Champions (2014) — a young program (founded via merger in 2002) that became the first and only national champion in CSU Pueblo football history, defeating Minnesota State 13-0."
+  the_origin: "Born from the 2002 merger of Colorado State University–Pueblo and the University of Southern Colorado, CSU Pueblo's football program started with minimal tradition and built a championship in 12 years."
+  golden_ages:
+    - { era: "2010–2014", what: "Rapid rise from RMAC contender to national champion — the 2014 championship represents the program's peak" }
+    - { era: "2024–2025", what: "Resurgence as a consistent RMAC title contender (back-to-back conference titles)" }
+  legends: []
+  canonical_moments:
+    - { name: "2014 National Championship", year: 2014, what: "CSU Pueblo defeated Minnesota State 13-0 in the Division II national championship game — the only national title in program history", handling: glory }
+  the_place: "Pueblo, Colorado — a working-class city and the home of a working-class D2 champion."
+  brand_of_football: "Tough, underdog football — a program that proves that young schools with limited resources can outwork and outsmart the established order."
+  cultural_footprint: "A modern D2 success story: proof that a young institution can build a national championship through coaching, discipline, and belief."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: CSU Pueblo under coach Philip Vigil (Year 4, extension through 2029) went 10-2 in 2025 with a
+    perfect 9-0 RMAC record — back-to-back conference titles. The ThunderWolves lost to UT-Permian Basin 37-24 in the playoff second round,
+    ending a promising season. The program's foundation rests on the 2014 national championship and has evolved into a consistent RMAC powerhouse
+    and credible D2 playoff contender. The question forward: can CSU Pueblo add a second national title to its legacy?
+  sources:
+    - https://en.wikipedia.org/wiki/CSU_Pueblo_ThunderWolves_football
+    - https://www.gopacksgo.com/
+    - https://www.rmac.org/
+    - https://en.wikipedia.org/wiki/NCAA_Division_II_national_football_championship

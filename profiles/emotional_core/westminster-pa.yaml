@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: westminster-pa
+team_id: null
+program_name: Westminster College
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Westminster College is the Presidents' Athletic Conference powerhouse with six national championships and 11 undefeated seasons — a small Pennsylvania institution that has built the most storied Division III football program in the PAC."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Westminster has six national titles and 11 undefeated seasons — the most successful D3 program in PAC history. The challenge is staying on top, not climbing to the summit."
+
+the_wound:
+  name: "The pressure to repeat and the aging dynasty"
+  detail: "Westminster is the most successful PAC program ever but went 7-3 in 2025 (6-2 PAC). The wound is not failure but the inexorable gap between championship years and steady-state excellence. Even Westminster can't win forever."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win another national championship and extend the Westminster legacy as the gold standard of D3 football excellence."
+  drought: { since: 1988, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe westminster carries the quiet confidence of champions. No chip is needed — the motivation is pride in a tradition that has stood for a century."
+
+the_delusion:
+  tone: self-aware
+  text: "That Westminster's next championship is waiting in the next great recruiting class or the next coaching change — the fanbase knows the program can be great again and believes it will be."
+
+the_grudge_texture:
+  rival: allegheny
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Legacy and tradition vs. the hunger to build another championship team"
+register: westminster-titans-six-time-champions-pac-dynasty
+
+never_use:
+  - Dominant in all eras — the 1970s-1980s were the dynasty; modern era is consistent but not dominant
+  - Currently undefeated — Westminster hasn't been undefeated since the 1980s
+  - Guaranteed title contender — national titles require specific timing and talent
+
+story_canon:
+  the_unique_thing: "Westminster College has won six NCAA Division III national championships and compiled 11 undefeated seasons, making it the most successful program in Presidents' Athletic Conference history and a model of small-school excellence."
+  the_origin: "A small liberal-arts college in New Wilmington, Pennsylvania (founded 1852). Westminster built a football dynasty on consistency, discipline, and institutional commitment to excellence."
+  golden_ages:
+    - { era: "1970–1988", what: "The golden era of Westminster dominance: six national championships and 11 undefeated seasons, the peak of the program's historic success" }
+  legends:
+    - { name: "Westminster Football Tradition", role: "identity", why: "The most successful PAC program ever, with six national titles and 11 undefeated seasons representing the gold standard of D3 excellence" }
+  canonical_moments:
+    - { name: "Six National Championships", year: 1988, what: "Westminster wins its sixth and final national championship (so far), cementing its legacy as the most successful PAC program in history", handling: glory }
+    - { name: "11 Undefeated Seasons", year: 1988, what: "Westminster completes 11 perfect seasons across multiple decades, setting an unprecedented standard for D3 excellence", handling: glory }
+  the_place: "New Wilmington, Pennsylvania — a small college town in northwestern Pennsylvania, home to Westminster College and its historic football tradition."
+  brand_of_football: "Championship football rooted in discipline and continuity. Westminster's game is built on consistency, sound fundamentals, and the institutional knowledge that comes from sustained success."
+  cultural_footprint: "The gold standard of Division III football excellence. Westminster's six national titles and 11 undefeated seasons stand as evidence that a small Pennsylvania college can compete at the absolute highest level of D3 football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Westminster went 7-3 overall (6-2 PAC) in 2025 under interim head coach EJ White.
+    The program remains one of the PAC's elite teams but faces the reality that building a championship team now requires
+    finding the right permanent head coach and returning to the competitive level that produced six titles. Westminster
+    sits at a crossroads: either rebuild to championship standard or accept a new era of consistent-but-not-dominant
+    excellence.
+
+  research_checklist:
+    - Six national championships verified
+    - 11 undefeated seasons verified
+    - 577+ career program wins verified
+    - EJ White interim 2026
+    - 2025 record (7-3 overall, 6-2 PAC) verified
+    - Small-school Pennsylvania legacy context
+
+  sources:
+    - https://en.wikipedia.org/wiki/Westminster_College_(Pennsylvania)
+    - https://www.westminstercollegeathletics.com/sports/football
+    - https://en.wikipedia.org/wiki/Westminster_Titans_football

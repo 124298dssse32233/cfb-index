@@ -1,0 +1,79 @@
+# Emotional Core — East Stroudsburg University Warriors (east-stroudsburg)
+# AUTHORED 2026-06-13 — web-verified Jimmy Terwilliger success era, Pocono region identity
+# program_tier: 6 (PSAC Division II)
+
+status: live
+slug: east-stroudsburg
+team_id: null          # PSAC, not FBS-indexed
+program_name: East Stroudsburg University
+program_tier: 6
+
+emotional_core:
+  primary: contentment       # A stable, regionally rooted Pocono program with steady PSAC competitiveness and back-to-back NCAA playoff runs
+  secondary: house-money     # A mid-tier program finding sustained success through disciplined coaching and execution
+  one_line: "East Stroudsburg is the Warrior program anchored in the Pocono region — a century-old institution building consecutive NCAA playoff runs under Jimmy Terwilliger."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A PSAC East program with 500+ wins in history (founded 1926), three perfect seasons (1942, 1965, 1975), and a modern era of sustained 8+ win seasons — consistency, not volatility."
+
+the_wound:
+  name: "Decades of regional invisibility before Terwilliger — a program that won but nobody watched"
+  detail: "East Stroudsburg had historical success (500+ wins, perfect seasons) but operated in relative regional obscurity until Jimmy Terwilliger's sustained excellence brought PSAC East title contention and NCAA playoff invitations. The wound is resolved: the Warriors are no longer the invisible regional power."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Build on three straight 8+ win seasons and back-to-back NCAA playoff appearances (2023, 2024) by capturing a PSAC East title, sustaining the playoff run, and establishing East Stroudsburg as a permanent regional powerhouse."
+  drought: { since: 1991, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "The chip is quiet pride: East Stroudsburg is a century-old institution (founded 1926) that has won 500+ games and produced perfect seasons, but only recently broke into national consciousness. The fanbase knows what they've built is real."
+
+the_delusion:
+  tone: self-aware
+  text: "That the Warriors can sustain 8+ win seasons and make consecutive NCAA playoff runs — that Terwilliger's system is durable enough to stick. The fanbase believes it because they're seeing it compound year over year."
+
+the_grudge_texture:
+  rival: null
+  texture: border-war
+
+the_coach_relationship: forever-ours
+the_internal_fracture: skeptics-of-sustained-playoff-runs vs builders-of-consistency — those who lived through decades of regular-season success without tournament appearance vs those who see playoff runs as proof of progression
+register: east-stroudsburg-warrior-pocono-pennsylvania
+never_use:
+  - Small school or minor program — East Stroudsburg has 500+ wins and three perfect seasons
+  - Emerging program — the Warriors have been building consistently for decades; this is awakening, not emergence
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "A century-old Pocono institution with 500+ wins and three perfect seasons (1942, 1965, 1975) that is now building consecutive NCAA playoff runs (2023, 2024) after decades of regional competence without tournament visibility."
+  the_origin: "Founded 1926, the Warriors have operated as a PSAC staple and produced perfect seasons under different coaching eras — a program built on fundamental, sustained excellence in a mountain region."
+  golden_ages:
+    - { era: "1942", what: "Perfect season: 6–0" }
+    - { era: "1965", what: "Perfect season: 10–0, with legendary coach Jack Gregory (49–11–2 record)" }
+    - { era: "1975", what: "Perfect season: 10–0; the program's most recent undefeated campaign" }
+    - { era: "2023–2024", what: "Back-to-back NCAA playoff appearances under Jimmy Terwilliger" }
+  legends:
+    - { name: Jack Gregory, role: coach, why: "Seven seasons (1959–1965), 49–11–2 record, two PSAC titles, two perfect seasons (1965 especially iconic)" }
+    - { name: Jimmy Terwilliger, role: coach, why: "Sixth full season (2020–present), 43–27 record, two consecutive NCAA playoff appearances (2023, 2024), establishing the modern Warriors dynasty" }
+  canonical_moments:
+    - { name: "Perfect Seasons", year: 1975, what: "Three perfect seasons in program history (1942, 1965, 1975) — the 1975 campaign the most recent undefeated run", handling: glory }
+    - { name: "2023 NCAA Playoff Return", year: 2023, what: "First NCAA playoff appearance since 1991; the breaking point for regional invisibility", handling: glory }
+    - { name: "500 Program Wins", year: 2023, what: "Warriors recorded their 500th program victory in a 35–21 PSAC East opener triumph at Lock Haven", handling: glory }
+  the_place: "Pocono region, Pennsylvania — a mountain-adjacent area that sustains Division II football as a regional institution without FBS exposure."
+  brand_of_football: "Fundamental, disciplined — a program that competes through execution and coaching rather than talent chasm."
+  cultural_footprint: "Proof that sustained regional competence compounds into playoff contention; East Stroudsburg's three perfect seasons + recent playoff runs span a century of football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Jimmy Terwilliger enters year six with a 43–27 record and back-to-back NCAA playoff appearances (2023, 2024). The 2025 season finished with an 8–3 record, the third straight 8+ win season, positioning the Warriors for a third consecutive playoff run if they win the PSAC East. The narrative: from regional invisibility to playoff regularity. Can the Warriors capture an East title and sustain the playoff run into the 2026 season?
+  research_checklist:
+    - The 1926 founding and evolution through perfect seasons (1942, 1965, 1975)
+    - Jack Gregory's 1959–1965 tenure and the iconic 1965 perfect season
+    - The 1991 NCAA playoff appearance and the subsequent drought
+    - Jimmy Terwilliger's tenure and the 2023–2024 playoff resurgence
+    - The Pocono region's role in sustaining Division II football
+  sources:
+    - https://esuwarriors.com/
+    - https://esuwarriors.com/news/2023/9/23/football-warriors-record-500th-win-in-program-history-in-35-21-triumph-at-lock-haven-in-psac-east-opener.aspx
+    - https://en.wikipedia.org/wiki/East_Stroudsburg_Warriors

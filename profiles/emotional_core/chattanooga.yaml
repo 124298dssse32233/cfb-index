@@ -1,0 +1,70 @@
+status: live            # authored 2026-06-13 via web research
+slug: chattanooga
+team_id: null
+program_name: Chattanooga
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the Rusty Wright rebuild after three straight playoff droughts (2022-2024)
+  secondary: grievance
+  core_variant: perpetual-rebuild
+  one_line: "Chattanooga is the SoCon program that's made five FCS playoff runs in its history but hasn't won a championship — a perpetual almost-team chasing its first title since moving to the FCS."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Five FCS playoff appearances vs. zero championships — the program that keeps making the dance but hasn't won on the biggest stage."
+
+the_wound:
+  name: "The playoff ceiling"
+  detail: "Chattanooga has appeared in five FCS playoffs (most recent 2023 to Furman in the first round), but has never won a playoff game or claimed a national title. The Mocs are a consistent tournament team in a conference where Furman has a trophy case and Wofford has ten playoff runs — the eternal bridesmaid."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Break through the first round, win a SoCon title, bring home a real trophy — prove the Mocs aren't just playoff fodder but legitimate contenders in the toughest FCS conference."
+  drought: { since: 2015, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "In a conference where Furman won a national championship and Wofford has made ten playoff runs, Chattanooga is the perpetual tournament team that hasn't won when it matters most — and the room knows it."
+
+the_delusion:
+  tone: self-aware
+  text: "That consistent tournament appearances mean the Mocs are close to breaking through. The fanbase knows five playoff runs in history is respectable; they also know five-and-0 in the opening round stings more than it should."
+
+the_grudge_texture:
+  rival: furman
+  texture: championship   # Furman won the 1988 national title, Chattanooga has never won anything
+
+the_coach_relationship: hot-seat-churn   # Rusty Wright (year 7) is the program's rebuilder but the roster keeps turning
+the_internal_fracture: contention_vs_patience — the faction pushing for immediate titles vs. the group trusting Wright's rebuild of a 2023 playoff-loss roster
+register: chattanooga-perpetual-playoff-program
+never_use:
+  - "always been also-rans"
+  - "never belonged in the FCS"
+
+story_canon:
+  the_unique_thing: "Five FCS playoff appearances that defined the 2010s-2020s era, each one a near-miss that stung more than the last — consistent excellence without a championship to show for it."
+  the_origin: "Chattanooga joined the FCS in 2015 as a transitioning program and immediately made the playoffs, establishing itself as one of the conference's most reliable tournament teams."
+  golden_ages:
+    - { era: "2014-2019", what: "Five FCS playoff appearances in six years, making Chattanooga a consistent tournament program" }
+    - { era: "2023 season", what: "10-3 record and SoCon contention before the first-round playoff loss to Furman" }
+  legends:
+    - { name: Rusty Wright, role: coach, why: "Year 7 coach rebuilding Chattanooga after the 2023 playoff run, architect of the modern Mocs identity" }
+  canonical_moments:
+    - { name: "2023 playoff appearance", year: 2023, what: "10-3 season ends in first-round loss to rival Furman in the FCS playoffs", handling: heartbreak }
+    - { name: "Five FCS playoff runs", year: 2019, what: "Chattanooga establishes itself as a consistent FCS tournament contender", handling: glory }
+  the_place: "Finley Stadium — the home of Mocs football in Chattanooga, Tennessee."
+  brand_of_football: "Tough, physical SoCon football — a consistent playoff program that hasn't yet broken through to the next level."
+  cultural_footprint: "The SoCon's reliable tournament team, a program that shows up every year but hasn't yet claimed the hardware that defines championship caliber."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Chattanooga's 2025 roster is in the second year of Rusty Wright's rebuild after the 2023 playoff loss. The Mocs are chasing their first SoCon title and looking to finally break through the first round of the FCS playoffs. With five tournament appearances but zero playoff wins, the pressure is mounting to prove the program can win when it matters most.
+  research_checklist:
+    - ✓ Five FCS playoff runs (2014-2023)
+    - ✓ 2023 first-round loss to Furman
+    - ✓ Rusty Wright era (year 7)
+    - ✓ Perpetual-almost identity
+  sources:
+    - https://en.wikipedia.org/wiki/Chattanooga_Mocs_football
+    - https://www.utsports.com
+    - https://www.thescore.com/nfl/news/chattanooga-football

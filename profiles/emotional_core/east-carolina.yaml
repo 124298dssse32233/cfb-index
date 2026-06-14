@@ -1,0 +1,121 @@
+# Emotional Core — East Carolina  (east-carolina)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: east-carolina
+team_id: 234
+program_name: East Carolina
+program_tier: 3
+
+emotional_core:
+  primary: grievance      # the chip is the program — Greenville's whole identity is "you've never respected us"
+  secondary: restoration  # the Blake Harrell rebuild that just put the Pirates back at 9-4 and a bowl title
+  core_variant: the-ceiling
+  one_line: "East Carolina is the program that fills a purple cathedral in a tobacco town nobody plans to visit — and just answered the latest round of doubt with a nine-win season and a bowl trophy."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A fanbase and a gameday atmosphere that look major-college vs a conference address that keeps the Pirates filed under mid-pack, no matter how loud Dowdy-Ficklen gets."
+
+the_wound:
+  name: "The wilderness before Harrell"
+  detail: "ECU spent stretches of the late 2010s and early 2020s buried below .500 and irrelevant nationally — the long flat patch that made even Pirate Nation wonder if the program's best days were a generation gone, before Blake Harrell pulled it back to 9-4 and a Military Bowl win in 2025."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the American outright, crash a New Year's bowl, and force the sport to admit that the loudest building in eastern North Carolina deserves a bigger stage."
+  drought: { since: 2008, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Pirate Nation has heard it for decades — too small, too remote, too G5 to matter. ECU fans treat that doubt as fuel, and the 2025 nine-win season was the latest receipt they shove back across the table."
+
+the_delusion:
+  tone: earnest
+  text: "Pirate Nation believes the atmosphere is the program — that the purple-clad sellouts and the boat-rocking energy in Greenville mean ECU is a sleeping major just waiting for the wins and the league to catch up to its fans."
+
+the_grudge_texture:
+  rival: nc-state
+  texture: little-brother   # the in-state ACC neighbor that ECU measures itself against and resents being measured by
+
+the_coach_relationship: savior   # Blake Harrell took over and immediately restored the program to nine wins
+the_internal_fracture: pride vs patience — the faction that wants ECU swinging for an AAC title and a national look now vs the faction that just wants to lock in stability after years of churn
+register: greenville-pirates-purple-haze   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always G5 — 2008 C-USA championship + sustained AAC competitive cycles reset
+  - No identity — Purple Haze + Pirate Cannon are CFB-distinctive
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "East Carolina is the program whose fanbase is bigger than its address — Dowdy-Ficklen turns purple and deafening for a school in a tobacco town most of the country can't find on a map, the textbook case of a fan culture that outruns its conference."
+  the_origin: "A regional teachers college in Greenville that grew into eastern North Carolina's football flagship, building a chip-on-the-shoulder identity from decades of being told a school its size shouldn't draw or matter the way it does."
+  golden_ages:
+    - { era: "1991 (Bill Lewis)", what: "An 11-1 Peach Bowl season and a top-10 final ranking — the program's signature year of national arrival" }
+    - { era: "2008–2009 (Skip Holtz)", what: "Back-to-back Conference USA championships, the first conference title in 32 years" }
+  legends:
+    - { name: Bill Lewis, role: coach, why: "Led the 1991 11-1 team that finished ranked ninth — the high-water mark of the program" }
+    - { name: Chris Johnson, role: player, why: "Explosive Pirate back who became an NFL 2,000-yard rusher" }
+  canonical_moments:
+    - { name: "The 1991 Peach Bowl season", year: 1991, what: "11-1 and a No. 9 final ranking — proof a small eastern-NC school could finish in the top ten", handling: glory }
+    - { name: "2008 C-USA title", year: 2008, what: "ECU beats Tulsa 27-24 for its first conference championship in 32 years", handling: glory }
+    - { name: "The 2025 turnaround", year: 2025, what: "Blake Harrell's first full year ends 9-4 with a Military Bowl win over Pittsburgh", handling: glory }
+  the_place: "Dowdy-Ficklen Stadium — 'Purple Haze,' the pirate-flag sea, the cannon firing after every score, one of the loudest and most committed mid-major gameday environments in the sport."
+  brand_of_football: "Chip-fueled, no-respect football — a program that plays like it has something to prove every Saturday because, in its own telling, it always has."
+  cultural_footprint: "The pride of eastern North Carolina — a region with no pro team and one big-time program, where ECU football is the dominant cultural institution, not a side interest."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Blake Harrell, promoted to the full-time job in late 2024, led ECU to 9-4
+    (6-2 American) in 2025 and a 23-17 Military Bowl win over Pittsburgh, with a defense that allowed the fewest
+    points per game at the school since 1999. He enters 2026 in year two with the program restored to relevance
+    and Pirate Nation pushing for an outright American title and a national look.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_East_Carolina_Pirates_football_team
+    - https://en.wikipedia.org/wiki/East_Carolina_Pirates_football
+    - https://ecupirates.com/sports/football/roster/coaches/blake-harrell/4269
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: East Carolina is the American Athletic program whose Skip Holtz era + Dowdy-Ficklen Stadium
+    purple haze + 2024 8-5 turnaround under Blake Harrell define what eastern-North-Carolina football identity
+    looks like.
+  mantra: ECU Pirate Nation.
+  cultural_anchors:
+    fan_archetype_dominant: Greenville-Pirate-Nation
+    outsider_archetype_dominant: AAC-Mid-Pack-Diminisher
+    one_sentence: East Carolina is the eastern-North-Carolina football flagship — Purple Haze stadium aesthetic
+      + Skip Holtz 2008 C-USA championship + Pirate Cannon + 2024 Blake Harrell rebuild that brought the
+      Pirates back to bowl eligibility.
+  selfname: the Pirates
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2008 8-5 + Conference USA championship + Liberty Bowl under Skip Holtz
+    - 2024 8-5 + bowl eligibility under Blake Harrell
+    - Purple Haze stadium aesthetic + Pirate Cannon tradition
+    rituals:
+    - Dowdy-Ficklen Purple Haze
+    - Skip Holtz Conference USA Era (2008-2009)
+    - Pirate Cannon
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (57/100, n=25)
+    voice_profile: absent
+    delusion_premium: absent

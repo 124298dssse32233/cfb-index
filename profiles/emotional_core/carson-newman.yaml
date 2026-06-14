@@ -1,0 +1,117 @@
+# Emotional Core — Carson-Newman  (carson-newman)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: carson-newman
+team_id: 999  # Placeholder — may need D2 DB assignment
+program_name: Carson-Newman
+program_tier: 6
+
+emotional_core:
+  primary: grievance      # five NAIA championships in the 1980s now filed under "before it counted"
+  secondary: restoration  # a new coaching era (Tyler Almond, 2025 AFCA Assistant of the Year) and a defense-led rebuild
+  core_variant: the-ceiling
+  one_line: "Carson-Newman won five NAIA national titles in six years and built an East Tennessee legend, and spent every year after wondering why a room full of championships doesn't open the doors of college football's main level."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Five NAIA national championships (1983–1989) and a coaching tree that scattered across college football vs a Division II ceiling that still says none of it counts at the level that matters."
+
+the_wound:
+  name: "The dynasty that got an asterisk"
+  detail: "Carson-Newman won five NAIA national titles in six years under Ken Sparks (1983–1989), a run that should have made Jefferson City a dynasty hub. Instead, every year since, they've heard 'NAIA' attached to each ring like an apology. When Sparks retired, the program faced the longest rebuild in SAC history."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "A SAC championship and a bowl game that makes the Eagles belong in the conversation with the old blue bloods who still ask where Jefferson City is on a map."
+  drought: { since: 1989, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Eagles fans carry five rings that the NCAA says don't count the same way. The chip is that Ken Sparks' dynasty was real, was run by a coach who turned a small Tennessee school into a national factory, and somehow the main level still acts like it never happened."
+
+the_delusion:
+  tone: self-aware
+  text: "That a Ken Sparks right-hand-man or a coaching tree heir could walk into Division II and resurrect the 1980s. That the Eagles had the Sparks blueprint and just needed the right voice to bring it back. They believe it; the wins have to prove it."
+
+the_grudge_texture:
+  rival: ""
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow   # Ken Sparks' five NAIA titles cast a long shadow; Tyler Almond (2025 AFCA Assistant Coach of the Year) is tasked with lifting it
+the_internal_fracture: sparks-purists vs the-modern-rebuild — the Eagles fans who believe only a Sparks acolyte can restore the dynasty vs the faction content to win Almond's way if it wins
+register: jefferson-city-eagles-sparks-naia-dynasty
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - "Won NCAA Division II national championships — Carson-Newman won 5 NAIA (not D2) titles"
+  - "Program is currently winning in SAC — competitive yes, but not SAC champs since joining D2"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The NAIA dynasty: Carson-Newman won five national championships in six years (1983–1989) under legendary coach Ken Sparks, a run that seeded a coaching tree and proved a small East Tennessee school could build a national factory. The Eagles' entire identity is Ken Sparks and five rings that college football pretends don't exist the same way."
+  the_origin: "Carson-Newman was founded in 1851 in Jefferson City, Tennessee. Football arrived in the 1900s and became a regional power. Under Ken Sparks (who arrived in the late 1970s), the Eagles reclassified to NAIA and became a dynasty."
+  golden_ages:
+    - { era: "1983–1989 (Ken Sparks)", what: "Five NAIA national championships in six years — a run that made Carson-Newman an East Tennessee institution and a coaching tree powerhouse" }
+  legends:
+    - { name: Ken Sparks, role: coach, why: "Built five NAIA national titles in six years; the defining coach in Eagles history and the architect of the East Tennessee legacy" }
+  canonical_moments:
+    - { name: "1983 NAIA Championship", year: 1983, what: "Carson-Newman defeats Mesa State in the NAIA championship, launching the dynasty", handling: glory }
+    - { name: "Back-to-back NAIA titles", year: 1984, what: "1984 NAIA Championship vs Central Arkansas results in co-champion status (tied); dynasty continues", handling: glory }
+  the_place: "Mike Pittman Stadium in Jefferson City, Tennessee — home of the Eagles and a shrine to Ken Sparks' dynasty."
+  brand_of_football: "The Sparks way — a defensive, grinding, option-influenced philosophy that won championships at a level above FCS but below the NCAA main stream."
+  cultural_footprint: "Proof that a small Tennessee school can build a real dynasty in the American sporting hierarchy — and the evidence that NAIA football can produce legitimate national champions."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Carson-Newman enters the 2025-26 season under new head coach Tyler Almond,
+    promoted from defensive coordinator (and named 2025 AFCA Assistant Coach of the Year). In 2025, the Eagles' defense
+    ranked 1st in SAC and 5th nationally in scoring defense (14.5 ppg), signaling a potential turn toward Almond-era
+    success. The Eagles are defending against a 12–2 Newberry team (2025 SAC champs), but Almond's promotion and the
+    defensive excellence suggest a program beginning a rebuild on a strong foundation.
+  research_checklist:   # what to look up (web) when we author this team together
+    - Ken Sparks' career timeline and the five championship teams
+    - Notable players from the 1983–1989 dynasty
+    - The coaching tree: where did Sparks' disciples go?
+    - Almond's defensive philosophy and coaching history
+    - Current roster and the 2026 trajectory
+  sources:
+    - https://en.wikipedia.org/wiki/Carson%E2%80%93Newman_Eagles_football
+    - https://en.wikipedia.org/wiki/1983_Carson%E2%80%93Newman_Eagles_football_team
+    - https://en.wikipedia.org/wiki/1984_Carson%E2%80%93Newman_Eagles_football_team
+    - Carson-Newman Athletics official site
+    - FloFootball (2025-2026)
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Carson-Newman is the East Tennessee program whose 1983–1989 NAIA dynasty (5 national championships)
+    under Ken Sparks defines what a small-school dynasty looks like in the American hierarchy.
+  mantra: ''
+  cultural_anchors:
+    fan_archetype_dominant: Jefferson-City-Eagles-Sparks-Dynasty
+    outsider_archetype_dominant: NAIA-Refugee-Diminisher
+    one_sentence: Carson-Newman is the East Tennessee Eagles — 5 NAIA national championships (1983–1989) under Ken
+      Sparks dynasty that anchors the historic dominance arc.
+  selfname: the Eagles
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: "5 NAIA (1983–1989, not NCAA Division II)"
+    conference_titles: null
+    current_conference: SAC (South Atlantic Conference)
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Ken Sparks (1970s–2000s)
+    era_name_overrides: {}
+    always_surface:
+    - 5 NAIA national championships (1983, 1984, 1986, 1988, 1989)
+    - Ken Sparks dynasty and coaching tree legacy
+    - East Tennessee college football tradition since 1851
+    rituals:
+    - NAIA National Championships (1983–1989)
+    - Ken Sparks Era and Coaching Tree
+    modules_already_rendering: ''
+  live_fingerprint:
+    backometer: ''
+    voice_profile: absent
+    delusion_premium: absent

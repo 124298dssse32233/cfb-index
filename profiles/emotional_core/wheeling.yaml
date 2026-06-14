@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: wheeling
+team_id: null
+program_name: Wheeling University
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: spectacle
+  one_line: "Wheeling University is the Jesuit Cardinal program that posted its best NCAA D2 finish in eight years (5-3 MEC, 2025) and is building momentum toward a conference championship under the dual-QB system."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 450-year-old Jesuit institution that moved to Division II relatively recently and is now climbing toward sustained conference competitiveness with a proven QB room and stable coaching."
+
+the_wound:
+  name: "Eight years of mid-table D2 mediocrity"
+  detail: "Since moving to D2 in the late 2010s, Wheeling has never won a conference title or made a deep playoff run. The Cardinals have been a .500-ish team in a strong conference, always close but never breaking through until 2025's 5-3 MEC finish — a sign the breakthrough might finally be coming."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Mountain East championship in 2026 and prove the 2025 season was the start of a sustained run, not a one-year spike."
+  drought: { since: 2018, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Wheeling's identity is built on academic excellence and Ignatian mission. The football program is climbing, not fighting."
+
+the_delusion:
+  tone: self-aware
+  text: "That a Jesuit university in a small Appalachian city can build a D2 football program that competes for conference championships — the fanbase knows the odds, but believes in the dual-QB system and Bruney's coaching anyway."
+
+the_grudge_texture:
+  rival: west-liberty-university
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: ambition-vs-academics — the tension between pushing for national D2 relevance and maintaining Wheeling's commitment to academic and Ignatian excellence
+register: wheeling-jesuit-450-year-cardinal-dual-qb-landon-lutz-ade-olanegan
+never_use:
+  - Historic football powerhouse (Wheeling's D2 history is seven years old; the modern record is .500-ish)
+  - Perennial conference champions (2025 is the first strong MEC finish)
+  - Established D2 contender (eight years of mediocrity until 2025)
+
+story_canon:
+  the_unique_thing: "Wheeling's story is the 2025 breakthrough — the best MEC finish in the program's eight-year D2 history (5-3), powered by a dual-QB system (Landon Lutz 1,072 yards, Ade Olanegan 1,373 yards, 14 TDs) that both eclipsed 1,000 yards. The Cardinals are suddenly a legitimate MEC contender, not a perpetual .500 team."
+  the_origin: "A 450-year-old Jesuit university (founded by the Company of Jesus, original Ignatian educational tradition) in Wheeling, West Virginia. The football program is relatively young in D2 context, having moved up in the late 2010s. For decades before that, Wheeling was a WVIAC power (47 conference titles, 1957-2013), a regional force."
+  golden_ages:
+    - { era: "1957–2013", what: "The 47-title WVIAC era — Wheeling was a consistent regional conference power" }
+    - { era: "2025-present", what: "The emergence of a D2 contender, best MEC finish in eight years, dual-QB system producing 2,400+ combined passing yards" }
+  legends:
+    - { name: Zac Bruney, role: coach, why: "Seventh-year coach (8th overall) with a 36-30 record, building Wheeling's 2025 breakthrough into a sustained contender" }
+    - { name: "Dual-QB system", role: team_identity, why: "Landon Lutz (RS-JR) and Ade Olanegan (RS-JR) both eclipsed 1,000 passing yards in 2025, combining for 2,400+ yards and proving Wheeling can field an explosive offense" }
+  canonical_moments:
+    - { name: "2025 MEC Breakthrough", year: 2025, what: "Wheeling finished 5-3 MEC, the best record in the program's eight-year D2 history, proving the Cardinals can compete", handling: glory }
+    - { name: "Dual-QB 1,000-Yard Club", year: 2025, what: "Both starting QBs (Lutz and Olanegan) eclipsed 1,000 passing yards in the same season — a rare feat proving Wheeling's offensive prowess", handling: glory }
+    - { name: "47 WVIAC Titles", year: 2013, what: "Wheeling won 47 WVIAC conference titles (1957-2013), establishing the program's regional legacy", handling: glory }
+  the_place: "Wheeling, West Virginia, the Ohio River city."
+  brand_of_football: "Jesuit-mission football, built on academic excellence and service — the Cardinals play as an extension of the university's educational mission, but the 2025 dual-QB system proves they can also win with style."
+  cultural_footprint: "Wheeling's cultural footprint is the 450-year Jesuit tradition and the 47 WVIAC titles. The program is now establishing a D2 identity with the 2025 breakthrough, proving it can be more than a mid-table team."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Wheeling finished 6-5 overall (5-3 MEC) in 2025, the best MEC finish in the program's eight-year D2 history. Head
+    coach Zac Bruney (7th year) engineered the breakthrough with a dual-QB system that worked: Landon Lutz (RS-JR) threw for 1,072 yards and 4 TDs; Ade
+    Olanegan (RS-JR) threw for 1,373 yards and 14 TDs (4 INTs). Combined, they produced 2,400+ passing yards and proved Wheeling can field an explosive
+    offense. The 2026 season is critical: the Cardinals are positioned to compete for the MEC title and validate that 2025 was the start of a run, not a
+    one-year spike. Returning both QBs with proven production is a massive advantage. Wheeling is on the cusp of breakthrough.
+  research_checklist:
+    - 450-year Ignatian/Jesuit tradition
+    - 47 WVIAC titles (1957-2013)
+    - 2025 MEC breakthrough (5-3 record, best in D2 history)
+    - Dual-QB system (Lutz + Olanegan)
+    - Both QBs eclipsed 1,000 passing yards (2025)
+  sources:
+    - https://en.wikipedia.org/wiki/Wheeling_University
+    - https://en.wikipedia.org/wiki/2025_NCAA_Division_II_football_season
+    - https://www.wheeling.edu/athletics/

@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: grove-city
+team_id: null
+program_name: Grove City
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Grove City College is the Presidents' Athletic Conference program built on quiet academic excellence and consistent football achievement, with deep roots in small-school Pennsylvania tradition."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A rigorous Christian college where football is one facet of a larger educational mission. Grove City's identity is built on integrity, not conquest."
+
+the_wound:
+  name: "The 1966 undefeated season as the program's peak"
+  detail: "Grove City went 8-0-1 in 1966 and has never matched that season's perfection in the modern era. The wound is not shame but the persistent question: can this program reach that height again?"
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Recapture the magic of 1966 — an undefeated season that proves Grove City's football tradition can compete at the highest level of D3 excellence."
+  drought: { since: 1966, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Grove City plays for the pride of the college and the integrity of the game. The motivation is internal: honor your school and play the game right."
+
+the_delusion:
+  tone: earnest
+  text: "That this year's defense or this year's offense will finally be the one that clicks and brings another undefeated season — the fanbase knows 1966 was special, and believes lightning can strike again."
+
+the_grudge_texture:
+  rival: none
+  texture: none
+
+the_coach_relationship: forever-ours
+the_internal_fracture: "Pride in steady excellence vs. hunger for an undefeated season"
+register: grove-city-wolverines-small-pennsylvania-academic-excellence
+
+never_use:
+  - Perennial title contender — one undefeated season in 1966
+  - Dominant in the PAC — steady player, not dominant
+  - Multiple national championships — never won one; 1966 was the closest
+
+story_canon:
+  the_unique_thing: "Grove City went 8-0-1 (undefeated) in 1966, the program's singular moment of perfection in the modern era and a testament to what Grove City football can achieve."
+  the_origin: "A small Christian liberal-arts college in Grove City, Pennsylvania, founded in 1847. The football program reflects the college's values: academic rigor, integrity, and Christian ethics."
+  golden_ages:
+    - { era: "1960s", what: "The golden era culminating in the 1966 undefeated season (8-0-1)" }
+  legends:
+    - { name: "Andrew DiDonato", role: "coach", why: "10-year head coach with program record-holder status (7,509 career passing yards as a player)" }
+  canonical_moments:
+    - { name: "1966 Undefeated Season", year: 1966, what: "Grove City goes 8-0-1, the only undefeated season in modern program history", handling: glory }
+  the_place: "Grove City, Pennsylvania — a small college town in western Pennsylvania, home to a rigorous Christian college with deep educational roots."
+  brand_of_football: "Disciplined, ethical football played by scholar-athletes committed to academic and character excellence. Grove City's game is about doing things right."
+  cultural_footprint: "A model of small-school integrity. Grove City's football team represents the college's broader mission: academic excellence and ethical leadership."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Grove City continues under head coach Andrew DiDonato in his 10th season. The
+    program has built consistency and respect within the PAC, though a return to the 1966 heights remains the unreached
+    dream. The current challenge is finding the talent and coaching that can build another special season without
+    compromising Grove City's academic and ethical standards.
+
+  research_checklist:
+    - 1966 undefeated season (8-0-1)
+    - Andrew DiDonato tenure (10 years, 7,509 career pass yards as player)
+    - Recent PAC conference standing
+    - Grove City College's Christian mission and student-athlete alignment
+    - Program stability and coaching continuity
+
+  sources:
+    - https://en.wikipedia.org/wiki/Grove_City_College
+    - https://grovecity.edu/athletics/
+    - https://www.gcwolverines.com/sports/football

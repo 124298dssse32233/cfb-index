@@ -1,0 +1,82 @@
+# Emotional Core — Davidson  (davidson)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: davidson
+team_id: null
+program_name: Davidson
+program_tier: 5
+
+emotional_core:
+  primary: restoration      # the first rebuilding year after a long dormancy
+  secondary: disbelief      # how a school this elite is even playing football
+  one_line: "Davidson is the ultra-selective North Carolina college that revived football in 1996 after a half-century gap — a team that exists because the school decided academics were the whole point, and football belonged inside that frame."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A Patriot League school with Princeton-level admissions (2% acceptance) competing in the non-scholarship Pioneer League — proof that prestige and FCS football can coexist if you choose the right league."
+
+the_wound:
+  name: "The 50-year football absence (1947–1996)"
+  detail: "Davidson dropped football in 1947 and didn't return until 1996 — a half-century gap that meant no traditions, no rivalry memory, no rooted fan culture. The wound is not a wound; it's the blank slate the program has to fill."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Build a fan base and tradition inside the FCS frame. A bowl bid or playoff appearance would be historic — the goal is to make 100 years from now look back and say football was always Davidson."
+  drought: { since: 1945, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe davidson has no chip. The program was born in non-scholarship FCS and has no inferiority complex — it chose the Pioneer League because it matches the school's values."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the program can compete in the Pioneer League despite being younger than most of its rivals. They know they're starting from scratch, and they believe that's actually the honest position to start from."
+
+the_grudge_texture:
+  rival: none
+  texture: blood-feud   # no traditional rival yet; rivalries are being built
+
+the_coach_relationship: total-trust   # Thakkar in year one; program gives new coaches the blank slate they need
+the_internal_fracture: none significant — the program is too young to have factions
+register: davidson-wildcats-academics-first-football-as-choice
+never_use:   # LAW — do not violate in any authored line
+  - "Long history — football returned 1996 after 50-year gap (1947–1995 dormant)"
+  - "Trying to win with resources — non-scholarship Pioneer League is the frame"
+  - "Has rivalry tradition — rivalries are forming in real time, not rooted in blood feuds"
+  - "Is a powerhouse program — program is in year 29 of revival; learning FCS competition"
+  - "Has deep FCS canon — every season since 1996 is new tradition; no 50-year mythologies"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Davidson is the only ultra-selective liberal arts college in FCS football — a school with 2% acceptance that competes in the non-scholarship Pioneer League because it believes football belongs inside academia, not outside it."
+  the_origin: "A prestigious North Carolina liberal arts college founded in 1837 that dropped football in 1947 and revived it in 1996 as a conscious choice to rebuild the sport under its own terms. Every year since 1996 is new tradition."
+  golden_ages:
+    - { era: "1996–present", what: "The entire revived era; the program is still young and building its narrative" }
+  legends:
+    - { name: Frontline coaches post-1996, role: coach, why: "The early architects of the revived program (specific names TBD via team records)" }
+  canonical_moments:
+    - { name: "1996 revival game", year: 1996, what: "Davidson brings football back after a 50-year absence, symbolizing the school's choice to embrace the sport on academic terms", handling: glory }
+    - { name: "2025 win over No. 25 Presbyterian", year: 2025, what: "A rare upset that shows the program can surprise a ranked rival", handling: glory }
+  the_place: "Davidson College Stadium in North Carolina — the modest on-campus field where the Wildcats revived a sport the school once abandoned."
+  brand_of_football: "Academic integrity football — the sport played by true student-athletes where the school's core identity is never sacrificed to recruiting."
+  cultural_footprint: "Davidson proves that FCS football and elite academic rigor can coexist. The program is a model for how a school can compete honestly without compromising who it is."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Davidson went 2–10 (1–7 PFL) in 2025, Saj Thakkar's inaugural season — a tough
+    first year in a competitive conference. The 2025 team showed flashes (the upset over No. 25 Presbyterian), but the
+    overall record reflects the program's young position in the Pioneer League. Thakkar enters 2026 rebuilding and learning
+    the FCS landscape. The question in Davidson: can the coach build a sustainable program inside the non-scholarship frame,
+    or is FCS too steep a climb for a school only 30 years back into football?
+  research_checklist:
+    - the program's 3–7 most iconic games/plays (post-1996 rivalry wins, the Presbyterian upset)
+    - the legendary coaches + players (early architects post-1996)
+    - the unique tradition / identity / the one amazing thing (ultra-selective academic prestige, football as conscious choice)
+    - the origin + the golden-age dynasty eras (1996 revival, early 2000s era)
+    - the current-era storyline (Thakkar rebuild and the young program's FCS journey)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Davidson_Wildcats_football_team
+    - https://en.wikipedia.org/wiki/Davidson_Wildcats_football
+    - https://www.davidsonathletics.com/news/2024/12/5/football-saj-thakkar-named-head-football-coach.aspx

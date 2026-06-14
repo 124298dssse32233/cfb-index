@@ -1,0 +1,68 @@
+# AUTHORED (D3/GLIAC) 2026-06-13 — web-verified (limited data)
+
+status: live
+slug: greenville
+team_id: null
+program_name: Greenville University
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Midwestern evangelical institution with resilient organizational culture—Greenville balances academics and athletic development with stable, if modest, football tradition."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Stable GLIAC mid-tier presence; no prominent eras or dominant years"
+
+the_wound:
+  name: "The institutional anonymity"
+  detail: "Greenville has been a stable but non-prominent GLIAC member for decades. No perfect seasons, no national recognition, no legendary coaches with household names. This reflects institutional design—faith-based mission above athletic prominence."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Maintain GLIAC competitiveness while remaining an evangelical institution where football serves the faith community."
+  drought: { since: never, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe greenville doesn't define itself by football ranking. The program serves the institutional mission precisely."
+
+the_delusion:
+  tone: null
+  text: null
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: "unified institutional commitment — no internal fracture"
+
+register: midwestern-evangelical-institutional
+
+never_use:
+  - "Mediocre (Greenville competes with discipline; modest results ≠ lack of commitment)"
+  - "Irrelevant (the program serves institutional mission precisely)"
+
+story_canon:
+  the_unique_thing: "Greenville is a GLIAC member that prioritizes evangelical mission and academics over athletic prominence—a deliberate institutional choice reflecting faith-based values."
+  the_origin: "Greenville University (founded 1892) is an Illinois evangelical institution with 130+ years of football tradition. GLIAC membership reflects regional commitment and faith mission."
+  golden_ages:
+    - { era: "1990s–2010s", what: "Stable GLIAC participant; periodic competitive years" }
+    - { era: "2015–2025", what: "Continued stability; GLIAC mid-tier presence" }
+  legends: []
+  canonical_moments: []
+  the_place: "Greenville, Illinois—a small Midwestern town anchoring an evangelical college with institutional stability as primary value."
+  brand_of_football: "Disciplined, faith-grounded football—a program that reflects values above ranking."
+  cultural_footprint: "Proof that a Division III program can serve institutional mission without chasing athletic prominence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Greenville remains a stable GLIAC competitor. Public documentation of specific 2025
+    records or recent seasons is limited; the program's identity centers on institutional mission rather than athletic narrative.
+    This is not a weakness—it's deliberate institutional design. Greenville football exists to serve the college community, not
+    define it.
+  sources:
+    - https://www.greenville.edu/athletics
+    - https://www.gliac.org
+    - https://www.ncaa.org/sports/football/d3

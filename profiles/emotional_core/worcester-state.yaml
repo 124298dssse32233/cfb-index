@@ -1,0 +1,82 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Worcester State University Division III emotional core
+
+status: live
+slug: worcester-state
+team_id: null
+program_name: Worcester State University
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Worcester State is the Massachusetts Lancer — a small state university with 63 years of football history (since 1962), MASCAC charter membership (2013), and a maritime-influenced identity anchored in New England regional competence."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A Massachusetts state university with 64 years of football history (since 1962, varsity since 1985), a MASCAC charter member (2013), a maritime/New England heritage, and a culture of steady regional competence without recent national prominence."
+
+the_wound:
+  name: "The regional ceiling — competence without breakthrough"
+  detail: "Worcester State has competed in college football for 64 years (club team 1969, varsity 1985, MASCAC 2013). The program has never won a conference title and remains a middle-tier MASCAC competitor. The wound is not fresh pain but the slow realization of a permanent regional identity."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "A MASCAC title. Proof that Worcester State can compete for a conference championship, not just tournament eligibility."
+  drought: { since: 1985, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Worcester State's identity is too rooted in regional competence and maritime heritage to carry a grievance."
+
+the_delusion:
+  tone: self-aware
+  text: "That the next coach, the next recruiting class, will spark a title run. The fanbase knows it's rare; they believe the program's institutional strength makes it possible."
+
+the_grudge_texture:
+  rival: bridgewater-state
+  texture: championship
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: stability-vs-change — Lazaro Mitjans Jr. was hired December 2024 as first-time head coach, signaling a coaching transition in a program without sustained recent success
+register: worcester-lancer-maritime-new-england
+
+never_use:
+  - Worcester State is a new program (football began 1962, 64 years old)
+  - The Lancers have won MASCAC titles (no conference championship in program history)
+  - Worcester State has a long MASCAC history (joined 2013 after 28 years in Commonwealth Coast Football Conference)
+  - The program is in freefall (steady regional competitor, 2024–2025 coaching change signals transition, not collapse)
+
+story_canon:
+  the_unique_thing: "A maritime-influenced New England state university with 64 years of continuous football history, a program rooted in regional tradition and institutional stability rather than breakthrough success."
+  the_origin: "Worcester State University began football as a club team in 1969, elevated to varsity status in 1985, and joined the MASCAC as a charter member in 2013 after 28 years in the Commonwealth Coast Football Conference (1985–2012)."
+  golden_ages:
+    - { era: "1985–2012 (CCFC era)", what: "28 years of competence in the Commonwealth Coast Football Conference" }
+    - { era: "2013–present (MASCAC charter member)", what: "Steady regional competence as a MASCAC member" }
+  legends:
+    - { name: Lazaro Mitjans Jr., role: coach, why: "Hired December 2024, first-time collegiate head coach with experience at Harvard, Amherst, and Mass Maritime, tasked with building sustained success at the MASCAC level" }
+  canonical_moments:
+    - { name: "Football Club Founding (1969)", year: 1969, what: "Worcester State establishes a football club team, the beginning of the program's 55-year history", handling: glory }
+    - { name: "Varsity Status (1985)", year: 1985, what: "Worcester State elevates football to varsity status and joins the Commonwealth Coast Football Conference", handling: glory }
+    - { name: "MASCAC Charter Membership (2013)", year: 2013, what: "Worcester State joins the MASCAC as a charter member, beginning a new conference era", handling: glory }
+  the_place: "Worcester, Massachusetts — a small New England city where Worcester State's football program is part of the university's athletic identity."
+  brand_of_football: "Steady, regionally competitive football built on institutional continuity and New England tradition."
+  cultural_footprint: "Worcester State football is a Worcester institution, representing the university's commitment to student-athlete development and regional competence."
+  the_ongoing_story: >
+    LIVE MASCAC — researched 2026-06-13: Worcester State continues as a MASCAC competitor under new head
+    coach Lazaro Mitjans Jr., hired December 2024. The Lancers remain a regional competitor. The coaching
+    change signals a transition moment, and the fanbase is watchful to see whether Mitjans can build
+    sustained success at the MASCAC level.
+  research_checklist:
+    - Football club founding (1969)
+    - Varsity status (1985)
+    - Commonwealth Coast Football Conference (1985–2012, 28 years)
+    - MASCAC charter membership (2013)
+    - John F. Coughlin Memorial Field (capacity 2,500)
+    - Lazaro Mitjans Jr. hire (December 2024)
+    - Lancer mascot identity (maritime heritage)
+  sources:
+    - https://en.wikipedia.org/wiki/Worcester_State_Lancers_football
+    - https://www.worcester.edu/athletics/football
+    - https://mascac.com/sports/fball/index

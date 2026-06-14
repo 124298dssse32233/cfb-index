@@ -1,0 +1,124 @@
+# Emotional Core — Northern Illinois  (northern-illinois)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: northern-illinois
+team_id: 213
+program_name: Northern Illinois
+program_tier: 3
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+emotional_core:
+  primary: grievance      # the MAC team that walks into ranked stadiums and wins, then gets called a fluke
+  secondary: restoration  # a 3-9 stumble heading into a whole new conference
+  core_variant: the-ceiling
+  one_line: "Northern Illinois walked into South Bend in 2024 as a 28-point underdog and beat No. 5 Notre Dame 16-14 — the program's first win ever over a top-10 team — and is taking that swagger to the Mountain West after one last 3-9 season in the MAC."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 2012 Orange Bowl team, a Jordan Lynch Heisman run, and the Notre Dame scalp vs a 3-9 final MAC season and a fresh start in a brand-new league."
+
+the_wound:
+  name: "Couldn't ride the Notre Dame high"
+  detail: "The 2024 upset at Notre Dame should have launched a season; instead NIU went 8-5 that year and slid to 3-9 (2-6 MAC) in 2025, Thomas Hammock's seventh and final MAC season. The Huskies leave for the Mountain West having proven they can beat anybody once but not yet that they can sustain it."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Turn the one-off scalps into a real run — win the new league, get back to a New Year's-tier bowl, and make the upsets look like a pattern instead of a lottery ticket."
+  drought: { since: 2021, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "DeKalb walked into one of the sport's cathedrals as a four-touchdown underdog and walked out with the win — and the national story was the giant who lost, not the Huskies who won. The fanbase keeps the receipts: the scoreboard said Northern Illinois."
+
+the_delusion:
+  tone: self-aware
+  text: "Huskie fans believe any blue blood is one bad Saturday from a DeKalb ambush — that the 2024 Notre Dame win wasn't a miracle but the program being exactly who it thinks it is, on a stage big enough for everyone to finally see it."
+
+the_grudge_texture:
+  rival: toledo
+  texture: border-war   # the MAC West rivalry NIU carries into its move
+
+the_coach_relationship: forever-ours   # Thomas Hammock, alum, the steady hand into the new era
+the_internal_fracture: chase-the-upset romanticism vs build-a-floor pragmatism — the room split between loving the giant-killer identity and wanting the consistency that keeps NIU out of 3-9 seasons
+register: dekalb-huskies-mac-orange-bowl   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always MAC-only — 2012 Orange Bowl + Jordan Lynch Heisman finalist disprove
+  - No identity — 2012 Orange Bowl + Lynch + Forward, Together Forward combine into
+    canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Northern Illinois crashed the BCS. In 2012, a MAC team from DeKalb went 12-1, won the conference, and earned an Orange Bowl bid — forcing the sport's gatekept big-money bowl system to seat a mid-major at its table for the first time. NIU is the program that proved a Group-of-Five school could break the velvet rope."
+  the_origin: "A northern-Illinois commuter school in DeKalb that built a quietly tough MAC program, then authored one of the great G5 breakthroughs of the BCS era and a pair of stunning upsets of college football royalty."
+  golden_ages:
+    - { era: "2010–2014", what: "Four straight bowl seasons, the 2012 MAC title and Orange Bowl, and Jordan Lynch's Heisman-finalist run" }
+    - { era: "2018–2021", what: "Two more MAC championships (2018, 2021) keeping the Huskies a league power" }
+  legends:
+    - { name: Jordan Lynch, role: player, why: "The dual-threat QB who finished third in the 2013 Heisman voting — the highest a MAC player has ever placed" }
+    - { name: Garrett Wolfe, role: player, why: "Record-setting 2000s running back who led the nation in rushing — early proof of NIU's skill-position pipeline" }
+  canonical_moments:
+    - { name: "The 2012 Orange Bowl bid", year: 2012, what: "A 12-1 MAC champion crashed the BCS — the mid-major breakthrough", handling: glory }
+    - { name: "Upset of No. 5 Notre Dame", year: 2024, what: "NIU 16, Notre Dame 14 in South Bend as a 28-point underdog — the program's first win over a top-10 team", handling: glory }
+    - { name: "Forward, Together Forward", year: 2008, what: "The post-tragedy motto adopted after the 2008 campus shooting — the institution's enduring identity", handling: wound }
+  the_place: "Huskie Stadium in DeKalb — a modest MAC venue an hour west of Chicago, where 'Forward, Together Forward' is more than a football slogan."
+  brand_of_football: "DeKalb-tough and giant-hungry — a physical, opportunistic program that has built its identity on out-preparing favorites and authoring the upset nobody saw coming."
+  cultural_footprint: "The proof-of-concept for every Group-of-Five program with a BCS/Playoff dream — the school that actually broke through, and whose Notre Dame scalp became shorthand for 'anyone can be beaten on the right Saturday.'"
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Northern Illinois went 3-9 (2-6 MAC) in 2025, a slide from the 8-5 of 2024
+    that was headlined by the September upset at No. 5 Notre Dame (16-14 as a 28-point underdog). It was the
+    Huskies' final season in the MAC: NIU joins the Mountain West as a football-only member in 2026. Seventh-year
+    head coach and alum Thomas Hammock carries the program into the new league trying to turn its one-off upsets
+    into a sustainable winner.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Northern_Illinois_Huskies_football_team
+    - https://www.foxsports.com/stories/college-football/no-5-notre-dame-upset-northern-illinois-16-14
+    - https://www.aol.com/northern-illinois-becomes-football-only-223847144.html
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Northern Illinois is the MAC program whose 2012 12-1 Orange Bowl appearance + Jordan
+    Lynch Heisman finalist + Carson Williams MAC dynasty define what G5-can-make-BCS-bowl looks like.
+  mantra: Forward, Together Forward.
+  cultural_anchors:
+    fan_archetype_dominant: DeKalb-Huskie-Forward-Together
+    outsider_archetype_dominant: MAC-Refugee-Diminisher
+    one_sentence: Northern Illinois is the MAC powerhouse that broke into the BCS — 2012 Orange Bowl + Jordan
+      Lynch Heisman finalist + 'Forward, Together Forward' identity that anchor the program as G5 ascent
+      case study.
+  selfname: the Huskies
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2012 12-1 + MAC championship + Orange Bowl +
+    - Jordan Lynch 2013 Heisman finalist (highest MAC player ever)
+    - '''Forward, Together Forward'' post-2008 institutional identity'
+    rituals:
+    - 2012 Orange Bowl Run
+    - Jordan Lynch Heisman Finalist 2013
+    - Forward, Together Forward
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

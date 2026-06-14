@@ -1,0 +1,70 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+status: live
+slug: long-island
+team_id: null
+program_name: Long Island University
+program_tier: 5
+
+emotional_core:
+  primary: redemption
+  secondary: spectacle
+  one_line: "Long Island is the historic FBS scalp-taker—the first FCS team to beat an FBS program, shocking Eastern Michigan 28–23 in 2025, a moment that redefined the Sharks' Division I trajectory."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program in its fourth year of Division I FCS competition (transitioning from Division II) vs. the historic achievement of beating Eastern Michigan—where recent success validates the gamble of moving up in classification."
+
+the_wound:
+  name: "The Division II to Division I transition"
+  detail: "Long Island transitioned from Division II (PSAC) to Division I FCS in 2024. The first year (6–6, 2025) was a struggle in the Northeast Conference. But the Eastern Michigan victory (28–23) was a transformative moment—the first time in program history the Sharks beat an FBS opponent. The wound was developmental; the cure was one magical Saturday."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove the Eastern Michigan upset was not lightning in a bottle—win multiple NEC championships, earn consistent FCS playoff berths, and beat another FBS program to validate LIU's ascension to Division I."
+  drought: { since: 2024, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "The fanbase carries a quiet swagger now. Long Island just beat Eastern Michigan—the most famous victory in program history. No chip needed when you've just toppled a historic program from a Power conference."
+
+the_delusion:
+  tone: load-bearing
+  text: "That the Eastern Michigan victory is a sign of things to come—that Long Island belongs in Division I and can compete with FBS programs on the right Saturday. The fanbase believes the upset was not anomalous."
+
+the_grudge_texture:
+  rival: st-francis
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "Upset-fever optimism vs. realistic-rebuild patience—the faction believing LIU can repeat big victories vs. those cautioning that transition teams need seasons to stabilize"
+register: brookville-sharks-eastern-michigan-upset-fbs-scalp
+never_use:
+  - "A transitional program with no wins" # 28–23 FBS victory vs. Eastern Michigan; 6–6 in 2025
+  - "Never beat a Power conference team" # Defeated Eastern Michigan 28–23, 2025
+  - "Minor program status" # Historic FBS scalp in Year 2 of D1 transition
+
+story_canon:
+  the_unique_thing: "Long Island defeated Eastern Michigan 28–23 in 2025—the first victory in program history against an FBS opponent. It's the singular achievement that defines the Sharks' Division I identity and validates the institutional bet on moving up from Division II."
+  the_origin: "Long Island University was founded in 1926 in Brooklyn, New York. The football program operated in Division II (PSAC) for decades with competitive success. In 2024, LIU transitioned to Division I FCS and joined the Northeast Conference, signaling institutional investment in higher-level competition."
+  golden_ages:
+    - { era: "Division II Era (Pre-2024)", what: "Long Island competes successfully in Division II and the PSAC, building a foundation for the D1 transition" }
+    - { era: "2024–2025 Division I Transition", what: "LIU joins the Northeast Conference and competes at the FCS level" }
+    - { era: "2025 Eastern Michigan Upset", year: 2025, what: "Long Island beats FBS-level Eastern Michigan 28–23, the most historic victory in program history" }
+  legends:
+    - { name: Ron Cooper, role: coach, why: "Fourth-season head coach leading Long Island through the Division II to FCS transition and to the Eastern Michigan upset" }
+    - { name: The Eastern Michigan Victory, role: moment, why: "The first FBS win in Long Island football history; a transformative moment for the program" }
+  canonical_moments:
+    - { name: "Eastern Michigan Victory", year: 2025, what: "Long Island defeats FBS Eastern Michigan 28–23, the greatest victory in program history", handling: miracle }
+    - { name: "Division I FCS Transition", year: 2024, what: "LIU moves from Division II to Division I FCS, joining the Northeast Conference", handling: glory }
+  the_place: "Bethpage Federal Credit Union Stadium in Brookville, New York—the home of the Sharks, where the Eastern Michigan upset was celebrated as a historic moment."
+  brand_of_football: "Upstart pride with a David-and-Goliath identity—Long Island plays as the small Division II school that proved it could beat FBS programs and belongs in Division I conversation."
+  cultural_footprint: "Long Island's contribution to FCS football is the Eastern Michigan upset—proof that a transitional program can achieve immediate success and compete with bigger institutions if the moment is right."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Long Island finished 2025 at 6–6 (4–3 NEC) in its second Division I FCS season. The most significant moment was the 28–23 victory vs. Eastern Michigan, the first FBS win in program history. Head coach Ron Cooper (fourth season) led a transitional roster that lacked depth but found a magical Saturday in late 2025. QB Luca Stanzani and RB Ethan Greenwood were key contributors. The 2026 challenge: sustain momentum, win the NEC, and prove the Eastern Michigan upset was the beginning of a Division I ascension, not a one-off achievement.
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Long_Island_University_Sharks_football
+    - https://www.espn.com/college-football/team/_/id/3100/long-island-university-sharks
+    - https://www.nec.org/sports/fball
+    - https://www.liu.edu/athletics/
+

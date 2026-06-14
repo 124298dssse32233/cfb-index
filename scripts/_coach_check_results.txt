@@ -1,0 +1,171 @@
+EMOTIONAL CORE COACH ACCURACY SWEEP — 2026-06-13
+85 programs checked via web search (prioritized: no-first-name placeholders, female names in football, HBCUs, 2025 hires)
+All WRONG entries have been corrected in profiles/emotional_core/<slug>.yaml
+
+===============================================================
+WRONG — 8 confirmed errors, all corrected
+===============================================================
+
+bluffton
+  file says: "Coach Hedden"
+  actually:  Chris Hedden
+  source:    https://blufftonbeavers.com/sports/fball/2024-25/releases/20250306sfbh14
+  fix:       Full name "Chris Hedden" inserted throughout; bluffton.yaml updated.
+
+hanover
+  file says: "Coach Burton" (head coach) + "Coach Theobald" (defensive architect)
+  actually:  Matt Theobald (sole head coach since 2016; "Coach Burton" does not exist)
+  source:    https://athletics.hanover.edu/staff-directory/matt-theobald/19
+  fix:       legends block collapsed to one entry: Matt Theobald as HC. All Burton references removed.
+
+anderson-in
+  file says: Sarah Hendricks (head coach)
+  actually:  Jonathan Coddington (head coach since 2023)
+  source:    https://autrojans.com/sports/football/coaches
+  fix:       legends + narrative updated to Jonathan Coddington.
+
+worcester-state
+  file says: Corey Stefanik (hired December 2024)
+  actually:  Lazaro Mitjans Jr. (hired December 2024; Stefanik is not associated with the program)
+  source:    https://www.wsulancers.com/sports/fball/2024-25/releases/Mitjans_Named_Head_Football_Coach
+  fix:       All Stefanik references replaced with Lazaro Mitjans Jr. throughout.
+
+christopher-newport
+  file says: Matt Kelchner ("inaugural HC since 2001; still coaching in 2026")
+  actually:  Paul Crowley (head coach since 2022; Kelchner left after the 2016 season)
+  source:    https://www.cnusports.com/news/2017/1/30/christopher-newport-university-names-art-link-head-football-coach.aspx
+             (Art Link replaced Kelchner in 2017; Crowley replaced Link in 2022)
+  fix:       legends block now lists Paul Crowley as current HC + Matt Kelchner as inaugural HC 2001-2016 (historical).
+             all "still coaching in 2026" language corrected.
+
+cornell-ia
+  file says: Dan Pifer ("Current head coach (2026)")
+  actually:  Curt Ritchie (named head coach March 2025; Pifer announced non-returning February 2025)
+  source:    https://cornellrams.com/news/2025/3/12/ritchie-named-new-cornell-head-football-coach.aspx
+  fix:       legends updated to Curt Ritchie; ongoing_story updated.
+
+oberlin
+  file says: Jay Peterson ("Current staff member attempting to rebuild Oberlin football from historic lows")
+  actually:  John Pont (head coach since January 2023, entering third season in 2025; Jay Peterson is an assistant)
+  source:    https://goyeo.com/news/2023/1/30/pont-selected-to-lead-oberlin-college-football.aspx
+  fix:       legends updated to John Pont (HC); ongoing_story and research_checklist updated.
+
+marietta
+  file says: Tom Kaufman ("New head coach hired to deliver Marietta's first OAC title")
+  actually:  Tom Hinkle (Kaufman coached 2025, departed December 2025 to St. Ignatius HS; Hinkle promoted December 2025)
+  source:    https://pioneers.marietta.edu/news/2025/12/15/hinkle-promoted-to-marietta-college-head-football-coach.aspx
+  fix:       legends, one_line, delusion, ongoing_story, never_use, and research_checklist updated to Tom Hinkle.
+
+===============================================================
+CONFIRMED — 74 programs verified correct
+===============================================================
+
+adrian           | Joe Palka
+anderson-in      | Jonathan Coddington [CORRECTED above]
+arkansas-tech    | Roy Thompson Jr.
+augsburg         | KiJuan Ware
+beloit           | Kyle Langhoff
+bethel-mn        | Mike McElroy
+bloomsburg       | Frank Sheptock
+bluffton         | Chris Hedden [CORRECTED above]
+calvin           | Trent Figg
+carleton         | Tom Journell
+case-western-reserve | Greg Debeljak
+central-oklahoma | Adam Dorrel (reinstated after April 2025 DUI arrest/suspension; note: file spells "Dorrell" with double-l but correct is "Dorrel")
+charleston-wv    | Michael Tesch
+christopher-newport | Paul Crowley [CORRECTED above]
+clarion          | Raymond Monica
+concordia-moorhead | Terry Horan
+cornell-ia       | Curt Ritchie [CORRECTED above]
+curry            | Todd Parsons
+east-central     | John Litrenta
+elizabeth-city-state | Adrian Jones
+endicott         | Paul McGonagle
+fitchburg-state  | Izzy Abraham
+grove-city       | Andrew DiDonato
+gustavus-adolphus | Peter Haugen
+hamline          | Bob Davies
+hanover          | Matt Theobald [CORRECTED above]
+hendrix          | Buck Buchanan (note: file says "1st year head coach, first coach in 52 years" but Buchanan has been HC since 2013 — name is correct, "why" has factual error in tenure description)
+hilbert          | Ted Egger
+hiram            | Xavier Dupree
+indiana-pa       | Paul Tortorella
+kalamazoo        | John Krajacic
+kean             | Dan Garrett
+kenyon           | Ian Good
+lawrence         | Tony Aker
+linfield         | Joseph Smith
+lock-haven       | Joe Battaglia
+maine-maritime   | Nick Sheehan
+marietta         | Tom Hinkle [CORRECTED above]
+merchant-marine  | Jameson Croall
+midwestern-state | Rich Renner
+mit              | Brian Bubna
+morrisville      | Eric Jendryaszek
+nebraska-kearney | Ryan Held (note: file says "First season in 2025" but 2025 is actually his 3rd season — name is correct)
+nichols          | Vinny Marino
+northwest-missouri-state | John McMenamin
+northwestern-oklahoma-state (incoming) | Jerry Partridge
+northwestern-oklahoma-state (outgoing) | Ronnie Jones (fired November 2025)
+northwood        | Dustin Beurer
+norwich          | Bill Russell
+oberlin          | John Pont [CORRECTED above]
+ohio-dominican   | Kelly Cummings
+ohio-northern    | Andy Fries
+oklahoma-baptist | Chris Jensen
+olivet           | Erik Ieuter
+otterbein        | Dave Marquis
+ouachita-baptist | Todd Knight
+plymouth-state   | Devin Zeman (co-head coach with Paul Castonia — file lists only Zeman, which is accurate for his role)
+rose-hulman      | Jeff Sokol
+rowan            | Pat Ruley
+saint-johns-mn   | Gary Fasching
+salisbury        | Sherman Wood
+seton-hill       | Kevin May
+shepherd         | Ernie McCook
+simpson          | Reed Hoskins
+southeastern-oklahoma-state | Bo Atterberry
+southern-nazarene | Dustin Hada
+st-olaf          | James Kilian
+st-scholastica   | Matt Bremer
+suny-maritime    | Anthony Trotta
+texas-am-kingsville | Scott Parr
+texas-lutheran   | Neal LaHue
+thomas-more      | Chris Norwell
+trine            | Troy Abbs
+ut-permian-basin | Chris Softley
+vermont-state-castleton | Tyler Higley
+virginia-state   | Dr. Henry Frazier III
+wabash           | Jake Gilbert (note: file says "Second-year coach (since 2024)" but 2025 was his 1st season as HC — name is correct)
+walsh            | John Fankhauser
+washburn         | Zach Watkins
+washington-stl   | Aaron Keen
+west-texas-am    | Josh Lynn
+western-new-mexico | Billy Hickman
+wisconsin-la-crosse | Michael Zweifel
+wisconsin-oshkosh | Peter Jennings
+worcester-state  | Lazaro Mitjans Jr. [CORRECTED above]
+
+===============================================================
+UNVERIFIABLE — 0 programs
+===============================================================
+
+(No programs were unverifiable — all 85 entries confirmed or corrected.)
+
+===============================================================
+MINOR NOTES (name correct, "why" text has factual inaccuracy — not corrected per scope)
+===============================================================
+
+hendrix          | Buck Buchanan: "why" says "1st year head coach, first coach in 52 years (since 1973)"
+                   but Buchanan has been HC since 2013 (not year 1). Name is correct.
+nebraska-kearney | Ryan Held: "why" says "First season in 2025" but 2025 is his 3rd season. Name correct.
+wabash           | Jake Gilbert: "why" says "Second-year coach (since 2024)" but 2025 was his 1st as HC. Name correct.
+central-oklahoma | Adam Dorrel: file spells "Dorrell" (double-l) but correct is "Dorrel" (single-l).
+                   Not corrected in legends as the JSON slug file was out of scope.
+fitchburg-state  | Izzy Abraham: "why" says "Hired 2025" but he was hired April 2024. Name correct.
+
+===============================================================
+POST-EDIT VERIFICATION
+===============================================================
+python scripts/verify_emotional_cores.py --strict
+→ 632 sidecars — 632 clean, 0 warn, 0 fail

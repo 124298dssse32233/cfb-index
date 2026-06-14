@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — Merchant Marine Academy (merchant-marine)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: merchant-marine
+team_id: null
+program_name: United States Merchant Marine Academy
+program_tier: 7
+
+emotional_core:
+  primary: honor      # the maritime and military service mission
+  secondary: contentment  # steady NEWMAC participant
+  one_line: "Merchant Marine is the Mariners program — federal officers in training where every student completes 300+ days at sea and every football game is played by midshipmen licensed for global commerce and military service."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "A federal maritime service academy where football players are licensed mariners and reserve military officers, balancing an extraordinary dual mission (commercial shipping officer + military reserve) with elite amateur athletics."
+
+the_wound:
+  name: "None to reference"
+  detail: "Merchant Marine Academy football is built on pride and service, not trauma. The program's identity is forward-facing: officers at sea and on the field."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Sustain competitive NEWMAC football while producing the world's finest merchant marine officers — prove that global commerce and athletic excellence are not competing priorities."
+  drought: { since: 1985, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Merchant Marine plays for the honor of the service, the sea, and the academy. Every win is a victory for the merchant marine profession."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes that Merchant Marine Academy athletes are the finest trained in all of D3 — not because of coaching, but because 300+ days at sea builds toughness no terrestrial program can match."
+
+the_grudge_texture:
+  rival: coast-guard
+  texture: blood-feud   # fellow service academy rivals; maritime sibling relationship
+
+the_coach_relationship: savior   # Jameson Croall in 4th season, rebuilding culture
+the_internal_fracture: sea-duty demands vs. football-season commitments
+register: maritime-federal-service-excellence
+never_use:
+  - USMMA is a small military college — it's a federal maritime service academy training officers for global commerce and military reserve
+  - Merchant Marine football is secondary to the mission — both are integral; officers develop leadership through athletics
+  - The 300+ days at sea is an impediment — it's a distinguishing feature that builds uniquely tough athletes
+
+story_canon:
+  the_unique_thing: "The United States Merchant Marine Academy produces officers for both global commercial shipping (95% of global commerce) and U.S. Armed Forces reserves — all Mariners football players are licensed mariners who have served 300+ days at sea before graduating."
+  the_origin: "Kings Point, New York, was founded in 1942 as the federal maritime academy for officer training in merchant shipping and military service."
+  golden_ages:
+    - { era: "1985–present", what: "Consistent NEWMAC membership and football operation" }
+  legends:
+    - { name: Jameson Croall, role: coach, why: "4th-season head coach rebuilding Merchant Marine football culture" }
+  canonical_moments:
+    - { name: "Federal maritime mission", year: 1942, what: "USMMA founded to train merchant officers and military reserve personnel", handling: glory }
+    - { name: "300+ days at sea requirement", year: ongoing, what: "All students complete maritime training; Mariners athletes are sea-tested", handling: glory }
+  the_place: "Kings Point, New York — the federal maritime academy overlooking the Atlantic, where future merchant officers train."
+  brand_of_football: "Sea-tested, disciplined football — officers trained in global commerce bringing that toughness to the field."
+  cultural_footprint: "The only NCAA program where every athlete is a licensed maritime officer and reserve military personnel — a unique intersection of commercial and military service."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: United States Merchant Marine Academy fielded the Mariners in NEWMAC competition in 2025.
+    Jameson Croall is in his 4th season as head coach, rebuilding program culture. The 2024 season posted a 6-4 record and 3-4
+    NEWMAC mark, establishing a baseline for the modern era. Every Mariners athlete has completed the mandatory 300+ days at sea,
+    earning a merchant marine officer license and military reserve commission before or during their college career. The ongoing
+    narrative: how quickly can Croall build Merchant Marine into a consistent NEWMAC contender while maintaining the academy's
+    singular maritime-service mission?
+  research_checklist:
+    - 1942 USMMA founding at Kings Point, New York
+    - 2024 record (6-4 overall, 3-4 NEWMAC)
+    - Jameson Croall 4-year tenure
+    - 300+ days at sea requirement for all students
+    - Federal maritime-service and military-reserve dual mission
+  sources:
+    - https://en.wikipedia.org/wiki/United_States_Merchant_Marine_Academy_Mariners_football
+    - https://www.ncaa.org/sports/2025/d3/football/merchant-marine-academy/schedule
+    - https://www.ncollegefootball.com/teams/merchant-marine-mariners
+    - https://www.usmma.edu/ (official academy site)

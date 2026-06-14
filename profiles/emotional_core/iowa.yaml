@@ -1,0 +1,120 @@
+# Emotional Core — Iowa  (iowa)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: iowa
+team_id: 2294
+program_name: Iowa
+program_tier: 3
+
+emotional_core:
+  primary: contentment    # the most reliable 9-win machine in America — defense, punting, and a refusal to apologize for it
+  secondary: honor        # the Wave, the pink locker room, the kids' hospital — an identity bigger than the scoreboard
+  one_line: "Iowa wins the same way every autumn — a suffocating defense, a punter who flips the field, and a final score in the twenties — and the Hawkeyes have stopped pretending they're sorry about any of it."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Two-plus decades of eight-to-ten-win seasons and clean, durable program-building under Kirk Ferentz vs the conference and national titles the formula never quite delivers."
+
+the_wound:
+  name: "The ceiling above the floor"
+  detail: "Iowa almost never bottoms out — and almost never breaks through. Year after year the Hawkeyes grind to nine wins and lose the games that would change the story, like 2025's four regular-season losses by a combined fifteen points to four top-20 teams: close enough to taste, never quite enough to take."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Big Ten and reach the Playoff — prove that the grind, kept clean for a quarter-century, can finish the job once."
+  drought: { since: 2004, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Hawkeye fans are tired of the highlight shows treating their brand of football as a punchline; they'll tell you the punt is a weapon and a 13-10 win counts the same as a 49-42 one, and they relish making the cool offenses look silly."
+
+the_delusion:
+  tone: load-bearing
+  text: "The faithful believe their way is the right way — that defense and a kicking game never go out of style, that the team built to win in November and the snow will outlast every gimmick, and that one season the formula finally breaks all the way through."
+
+the_grudge_texture:
+  rival: iowa-state
+  texture: border-war   # the Cy-Hawk Trophy — the in-state, bragging-rights game that owns the calendar every September
+
+the_coach_relationship: total-trust   # Kirk Ferentz, the longest-tenured FBS coach, is the program's identity itself
+the_internal_fracture: trust-the-process vs we-want-points — the faction loyal to the Ferentz floor of stability vs the faction begging for an offense that can win the games defense alone can't
+register: midwestern-stoic-with-defense
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Boring — defensive football isn't boring
+  - Limited — limited is what other programs say about Iowa
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Iowa Wave — after the first quarter of every home game, the entire stadium turns to the children's hospital towering over the north end zone and waves to the kids watching from the windows. It is the most beautiful tradition in American sports, and it is purely, unmistakably Iowa."
+  the_origin: "The flagship of an entire state with no pro team to share its Saturdays — a heartland program whose identity was forged on defense, the running game, and a refusal to chase fashion, distilled over a quarter-century into the Kirk Ferentz way."
+  golden_ages:
+    - { era: "1981–1998 (Hayden Fry)", what: "Fry resurrects a dormant program, installs the Tigerhawk, and makes Iowa a Big Ten and Rose Bowl regular" }
+    - { era: "2002–2004 (Ferentz peak)", what: "Three straight top-ten finishes, a shared 2002 Big Ten title and an outright 2004 co-championship" }
+  legends:
+    - { name: Kirk Ferentz, role: coach, why: "The longest-tenured FBS head coach; his quarter-century IS the program's modern identity" }
+    - { name: Hayden Fry, role: coach, why: "The architect who revived Iowa, designed the Tigerhawk, and painted the visitors' locker room pink" }
+    - { name: Nile Kinnick, role: player, why: "1939 Heisman winner; the stadium bears his name and his Ironmen are program lore" }
+  canonical_moments:
+    - { name: "Kinnick's 1939 Heisman", year: 1939, what: "Nile Kinnick wins the Heisman; the stadium is named for him", handling: glory }
+    - { name: "The first Iowa Wave", year: 2017, what: "Kinnick Stadium turns to wave at the children's hospital — a tradition is born", handling: glory }
+    - { name: "Four losses by 15 points", year: 2025, what: "Four narrow defeats to top-20 teams — the perennial 'close, never quite' summed up in one season", handling: heartbreak }
+  the_place: "Kinnick Stadium — named for the 1939 Heisman winner, with the pink visitors' locker room Fry built to unsettle opponents, and the University of Iowa Stead Family Children's Hospital looming over the north stands for the Wave."
+  brand_of_football: "Grind-it-out, defense-first football — a punishing run game, elite special teams (a Ray Guy-laden punter pipeline), and a defense that wins low-scoring games; unfashionable on purpose and proud of it."
+  cultural_footprint: "The team of a whole state, and the home of the Wave — a tradition that turned a football Saturday into a weekly act of collective kindness, now copied across the country but owned by Iowa City."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Iowa went 9-4 (6-3 Big Ten) in 2025 and beat No. 14 Vanderbilt 34-27 in the
+    ReliaQuest Bowl — the textbook Ferentz season, including a 37-0 shutout of Wisconsin and four regular-season
+    losses by a combined fifteen points to four top-20 teams. FCS-champion transfer QB Mark Gronowski was the
+    headline addition. With Gronowski's eligibility up, the question entering 2026 is the eternal one in Iowa City:
+    can the program ever raise its ceiling without lowering its famously dependable floor?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Iowa_Hawkeyes_football_team
+    - https://www.hawkcentral.com/story/sports/college/iowa/football/2025/07/24/iowa-football-kirk-ferentz-quarterback-mark-gronowski-hank-brown-hawkeyes/85346738007/
+    - https://en.wikipedia.org/wiki/Iowa_Hawkeyes_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Iowa is the program where defense, punting, and 13-10 wins compound into 8-10 wins a
+    year, decade after decade.
+  mantra: Hawkeyes.
+  cultural_anchors:
+    fan_archetype_dominant: Stoic-Heartland-Loyalist
+    outsider_archetype_dominant: Defense-Nerd-Respecter
+    one_sentence: Iowa is the program where defensive excellence and 6-yard rushing identity outlast every
+      offensive trend in college football.
+  selfname: the Hawkeyes
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1958 national championship
+    - The 2002 Brad Banks Heisman finalist
+    - Kirk Ferentz tenure (1999-present)
+    rituals:
+    - The Iowa Wave
+    - Pink Visitor's Locker Room
+    - Heroes Game with Nebraska
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Fitchburg State University Division III emotional core
+
+status: live
+slug: fitchburg-state
+team_id: null
+program_name: Fitchburg State University
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Fitchburg State is the Falcon rebuilding from the longest losing streak in college football history (30+ games, ended 1989) — a young program (founded 1984) that survived despair and is now climbing toward regional competence under new leadership."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A young MASCAC program (founded 1984) with a legendary losing streak now ended, two NEFC conference titles (2004–2005), and a 130–293–1 all-time record reflecting the program's long struggle to build a consistent winning culture."
+
+the_wound:
+  name: "The 30+ game losing streak (1980s) — the most infamous futility in college football"
+  detail: "Fitchburg State experienced the longest losing streak in college football history when it played (30+ consecutive losses). The streak ended on October 14, 1989, with a 33–7 victory over Southeastern Massachusetts. That loss is the program's defining pain — not because it's recent, but because it defined Fitchburg State as the program that could not win. The wound is historical, not fresh, but it shapes how the fanbase thinks about competence."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Consistent winning. Another MASCAC title. Fitchburg State's dream is not a national championship but the proof that the losing-streak era is truly over."
+  drought: { since: 2005, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe fitchburg State is known outside Massachusetts only for the losing streak — '30 games, wow.' The chip is that nobody sees the Falcons as anything more than a historical punchline. New coach Izzy Abraham's arrival signals an attempt to rewrite the narrative."
+
+the_delusion:
+  tone: earnest
+  text: "That Izzy Abraham's hire (2025) is the beginning of a new era. The fanbase knows the history, knows the odds, but believes a successful second season would prove the program is finally climbing out of the shadow of the streak."
+
+the_grudge_texture:
+  rival: framingham-state
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: past-vs-future — the program is trying to define itself independent of the 30+ game losing streak; Izzy Abraham's success will determine whether Fitchburg State can move past historical futility
+register: fitchburg-falcon-longest-losing-streak
+
+never_use:
+  - Fitchburg State is an old program (founded 1984, one of MASCAC's youngest members)
+  - The losing streak happened recently (ended 1989, 37 years ago)
+  - Fitchburg State has not won conference titles (two NEFC titles in 2004–2005)
+  - The program is still in the losing-streak era (streak ended 1989, now on an upward trajectory)
+
+story_canon:
+  the_unique_thing: "The longest losing streak in college football history (30+ games) — ended October 14, 1989, with a 33–7 victory over Southeastern Massachusetts, a moment that defined Fitchburg State's identity around survival and comeback."
+  the_origin: "Fitchburg State University began football in 1984, making it one of the youngest Division III programs in existence. The program has spent 41 years building from the ground up, including the infamous losing streak that nearly broke the program."
+  golden_ages:
+    - { era: "2004–2005", what: "Fitchburg State wins two NEFC championships, the peak of the program's recent success" }
+    - { era: "2025–present (Izzy Abraham)", what: "New coaching hire signals an attempt to build a new era independent of historical futility" }
+  legends:
+    - { name: Izzy Abraham, role: coach, why: "Hired 2025 to rebuild the program from a 130–293–1 all-time record" }
+  canonical_moments:
+    - { name: "The 30+ Game Losing Streak (1980s)", year: 1989, what: "Fitchburg State experiences the longest losing streak in college football history, a moment of profound organizational dysfunction", handling: wound }
+    - { name: "Losing Streak Ends (October 14, 1989)", year: 1989, what: "Fitchburg State defeats Southeastern Massachusetts 33–7, finally ending the 30+ game nightmare", handling: miracle }
+    - { name: "2004–2005 NEFC Championships", year: 2005, what: "Fitchburg State wins back-to-back NEFC titles, proof that the program could build sustainable success", handling: glory }
+  the_place: "Fitchburg, Massachusetts — a small Massachusetts city where the university's football program is working to shed the losing-streak legacy."
+  brand_of_football: "Young, rebuilding football that is learning to win after decades of futility."
+  cultural_footprint: "Fitchburg State football is known nationally for the losing streak and regionally for the slow climb back to competence. The program is still writing its identity."
+  the_ongoing_story: >
+    LIVE MASCAC — researched 2026-06-13: Fitchburg State continues rebuilding under Izzy Abraham's hire in 2025
+    (second season). The Falcons have a 130–293–1 all-time record, reflecting decades of struggle. Abraham's
+    task is not to win a championship but to restore basic competence and prove that Fitchburg State can be
+    a consistent .500-or-better Division III program.
+  research_checklist:
+    - Program founding (1984, youngest MASCAC member)
+    - 30+ game losing streak (ended 1989)
+    - October 14, 1989 victory (33–7 over Southeastern Massachusetts)
+    - 2004–2005 NEFC championships (2 titles)
+    - All-time record: 130–293–1
+    - Izzy Abraham hire (2025)
+  sources:
+    - https://en.wikipedia.org/wiki/Fitchburg_State_Falcons_football
+    - https://www.fitchburgstate.edu/athletics/football
+    - https://mascac.com/sports/fball/index

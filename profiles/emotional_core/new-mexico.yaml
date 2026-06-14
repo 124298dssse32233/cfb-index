@@ -1,0 +1,121 @@
+# Emotional Core — New Mexico  (new-mexico)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: new-mexico
+team_id: 7
+program_name: New Mexico
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the worst job in the Mountain West just had its best first-year coach ever
+  secondary: disbelief    # 9 wins and a bowl from a team picked 11th of 12 — nobody saw it coming
+  core_variant: perpetual-rebuild
+  one_line: "New Mexico is the program that hadn't seen a bowl since 2016 and was picked dead last — then went nine wins, tied for first, and won Mountain West Coach of the Year in Jason Eck's very first season."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A nine-win 2025 and a Mountain West title chase against a decade of losing, a revolving door of coaches, and a reputation as one of the toughest jobs in the conference."
+
+the_wound:
+  name: "The lost decade"
+  detail: "Between Rocky Long's 2007 bowl team and Jason Eck's 2025 arrival, New Mexico went without a bowl game for the better part of two decades — years of losing seasons and coaching turnover that made the 2025 breakthrough feel almost unbelievable."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Make 2025 the start of something, not a one-off — back-to-back bowls, a Mountain West title, and proof that the altitude in Albuquerque can be a home-field weapon again instead of a footnote."
+  drought: { since: 2016, unit: bowl }
+
+the_chip:
+  villain: national_media
+  text: "Fans relish that a team the preseason poll buried at 11th of 12 tied for first and earned Coach of the Year — and they want every analyst who wrote the Lobos off to explain how they missed it."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes 2025 proved the doubters wrong for good — that Jason Eck has cracked the code on the league's hardest job, that the thin air at University Stadium is a real edge, and that the Lobos belong in the Mountain West conversation now, not the cellar."
+
+the_grudge_texture:
+  rival: new-mexico-state
+  texture: border-war   # the Rio Grande Rivalry / Battle of I-25 — the in-state war with the Aggies
+
+the_coach_relationship: savior   # Eck delivered the program's best season in a generation in year one
+the_internal_fracture: belief vs caution — the faction convinced Eck has changed everything vs the faction that has seen false dawns before and won't trust it until it's sustained
+register: albuquerque-lobos-mountain-west-altitude   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always MW-bottom — 2007 New Mexico Bowl + Rocky Long era disprove
+  - No identity — University Stadium altitude + Lobo wolf-pack + Rocky Long combine
+    into permanent canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Brian Urlacher came from here — the Hall of Fame linebacker was a Lobo before he was a Chicago Bears legend, and New Mexico's defensive identity has carried his shadow ever since. Add a home field a mile above sea level, and the Lobos have always had two weapons: a defense and the thin air."
+  the_origin: "The University of New Mexico in Albuquerque, founded 1889, playing football since 1892 — the Lobos at high altitude in the high desert, a wolf-pack defensive identity in one of the Mountain West's toughest jobs."
+  golden_ages:
+    - { era: "1998–2008 (Rocky Long)", what: "A UNM alum builds the program's most stable modern era — multiple bowls, the 2007 New Mexico Bowl shutout, and the 3-3-5 defense" }
+    - { era: "2025 (Jason Eck)", what: "Nine wins, a Mountain West co-first finish, and a bowl in year one — the best season in nearly two decades" }
+  legends:
+    - { name: Brian Urlacher, role: player, why: "Pro Football Hall of Famer; the greatest defender the program ever produced, an All-American Lobo in 1999" }
+    - { name: Rocky Long, role: coach, why: "A UNM alum and the program's defensive identity, who delivered its most sustained modern success and the 3-3-5 scheme" }
+  canonical_moments:
+    - { name: "2007 New Mexico Bowl shutout", year: 2007, what: "Rocky Long's 9-4 Lobos blank Nevada 23-0 in the New Mexico Bowl — a high point of the program's best modern era", handling: glory }
+    - { name: "Eck's first-year miracle", year: 2025, what: "Picked 11th of 12, New Mexico goes 9-4, ties for first, ends a long bowl drought, and Jason Eck wins MW Coach of the Year", handling: glory }
+  the_place: "University Stadium ('The Pit' of football, at roughly 5,100 feet) in Albuquerque — a mile-high desert venue where the thin air is meant to wear visiting offenses down by the fourth quarter."
+  brand_of_football: "Defense and altitude — a wolf-pack, 3-3-5 defensive heritage from the Rocky Long years, now paired with Jason Eck's revival on both sides of the ball."
+  cultural_footprint: "The flagship state university's football program in a basketball-leaning, geographically isolated market — a survivor's identity that just had its proudest day in a generation."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: In Jason Eck's first season, New Mexico went 9-4 (6-2 Mountain West),
+    tied for first after a preseason 11th-of-12 projection, ended a bowl drought dating to 2016, and Eck was
+    named MW Coach of the Year before a 20-17 overtime Rate Bowl loss to Minnesota. The 2026 question in
+    Albuquerque: was this the start of a sustained climb, or the kind of one-year spike the Lobos have seen flame out before?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_New_Mexico_Lobos_football_team
+    - https://golobos.com/news/2025/12/2/eck-cellent-jason-named-mw-coach-of-the-year-jaxton-co-defensive-player-of-the-year
+    - https://en.wikipedia.org/wiki/2007_New_Mexico_Lobos_football_team
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: New Mexico is the Mountain West program whose Rocky Long defensive era + University Stadium
+    altitude (5,300 ft) + Jason Eck era under construction define what Albuquerque football survival looks
+    like.
+  mantra: Go Lobos.
+  cultural_anchors:
+    fan_archetype_dominant: Albuquerque-Lobo-Pack
+    outsider_archetype_dominant: MW-Mid-Pack-Diminisher
+    one_sentence: New Mexico is the Albuquerque-altitude Mountain West program — University Stadium 5,300
+      ft + Rocky Long 3-3-5 defensive era + Lobo wolf-pack identity that keep the Lobos in MW competitive
+      cycles.
+  selfname: the Lobos
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2007 9-4 + New Mexico Bowl championship under Rocky Long
+    - 1997 9-4 + Insight Bowl under Dennis Franchione
+    - Rocky Long's 3-3-5 defensive scheme legacy
+    rituals:
+    - University Stadium Altitude (5,300 ft)
+    - Rocky Long Era (2009-2018)
+    - Lobo Wolf Howl
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (50/100, n=1)
+    voice_profile: absent
+    delusion_premium: absent

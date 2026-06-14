@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Emotional Core — Nicholls
+# Status: live
+
+status: live
+slug: nicholls
+team_id: null
+program_name: Nicholls
+program_tier: 5
+
+emotional_core:
+  primary: restoration  # a program that won conferences under Tim Rebowe, now rebuilding with new coach
+  secondary: contentment # four conference titles in six years is enough to be proud, even when stumbling
+  one_line: "Nicholls is the Thibodaux Colonels that won three Southland titles in six years (2018-2023), then hired a new coach and are learning whether the success was the system or the program."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Nicholls went from FCS afterthought to Southland contender under Tim Rebowe (2018-2023), winning three conference titles and making the playoffs. New coach Tommy Rybacki took over in 2025 and inherited a 4-8 team — the question is whether Nicholls can sustain the rise or regress."
+
+the_wound:
+  name: "The 2025 coaching transition and the question of Tim Rebowe's legacy"
+  detail: "Tim Rebowe built Nicholls into a Southland powerhouse (three titles in six years), then left. New coach Tommy Rybacki arrived to a 4-8 season — not a disaster, but enough to raise the question: was the success Rebowe, or Nicholls? The fanbase fears the answer."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that Nicholls is a program with staying power, not a Tim Rebowe one-hit wonder — get back to 7+ wins, return to the Southland race, and show that the 2018-2023 success was institutional, not coach-dependent."
+  drought: { since: 2024, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is internal: the pressure to prove that the three Southland titles under Rebowe created a foundation that survives coaching change. Nicholls wants to build a program, not just ride a coach."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the 2025 season was a blip due to coaching transition and that Nicholls will get back to 8+ wins and playoff contention once Rybacki settles in — and also believes if that doesn't happen, they'll know the Rebowe era was the peak."
+
+the_grudge_texture:
+  rival: northwestern-state
+  texture: blood-feud    # NSU Challenge — an annual Southland battle
+  # Also rivals: Southeastern Louisiana (River Bell Classic), Texas State (Battle for Paddle)
+
+the_coach_relationship: total-trust  # Tommy Rybacki in Year 1, but the fanbase is willing to see the project through
+the_internal_fracture: championship-window-closed vs. rebuild-patience — the faction worried the Rebowe era was the peak vs. those backing Rybacki's first year
+register: thibodaux-colonels-rebowe-rebuild
+never_use:
+  - "Never won a title"
+  - "Always mid-tier"
+  - "Shouldn't have fired Rebowe"
+  - "2025 proved they can't sustain"
+
+story_canon:
+  the_unique_thing: "Nicholls is the Thibodaux Colonels that climbed from FCS obscurity to Southland powerhouse under Tim Rebowe, winning three conference titles in six years (2018-2023), then hired a new coach and must prove the success was institutional, not coach-dependent."
+  the_origin: "Nicholls State University competed in FCS for decades as a mid-tier Southland program before Tim Rebowe's arrival in 2018 transformed the team into a contender."
+  golden_ages:
+    - { era: "2018–2023 (Rebowe era)", what: "Nicholls wins three Southland Conference titles and makes multiple playoff appearances under Tim Rebowe" }
+  legends:
+    - { name: "Tim Rebowe", role: "coach", why: "Built Nicholls from a mid-tier program into a Southland power with three conference titles" }
+  canonical_moments:
+    - { name: "2023 Southland Title", year: 2023, what: "Nicholls wins the Southland Conference championship under Tim Rebowe", handling: glory }
+    - { name: "2018-2023 Ascent", year: 2023, what: "Nicholls climbs from FCS obscurity to three Southland titles and sustained playoff contention", handling: glory }
+  the_place: "Manning Field / John L. Guidry Stadium in Thibodaux, Louisiana — home of the Colonels, where Rebowe built the championship culture."
+  brand_of_football: "Tough, disciplined, defined by the ascent from mid-tier to contender — Nicholls football is about proving a smaller program can sustain excellence once it breaks through."
+  cultural_footprint: "A program that showed how coaching stability and smart recruiting can transform a Southland school from afterthought to champion."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Tim Rebowe left Nicholls, and first-time FCS head coach Tommy Rybacki arrived to a
+    program that finished 4-8 (4-4 SLC) in his first season. The narrative of 2025 was patience and transition: a program that
+    won three Southland titles in six years (2018-2023) is taking a step back under new leadership. Key roster question: did
+    the 2018-2023 success create a sustainable culture, or was it dependent on Rebowe's recruiting and coaching? QB Deuce Hogan
+    (transfer from New Mexico State) is the new offensive centerpiece. The 2026 season will be the real test: can Nicholls
+    climb back to 7+ wins and playoff contention, proving institutional resilience? Or does 2025 mark the beginning of a
+    regression?
+  research_checklist:
+    - Tim Rebowe era and three Southland titles
+    - 2025 coaching transition to Tommy Rybacki
+    - 2025 record and playoff miss
+    - Nicholls-Northwestern State rivalry (NSU Challenge)
+    - Roster composition and new QB situation
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Nicholls_Colonels_football_team
+    - https://en.wikipedia.org/wiki/Nicholls_State_Colonels_football

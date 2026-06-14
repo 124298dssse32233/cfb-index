@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Coe College Division III emotional core
+
+status: live
+slug: coe
+team_id: null
+program_name: Coe College
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Coe College is the Iowa Kohawk that owns the longest continuous college football rivalry west of the Mississippi — 135 years against Cornell College, a tradition older than most American institutions."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A strong ARC member with 26 conference titles and consistent NCAA tournament appearances, held in reverence for a 135-year rivalry and steady competence, but never the national conversation."
+
+the_wound:
+  name: "The weight of rivalry immortality"
+  detail: "Coe has built an identity around the Cornell rivalry that dates to 1891 — the longest living rivalry west of the Mississippi. But that same rivalry's immortality has locked Coe into a regional narrative, never quite stepping into the national spotlight. The Kohawks are perpetually 'great for Iowa,' not 'great for Division III.'"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "A national championship. Coe has made it to playoffs consistently, but the 26 conference titles have never translated into a Tier-1 national championship run."
+  drought: { since: 1974, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe coe's 135-year rivalry with Cornell is the deepest in college football west of the Mississippi, but only Iowa knows about it. The national media focuses on Ohio, the South, the Midwest's Big Ten. Coe's tradition is invisible to everyone outside the region."
+
+the_delusion:
+  tone: self-aware
+  text: "That the next recruiting class or coaching hire will finally be the one that breaks through to a national championship. The fanbase knows Coe is good, knows they compete at the highest level of Division III, and believes anyway that this could be the year."
+
+the_grudge_texture:
+  rival: cornell-college
+  texture: blood-feud
+
+the_coach_relationship: forever-ours
+the_internal_fracture: legacy-vs-innovation — Tyler Staker's nine seasons (69–28 all-time) represent steady, competent, modern coaching against the weight of 135 years of tradition
+register: cedar-rapids-kohawk-longest-rivalry-west-mississippi
+
+never_use:
+  - Coe is a new program (football began 1891, oldest west of the Mississippi)
+  - The Kohawk name is modern (mascot named 1922 after a campus-wide naming contest)
+  - Coe has won a national championship (26 conference titles, no national championship)
+  - The Cornell rivalry is recent (first game 1891, 135 consecutive years)
+
+story_canon:
+  the_unique_thing: "The longest college football rivalry west of the Mississippi River — Coe and Cornell have played every year since 1891, a 135-year tradition of pure college football continuity."
+  the_origin: "Coe College, founded 1851, began football in 1891. The very first game was against Cornell College, establishing a rivalry that has never been interrupted — 135 seasons of unbroken continuity."
+  golden_ages:
+    - { era: "1970–2000s", what: "Multiple ARC titles and consistent NCAA playoff appearances across decades of regional competence" }
+    - { era: "2016–present (Tyler Staker)", what: "Nine seasons, 69–28 all-time, NCAA tournament appearances in most years, and a program anchored in Tyler Staker's steady tenure" }
+  legends:
+    - { name: Tyler Staker, role: coach, why: "Nine seasons (2016–present) with a 69–28 all-time record and consistent tournament appearances" }
+  canonical_moments:
+    - { name: "First Game vs. Cornell (1891)", year: 1891, what: "Coe plays its first football game against Cornell College, beginning a 135-year rivalry", handling: glory }
+    - { name: "135 Years of Continuity", year: 2026, what: "Coe and Cornell have played every single year since 1891 — no break, no interruption, the longest rivalry west of the Mississippi", handling: glory }
+    - { name: "2024 Homecoming Win vs. Dubuque", year: 2024, what: "Coe defeated Dubuque 27–10 in a homecoming game, a statement victory in the ARC", handling: glory }
+  the_place: "Coe College in Cedar Rapids, Iowa — a liberal arts institution where the Kohawk identity is tied to the oldest rivalry in the sport."
+  brand_of_football: "Steady, competitive football anchored in a 135-year rivalry tradition that defines what it means to play college football with continuity and honor."
+  cultural_footprint: "Coe football is inseparable from the Cornell rivalry. The program's identity is built on 135 years of uninterrupted games, a rarity in American college sports."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Coe went 9–3 (7–1 ARC) in 2025 under Tyler Staker's ninth season.
+    The Kohawks remain a consistent NCAA tournament participant and ARC contender. The fanbase celebrates
+    the 135-year rivalry with Cornell as the program's true north — not championships, but continuity and
+    the pride of 135 unbroken seasons.
+  research_checklist:
+    - 135-year Coe-Cornell rivalry (first game 1891)
+    - Tyler Staker's nine-season tenure (2016–present, 69–28 record)
+    - 26 ARC conference titles
+    - NCAA tournament appearances
+    - Kohawk mascot origin (1922 naming contest)
+  sources:
+    - https://en.wikipedia.org/wiki/Coe_Kohawks_football
+    - https://www.coe.edu/athletics/football
+    - https://d3football.com/teams/coe

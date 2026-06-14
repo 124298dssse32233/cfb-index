@@ -1,0 +1,68 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: lane
+team_id: null
+program_name: Lane College
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: house-money
+  one_line: "Lane is the Dragon that has played Christian college football since 1882 under the C.M.E. Church's mandate, crowned the only SIAC champion in 1982, and carries the pride of a program built on faith and discipline."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small HBCU founded by the Christian Methodist Episcopal Church with a unique identity rooted in faith, sports, and rural Tennessee community service. One SIAC championship (1982) proved the Dragons could win when everything aligned."
+
+the_wound:
+  name: "44 years without a conference championship"
+  detail: "Lane won the SIAC Championship in 1982 (6–2–1 record, only D3 SIAC Champ that year, a unique honor). Since then, the Dragons have been chasing that peak while maintaining the program's faith-based identity and community mission."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to championship contention — win a SIAC title and prove that Lane's 1982 glory wasn't a one-time event, but the marker of a program that belongs among the best in the conference."
+  drought: { since: 1982, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "The fanbase believes: Lane doesn't have a chip, it has a mission. The program plays for the church, the community, and the honor of Christian college football education in rural Tennessee."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that Lane's faith-based identity and tight community bonds are a secret advantage — that the Dragons' discipline and purpose can carry them back to championships if the culture stays true."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: savior
+the_internal_fracture: tradition-and-faith vs. competitive-hunger — those who prioritize Lane's church mission vs. those pushing for immediate SIAC competence and winning
+
+register: dragons-jackson-tennessee-c-m-e-church
+never_use:
+  - Never won anything. 1982 SIAC Championship and only D3 SIAC Champ that year.
+  - No tradition. Founded 1882, one of the oldest HBCU traditions in America.
+
+story_canon:
+  the_unique_thing: "1982 SIAC Championship (6–2–1) — the only Division III SIAC champion that year, a unique honor in conference history. Lane proved it could win when everything aligned perfectly."
+  the_origin: "Founded 1882 by the Christian Methodist Episcopal Church (C.M.E.) as part of the church's educational mission to train African American leaders in faith and discipline. Football became a centerpiece of Lane's identity."
+  golden_ages:
+    - { era: "1900–1960s (Long Tradition)", what: "Lane played competitive college football for generations, building a reputation for discipline and faith-based education" }
+    - { era: "1982 (SIAC Championship)", what: "Lane's only conference championship, finishing 6–2–1 and earning the unique honor of being the only D3 SIAC Champ that year" }
+  legends:
+    - { name: "Jacoby Jones", role: "Player (2000s)", why: "Super Bowl-winning player who attended Lane College and became the program's greatest NFL success story" }
+    - { name: "Stanley Conner", role: "Coach (2025–)", why: "Named head coach February 2025 from Miles College, tasked with rebuilding Lane's competitive edge" }
+  canonical_moments:
+    - { name: "1982 SIAC Championship", year: 1982, what: "Lane wins the SIAC Championship with a 6–2–1 record, becoming the only D3 SIAC champion that year", handling: glory }
+    - { name: "Jacoby Jones Super Bowl Victory", year: 2013, what: "Super Bowl-winning kick returner Jacoby Jones is a Lane alumnus, proving the program's NFL pedigree", handling: glory }
+  the_place: "Jackson, Tennessee — a small town in West Tennessee where Lane College serves as a cultural and educational pillar. The program plays in a tight-knit community rooted in faith and HBCU tradition."
+  brand_of_football: "Disciplined, faith-based college football — a program that combines competitive excellence with Christian values and community service, unique in college athletics."
+  cultural_footprint: "The C.M.E. Church's flagship college football program. Lane represents a unique intersection of faith, education, and competitive sport in the HBCU landscape."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Lane hired Stanley Conner (February 2025) from Miles College as head coach, beginning a new era of Dragons football after a coaching transition. The 2025 season is in progress with Conner in his inaugural year, tasked with rebuilding the program's competitive culture and position within the SIAC. The Dragons enter 2026 with new leadership and the mandate to return Lane to conference contention after the lean years.
+  sources:
+    - https://en.wikipedia.org/wiki/Lane_College_Dragons_football
+    - https://www.lanecollege.edu/news/lane-college-announces-stanley-conner-as-new-head-football-coach
+    - https://thesiac.com/sports/football/

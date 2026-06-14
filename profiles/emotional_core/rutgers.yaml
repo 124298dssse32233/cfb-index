@@ -1,0 +1,120 @@
+# Emotional Core — Rutgers  (rutgers)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: rutgers
+team_id: 19
+program_name: Rutgers
+program_tier: 3
+
+emotional_core:
+  primary: honor          # the birthplace of the sport — Rutgers played the first college football game ever, and carries that title like a family name
+  secondary: deprival     # the founder who never got to win it: a Big Ten member still chasing its first division/conference crown
+  one_line: "Rutgers held the first college football game in history — November 6, 1869, against Princeton — and ever since has been the program that gave the sport to the world and then watched the world get better at it."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "The school that invented the game, against a present where 'almost bowl-eligible in the Big Ten' is the honest ceiling — 5-7 in 2025, with a bowl bid declined."
+
+the_wound:
+  name: "The founder who can't quite arrive"
+  detail: "Rutgers spent 150 years on the sport's margins, then bought into the Big Ten in 2014 expecting the rising tide to lift it. The 2025 team went 5-7 (2-7 Big Ten) and turned down a bowl bid against Georgia Southern; Greg Schiano cleared out his defensive staff after the unit collapsed. The founder is still looking for its first real Big Ten breakthrough."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win something that matters in the league it paid to join — a New Year's-level season that proves the program that started the sport belongs at the front of it, the way the 2006 team briefly forced everyone to look."
+  drought: { since: 2006, unit: relevance }
+
+the_chip:
+  villain: big_brother
+  text: "Rutgers fans are weary of being the Big Ten's welcome mat — the school the blue bloods schedule for a comfortable Saturday. They'll remind you who held the first game ever, and that the founder doesn't need anyone's permission to stay."
+
+the_delusion:
+  tone: earnest
+  text: "Scarlet Knights fans genuinely believe Greg Schiano is the one man who can will Rutgers into the league's top half — that the program that invented football can, on the right roster, out-tough teams with twice its history in the conference. They've watched him build it twice and trust he can finish it."
+
+the_grudge_texture:
+  rival: princeton
+  texture: border-war   # the first-ever opponent, 1869 — the original New Jersey rivalry, even if Princeton long ago left big-time football
+
+the_coach_relationship: forever-ours   # Greg Schiano: the program-builder across two eras (2001-2011, 2020-present), Rutgers' defining modern figure
+the_internal_fracture: heritage vs results — the faction that treasures the 1869 founder identity and Schiano's culture-build vs the faction that says invention is nice but the Big Ten only counts wins
+register: piscataway-first-game-1869-believer   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always last in conference — 2024 7-6 + bowl eligibility disproves
+  - Doesn't belong in Big Ten — 1869 founding + competitive cycles reset the frame
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Rutgers played the first college football game in history. On November 6, 1869, in New Brunswick, Rutgers beat Princeton 6-4 under soccer-like rules — the moment the entire sport traces itself to. No other program can say it was there at the very start, because there was no start before Rutgers."
+  the_origin: "Chartered in 1766 as one of America's nine colonial colleges, Rutgers gave the sport its first game in 1869, then spent more than a century as a regional Eastern independent before Greg Schiano dragged it into national relevance in the 2000s and into the Big Ten in 2014."
+  golden_ages:
+    - { era: "2005–2009 (Schiano I)", what: "The breakthrough years — an 11-2 2006 season, Ray Rice, the Louisville upset, six straight bowls" }
+    - { era: "1869", what: "The birth of the sport itself — the first game ever played" }
+  legends:
+    - { name: "Greg Schiano", role: coach, why: "Built Rutgers into a national name in the 2000s and returned in 2020 to rebuild it again — the program's defining modern figure" }
+    - { name: "Ray Rice", role: player, why: "The 2006 star who ran for 1,794 yards and made Rutgers must-watch television" }
+  canonical_moments:
+    - { name: "The first college football game", year: 1869, what: "Rutgers beats Princeton 6-4 in New Brunswick — the first game in the sport's history", handling: glory }
+    - { name: "Pandemonium in Piscataway", year: 2006, what: "Undefeated, 15th-ranked Rutgers rallies from 25-7 down to beat No. 3 Louisville 28-25 on a late Jeremy Ito field goal; fans storm the field", handling: glory }
+    - { name: "The 2006 Texas Bowl", year: 2006, what: "Rutgers wins the first bowl in program history, capping an 11-2 breakthrough season", handling: glory }
+  the_place: "SHI Stadium in Piscataway (cap ~52,000) — and the campus marker noting that the first football game ever was played a short walk away; the founder's ground."
+  brand_of_football: "Schiano-ball: physical, defense-first, special-teams-obsessed, built on toughness and a culture-first program identity rather than star power."
+  cultural_footprint: "The sport's birthplace — Rutgers' claim to the first game is its permanent civic identity, the line every New Jersey fan leads with, the reason the program matters even in a 5-7 year."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Greg Schiano, in his second Rutgers era since 2020, went 5-7 (2-7 Big Ten)
+    in 2025 and declined a bowl bid against Georgia Southern. The defense's collapse cost his coordinator and most
+    of that staff in the offseason. Entering 2026 with a tougher schedule, the pressure is real: the founder is
+    still chasing a signature Big Ten season, and the patience for the rebuild is thinning.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Rutgers_Scarlet_Knights_football_team
+    - https://www.si.com/college/2018/11/09/rutgers-louisville-2006-football-game-bobby-petrino-greg-schiano
+    - https://collegefootballnews.com/college-football/rutgers-scarlet-knights-college-football-preview-2026
+    - https://en.wikipedia.org/wiki/2006_Rutgers_Scarlet_Knights_football_team
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Rutgers is the program that played the first-ever college football game — November 6,
+    1869 vs Princeton — and whose Greg Schiano-second-era Big Ten reset answers what historic-program-resurrected
+    looks like.
+  mantra: Chop.
+  cultural_anchors:
+    fan_archetype_dominant: New-Brunswick-Scarlet-Loyalist
+    outsider_archetype_dominant: Always-Last-Big-Ten-Diminisher
+    one_sentence: Rutgers is the founder of CFB — first-ever college football game in 1869 + Greg Schiano's
+      two-era program-building tenure + Big Ten entry that completed the modern resurrection.
+  selfname: the Scarlet Knights
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1869 first-ever college football game vs Princeton
+    - 2006 11-2 + Texas Bowl championship under Greg Schiano
+    - Greg Schiano two-era tenure (2001-2011 + 2020-present)
+    rituals:
+    - First College Football Game (Nov 6, 1869)
+    - Greg Schiano Two Eras (2001-2011 + 2020-present)
+    - Chop Tradition
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (55/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

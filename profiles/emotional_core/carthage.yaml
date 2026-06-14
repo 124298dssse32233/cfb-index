@@ -1,0 +1,71 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: carthage
+team_id: null
+program_name: Carthage College
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: house-money
+  one_line: "Carthage is the Wisconsin CCIW program with a storied athletic heritage stretching back to the 1800s, still playing with quiet institutional pride."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A historic liberal-arts college in Kenosha, Wisconsin with a football program that traces its roots to the 19th century and competes within CCIW tradition."
+
+the_wound:
+  name: "The long, quiet fade"
+  detail: "Carthage has been a Wisconsin fixture since the 1800s, but modern success has been elusive. The program competes but is not in contention."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to competitive standing within the CCIW and build a winning season."
+  drought: { since: 2010, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Carthage plays for the college and the history."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 2025 season is a step toward the future — fans hold onto the hope that Carthage football will return to its former competitiveness within Wisconsin Division III."
+
+the_grudge_texture:
+  rival: carroll-wi
+  texture: border-war
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "historical pride vs current underperformance — the gap between institution and results"
+register: kenosha-wisconsin-19th-century-roots
+never_use:
+  - Invented success or championships
+  - Exaggerated the current program's competitiveness
+  - Minimized the actual historical depth of Carthage athletics
+
+story_canon:
+  the_unique_thing: "Carthage College has athletic roots stretching back to the 1800s in Kenosha, Wisconsin — one of the oldest sports programs in Division III."
+  the_origin: "Carthage College, founded in 1847 and located in Kenosha, Wisconsin, has a football program that reflects its long institutional history."
+  golden_ages:
+    - { era: "Early 2000s", what: "Competitive CCIW seasons and playoff participation" }
+  legends: []
+  canonical_moments:
+    - { name: "Historic CCIW membership", year: 1900, what: "Carthage has been a fixture in Wisconsin football since the early 1900s", handling: glory }
+  the_place: "Kenosha, Wisconsin — on the shore of Lake Michigan, home to Carthage College."
+  brand_of_football: "Rooted in institutional history and Wisconsin liberal-arts tradition."
+  cultural_footprint: "An old program with deep Wisconsin roots, part of the fabric of CCIW history."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Carthage's 2025 season was difficult, showing limited conference success (0-1 conf after Sept 20).
+    The program is in transition under second-year head coach Matt Popino. The question is whether Carthage can find its footing and return to competitiveness,
+    or whether the program will continue to struggle against stronger CCIW opponents.
+  research_checklist:
+    - 19th-century athletic history
+    - CCIW membership timeline
+    - Recent coaching and recruiting
+    - Institutional resources and commitment
+  sources:
+    - https://en.wikipedia.org/wiki/Carthage_College
+    - https://www.d3football.com/schools/carthage
+    - https://carthagecollegeathletics.com/sports/football

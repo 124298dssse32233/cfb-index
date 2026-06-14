@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: geneva
+team_id: null
+program_name: Geneva
+program_tier: 7
+
+emotional_core:
+  primary: house-money
+  secondary: contentment
+  one_line: "Geneva College is the Presidents' Athletic Conference program known as the Golden Tornadoes, a name forged in 1959 from the spirit of resilience — playing football with the pride of a small Pennsylvania school that has built 500+ career wins on consistency and small-school spirit."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small college with big tradition. Geneva's Golden Tornado identity is rooted in a 1914 natural disaster but transformed into a symbol of resilience and community pride."
+
+the_wound:
+  name: "The weight of tradition without recent conquest"
+  detail: "Geneva built a strong 2025 season (6-5, 6-2 PAC) and brings in new head coach Tom Contenta for 2026. The program has sustained success but struggles to break through to special seasons — every year is a chance to add to the 500+ win legacy."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a PAC championship and bowl game, proving that the Golden Tornado tradition can ascend from steady-state excellence to special seasons."
+  drought: { since: 2010, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "No chip — Geneva's motivation is pride in the Golden Tornado name and the legacy of resilience. The fanbase plays for something bigger: the continuity of their college's fall tradition."
+
+the_delusion:
+  tone: self-aware
+  text: "That this year Tom Contenta will find the right formula and Geneva will finally click into a championship run — the fanbase knows consistency is Geneva's strength, and believes lightning can strike one more time."
+
+the_grudge_texture:
+  rival: hiram
+  texture: blood-feud
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "Coaching stability vs. the search for that next special season"
+register: geneva-golden-tornadoes-small-pennsylvania-resilience-1914
+
+never_use:
+  - Tornado that destroyed the school — the 1914 tornado inspired the name, not caused catastrophe
+  - Perennial PAC champions — steady success, not dominance
+  - Blueprint for small-school excellence — Geneva's model is reliable, not revolutionary
+
+story_canon:
+  the_unique_thing: "Geneva College is known as the Golden Tornadoes, a name adopted in 1959 and inspired by the resilience shown after a devastating 1914 tornado in the Geneva, Pennsylvania area — transforming natural disaster into a symbol of determination."
+  the_origin: "A small liberal-arts college founded in Beaver Falls, Pennsylvania (later relocated to Beaver, PA), Geneva has built a football program on consistent effort and community pride."
+  golden_ages:
+    - { era: "2000–2010", what: "The program's most successful recent stretch, with multiple PAC championships and playoff appearances under sustained coaching" }
+  legends:
+    - { name: "Geneva Athletic Tradition", role: "identity", why: "The Golden Tornado name and spirit represent 60+ years of resilience and small-school pride" }
+  canonical_moments:
+    - { name: "Golden Tornado name adoption", year: 1959, what: "Geneva adopts the Golden Tornado identity, transforming the 1914 natural disaster memory into a symbol of resilience", handling: glory }
+  the_place: "Beaver, Pennsylvania — a small college town northwest of Pittsburgh, home to Geneva College and its football tradition."
+  brand_of_football: "Resilient, never-quit football. Geneva's team embodies the Tornado spirit: you can knock them down, but they get back up and keep fighting."
+  cultural_footprint: "A testament to small-school pride and the power of tradition to unite a college community. The Golden Tornado is Geneva's identity and a symbol recognized throughout the PAC."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Geneva went 6-5 overall (6-2 PAC) in 2025 and brought in new head coach Tom
+    Contenta for the 2026 season. The program sits at a crossroads: Contenta arrives with the opportunity to elevate
+    Geneva from consistent success to PAC contention. With 500+ career program wins, Geneva has built something durable.
+    The question is whether this coaching change brings the next special season.
+
+  research_checklist:
+    - 1914 tornado incident and 1959 Tornado name adoption
+    - 500+ career wins milestone (verified)
+    - Recent PAC standing and conference performance
+    - Tom Contenta hiring for 2026
+    - Small-school resilience identity
+
+  sources:
+    - https://en.wikipedia.org/wiki/Geneva_Golden_Tornadoes_football
+    - https://www.geneva.edu/athletics/football
+    - https://www.athleticsdirect.com/

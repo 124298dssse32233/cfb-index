@@ -1,0 +1,113 @@
+# Emotional Core — Texas Southern  (texas-southern)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: texas-southern
+team_id: 9
+program_name: Texas Southern
+program_tier: 3
+
+emotional_core:
+  primary: honor        # 1952 black college national championship, Michael Strahan (Pro Football Hall of Famer), SWAC tradition
+  secondary: restoration   # Cris Dishman year two, 11-11 record, searching for SWAC contention after a competitive but not championship run
+  one_line: "Texas Southern is the Texas HBCU with a 1952 black college national championship and Pro Football Hall of Famer Michael Strahan as its most famous product — a program rebuilding under Cris Dishman in year two."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A 1952 black college national championship, Michael Strahan's Hall of Fame legacy, and a 336-444-27 all-time record (.433) vs the search for sustainable SWAC contention and the resource ceiling that limits HBCU programs."
+
+the_wound:
+  name: "The long championship drought since 1952"
+  detail: "Texas Southern won a black college national championship in 1952 (73 years ago), but has not returned to that peak. The program remains competitive in the SWAC but hasn't demonstrated championship-level consistency. Cris Dishman is in year two (11-11 overall record) tasked with building toward that standard."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build on the 1952 championship legacy; compete for SWAC titles; return to the Celebration Bowl and black college national championship conversation; prove that Michael Strahan's success is a template for future Tigers."
+  drought: { since: 1952, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe texas Southern won a national championship in 1952 and has been competitive ever since but never reached that peak again. The chip is that the program knows the standard exists and is determined to prove the 2025 competitive season is the foundation for a championship run."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that a program with Michael Strahan in the Hall of Fame and a championship lineage is always capable of competing for SWAC titles — that the foundation is there and the next championship is not a fantasy but a matter of coaching and portal building."
+
+the_grudge_texture:
+  rival: prairie-view-a-m
+  texture: championship   # the Labor Day Classic for the Durley-Nicks Trophy; competitive annual rivalry
+
+the_coach_relationship: hot-seat-churn   # Cris Dishman is year two with an 11-11 record; the program is searching for direction
+the_internal_fracture: patience with dishman vs immediate contention — the faction that says 11-11 in year two is progress vs the faction that says Texas Southern has a Hall of Famer legacy and should be competing for SWAC titles
+register: strahan-legacy — Michael Strahan is the program's anchor; Hall of Famer lineage
+never_use:   # LAW — do not violate in any authored line
+  - one-hit-wonder framing on the 1952 title (Hall of Famer Michael Strahan, 60+ NFL alumni)
+  - scrappy
+  - just trying to have fun
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep canon ──
+story_canon:
+  the_unique_thing: "Texas Southern is the Houston HBCU that won a black college national championship in 1952 and has produced Pro Football Hall of Famer Michael Strahan as its most famous product. The program has over 60 NFL alumni and was competitive in the black college hierarchy. Texas Southern plays in the SWAC and maintains a 336-444-27 all-time record."
+  the_origin: "A historically black university in Houston, Texas that joined the SWAC and has been part of the HBCU competitive landscape. Texas Southern built itself around competitive SWAC play and the legacy of championship-caliber athletes like Michael Strahan."
+  golden_ages:
+    - { era: "1952 (national championship)", what: "Texas Southern won the black college national championship" }
+    - { era: "1980s–2000s (Strahan era)", what: "Michael Strahan's recruitment and development; proof of the program's competitive reach" }
+  legends:
+    - { name: Michael Strahan, role: player, why: "Pro Football Hall of Famer; the greatest Texas Southern product and Hall of Fame proof of the program's quality" }
+  canonical_moments:
+    - { name: "The 1952 national championship", year: 1952, what: "Texas Southern won the black college national championship", handling: glory }
+    - { name: "Michael Strahan to the NFL", year: 1993, what: "Strahan's NFL journey began as a Texas Southern product; Hall of Fame proof", handling: glory }
+    - { name: "60+ NFL alumni", year: 2025, what: "Multiple generations of Tigers have played professional football", handling: glory }
+  the_place: "Shell Energy Stadium in Houston, Texas (cap 22,000); home of Texas Southern football."
+  brand_of_football: "Championship-capable: a program with Hall of Famer production and a national championship on the resume; Michael Strahan proved the standard exists."
+  cultural_footprint: "Texas Southern is the Houston HBCU with a 1952 national championship and Hall of Famer Michael Strahan. The program is part of the SWAC competitive landscape and has produced 60+ NFL alumni. The program is rebuilding toward consistent SWAC contention."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Texas Southern went 11-11 (split record) under head coach Cris Dishman in his
+    second season. The program is competitive in SWAC East play but has not won a conference championship or returned
+    to the Celebration Bowl in recent years. Dishman is tasked with building Texas Southern into a SWAC contender
+    and returning the program to the national championship conversation. The 1952 championship and Michael Strahan's
+    Hall of Fame legacy provide the foundation, and the program is searching for the next chapter of competitive success.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Texas_Southern_Tigers_football
+    - https://en.wikipedia.org/wiki/Michael_Strahan
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Texas Southern is the Houston HBCU with a 1952 national championship and Hall of Famer Michael Strahan.
+  mantra: Go Tigers.
+  cultural_anchors:
+    fan_archetype_dominant: Strahan-Legacy-Pride
+    outsider_archetype_dominant: Competitive-Program
+    one_sentence: Texas Southern is the Houston HBCU that won a black college national championship in 1952.
+  selfname: the Tigers
+  aspiration_ladder_top: ''
+  rivalries:
+  - prairie-view-a-m
+  heritage:
+    national_titles: 1
+    conference_titles: null
+    current_conference: SWAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1952 black college national championship
+    - Michael Strahan (Pro Football Hall of Famer)
+    - 60+ NFL alumni
+    rituals:
+    - Labor Day Classic vs Prairie View A&M (Durley-Nicks Trophy)
+    - Annual SWAC competition
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

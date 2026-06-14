@@ -1,0 +1,120 @@
+# Emotional Core — Western Michigan  (western-michigan)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: western-michigan
+team_id: 136
+program_name: Western Michigan
+program_tier: 3
+
+emotional_core:
+  primary: disbelief       # picked 7th, the Broncos won the whole MAC — a season nobody, including the fanbase, saw coming
+  secondary: redemption    # erasing nine years of post-Fleck near-misses in one December
+  one_line: "Western Michigan was picked seventh in the MAC and won the whole thing — a 23-13 title-game win over Miami, then a 41-6 bowl blowout, the Broncos' first conference title since the P.J. Fleck miracle of 2016."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "P.J. Fleck's 13-1, Cotton Bowl, Top-15 team of 2016 vs nearly a decade of solid-but-titleless MAC seasons — the gap a surprise 2025 championship finally closed."
+
+the_wound:
+  name: "The nine years chasing 2016"
+  detail: "P.J. Fleck went 13-1 and reached the Cotton Bowl in 2016, then left for Minnesota and took 'Row the Boat' with him — and Western Michigan spent the next nine seasons as a good MAC program that never quite got back to the top, the breakthrough always one game short."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Stay at the top of the MAC and force the national spotlight back to Kalamazoo — to make 2025 the start of something, not another single bright year before the drop-off."
+  drought: { since: 2016, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Bronco fans are sick of being a punchline about a coach who left and a rowing slogan he took with him. They say a program picked seventh and crowned champion proved Kalamazoo can win on its own terms — and that nobody's laughing now."
+
+the_delusion:
+  tone: earnest
+  text: "Bronco fans believe Kalamazoo is a real MAC heavyweight, not a one-coach wonder — that the program can produce NFL talent and conference titles whenever the pieces line up, and that 2025 was the proof the league still runs through Western Michigan."
+
+the_grudge_texture:
+  rival: central-michigan
+  texture: little-brother   # the in-state MAC scrap for the Michigan MAC Trophy — Mid-American bragging rights
+
+the_coach_relationship: savior   # Lance Taylor delivered the first title since Fleck; the fanbase is sold on him
+the_internal_fracture: believers vs the burned — the faction that thinks Lance Taylor built a contender vs the faction that's seen one magic year before and braces for the regression that followed 2016
+register: kalamazoo-broncos-fleck-row-the-boat   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always MAC-only — 2016 Cotton Bowl + #15 AP disprove'
+  - Fleck-only program — Tim Lester era continued competitive cycles
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Western Michigan is where 'Row the Boat' was born — P.J. Fleck's 2016 Broncos went 13-1, won the MAC, and reached the Cotton Bowl, the best season any MAC program has had this century and the launchpad for one of the sport's most famous coaching brands."
+  the_origin: "A regional university in Kalamazoo, Michigan, playing in the working-class Mid-American Conference — the proving ground where ambitious coaches and overlooked recruits make their names."
+  golden_ages:
+    - { era: "2014–2016 (P.J. Fleck)", what: "A rapid rebuild capped by a 13-1, MAC-champion, Cotton Bowl, Top-15 season in 2016 — and the birth of 'Row the Boat'" }
+    - { era: "2025 (Lance Taylor)", what: "Picked seventh, the Broncos win the MAC title and blow out Kennesaw State in the Myrtle Beach Bowl to finish 10-4" }
+  legends:
+    - { name: P.J. Fleck, role: coach, why: "Built the 2016 Cotton Bowl team and the 'Row the Boat' brand that put Kalamazoo on the national map" }
+    - { name: Corey Davis, role: player, why: "The record-setting receiver of the 2016 team who became a first-round NFL draft pick" }
+    - { name: Lance Taylor, role: coach, why: "Took a team picked seventh to the program's first MAC title since 2016" }
+  canonical_moments:
+    - { name: "The 13-1 Cotton Bowl season", year: 2016, what: "An undefeated regular season, a MAC title, and a Cotton Bowl berth — the program's high-water mark", handling: glory }
+    - { name: "The 2025 MAC championship", year: 2025, what: "A 23-13 title-game win over Miami (OH) for the first conference crown since 2016, by a team picked seventh", handling: glory }
+    - { name: "Myrtle Beach Bowl rout", year: 2025, what: "A 41-6 demolition of Kennesaw State that capped a 10-win season", handling: glory }
+  the_place: "Waldo Stadium in Kalamazoo, a 1939-vintage venue that's the home of the Broncos and the cradle of 'Row the Boat.'"
+  brand_of_football: "Row the Boat at its root — a hard-rowing, never-let-up MAC program built on development, belief, and proving the doubters wrong from a small Michigan town."
+  cultural_footprint: "The MAC's most famous launchpad — the place a coaching brand was invented and a model for how a mid-major can punch into the national conversation when the pieces align."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Lance Taylor returns for 2026 after the season of a generation — picked
+    seventh in the MAC, Western Michigan went 10-4 (7-1), beat Miami (OH) 23-13 for the conference championship,
+    and routed Kennesaw State 41-6 in the Myrtle Beach Bowl, the first WMU team to win a league title and a bowl
+    in the same year. Quarterback Broc Lowry anchored the run. The question in Kalamazoo: can Taylor make the
+    Broncos a MAC power again, or does 2025 echo the one-year spike that followed 2016?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Western_Michigan_Broncos_football_team
+    - https://wmubroncos.com/news/2025/12/6/football-broncos-win-2025-mac-championship.aspx
+    - https://getsomemaction.com/news/2025/12/6/western-michigan-captures-2025-mac-football-title.aspx
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Western Michigan is the MAC program whose P.J. Fleck 2016 13-1 + Cotton Bowl appearance
+    + 'Row the Boat' origin define what scheme-and-brand-pioneer-G5-football looks like.
+  mantra: Row the Boat.
+  cultural_anchors:
+    fan_archetype_dominant: Kalamazoo-Bronco-Row-The-Boat
+    outsider_archetype_dominant: MAC-Refugee-Diminisher
+    one_sentence: 'Western Michigan is the MAC program where Row the Boat was born — P.J. Fleck 2016 Cotton
+      Bowl + 13-1 + #15 AP run that became the G5-to-Power-Five-coaching-pipeline case study.'
+  selfname: the Broncos
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2016 13-1 + MAC championship + Cotton Bowl appearance +
+    - '''Row the Boat'' origin (P.J. Fleck, 2013)'
+    - Waldo Stadium 1939 historic venue
+    rituals:
+    - P.J. Fleck Era (2013-2016)
+    - Row the Boat Origin
+    - Waldo Stadium Tradition
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (53/100, n=138)
+    voice_profile: absent
+    delusion_premium: absent

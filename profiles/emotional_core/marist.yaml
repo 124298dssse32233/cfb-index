@@ -1,0 +1,81 @@
+# Emotional Core — Marist  (marist)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: marist
+team_id: null
+program_name: Marist
+program_tier: 5
+
+emotional_core:
+  primary: contentment      # the mid-tier Pioneer League program that competes honestly
+  secondary: standard       # steady, unremarkable excellence with no delusions
+  one_line: "Marist is the Hudson Valley college that won one Pioneer League title and competes year to year with realistic ambitions — the program that accepts its tier and plays within it."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A 2013 Pioneer League title vs a program that has never posted a season better than 8–4, never made the FCS playoffs — the title remains the high-water mark."
+
+the_wound:
+  name: "The permanent mid-tier ceiling"
+  detail: "Marist football arrived at the Pioneer League in 2010 and has never breached the tier above respectability. The wound is not dramatic; it's the quiet reality that one conference title in 13 years means the program has plateaued at a predictable level."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Win 7 games and compete for the second playoff slot. The dream is concrete but modest — a season that shows year-over-year improvement and finishes .500 in conference."
+  drought: { since: 2013, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe marist has no chip. The program competes in its lane — FCS non-scholarship football where .500 is the reasonable bar."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: none
+  texture: blood-feud   # no traditional blood rival in the Pioneer League
+
+the_coach_relationship: forever-ours    # Mike Willis in year two; program allows coaches time to build
+the_internal_fracture: none — the program is too modest to have factions
+register: marist-red-foxes-hudson-valley-2013-champions-steady-state
+never_use:   # LAW — do not violate in any authored line
+  - "Has multiple titles — one 2013 title is the program's only conference championship"
+  - "Is a playoff team — never made the FCS playoffs in program history"
+  - "Is climbing upward — the 2013 title remains the peak; subsequent records have been flat to down"
+  - "Has aspirational ceiling — mid-tier program; .500 conference is the realistic target"
+  - "Is unstable — Mike Willis provides consistent coaching; program is stable"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Marist is the Hudson Valley private college that joined FCS in 2010 and won one Pioneer League title in 2013 — a program that competes honestly in a non-scholarship frame and accepts its tier."
+  the_origin: "A Catholic Marist Brothers university in Poughkeepsie, New York founded in 1905 that started football in 1960 and competed through multiple NCAA divisions before joining the Pioneer League in 2010."
+  golden_ages:
+    - { era: "2013 (Pioneer League title)", what: "Marist's only conference championship, won in the program's fourth year at the FCS level" }
+  legends:
+    - { name: null, role: coach, why: "No singular coach has achieved lasting fame at Marist football" }
+  canonical_moments:
+    - { name: "2013 Pioneer League title", year: 2013, what: "Marist wins its first and only conference championship", handling: glory }
+  the_place: "Tenney Stadium @ Leonidoff Field in Poughkeepsie, New York — the on-campus home where the Red Foxes compete in the Hudson Valley."
+  brand_of_football: "Honest, non-scholarship FCS competition — the program that shows up every year, competes fairly, and accepts its tier in the non-scholarship frame."
+  cultural_footprint: "Marist is the example of a mid-sized private college doing FCS football right — not overreaching, not pretending to be something it isn't, and building sustainable year-to-year competition."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Marist went 5–7 (3–5 PFL) in 2025 under Mike Willis in his second year — a down season that
+    reflects the program's mid-tier position. Willis, hired in 2024, is still building the roster and culture. The 5–7 finish is one
+    of the program's worse records in recent years, showing both the vulnerability of FCS non-scholarship football and the need for
+    Willis to stabilize the program's baseline. The question in Poughkeepsie: can Willis recover from a down year and return Marist
+    to the 6–6 to 7–5 range that has been the program's typical plateau?
+  research_checklist:
+    - the program's 3–7 most iconic games/plays (2013 title-clinching game, rivalry moments)
+    - the legendary coaches + players (early-2010s coaches, 2013 title team captains)
+    - the unique tradition / identity / the one amazing thing (Hudson Valley location, honest non-scholarship play)
+    - the origin + the golden-age dynasty eras (1960 founding, 2010 Pioneer League entry, 2013 title)
+    - the current-era storyline (Willis' second-year rebuild)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Marist_Red_Foxes_football_team
+    - https://en.wikipedia.org/wiki/Marist_Red_Foxes_football
+    - https://maristcollegeathletics.com/football

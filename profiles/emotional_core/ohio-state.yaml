@@ -1,0 +1,168 @@
+# Emotional Core — Ohio State  (ohio-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+#
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: ohio-state
+team_id: 169
+program_name: Ohio State
+program_tier: 1
+
+emotional_core:
+  primary: standard       # the Midwest's standing answer — a national-title mandate every year
+  secondary:              # standard carries it; the Michigan question is the wound
+  one_line: "Ohio State treats every autumn as a national-title mandate — and every November against Michigan as the real season, no matter what the trophy case says."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Nine national titles — the most recent in 2024 — and a perennial top-five roster vs a four-year stretch of losing the one game the program organizes itself around."
+
+the_wound:
+  name: "The Michigan losing streak (2021-2024)"
+  detail: "Four straight losses to Michigan from 2021 to 2024 — including 2024, the year Ohio State went on to win the national title anyway — the one failure a championship couldn't fully erase."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Hold the standard — title after title — and end The Game on Ohio State's terms."
+  drought: { since: 2024, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe the take that the titles are hollow as long as Michigan owns The Game — a narrative the 2024 championship was supposed to silence and somehow didn't. In Columbus, the asterisk is the rivalry, not the trophy."
+
+the_delusion:
+  tone: load-bearing
+  text: "Buckeye fans believe anything short of a national title is a failed season — and that the Michigan losses are noise against eight championships, not a pattern. The standard admits no exceptions, which is exactly why it hurts."
+
+the_grudge_texture:
+  rival: michigan
+  texture: blood-feud   # The Game — the rivalry the program organizes its entire season around
+
+the_coach_relationship: total-trust   # Ryan Day won the 2024 title, resolving the "can't win the big one" question
+the_internal_fracture: title-or-failure vs beat-Michigan-first — the faction for whom only a championship counts vs the faction for whom The Game is the whole point, trophy or not
+register: dynastic-industrial — precise, unsentimental, institutional, allergic to both underdog framings and pageantry; "the standard is the standard"
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - plucky
+  - Cinderella
+  - scrappy
+  - flyover team
+  - Big Ten-slow as pejorative
+  - cupcake schedule (Ohio State plays Michigan)
+  - Urban Meyer scandal as lead reference
+  - Big Ten football ugly as a given
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Script Ohio and The Game — Ohio State turned a single state's football obsession into a national talent monopoly, and organizes its entire season around one November Saturday against Michigan. 'The standard is the standard.'"
+  the_origin: "A founding Big Ten power built by Woody Hayes (five titles, three yards and a cloud of dust), home of the only two-time Heisman winner in history (Archie Griffin), sustained through Tressel, Meyer, and now Day."
+  golden_ages:
+    - { era: "1951–1978 (Woody Hayes)", what: "Five national titles and the program's founding character" }
+    - { era: "2012– (Meyer → Day)", what: "The Meyer reconstruction (2014 title) and Day's 2024 championship" }
+  legends:
+    - { name: Woody Hayes, role: coach, why: "Five titles and the program's founding character" }
+    - { name: Archie Griffin, role: player, why: "The only two-time Heisman winner in history" }
+    - { name: Ryan Day, role: coach, why: "Won the 2024 national title, ending the 'can't win the big one' question" }
+  canonical_moments:
+    - { name: "The 2024 national title", year: 2024, what: "Day's first championship — won the 12-team Playoff over Notre Dame after losing to Michigan in the regular season", handling: glory }
+    - { name: "The 2002 title (double-OT over Miami)", year: 2002, what: "Tressel's championship over a stacked Miami", handling: glory }
+    - { name: "The 2021-2024 Michigan losses", year: 2024, what: "Four straight to the rival — the wound a title couldn't erase", handling: wound }
+  the_place: "Ohio Stadium — 'The Horseshoe' (cap 102,780) — and Script Ohio, the band formation that is itself a program identity."
+  brand_of_football: "Dynastic-industrial: a national recruiting monopoly built on Ohio talent, precise and unsentimental — 'the standard is the standard.'"
+  cultural_footprint: "The largest, most engaged Big Ten fanbase; a program that treats a single state's obsession as a national mandate."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Ohio State won the 2024 national championship — Ryan Day's first, claimed
+    via the 12-team Playoff over Notre Dame after losing to Michigan in the regular season. The 2025 season was
+    about defending that altitude as the team to beat. 2026 asks whether the Day era is a Tressel-like multi-title
+    arc or a singular peak — with the Michigan question still hanging over a program that organizes its year
+    around The Game.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://athlonsports.com/college-football/2025-year-in-review-ohio-state-wins-national-championship
+    - https://en.wikipedia.org/wiki/2024_Ohio_State_Buckeyes_football_team
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Ohio State is the Midwest's standing answer — the program that does not ask permission
+    to be in the conversation.
+  mantra: Go Bucks.
+  cultural_anchors:
+    fan_archetype_dominant: Statewide-Pride
+    outsider_archetype_dominant: Insufferable-About-The-Game
+    one_sentence: Ohio State is the program that turned a single state's football obsession into a national
+      talent monopoly — and treats every game against Michigan as the actual season.
+  selfname: the Buckeyes
+  aspiration_ladder_top: National Championship
+  rivalries:
+  - michigan
+  - penn-state
+  - michigan-state
+  - illinois
+  heritage:
+    national_titles: 8
+    conference_titles: 42
+    current_conference: Big Ten
+  prose_excerpts:
+    taboos: Woody Hayes' 1978 Gator Bowl firing (striking a Clemson player) is historical fact, handled
+      with context. Jim Tressel's NCAA sanctions (2011) and Urban Meyer's 2018 scandal are part of the record;
+      neither is the program's defining story, but dismissing either is patronizing. The 2021–2023 Michigan
+      losses are three wounds — acknowledged, not dwelt on. Ryan Day's "can he win the big one" narrative
+      was resolved in 2024; copy that continues to re-litigate it after that moment…
+    fans_culture: 'The fanbase is the most numerically large Big Ten fan base and one of the top-three most
+      engaged in college football by any revealed-preference measure (TV ratings, merch, road-game presence).
+      Geography is heavily Ohio-concentrated with a strong Columbus/Cleveland/Cincinnati triangle plus statewide
+      saturation, plus a national diaspora concentrated in coastal alumni cities. The gameday register is
+      industrial-scarlet: not sentimental, not performatively rowdy, but loud,…'
+    voice_ethos: 'The voice is dynastic-industrial: precise, unsentimental, institutional, allergic to both
+      underdog framings and pageantry. Ohio State does not speak about its success as a feel-good story
+      or a cultural pageant; the program speaks about itself the way a manufacturing concern speaks about
+      its operating rigor. "The standard is the standard" — the phrase Meyer operationalized — is the register
+      in one line. Identity phrase: **"Ohio State is the Midwest''s standing answer — the…'
+    narratives: The 2024 national championship is the near-term narrative center of gravity. A program that
+      spent two years answering "can Ryan Day beat Michigan / win the big one" answered both in one season.
+      The 2025 season's task was defending that altitude; 2026 is the question of whether the Day era is
+      a Tressel-like multi-title arc or a 2014-Meyer-like singular peak. The portal and NIL era continue
+      to reshape roster construction. Ohio State has been an early adopter of high-end…
+    in_jokes: '"O-H / I-O" — the universal call and response; sincere, not a bit. "The Team The Team The
+      Team" — this is Bo Schembechler''s Michigan line; Ohio State does not claim it. "Script Ohio" — a
+      proper noun on the program''s identity. "Hang on Sloopy" — mid-third-quarter tradition; sacred. "Carmen
+      Ohio" — sung after home games regardless of result. "Beat Michigan" — a direction, not a slogan.'
+  story_materials:
+    legendary_coach: Woody Hayes
+    era_name_overrides:
+      1890-1934: The Founding Decades
+      1951-1978: The Woody Hayes Era
+      1979-1987: The Bruce Years
+      2001-2010: The Tressel Era
+      2012-2018: The Meyer Reconstruction
+      2019-: The Day Era
+    always_surface:
+    - 8 claimed national championships (1942, 1954, 1957, 1961, 1968, 1970, 2002, 2014, 2024)
+    - 9th title claim under review depending on selector; the 2024 CFP championship is the most recent
+    - 7 Heisman winners (Horvath '44, Janowicz '50, Cassady '55, Griffin '74 + '75, George '95, Smith '06)
+    - Ohio Stadium "The Horseshoe" capacity 102,780
+    - Script Ohio — the band formation that is a program identity in itself
+    - The Game — annual vs. Michigan, the rivalry the program organizes its season around
+    - 42 consensus All-Americans
+    - Archie Griffin — the only two-time Heisman winner in history
+    rituals:
+    - Script Ohio
+    - O-H-I-O Chant
+    - Carmen Ohio
+    - Buckeye Leaves on Helmets
+    - Skull Session
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

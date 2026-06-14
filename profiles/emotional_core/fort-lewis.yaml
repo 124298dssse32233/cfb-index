@@ -1,0 +1,64 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: fort-lewis
+program_name: Fort Lewis College
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Fort Lewis is the Durango mountain school that broke a 40-game losing streak and is rebuilding one win at a time — a program for which every victory is proof the Skyhawks still belong."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A mountain college rebuilding from historical lows, celebrating incremental progress and the resilience of a small-school program."
+
+the_wound:
+  name: "The 40-game losing streak (pre-2024)"
+  detail: "Fort Lewis endured a catastrophic 40-game losing streak that nearly broke the program — a stretch so long it defined the program's recent identity and raised questions about whether the Skyhawks could recover."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build toward consistent RMAC competitiveness — prove the 40-game losing streak was an outlier, not destiny."
+  drought: { since: 2024, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — just the determined will to rebuild and prove the program has a pulse."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: adams-state
+  texture: border-war
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Rebuild belief vs fatigue — the tension between faith in Johnny Cox's rebuild and the psychological weight of recent futility."
+register: fort-lewis-skyhawks-durango-colorado-mountain
+never_use:
+  - Recent RMAC contenders — 2-9 in 2025, still rebuilding
+  - National competitors — broke 40-game streak in 2024, rebuilding from rock bottom
+
+story_canon:
+  the_unique_thing: "Breaking the 40-game losing streak (2024) — one of the darkest periods in D2 football history, followed by proof the program could win again."
+  the_origin: "A mountain college in Durango, Colorado with a modest football tradition, part of the RMAC's regional identity in the Rocky Mountains."
+  golden_ages: []
+  legends: []
+  canonical_moments:
+    - { name: "Breaking the 40-game losing streak", year: 2024, what: "After 40 consecutive losses, Fort Lewis won again — a symbolic moment proving the program could recover", handling: glory }
+  the_place: "Durango, Colorado — a mountain town home to Skyhawks football and regional pride."
+  brand_of_football: "Resilient, rebuilding football — a program learning to compete again after institutional near-collapse."
+  cultural_footprint: "A small D2 school proving that recovery from catastrophic failure is possible with steady coaching and belief."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Fort Lewis under coach Johnny Cox (Year 5) went 2-9 in 2025 (1-8 RMAC), continuing
+    the slow climb from the 40-game losing streak. QB Stone Walker showed promise (346 rushing yards, 7 rushing TDs),
+    suggesting young talent is developing. The Skyhawks remain in the early stages of rebuild — small wins matter, and the
+    trajectory is importantly upward from the abyss of 2023-2024.
+  sources:
+    - https://en.wikipedia.org/wiki/Fort_Lewis_College_Skyhawks_football
+    - https://www.fortlewisathletics.com/
+    - https://www.rmac.org/

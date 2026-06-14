@@ -1,0 +1,122 @@
+# Emotional Core — Florida Atlantic  (florida-atlantic)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: florida-atlantic
+team_id: 128
+program_name: Florida Atlantic
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # chasing the one great year — Kiffin's 2017 paradise — back into being
+  secondary: delusion     # the beach-school belief that a Boca campus should be a destination, not a stopover
+  core_variant: perpetual-rebuild
+  one_line: "Florida Atlantic is the beach-campus program that touched the top of the sport for one Kiffin-blessed season — and has spent every year since trying to find its way back to paradise."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "An 11-3, AP-ranked, Conference-USA-champion 2017 under Lane Kiffin vs a 4-8 present where the Owls are a coaching pit stop more than a destination."
+
+the_wound:
+  name: "The post-Kiffin drift"
+  detail: "After Kiffin left for Ole Miss in 2019, FAU cycled through coaches and slid back into the pack; Zach Kittley's first year in 2025 went 4-8 (3-5 American), a reminder that the 2017 high was a flash, not a foundation."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Find a coach who stays, win the American, and turn the one ranked season in Boca into a habit instead of a story they keep retelling."
+  drought: { since: 2017, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Owls fans know how the program gets framed — a sunny pit stop where good coaches audition for bigger jobs. They believe Boca is worth building at, not just leaving from, and they're tired of being treated like a launchpad."
+
+the_delusion:
+  tone: load-bearing
+  text: "FAU fans believe in Winning in Paradise as gospel — that a beautiful beach campus three miles from the Atlantic should sell itself to recruits and coaches, that the location alone makes the Owls a sleeping power if anyone would just stay long enough to wake it."
+
+the_grudge_texture:
+  rival: florida-international
+  texture: little-brother   # the Shula Bowl — the other young South Florida program fighting for the same recruits
+
+the_coach_relationship: hot-seat-churn   # Schnellenberger to Kiffin to a carousel of names who leave when they win
+the_internal_fracture: ambition vs reality — the faction that insists the Kiffin year proved FAU can be ranked again vs the faction that just wants a coach to commit and stop the revolving door
+register: boca-raton-owls-lane-kiffin-mango-bowl   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always G5-bottom — 2017 #24 AP + Kiffin era + Schnellenberger founding disprove'
+  - No identity — Schnellenberger + Kiffin + Winning In Paradise combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Florida Atlantic is the program a Hall of Famer built from literally nothing — Howard Schnellenberger, the man who won a national title at Miami, came out of retirement to start FAU football from scratch in 2001 and promised it would one day play for championships, on a beach campus three miles from the Atlantic."
+  the_origin: "Founded in 2001 by Howard Schnellenberger as an expansion program with grand ambitions, FAU climbed from nothing to FBS bowls inside a decade, then peaked under Lane Kiffin in 2017."
+  golden_ages:
+    - { era: "2007–2008 (Schnellenberger)", what: "Back-to-back Sun Belt titles and bowl wins barely six years after the program's first game" }
+    - { era: "2017 (Kiffin)", what: "11-3, a Conference USA championship, an AP top-25 ranking, and a Boca Raton Bowl blowout — the program's ceiling" }
+  legends:
+    - { name: Howard Schnellenberger, role: coach, why: "Founded the program and willed it to bowl games; the visionary the whole identity rests on" }
+    - { name: Lane Kiffin, role: coach, why: "Delivered the 2017 ranked, conference-winning season that remains FAU's high point" }
+    - { name: Devin Singletary, role: player, why: "Kiffin-era touchdown machine who ran for 30+ scores in a season and reached the NFL" }
+  canonical_moments:
+    - { name: "Schnellenberger's first bowls", year: 2007, what: "FAU wins the New Orleans Bowl just six seasons into existence", handling: glory }
+    - { name: "The 2017 ranked season", year: 2017, what: "Kiffin's Owls go 11-3, win Conference USA, and crack the AP top 25", handling: glory }
+    - { name: "Kiffin leaves for Ole Miss", year: 2019, what: "The architect of the peak departs, beginning the post-Kiffin drift", handling: wound }
+  the_place: "Flagler Credit Union Stadium (formerly FAU Stadium / Howard Schnellenberger Field) — an on-campus build in Boca Raton three miles from the ocean, the literal embodiment of 'Winning in Paradise.'"
+  brand_of_football: "Sun-and-fun, offense-forward football — a young program that sells lifestyle and points, leaning into the paradise pitch as its recruiting and identity edge."
+  cultural_footprint: "The improbable beach-school success story — proof that you can build an FBS program from a 2001 expansion start, and a perpetual case study in whether location alone can sustain one."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Zach Kittley arrived in 2025 to bring his high-tempo Air-Raid offense to
+    Boca and went 4-8 (3-5 American) in year one. He enters 2026 in his second season trying to convert the
+    paradise pitch into actual wins and end a coaching-carousel pattern that has defined the program since Kiffin
+    left in 2019 — the arc is restoration: getting FAU back to the one season it can't stop talking about.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Florida_Atlantic_Owls_football_team
+    - https://en.wikipedia.org/wiki/2026_Florida_Atlantic_Owls_football_team
+    - https://collegefootballnews.com/college-football/florida-atlantic-football-preview-2025-zach-kittley-owl-offense-defense
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Florida Atlantic is the American Athletic program whose Lane Kiffin 2017 11-3 + Conference
+    USA championship + Howard Schnellenberger founding define what Boca-Raton-FBS-newcomer-football looks
+    like.
+  mantra: Winning In Paradise.
+  cultural_anchors:
+    fan_archetype_dominant: Boca-Owl-Winning-In-Paradise
+    outsider_archetype_dominant: FBS-Newcomer-Diminisher
+    one_sentence: 'Florida Atlantic is the Boca Raton beach-paradise football program — Howard Schnellenberger
+      2001 founding + Lane Kiffin 2017 #24 AP run + ''Winning In Paradise'' identity that anchor the historic
+      FBS-newcomer arc.'
+  selfname: the Owls
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2017 11-3 + Conference USA championship + Boca Raton Bowl +
+    - Howard Schnellenberger 2001 program founding
+    - '''Winning In Paradise'' identity (Lane Kiffin era)'
+    rituals:
+    - Howard Schnellenberger Founding (2001)
+    - Lane Kiffin 2017 Run
+    - Winning In Paradise
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

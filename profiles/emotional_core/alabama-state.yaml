@@ -1,0 +1,114 @@
+# Emotional Core — Alabama State  (alabama-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: alabama-state
+team_id: 6
+program_name: Alabama State
+program_tier: 3
+
+emotional_core:
+  primary: honor        # 1991 black college national championship, 125 years of history, Hornets tradition
+  secondary: restoration   # Eddie Robinson Jr. rebuilding in year 4, 30-16 record, 2025 SWAC East Division championship
+  one_line: "Alabama State is the HBCU that won a 1991 black college national championship with an undefeated season and won the 2025 SWAC East Division under Eddie Robinson Jr. in his fourth season — a program with 125 years of history proving it can compete."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "An undefeated 11-0-1 national championship in 1991, six total conference titles, and 125 years of history vs an FCS ceiling and the competitive struggle of maintaining a SWAC power amid limited resources."
+
+the_wound:
+  name: "The long post-1991 championship drought"
+  detail: "Alabama State won the black college national championship in 1991 with an 11-0-1 record under coach Houston Markham; the program has been competitive but has not won another national title or returned to consistent championship contention in 34 years. Eddie Robinson Jr.'s 2025 SWAC East Division championship suggests the program is rebuilding the standard."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build on the 2025 SWAC East Division championship; prove Eddie Robinson Jr.'s rebuild is sustainable; return to SWAC contention and the Celebration Bowl; honor the 1991 championship legacy by competing annually for titles."
+  drought: { since: 1991, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The fanbase knows Alabama State won a national championship in 1991 and refuses to accept a new permanent ceiling; the 2025 SWAC East Division title is proof the standard is within reach. The program proved it can reach the peak and the next chapter is about getting back."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that a program with a 1991 national championship, six conference titles, and 125 years of history is always capable of competing for SWAC titles — that the standard was set and Eddie Robinson Jr.'s division championship in 2025 proves it's repeatable."
+
+the_grudge_texture:
+  rival: alabama-a-m
+  texture: little-brother   # intra-state rivalry with Alabama A&M
+
+the_coach_relationship: legends-shadow   # Eddie Robinson Jr. is the coach; his uncle Eddie built Grambling; the Robinson family is HBCU royalty; coaching in the 4th year with a division title
+the_internal_fracture: robinson-family-pride vs new-era-identity — the faction that says Eddie Jr. is rebuilding the Robinson-family standard vs the faction that says Alabama State is its own program and needs its own identity
+register: championship-lineage — the 1991 title is the reference point; the family connection to Eddie Robinson is the identity anchor
+never_use:   # LAW — do not violate in any authored line
+  - one-hit-wonder framing (six conference titles, 125 years)
+  - scrappy
+  - just trying to have fun
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep canon ──
+story_canon:
+  the_unique_thing: "Alabama State is the HBCU that won a black college national championship with an undefeated 11-0-1 season in 1991 under coach Houston Markham. The program has six total conference titles and 125 years of history dating back to 1901. Coach Eddie Robinson Jr. (nephew of legendary Grambling coach Eddie Robinson) is in his fourth season and won the 2025 SWAC East Division championship, suggesting a rebuild is underway."
+  the_origin: "A historically black university in Montgomery, Alabama that began football in 1901, one of the oldest HBCU programs. Alabama State competed in various conferences and has been a SWAC member since joining the conference."
+  golden_ages:
+    - { era: "1901–1990 (foundational era)", what: "125 years of continuous football competition; multiple conference championships" }
+    - { era: "1991 (national championship)", what: "Undefeated 11-0-1 season and black college national championship under Houston Markham" }
+    - { era: "2025 (division championship)", what: "SWAC East Division title under Eddie Robinson Jr. in year four" }
+  legends:
+    - { name: Houston Markham, role: coach, why: "Won the 1991 black college national championship with an undefeated season" }
+    - { name: Eddie Robinson Jr., role: coach, why: "Winning SWAC East Division in year four; nephew of legendary Grambling coach Eddie Robinson" }
+  canonical_moments:
+    - { name: "The 1991 national championship", year: 1991, what: "Alabama State went 11-0-1 and won the black college national championship", handling: glory }
+    - { name: "The 2025 SWAC East Division championship", year: 2025, what: "Eddie Robinson Jr.'s team won the SWAC East Division; proof of the rebuild", handling: glory }
+  the_place: "Hornets Stadium in Montgomery, Alabama (home of the Hornets); 125 years of tradition."
+  brand_of_football: "Capability-proven: a program that has won at the highest HBCU level and is rebuilding under the Robinson family lineage; the 2025 division title suggests the foundation is solid."
+  cultural_footprint: "Alabama State is the HBCU with one of the oldest football traditions (1901) and a 1991 national championship. The program is rebuilding under Eddie Robinson Jr., nephew of legendary Grambling coach Eddie Robinson, and the 2025 SWAC East Division championship suggests a new chapter is underway."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Alabama State won the 2025 SWAC East Division championship under head coach
+    Eddie Robinson Jr. in his fourth season (overall record 30-16, .652 winning percentage). The program has a long
+    history dating back to 1901 and won a black college national championship in 1991 with an 11-0-1 record. Eddie
+    Robinson Jr. is the nephew of legendary Grambling coach Eddie Robinson and is tasked with rebuilding Alabama
+    State into a SWAC contender. The 2025 SWAC East Division title is the first evidence that the rebuild is working
+    and the program can compete at the SWAC level.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Alabama_State_Hornets_football
+    - https://en.wikipedia.org/wiki/2025_Alabama_State_Hornets_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Alabama State is the HBCU that won a 1991 national championship; Eddie Robinson Jr. is rebuilding.
+  mantra: Go Hornets.
+  cultural_anchors:
+    fan_archetype_dominant: Championship-Memory-Keeper
+    outsider_archetype_dominant: Program-Rebuilder
+    one_sentence: Alabama State is the HBCU that won a black college national championship in 1991 with an undefeated season.
+  selfname: the Hornets
+  aspiration_ladder_top: ''
+  rivalries:
+  - alabama-a-m
+  heritage:
+    national_titles: 1
+    conference_titles: 6
+    current_conference: SWAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: 'Houston Markham (1991)'
+    era_name_overrides: {}
+    always_surface:
+    - 1991 undefeated black college national championship (11-0-1)
+    - 125 years of football (1901 origin)
+    - Eddie Robinson Jr. (rebuilding in year 4, nephew of legendary Grambling coach)
+    rituals:
+    - Annual SWAC competition
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

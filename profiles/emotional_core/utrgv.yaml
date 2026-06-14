@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Emotional Core — UTRGV
+# Status: live
+
+status: live
+slug: utrgv
+team_id: null
+program_name: UTRGV
+program_tier: 5
+
+emotional_core:
+  primary: spectacle    # the brand-new program that immediately competed and won 9 games
+  secondary: house-money # a 9-3 debut season in FCS is lightning in a bottle, and the fanbase knows it
+  one_line: "UTRGV is the Rio Grande Valley Vaqueros that launched football in 2025, won 9 games in Year One, and announced that south Texas belongs in the FCS conversation — history will be written from here."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "UTRGV is only one year old as a football program (2025 inaugural season). The 9-3 record (5-3 SLC) and FCS playoff bid are staggering for a startup, proof that the Valley invested infrastructure and recruited with intention."
+
+the_wound:
+  name: "None yet — too new to have institutional trauma"
+  detail: "UTRGV is one season old. The only possible 'wound' is the pressure that comes with exceeding expectations: a 9-3 debut is not a floor, but the fanbase will expect it to be. Year 2 will test whether the program was lightning in a bottle or the beginning of something sustainable."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Sustain the 9-3 success, make the FCS playoffs again in Year 2, and prove that south Texas can field an FCS program that competes from Day One — win the Southland within five years and make the regional rivalry with other Texas programs mean something."
+  drought: { since: 2024, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is validation: UTRGV football shouldn't exist, and shouldn't be good this fast. The program is writing the story of south Texas football from scratch, and Year One is proof the institution has serious ambitions."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the 9-3 debut is the beginning of a dynasty in the making — that UTRGV is about to become the dominant Texas school in FCS and that the Valley's location and demographics make it a recruiting goldmine once it's on the map."
+
+the_grudge_texture:
+  rival: none
+  texture: little-brother  # Too new to have blood rivals; Southland peers are the default
+
+the_coach_relationship: savior  # Travis Bush is Year 1, the architect of the inaugural success
+the_internal_fracture: celebration vs. pressure — the faction enjoying the 9-3 ride vs. those already setting championship benchmarks
+register: rio-grande-valley-vaqueros-south-texas-startup
+never_use:
+  - "Never played football before 2025"
+  - "Lucky 9-3 record"
+  - "Should be grateful for any success"
+  - "Too new to have an identity"
+
+story_canon:
+  the_unique_thing: "UTRGV is the newest program in FCS, launching football in 2025 with an inaugural 9-3 season and a Southland Conference title in contention. The Vaqueros represent the Rio Grande Valley's first college football presence at the FCS level, a region with enormous demographics and zero prior institutional football history."
+  the_origin: "UTRGV (University of Texas Rio Grande Valley) was formed in 2015 as a merger between UT Pan American and UT Brownsville. The university launched a football program in 2025, with the inaugural season yielding a 9-3 record and playoff bid."
+  golden_ages: []  # Too new to have a golden age; the entire program is the origin story
+  legends: []  # Too new to have legends; Year 1 is still being written
+  canonical_moments:
+    - { name: "Inaugural 66-0 win vs. Sul Ross", year: 2025, what: "UTRGV football's first game is a dominant 66-0 victory, signaling serious ambitions", handling: glory }
+    - { name: "9-3 inaugural season", year: 2025, what: "UTRGV finishes Year One at 9-3 (5-3 SLC), earning an FCS playoff bid", handling: glory }
+  the_place: "Robert & Janet Vackar Stadium in Edinburg, Texas — a new facility built for a new program, representing the Valley's investment."
+  brand_of_football: "Ambitious, resourced, defined by the goal of building an FCS power from scratch — UTRGV football is about proving south Texas deserves a seat at the table."
+  cultural_footprint: "A startup program that immediately competes at an FCS level, proving region and demographics matter as much as tradition."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UTRGV launched football in 2025 and immediately competed, finishing 9-3 (5-3 SLC)
+    under first-year head coach Travis Bush. The Vaqueros won their inaugural game 66-0 against Sul Ross and earned an FCS
+    playoff bid. This is a staggering debut for a program that didn't exist until 2025. The Rio Grande Valley has enormous
+    demographics (4M+ in the metro) and zero prior FCS football presence, making UTRGV's success a regional validation. Key
+    roster leaders include QB Eddie Lee Marburger (Sr), who led an efficient offense. The narrative of 2025: a south Texas
+    program announced itself as FCS-ready, not FCS-adjacent. The challenge for Year 2 is sustaining the success and avoiding
+    the typical startup regression.
+  research_checklist:
+    - 2025 inaugural season launch
+    - 9-3 overall record (5-3 SLC)
+    - FCS playoff bid in Year 1
+    - Travis Bush as inaugural head coach
+    - Roster composition and QB situation
+  sources:
+    - https://en.wikipedia.org/wiki/2025_UT_Rio_Grande_Valley_Vaqueros_football_team
+    - https://www.krgv.com/news/utrgv-vaqueros-travis-bush-reflects-on-inaugural-season
+    - https://en.wikipedia.org/wiki/UT_Rio_Grande_Valley_Vaqueros_football

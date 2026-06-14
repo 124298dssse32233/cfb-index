@@ -1,0 +1,73 @@
+# AUTHORED (D3/NESCAC) 2026-06-13 — web-verified
+
+status: live
+slug: bowdoin
+team_id: null
+program_name: Bowdoin College
+program_tier: 7
+
+emotional_core:
+  primary: grief
+  secondary: contentment
+  one_line: "Coast Guard legacy meets academic prestige—Bowdoin won six consecutive CBB titles through disciplined execution and institutional pride, now managing the post-dynasty identity."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "2006–2011 CBB dynasty (six consecutive titles) vs. 4–6 (2025) post-Diffley decline"
+
+the_wound:
+  name: "The Paul Diffley transition"
+  detail: "Paul Diffley's 30-year tenure (1985–2015) produced the most successful NESCAC era for Bowdoin: six consecutive CBB titles (2006–2011). His departure (2015) and the transition to Nick Nordstrom left the program in sustained decline. The 4–6 (2025) represents the new baseline."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the CBB dynasty standard—another year where Bowdoin is the Maine heavyweight, not Middlebury or Colby."
+  drought: { since: 2011, unit: conference_title }
+
+the_chip:
+  villain: null
+  text: "Fans here believe bowdoin was the CBB champion twice in 200 years, then won six straight titles in a decade. The program knows what excellence looks like; the current rebuild is temporary, not terminal."
+
+the_delusion:
+  tone: self-aware
+  text: "Bowdoin fans privately believe the Diffley era wasn't a fluke—that the 2006–2011 dynasty proved the program can win at the highest NESCAC level, and the rebuild is just waiting for the right coach."
+
+the_grudge_texture:
+  rival: colby
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: nostalgia-vs-rebuild — the question of whether Bowdoin's identity is the 2006–2011 dynasty or whether a new standard is emerging
+
+register: maritime-prestige-nostalgic
+
+never_use:
+  - "Never an elite program (the six consecutive CBB titles are indisputable)"
+  - "Always second-tier (Diffley proved Bowdoin could win at the highest NESCAC level)"
+
+story_canon:
+  the_unique_thing: "Six consecutive CBB titles (2006–2011) under Paul Diffley—a decade of dominance in Maine's fiercest rivalry."
+  the_origin: "Bowdoin College (founded 1802) is a Maine institution with 220+ years of football tradition. CBB membership since ~1920 anchors the program."
+  golden_ages:
+    - { era: "2004–2011", what: "CBB dynasty era; six consecutive conference titles (2006–2011); consistent NCAA D3 tournament berths" }
+    - { era: "2015–2020", what: "Competitive consistency post-Diffley; periodic NESCAC tournament appearances" }
+  legends:
+    - { name: Paul Diffley, role: coach, why: "30 years (1985–2015); 194 wins; architect of the CBB dynasty; six consecutive conference titles" }
+    - { name: Nick Nordstrom, role: coach, why: "2016–present; continued competitive program; managed transition from Diffley era" }
+  canonical_moments:
+    - { name: "2006 CBB title", year: 2006, what: "First of six consecutive titles; dynasty announcement", handling: glory }
+    - { name: "2011 sixth CBB title", year: 2011, what: "Peak of dynastic run; dominant decade capped", handling: glory }
+    - { name: "2004 NCAA D3 tournament run", year: 2004, what: "Early 2000s tournament berth; institution reaching national level", handling: glory }
+  the_place: "Brunswick, Maine—a coastal New England town anchored by a historic liberal-arts college with maritime heritage."
+  brand_of_football: "Disciplined, institutional football—the CBB standard-bearer that defines Maine excellence."
+  cultural_footprint: "Proof that a small-college program can dominate a historic rivalry for a decade with sustained coaching and organizational excellence."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Post-Diffley (2016–present), Bowdoin transitioned under Nordstrom. The 2025 record (4–6) represents
+    NESCAC decline; the program is no longer a tournament contender. The dynasty years are receding. Bowdoin fans understand the Diffley era
+    was exceptional; the question is whether the program can build a new identity or whether the 2006–2011 peak defines the program forever.
+  sources:
+    - https://www.bowdoin.edu/athletics/sports/football
+    - https://www.nescac.org/sports/fball/standings
+    - https://en.wikipedia.org/wiki/Colby-Bates-Bowdoin_Conference
+    - https://www.ncaa.org/sports/football/d3

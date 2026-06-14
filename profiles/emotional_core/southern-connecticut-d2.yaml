@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: southern-connecticut-d2
+team_id: null
+program_name: Southern Connecticut State University
+program_tier: 6
+
+emotional_core:
+  primary: contentment      # a state school program competing in its regional conference, proud of grit
+  secondary: honor          # the Owl tradition dating to 1948, playing for institutional pride
+  one_line: "Southern Connecticut is the Owl that carries a 1956 perfect-season legacy (9-0 under Jess Dow) and a 75+ year tradition, now competing in the Northeast-10 with blue-collar New Haven pride."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A perfect 9-0 season in 1956 (the only undefeated year in program history) vs generational competitive struggles that followed, holding onto institutional pride through ups and downs."
+
+the_wound:
+  name: "The decades after 1956 and the one-season ceiling"
+  detail: "Southern Connecticut's 1956 perfect season under Jess Dow stands alone as the program's singular peak — a 9-0 record that has never been matched or approached. Seven decades later, the Owls are still chasing that standard, competing without ever finding sustained power. The wound is not recent but chronic: one great year, then generations of trying to recapture it."
+  handling: referenceable
+  freshness: all-time
+
+the_dream:
+  text: "Build a winning season that approaches the standard set in 1956 — consistent competence over many years, not just one magical season."
+  drought: { since: 1956, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — just pride in wearing the blue and white and competing for New Haven."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 1956 perfect season is still somehow in the program's DNA and will inspire a new dynasty — the fanbase knows it's been 69 years and the team must build its own arc."
+
+the_grudge_texture:
+  rival: pace
+  texture: championship    # two Northeast-10 peers, regional Connecticut rivals
+
+the_coach_relationship: savior         # new coach Joe Loth hired May 2025, fresh start after the 2024 struggles
+the_internal_fracture: youth vs experience — the faction betting on young Kieran Falzon and fresh talent vs those wanting veteran stability
+register: new-haven-owls-connecticut-pride
+never_use:
+  - "1956 was a fluke — a perfect 9-0 season on defense (zero points allowed) was legitimate excellence"
+  - "Southern Connecticut has no history — 75+ years of continuous competition, an original mascot identity (1948), and one legendary season"
+  - "Can't compete in the Northeast-10 — a 1,014-yard rusher (Kieran Falzon) and the OT 52-45 win over Post (2025) show competence"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "A state school program that achieved perfection once — the 1956 undefeated season (9-0) remains the program's only perfect year in 70+ years, representing the Owl standard that all subsequent teams measure themselves against."
+  the_origin: "Southern Connecticut began as the New Haven State Teachers College and fielded football from the 1950s onward. The Owls mascot officially debuted in 1951, evolving from earlier 'Educators' and 'Teachers' identities."
+  golden_ages:
+    - { era: "1956", what: "Undefeated 9-0 season under head coach Jess Dow, the only perfect season in program history" }
+  legends:
+    - { name: Jess Dow, role: coach, why: "The architect of the 1956 perfect season, still the singular peak in Southern Connecticut football" }
+  canonical_moments:
+    - { name: "1956 Perfect Season", year: 1956, what: "Southern Connecticut goes 9-0 under Jess Dow, the only undefeated year in program history", handling: glory }
+    - { name: "Kieran Falzon 1,000-yard season", year: 2025, what: "RB Kieran Falzon becomes the 12th player in program history to break 1,000 yards, scoring four times in OT win vs Post", handling: glory }
+  the_place: "Jess Dow Field in New Haven, Connecticut — named after the coach of the 1956 perfect season, the home of Owls football and the standard every subsequent team inherits."
+  brand_of_football: "The state-school Owl — competitive on its level, playing with blue-collar New Haven pride, never fancy but always there."
+  cultural_footprint: "Southern Connecticut represents what a regional state school can be: competitive, tradition-conscious, and committed to football culture at the Northeast-10 level. The 1956 season is a touchstone; the modern program is learning to build its own legacy."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Southern Connecticut finished the 2025 season with a winning record (5-4 per sources, with the dramatic OT 52-45 upset
+    of Post) under new head coach Joe Loth, hired in May 2025. RB Kieran Falzon broke the 1,000-yard barrier with 1,014 yards and was named the NE10 Offensive
+    Player of the Week three times. The Owls dropped games to Assumption (likely close) and Franklin Pierce (38-7) but showed resilience in the come-from-behind
+    victory over Post. The trajectory under Loth suggests the program is building something sustainable in year one of his tenure. The challenge for 2026 is
+    consistency and proving that 2025 was the start of a new era, not a one-year blip.
+  research_checklist:
+    - Founded as New Haven State Teachers College
+    - Owls identity 1948 (mascot debut 1951)
+    - 1956: 9-0 perfect season (only one in program history)
+    - 2025: New coach Joe Loth hired
+    - Kieran Falzon: 1,014 yards, 12th 1k-yard rusher in program history
+  sources:
+    - https://northeast10.org/news/2024/9/6/general-division-ii-history-southern-connecticut-state-university.aspx
+    - https://scsuowls.com/sports/football/opponent-history/post-university/2
+    - https://scsuowls.com/news/2025/11/17/football-kieran-falzon-named-ne10-offensive-player-of-the-week-for-third-time-this-season.aspx

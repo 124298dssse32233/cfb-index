@@ -1,0 +1,72 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: illinois-wesleyan
+team_id: null
+program_name: Illinois Wesleyan University
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: house-money
+  one_line: "Illinois Wesleyan is the Bloomington CCIW program stepping into a new era after legendary coach Norm Eash, determined to honor the past while building the future."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A competitive Illinois liberal-arts university that has a strong CCIW tradition and is in transition after 28 years of one coaching legacy."
+
+the_wound:
+  name: "The end of the Eash era"
+  detail: "Norm Eash coached Illinois Wesleyan for 28 years and stepped down after the 2024 season, leaving behind a program defined by his leadership. The program is now in the hands of Jared Williamson and faces the challenge of honoring that legacy while forging its own path."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a CCIW title and prove that Illinois Wesleyan football is strong enough to thrive in the post-Eash era."
+  drought: { since: 2024, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Illinois Wesleyan plays to prove continuity after a legendary coach."
+
+the_delusion:
+  tone: self-aware
+  text: "That Jared Williamson can step in and immediately restore Illinois Wesleyan to championship contention — fans respect the transition but believe in the program's strength."
+
+the_grudge_texture:
+  rival: monmouth
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "loyalty to the Eash era vs belief in the new direction"
+register: bloomington-illinois-titans
+never_use:
+  - Diminished Norm Eash's legacy (28 years is substantial)
+  - Overstated current success or competitive standing
+  - Made the coaching transition sound catastrophic (it's a normal succession)
+
+story_canon:
+  the_unique_thing: "Illinois Wesleyan football under 28-year legendary coach Norm Eash — one of the most stable and respected coaching tenures in Division III."
+  the_origin: "Illinois Wesleyan University in Bloomington has built a competitive Division III football program with strong CCIW tradition."
+  golden_ages:
+    - { era: "1997–2024 (Norm Eash era)", what: "28 years of stable, competitive CCIW football and multiple conference titles" }
+  legends:
+    - { name: Norm Eash, role: coach, why: "28-year legendary coach who defined Illinois Wesleyan football and the CCIW" }
+  canonical_moments:
+    - { name: "Norm Eash legacy", year: 2024, what: "28 years of coaching excellence and program stability", handling: glory }
+  the_place: "Bloomington, Illinois — the home of Illinois Wesleyan University, a strong liberal-arts college in central Illinois."
+  brand_of_football: "Disciplined, institutional, rooted in coaching excellence and CCIW tradition."
+  cultural_footprint: "Part of the elite CCIW tradition and a model of Division III program stability."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Illinois Wesleyan went 4-6 (4-5 CCIW) in 2025 under first-year head coach Jared Williamson, who replaced
+    legendary coach Norm Eash. Williamson inherits a program with a strong tradition and the challenge of honoring the Eash era while establishing his own identity.
+    The 2025 season showed competitive Division III football, and the question in Bloomington is whether Williamson can lead the Titans back to CCIW contention.
+  research_checklist:
+    - Norm Eash's 28-year tenure and legacy
+    - Jared Williamson coaching hire and vision
+    - CCIW conference competitiveness
+    - Roster and recruiting direction
+  sources:
+    - https://en.wikipedia.org/wiki/Illinois_Wesleyan_University
+    - https://www.d3football.com/schools/illinois-wesleyan
+    - https://iwutitans.com/sports/football

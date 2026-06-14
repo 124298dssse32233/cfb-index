@@ -1,0 +1,70 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: augustana-sd
+team_id: null
+program_name: Augustana (SD)
+program_tier: 6        # Division II
+
+emotional_core:
+  primary: grievance      # defending champs stuck in postseason drought despite 9-2
+  secondary: contentment  # Sioux Falls regional dominance and tournament bubble reality
+  one_line: "Augustana is the back-to-back NSIC champion that threw a conference crown away in the 2025 postseason drought — and knows better than anyone that a 9-win regular season still isn't enough."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Two straight NSIC titles and a preseason-#2 ranking vs a 2025 postseason miss despite 9-2; the gap between conference king and tournament king."
+
+the_wound:
+  name: "The 2025 postseason drought"
+  detail: "Back-to-back NSIC champions (2023-2024) arrived in 2025 with Gunnar Hensley back as NSIC Preseason Player of the Year, ranked #2 in the conference preseason, and built a 9-2 record. Yet they missed the postseason entirely — the first miss in the championship run. A 4-2 start became a late collapse, and the Augustana program discovered that winning the NSIC does not guarantee a tournament invite."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a third straight NSIC championship and prove the defending king still sits on the throne — or accept that the Sioux Falls program is a perennial contender but not a national force."
+  drought: { since: 2024, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe augustana carries an internal chip: the gap between a dominant home conference and a national tournament that doesn't quite recognize Sioux Falls as a power."
+
+the_delusion:
+  tone: self-aware
+  text: "That a 9-win season in the NSIC is enough to keep the throne warm. Augustana fans know better—they watched their program rack up wins while other teams got the postseason calls—but they expected this season to be different."
+
+the_grudge_texture:
+  rival: wayne-state-ne
+  texture: championship    # the Egg Bowl — series since 1924, but the 2025 loss stung hard
+
+the_coach_relationship: forever-ours    # Jerry Olszewski 11 seasons, built the back-to-back titles
+the_internal_fracture: championship-pressure vs realist-patience — the faction riding the back-to-back high expecting a third vs those who see the postseason miss as a sign the window is closing
+register: sioux-falls-vikings-egg-bowl-egg-farmers
+never_use:
+  - "Egg Bowl is new: series began in 1924, 36th edition in 2025"
+  - "First time missing postseason in recent memory: actually the first in the championship cycle only"
+
+story_canon:
+  the_unique_thing: "The back-to-back NSIC championships in 2023-2024 under Jerry Olszewski, built on Gunnar Hensley's QB excellence and a regional Sioux Falls machine that has been the NSIC's most consistent winner."
+  the_origin: "Augustana is a South Dakota regional power rooted in Sioux Falls, a small-school program that climbed into the NSIC conversation in the early 2020s and has been the conference's dominant force since 2023."
+  golden_ages:
+    - { era: "2023–2024 (Jerry Olszewski)", what: "Back-to-back NSIC championships, preseason rankings, and postseason expectations" }
+  legends:
+    - { name: Jerry Olszewski, role: coach, why: "Built the back-to-back NSIC title run and 11 seasons of Sioux Falls football identity" }
+    - { name: Gunnar Hensley, role: player, why: "NSIC Preseason Player of the Year; the QB who led the championship run" }
+  canonical_moments:
+    - { name: "2024 NSIC Championship", year: 2024, what: "Back-to-back title, capping an elite regular season", handling: glory }
+    - { name: "2025 Egg Bowl vs Wayne State", year: 2025, what: "Lost 38-31 to rival Wayne State, capping a frustrating late-season collapse", handling: heartbreak }
+  the_place: "Sioux Falls, South Dakota; a Midwest college town; the Vikings' home field and conference identity."
+  brand_of_football: "The regional NSIC machine — a program built on conference dominance and the belief that Sioux Falls football belongs in postseason conversation."
+  cultural_footprint: "Back-to-back conference champions in a Division II league; the most consistent winner in NSIC conversation since 2023."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Augustana began 2025 as the defending back-to-back NSIC champions, with
+    Gunnar Hensley returning as NSIC Preseason Player of the Year and ranked #2 in the preseason poll. The Vikings started
+    4-2 but collapsed down the stretch, finishing 9-2 overall (4-2 NSIC South) and missing the postseason entirely — the
+    first miss in their championship run. The Egg Bowl loss to Wayne State (38-31) stung hard; Hensley and the roster entered
+    2026 facing questions about whether the championship window is still open or has begun to close.
+  sources:
+    - https://goaugie.com/news/2025/8/5/football-hensley-tabbed-preseason-player-of-the-year
+    - https://espnsiouxfalls.com/augustana-football-season-recap/
+    - https://northernsun.org/schedule.aspx?schedule=3876

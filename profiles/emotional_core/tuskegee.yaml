@@ -1,0 +1,69 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: tuskegee
+team_id: null
+program_name: Tuskegee University
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: restoration
+  one_line: "Tuskegee is the Golden Tiger, the winningest HBCU program ever (13 black college national championships, 1924–2016), founded by Booker T. Washington, and carries the weight of being college football's greatest HBCU legacy."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "One of America's most storied HBCU programs with 13 black college national championships and roots tracing to Booker T. Washington's educational mission. Now climbing back toward conference relevance after a lean decade."
+
+the_wound:
+  name: "Decline from dynasty (2000s–2020s)"
+  detail: "Tuskegee won black college national championships through 2009 (last title: 2009, three-peat 2007–2009), then entered a decline that lasted through the 2010s–2020s. The program that once owned Black college football for generations watched from the sidelines as other HBCUs climbed the SIAC standings."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Reclaim the SIAC championship title that should belong to the winningest HBCU program ever. Win a conference crown and remind college football that Tuskegee's 13 national championships run deeper than any other program in Black college history."
+  drought: { since: 2009, unit: national_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "The fanbase believes: Tuskegee has the ultimate chip, 13 black college national championships, more than any other HBCU program. The Tigers play to remind the world that they built the greatest HBCU dynasty in American college football history."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that Tuskegee's dynasty DNA can be reactivated — that 13 national championships is not just history, but proof that the program has won at every level and can do it again."
+
+the_grudge_texture:
+  rival: morehouse
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: dynasty-hunger vs. rebuild-patience — those demanding immediate championship returns vs. those understanding the long climb back from a decade of decline
+
+register: golden-tigers-tuskegee-alabama-booker-t-washington
+never_use:
+  - Never won anything. 13 black college national championships (1924-2016), more than any other HBCU program.
+  - Fell from grace recently. The decline is real (2010s-2020s), but the dynasty history (1924-2009) is eternal.
+
+story_canon:
+  the_unique_thing: "13 black college national championships across eight different eras (1924–2016), the most of any HBCU program in American college football history. Tuskegee is the dynasty program that set the standard for Black college football excellence."
+  the_origin: "Founded 1881 by Booker T. Washington, Tuskegee Institute became one of America's most influential HBCUs. Football was part of the program from the founding era; the first Tuskegee football team played in 1894, making it one of the oldest HBCU programs still competing."
+  golden_ages:
+    - { era: "1924–1930 (First Dynasty)", what: "Tuskegee wins multiple black college national championships in the 1920s, establishing the program's dominance" }
+    - { era: "2000–2009 (Modern Dynasty)", what: "Tuskegee wins five national championships in the 2000s (2000–2001, 2007–2009), including a three-peat (2007–2009), cementing the program's eternal legacy" }
+    - { era: "1950s–1990s (Sustained Excellence)", what: "Across four decades, Tuskegee remained a national force in Black college football, competing for championships annually" }
+  legends:
+    - { name: "Aaron James", role: "Coach (2020–)", why: "Continuing head coach tasked with climbing Tuskegee back toward championship relevance" }
+  canonical_moments:
+    - { name: "1924 National Championship", year: 1924, what: "Tuskegee wins the first of 13 black college national championships, beginning the dynasty", handling: glory }
+    - { name: "2000–2001 Two-Peat", year: 2001, what: "Tuskegee wins back-to-back national championships, beginning the modern era of dominance", handling: glory }
+    - { name: "2007–2009 Three-Peat", year: 2009, what: "Tuskegee wins three consecutive national championships, the last of the 13-championship dynasty run", handling: glory }
+  the_place: "Tuskegee, Alabama — a small town in East-Central Alabama that is synonymous with Booker T. Washington and Black education. Tuskegee University sits as a cultural and historical pillar, and the football program carries that legacy."
+  brand_of_football: "Proud, disciplined, championship-standard SIAC football — a program that has won at the highest level available to HBCUs and plays with the confidence and hunger of teams trying to reclaim dynasty status."
+  cultural_footprint: "The winningest HBCU program in American college football history. Tuskegee is not just a program; it is a legacy that shaped the entire landscape of Black college athletics. Founded by Booker T. Washington, the program's roots run deeper than almost any other HBCU institution."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Tuskegee's 2025 season is ongoing, with the Golden Tigers preseason-picked to finish 3rd in the SIAC standings (final 2025 record unverified in search results). Head coach Aaron James (continuing from 2020) is tasked with climbing the program back toward championship contention after a lean decade. The Tigers are 16 years removed from their last national championship (2009) and entering a new era with renewed institutional commitment and resources aimed at restoring Tuskegee's place at the top of SIAC and Black college football.
+  sources:
+    - https://en.wikipedia.org/wiki/Tuskegee_Golden_Tigers_football
+    - https://goldentigersports.com/sports/football/
+    - https://thesiac.com/sports/football/

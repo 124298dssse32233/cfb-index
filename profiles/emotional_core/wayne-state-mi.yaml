@@ -1,0 +1,72 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: wayne-state-mi
+team_id: null
+program_name: Wayne State University (Michigan)
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: house-money
+  one_line: "Wayne State is the Detroit program that competes in the GLIAC without pretense — a school focused on education and urban mission that plays football at the Division II level with steady competitiveness."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A major research university in Detroit that prioritizes academic excellence and community service, with a football program that competes respectably in the GLIAC but is not the center of institutional identity."
+
+the_wound:
+  name: "Urban university constraints"
+  detail: "Wayne State is located in Detroit and serves a primarily urban, commuter student population. The constraints of urban higher education (limited on-campus housing, competitive admissions, academic focus) limit the program's football resources and recruiting reach."
+  handling: never-a-punchline
+  freshness: all-time
+
+the_dream:
+  text: "A tournament season that shows up on campus and validates the investment in the program — proof that Wayne State football can compete at a high level while the university focuses on its core mission."
+  drought: { since: 2010, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Wayne State takes pride in being a serious university that also plays competitive football. The balance is the identity."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans know the limits are real, but they believe that any given season, the Warriors can compete in the GLIAC and represent the university with pride."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "None — the program is aligned with its role as secondary to academic mission."
+register: detroit-warrior-GLIAC-urban-university
+never_use:
+  - Major football power — Wayne State is a research university with football as one of many community assets
+  - National title contender — unrealistic given institutional constraints
+  - Small school — Wayne State is a major research university
+
+story_canon:
+  the_unique_thing: "An urban research university in Detroit that maintains a Division II football program while prioritizing education and community engagement — representing the balance between academic excellence and athletic competition."
+  the_origin: "Wayne State University was founded in 1868 and has competed in college football for over a century. The program joined the GLIAC in the 1990s."
+  golden_ages:
+    - { era: "2000s–2010s", what: "Consistent GLIAC competitiveness with occasional tournament appearances" }
+  legends: []
+  canonical_moments: []
+  the_place: "Detroit, Michigan — a major city and center of automotive industry and cultural history, where Wayne State represents urban higher education."
+  brand_of_football: "Respectful, steady, aligned with the university's mission — football as part of a comprehensive student experience, not the center of gravity."
+  cultural_footprint: "Wayne State proves that urban research universities can maintain competitive Division II programs while prioritizing academics and community service."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Wayne State competes in the GLIAC as one of the league's mid-tier
+    programs, balancing athletic investment with the university's core mission as a research institution. The
+    Warriors have not made a tournament appearance since 2010, reflecting both the competitive level of the
+    GLIAC and the constraints of an urban, research-focused university. The program continues to develop players
+    and compete respectably, representing Wayne State's commitment to comprehensive student development.
+  research_checklist:
+    - Wayne State's research university mission
+    - GLIAC membership
+    - Urban Detroit location and constraints
+    - Current competitive level
+  sources:
+    - https://en.wikipedia.org/wiki/Wayne_State_Warriors_football
+    - https://wayne.edu/
+    - https://www.gliac.org/

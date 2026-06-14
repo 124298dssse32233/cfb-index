@@ -1,0 +1,120 @@
+# Emotional Core — SMU  (smu)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: smu
+team_id: 14
+program_name: SMU
+program_tier: 3
+
+emotional_core:
+  primary: redemption     # the only program ever sentenced to football death — now a College Football Playoff program
+  secondary: house-money  # everything since the resurrection is pure gravy; nobody expected SMU to be here at all
+  one_line: "SMU is the only program the NCAA ever shut down entirely — and the Mustangs spent thirty years clawing back to make the inaugural 12-team College Football Playoff in their very first ACC season."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "The Pony Express national contenders of the early 1980s, against the long climb out of the only full-season shutdown in NCAA history — now reframed as a Playoff program."
+
+the_wound:
+  name: "The shutdown — and the decades in the wilderness"
+  detail: "The 1980s pay-for-play scandal cost SMU its entire 1987 season (and the program canceled 1988), the harshest penalty the NCAA has ever handed down. The Mustangs spent roughly a quarter-century as a national afterthought before Sonny Dykes and then Rhett Lashlee rebuilt them into an ACC-and-Playoff program. The scar is real; it is no longer the whole story."
+  handling: never-a-punchline
+  freshness: generational
+
+the_dream:
+  text: "Win the ACC and go back to the Playoff — finish the resurrection by becoming a program the sport ranks, not just one whose comeback it admires."
+  drought: { since: 1984, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Mustang fans are done being a cautionary tale. They'll tell you SMU paid its debt twice over, made the first 12-team Playoff in year one of the ACC, and that anyone still leading with the penalty is forty years behind the program."
+
+the_delusion:
+  tone: load-bearing
+  text: "Dallas money believes SMU can simply buy its way back to the top — that the boosters who once got the program executed can, legally this time, fund a Big-Money power in the nation's best recruiting city. The fanbase treats the comeback as evidence the ambition was always right."
+
+the_grudge_texture:
+  rival: tcu
+  texture: blood-feud   # the Battle for the Iron Skillet — the Dallas-Fort Worth grudge, older than the scandal and bigger than realignment
+
+the_coach_relationship: savior   # Rhett Lashlee finished what Sonny Dykes started — the ACC leap and the Playoff berth
+the_internal_fracture: pride vs impatience — the faction grateful just to be back and relevant vs the faction that, having reached the Playoff, now demands SMU win the ACC and stay there
+register: dallas-pony-express-resurrection   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Death penalty defines them — 2024 ACC entry + CFP appearance ended that frame
+  - Always G5 — Power-5 entry resolved the structural tier question
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "SMU is the only program in NCAA history given the 'death penalty' — the 1987 season wiped out entirely for pay-for-play violations. That it clawed back from a literal shutdown to the 2024 College Football Playoff, in its first ACC season, is the most improbable comeback in the modern sport."
+  the_origin: "A private university in Dallas that rose on oil money and the Pony Express backfield of the early 1980s, fell to the harshest penalty the NCAA ever issued, and spent a generation rebuilding before reaching the Power-conference summit it once bought its way toward illegally."
+  golden_ages:
+    - { era: "1981–1984 (Pony Express)", what: "Southwest Conference titles, an 11-0-1 1982, and Eric Dickerson and Craig James — a genuine national power" }
+    - { era: "2022–2025 (Dykes → Lashlee)", what: "The rebuild that earned the ACC invite, an 11-3 Playoff season in 2024, and a 9-4 Holiday Bowl winner in 2025" }
+  legends:
+    - { name: "Eric Dickerson", role: player, why: "Half of the Pony Express, a Pro Football Hall of Famer — the face of SMU's pre-penalty glory" }
+    - { name: "Craig James", role: player, why: "The other half of the Pony Express backfield that made SMU a national name" }
+    - { name: "Rhett Lashlee", role: coach, why: "Led the Mustangs into the ACC and to the inaugural 12-team Playoff in 2024 — the man who finished the comeback" }
+  canonical_moments:
+    - { name: "The death penalty", year: 1987, what: "The NCAA cancels SMU's entire 1987 season for repeated pay-for-play violations; the program voluntarily sits out 1988 too — the only full shutdown in the sport's history", handling: wound }
+    - { name: "ACC arrival and the Playoff", year: 2024, what: "In its first ACC season SMU goes 11-3, loses the ACC title game to Clemson on a last-second field goal, and earns the final at-large spot in the inaugural 12-team College Football Playoff", handling: glory }
+    - { name: "2024 Playoff first round", year: 2024, what: "Seeded 11th, SMU loses 38-10 at Penn State — the comeback reaches the sport's biggest stage, then runs into a blue blood", handling: heartbreak }
+  the_place: "Gerald J. Ford Stadium on the Dallas campus — modern, moneyed, and a short drive from the recruiting heart of Texas; the home the resurrection rebuilt."
+  brand_of_football: "Fast, aggressive, Air-Raid-descended offense under Lashlee — Dallas swagger backed by deep-pocketed boosters who turned NIL and facilities into a competitive weapon, legally this time."
+  cultural_footprint: "The cautionary tale that became a comeback story — SMU is the program every booster scandal gets measured against, and now also the proof that a program can be executed and still rise to the Playoff."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After the 2024 dream year — 11-3, an ACC title game lost to Clemson on the
+    final play, and the inaugural 12-team Playoff — SMU went 9-4 in 2025 (6-2 ACC) under Rhett Lashlee and beat
+    Arizona 24-19 in the Holiday Bowl, but was left out of the Playoff this time. The mandate for 2026 is to prove
+    the breakthrough was permanent: win the ACC and get back.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_SMU_Mustangs_football_team
+    - https://en.wikipedia.org/wiki/2024_SMU_Mustangs_football_team
+    - https://www.underdogdynasty.com/2024/12/8/24316262/smu-qualifies-for-inaugural-12-team-cfp-as-no-11-seed-will-face-penn-state-in-first-round
+    - https://en.wikipedia.org/wiki/SMU_Mustangs_football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: SMU is the Pony Express program that survived the death penalty, returned to the ACC
+    in 2024, and went 11-3 with a CFP appearance in year one of the P5 reboot.
+  mantra: Pony up.
+  cultural_anchors:
+    fan_archetype_dominant: Dallas-Pony-Up-Survivor
+    outsider_archetype_dominant: Death-Penalty-Hangover-Diminisher
+    one_sentence: SMU is the resurrection program — Pony Express, death penalty, decades of rebuild, and
+      a 2024 ACC entry + CFP appearance + Rhett Lashlee era that completed the comeback.
+  selfname: the Mustangs
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1982 11-0-1 + Pony Express + Eric Dickerson era
+    - 1987 NCAA death penalty + decades-long rebuild
+    - 2024 ACC entry + 11-3 + CFP appearance under Rhett Lashlee
+    rituals:
+    - Pony Express Era (1979-1982)
+    - ACC Entry 2024
+    - Pony Ears
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (54/100, n=84)
+    voice_profile: absent
+    delusion_premium: absent

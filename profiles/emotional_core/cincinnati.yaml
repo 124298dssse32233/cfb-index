@@ -1,0 +1,121 @@
+# Emotional Core — Cincinnati  (cincinnati)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: cincinnati
+team_id: 181
+program_name: Cincinnati
+program_tier: 3
+
+emotional_core:
+  primary: grievance       # the program that broke down the door to the Playoff and still gets treated like a guest
+  secondary: restoration   # the live fight to get back to the heights of 2021 after a bumpy Big 12 arrival
+  core_variant: the-ceiling
+  one_line: "Cincinnati is the first program from outside the power structure to crash the College Football Playoff — then spent its reward, a Big 12 invitation, learning how hard it is to do it again with the bar that high."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 13-1 Playoff team in 2021 that beat the whole sport's gatekeeping vs a Big 12 debut that has so far produced 5-7 and 7-6 — proof the climb never stops being uphill."
+
+the_wound:
+  name: "Proving the Big 12 move was worth it"
+  detail: "After the 2021 breakthrough, Cincinnati's Power-conference reality has been a grind — a 5-7 missed bowl in 2024, then a 7-6 in 2025 capped by a 35-13 Liberty Bowl loss to Navy — with the fanbase still waiting for the Big 12 to feel like the upgrade it was sold as."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Big 12 and get back to the Playoff — not as the plucky outsider this time, but as a Power-conference program that earned its seat and intends to keep it."
+  drought: { since: 2021, unit: relevance }
+
+the_chip:
+  villain: committee
+  text: "Bearcat fans remember being told for years a team like theirs could never make the Playoff — so they made it, undefeated, the first ones in — and they say the people who tried to keep them out still haven't given them full credit for kicking down the door."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes 2021 wasn't a ceiling but a preview — that a program that already proved it can play at the very top will get back there in the Big 12, and that the slow start in a Power league is a transition, not a verdict."
+
+the_grudge_texture:
+  rival: miami-oh
+  texture: blood-feud   # the Victory Bell — the most-played rivalry in FBS, a true border feud
+
+the_coach_relationship: hot-seat-churn   # post-Fickell, Scott Satterfield's Big 12 results have kept the seat from cooling
+the_internal_fracture: trust-the-rebuild vs the-Fickell-standard — the faction giving Satterfield time to build a Big 12 winner vs the faction that measures everything against the 2021 Playoff team and won't accept .500
+register: cincinnati-luke-fickell-cfp-believer
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - G5 forever — 2021 CFP appearance + 2023 Big 12 move ended that frame
+  - Lucky-2021 run — 13-1 record + signature wins were earned
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Cincinnati broke the glass ceiling — the first team from outside the power conferences (and outside Notre Dame) to reach the College Football Playoff, going undefeated in 2021 and forcing the sport to admit a program like theirs could belong."
+  the_origin: "An urban university in Ohio with a football history dating to the 19th century, long a strong-but-overlooked program that became a Big East and then American power before its 2021 breakthrough and 2023 jump to the Big 12."
+  golden_ages:
+    - { era: "2021 (Luke Fickell)", what: "A 13-1 season, an American title, and a College Football Playoff berth — the first ever for a Group of Five program" }
+    - { era: "2008–2009 (Brian Kelly)", what: "Back-to-back Big East titles and a BCS Orange/Sugar Bowl run — the program's first modern peak" }
+  legends:
+    - { name: Luke Fickell, role: coach, why: "Built the 2021 Playoff team — the coach who broke the ceiling" }
+    - { name: Sauce Gardner, role: player, why: "Shutdown corner of the 2021 team, a top-five NFL draft pick and All-Pro — the face of the breakthrough" }
+    - { name: Desmond Ridder, role: player, why: "The quarterback who led the program to its Playoff season" }
+  canonical_moments:
+    - { name: "First G5 Playoff berth", year: 2021, what: "Undefeated Cincinnati becomes the first non-power program to reach the College Football Playoff", handling: glory }
+    - { name: "Beating Notre Dame in South Bend", year: 2021, what: "A road win over the Irish that powered the Playoff case", handling: glory }
+    - { name: "Cotton Bowl loss to Alabama", year: 2021, what: "A 27-6 semifinal defeat ends the undefeated run", handling: heartbreak }
+  the_place: "Nippert Stadium — one of the oldest continuously used on-campus stadiums in the country, a tight, urban bowl wedged into the heart of campus where the noise sits right on top of the field."
+  brand_of_football: "Defense-and-edge football — the identity Fickell's 2021 team built, physical and corner-rich (Sauce Gardner the archetype), carried now into the Big 12 grind."
+  cultural_footprint: "The proof of concept for the have-nots — every Group of Five program that argued it deserved a Playoff shot pointed at 2021 Cincinnati; the team that changed what was thought possible."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Cincinnati's Big 12 era has been a grind since the 2021 high — a 5-7
+    missed bowl in 2024, then a 7-6 in 2025 that ended with a 35-13 Liberty Bowl loss to Navy. Scott
+    Satterfield enters his fourth season in 2026 with new coordinators and a roster reshaped by the portal,
+    still chasing the question the move to a Power league asked: can the program that broke into the Playoff
+    once get back there from inside the Big 12?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Cincinnati_Bearcats_football_team
+    - https://en.wikipedia.org/wiki/2021_Cincinnati_Bearcats_football_team
+    - https://www.ncaa.com/news/football/article/2021-12-31/college-football-playoff-semifinal-cotton-bowl-score-alabama-hands-cincinnati-first
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Cincinnati is the program that made the CFP in 2021 as a Group of 5 team and now must
+    prove the move from American to Big 12 was worth it.
+  mantra: Go Bearcats.
+  cultural_anchors:
+    fan_archetype_dominant: Cincinnati-Urban-Loyalist
+    outsider_archetype_dominant: G5-Forever-Diminisher
+    one_sentence: Cincinnati is the program whose 2021 CFP appearance was the most-cited Group of 5 breakthrough
+      in the playoff era — and whose Big 12 transition is the next defining test.
+  selfname: the Bearcats
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2021 13-1 + CFP appearance under Luke Fickell
+    - Sauce Gardner / Ahmad Gardner draft pipeline
+    - 2023 Big 12 transition from American
+    rituals:
+    - 2021 CFP Run
+    - Nippert Stadium On-Campus
+    - Bearcat Mascot
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (52/100, n=50)
+    voice_profile: absent
+    delusion_premium: absent

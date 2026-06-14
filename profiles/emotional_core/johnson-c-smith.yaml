@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+# Johnson C. Smith University Golden Bulls (CIAA Division II)
+
+status: live
+slug: johnson-c-smith
+team_id: null
+program_name: Johnson C. Smith University
+program_tier: 6
+
+emotional_core:
+  primary: restoration       # 56-year championship drought broken in historic 2025
+  secondary: honor           # the 1892 Commemorative Classic and the birthright of Black college football
+  one_line: "Johnson C. Smith is the historic HBCU that won its first CIAA championship in 56 years in 2025, built on a disciplined system that never wavered through lean decades."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A historic Black college with a championship pedigree locked in 1969, now awakened by a systematic culture rebuild that validates the patience of a fanbase that never doubted."
+
+the_wound:
+  name: "56 years without a championship and the erosion of legacy"
+  detail: "Johnson C. Smith won the CIAA in 1969 and then spent 56 seasons chasing the memory. The drought was not just about wins; it was about a program slowly fading from national Black college consciousness, a legendary institution made ordinary by time."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Prove that the championship in 2025 was not an accident, but the validation of a system that never broke faith. The dream is to return to the 12-title era — to make Johnson C. Smith synonymous with CIAA power again."
+  drought: { since: 1969, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip against anyone else. The motivation is internal: restore the legacy that the 1892 Commemorative Classic honors every year — the memory of Biddle Institute (now JCSU) playing the first-ever HBCU football game against Livingstone, 132 years ago."
+
+the_delusion:
+  tone: self-aware
+  text: "That one championship validates a program for the next five years. The fanbase knows Maurice Flowers built something real, but also knows that CIAA football is competitive and fragile. The question now is whether the system sustains."
+
+the_grudge_texture:
+  rival: livingstone
+  texture: blood-feud         # The 1892 Commemorative Classic — 132-year-old rivalry, oldest HBCU football game
+
+the_coach_relationship: savior           # Maurice Flowers built the culture that broke the drought; named 2025 CIAA Coach of the Year
+the_internal_fracture: celebration vs. hunger — the fanbase wants to celebrate 2025; the program knows the work of defending a championship has just begun
+register: jcsu-golden-bulls-first-hbcu-game-1892-champions-2025
+never_use:
+  - Johnson C. Smith is a power — the 56-year drought proves it wasn't until 2025
+  - Historic tradition of excellence — the program had one title since the 1940s (1969)
+  - Annual championship contender — only true starting in 2025
+  - Featured in national media regularly — JCSU's story is local CIAA, not national
+
+story_canon:
+  the_unique_thing: "The 1892 Commemorative Classic vs. Livingstone College — the first-ever game between two HBCU football teams, played in 1892, making Johnson C. Smith part of the birthright of Black college football. Every year, JCSU plays the greatest rival in all of football history."
+  the_origin: "Johnson C. Smith University, formerly Biddle Institute, was founded in 1837 as a historic African American college. It played in the first HBCU football game on December 27, 1892, against Livingstone College, establishing the foundation of Black college football."
+  golden_ages:
+    - { era: "1892 founding era", what: "First HBCU football game ever played, establishing a rivalry that lasts 132+ years" }
+    - { era: "Pre-1970 era", what: "Multiple CIAA championships and national prominence" }
+    - { era: "2025-present (Flowers restoration)", what: "Historic championship broken a 56-year drought under Coach Maurice Flowers; won 10-2 overall, 6-1 CIAA, defeated Virginia Union 45-21 in championship" }
+  legends:
+    - { name: Maurice Flowers, role: coach, why: "Built a disciplined system that broke a 56-year championship drought in 2025; named CIAA Coach of the Year" }
+    - { name: Biddle Institute, role: institution, why: "The original name of JCSU; founded 1837, played in the first HBCU football game in 1892" }
+  canonical_moments:
+    - { name: "First HBCU football game", year: 1892, what: "Johnson C. Smith (then Biddle Institute) defeats Livingstone College, establishing the foundation of Black college football", handling: glory }
+    - { name: "2025 CIAA Championship", year: 2025, what: "Golden Bulls defeat Virginia Union 45-21 to win first title since 1969", handling: glory }
+  the_place: "Charlotte, North Carolina — home to Johnson C. Smith University and the historic campus where Biddle played one of the most significant games in American college football."
+  brand_of_football: "System-driven, culture-first HBCU football. Flowers emphasized discipline and consistency over flash. The Bulls ground it out through lean decades and emerged with a championship."
+  cultural_footprint: "The 1892 Commemorative Classic is among the most historically significant rivalries in all of college football. Every Golden Bulls game is played with the weight of that heritage."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Johnson C. Smith won the 2025 CIAA Championship, defeating Virginia Union 45-21 on November 15, 2025, to capture the program's first title in 56 years. Head Coach Maurice Flowers, who built the system and culture, was named CIAA Coach of the Year. The 10-2 record (6-1 CIAA) validated a multi-year culture rebuild that never wavered. JCSU also advanced to the NCAA Division II playoffs, losing to Frostburg State 21-7. The question for 2026: is this a one-year miracle, or the validation of a system that can sustain championship football?
+  research_checklist:
+    - Maurice Flowers' coaching tenure and system-building approach
+    - The 1892 Commemorative Classic history and significance (132-year rivalry)
+    - CIAA championship history (12 titles before 1970)
+    - The 56-year championship drought (1969-2025)
+    - Rivalry with Livingstone and all-time series record (48-32 JCSU lead)
+  sources:
+    - https://goldenbullsports.com
+    - https://theciaa.com/sports/fball/index
+    - https://hbcugameday.com/johnson-c-smith-golden-bulls
+    - https://en.wikipedia.org/wiki/Johnson_C._Smith_Golden_Bulls_football
+    - https://en.wikipedia.org/wiki/1892_Commemorative_Classic

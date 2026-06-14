@@ -1,0 +1,72 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: michigan-tech
+team_id: null
+program_name: Michigan Tech University
+program_tier: 6
+
+emotional_core:
+  primary: contentment
+  secondary: house-money
+  one_line: "Michigan Tech is the steady Upper Peninsula competitor, a program that regularly makes the GLIAC tournament without the pressure of national expectations — consistent excellence rooted in the woods."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small engineering school in Houghton, Michigan, whose football team punches above its weight in the GLIAC with steady tournament appearances and a fanbase that celebrates competitiveness, not dynasty."
+
+the_wound:
+  name: "Upper Peninsula isolation and small-school ceiling"
+  detail: "Michigan Tech has never won a national title. Geographically isolated in the Upper Peninsula and constrained by a small campus and academic mission, the Huskies know their ceiling is tournament competitiveness, not championship runs."
+  handling: dated-grievance
+  freshness: all-time
+
+the_dream:
+  text: "A Sweet Sixteen run that shows up on SportsCenter — one tournament push that announces Michigan Tech belongs in the conversation of GLIAC contenders."
+  drought: { since: 1970, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Michigan Tech takes pride in what it is: a solid program in the Midwest that develops players and competes consistently without pretense."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans know the limits are real, but they believe that any given Saturday, the Huskies can beat anyone in the GLIAC — and that's enough."
+
+the_grudge_texture:
+  rival: northern-michigan
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "None — the program is unified in its identity as a steady Upper Peninsula competitor."
+register: michigan-husky-upper-peninsula-steady-hand
+never_use:
+  - Never a competitor — incorrect; Michigan Tech regularly makes GLIAC tournaments
+  - Large state school — Tech is a small engineering university
+  - Championship contender — unrealistic given campus size and resources
+
+story_canon:
+  the_unique_thing: "A program that represents the Upper Peninsula of Michigan — geographically isolated, academically excellent, and consistently competitive in Division II despite small enrollment and harsh winters."
+  the_origin: "Michigan Tech has competed in college football since the early 1900s and joined NCAA Division II as a founding GLIAC member."
+  golden_ages:
+    - { era: "2010s–present", what: "Consistent GLIAC tournament appearances and competitive football under multiple coaching regimes" }
+  legends: []
+  canonical_moments: []
+  the_place: "Houghton, Michigan — a small city in the UP, surrounded by forest and Lake Superior, where engineering education and football are community pride."
+  brand_of_football: "Tough, prepared, aligned with the culture of the Upper Peninsula — grit and competence without the flash."
+  cultural_footprint: "Michigan Tech proves that small, isolated schools can maintain competitive Division II programs through consistent effort and community support."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Under head coach Dan Mettlach (3 seasons in), Michigan Tech finished
+    7-4 in 2025 and is a consistent GLIAC playoff contender. The Huskies compete in a tough conference without
+    the resources of larger programs, but maintain a culture of preparation and toughness rooted in the Upper
+    Peninsula identity. The 2026 season will likely follow the same script: competitive GLIAC play, a 7-8 win
+    season, and another tournament berth.
+  research_checklist:
+    - Dan Mettlach tenure (3 seasons)
+    - GLIAC membership and tournament appearances
+    - Upper Peninsula geographic identity
+    - 2025 record (7-4)
+  sources:
+    - https://en.wikipedia.org/wiki/Michigan_Tech_Huskies_football
+    - https://www.mtu.edu/news/
+    - https://www.gliac.org/

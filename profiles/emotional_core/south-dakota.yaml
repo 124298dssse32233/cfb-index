@@ -1,0 +1,92 @@
+# Emotional Core — South Dakota (south-dakota)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# status: live (web-researched 2026-06-13)
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: south-dakota
+team_id: null
+program_name: South Dakota
+program_tier: 2
+
+emotional_core:
+  primary: restoration      # the strong 10-5 season under new head coach Travis Johansen
+  secondary: contentment   # finishing 6-2 in MVFC and finding new competitive footing
+  core_variant: regime-reset
+  one_line: "South Dakota is the Coyotes rising under new coach Travis Johansen — a 10-5 season (6-2 MVFC) in his first year proves the program belongs at the top of the Missouri Valley."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A Missouri Valley program that found a new coach and immediately climbed to second place in the conference — proof that the Coyotes are poised for sustained competitiveness."
+
+the_wound:
+  name: "The coaching transition succeeded"
+  detail: "South Dakota brought in Travis Johansen as a new head coach and the program immediately responded with a 10-5 season and a 6-2 MVFC record (second place). For a program that had struggled previously, this is proof that the change was right."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build on the 10-5 foundation — win the MVFC and make sustained playoff appearances as a conference power, not a fringe contender."
+  drought: { since: 2015, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe plenty of skeptics thought South Dakota would struggle with a new coach. Instead, Travis Johansen took a program that was down and brought it to 10-5 in year one. The Coyotes are knocking on the MVFC elite's door."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that Travis Johansen's 10-5 first year is a guarantee of sustained success — that the Coyotes will be MVFC powers from here on. Year one proves capability; multiple years will define the tenure."
+
+the_grudge_texture:
+  rival: north-dakota
+  texture: border-war   # South Dakota vs. North Dakota is a classic rivalry
+
+the_coach_relationship: savior   # Travis Johansen arrived and immediately delivered success
+the_internal_fracture: ""  # united around the successful coaching transition
+register: south-dakota-coyotes-johansen-rise
+never_use:
+  - Small program (South Dakota competes at an MVFC level; 10-5 shows substance)
+  - Mid-tier MVFC (6-2 conference and second place shows top-tier standing)
+
+# ── STORY CANON (doc 64) ──
+
+story_canon:
+  the_unique_thing: "South Dakota's rise under new coach Travis Johansen — the Coyotes went 10-5 (6-2 MVFC, second place) in his first year, proving a coaching change could lift the program to new heights."
+  the_origin: "A Missouri Valley program that found new leadership and immediately climbed to conference competitiveness."
+  golden_ages:
+    - { era: "Johansen era (2025–present)", what: "10-5 record in first year proves the program's arrival as an MVFC contender" }
+  legends:
+    - { name: Travis Johansen, role: coach, why: "First-year coach who delivered a 10-5 season and second-place MVFC finish, transforming the Coyotes" }
+  canonical_moments:
+    - { name: "2025 Johansen arrival", year: 2025, what: "South Dakota goes 10-5 (6-2 MVFC, second place) under new head coach Travis Johansen in his first year", handling: miracle }
+  the_place: "DakotaDome in Vermillion, South Dakota — home of the Coyotes' rise."
+  brand_of_football: "Competitive MVFC football — built on Johansen's leadership and proven in year one with a strong conference record."
+  cultural_footprint: "A program that found the right coach and proved it immediately — South Dakota is now an MVFC contender."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: South Dakota finished 10-5 overall (6-2 MVFC,
+    second place) in 2025 under new head coach Travis Johansen. The Coyotes' strong season
+    proved the coaching hire was successful and positioned South Dakota as an MVFC contender.
+    Year two for Johansen will be about moving from second place to a conference title — proving
+    that year one was a foundation, not a one-year miracle. The rivalry with North Dakota (who
+    went 8-6) is now competitive with both programs fighting for MVFC respect.
+  research_checklist:
+    - the coaching hire (Travis Johansen's background)
+    - the 10-5 season and 6-2 MVFC record
+    - the second-place finish significance
+    - the North Dakota rivalry (both teams competitive now)
+    - the program trajectory under new leadership
+  sources:
+    - https://en.wikipedia.org/wiki/2025_South_Dakota_Coyotes_football_team
+    - https://coyotes.sidearmdigital.com/sports/mfoot
+
+# ── BRIEFING ──
+briefing:
+  identity_phrase: "South Dakota is the Coyotes rising under new coach Travis Johansen — 10-5 record and second-place MVFC finish in year one proves the program is arriving."
+  mantra: "Rise. Compete. Title."
+  cultural_anchors:
+    fan_archetype_dominant: South-Dakota-MVFC-Believer
+    outsider_archetype_dominant: Success-Skeptic
+    one_sentence: "South Dakota is the Coyotes proving that Travis Johansen was the right hire — 10-5 and second place in the MVFC in year one."
+  selfname: the Coyotes
+  live_fingerprint:
+    voice_profile: "present (Johansen arrival story is a success narrative)"
+    signal: "STRONG — 10-5 and MVFC competitive standing"

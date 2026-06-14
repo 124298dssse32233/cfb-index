@@ -1,0 +1,71 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: east-texas-baptist
+team_id: null
+program_name: East Texas Baptist University
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: house-money
+  one_line: "East Texas Baptist is a small Texas Baptist college competing in the ASC, newly transitioned from the SCAC and rebuilding in a new conference."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A 1,300-student Baptist liberal-arts college in Marshall, Texas that recently moved from SCAC to the ASC and is adjusting to a new competitive landscape."
+
+the_wound:
+  name: "The conference transition"
+  detail: "East Texas Baptist went 4-6 (0-6 ASC) in 2025, their first season in the American Southwest Conference, suggesting a difficult transition from the SCAC."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Adjust to ASC competition and return to winning football as part of the new conference family."
+  drought: { since: 2024, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — East Texas Baptist is adapting to a new league and learning the ASC landscape."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 2025 season was just a transition year — fans believe year two in the ASC will show who this team really is."
+
+the_grudge_texture:
+  rival: hardin-simmons
+  texture: border-war
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "optimism about the ASC move vs frustration with the 0-6 conference record"
+register: marshall-texas-tigers
+never_use:
+  - Invented success or minimized the difficulty
+  - Exaggerated ASC competitiveness (but the 0-6 record is real)
+  - Made this sound like failure rather than transition
+
+story_canon:
+  the_unique_thing: "East Texas Baptist University — a small Baptist college in Marshall, Texas competing in Division III football as part of a new conference identity."
+  the_origin: "East Texas Baptist College, founded as a Baptist institution in Marshall, Texas, moved from the SCAC to the American Southwest Conference in 2025."
+  golden_ages:
+    - { era: "2010s (SCAC era)", what: "Competitive football in the SCAC before moving to the ASC" }
+  legends: []
+  canonical_moments:
+    - { name: "ASC transition", year: 2025, what: "East Texas Baptist joins the American Southwest Conference", handling: glory }
+  the_place: "Marshall, Texas — the home of East Texas Baptist University, a small Baptist college in East Texas."
+  brand_of_football: "Baptist values, institutional pride, competitive spirit."
+  cultural_footprint: "Part of the ASC family and the Texas Division III landscape."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: East Texas Baptist went 4-6 in 2025 (0-6 ASC) in their first season in the American Southwest Conference after moving from the SCAC.
+    Head coach Calvin Ruzicka (2nd year) is navigating the transition to a new league with stronger competition. The 2025 season was difficult, but the question is whether
+    the Tigers can establish footing in the ASC and return to competitiveness in 2026 and beyond.
+  research_checklist:
+    - Conference transition details (SCAC to ASC)
+    - Head coach Calvin Ruzicka background
+    - 2025 season record and ASC competition level
+    - Recruiting and roster adjustments
+  sources:
+    - https://en.wikipedia.org/wiki/East_Texas_Baptist_University
+    - https://www.d3football.com/schools/east-texas-baptist
+    - https://etbutil.com/sports/football

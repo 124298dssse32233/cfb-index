@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Centre College — Praying Colonels (Southern Athletic Association, Division III)
+
+status: live
+slug: centre
+team_id: null
+program_name: Centre College
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: house-money
+  one_line: "Centre is the small Kentucky college that shocked Harvard in 1921 and then chose academics over football — a Praying Colonel that plays for the game itself, not the scoreboard."
+
+self_image:
+  archetype: orphaned
+  standard_gap_frame: "A century of football tradition in a D3 league of 1,500 students, where the 1921 Harvard upset still defines the program, and every season is a miracle of staying alive."
+
+the_wound:
+  name: "Perpetual underinvestment — the cost of being small and choosy"
+  detail: "Centre went 3-7 in 2025 under coach Greg Dorchs, a stumble that feeds the deepest fear: that staying true to a small school's mission means football will always stay small."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the SAA, stay relevant in D3, prove that a 1,500-student college can field a competitive team without losing its soul."
+  drought: { since: 1921, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "No chip — the fanbase doesn't play against anyone else. The Praying Colonels are proud to be small and choosy about their mission."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 1921 Harvard upset means Centre will ever again punch above its weight class. The fanbase knows that was a once-in-a-century miracle, and loves it anyway."
+
+the_grudge_texture:
+  rival: transylvania
+  texture: border-war
+
+the_coach_relationship: total-trust
+the_internal_fracture: small-school-pride vs rebuild-patience — the hope that Dorchs can stabilize after a rough 2025
+register: danville-kentucky-praying-colonels-harvard-killer-1921
+never_use:
+  - Centre is a football powerhouse — it is a 1,500-student D3 college
+  - The 1921 Harvard upset is modern — it is 1921, over a century ago
+  - Centre prioritizes football over academics — it doesn't and never has
+
+story_canon:
+  the_unique_thing: "The 1921 Harvard upset — Centre, a tiny Kentucky college, walked into Cambridge and beat Harvard 6-0 in the most famous early-CFB upset, a game that proved no school was too small to shock the giants."
+  the_origin: "A Methodist-affiliated Kentucky college founded 1819, Centre stayed small on purpose, building its identity around academic prestige and moral formation, not athletics."
+  golden_ages:
+    - { era: "1919-1921 (Bo McMillin era)", what: "Centre fielded a powerhouse that went undefeated and beat Harvard — the miracle of a D3-size school in the national spotlight" }
+  legends:
+    - { name: "Bo McMillin", role: "coach", why: "Built Centre into a national power and engineered the Harvard upset" }
+    - { name: "Red Roberts", role: "player", why: "Quarterback of the 1921 Harvard team" }
+  canonical_moments:
+    - { name: "The 1921 Harvard upset", year: 1921, what: "Centre beat Harvard 6-0 in one of the greatest upsets in college football history", handling: glory }
+    - { name: "The 1919-1921 undefeated runs", year: 1921, what: "Centre went undefeated over three seasons before the sport professionalized away from small colleges", handling: glory }
+  the_place: "Danville, Kentucky — a small town in the Bluegrass, home to a 1,500-student college that values academics and character over football."
+  brand_of_football: "David-and-Goliath — the spiritual descendants of the team that beat Harvard, playing now in D3 because that's where a small school belongs."
+  cultural_footprint: "The living memory of the 1921 Harvard upset, the proof that 'small' doesn't mean 'powerless' — every Praying Colonel carries that history."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Centre went 3-7 in 2025 under Greg Dorchs. The program sits in the Southern Athletic Association, a D3 circuit of small liberal-arts schools. The question is smaller and more honest than it is for big programs: can the Colonels be competitive in their own league while staying true to Centre's identity as a teaching college, not an athletics factory?
+  research_checklist:
+    - 1921 Harvard upset — verified centre 6 harvard 0
+    - Bo McMillin era dominance 1919-1921 — verified undefeated runs
+    - Small-school identity — centre intentionally stayed D3 tier
+    - Current coach and 2025 record — verified Dorchs 3-7
+    - Transylvania as rivalry — ancient same-town Kentucky feud
+  sources:
+    - https://en.wikipedia.org/wiki/Centre_Praying_Colonels_football
+    - https://en.wikipedia.org/wiki/1921_Centre_Praying_Colonels_football_team
+    - https://en.wikipedia.org/wiki/Bo_McMillin

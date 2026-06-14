@@ -1,0 +1,78 @@
+# Emotional Core — Southern Illinois  (southern-illinois)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: southern-illinois
+team_id: null
+program_name: Southern Illinois
+program_tier: 5
+
+emotional_core:
+  primary: redemption
+  secondary: grievance
+  one_line: "Southern Illinois is the 1983 national champion whose football program fell into irrelevance, and whose fanbase will not let the glory fade."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A 1983 I-AA national championship and nine conference titles built a legacy — but decades of mediocrity in a changing Valley have left Saluki football chasing relevance."
+
+the_wound:
+  name: "The long descent from 1983"
+  detail: "Southern Illinois won the I-AA national championship in 1983 under coach Rey Dempsey, a moment that defined the program for generations. But the football program has spent forty years trying to recapture that glory, with only sporadic conference titles and playoff appearances to mark the decades. The wound is not acute — it's a slow-burn irrelevance, a program that mattered once and cannot accept that it doesn't matter as much anymore."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to the Valley elite, win a conference championship, and prove that the 1983 title was not a one-off but the beginning of a dynasty that never fully flowered."
+  drought: { since: 1983, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "College football forgot about Southern Illinois the year after 1983, and the fanbase believes the Salukis have been trying to remind the sport of their existence ever since."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes 1983 is the program's identity, that the Salukis are a sleeping giant that could wake up at any moment and reassert themselves in the Valley — and they hold onto that belief because letting go would mean accepting 40 years of failure."
+
+the_grudge_texture:
+  rival: southeast-missouri-state
+  texture: blood-feud
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: glory-chasing vs rebuild-from-scratch — the faction that cites 1983 as proof of potential vs the faction that wants to move on from the past
+register: carbondale-southern-illinois-saluki-1983-champion
+never_use:
+  - National program (1983 was 40+ years ago, program has since declined)
+  - Ever-relevant (irrelevance is the lived reality of modern Saluki football)
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Southern Illinois won the I-AA national championship in 1983 — the only national title in program history, a moment that crystallized the Saluki identity as a football power. Forty years later, the program chases that ghost."
+  the_origin: "A state school in Carbondale that built a football program in the 1970s and early 1980s, climbing to national prominence under coach Rey Dempsey in an era when I-AA football mattered as much as the big bowl games."
+  golden_ages:
+    - { era: "1983 (National Championship Era)", what: "Southern Illinois won the I-AA national championship, the program's only title; the apex of Saluki football and the moment that defined the program forever" }
+    - { era: "1970s-1980s (Dempsey Era)", what: "Built a consistent Valley power with conference titles and playoff appearances" }
+  legends:
+    - { name: Rey Dempsey, role: coach, why: "Won the 1983 I-AA national championship and built the Salukis into a consistent Valley power" }
+    - { name: Eddie Payton, role: player, why: "Legendary wide receiver for the Salukis in the 1970s and early 1980s" }
+  canonical_moments:
+    - { name: "1983 National Championship", year: 1983, what: "Southern Illinois wins the I-AA national championship under coach Rey Dempsey, the program's only national title and defining moment", handling: glory }
+    - { name: "Valley dominance in the 1980s", year: 1989, what: "Multiple Valley conference titles during the height of Dempsey's reign", handling: glory }
+  the_place: "McAndrew Stadium in Carbondale, Illinois, a place where the Salukis built their identity as a Valley power in the early 1980s."
+  brand_of_football: "Tough, disciplined Valley football from the Dempsey era — a program that believed in out-working opponents and running the ball in the tradition of Midwest football."
+  cultural_footprint: "The 1983 national championship proved that a state school in Southern Illinois could compete at the highest level of the college game — a symbol of Midwestern pride and the promise of the I-AA level."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Southern Illinois went 7-5 in the 2025 Missouri Valley conference season, continuing a pattern of middling mediocrity that has defined the program since the 1980s. The Salukis remain a Valley fixture but lack the sustained excellence that would return them to the level of their 1983 championship. The War for the Wheel rivalry with Southeast Missouri State carries historical weight, but the program itself has faded into the background of college football discourse.
+  research_checklist:
+    - 1983 I-AA national championship (verified)
+    - Coach Rey Dempsey legacy (verified)
+    - War for the Wheel rivalry with Southeast Missouri State (verified, not Northern Iowa)
+    - Valley conference titles and playoff appearances (verified)
+    - McAndrew Stadium home field (verified)
+    - 2025 season 7-5 record (verified)
+  sources:
+    - https://en.wikipedia.org/wiki/1983_Southern_Illinois_Salukis_football_team
+    - https://en.wikipedia.org/wiki/Southern_Illinois_Salukis_football
+    - https://siusalukis.com/sports/2022/7/13/war-for-the-wheel
+    - https://www.siusalukis.com/index.aspx?path=football

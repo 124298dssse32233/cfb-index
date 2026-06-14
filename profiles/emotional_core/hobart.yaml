@@ -1,0 +1,77 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: hobart
+team_id: null
+program_name: Hobart College
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Hobart is a historic liberal-arts college where lacrosse is king (16 national championships, including 12 consecutive), and football exists as a respected secondary tradition."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small college with an athletic identity rooted in lacrosse supremacy, where football is played with honor by student-athletes who love the game."
+
+the_wound:
+  name: "No wound"
+  detail: "Hobart carries no grievance. The program exists within a broader athletic culture dominated by lacrosse excellence."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Build a competitive Division III football program while remaining proud of Hobart's historic identity as a lacrosse powerhouse."
+  drought: { since: 1991, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip. Hobart plays for itself and the college's academic mission."
+
+the_delusion:
+  tone: self-aware
+  text: "That football can ever match the glory of lacrosse at Hobart. The fanbase loves football but knows exactly where institutional resources and pride are focused."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "The lacrosse-first identity vs the desire to build competitive football; football will always play second fiddle."
+register: hobart-college-statesmen-lacrosse-dynasty
+never_use:
+  - Football power — Hobart's identity is lacrosse, not football
+  - Recent national success in football — the program has no championships or Stagg Bowl appearances
+  - Equal football and lacrosse standing — lacrosse dominates completely
+
+story_canon:
+  the_unique_thing: "Hobart College holds the NCAA record for most lacrosse national championships (16 total: 2 Division II, 13 Division III), including 12 consecutive titles from 1980–1991, coached by Dave Urick (who also won championships at Johns Hopkins and Syracuse)."
+  the_origin: "Hobart College founded 1822 as a liberal-arts institution in Geneva, New York. Lacrosse became the institutional sport. Football began in the modern era but has always been secondary."
+  golden_ages:
+    - { era: "1980–1991 (Lacrosse Dominance)", what: "12 consecutive NCAA Division III lacrosse national championships under coach Dave Urick" }
+  legends:
+    - { name: Dave Urick, role: coach, why: "Won 10 national lacrosse championships at Hobart (plus titles at Johns Hopkins and Syracuse); one of only four coaches ever with 10+ straight national titles in any sport" }
+  canonical_moments:
+    - { name: "12 Consecutive Lacrosse Titles", year: 1991, what: "Hobart won 12 consecutive NCAA lacrosse national championships (1980–1991), the longest dynasty in college sports", handling: glory }
+    - { name: "16 Total Lacrosse Championships", year: 2025, what: "Hobart holds the NCAA record with 16 total lacrosse national championships (2 DII, 13 DIII)", handling: glory }
+  the_place: "Hobart College in Geneva, New York — a historic liberal-arts college on the shores of Seneca Lake where lacrosse is a way of life."
+  brand_of_football: "A secondary sport at a lacrosse-first institution, competing with pride in Liberty League but knowing the college's true athletic identity."
+  cultural_footprint: "Hobart represents a rare case where a single sport (lacrosse) so completely dominates a college's athletic identity that other sports exist in its shadow — and football is honored to be there."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Hobart compiled a 6–5 record (4–3 Liberty League, 4th place) in 2025 under coach Kevin DeWall
+    in his 8th season. The football program competes competently in Liberty League while existing within an institutional context dominated
+    by Hobart's legendary lacrosse program. With 16 national lacrosse championships (including 12 consecutive from 1980–1991), football will
+    always be secondary — and the program is content with that role.
+  research_checklist:
+    - Founded 1822 (historic liberal-arts college)
+    - 16 national lacrosse championships (2 DII, 13 DIII)
+    - 12 consecutive lacrosse titles (1980–1991), longest NCAA dynasty in that era
+    - Dave Urick won 10 titles at Hobart (unique coach with 10+ straight in any sport)
+    - 2025 football record: 6–5 (4–3 Liberty League, 4th place)
+    - Coach Kevin DeWall: 8th season
+  sources:
+    - https://en.wikipedia.org/wiki/Hobart_Statesmen_men's_lacrosse
+    - https://en.wikipedia.org/wiki/Hobart_College
+    - https://www.d3football.com/teams/hobart
+    - https://libertyleagueathletics.com

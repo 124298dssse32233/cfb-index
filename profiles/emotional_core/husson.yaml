@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Emotional Core — Husson (husson)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: husson
+team_id: null
+program_name: Husson University
+program_tier: 7
+
+emotional_core:
+  primary: contentment  # small Maine regional program
+  secondary: house-money  # every game is a bonus after the fractured history
+  one_line: "Husson is the Bangor, Maine Eagles program with a fractured 90-year past — disbanded after 1936, returned 2003 — now playing for the simple honor of continuity."
+
+self_image:
+  archetype: orphaned
+  standard_gap_frame: "A Maine regional institution whose football program has survived mascot changes (Braves → Penmen → Eagles) and a 67-year suspension, now playing for stability and pride."
+
+the_wound:
+  name: "The 1936 dissolution and 67-year gap"
+  detail: "Founded 1932, Husson football was suspended after the 1936 season. The program lay dormant for 67 years until 2003, when it was revived — a generational scar that makes every season a reprieve."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Build stable, sustainable Conference of New England football — prove that the 2003 return was permanent, not another false start."
+  drought: { since: 2003, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Husson plays for gratitude. The chip is internal: beating the odds of a program that came back from the dead."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that Husson football is here to stay — that 2003's return was the real restart, not another chapter in a cycle of suspension and comeback."
+
+the_grudge_texture:
+  rival: maine-maritime
+  texture: blood-feud   # Maine regional rivals
+
+the_coach_relationship: total-trust   # Nat Clark leading the Eagles
+the_internal_fracture: none named — unified gratitude for continuity
+register: bangor-eagles-comeback-orphan
+never_use:
+  - Husson football is new — the program dates to 1932; 2003 is a return, not a founding
+  - The Braves/Penmen identities never happened — fully verified mascot evolution (Braves 1932–2003, Penmen/Indians briefly, Eagles since 2004)
+  - Husson is a large institution — it's a regional Maine university, appropriately sized for its market
+
+story_canon:
+  the_unique_thing: "Husson is the only NCAA program with a 67-year suspension-and-return arc: founded 1932, suspended after 1936, brought back in 2003 — a resurrection story unique in D3."
+  the_origin: "Husson University was founded in Bangor, Maine in 1932, beginning its football program that same year. After four seasons (1932–1936), the program suspended operations during economic hardship."
+  golden_ages:
+    - { era: "1932–1936 (original)", what: "Brief inaugural era, 1932 founding through 1936 suspension" }
+    - { era: "2003–present (return)", what: "Revived program playing for continuity and regional pride" }
+  legends:
+    - { name: Nat Clark, role: coach, why: "Leading the revived Eagles program" }
+  canonical_moments:
+    - { name: "Program founded", year: 1932, what: "Husson launches football in Bangor", handling: glory }
+    - { name: "Suspension", year: 1936, what: "Program suspended; dormant for 67 years", handling: wound }
+    - { name: "Return to varsity", year: 2003, what: "Football revived after 67-year gap", handling: glory }
+  the_place: "Husson University field in Bangor, Maine — the home of a twice-born program."
+  brand_of_football: "Regional, hard-nosed Maine football — humble and persistent."
+  cultural_footprint: "A program that proves resurrection is possible; the Eagles embody Husson's regional commitment to Bangor and Maine."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Husson returned to the Conference of New England in 2025 with a 4-6 overall record
+    and 3-4 conference mark — a modest year but proof of continuity. The Eagles are building sustainable Division III football
+    after their 2003 return from a 67-year hiatus. The ongoing question: can Husson establish itself as a stable
+    Conference of New England competitor, or will the program cycle again?
+  research_checklist:
+    - 1932 founding and 1936 suspension
+    - 67-year dormancy (1936–2003)
+    - 2003 return to varsity football
+    - Mascot evolution (Braves → Penmen → Eagles)
+    - Current Conference of New England membership
+  sources:
+    - https://en.wikipedia.org/wiki/Husson_University_Eagles_football
+    - https://www.ncaa.org/sports/2025/d3/football/husson-university/schedule
+    - https://www.ncollegefootball.com/teams/husson-eagles

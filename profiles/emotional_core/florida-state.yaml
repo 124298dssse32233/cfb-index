@@ -1,0 +1,122 @@
+# Emotional Core — Florida State  (florida-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: florida-state
+team_id: 52
+program_name: Florida State
+program_tier: 2
+
+emotional_core:
+  primary: grievance      # the committee-snub of an undefeated team is the load-bearing trauma
+  secondary: restoration  # the long climb back from the 2024 free-fall, still unfinished
+  core_variant: the-snub
+  one_line: "Florida State went 13-0 in 2023 and got left out of the Playoff anyway — the first undefeated power-conference champion ever snubbed — and the program has been falling and clawing back from that betrayal ever since."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A 14-year top-five streak and two undefeated national titles in the Bowden era vs a 2024 collapse to 2-10 the season after going 13-0 — the widest single-year drop a recent power has taken."
+
+the_wound:
+  name: "The 2023 snub and the wreckage it triggered"
+  detail: "Florida State finished 13-0 and won the ACC, then the committee left it out of the four-team Playoff for one-loss Alabama and Texas — the only undefeated Power Five champ ever excluded. The roster gutted, opted out of the Orange Bowl, lost it 63-3, and cratered to 2-10 in 2024; a 5-7 stumble in 2025 (after starting the year beating Alabama and climbing to No. 7) showed the climb back isn't done."
+  handling: dated-grievance
+  freshness: this-era
+
+the_dream:
+  text: "Win the thing the committee said didn't count — a Playoff berth earned so cleanly no room full of people can vote it away."
+  drought: { since: 2013, unit: national_title }
+
+the_chip:
+  villain: committee
+  text: "Fans will tell you the sport changed its own rules to keep them out — that a perfect season and a conference title weren't enough because the committee decided, in a back room, that the Seminoles didn't pass an eye test. They expanded the Playoff the very next year; the bracket that would have included them came one season too late."
+
+the_delusion:
+  tone: load-bearing
+  text: "The fanbase believes the 1990s blueprint is dormant, not dead — that the talent base, the brand, and Tallahassee's recruiting footprint mean the dynasty is one right roster away, and that 2024 was an aberration rather than a verdict."
+
+the_grudge_texture:
+  rival: florida
+  texture: blood-feud   # the in-state war for the Sunshine State's recruits and bragging rights
+
+the_coach_relationship: hot-seat-churn   # Norvell rode the 2023 high to a near-firing; retained for 2026 amid an explicit "comprehensive assessment"
+the_internal_fracture: trust-the-architect vs cut-the-cord — the faction that says Norvell built the 2023 team and earned the rebuild vs the faction that watched 2024-2025 and wants the program to move on
+register: dynasty-in-recovery — proud, aggrieved, refusing the word that rhymes with the floor; speaks of the 90s as fact, not nostalgia
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Choke — even when Florida State chokes, internal voice doesn't use that word
+  - Embarrassment — same rule
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The most sustained run of excellence the sport has ever seen: from 1987 to 2000, Florida State finished in the AP top five every single year — fourteen straight seasons no other program has matched — anchored by Bobby Bowden, the war chant, and Chief Osceola planting a flaming spear at midfield."
+  the_origin: "A former women's college in Tallahassee that took up football in 1947 and, under Bobby Bowden from 1976, willed itself into a national superpower — 'wide-right' heartbreaks against Miami giving way to the 1993 breakthrough and a 90s dynasty."
+  golden_ages:
+    - { era: "1987–2000 (Bowden)", what: "Fourteen consecutive top-five AP finishes — the longest such streak in history — and national titles in 1993 and 1999" }
+    - { era: "2013 (Jimbo Fisher)", what: "A 14-0 wire-to-wire national championship behind Heisman QB Jameis Winston" }
+  legends:
+    - { name: Bobby Bowden, role: coach, why: "Built the dynasty from nothing; the field at Doak Campbell bears his name" }
+    - { name: Deion Sanders, role: player, why: "Prime Time — the swagger and two-way brilliance that defined the brand" }
+    - { name: Charlie Ward, role: player, why: "1993 Heisman, the quarterback of the first title team" }
+    - { name: Jameis Winston, role: player, why: "2013 Heisman and the 14-0 national champion" }
+  canonical_moments:
+    - { name: "First national title", year: 1993, what: "Bowden's breakthrough — the dynasty's coronation after years of near-misses", handling: glory }
+    - { name: "Wide Right I", year: 1991, what: "A missed field goal hands Miami the game — the recurring heartbreak that defined the rivalry before the titles came", handling: heartbreak }
+    - { name: "The 13-0 snub", year: 2023, what: "An undefeated ACC champion left out of the four-team Playoff — the program's modern grievance", handling: wound }
+  the_place: "Doak Campbell Stadium (cap ~79,560) — the largest continuous brick structure in the country, the war chant rolling through it, and Osceola riding Renegade to plant the spear before kickoff."
+  brand_of_football: "Speed, swagger, and the spear — Florida State football has always been about looking faster and louder than the opponent, the Deion Sanders cool grafted onto a program that hits."
+  cultural_footprint: "The standard-bearer for the modern ACC and a fixture of college football's golden 90s; the Seminole brand — unconquered, the spear, the chant — is one of the most recognizable in the sport."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Florida State went 13-0 in 2023, won the ACC, and was infamously left out
+    of the four-team Playoff. The roster opted out of the Orange Bowl (lost 63-3) and the program collapsed to
+    2-10 in 2024. In 2025, FSU opened by upsetting Alabama 31-17 and rose to No. 7 before sliding to 5-7 (2-6 ACC)
+    and missing a bowl. Mike Norvell (36-30 in six seasons) was retained for 2026 after a public "comprehensive
+    assessment," and the open question in Tallahassee is whether the 2023 team was the floor of a revival or the
+    last gasp of one.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Florida_State_Seminoles_football_team
+    - https://www.cbssports.com/college-football/news/florida-state-fully-committed-mike-norvell-promises-comprehensive-assessment-seasons-end/
+    - https://www.si.com/college/fsu/florida-state-seminoles-college-football/how-hot-is-mike-norvell-coaching-seat-fsu-football
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Florida State is the program whose ceiling people forget and whose floor people overrate.
+  mantra: Unconquered.
+  cultural_anchors:
+    fan_archetype_dominant: Heritage-Loyalist
+    outsider_archetype_dominant: Schadenfreude-Hopeful
+    one_sentence: Florida State is the dynasty that owned the 1990s and is still rebuilding the muscle memory
+      of that era under post-Bowden coaches.
+  selfname: the Seminoles
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1993 national championship (Bowden's first)
+    - 2013 national championship (Jameis Winston Heisman year)
+    - The 14-year top-5 finish streak (1987-2000)
+    rituals:
+    - Chief Osceola and Renegade
+    - War Chant
+    - Doak Campbell Sea of Garnet
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

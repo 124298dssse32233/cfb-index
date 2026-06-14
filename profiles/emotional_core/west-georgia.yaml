@@ -1,0 +1,73 @@
+# Emotional Core — West Georgia Wolves (west-georgia)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: west-georgia
+team_id: 252
+program_name: West Georgia
+program_tier: 5
+
+emotional_core:
+  primary: house-money         # A 5–0 start in transition year two — the luck turning to belief
+  secondary: disbelief         # The shock of a Division II program hanging with FCS competition
+  one_line: "West Georgia is the Division II riser that started 5–0 in FCS transition year two and is learning what sustainable FCS football looks like."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program two years into its FCS transition that had a magical start and spent the rest of 2025 learning the level."
+
+the_wound:
+  name: "The 5–0 start that became an 8–3 finish — the collision with FCS reality"
+  detail: "West Georgia started 5–0 in 2025 transition year two, the first transitioning FCS program to start 5–0 since North Dakota State (2006). But the Wolves finished 8–3 (5–3 UAC, ineligible for postseason due to transition status), a season-long narrative about a program discovering the gap between Division II dominance and FCS consistency."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Carry the 2025 momentum into year three (2026) — win games, become postseason-eligible in 2027, establish West Georgia as a permanent UAC contender."
+  drought: { since: 2024, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is one: West Georgia proved in 2025 that a Division II program could compete in FCS, and the Wolves are determined to show that the 5–0 start was not a fluke but the foundation of a real FCS program."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that the 5–0 start signals a competitive trajectory, that West Georgia's 8–3 finish in transition year two is a floor, not a ceiling."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: total-trust
+the_internal_fracture: momentum-believers-vs-realistic-rebuilders — the fans who saw 5–0 and dream FCS power vs the ones who watched 8–3 and see a program still learning the level
+register: west-georgia-wolves-carrollton-transition-five-zero
+never_use:
+  - Never won anything — Division II success + 8–3 record disprove
+  - Too small for FCS — 5–0 start proves competitive parity, at least early in season
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The 5–0 start in 2025 transition year two — West Georgia became the first transitioning FCS program to start 5–0 since North Dakota State (2006), a moment that defined the Wolves' identity as a program that could compete at the next level."
+  the_origin: "A Division II powerhouse in Carrollton, Georgia that transitioned to FCS in 2024 and has spent two seasons proving it belongs."
+  golden_ages:
+    - { era: "2025", what: "A 5–0 start and 8–3 finish in transition year two — the season that proved West Georgia could compete in FCS" }
+  legends:
+    - { name: Joel Taylor, role: coach, why: "The second-year FCS coach who guided West Georgia through transition year two and the magical 5–0 start" }
+    - { name: Davin Wydner, role: player, why: "The starting QB who led the 5–0 start and the 8–3 finish in 2025" }
+  canonical_moments:
+    - { name: "The 5–0 Start", year: 2025, what: "West Georgia starts 5–0 in transition year two, first transitioning FCS program to do so since NDSU (2006)", handling: glory }
+    - { name: "The 8–3 Transition Year Finish", year: 2025, what: "Wolves finish 8–3 (5–3 UAC), ineligible for postseason but competitive in their second FCS season", handling: glory }
+  the_place: "Carrollton, Georgia — a Division II school growing into FCS."
+  brand_of_football: "Competitive, fundamentally sound — a program that proved Division II success translates to FCS."
+  cultural_footprint: "A riser program in motion: a Division II power that had a magical start in FCS and is learning what sustaining that looks like."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: West Georgia finished 8–3 (5–3 UAC) in 2025, transition year two, capping a season that began with a historic 5–0 start (the first transitioning FCS program to achieve that since NDSU in 2006). Coach Joel Taylor, in his second FCS season, directed a Wolves team that proved Division II power could compete in FCS competition — but also learned that sustaining that success requires consistency. West Georgia remains ineligible for FCS postseason play until 2027 (year four of transition), but the 8–3 record suggests the program is on a positive trajectory. The question in Carrollton: can the Wolves carry the momentum into year three and become a permanent UAC contender?
+  research_checklist:
+    - the 2024 FCS transition (year one, 4–7 record)
+    - the 2025 historic 5–0 start and 8–3 finish
+    - Joel Taylor's coaching tenure and trajectory
+    - the ineligibility for postseason (third-year transition restriction)
+    - the competitive parity with UAC programs
+  sources:
+    - https://en.wikipedia.org/wiki/2025_West_Georgia_Wolves_football_team
+    - https://www.westga.edu/news/around-campus/football-history-fcs-transition.php

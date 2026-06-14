@@ -1,0 +1,111 @@
+# Emotional Core — UW-Stout  (wisconsin-stout)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# Researched 2026-06-13 from live web research — see story_canon.sources.
+#
+# The program holding steady: Clayt Birmingham's 15-year tenure defines Stout football.
+# Consistency without breakthrough is the Stout story.
+
+status: live
+slug: wisconsin-stout
+team_id: null
+program_name: UW-Stout
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  core_variant: null
+  one_line: "The program with the steady coach: UW-Stout is defined by Clayt Birmingham's 15 seasons of competent, stable football — no titles, but no chaos either."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Stout is the WIAC program that does what it's supposed to do — wins 5-6 games, stays respectable, builds a culture. No national titles, no Stagg Bowls, no historic upsets. Just competent Division III football played with dignity, for 15 years under the same coach in a conference where that stability is increasingly rare."
+
+the_wound:
+  name: "The respectability without breakthrough"
+  detail: "Stout has been good enough to matter within the WIAC but has never broken through nationally. Fifteen seasons under one coach should produce a Stagg Bowl run, a conference title, something that marks an era. Instead, the Blue Devils are the steady program in a conference where the other teams are winning championships and national titles. The wound is knowing you belong, just never quite ascending."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win a WIAC championship. Get to a Stagg Bowl. Prove that Stout's 15-year stability can translate into one elite season that changes the program's legacy from 'steady' to 'championship contender.'"
+  drought: { since: 1985, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans believe Stout football belongs at the table with WIAC powers, and the next window could be the one that breaks through."
+
+the_delusion:
+  tone: earnest
+  text: "That Stout, with the right year, could be a Stagg Bowl team. That the stability and execution Birmingham has built are the foundation for a breakthrough. The fanbase believes it because the alternative — accepting 'good program, never great' — is harder to live with."
+
+the_grudge_texture:
+  rival: null
+  texture: none
+
+the_coach_relationship: forever-ours
+the_internal_fracture: stability-pride vs breakthrough-hunger — the faction satisfied with consistent winning seasons and a respected coach vs the faction frustrated that 15 years of Clayt Birmingham hasn't produced a single championship
+register: stout-steady-birmingham-forever-ours
+never_use:
+  - Bottom-tier WIAC program (6-5 record and consistent play proves respectability)
+  - Never had a chance (15-year stability under one coach creates opportunities)
+
+story_canon:
+  the_unique_thing: "The consistency: Clayt Birmingham has been the head coach for 15 seasons, the longest-tenured coach in the modern WIAC, building a stable program that competes year after year without breakthrough."
+  the_origin: "A Wisconsin-Stout program that became a steady WIAC presence over decades, reaching its modern stability through the Birmingham era starting in the early 2010s. Stout is the program built on respect and execution, not flash."
+  golden_ages:
+    - { era: "2010s-2020s (Clayt Birmingham)", what: "15 seasons of consistent 5-6 win records and stable football; the era of respectability" }
+  legends:
+    - { name: Clayt Birmingham, role: coach, why: "15-season tenure defines the modern Stout era; the architect of stability, though not breakthrough" }
+  canonical_moments:
+    - { name: "Clayt Birmingham era", year: 2010, what: "Beginning of 15-season tenure as head coach, the longest-running leadership in the modern WIAC", handling: glory }
+  the_place: "Johnson Field — the home of Stout football and a program known for steady execution."
+  brand_of_football: "Stable, disciplined, blue-collar execution — Stout football is about doing things right, game after game, season after season, without expecting national attention."
+  cultural_footprint: "The program that proves stability can be respectable without being great — Stout represents consistent, competent Division III football that matters in the WIAC but hasn't yet mattered nationally."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UW-Stout went 6-5 in 2025 under 15th-year coach Clayt Birmingham. The Blue
+    Devils remain a steady WIAC presence but continue the conference-title drought that stretches back to 1985. With
+    River Falls winning a national championship and Platteville winning back-to-back WIAC titles, Stout's stable 6-5
+    seasons feel like a program at a crossroads: continue the stability under Birmingham, or make a coaching change
+    seeking breakthrough. For now, Stout is the program that shows up and competes, without ascending to the next level.
+  research_checklist:
+    - Clayt Birmingham 15-season tenure
+    - 6-5 record in 2025
+    - last conference title 1985
+    - WIAC standings and playoff access
+    - stability as the defining characteristic
+  sources:
+    - https://en.wikipedia.org/wiki/Wisconsin-Stout_Blue_Devils_football
+    - https://www.uws-stout.edu/athletics/
+    - https://www.d3football.com/conf/WIAC/2025/standings
+
+briefing:
+  identity_phrase: UW-Stout is the WIAC program defined by Clayt Birmingham's 15-season stability and consistent
+    6-5 records — a program that competes without breaking through.
+  mantra: Go Blue Devils
+  cultural_anchors:
+    fan_archetype_dominant: Steady-Believer
+    outsider_archetype_dominant: Stable-Competitor
+    one_sentence: UW-Stout is the D3 program defined by 15 seasons of stable, consistent football under Clayt
+      Birmingham, without national breakthrough.
+  selfname: the Blue Devils
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: 1 (1985)
+    current_conference: WIAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Clayt Birmingham
+    era_name_overrides: {}
+    always_surface:
+      - 15-season tenure under Clayt Birmingham
+      - Consistent 5-6 win records
+      - Stable WIAC presence
+    rituals: []
+    modules_already_rendering: []
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

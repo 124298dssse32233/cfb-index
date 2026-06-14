@@ -1,0 +1,99 @@
+# Emotional Core — Dickinson (dickinson)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III — program_tier: 7, graceful degradation applies (small school, regional focus, academic mission).
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: dickinson
+team_id: null
+program_name: Dickinson
+program_tier: 7
+
+emotional_core:
+  primary: honor         # one legendary era that towers over everything else
+  secondary: contentment
+  one_line: "Dickinson is a charter Centennial program that chased one shining era (1986–1990) and has spent 35 years living in its light, now quietly rebuilding under Brad Fordyce."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Five straight conference titles (1986–1990) vs. three decades of mid-pack finishes and NCAA heartbreak."
+
+the_wound:
+  name: "The collapse after the dynasty"
+  detail: "After Ed Sweeney's 1986–1990 era of five consecutive Centennial titles and a Kodak D3 Coach of the Year award, the program has won zero conference titles in 35 years. The fall from that peak defines the wound."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to the glory of the Sweeney era — win a Centennial title and remind the conference why Dickinson was a charter member worth building around."
+  drought: { since: 1990, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is not directed outward; it's internal. Dickinson remembers what it built (a dynasty), and the inability to recreate it stings more than external dismissal."
+
+the_delusion:
+  tone: self-aware
+  text: "Dickinson fans believe the blueprint Sweeney left still lives in Carlisle — that one more hire, one more recruiting class, the machine turns back on."
+
+the_grudge_texture:
+  rival: gettysburg
+  texture: blood-feud   # one of oldest rivalries in college football (since 1892, 89 meetings); fought over "Little Brown Bucket" since 1938
+
+the_coach_relationship: forever-ours     # Brad Fordyce is trying to resurrect the dynasty, but the weight of Sweeney looms
+the_internal_fracture: nostalgia-vs-rebuild — between fans clinging to the Sweeney era and supporters giving Fordyce time to build something new
+register: earnest-nostalgic
+never_use:
+  - Irrelevant — four NCAA tournament appearances (1989, 1991, 1994, 2006) prove otherwise
+  - Charter member in decline — the program remains a Centennial anchor, just not a championship contender
+
+story_canon:
+  the_unique_thing: "Dickinson is home to one of the oldest rivalries in college football (Gettysburg, since 1892) and fought that rival over the 'Little Brown Bucket' trophy since 1938 — one of the sport's iconic traditions."
+  the_origin: "Founded as a women's college in 1783, Dickinson College added football in 1891 and became a Centennial Conference charter member when the conference was founded in 1981. The program peaked under Ed Sweeney (1986–1990) with five straight conference titles."
+  golden_ages:
+    - { era: "1986–1990 (Ed Sweeney era)", what: "Five consecutive Centennial Conference titles, a Kodak D3 Coach of the Year award, and NCAA tournament appearances (1989, 1991)" }
+  legends:
+    - { name: Ed Sweeney, role: coach, why: "Built the only era (five straight titles) that defined the program; a D3 coaching legend" }
+  canonical_moments:
+    - { name: "1989 NCAA Tournament appearance", year: 1989, what: "First round playoff game under the Sweeney dynasty", handling: glory }
+    - { name: "Five straight Centennial titles (1986–1990)", year: 1990, what: "The peak of Dickinson football; the standard the program chases", handling: glory }
+    - { name: "Gettysburg rivalry origin (1892)", year: 1892, what: "Over 130 years of one of college football's fiercest rivalries, fought annually", handling: glory }
+  the_place: "Ulrich Stadium in Carlisle, Pennsylvania — a small liberal arts town where the Dickinson-Gettysburg rivalry is a cultural event, not just a football game."
+  brand_of_football: "Disciplined, Centennial-style football rooted in the Sweeney blueprint — small-school excellence, well-coached, undersized but tough."
+  cultural_footprint: "The keeper of one of college football's most storied rivalries (Gettysburg since 1892); proof that tradition matters more than modern relevance in small-school football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Dickinson is in its eighth season under head coach Brad Fordyce (2025), who inherited a program 35 years removed from its last conference title (1990). Fordyce is building with consistency and academic rigor; the challenge is whether a program from an elite liberal arts college can return to Sweeney-era heights without compromising its academic mission. The Dickinson-Gettysburg rivalry remains fierce and annual (89 meetings, Dickinson leads 31–22–1 post-"Bucket").
+  research_checklist:
+    - Sweeney era legacy (1986–1990)
+    - Dickinson-Gettysburg rivalry (since 1892, Little Brown Bucket since 1938)
+    - Brad Fordyce rebuilding (8 seasons, 2018+)
+    - Four NCAA tournament appearances (1989, 1991, 1994, 2006)
+  sources:
+    - https://en.wikipedia.org/wiki/Dickinson_Red_Devils_football
+    - https://en.wikipedia.org/wiki/Ed_Sweeney_(American_football)
+    - https://www.dickinson.edu/news/article/1293/a_rivalry_s_roots
+
+briefing:
+  identity_phrase: Dickinson is the charter Centennial program whose 1986–1990 Sweeney dynasty of five straight titles and one of college football's oldest rivalries (Gettysburg, since 1892) define its cultural legacy.
+  mantra: Go Red Devils.
+  cultural_anchors:
+    fan_archetype_dominant: Carlisle-Red-Devil-Nostalgic
+    outsider_archetype_dominant: Forgotten-Dynasty-Nostalgic
+    one_sentence: Dickinson is the Centennial charter with five straight conference titles (1986–1990) and home to one of college football's fiercest rivalries (Gettysburg, since 1892, Little Brown Bucket since 1938).
+  selfname: the Red Devils
+  heritage:
+    conference: Centennial
+    championships: 1986–1990 (five straight Centennial titles)
+  story_materials:
+    always_surface:
+    - Ed Sweeney 1986–1990 dynasty (five straight Centennial titles)
+    - Dickinson-Gettysburg rivalry (132 years, 89 meetings, Little Brown Bucket)
+    - 1989–1991 NCAA tournament era
+    rituals:
+    - Little Brown Bucket rivalry game (annual Gettysburg)
+    - Sweeney legacy invoked annually
+    modules_already_rendering: none (D3 module set pending)
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal (canon-only, D3 small program)

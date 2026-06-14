@@ -1,0 +1,117 @@
+# Emotional Core — Wingate  (wingate)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: wingate
+team_id: 999  # Placeholder — may need D2 DB assignment
+program_name: Wingate
+program_tier: 6
+
+emotional_core:
+  primary: restoration  # Rashaan Jordan's first season (2024) won SAC Championship; building a dynasty
+  secondary: standard
+  core_variant: first-ascension
+  one_line: "Wingate built itself into a SAC power over 15 years and became the Division II program of the moment in 2024 — winning the SAC Championship in Rashaan Jordan's first season as head coach, reaching the D2 Semifinals in 2022, and proving the Bulldogs belong in national conversation."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A perennial SAC playoff team (6 bids in 8 years) that finally won the conference championship under first-year head coach Rashaan Jordan and reached the D2 Semifinals in 2022."
+
+the_wound:
+  name: ""
+  detail: ""
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Defend the 2024 SAC Championship, return to the D2 Semifinals, and establish Wingate as a program that makes the national playoffs every year — turn a 2024 moment into a dynasty."
+  drought: { since: null, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe wingate made six playoff bids in eight years and almost nobody noticed. The chip is that the Bulldogs were a 2022 D2 Semifinal away from national prominence and then won the 2024 SAC Championship with a first-year head coach. They're hungry to make it impossible to ignore."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that Rashaan Jordan walked into a ready-made SAC juggernaut and they're just going to keep winning championships. That the 2022 Semifinal run was just the preview, and 2024 is the arrival."
+
+the_grudge_texture:
+  rival: ""
+  texture: none
+
+the_coach_relationship: savior   # Rashaan Jordan, promoted from 18-year DC tenure, won SAC Championship in first year as HC; extended
+the_internal_fracture: ""
+register: wingate-bulldogs-sac-rising
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - "No Division II championships — won 2024 SAC Championship; made D2 Semifinals 2022"
+  - "New to D2 success — 6 playoff bids since 2010; 2022 first Semifinals appearance, 2024 SAC Champions"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Wingate rise: A Division II program that went from relative obscurity to a 2024 SAC Championship under first-year head coach Rashaan Jordan, with playoff appearances in six of the last eight years and the program's first D2 Semifinal appearance in 2022. The Bulldogs are the unexpected Division II power."
+  the_origin: "Wingate University was founded in 1896 in Wingate, North Carolina. Football is a relatively recent emphasis. The program joined the SAC and began building a competitive portfolio in the 2010s."
+  golden_ages:
+    - { era: "2010–2025 (post-2010 playoff era)", what: "Six NCAA D2 playoff bids in eight years, with the 2022 Semifinals appearance and 2024 SAC Championship representing the peak of the rise" }
+    - { era: "2024 (SAC Championship)", what: "Rashaan Jordan wins the SAC Championship in his first year as head coach; named SAC Coach of the Year" }
+  legends:
+    - { name: Rashaan Jordan, role: coach, why: "Built the 2024 SAC Championship team in his first year; promoted from 18-year DC tenure; represents the next Wingate era" }
+  canonical_moments:
+    - { name: "2022 D2 Semifinal appearance", year: 2022, what: "First Division II National Championship Semifinal appearance in program history — proved Wingate belonged in national conversation", handling: glory }
+    - { name: "2024 SAC Championship", year: 2024, what: "Wingate defeats Carson-Newman 28–13 to win the SAC Championship in Rashaan Jordan's first season as head coach", handling: glory }
+  the_place: "Irwin Belk Stadium in Wingate, North Carolina (opened 1998, 3,500 capacity) — home of the Bulldogs and a Piedmont landmark."
+  brand_of_football: "Jordan-era competitive Division II football — building on a base of SAC success and targeting national contention every season."
+  cultural_footprint: "Evidence that a North Carolina Piedmont program can build a real Division II power in a single decade; that institutional commitment produces playoffs."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Wingate went 9–2 (6–1 SAC) in 2024, won the SAC Championship with a 28–13 victory
+    over Carson-Newman, and made the NCAA D2 playoffs as a 4th seed in 2025. Head coach Rashaan Jordan, promoted from
+    an 18-year defensive coordinator tenure, won SAC Coach of the Year in 2024. The Bulldogs have made six D2 playoff
+    bids in eight years and are positioned to make the semifinals again in 2025.
+  research_checklist:   # what to look up (web) when we author this team together
+    - Rashaan Jordan's 18 years as DC and his first year as head coach
+    - The 2022 D2 Semifinal appearance (opponent, result, impact)
+    - Notable 2024 wins, especially the SAC Championship game
+    - 2025 playoff trajectory and regional seeding
+    - Roster composition and post-championship outlook
+  sources:
+    - https://en.wikipedia.org/wiki/Wingate_Bulldogs_football
+    - https://en.wikipedia.org/wiki/Irwin_Belk_Stadium_(Wingate)
+    - Wingate University Athletics official site
+    - NCFootballNews (2024-2025)
+    - FloFootball (2024-2025)
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Wingate is the Piedmont program whose 2010s rise (6 D2 playoff bids in 8 years, 2022 Semifinal,
+    2024 SAC Championship) anchors the unexpected-power arc.
+  mantra: ''
+  cultural_anchors:
+    fan_archetype_dominant: Wingate-Bulldogs-SAC-Rising-Power
+    outsider_archetype_dominant: Piedmont-Program-Contender
+    one_sentence: Wingate is the Bulldogs — 2010s playoff rise + 2022 D2 Semifinal + 2024 SAC Championship that
+      anchor the unexpected-power arc.
+  selfname: the Bulldogs
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: "1 SAC (2024)"
+    current_conference: SAC (South Atlantic Conference)
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2022 D2 Semifinals (first in program history)
+    - 2024 SAC Championship (defeated Carson-Newman 28–13)
+    - 6 D2 playoff bids since 2010
+    rituals:
+    - SAC Championship (2024)
+    - Rashaan Jordan Era (2024–present)
+    modules_already_rendering: ''
+  live_fingerprint:
+    backometer: ''
+    voice_profile: absent
+    delusion_premium: absent

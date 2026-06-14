@@ -1,0 +1,75 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: erskine
+team_id: null
+program_name: Erskine College
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Erskine is the relaunch program struggling to find footing — a small South Carolina college that restarted football in 2021 and is rebuilding the Flying Fleet after a 69-year hiatus."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small Presbyterian liberal arts college in South Carolina with historic football tradition (1929 passing revolution) that restarted the program in 2021 and is learning to compete in Division II."
+
+the_wound:
+  name: "The 69-year gap and current rebuild struggle"
+  detail: "Erskine's football program was discontinued in 1952 after 60 years of operation. The program restarted in 2021 — a 69-year absence. The current wound is the struggle: five years in, the program is 8-51 overall under head coach Shap Boyd, signaling that the restart is not finding a winning formula."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "One season with two conference wins that shows the rebuild can be salvaged — proof that restarting the Flying Fleet was a viable decision."
+  drought: { since: 2021, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Erskine is in survival mode. The program needs a coaching change or major reset to build competitiveness."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans hope that a coaching change (or new direction) can unlock something that Shap Boyd's system has not found. The faith in the program itself is strong; the faith in the current approach is weakening."
+
+the_grudge_texture:
+  rival: anderson
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Historic football tradition vs current rebuild failure — the tension between what Erskine football was (1929 passing revolution) and what it currently is (1-10)."
+register: south-carolina-flying-fleet-relaunch-crisis
+never_use:
+  - Established program — Erskine is five years into a restart (2021)
+  - Competitive — 8-51 overall record under current coach reflects serious struggle
+  - Part of historic tradition — the 1929 passing tradition is real, but 69 years of absence broke the continuity
+
+story_canon:
+  the_unique_thing: "A small Presbyterian college with a legendary 1929 passing-game tradition that restarted football in 2021 after a 69-year hiatus and is struggling to rebuild competitiveness."
+  the_origin: "Erskine College, founded in 1839, competed in football from 1889 to 1952 (63 years). The program was discontinued and restarted in 2021 — a 69-year absence."
+  golden_ages:
+    - { era: "1929 (Passing Revolution)", what: "Erskine was known for pioneering passing-game football in the 1920s-30s, called the 'Flying Fleet'" }
+  legends: []
+  canonical_moments:
+    - { name: "1929 passing tradition", year: 1929, what: "Erskine establishes itself as a pioneering passing-game program", handling: glory }
+  the_place: "Due West, South Carolina — a small town in northwestern South Carolina with a historic liberal arts college."
+  brand_of_football: "The restart is still defining what Erskine football is; historically, it was innovative and passing-focused."
+  cultural_footprint: "Erskine represents the audacity of restarting a football program after seven decades and the reality that resurrection is extremely difficult."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Under head coach Shap Boyd (5 seasons), Erskine finished 1-10
+    in 2025 with a 1-5 Conference Carolinas record. The Flying Fleet is in critical condition after five
+    years of rebuilding. The overall record under Boyd is 8-51, indicating that either the program was
+    underfunded/under-resourced or the coaching approach is not viable. The 2026 season is likely a decision
+    point: either Erskine makes a significant change (coaching, resources, program direction) or the restart
+    is in jeopardy.
+  research_checklist:
+    - Football restarted in 2021 (69-year hiatus)
+    - Shap Boyd tenure (5 seasons, 8-51 record)
+    - 2025 record (1-10, 1-5 CC)
+    - 1929 passing tradition ("Flying Fleet")
+    - Conference Carolinas membership
+  sources:
+    - https://www.erskine.edu/
+    - https://en.wikipedia.org/wiki/Erskine_Flying_Fleet_football
+    - https://www.conference-carolinas.org/

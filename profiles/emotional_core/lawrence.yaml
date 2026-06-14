@@ -1,0 +1,83 @@
+# Emotional Core — Lawrence University (lawrence)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: lawrence
+team_id: null
+program_name: Lawrence University
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: standard
+  one_line: "The Wisconsin school that made five NCAA playoffs in six years and is content in its Midwest Conference home, knowing excellence can happen in November."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A Wisconsin institution that proved its football pedigree in the 2000s tournament run (2004–2009) and now competes steadily in the Midwest Conference."
+
+the_wound:
+  name: ""
+  detail: ""
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to tournament-regular status; honor the 2004–2009 playoff era; compete for Midwest Conference titles."
+  drought: { since: 2009, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: ripon
+  texture: border-war
+
+the_coach_relationship: forever-ours
+the_internal_fracture: ""
+register: viking-tournament-memory
+never_use:
+  - "Never successful — Five NCAA D3 playoff appearances in six years (2004–2009)"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "The 2004–2009 tournament run — five NCAA Division III playoff appearances in six consecutive years, including Elite 8 run in 2004. Proof that a Wisconsin Midwest Conference school can make November matter."
+  the_origin: "Lawrence University, Appleton, Wisconsin — a historic Wisconsin institution with roots in the 19th century."
+  golden_ages:
+    - { era: "1949, 1951", what: "Championship-era football under early coaching" }
+    - { era: "2004–2009", what: "Five NCAA tournament appearances in six years; Elite 8 appearance in 2004" }
+  legends:
+    - { name: "Tony Aker", role: coach, why: "Current head coach (2026), steward of Viking football" }
+  canonical_moments:
+    - { name: "2004–2009 tournament era", year: 2004, what: "Five NCAA D3 playoff appearances in six consecutive years, including Elite 8 in 2004", handling: glory }
+  the_place: "Banta Bowl, Appleton, Wisconsin — home of the Vikings."
+  brand_of_football: "Wisconsin playoff football — excellence built on preparation and seasonal peaks."
+  cultural_footprint: "A mid-tier Wisconsin program that proved tournament relevance in the 2000s and now carries that pedigree into steady Midwest Conference competition."
+  the_ongoing_story: "LIVE as of 2026-06: Lawrence plays active Midwest Conference football under Head Coach Tony Aker. The program's identity is anchored by the 2004–2009 tournament era (five of six years in the playoffs) — not as a wound, but as proof of what the school is capable of. Lawrence is content in its Midwest Conference home, knowing that November excellence is within reach."
+  sources:
+    - https://en.wikipedia.org/wiki/Lawrence_University_Vikings_football
+    - https://www.lawrence.edu/academics/athletics/football/
+    - https://www.lawrence.edu/about/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Lawrence University is the Wisconsin Midwest Conference school with a 2004–2009 playoff era (five of six years in NCAA tournament).
+  mantra: Viking excellence.
+  cultural_anchors:
+    fan_archetype_dominant: Wisconsin-Tournament-Faithful
+    outsider_archetype_dominant: Regional-MWC-Competitor
+    one_sentence: Lawrence University is the Appleton, Wisconsin program that made five NCAA Division III playoff appearances in six years (2004–2009).
+  selfname: the Vikings
+  rituals:
+    - 2004–2009 tournament era
+    - Banta Bowl tradition
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

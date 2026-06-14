@@ -1,0 +1,120 @@
+# Emotional Core — Toledo  (toledo)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: toledo
+team_id: 75
+program_name: Toledo
+program_tier: 3
+
+emotional_core:
+  primary: deprival       # the MAC's most reliable program just lost the coach who WAS the program for a decade
+  secondary: standard     # in the MAC, Toledo measures itself by winning the league, not just reaching bowls
+  one_line: "Toledo is the MAC's quiet machine — a Glass Bowl program that has won more than almost anyone in the conference for fifty years — and now it's starting over, after Jason Candle became the school's winningest coach ever and promptly left for UConn."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A 1969-1972 unbeaten streak and a half-century of MAC contention vs the reality that the conference titles came in 2017 and 2022, not as often as a program this consistent thinks it deserves."
+
+the_wound:
+  name: "Candle's exit and the Bowling Green collapse"
+  detail: "In 2025 Toledo went 8-4 but blew a 21-0 lead to rival Bowling Green and lost the Battle of I-75 28-23; then Jason Candle, the winningest coach in school history, left after a decade to take the UConn job — leaving the Rockets to hand the program to Mercer's Mike Jacobs."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Keep the machine running without the man who built the modern version of it — win the MAC again, hold the Battle of I-75, and prove Toledo's consistency was the program, not just the coach."
+  drought: { since: 2022, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans know the drill — the national conversation treats the MAC as a place big jobs go shopping for coaches, and Toledo as the supplier rather than the contender. They want the new staff to prove the Rockets are a destination worth respecting, not just a launchpad."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Toledo is bigger than any one coach — that fifty years of winning football in the Glass Bowl is an institution that reloads, and that a new man inheriting a stocked roster can keep the Rockets exactly where they've always been: near the top of the MAC."
+
+the_grudge_texture:
+  rival: bowling-green
+  texture: blood-feud   # the Battle of I-75 — the most-played, most-even rivalry in the MAC
+
+the_coach_relationship: legends-shadow   # whoever follows Candle coaches under the program's all-time wins leader
+the_internal_fracture: reload vs rebuild — the faction that believes the program's consistency survives any coaching change vs the faction bracing for a step back without Candle
+register: glass-bowl-rockets-mac-stalwart   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always G5 — 35-game streak + sustained MAC championship contention disprove
+  - No identity — Glass Bowl + 1969-1972 streak + Candle longevity combine into permanent
+    canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Toledo is the MAC's most quietly relentless winner — a program that once went 35 games without a regular-season loss (1969-1972) and has spent half a century as one of the conference's permanent contenders, playing in the oldest, most distinctive stadium in the league."
+  the_origin: "A northwest Ohio university whose Glass Bowl, built in the WPA era in 1937, became the home of a remarkably steady football program — never flashy, almost always competitive in the MAC."
+  golden_ages:
+    - { era: "1969-1972 (Frank Lauterbur / Jack Murphy)", what: "A 35-game regular-season unbeaten streak — one of the longest in the sport's history" }
+    - { era: "2016-2022 (Jason Candle)", what: "MAC championships in 2017 and 2022 and sustained contention; Candle becomes the winningest coach in school history" }
+  legends:
+    - { name: Jason Candle, role: coach, why: "The program's all-time wins leader; two MAC titles before leaving for UConn after 2025" }
+    - { name: Chuck Ealey, role: player, why: "The undefeated quarterback of the 1969-1971 streak who never lost a college game" }
+  canonical_moments:
+    - { name: "The 35-game unbeaten streak", year: 1971, what: "Toledo runs three full seasons without a regular-season loss", handling: glory }
+    - { name: "The 2017 MAC championship", year: 2017, what: "Candle's Rockets win the conference title", handling: glory }
+    - { name: "Blowing the I-75 lead", year: 2025, what: "Toledo leads Bowling Green 21-0 and loses 28-23 in the Battle of I-75", handling: heartbreak }
+  the_place: "The Glass Bowl — a 1937 WPA-era stone stadium nestled into the campus, named for the city's glass industry, one of the oldest and most characterful venues in the MAC."
+  brand_of_football: "MAC-stalwart steadiness — disciplined, well-coached, year-in-year-out competitive football, the conference's model of consistency rather than spectacle."
+  cultural_footprint: "Glass City pride — a program that gives a mid-sized Ohio industrial city a reliably good football team, and a MAC institution that other programs raid for coaches precisely because it's run so well."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Toledo went 8-4 (6-2 MAC) in 2025 but blew a 21-0 lead to lose the
+    Battle of I-75 to Bowling Green 28-23. Then Jason Candle — the winningest coach in program history, with
+    MAC titles in 2017 and 2022 — left after a decade to become head coach at UConn. Toledo turned to Mercer's
+    Mike Jacobs, a Maumee native and former Ohio State offensive lineman, to keep the MAC's most consistent
+    machine running. The question in the Glass Bowl: can the institution survive losing the man who defined it?
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Toledo_Rockets_football_team
+    - https://www.espn.com/college-football/story/_/id/47266548/sources-toledo-expected-name-mercer-jacobs-next-coach
+    - https://getsomemaction.com/news/2025/10/11/football-bowling-green-keeps-battle-of-i-75-trophy.aspx
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Toledo is the MAC program whose 1969-1972 35-game unbeaten streak + Glass Bowl venue
+    + Jason Candle longevity define what historic-MAC-stalwart looks like.
+  mantra: Go Rockets.
+  cultural_anchors:
+    fan_archetype_dominant: Toledo-Glass-Bowl-Rocket
+    outsider_archetype_dominant: MAC-Refugee-Diminisher
+    one_sentence: Toledo is the MAC stalwart — 1969-1972 35-game unbeaten streak + Glass Bowl venue + Jason
+      Candle longevity that anchor the program as one of the conference's permanent fixtures.
+  selfname: the Rockets
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 1969-1972 35-game unbeaten regular-season streak under Frank Lauterbur
+    - Jason Candle 2016-present longevity tenure
+    - Glass Bowl WPA-era stadium (since 1937)
+    rituals:
+    - Glass Bowl Stadium
+    - 1969-1972 35-Game Unbeaten Streak
+    - Jason Candle Era (2016-present)
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (53/100, n=149)
+    voice_profile: absent
+    delusion_premium: absent

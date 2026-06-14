@@ -1,0 +1,119 @@
+# Emotional Core — Jackson State  (jackson-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: jackson-state
+team_id: 1
+program_name: Jackson State
+program_tier: 3
+
+emotional_core:
+  primary: spectacle      # the program whose identity IS the marching band and the moment — the Sonic Boom is inseparable from the team
+  secondary: redemption   # 2024 national championship, 2025 contention; the program is proving the motor still runs
+  one_line: "Jackson State is the HBCU whose Sonic Boom marching band and 28,000-person home crowds matter as much as the score — a program that won a 2024 black college national championship and draws more fans than most FBS teams."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Five black college national championships and 19 SWAC titles since 1958 vs FCS designation and the glass ceiling on resources that comes with it; the Sonic Boom and the fanbase fill the gap."
+
+the_wound:
+  name: "The near-miss 2025 SWAC championship"
+  detail: "Jackson State went 9-3 (7-1 SWAC East Division) and earned a co-championship but lost the SWAC title game to Prairie View A&M 21-23; proof that the motor still runs but also proof that winning the moment isn't always winning the trophy."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Hoist a SWAC championship trophy, let the Sonic Boom celebrate in New Orleans, and prove the national championship 2024 wasn't lightning in a bottle — that Mississippi Valley State's Jerry Rice legacy lives on in the Tigers' wings."
+  drought: { since: 2024, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Jackson State fans know the ceiling: FCS classification means smaller budgets, less media attention, fewer P5 matchups. The chip is that T.C. Taylor's team can draw 28,700 fans (the highest in FCS) and still play in a conference that plays in November while the Power Conferences play for everything."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that a day when the Sonic Boom takes the field in Atlanta for the Celebration Bowl is worth a hundred regular seasons in the FBS. The marching band doesn't grade on a curve; a halftime performance that moves 50,000 people is a championship in its own right."
+
+the_grudge_texture:
+  rival: alcorn-state
+  texture: blood-feud   # the Soul Bowl — two schools, two cities, pure Mississippi rivalry heat
+
+the_coach_relationship: total-trust   # T.C. Taylor .778 winning percentage; the room believes
+the_internal_fracture: immediate-contention vs long-build — the faction that says the 2024 national championship and 9-3 season prove the program is here now vs the faction cautioning that a SWAC title game loss and a recruiting-ranked-137 roster mean another year or two of construction
+register: sonic-boom-soul-first — the marching band sets the tone; the team executes the promise
+never_use:   # LAW — do not violate in any authored line
+  - "underdog framing (these are not underdogs; they won a national championship in 2024)"
+  - "just trying to have fun (this is serious)"
+  - "scrappy (competitive, not scrappy)"
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep canon ──
+story_canon:
+  the_unique_thing: "Jackson State is the HBCU whose identity is the Sonic Boom of the South marching band and the roar of 28,700 fans — the highest FCS attendance in the nation. The program won a black college national championship in 2024 and has produced four Pro Football Hall of Famers (Lem Barney, Walter Payton, Robert Brazile, Jackie Slater) and over 100 NFL players."
+  the_origin: "A program that began in 1911 and joined the SWAC in 1958, Jackson State built itself into a HBCU powerhouse under legendary coach W.C. Gorden (1980-1990), who won eight conference championships and four straight titles 1985-1988."
+  golden_ages:
+    - { era: "1980–1990 (W.C. Gorden)", what: "Eight SWAC championships, four straight titles 1985-1988, and the foundation of the modern program" }
+    - { era: "2021 (John Hendricks)", what: "The 2024 black college national championship under Hendricks (Jackson State won the Celebration Bowl vs South Carolina State)" }
+    - { era: "2025 (T.C. Taylor)", what: "9-3 record, SWAC East co-championship, SWAC title game appearance — proof of continuity" }
+  legends:
+    - { name: Walter Payton, role: player, why: "Hall of Famer, NFL icon; showed the world JSU was NFL factory" }
+    - { name: W.C. Gorden, role: coach, why: "Built the 1980s dynasty; won 8 conference titles in 11 years" }
+    - { name: T.C. Taylor, role: coach, why: "Led the 2024 national championship; 23-6 in three seasons" }
+  canonical_moments:
+    - { name: "The 2024 Celebration Bowl", year: 2024, what: "Jackson State won 28-7 over South Carolina State, claiming the black college national championship", handling: glory }
+    - { name: "The Sonic Boom", year: 1911, what: "The marching band that draws crowds and sets the tone for every game", handling: glory }
+    - { name: "28,700 fans per game", year: 2025, what: "The highest FCS attendance in the nation — the proof Jackson State's community is all-in", handling: glory }
+  the_place: "Mississippi Veterans Memorial Stadium (cap 60,000), where the Sonic Boom takes the field first and the roar shakes the stadium; where 28,733 fans (2025 average) means the community owns the program."
+  brand_of_football: "Spectacle-first: the team doesn't play without the marching band, the energy, the moment; football is the excuse to gather, and gathering is the point."
+  cultural_footprint: "Jackson State is the HBCU that proved a small-budget program can draw bigger crowds than Power Conference schools and win a national championship without a blue-blood name. The Sonic Boom is proof that culture matters as much as capital."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Jackson State went 9-3 (7-1 SWAC East) in 2025 under T.C. Taylor
+    (23-6 in three seasons, .778 winning percentage). The Tigers drew 28,733 fans per game (highest in FCS),
+    won the East Division co-championship, and lost the SWAC title game 21-23 to Prairie View A&M. The 2024
+    Celebration Bowl national championship proved the program is built on solid ground, and T.C. Taylor's
+    near-miss 2025 season suggests the question is not if but when the next title comes. The Sonic Boom is
+    drawing crowds that dwarf FBS Group of Five attendance; the team is learning to win consistently.
+  research_checklist:
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/Jackson_State_Tigers_football
+    - https://en.wikipedia.org/wiki/2025_Jackson_State_Tigers_football_team
+    - https://en.wikipedia.org/wiki/Celebration_Bowl
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Jackson State is the HBCU whose marching band matters as much as the team; the Sonic Boom is the soul.
+  mantra: Go Tigers.
+  cultural_anchors:
+    fan_archetype_dominant: Sonic-Boom-First
+    outsider_archetype_dominant: Spectacle-Believer
+    one_sentence: Jackson State is the HBCU whose 28,700 fans and Sonic Boom marching band draw bigger crowds than most Power Five schools.
+  selfname: the Tigers
+  aspiration_ladder_top: ''
+  rivalries:
+  - alcorn-state
+  heritage:
+    national_titles: 5
+    conference_titles: 19
+    current_conference: SWAC
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: 'W.C. Gorden'
+    era_name_overrides: {}
+    always_surface:
+    - 2024 Celebration Bowl (black college national championship)
+    - Sonic Boom of the South (marching band)
+    - 28,700 fans per game (highest FCS attendance)
+    rituals:
+    - Sonic Boom Halftime Performance
+    - Soul Bowl vs Alcorn State
+    - Mississippi Veterans Memorial Stadium
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only)

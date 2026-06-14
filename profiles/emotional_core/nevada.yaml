@@ -1,0 +1,119 @@
+# Emotional Core — Nevada  (nevada)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: nevada
+team_id: 13
+program_name: Nevada
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the program that invented the Pistol and produced Kaepernick, trying to climb back
+  secondary: grievance    # a real innovation legacy that the sport adopted and forgot where it came from
+  core_variant: perpetual-rebuild
+  one_line: "Nevada is the program that invented the Pistol offense in Reno and handed it to the whole sport — then watched everyone run its idea while the Wolf Pack itself slid back to the bottom of the Mountain West."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A 13-win 2010 season, an AP top-15 finish, and an offense that changed football against back-to-back losing years and a 3-9 present at the bottom of the league it once climbed."
+
+the_wound:
+  name: "Two straight three-win years"
+  detail: "Jeff Choate went 3-10 in 2024 and 3-9 in 2025 — two seasons at the bottom of the Mountain West for a program that once finished ranked and beat Boise State. The fear in Reno is that the great era is receding into history."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get back to a bowl and back into the Mountain West race — to feel Mackay roar the way it did in 2010, when the Wolf Pack's own invention carried it to the program's greatest night."
+  drought: { since: 2010, unit: relevance }
+
+the_chip:
+  villain: national_media
+  text: "Fans point out that half of college football borrowed the Pistol from a chalkboard in Reno, and that nobody outside the Mountain West remembers the offense was theirs — or that they once put a future Super Bowl quarterback on the biggest stage."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the magic is still in the building — that the program that invented the Pistol and launched Colin Kaepernick is one right hire and one big quarterback away from another 2010, and that the altitude at Mackay still belongs to them."
+
+the_grudge_texture:
+  rival: unlv
+  texture: blood-feud   # the Battle for Nevada / Fremont Cannon — the most intense intrastate rivalry in the West
+
+the_coach_relationship: hot-seat-churn   # post-Ault churn — Polian, Norvell, Choate, with the great era long gone
+the_internal_fracture: legacy vs reality — the faction that clings to the Ault/Kaepernick golden age as proof of what Nevada is vs the faction that sees two 3-win years and wants a clear-eyed rebuild
+register: reno-wolf-pack-mackay-pistol   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - 'Always G5 — 2010 #11 AP + Boise State upset disprove the ceiling'
+  - Forgotten scheme — Pistol is permanent CFB heritage + still in use nationally
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Pistol offense was born here — Chris Ault drew it up in Reno in 2005, and within years it had spread from college fields to the NFL. No other mid-major can say it changed how the entire sport plays offense."
+  the_origin: "The University of Nevada in Reno, playing since 1896 — the 'Battle Born' Wolf Pack at altitude in the high desert, a program defined by one coaching genius and one revolutionary idea."
+  golden_ages:
+    - { era: "2010 (Chris Ault / Colin Kaepernick)", what: "A 13-1 season, a WAC title, the 'Mackay Miracle' over No. 3 Boise State, and an AP top-15 finish — the program's greatest year" }
+    - { era: "2005–2012 (the Pistol era)", what: "Ault's invention powers a sustained run of bowl teams and the program's national peak" }
+  legends:
+    - { name: Chris Ault, role: coach, why: "28 seasons, the architect of the program and inventor of the Pistol offense; the field at Mackay bears his name" }
+    - { name: Colin Kaepernick, role: player, why: "The dual-threat star who ran the Pistol to a 13-win 2010 and then to a Super Bowl with the 49ers" }
+  canonical_moments:
+    - { name: "The Mackay Miracle", year: 2010, what: "Nevada erases a 17-point deficit to beat No. 3 Boise State 34-31 in OT after a missed field goal — the program's signature night", handling: glory }
+    - { name: "The Pistol debuts", year: 2005, what: "Chris Ault unveils the Pistol offense in Reno, a formation that would spread across college football and into the NFL", handling: glory }
+  the_place: "Mackay Stadium at altitude in Reno — high-desert thin air, the Sierra backdrop, and the memory of the Boise State night when the place shook."
+  brand_of_football: "The Pistol — Ault's hybrid of the shotgun and the I-formation, a run-first, downhill identity that the Wolf Pack gave to the rest of football."
+  cultural_footprint: "Proof that a mid-major in the high desert can invent something the giants copy — and a reminder, every time an NFL team lines up in the Pistol, of where the idea started."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Nevada went 3-9 in 2025 (2-6 Mountain West) under second-year coach
+    Jeff Choate, a marginal step up from his 3-10 debut but a second straight losing year at the bottom of the
+    league. Fifteen years removed from the 13-win Kaepernick team, Reno is asking whether the program that
+    invented the Pistol can climb back to a bowl — or whether its greatest era is now only a memory.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Nevada_Wolf_Pack_football_team
+    - https://en.wikipedia.org/wiki/2010_Nevada_Wolf_Pack_football_team
+    - https://en.wikipedia.org/wiki/Pistol_offense
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Nevada is the Mountain West program whose Chris Ault Pistol-offense invention + Colin
+    Kaepernick 2008-2010 + Mackay Stadium altitude define what Reno-Wolf-Pack-football looks like.
+  mantra: Battle Born.
+  cultural_anchors:
+    fan_archetype_dominant: Reno-Wolf-Pack-Pistol-Believer
+    outsider_archetype_dominant: MW-Mid-Pack-Diminisher
+    one_sentence: 'Nevada is the Mountain West Pistol-offense innovator — Chris Ault''s 2005 invention +
+      Colin Kaepernick 2010 #11 AP run + 49ers Super Bowl trajectory that define what scheme-pioneer-football
+      looks like.'
+  selfname: the Wolf Pack
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2010 13-1 + Kraft Fight Hunger Bowl +
+    - Pistol offense invention (Chris Ault, 2005)
+    - Colin Kaepernick 2008-2010 era + 49ers Super Bowl trajectory
+    rituals:
+    - Pistol Offense Invention (2005)
+    - Colin Kaepernick 2008-2010
+    - Mackay Stadium Altitude
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

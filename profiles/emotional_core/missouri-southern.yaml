@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+# Emotional Core — soul file for Missouri Southern Lions (MIAA)
+
+status: live
+slug: missouri-southern
+team_id: null
+program_name: Missouri Southern
+program_tier: 6
+
+emotional_core:
+  primary: grief
+  secondary: restoration
+  one_line: "Missouri Southern is the Lion program rebuilding from the NAIA legacy — carrying a 1972 national championship into NCAA Division II, hunting for relevance and respect."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A program with a genuine national championship (1972 NAIA, 21-14 over Northwestern College) and historic tradition, but now struggling at the D2 level with a 3-8 season and the weight of former glory."
+
+the_wound:
+  name: "The NAIA-to-D2 drop and the competitive gap that came with it"
+  detail: "Missouri Southern was a power in NAIA — a national champion in 1972 — but the move to NCAA Division II meant competing against bigger budgets and more-established programs. The 3-8 season in 2025 is not a fluke; it's the wound: a program that once mattered nationally, struggling to matter regionally."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Return to the bowl games and playoff contention — prove that a program with a national championship can climb back from the D2 basement and compete."
+  drought: { since: 1972, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe the chip is other MIAA programs — rivals like Pittsburg State and Northwest Missouri State who have thrived in D2. Missouri Southern sees what they've built and knows it's possible. The question is how."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that the next coaching hire or the next talented QB will unlock the turnaround — that Missouri Southern's 1972 championship wasn't the ceiling, just a platform. They know the odds are long, and play the belief anyway."
+
+the_grudge_texture:
+  rival: pittsburg-state
+  texture: little-brother
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "glory nostalgia vs. D2 reality — the fanbase split between those who remember the championship and those pushing to accept the new competitive level"
+register: missouri-lion-legacy-rebuild
+never_use:
+  - "Never had success (1972 NAIA National Championship)"
+  - "Always been a D2 doormat (was NAIA power; recently joined MIAA)"
+
+story_canon:
+  the_unique_thing: "Missouri Southern is the only MIAA program with a genuine national championship — the 1972 NAIA National Championship (21-14 over Northwestern College) — carrying that legacy into a modern D2 struggle."
+  the_origin: "Missouri Southern football traces to the early 20th century as a regional power. The 1972 NAIA National Championship was the program's apex, a moment of national recognition that has defined it ever since. The move to NCAA Division II and the MIAA represented a new era, but the old championship still casts a shadow."
+  golden_ages:
+    - { era: "1960s–1970s (NAIA)", what: "The era that produced the 1972 national championship, when Missouri Southern was a genuine national contender" }
+    - { era: "1976, 1993", what: "MIAA (or regional) conference championships before the D2 competitive gap widened" }
+  legends:
+    - { name: "[1972 Championship Team]", role: "team", why: "The 1972 NAIA National Championship squad that remains the program's only national title" }
+  canonical_moments:
+    - { name: "1972 NAIA National Championship", year: 1972, what: "Missouri Southern beat Northwestern College 21-14 for the NAIA national title", handling: glory }
+    - { name: "Conference Championships (1976, 1993)", year: 1993, what: "Regional and conference success in the pre-D2 era", handling: glory }
+  the_place: "Fred G. Hughes Stadium in Joplin, Missouri — home to the Lions and the keeper of the 1972 championship memory."
+  brand_of_football: "Legacy-driven, rebuilding, carrying the weight of a single national title — football that hasn't yet redefined itself in the D2 era."
+  cultural_footprint: "A program that proved a small Missouri school could win nationally, once, and now carries that memory as both inspiration and burden."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Missouri Southern went 3-8 in 2025, 0-9 in MIAA play — a difficult season that deepens the wound. Atiba Bradley is the head coach, and the Lions have lost competitive ground in the MIAA. The 1972 championship remains the program's only national title, and the gap between that achievement and current reality is sharp. The question: is a turnaround possible, or has Missouri Southern settled into the mid-tier basement of D2 football?
+  research_checklist:
+    - 1972 NAIA National Championship team details
+    - NAIA-to-D2 transition and competitive impact
+    - Atiba Bradley's coaching tenure and roster
+    - 2025 season record and MIAA performance
+    - Portal and recruiting activity
+  sources:
+    - https://en.wikipedia.org/wiki/Missouri_Southern_Lions_football
+    - https://www.missourisouthern.edu/athletics/
+    - https://themiaa.com/
+    - https://www.d2football.com/

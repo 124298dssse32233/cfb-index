@@ -1,0 +1,124 @@
+# Emotional Core — Old Dominion  (old-dominion)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: old-dominion
+team_id: 223
+program_name: Old Dominion
+program_tier: 3
+
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+emotional_core:
+  primary: restoration    # a program that didn't exist for 68 years, now playing its best football ever
+  secondary: grievance    # the giant-killer reputation, finally cashed on the road
+  core_variant: first-ascension
+  one_line: "Old Dominion brought football back from the dead in 2009 — and in 2025 walked into Blacksburg and hung 45 on Virginia Tech, won ten games, and authored the best season in the program's short, improbable life."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program that played zero football for 68 years vs a 10-win 2025, a Cure Bowl title, and a fanbase still learning how high the ceiling goes."
+
+the_wound:
+  name: "Built from nothing, doubted every step"
+  detail: "Old Dominion didn't field a team between 1941 and 2009 — it had to construct an FBS program from scratch in the Tidewater. The wound is the doubt that follows a young program: that the Virginia Tech wins are flukes and that a school this new can't sustain a winner. The 2025 season was the loudest answer yet."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the Sun Belt outright and stack 2025 on top of the giant-killing nights — turn a resurrection story into a program that contends every year, not just on its best Saturdays."
+  drought: { since: 2009, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Old Dominion has beaten Virginia Tech three times now, and the 2025 rout in Blacksburg was the first on the Hokies' own field — a program that didn't exist a generation ago putting a Power Four neighbor on the floor. The fanbase keeps those nights close."
+
+the_delusion:
+  tone: self-aware
+  text: "Monarch fans believe a program that willed itself back into existence can will itself past anybody — that the Virginia Tech scalps prove ODU belongs at the big-boy table, even when the resources say it's still the new kid."
+
+the_grudge_texture:
+  rival: virginia-tech
+  texture: border-war   # the in-state Power Four neighbor ODU loves to ambush
+
+the_coach_relationship: total-trust   # Ricky Rahne delivered the best season in program history
+the_internal_fracture: dream-bigger ambition vs grateful-for-everything humility — the room split between fans who want ODU treated as a real Sun Belt contender and those still amazed there's a program here at all
+register: norfolk-monarchs-fbs-newcomer-2014   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Still FCS — 2014 FBS reclassification + 2016 Bahamas Bowl ended that frame
+  - No identity — 2009 resurrection + Wilder + Sun Belt entry combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Old Dominion brought a dead program back to life. After playing no football from 1941 to 2009 — a 68-year gap — the school rebuilt from absolutely nothing into an FBS program, then started knocking off Power Conference giants. Almost no program in modern college football has resurrected itself from a standing start the way ODU did."
+  the_origin: "A commuter university in Norfolk, in Virginia's Tidewater region, that dropped football in the 1940s and didn't play again until 2009 — when Bobby Wilder built a program from scratch that climbed to FBS by 2014."
+  golden_ages:
+    - { era: "2009–2016 (Bobby Wilder)", what: "The from-nothing build: a new program, the jump to FBS in 2014, and a 2016 Bahamas Bowl win" }
+    - { era: "2025 (Ricky Rahne)", what: "A 10-3 season, a Cure Bowl title, and the rout of Virginia Tech in Blacksburg — the best year in program history" }
+  legends:
+    - { name: Bobby Wilder, role: coach, why: "Built the resurrected program from its first practice to FBS membership — the founding father" }
+    - { name: Ricky Rahne, role: coach, why: "Delivered the program's first 10-win FBS season and its biggest road win ever" }
+    - { name: Taylor Heinicke, role: player, why: "The record-shattering quarterback of the early ODU years who reached the NFL — the program's first football star" }
+  canonical_moments:
+    - { name: "Upset of No. 13 Virginia Tech", year: 2018, what: "ODU 49, Virginia Tech 35 — the program's first win over a ranked Power team and the biggest win in school history", handling: glory }
+    - { name: "Rout of Virginia Tech in Blacksburg", year: 2025, what: "ODU 45, Virginia Tech 26 — the program's first road win over a Power Four team", handling: glory }
+    - { name: "Football resurrected", year: 2009, what: "The Monarchs play their first game in 68 years — the founding moment of the modern program", handling: glory }
+  the_place: "S.B. Ballard Stadium in Norfolk — a compact, modernized Tidewater venue that has become one of the louder small-stadium environments in the Sun Belt."
+  brand_of_football: "Tidewater-tough and opportunistic — a young program that plays its biggest games with nothing to lose and a chip about being underestimated, built to ambush bigger names."
+  cultural_footprint: "The model resurrection story — proof that a school can build major-college football from literally nothing and, within a generation, beat the established powers next door."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Old Dominion went 10-3 (6-2 Sun Belt) in 2025 under sixth-year coach Ricky
+    Rahne — the best season in the program's FBS history. The Monarchs stunned Virginia Tech 45-26 in Blacksburg
+    for their first-ever road win over a Power Four opponent (QB Colton Joseph accounting for three touchdowns), a
+    loss that helped cost the Hokies their coach. ODU finished the year with a 24-10 Cure Bowl win over South
+    Florida. A program that didn't exist 17 years ago is now chasing Sun Belt contention every fall.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Old_Dominion_Monarchs_football_team
+    - https://odusports.com/news/2025/09/14/odu-football-shocks-virginia-tech-38-7-to-claim-first-road-victory-over-power-4-school
+    - https://www.wtvr.com/sports/old-dominion-upsets-virginia-tech-game-highlights-sept-13-2025
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Old Dominion is the Sun Belt program whose 2009 football resurrection + 2014 FBS reclassification
+    + S.B. Ballard Stadium 2019 reset define what historic-Tidewater-football-rebuilds look like.
+  mantra: Go Monarchs.
+  cultural_anchors:
+    fan_archetype_dominant: Norfolk-Monarch-Resurrection
+    outsider_archetype_dominant: FBS-Newcomer-Diminisher
+    one_sentence: Old Dominion is the 2009 football-resurrection program — Bobby Wilder's program-building
+      from scratch + 2014 FBS reclassification + 2016 Bahamas Bowl championship that completed the 68-year-gap
+      revival arc.
+  selfname: the Monarchs
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2009 football resurrection (68-year gap revival)
+    - 2014 FBS reclassification + 2016 Bahamas Bowl under Bobby Wilder
+    - S.B. Ballard Stadium 2019 modern facility
+    rituals:
+    - 2009 Football Resurrection
+    - Bobby Wilder 2009-2018 Era
+    - S.B. Ballard Stadium 2019
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (51/100, n=135)
+    voice_profile: absent
+    delusion_premium: absent

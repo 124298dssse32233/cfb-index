@@ -1,0 +1,70 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+status: live
+slug: delaware-state
+team_id: null
+program_name: Delaware State University
+program_tier: 5
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Delaware State is the HBCU giant-killer whose 2007 national title and Approaching Storm marching band define Black excellence in the First State."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A historic HBCU with six MEAC championships and one FCS national title vs. a program still climbing back from lean years—where the band culture and pride run deeper than the record."
+
+the_wound:
+  name: "The years between titles"
+  detail: "Delaware State won the national championship in 2007, then watched 18 years pass without returning to that peak. The transition to a new head coach (DeSean Jackson, 2026) signals another rebuild—the challenge of sustaining HBCU excellence when resources don't match the ambition."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Reclaim MEAC supremacy and prove the Hornets can play for a national title again—another 2007 moment where Dover stands on top of Black college football."
+  drought: { since: 2007, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "The fanbase carries a quiet certainty that Delaware State belongs in the same breath as Howard and other MEAC powers—and 2007 proved it. Every losing streak feels like something the national conversation forgot."
+
+the_delusion:
+  tone: self-aware
+  text: "That the Approaching Storm's musicality and tradition can sometimes mask a roster that needs talent infusion—the fanbase believes the band culture elevates recruiting, and time will prove it right."
+
+the_grudge_texture:
+  rival: howard
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: Band-tradition pride vs. on-field rebuild impatience—the faction that leans on the Approaching Storm's storied legacy vs. those demanding new coach DeSean Jackson win now
+register: dover-hornets-approaching-storm-meac-pride
+never_use:
+  - "Always a doormat" # 2007 national title + six MEAC championships
+  - "No marching culture" # The Approaching Storm is internationally respected
+  - "A down program" # 8–4 in 2025, MEAC contender
+
+story_canon:
+  the_unique_thing: "The Approaching Storm Marching Band—legendary MEAC ensemble known for hip-hop, R&B, gospel, and jazz arrangements, with members who've performed internationally with The Temptations, The Spinners, and Martha Reeves. The band is Delaware State's cultural ambassador and fifth-quarter heart."
+  the_origin: "Delaware State University was founded in 1891 as a land-grant HBCU in Dover, Delaware. The football program joined MEAC and built itself into a conference power, establishing a tradition of excellence in both athletics and the performing arts."
+  golden_ages:
+    - { era: "2000–2007", what: "Six MEAC championships (1985, 1987, 1988, 1989, 1991, 2007), capped by the 2007 FCS national title under Coach Al Shipman" }
+    - { era: "1980s–1990s", what: "The Approaching Storm emerges as a legendary marching ensemble, gaining international recognition and becoming a recruiting magnet" }
+  legends:
+    - { name: Al Shipman, role: coach, why: "Led Delaware State to the 2007 FCS national championship; architect of Hornet excellence in the 2000s" }
+    - { name: The Approaching Storm, role: ensemble, why: "World-class marching band that defines HBCU performing arts and became a cultural symbol of Hornet pride" }
+  canonical_moments:
+    - { name: "2007 FCS National Championship", year: 2007, what: "Delaware State wins the FCS title, establishing the program's singular peak achievement", handling: glory }
+    - { name: "Six MEAC Conference Championships", year: 2007, what: "Delaware State's sustained excellence in MEAC competition (1985, 1987, 1988, 1989, 1991, 2007)", handling: glory }
+    - { name: "The Approaching Storm Becomes Legendary", year: 1990, what: "The marching band gains international recognition for musicality and choreography, becoming central to Delaware State's identity", handling: glory }
+  the_place: "Alumni Stadium in Dover, Delaware—a intimate HBCU fortress where the Approaching Storm's post-game performances echo through the stands."
+  brand_of_football: "HBCU excellence with a band-first culture—Delaware State plays for pride and tradition, where the marching arts are co-equal to the football field."
+  cultural_footprint: "Delaware State's contribution to Black college football is the Approaching Storm—proof that HBCU identity is built on musicality, artistry, and cultural representation as much as wins and losses."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Delaware State went 8–4 (4–1 MEAC) in 2025, a solid rebuilding year. Head coach DeSean Jackson takes over in 2026 as a historic figure—former NFL MVP and Atlanta Legends offensive coordinator—signaling aggressive institutional investment in climbing back to title contention. The Hornets have QB Kaiden Bennett and a cadre of skill-position talent. The challenge: can Jackson's star power and coaching acumen rebuild what 2007 proved was possible? The Approaching Storm continues its fifth-quarter reign, but football success is the unfinished chapter.
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Delaware_State_Hornets_football
+    - https://www.espn.com/college-football/team/_/id/2117/delaware-state-hornets
+    - https://www.meacsports.com/news/featured/dsu-football-deshawn-jackson-named-head-coach
+    - https://www.delawarestate.edu/academics/student-life/marching-band/
+

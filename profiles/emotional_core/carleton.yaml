@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: carleton
+team_id: null
+program_name: Carleton College
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Carleton is the program where the Goat Trophy matters more than the scoreboard—a school that plays for the love of the game and a rivalry 105 years old."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A MIAC school that competes with heart and tradition, where the annual clash with St. Olaf over a 105-year-old trophy means more than national rankings."
+
+the_wound:
+  name: "The long drought—never a national champion"
+  detail: "Carleton has played football since 1905, built a 105-year rivalry with St. Olaf, and has never won a national championship, has never made a serious run at one. The school doesn't have the prestige of Saint John's or the modern dynasty of Bethel. It plays in Northfield with integrity and pride, but the big trophy has never come home."
+  handling: referenceable
+  freshness: all-time
+
+the_dream:
+  text: "Win the Goat Trophy every year—not a national championship, but the rivalry that defines the season, the game that matters most to Carleton."
+  drought: { since: 2025, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe carleton's identity is not about what it lost—it's about what it refuses to be: a program chasing prestige or national rankings. The Goat Trophy IS Carleton football."
+
+the_delusion:
+  tone: earnest
+  text: "Carleton fans believe that when the Goat Trophy stays in Northfield after the rivalry game, everything else—the record, the standings—fades into background noise. That trophy IS the season."
+
+the_grudge_texture:
+  rival: st-olaf
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Winning the Goat Trophy vs winning the MIAC—the tension between obsession with the rivalry and broader conference success."
+register: carleton-knights-northfield-goat-trophy-105-years
+never_use:
+  - The rivalry is new or recent—it's been continuous since 1931 (105 years)
+  - Carleton is irrelevant—the Goat Trophy is one of the oldest continuous rivalries in college football
+  - St. Olaf is a one-sided rivalry—it's competitive and deeply felt on both sides
+
+story_canon:
+  the_unique_thing: "The Goat Trophy—105 years of continuous rivalry with St. Olaf (since 1931), the oldest continuous college football rivalry in Division III and one of the most storied in the entire sport. When Carleton beats St. Olaf, the Goat Trophy comes home. It's not a consolation prize or a secondary rivalry. It IS Carleton football."
+  the_origin: "Carleton College, founded 1866, began playing football in 1905 and established its legendary rivalry with St. Olaf in 1931—a continuous 105-year series that defines the program's identity more than any national tournament."
+  golden_ages:
+    - { era: "1931–1970", what: "The founding era of the Goat Trophy rivalry; Carleton built consistent MIAC presence" }
+    - { era: "1980s–1990s", what: "Carleton's strongest seasons, competing for MIAC titles and maintaining the rivalry's competitive balance" }
+  legends:
+    - { name: Tom Journell, role: coach, why: "Carleton head coach; steward of the Goat Trophy tradition and the rivalry's modern custodian" }
+    - { name: Jack Curtis, role: player, why: "Senior QB 2025 season—824 career completions, 8,599 career yards, 83 career TDs (all program records); competed while undergoing treatment for Hodgkin's lymphoma, embodying the honor and resilience at the heart of Carleton football" }
+  canonical_moments:
+    - { name: "The Goat Trophy rivalry begins", year: 1931, what: "Carleton and St. Olaf establish the rivalry that would become one of the oldest continuous in college football", handling: glory }
+    - { name: "2025 Goat Trophy victory", year: 2025, what: "Carleton defeats St. Olaf 35-28, claiming the Goat Trophy and validating the year", handling: glory }
+    - { name: "Jack Curtis's career", year: 2025, what: "Senior QB sets program records for completions, yards, and TDs while battling Hodgkin's lymphoma—a season of honor and resilience", handling: miracle }
+  the_place: "Northfield, Minnesota—a small liberal-arts college town, home to both Carleton and St. Olaf, where the rivalry defines the calendar."
+  brand_of_football: "Honorable, fundamental, tradition-first—Carleton plays the game as it was meant to be played, with respect for the opponent and reverence for the rivalry."
+  cultural_footprint: "Carleton represents the pure D3 ideal: a small liberal-arts school where the game is played for love, tradition, and the honor of competing in one of the sport's oldest rivalries."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Carleton went 6-4 (6-3 MIAC) in 2025 and won the Goat Trophy
+    (35-28 over St. Olaf), validating the season in Northfield tradition. QB Jack Curtis, who set program
+    records (824 completions, 8,599 yards, 83 TDs) while undergoing Hodgkin's lymphoma treatment, embodied
+    the resilience and honor that define Carleton football. In 2026, the Knights face the eternal question:
+    can they keep the Goat Trophy at home?
+  research_checklist:
+    - The Goat Trophy as the primary identity (not secondary to national aspirations)
+    - 105-year continuous rivalry with St. Olaf (since 1931)
+    - Jack Curtis's record-setting career and health journey
+    - Liberal-arts school ethos and honor-first football
+    - Small-school pride and tradition-centered identity
+  sources:
+    - https://www.carleton.edu/athletics/football/
+    - https://miachome.org/sports/football/
+    - https://www.d3football.com/
+    - https://en.wikipedia.org/wiki/Goat_Trophy

@@ -1,0 +1,106 @@
+# Emotional Core — Elon  (elon)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: elon
+team_id: 1102
+program_name: Elon
+program_tier: 2
+
+emotional_core:
+  primary: contentment
+  secondary: grievance
+  one_line: "Elon is the Phoenix that quietly became the CAA's most consistent mid-tier winner — three FCS playoff appearances, 22 conference wins in four years, still waiting for the breakout season that gets them heard."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "The private liberal arts Phoenix that wins five-plus CAA games every year and earns postseason bids without ever getting the national recognition their consistency deserves."
+
+the_wound:
+  name: "First-round exits — close but never through"
+  detail: "Elon made three FCS playoff appearances (2017, 2018, 2022) under Tony Trisciani without advancing past the first round. The program is good enough to get in but hasn't yet produced the deep run that turns a solid era into a remembered one."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the CAA championship outright and make a deep FCS playoff run — turn Trisciani's era of quiet consistency into a moment everyone in FCS remembers."
+  drought: { since: 2018, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "The fanbase says Elon has beaten 16 top-25 programs and won more CAA games than almost anyone in the 2020s, and national media still treats them like a scheduling afterthought — they believe the small-school label is the only reason the recognition hasn't come."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans say Elon is already a top-half CAA program every single year and that one bounced playoff bracket is all that separates them from being remembered as one of the decade's best FCS mid-major programs."
+
+the_grudge_texture:
+  rival: james-madison
+  texture: little-brother
+
+the_coach_relationship: total-trust
+the_internal_fracture: contentment-vs-ambition — the faction proud of consistent winning seasons vs the faction convinced Elon's ceiling is higher than three first-round exits and demands a CAA title run now
+
+register: elon-phoenix-small-school-consistent-riser-caa
+never_use:
+  - "Mid-major also-ran — 22 CAA wins in four seasons and three playoff appearances disprove that"
+  - "Division II leftovers — the program has competed at FCS level since 1999 and won regularly"
+
+story_canon:
+  the_unique_thing: "The most consistent CAA program of the 2020s that national FCS audiences rarely discuss — Elon is the only CAA team to win five or more conference games in every season from 2021 to 2024, built at a private liberal arts school of fewer than 7,000 undergraduates."
+  the_origin: "Elon University started football in 1901 but spent most of the 20th century at Division II. The Phoenix reclassified to Division I-AA (FCS) in 1999, joined the Southern Conference, then moved to the CAA in 2014. Tony Trisciani became head coach in 2019 and built the program's first sustained plateau of consistent winning."
+  golden_ages:
+    - { era: "2017-2018 (first playoff era)", what: "Back-to-back FCS playoff appearances for the first time in program history; defeated 16 top-25 programs" }
+    - { era: "2021-2025 (Trisciani consistency)", what: "Five consecutive seasons with five or more CAA wins; program-record 22 CAA victories in four years; 2022 FCS playoff return" }
+  legends:
+    - { name: Tony Trisciani, role: coach, why: "Three FCS playoff appearances since 2019; built the program's most sustained winning era" }
+    - { name: Greg Liggs Jr., role: player, why: "Tied for second-most interceptions in a season in Elon FCS history; defensive anchor of the Trisciani era" }
+  canonical_moments:
+    - { name: "First back-to-back FCS playoffs", year: 2018, what: "Elon earns consecutive FCS playoff bids for the first time in program history", handling: glory }
+    - { name: "2022 FCS playoff return", year: 2022, what: "Elon returns to the postseason under Trisciani, extending the program's playoff consistency", handling: glory }
+  the_place: "Rhodes Stadium in Elon, North Carolina — a 12,000-seat campus facility that hosts winning football for a school of fewer than 7,000 undergraduates."
+  brand_of_football: "Consistent, disciplined, fundamentally sound — a program that wins more than it loses every year and produces NFL-caliber defenders without demanding national attention."
+  cultural_footprint: "The small private school FCS program that quietly became the CAA's most reliable mid-tier winner — proof that small-enrollment schools can sustain winning football without blue-blood budgets."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Elon finished 6-6 (4-4 CAA) in 2025 under seventh-year head coach
+    Tony Trisciani — a respectable result that extended the program's run of competitive seasons but fell
+    short of another playoff bid. The Phoenix remain defined by consistency without the breakout moment:
+    three FCS playoff appearances, no deep run, no CAA title. The 2026 question is whether Trisciani can
+    finally break through into the CAA championship race and give the program a moment that sticks.
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Elon_Phoenix_football_team
+    - https://elonphoenix.com/sports/football/roster/coaches/tony-trisciani/1309
+    - https://www.flofootball.com/articles/14332043-monmouth-football-2025-season-preview-caa-football
+
+briefing:
+  identity_phrase: Elon is the private liberal arts Phoenix that reclassified to FCS in 1999 and became the CAA's most consistent mid-tier winner under Tony Trisciani — three playoff bids, 22 CAA wins in four years, still chasing the title run.
+  mantra: Go Phoenix.
+  cultural_anchors:
+    fan_archetype_dominant: Small-Campus-Believer
+    outsider_archetype_dominant: FCS-Casual-Ignorer
+    one_sentence: Elon is the private liberal arts Phoenix that built the CAA's most consistent FCS mid-tier program — three playoff appearances, 16 top-25 upsets, still waiting on the championship moment.
+  selfname: the Phoenix
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: Tony Trisciani
+    era_name_overrides: {}
+    always_surface:
+      - 2017-2018 first back-to-back FCS playoff appearances
+      - 22 CAA wins in four years (2021-2024)
+      - 16 top-25 program upsets under Trisciani
+      - Only CAA team with 5-plus conference wins every season 2021-2024
+    rituals:
+      - Rhodes Stadium
+      - The Phoenix rising through consistency
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle AI Narratives
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal yet (canon-only) — enrich as source-expansion grows coverage

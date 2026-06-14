@@ -1,0 +1,73 @@
+# Emotional Core — Charleston Southern  (charleston-southern)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: charleston-southern
+team_id: null
+program_name: Charleston Southern
+program_tier: 5
+
+emotional_core:
+  primary: restoration
+  secondary:
+  core_variant: first-ascension
+  one_line: "Charleston Southern is the Lowcountry Buccaneer program climbing into FCS relevance, reborn from the Coastal Carolina rivalry and building a new identity."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "An in-state rivalry renewed with Coastal Carolina and the ambition to establish Charleston Southern as an FCS program of note — from a small school trying to matter to a program with conference aspirations."
+
+the_wound:
+  name: "The FCS invisibility"
+  detail: "Charleston Southern has labored in obscurity in the FCS for decades, a program known more for its rivalry with Coastal Carolina (now renewed in 2025) than for any championship pedigree or sustained excellence. The wound is the absence of a defining narrative, a program searching for an identity beyond 'small-school trying to compete.'"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Establish Charleston Southern as an FCS program with a playoff identity, build a conference title contender, and prove the Buccaneers belong in the conversation with the region's football powers."
+  drought: { since: null, unit: relevance }
+
+the_chip:
+  villain: blue_bloods
+  text: "The fanbase believes the Buccaneers have been overlooked by bigger programs, treated as a stepping stone rather than a peer, and they want proof that Charleston Southern can compete at the FCS level."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that the Coastal Carolina rivalry is returning to its former intensity, that Charleston Southern has the pieces to climb into Big South-OVC prominence, and that being the Lowcountry program means something beyond a nice story."
+
+the_grudge_texture:
+  rival: coastal-carolina
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: big-brother-jealousy-vs-independent-growth — the faction that defines themselves against Coastal Carolina vs the faction building Charleston Southern's own identity
+register: charleston-lowcountry-buccaneer-coastal-renewal
+never_use:
+  - Perennial doormats (the program is competing in FCS, not a lower division)
+  - No history (the rivalry with Coastal Carolina has deep Lowcountry roots)
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Charleston Southern is the Lowcountry Buccaneer program that renewed its rivalry with Coastal Carolina in 2025, reigniting a geographic feud in a historic football region and establishing itself as a peer in South Carolina FCS football."
+  the_origin: "A small university in Charleston that joined the FCS and built a program focused on the Lowcountry and South Carolina recruiting, establishing early roots as an in-state rival to Coastal Carolina and building a regional identity."
+  golden_ages:
+    - { era: "2025-Present (Rivalry Renewal)", what: "Charleston Southern renewed its rivalry with Coastal Carolina, signaling a new chapter and competitive ambition" }
+  legends:
+    - { name: none, role: none, why: none }
+  canonical_moments:
+    - { name: "2025 Coastal Carolina rivalry game", year: 2025, what: "Charleston Southern plays Coastal Carolina in the renewal of the Lowcountry rivalry on September 6, 2025, a symbolic moment of ambition", handling: glory }
+  the_place: "Buccaneer Field in Charleston, South Carolina — home to Buccaneer football and a symbol of Lowcountry pride."
+  brand_of_football: "Competitive, ambitious FCS football with a focus on regional recruiting and building toward conference contention."
+  cultural_footprint: "Charleston Southern represents the Lowcountry program climbing into FCS prominence, building identity from a geographic rivalry and regional pride."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Charleston Southern went 5-7 in 2025 in the Big South-OVC conference, competitive but not yet a playoff program. The renewal of the Coastal Carolina rivalry in 2025 symbolized a new chapter of ambition, but the Buccaneers still face the challenge of establishing a winning culture in FCS play. The program is in the ascension phase, building toward relevance rather than defending it.
+  research_checklist:
+    - Coastal Carolina rivalry renewal in 2025 (verified)
+    - Big South-OVC conference affiliation (verified)
+    - 2025 season 5-7 record (verified)
+    - Program location and identity in Charleston (verified)
+  sources:
+    - https://www.postandcourier.com/sports/csu/csu-renews-rivalry-with-coastal-carolina/article_d6dc50ae-a7f5-4ba3-95b6-74bb82f3a364.html
+    - https://en.wikipedia.org/wiki/Charleston_Southern_Buccaneers_football
+    - https://www.foxsports.com/college-football/charleston-southern-buccaneers-vs-coastal-carolina-chanticleers-sep-06-2025-game-boxscore-41400

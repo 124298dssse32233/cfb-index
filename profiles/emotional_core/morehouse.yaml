@@ -1,0 +1,69 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: morehouse
+team_id: null
+program_name: Morehouse College
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: restoration
+  one_line: "Morehouse is the Maroon Tiger, Atlanta's oldest all-male HBCU, a founding SIAC member (1913) that carried 50 years of football tradition, endured dormancy, and now competes with the weight of 160 years of college history on its shoulders."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "One of America's greatest HBCUs (founded 1867, Morehouse Men) with football pedigree that runs back to the founding SIAC era (1913). The program carries academic prestige and the Tuskegee rivalry dating to the 1930s."
+
+the_wound:
+  name: "Dormancy (2008–2016) and the shadow of Dr. King's legacy"
+  detail: "Morehouse shut down football for eight years (2008–2016), during which Atlanta's HBCU ecosystem moved on. When the Tigers returned, they had to rebuild in a city with Spelman, Clark Atlanta, and AUC all competing for attention. The program plays under the weight of being one of Atlanta's Four-Part Harmony (AUC: Atlanta University Center), where academic prestige sometimes overshadows athletics."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Win a SIAC championship and restore Morehouse football to the prestige it carried in the 1930s–1960s. Make the Maroon Tigers a national name again, honoring the legacy of a founding SIAC program."
+  drought: { since: 2016, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "The fanbase believes: Morehouse has an academic prestige chip, one of the world's greatest all-male HBCUs, the alma mater of Dr. Martin Luther King Jr., Howard University's equal in cultural weight. The football program plays for the honor of the college, not just wins."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes that Morehouse's historical pedigree and founding SIAC status should translate into modern championships — that a program with 50 years of early tradition and one of America's greatest HBCU names can reclaim conference relevance."
+
+the_grudge_texture:
+  rival: tuskegee
+  texture: blood-feud
+
+the_coach_relationship: savior
+the_internal_fracture: academic-prestige vs. athletic-ambition — those who see football as secondary to Morehouse's mission vs. those pushing for modern championship contention
+
+register: maroon-tigers-atlanta-georgia-hbcu-founding
+never_use:
+  - New program. Founded 1867 for college, football since early 1900s, founding SIAC member 1913.
+  - Never won anything. First D2 playoff berth 2010.
+
+story_canon:
+  the_unique_thing: "The Morehouse-Tuskegee Classic (since 1930s), one of the oldest rivalries in HBCU football. Morehouse is a founding SIAC member (1913) with roots in the conference's earliest era."
+  the_origin: "Founded 1867 by the American Baptist Home Missionary Society as the Atlanta Baptist Seminary; became Morehouse College in 1913. One of the greatest all-male HBCUs in America, alma mater of Dr. Martin Luther King Jr. Football was part of the program from early in the 20th century."
+  golden_ages:
+    - { era: "1913–1960s (Founding SIAC Era)", what: "Morehouse played as a founding SIAC member through the golden age of Black college football, competing with the best programs in the conference" }
+    - { era: "2010 (First D2 Playoff Berth)", what: "Morehouse reached the NCAA Division II playoffs, marking a return to national relevance" }
+  legends:
+    - { name: "Dr. Martin Luther King Jr.", role: "Alumnus (Morehouse '48)", why: "The college's greatest alumnus and a global icon; his connection to Morehouse elevates the institution's cultural weight" }
+    - { name: "Brad Sherrod", role: "Coach (2026–)", why: "Named head coach late 2025, tasked with stabilizing the program after Terance Mathis' departure" }
+  canonical_moments:
+    - { name: "Founding SIAC Member (1913)", year: 1913, what: "Morehouse becomes a founding member of the SIAC, establishing the program as conference-level competitive", handling: glory }
+    - { name: "Morehouse-Tuskegee Classic Begins (1930s)", year: 1930, what: "The historic rivalry between Morehouse and Tuskegee begins, one of the oldest continuous HBCU football rivalries", handling: glory }
+    - { name: "2010 D2 Playoff Berth", year: 2010, what: "Morehouse reaches the NCAA Division II playoffs for the first time in the modern era", handling: glory }
+  the_place: "Atlanta, Georgia — Morehouse sits at the heart of the Atlanta University Center (AUC), America's oldest cluster of HBCUs. The program plays in the city that owns HBCU tradition and pride."
+  brand_of_football: "Disciplined, academically-rooted college football — a program that balances football ambition with the academic prestige and cultural mission that define Morehouse as an institution."
+  cultural_footprint: "A founding SIAC member with global cultural weight (Dr. King) and one of America's greatest all-male HBCUs. Morehouse football carries the honor of the college and the weight of Atlanta HBCU legacy."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Morehouse College finished the 2025 season 3–7 (3–5 SIAC) after coaching turnover. Terance Mathis (former NFL Pro Bowler, hired late 2021) was dismissed in December 2025; Brad Sherrod was named head coach for 2026, beginning a new era. The Maroon Tigers are rebuilding after a difficult 2025 season and entering 2026 under new leadership, tasked with restoring the program to SIAC competence and honoring Morehouse's founding-SIAC legacy.
+  sources:
+    - https://en.wikipedia.org/wiki/Morehouse_College_Maroon_Tigers_football
+    - https://theatlantavoice.com/morehouse-football-coach-brad-sherrod/
+    - https://thesiac.com/sports/football/

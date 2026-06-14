@@ -1,0 +1,67 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: winona-state
+team_id: null
+program_name: Winona State
+program_tier: 6        # Division II
+
+emotional_core:
+  primary: restoration    # Brian Curtin navigated 2025 as interim, earned permanent HC role
+  secondary: contentment  # 6-5 record shows stability amid coaching transition
+  one_line: "Winona State is a Minnesota regional program that navigated a 2025 coaching transition with poise — interim HC Brian Curtin earned the permanent role after stabilizing a 6-5 season following Brian Bergstrom's departure to South Dakota State."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A solid regional program with defensive identity (multiple interceptions, dominant wins) vs limited playoff contention window."
+
+the_wound:
+  name: "The Brian Bergstrom departure and coaching transition"
+  detail: "Winona State went 6-5 in 2025 after head coach Brian Bergstrom departed for South Dakota State following three seasons. The transition could have been disruptive, but interim HC Brian Curtin stabilized the program and earned the permanent appointment. The Warriors finished 6-4 in the NSIC, sitting on the playoff bubble but not pushing through. The wound is not a collapse, but rather the uncertainty of transition — the question of whether the program can sustain competence without Bergstrom."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove Brian Curtin can build on the 6-5 foundation and establish Winona State as a regular NSIC South competitor."
+  drought: { since: 2015, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the Warriors carry no external chip. Their challenge is internal: sustaining momentum through a HC transition."
+
+the_delusion:
+  tone: earnest
+  text: "That the 6-5 record and defensive identity under Curtin signal the beginning of sustained improvement. Winona fans believe the interim HC proved he can lead the program."
+
+the_grudge_texture:
+  rival: southwest-minnesota-state
+  texture: championship    # the Battle for the Sledge trophy game (Winona won 30-6 in 2025)
+
+the_coach_relationship: savior    # Brian Curtin promoted from interim; tasked with building sustainable program
+the_internal_fracture: curtin-confidence vs bergstrom-nostalgia — the faction backing the promoted HC vs those wondering if the program is losing momentum under new leadership
+register: winona-minnesota-warriors-sledge-trophy-battle-coaching-transition
+never_use:
+  - "Winona State is a power program: 6-5 is respectable, not championship-level"
+  - "The program is in decline: 6-5 and a successful HC transition show stability, not decline"
+
+story_canon:
+  the_unique_thing: "Winona State is a Minnesota regional program that successfully navigated a 2025 coaching transition when Brian Curtin, promoted from interim, earned the permanent HC role after a 6-5 season."
+  the_origin: "Winona State is a small Minnesota program that competes in the NSIC as a regional competitor."
+  golden_ages: []
+  legends: []
+  canonical_moments:
+    - { name: "2025 Battle for the Sledge vs SMSU", year: 2025, what: "Winona State defeats Southwest Minnesota 30-6 in the trophy game", handling: glory }
+  the_place: "Winona, Minnesota; a small Minnesota regional program."
+  brand_of_football: "A solid regional competitor building around defensive identity; Winona plays for incremental progress and playoff eligibility."
+  cultural_footprint: "Winona State is a modest D2 program with regional significance and a defensive tradition."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Winona State went 6-5 overall and 6-4 in the NSIC in 2025 following the departure of
+    head coach Brian Bergstrom to South Dakota State. Interim HC Brian Curtin stabilized the program during transition; his
+    performance earned a permanent appointment for 2026. The Warriors showed defensive identity (multiple interception wins,
+    including a dominant 30-6 victory over Southwest Minnesota in the Battle for the Sledge trophy game). The 6-5 record places
+    Winona on the playoff bubble, not yet a contender but not a basement dweller. The question for Curtin is whether the 2025
+    transition foundation can grow into sustained NSIC South competence.
+  sources:
+    - https://winonastatewarriors.com/news/2025/12/16/football-winona-state-selects-brian-curtin-as-head-football-coach
+    - https://winonastatewarriors.com/news/2025/11/15/football-warrior-football-wraps-up-2025-campaign
+    - https://northernsun.org/schedule.aspx?schedule=3876

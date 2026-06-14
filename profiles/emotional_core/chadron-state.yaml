@@ -1,0 +1,65 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: chadron-state
+program_name: Chadron State College
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: honor
+  one_line: "Chadron State is the Nebraska D2 program that clawed its way back to relevance — making the NCAA playoffs for the first time since 2012 and proving the Eagles still have fight."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "A historic program that hit bottom (years without postseason relevance) and is climbing back to RMAC prominence under coach Jay Long."
+
+the_wound:
+  name: "The 13-year drought"
+  detail: "Chadron State didn't make the playoffs from 2012 to 2024 — a 13-year absence that felt like the program had lost its way. The 2025 return to the postseason (8-4, lost playoff 21-17 to Pittsburg State) broke that spell."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Establish Chadron as a consistent RMAC contender and national playoff presence — restore the program to the national conversation."
+  drought: { since: 2012, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — just the drive to prove the Eagles belong in the postseason conversation."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: western-colorado
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "Playoff momentum vs plateau risk — the question of whether the 2025 postseason return is a springboard or a one-year blip."
+register: chadron-nebraska-eagles-D2-resurgence
+never_use:
+  - Perennial powerhouse — drought of 13 years before 2025
+  - Recent national champions — made playoffs first time since 2012
+
+story_canon:
+  the_unique_thing: "The 2025 playoff return — the Eagles made the NCAA Division II playoffs for the first time since 2012, ending a 13-year drought and reigniting national relevance."
+  the_origin: "A regional D2 program in Nebraska with a historic football tradition, part of the RMAC's identity as one of the Great Plains/Rocky Mountain athletic conferences."
+  golden_ages: []
+  legends: []
+  canonical_moments:
+    - { name: "The 2025 playoff return", year: 2025, what: "After 13 years out of postseason, Chadron State earned its way back — 8-4 (8-3 RMAC), nationally ranked, lost playoff opener 21-17", handling: glory }
+  the_place: "Chadron, Nebraska; home of the Eagles and a tradition of regional football pride."
+  brand_of_football: "Tough, fundamentally sound football — a program that climbs back through discipline and coaching."
+  cultural_footprint: "A historic D2 program proving that regional athletes and solid coaching can build sustained success."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Chadron State under coach Jay Long went 8-4 in 2025 with a 8-3 RMAC record and
+    made the Division II playoffs for the first time since 2012. WR Tommy Thomas broke the school career reception record (195).
+    The Eagles lost their playoff opener 21-17 to Pittsburg State — a close game that suggested the program has learned how to compete
+    at the national level again. The question in Chadron: can the Eagles sustain this climb?
+  sources:
+    - https://en.wikipedia.org/wiki/Chadron_State_Eagles_football
+    - https://www.chadron.edu/athletics/
+    - https://www.rmac.org/
+    - https://www.ncaa.org/

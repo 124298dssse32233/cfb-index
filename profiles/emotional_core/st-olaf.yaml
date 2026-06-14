@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: st-olaf
+team_id: null
+program_name: St. Olaf College
+program_tier: 7
+
+emotional_core:
+  primary: grief
+  secondary: honor
+  one_line: "St. Olaf is a program defined by one rivalry—the Goat Trophy against Carleton is everything, and the 2025 loss of it still stings."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A MIAC school that competes steadily and honors the game, but is forever measured against one opponent and one trophy that matters more than the standing or the record."
+
+the_wound:
+  name: "The 2025 Goat Trophy loss—35-28 to Carleton"
+  detail: "Saint Olaf plays Carleton every year for a 105-year-old trophy. In 2025, the Oles lost 35-28—the Goat Trophy went to Northfield, and for an entire year, St. Olaf fans will watch a rival wear the trophy they wanted. It's not a regional final or a state championship. It's worse: it's the one game that matters, and they lost it."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win back the Goat Trophy and prove 2025 was a down year, not a trend. The 2026 Carleton game IS the season."
+  drought: { since: 2025, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe st. Olaf's identity is entirely wrapped in Carleton. The rivalry is not a secondary competition; it IS the season. Everything else is preseason."
+
+the_delusion:
+  tone: earnest
+  text: "St. Olaf fans believe next year is their year, that the loss to Carleton in 2025 was an anomaly, not a prediction. And when the Oles play the Knights, they believe they will win."
+
+the_grudge_texture:
+  rival: carleton
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Winning the Goat Trophy vs winning the MIAC—the question of whether one rivalry defines success or if broader conference competition matters."
+register: st-olaf-oles-northfield-minnesota-goat-trophy-105-years
+never_use:
+  - The rivalry is new or one-sided—105 years of continuous competition prove otherwise
+  - St. Olaf dominates the Carleton series—it's competitive; 2025 loss to Carleton was genuine
+  - Unrelated to Carleton—the Goat Trophy IS St. Olaf football
+
+story_canon:
+  the_unique_thing: "The Goat Trophy—a 105-year continuous rivalry with Carleton College (since 1931), one of the oldest and most storied rivalries in Division III. When St. Olaf beats Carleton, the Goat Trophy comes home to Northfield. In 2025, it didn't. The fanbase will spend the entire 2026 season trying to bring it back."
+  the_origin: "St. Olaf College, founded 1874, a small Norwegian Lutheran liberal-arts school in Northfield, Minnesota, began playing football in the early 1900s and established its legendary rivalry with Carleton in 1931—a continuous 105-year series that defines the program's identity."
+  golden_ages:
+    - { era: "1931–1970", what: "The founding era of the Goat Trophy rivalry; St. Olaf built consistent MIAC presence and competitive balance with Carleton" }
+    - { era: "1980s–1990s", what: "St. Olaf's strongest seasons, competing for MIAC titles and maintaining the rivalry's balance" }
+  legends:
+    - { name: James Kilian, role: coach, why: "9th year head coach; steward of the Goat Trophy tradition and the rivalry's modern custodian" }
+    - { name: Ethan Hess, role: player, why: "Sophomore kicker, 2025 All-MIAC selection, 14-of-17 field goals (program record), 25-of-25 PATs, Fred Mitchell Award semifinalist—the embodiment of St. Olaf football excellence" }
+  canonical_moments:
+    - { name: "The Goat Trophy rivalry begins", year: 1931, what: "St. Olaf and Carleton establish the rivalry that would become one of the oldest continuous in college football", handling: glory }
+    - { name: "2025 Goat Trophy loss to Carleton", year: 2025, what: "St. Olaf loses 35-28 to Carleton, sending the Goat Trophy to Northfield—a loss that haunts the entire 2026 season", handling: wound }
+  the_place: "Northfield, Minnesota—a small liberal-arts college town, home to both St. Olaf and Carleton, where the rivalry defines the calendar."
+  brand_of_football: "Honorable, competitive, tradition-first—St. Olaf plays the game as it was meant to be played, with respect for the opponent and reverence for the Goat Trophy."
+  cultural_footprint: "St. Olaf represents the pure D3 ideal: a small liberal-arts school where the game is played for love, tradition, and the honor of competing in one of the sport's oldest rivalries."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: St. Olaf went 4-6 (3-6 MIAC) in 2025 and lost the Goat
+    Trophy to Carleton 35-28, a defeat that will shadow the entire 2026 season. Ethan Hess (So K), the 2025
+    All-MIAC selection with a program-record 14-of-17 field goals and a Fred Mitchell Award semifinalist candidacy,
+    represents the quality and precision St. Olaf brings every year. But precision doesn't matter if the Oles
+    can't win the one game that counts. The 2026 Carleton rivalry IS the season.
+  research_checklist:
+    - The Goat Trophy rivalry as the primary identity (105 years since 1931)
+    - The 2025 loss to Carleton (35-28)
+    - Ethan Hess's record-setting kicking and All-MIAC status
+    - Liberal-arts identity and honor-first football
+    - Small-school pride and tradition-centered approach
+    - The rivalries weight and emotional resonance
+  sources:
+    - https://www.stolaf.edu/athletics/football/
+    - https://miachome.org/sports/football/
+    - https://www.d3football.com/
+    - https://en.wikipedia.org/wiki/Goat_Trophy

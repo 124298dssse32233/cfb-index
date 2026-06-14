@@ -1,0 +1,69 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: colorado-mines
+program_name: Colorado School of Mines
+program_tier: 6
+
+emotional_core:
+  primary: honor
+  secondary: spectacle
+  one_line: "Colorado School of Mines is the engineering powerhouse whose players wear their major on their helmet — Orediggers playing football for an 1874 institution that built America's mining backbone, and Blaster the Burro has become a D2 icon."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "An elite academic institution with a distinctive D2 football program that reaches national conversation through engineering identity, historic stadium, and iconic mascot."
+
+the_wound:
+  name: "The 2023 national championship game loss"
+  detail: "Colorado School of Mines lost the 2023 Division II national championship game to Harding 7-38 — the program's closest approach to the ultimate title, and a wound that still stings."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the Division II championship game and finally close the national title — a goal that legitimizes both the engineering excellence and the football craft."
+  drought: { since: 2023, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe mines carries the chip of being overlooked — a Division II program with Big-Time engineering credentials that deserves national respect and is building toward a title."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: fort-lewis
+  texture: blood-feud
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Academic identity vs football ambition — the inherent tension between being primarily an elite mining school and sustaining a D2 national-title-caliber football program."
+register: colorado-mines-orediggers-blaster-burro-engineers-golden
+never_use:
+  - 2025 national champions — Never won a D2 national title (runner-up 2023); 7-4 in 2025
+  - Recent playoff failures — made playoffs; lost to UTPB but not disgracefully
+
+story_canon:
+  the_unique_thing: "Players wear their major on their helmet — the only Division II program with this distinctive identity marker, rooted in an 1874 founding dedicated to training mining engineers. Blaster the Burro is the only D2 mascot on ESPN's list of iconic college mascots."
+  the_origin: "Founded in 1874 as the Colorado School of Mines, built to educate the engineers who built America's mining and mineral industry — football arrived later but carries the academic prestige and engineering heritage."
+  golden_ages:
+    - { era: "2015–2023", what: "Rise to national prominence — RMAC dominance, 25 conference championships, and the 2023 national championship game appearance" }
+  legends: []
+  canonical_moments:
+    - { name: "2023 national championship game", year: 2023, what: "Mines reached the Division II national championship game, losing to Harding 38-7 — the closest the program has come to a national title", handling: heartbreak }
+    - { name: "Historic Marv Kay Stadium (1893)", year: 1893, what: "Home stadium is the oldest west of the Mississippi River, a physical monument to the program's longevity", handling: glory }
+  the_place: "Marv Kay Stadium in Golden, Colorado — built in 1893 and the oldest west of the Mississippi. A physical reminder of the program's century-plus heritage."
+  brand_of_football: "Elite small-school football — disciplined, well-coached, national-caliber D2 football rooted in engineering excellence and academic pride."
+  cultural_footprint: "The only D2 program where engineering identity is woven into uniform (major on helmet) and mascot lore; a program that proves academic excellence and football success can coexist and reinforce each other."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Colorado School of Mines under coach Bob Stitt (Year 2) went 7-4 in 2025 (5-4 RMAC),
+    with QB Joseph Capra leading the offense. The program has built 25 RMAC conference championships and came closest to a national
+    title in 2023 (championship game loss to Harding). The 2025 season was solid but not a playoff run. Mines remains a distinctive
+    D2 institution: players wear their major on their helmet, Marv Kay Stadium (1893) is the oldest west of the Mississippi, and
+    Blaster the Burro is a recognized D2 icon. The engineering identity is the program's true moat — elite academics coupled with
+    national-caliber football.
+  sources:
+    - https://en.wikipedia.org/wiki/Colorado_School_of_Mines_Orediggers_football
+    - https://www.minesathletics.com/
+    - https://www.rmac.org/
+    - https://en.wikipedia.org/wiki/Marv_Kay_Stadium

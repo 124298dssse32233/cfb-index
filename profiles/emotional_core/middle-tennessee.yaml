@@ -1,0 +1,121 @@
+# Emotional Core — Middle Tennessee  (middle-tennessee)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: middle-tennessee
+team_id: 259
+program_name: Middle Tennessee
+program_tier: 3
+
+emotional_core:
+  primary: restoration    # the live arc: clawing back after the program's defining coach left and the floor fell out
+  secondary: deprival     # two straight 3-9 seasons, the bowl trips and giant-killer Saturdays feel a while ago
+  core_variant: regime-reset
+  one_line: "Middle Tennessee spent eighteen years as Rick Stockstill's steady program — the Murfreesboro stalwart that occasionally ambushed a power — and now, two coaches and two 3-9 seasons later, is trying to remember how to be that again."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A Hawaii Bowl title and a long run of bowl-caliber Stockstill teams vs back-to-back 3-9 seasons that dropped the program to the bottom half of Conference USA."
+
+the_wound:
+  name: "Life after Stockstill"
+  detail: "Rick Stockstill ran the program for 18 years before being let go after 2023. Derek Mason has gone 3-9 in 2024 and 3-9 again in 2025 (2-6 Conference USA), a 6-18 start that left Murfreesboro wondering whether the steady-bowl era is gone for good."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Get back to a bowl and back to ambushing somebody bigger — the Murfreesboro program that posts winning falls and reminds the league it can still bite."
+  drought: { since: 2022, unit: bowl }
+
+the_chip:
+  villain: national_media
+  text: "Fans remember the Saturdays the Blue Raiders walked into a bigger program's stadium and won, and bristle that the national take treats Murfreesboro as background — a program that has, more than once, refused to play the part."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the giant-killer is still in there — that the right staff and a healthy portal class put the Blue Raiders back in a bowl and back to stealing one marquee scalp a year, the way Murfreesboro remembers it."
+
+the_grudge_texture:
+  rival: western-kentucky
+  texture: blood-feud   # 100 Miles of Hate — MTSU vs Western Kentucky, the program's fiercest rivalry
+
+the_coach_relationship: hot-seat-churn   # post-Stockstill, the program is searching after two 3-9 years under Mason
+the_internal_fracture: patience vs alarm — give Mason time to rebuild vs the fear that the program slid the moment the long-tenured coach left
+register: murfreesboro-blue-raiders-restoration
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Always G5-bottom — 2018 Hawaii Bowl + Stockstill era + 2009 New Orleans Bowl disprove
+  - No identity — Stockstill + Floyd Stadium + Raider Up combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Rick Stockstill era — 18 years of steadiness in Murfreesboro, the longest head-coaching tenure in program history, a run defined by bowl appearances and the occasional ambush of a name-brand program. MTSU's identity is the durable Conference USA stalwart that can still surprise you."
+  the_origin: "A program in Murfreesboro, Tennessee that grew from its small-college roots into a Conference USA fixture, playing at Floyd Stadium since the 1930s and finding its modern footing under Stockstill."
+  golden_ages:
+    - { era: "2006–2023 (Rick Stockstill)", what: "The program's defining tenure — multiple bowl trips and signature upsets" }
+    - { era: "2018 & 2022", what: "Hawaii Bowl championships that bookended the late-Stockstill run" }
+  legends:
+    - { name: Rick Stockstill, role: coach, why: "Longest-tenured coach in program history; the architect of the modern Blue Raiders" }
+    - { name: Brent Stockstill, role: player, why: "Record-setting quarterback who rewrote the program's passing record book" }
+    - { name: Kevin Byard, role: player, why: "Ball-hawking safety who became an NFL All-Pro — the program's pro standard-bearer" }
+  canonical_moments:
+    - { name: "The 2018 Hawaii Bowl title", year: 2018, what: "A bowl championship in the heart of the Stockstill era", handling: glory }
+    - { name: "The 2022 Hawaii Bowl title", year: 2022, what: "A 25-23 win over San Diego State — the program's most recent bowl glory", handling: glory }
+    - { name: "Stockstill's dismissal", year: 2023, what: "The end of an 18-year tenure opens the unsteady post-Stockstill chapter", handling: wound }
+  the_place: "Floyd Stadium in Murfreesboro — a home since the 1930s, the Raider Up identity, a Middle Tennessee crowd that turns out for the in-state and rivalry dates."
+  brand_of_football: "Resourceful, opportunistic Conference USA football — built less on overwhelming talent than on a giant-killer's willingness to ambush a bigger program on the right Saturday."
+  cultural_footprint: "Raider Up — the football flagship of middle Tennessee, a durable G5 program with a giant-killer streak and a long memory of the Stockstill years."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Derek Mason, hired after Rick Stockstill's 2023 dismissal, has gone 3-9 in
+    2024 and 3-9 again in 2025 (2-6 Conference USA) — a 6-18 start that dropped the program to the bottom half of
+    the league. Murfreesboro enters 2026 asking whether Mason can rebuild the steady-bowl, occasionally-dangerous
+    program Stockstill left behind, or whether the floor fell out for good when the long-tenured coach walked.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Middle_Tennessee_Blue_Raiders_football_team
+    - https://www.espn.com/college-football/story/_/id/39050323/middle-tennessee-expected-hire-derek-mason-coach
+    - https://www.sports-reference.com/cfb/schools/middle-tennessee-state/2025.html
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Middle Tennessee is the Conference USA program whose Rick Stockstill 2006-2024 era +
+    Floyd Stadium + 2018 Hawaii Bowl championship define what historic-Tennessee-G5-football looks like.
+  mantra: Raider Up.
+  cultural_anchors:
+    fan_archetype_dominant: Murfreesboro-Blue-Raider-Raider-Up
+    outsider_archetype_dominant: G5-Mid-Pack-Diminisher
+    one_sentence: Middle Tennessee is the Murfreesboro Tennessee G5 anchor — Rick Stockstill 18-year tenure
+      + 2018 Hawaii Bowl championship + Floyd Stadium 1933 venue that anchor the historic Conference USA
+      arc.
+  selfname: the Blue Raiders
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - Rick Stockstill 2006-2024 tenure (longest head-coach run in MTSU history)
+    - 2018 8-6 + Hawaii Bowl championship under Stockstill
+    - 2009 10-3 + New Orleans Bowl appearance
+    rituals:
+    - Rick Stockstill Tenure (2006-2024)
+    - Floyd Stadium Tradition
+    - Raider Up Identity
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (45/100, n=13)
+    voice_profile: absent
+    delusion_premium: absent

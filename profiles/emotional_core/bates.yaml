@@ -1,0 +1,71 @@
+# AUTHORED (D3/NESCAC) 2026-06-13 — web-verified
+
+status: live
+slug: bates
+team_id: null
+program_name: Bates College
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: honor
+  one_line: "Maine grit meets scholarly discipline—Bates is the scrappy underdog that punches above its weight through toughness and organizational consistency."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "Competitive mid-tier NESCAC presence vs. Amherst/Middlebury dynasties"
+
+the_wound:
+  name: "The CBB ceiling"
+  detail: "Bates lives in the shadow of Colby and Bowdoin within the Maine triumvirate. No perfect seasons, no dynasty peaks—just reliable competitiveness. The 5–5 (2025) record is on-brand."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win the CBB (Colby-Bates-Bowdoin) conference outright and break the expectation that Bates is forever the solid middle option."
+  drought: { since: 1978, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe colby and Bowdoin are bigger names; Bates is tougher and more disciplined. The Maine schools know it. Bates doesn't broadcast it."
+
+the_delusion:
+  tone: self-aware
+  text: "Bates fans privately believe their program is closer to Bowdoin's competitiveness than the records suggest—that toughness and grit matter more than national rankings."
+
+the_grudge_texture:
+  rival: colby
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: playoff-now vs. long-term-patience — the tension between demanding immediate competitiveness and building institutional capacity
+
+register: gritty-unassuming-maine
+
+never_use:
+  - "Third-tier (Bates is a serious NESCAC competitor with 100+ years of tradition)"
+  - "Overmatched (Maine grit and defensive discipline keep Bates in every game)"
+  - "Perennially mediocre (Bates is consistently competitive; stability is not mediocrity)"
+
+story_canon:
+  the_unique_thing: "The Maine grit tradition—a program that competes with discipline and toughness rather than flash, the reliable middle of the CBB triumvirate."
+  the_origin: "Bates College (founded 1864) is a Maine institution with 150+ years of football tradition. CBB membership since ~1920 anchors the program identity."
+  golden_ages:
+    - { era: "1973–1978", what: "Consistent NESCAC competitive years; CBB tournament participant" }
+    - { era: "2010–2018", what: "Modern competitive era rebuild; 8–9 conference records typical; 2015–2017 tournament appearances" }
+  legends:
+    - { name: Rick Nalin, role: coach, why: "13 years (1988–2001); 79 wins; stabilized program during transition" }
+  canonical_moments:
+    - { name: "2015 CBB playoff run", year: 2015, what: "First modern playoff appearance; unexpected tournament run", handling: miracle }
+    - { name: "Maine rivalry legacy", year: 1920, what: "CBB formation; 100+ years of Maine triumvirate identity", handling: glory }
+  the_place: "Lewiston, Maine—a New England mill-town college with deep regional roots and working-class identity."
+  brand_of_football: "Disciplined, defensive-minded football—a program that doesn't beat itself and relies on toughness over sophistication."
+  cultural_footprint: "The reliable Maine voice in NESCAC; proof that consistency and grit can keep a program competitive without national headlines."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Bates went 5–5 (2025), NESCAC middle tier. The program maintains its historical
+    identity as a competitive mid-tier NESCAC player. The 2015 playoff run remains the modern high-water mark; current coaching
+    tenure focuses on organizational stability and consistent tournament contention rather than dynasty-building.
+  sources:
+    - https://www.bates.edu/athletics/sports/football
+    - https://www.nescac.org/sports/fball/standings
+    - https://www.ncaa.org/sports/football/d3

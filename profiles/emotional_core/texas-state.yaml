@@ -1,0 +1,118 @@
+# Emotional Core — Texas State  (texas-state)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: texas-state
+team_id: 319
+program_name: Texas State
+program_tier: 3
+
+emotional_core:
+  primary: house-money    # the newest FBS arrival just got handed a Power-conference seat — every step from here is upside
+  secondary: grievance    # a decade dismissed as the newcomer nobody respected — now the underdog with a Power seat to prove
+  one_line: "Texas State was the most recent program to climb to FBS and spent a decade as a Sun Belt afterthought — then GJ Kinne won three straight bowl games and the revamped Pac-12 handed San Marcos a Power seat, turning the doormat into a conference flagship almost overnight."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Years as a winless-adjacent Sun Belt newcomer with zero bowl history vs three straight bowl wins under GJ Kinne and a 2026 jump to the Pac-12 as its Texas flagship."
+
+the_wound:
+  name: "The decade nobody noticed"
+  detail: "Texas State reclassified to FBS in 2012 and then spent a decade as a losing-record afterthought with no bowl appearances, the kind of program outsiders used as a schedule-filler — a stretch only erased when GJ Kinne arrived in 2023 and immediately won."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Make San Marcos belong in a Power conference — win in the Pac-12, become the program in Texas that recruits the I-35 corridor away from the bigger names, and never go back to being a footnote."
+  drought: { since: 2012, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans have heard it for a decade — that Texas State is the newcomer that doesn't matter, the FBS arrival nobody respects. Getting the Pac-12 nod over older, bigger programs is the answer they wanted, and they want Kinne to prove San Marcos earned the upgrade."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Texas State can be the flagship of the new Pac-12 — that a fast-rising program sitting on the recruit-rich I-35 corridor between Austin and San Antonio is perfectly placed to become a Power-conference player while everyone's still treating it like a newcomer."
+
+the_grudge_texture:
+  rival: texas-san-antonio
+  texture: border-war   # the I-35 rivalry — two young Texas FBS programs fighting for the same recruits and city
+
+the_coach_relationship: savior   # GJ Kinne single-handedly turned the program's identity around
+the_internal_fracture: dream-big vs stay-grounded — the faction giddy about the Pac-12 leap and the faction worried San Marcos isn't resourced to survive a Power schedule
+register: san-marcos-bobcats-fbs-newcomer-2012   # DRAFT (from voice_register) — confirm
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Still FCS — 2012 FBS reclassification + 2023 First Responder Bowl ended that
+  - No identity — 2012 FBS jump + Kinne 2023 + Eat 'Em Up combine into canon
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "Texas State is the youngest FBS program to crash a Power conference — the 2012 newcomer that spent a decade as a Sun Belt afterthought, then went from no bowl history to three straight bowl wins under GJ Kinne and a 2026 invitation to the revamped Pac-12 as its flagship Texas school."
+  the_origin: "A San Marcos university (the old Southwest Texas State, where LBJ went to college) that reclassified from FCS to FBS in 2012 and joined the Sun Belt — a true modern arrival with shallow football roots and everything still to build."
+  golden_ages:
+    - { era: "2023-2025 (GJ Kinne)", what: "Three consecutive winning seasons and three straight bowl wins — the first three bowl victories in program history" }
+  legends:
+    - { name: GJ Kinne, role: coach, why: "Turned a perennial Sun Belt also-ran into a three-time bowl winner and a Power-conference invitee in three years" }
+  canonical_moments:
+    - { name: "The 2023 First Responder Bowl", year: 2023, what: "GJ Kinne's first team wins the program's first-ever bowl game in his debut season", handling: glory }
+    - { name: "The Armed Forces Bowl win over Rice", year: 2025, what: "A 41-10 rout caps a 7-6 season and a third straight bowl win", handling: glory }
+    - { name: "The Pac-12 invitation", year: 2025, what: "Texas State is announced as a Pac-12 member effective July 2026 — its leap to a Power conference", handling: glory }
+  the_place: "UFCU Stadium (the old Bobcat / Jim Wacker field) in San Marcos — a fast-growing program's home on the I-35 corridor between Austin and San Antonio, the heart of its recruiting pitch."
+  brand_of_football: "Newcomer swagger — GJ Kinne's fast, modern, confident offense, built to punch above a young program's weight and recruit the talent-rich Texas triangle."
+  cultural_footprint: "Proof that a brand-new FBS program can climb to a Power seat in a single decade — the rare riser whose realignment story is upward, not exile."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Texas State went 7-6 in 2025 (3-5 Sun Belt), beating Rice 41-10 in the
+    Armed Forces Bowl for GJ Kinne's third straight bowl win. Then came the program-defining news: Texas State
+    formally leaves the Sun Belt to join the revamped Pac-12 effective July 1, 2026, becoming the league's
+    flagship Texas member. Kinne enters his fourth season tasked with proving San Marcos belongs at the Power
+    level — the biggest upgrade in the program's short history.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Texas_State_Bobcats_football_team
+    - https://campussports.net/2025/07/01/texas-state-joining-revamped-pac-12-conference-in-2026/
+    - https://www.profootballnetwork.com/cfb/texas-state-149-million-dollar-rise-into-pac-12-flagship-team-in-texas/
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Texas State is the Sun Belt program whose 2012 FBS reclassification + 2023 8-5 + GJ Kinne
+    era + Jim Wacker Stadium identity define what most-recent-FBS-newcomer-ascent looks like.
+  mantra: Eat 'Em Up Cats.
+  cultural_anchors:
+    fan_archetype_dominant: San-Marcos-Bobcat-Eat-Em-Up
+    outsider_archetype_dominant: FBS-Newcomer-Diminisher
+    one_sentence: Texas State is the 2012-FBS-newcomer Sun Belt program — GJ Kinne 2023 First Responder
+      Bowl + 'Eat 'Em Up Cats' fight song + San Marcos Texas geographic catchment that anchor the most-recent
+      ascent arc.
+  selfname: the Bobcats
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2012 FBS reclassification (most-recent Sun Belt FBS entry)
+    - 2023 8-5 + First Responder Bowl championship under GJ Kinne
+    - '''Eat ''Em Up Cats'' fight song (since 1920s)'
+    rituals:
+    - 2012 FBS Reclassification
+    - GJ Kinne 2023 Bowl Win
+    - Eat 'Em Up Cats
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (52/100, n=80)
+    voice_profile: absent
+    delusion_premium: absent

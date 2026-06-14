@@ -1,0 +1,100 @@
+# Emotional Core — Susquehanna University (susquehanna)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DIVISION III — program_tier: 7, graceful degradation applies (small school, regional focus, academic mission).
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: susquehanna
+team_id: null
+program_name: Susquehanna University
+program_tier: 7
+
+emotional_core:
+  primary: spectacle     # the dominant era that defines the program
+  secondary: standard    # excellence expected
+  one_line: "Susquehanna is the Landmark flagship that won four consecutive conference titles (2022–2025), went perfect in conference play (27–0), reached a NCAA Division III Semifinal, and redefined what a small D3 program can achieve."
+
+self_image:
+  archetype: blue-blood-living-up
+  standard_gap_frame: "Four straight Landmark titles, 27–0 Landmark play, NCAA Semifinal reach (2024) vs. the reality: even the best D3 programs have a ceiling."
+
+the_wound:
+  name: "The Perkovich transition (2026 departure to UAlbany)"
+  detail: "Tom Perkovich, the architect of four straight titles and 95 career wins, accepted the UAlbany FBS head coaching job for 2026. This is a transition moment, not a wound—but it marks the end of an era."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Sustain the dominant Landmark era under new leadership and prove the 2022–2025 run is the program's new standard, not a one-coach fluke."
+  drought: { since: 2021, unit: national_title }  # only one year without title since 2022
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip; Susquehanna is confident in its dominance. The only rival is the coaching departure."
+
+the_delusion:
+  tone: self-aware
+  text: "Susquehanna fans believe the 2022–2025 era is sustainable without Perkovich—that the program has built a foundation strong enough to transcend one coach."
+
+the_grudge_texture:
+  rival: wilkes
+  texture: championship    # developing rivalry in Landmark; Wilkes is consistent #2
+
+the_coach_relationship: legends-shadow   # transitional moment post-Perkovich; new coach inherits dynasty
+the_internal_fracture: perkovich-dependency-vs-program-strength — between those attributing success to Tom and those believing the program is bigger than one coach
+register: earnest-dominant
+never_use:
+  - "Lucky (27–0 Landmark play and 12-win season are structural, not luck)"
+  - "Vulnerable (the program's dominance is real; Perkovich's departure is a transition, not a collapse)"
+
+story_canon:
+  the_unique_thing: "Susquehanna is the best D3 program of the 2022–2025 era—four straight Landmark championships, 27–0 conference record, a 12-win season (2024), and a NCAA Division III Semifinal appearance (2024). The program rewrote what a small D3 school can achieve."
+  the_origin: "Susquehanna University was founded in 1773 in Selinsgrove, Pennsylvania. The football program joined the Landmark Conference as a founding member in 2023 and has since dominated the conference with unprecedented success."
+  golden_ages:
+    - { era: "2022–2025 (The Perkovich Dynasty)", what: "Four straight Landmark titles, 27–0 Landmark play, 12-win season (2024), NCAA Division III Semifinal appearance, redefined D3 competitiveness" }
+  legends:
+    - { name: Tom Perkovich, role: coach, why: "11 seasons at Susquehanna (through 2025), 95 career wins, architect of four straight titles and NCAA Semifinal run; accepted UAlbany position for 2026" }
+  canonical_moments:
+    - { name: "Four Consecutive Landmark Titles (2022–2025)", year: 2025, what: "Susquehanna dominates Landmark with perfect 27–0 conference play across four seasons", handling: glory }
+    - { name: "2024 NCAA Division III Semifinal appearance (12–3)", year: 2024, what: "12-win season and semifinal loss; program's highest NCAA tournament result", handling: glory }
+    - { name: "Perfect 27–0 Landmark Record", year: 2025, what: "Unprecedented conference dominance across four seasons", handling: glory }
+  the_place: "Susquehanna University in Selinsgrove, Pennsylvania — a small liberal arts campus that produced the best D3 football program of the 2020s decade."
+  brand_of_football: "Elite small-school football—Susquehanna plays with Big Time College intensity on a D3 platform; balanced, well-coached, program-first culture."
+  cultural_footprint: "The proof that a small D3 program can achieve unprecedented dominance and compete in NCAA tournaments like a power conference team; Susquehanna rewrote the D3 ceiling."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Susquehanna finished 11–3 in 2025, losing to Johns Hopkins 34–28 in the NCAA Division III Quarterfinals after winning four straight Landmark championships (2022–2025). Head coach Tom Perkovich, who led the program to 95 career wins and the 2024 NCAA Semifinal appearance, accepted the head coaching position at UAlbany (FBS) for 2026. The program transitions into a new era with a new head coach while maintaining Landmark dominance. The 2026 question: can Susquehanna continue its four-year run under new leadership, or does the program enter a decline?
+  research_checklist:
+    - Four straight Landmark titles (2022–2025)
+    - 27–0 Landmark conference record (2022–2025)
+    - 2024 NCAA Semifinal appearance (12–3)
+    - Tom Perkovich 95 career wins, UAlbany departure (2026)
+  sources:
+    - https://www.ncaa.com/schools/susquehanna
+    - https://suriverhawks.com/news/2025/11/16/susquehanna-football-ncaa-2025.aspx
+    - https://www.albany.edu/news-center/news/2026-ualbany-names-tom-perkovich-head-football-coach
+
+briefing:
+  identity_phrase: Susquehanna is the Landmark flagship with four straight titles (2022–2025), 27–0 Landmark play, and 2024 NCAA Semifinal—the best D3 program of the era under Tom Perkovich (departing to UAlbany).
+  mantra: River Hawk Pride.
+  cultural_anchors:
+    fan_archetype_dominant: Selinsgrove-Hawk-Dominant
+    outsider_archetype_dominant: Underestimated-D3-Power
+    one_sentence: Susquehanna is the dominant Landmark program with four straight conference titles (2022–2025), 27–0 Landmark play, and a 2024 NCAA Semifinal appearance under coach Tom Perkovich (departing to UAlbany).
+  selfname: the River Hawks
+  heritage:
+    conference: Landmark
+    championships: 4 consecutive (2022–2025); 27–0 Landmark play
+  story_materials:
+    always_surface:
+    - Four consecutive Landmark titles (2022–2025)
+    - Perfect 27–0 Landmark record (2022–2025)
+    - 2024 NCAA Division III Semifinal appearance (12–3)
+    - Tom Perkovich 95 career wins, UAlbany 2026
+    rituals:
+    - Landmark dominance annual expectation
+    - NCAA tournament hosting annual standard
+    modules_already_rendering: none (D3 module set pending)
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent
+    signal: no live signal (canon-only, D3 small program)

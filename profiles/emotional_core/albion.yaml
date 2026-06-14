@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Albion College Britons
+
+status: live
+slug: albion
+team_id: null
+program_name: Albion College
+program_tier: 7
+
+emotional_core:
+  primary: redemption
+  secondary: honor
+  one_line: "Albion is the program that won a national championship in 1994 (defeating Washington & Jefferson to go 13-0), then disappeared—now rebuilding under a familiar name to restore dignity to Briton football."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A program with a 1994 NCAA D3 national championship and a 1891 victory over Michigan vs. a 3-7 season in 2025 and the slow rebuilding necessary to return to conference relevance."
+
+the_wound:
+  name: "The post-1994 decline and the 2025 collapse"
+  detail: "Albion won the 1994 national championship (13-0 record, defeated Washington & Jefferson in the finals) under the MIAA banner. That remains the program's apex. Since then, Albion has been unable to sustain that level of success, and 2025 (3-7, 1-6 MIAA) represents a return to the lower tier of conference standings. The wound is 31 years of post-championship decline."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to .500 football and win a MIAA title, proving 1994 is not a fluke but evidence of the program's capability."
+  drought: { since: 1994, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "The chip is against history. Albion has one shining championship (1994) and 31 years of struggle to follow it. The fanbase wants to prove it was not lightning in a bottle."
+
+the_delusion:
+  tone: earnest
+  text: "That the right coaching hire (Travis Rundle, a Briton alum and son of a former HC) can unlock the 1994 championship swagger again. Fans believe the blueprint is there."
+
+the_grudge_texture:
+  rival: michigan
+  texture: little-brother
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "1994 championship legacy (13-0, national title) vs. post-championship decades of mediocrity"
+register: albion-michigan-britons-1994-champion
+never_use:
+  - "Just one title in 1994 — true, but it was the national championship, rare in D3"
+  - "Historical power — one title does not a dynasty make; Albion is not Wittenberg or Hope"
+  - "Irrelevant small program — 1994 national championship proves capability"
+
+story_canon:
+  the_unique_thing: "Albion won the NCAA Division III national championship in 1994, a 13-0 season that remains the program's highest achievement and only national title."
+  the_origin: "Albion College began playing football in 1888 (138 years old) and has been a continuous MIAA member since the conference's foundation in 1888. The program had moderate success for decades before the 1994 championship, which remains its only national title."
+  golden_ages:
+    - { era: "1891", what: "Albion defeats Michigan 10-4, a stunning early-era upset" }
+    - { era: "1994 (National championship)", what: "13-0 record, defeats Washington & Jefferson in the NCAA Division III playoff finals to claim the national title" }
+    - { era: "Early 2000s", what: "Multiple MIAA title contender runs, but unable to reach 1994 heights" }
+  legends:
+    - { name: 1994 championship team, role: historic, why: "13-0 undefeated national championship, Albion's only title" }
+    - { name: Travis Rundle, role: coach, why: "Third-year coach (Albion '02 alum, son of former HC Craig Rundle), rebuilding program" }
+  canonical_moments:
+    - { name: "1891 Michigan upset", year: 1891, what: "Albion defeats Michigan 10-4 in an early-era upset", handling: glory }
+    - { name: "1994 national championship", year: 1994, what: "13-0 record, defeats Washington & Jefferson in NCAA D3 finals", handling: glory }
+  the_place: "Albion, Michigan, a small town in south-central Michigan. Sprankle-Sprandel Stadium is the home. The town is deeply connected to the college."
+  brand_of_football: "Academic-first. Albion football is built around rigorous academics and student-athlete development, not athletic dominance."
+  cultural_footprint: "Known for a single shining moment. The 1994 national championship defines Albion football in the broader D3 community. Everything before and after is footnote."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Albion went 3-7 in 2025 (1-6 MIAA, tied for 6th), a disappointing season that extended the post-1994 drought. Travis Rundle, a Briton alum and son of former HC Craig Rundle, is in his third season (17-13 record, 2024 was 7-3, prior season 9-3). The decline from 2024 to 2025 is concerning. Rundle's task is to rebuild the roster and restore basic MIAA competitiveness. The 1994 national championship is 31 years past, and the current team must prove it is not a relic of history.
+  research_checklist:
+    - 1888 founding (138 years old, founding MIAA member)
+    - 1891 Michigan upset (10-4)
+    - 1994 national championship (13-0, defeated Washington & Jefferson)
+    - 2024 season 7-3
+    - 2025 season 3-7, 1-6 MIAA (tied 6th)
+    - Travis Rundle 3 seasons, 17-13 record (Briton '02, son of Craig Rundle)
+    - Sprankle-Sprandel Stadium home
+  sources:
+    - https://gobrits.com
+    - https://en.wikipedia.org/wiki/Albion_Britons_football
+    - https://en.wikipedia.org/wiki/1994_Albion_Britons_football_team

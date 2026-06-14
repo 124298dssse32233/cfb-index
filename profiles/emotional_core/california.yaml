@@ -1,0 +1,120 @@
+# Emotional Core — California  (california)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: california
+team_id: 226
+program_name: California
+program_tier: 3
+
+emotional_core:
+  primary: deprival        # the world's best public university with a football program that never quite matches the brain power
+  secondary: disbelief     # a coast-to-coast ACC seat for a Berkeley school the old conference left behind — still surreal
+  one_line: "California is the best public university on earth fielding a football team that won the most chaotic play in the sport's history and has spent the 43 years since chasing a moment that big."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "The Play, an Aaron Rodgers near-perfect 2004, and a No. 4 national ranking that year vs a present of 7-6 seasons, a fired coach, and a 2,500-mile commute to a conference that isn't the Pac."
+
+the_wound:
+  name: "Wilcox out after the slow fade"
+  detail: "The 2025 Bears started 4-1 and finished 7-6 with a Hawaii Bowl loss, and the late slide cost Justin Wilcox his job after nine years and a 48-55 record — the longest-tenured coach in the West cut loose, with Oregon's Tosh Lupoi, a Cal alum, hired to start over."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Be a football school that matches the academic name — a Rose Bowl, a conference title, one more season where Berkeley produces a top-five team and the country has to take Cal seriously again."
+  drought: { since: 2006, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe old Blues will tell you the rankings forget Cal exists between rivalry weeks — that a school this good at everything else gets written off in football by people who can't name a single thing about the program except a five-lateral play from 1982."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes Berkeley should be a football power — that the best public school on the planet, in talent-soaked California, ought to win, and that the right coach and the right year will finally make the program live up to the diploma."
+
+the_grudge_texture:
+  rival: stanford
+  texture: blood-feud   # the Big Game and the Stanford Axe — the rivalry The Play belongs to
+
+the_coach_relationship: savior   # Tosh Lupoi, the alum brought home from Oregon to rebuild
+the_internal_fracture: do-it-the-Berkeley-way vs win-at-all-costs — the faction proud that Cal stays academically pristine and clean even if it caps the ceiling vs the faction that wants the program to spend, transfer, and win like a real Power-conference team
+register: berkeley-old-blues-academic-bears
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Pac-12 forever — 2024 ACC entry resolved the realignment question
+  - Always 6-6 — Aaron Rodgers 2004 + Tedford era 10-win seasons disprove
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Play — Cal's five-lateral kickoff return through the Stanford band to win the 1982 Big Game on the final snap, the single most famous and chaotic ending in college-football history, owned forever by Berkeley."
+  the_origin: "The flagship of the University of California system in Berkeley — the world's top public university and a hotbed of Nobel laureates — fielding football in the Bay Area since the 19th century, where 'Go Bears' has always carried an academic accent."
+  golden_ages:
+    - { era: "1920s (Wonder Teams)", what: "Andy Smith's 'Wonder Teams' went years without a loss — the program's deepest historical run of dominance" }
+    - { era: "2004 (Jeff Tedford / Aaron Rodgers)", what: "A 10-2 season and a No. 4 ranking behind a near-perfect Aaron Rodgers — Cal's modern peak" }
+  legends:
+    - { name: Aaron Rodgers, role: player, why: "The 2004 quarterback who became an NFL MVP and the program's most famous modern player" }
+    - { name: Joe Roth, role: player, why: "The 1970s QB who played through terminal cancer; his No. 12 is retired and honored every year" }
+    - { name: Jeff Tedford, role: coach, why: "Led the 2000s resurgence, including the No. 4 2004 team" }
+  canonical_moments:
+    - { name: "The Play", year: 1982, what: "Five laterals and a kickoff return through the Stanford band beat the Cardinal as time expires", handling: miracle }
+    - { name: "Joe Roth's final season", year: 1976, what: "Roth plays out a season while dying of cancer; his jersey is retired", handling: heartbreak }
+    - { name: "2004 No. 4 ranking", year: 2004, what: "Rodgers' Bears climb to No. 4 and just miss a Rose Bowl bid", handling: glory }
+  the_place: "California Memorial Stadium — built directly atop the Hayward Fault in the Berkeley hills, with a view of the Bay and the Campanile beyond the rim; a venue literally split by an earthquake fault line."
+  brand_of_football: "Bay Area football with a Berkeley conscience — talented, occasionally explosive, defined as much by The Play's improvisational chaos and the program's academic pride as by any single style."
+  cultural_footprint: "Where elite academia meets big-time football — a program that carries the brand of the world's best public university, and whose Joe Roth tribute and clean-program ethos give it a moral identity rare in the sport."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Cal closed its first chapter in the ACC — the cross-country home the
+    program landed in after the Pac-12's collapse — by going 7-6 in 2025 and firing nine-year coach Justin
+    Wilcox after a late slide and a Hawaii Bowl loss. The Bears brought home alum Tosh Lupoi from Oregon as
+    the 35th head coach. With a winnable 2026 slate and a fresh staff, the question in Berkeley is whether a
+    homecoming hire can finally turn a Power-conference seat into Power-conference results.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_California_Golden_Bears_football_team
+    - https://www.on3.com/news/california-fires-head-football-coach-justin-wilcox/
+    - https://en.wikipedia.org/wiki/The_Play_(American_football)
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: California is the Pac-12-to-ACC transition program whose 'The Play' 1982 + Joe Roth tribute
+    + Memorial Stadium fault-line setting define what Bay Area football looks like.
+  mantra: Go Bears.
+  cultural_anchors:
+    fan_archetype_dominant: Berkeley-Old-Blues-Loyalist
+    outsider_archetype_dominant: Pac-12-Survivor-Diminisher
+    one_sentence: California is the Pac-12-to-ACC academic-elite football program — The Play 1982 + Joe
+      Roth tribute + Aaron Rodgers 2004 + 2024 ACC entry that completed the post-Pac-12-collapse transition.
+  selfname: the Golden Bears
+  aspiration_ladder_top: ''
+  rivalries: []
+  heritage:
+    national_titles: null
+    conference_titles: null
+    current_conference: null
+  prose_excerpts: {}
+  story_materials:
+    legendary_coach: ''
+    era_name_overrides: {}
+    always_surface:
+    - 2004 10-2 + Holiday Bowl + Aaron Rodgers under Jeff Tedford
+    - 1982 The Play vs Stanford (5 laterals + band on the field)
+    - Joe Roth tribute + retired
+    rituals:
+    - The Play (1982 Big Game)
+    - Joe Roth Tribute
+    - Memorial Stadium Fault Line
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (45/100, n=1)
+    voice_profile: absent
+    delusion_premium: absent

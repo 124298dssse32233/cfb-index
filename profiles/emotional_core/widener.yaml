@@ -1,0 +1,90 @@
+# AUTHORED (D3 MAC) 2026-06-13 — web-verified
+# Middle Atlantic Conference | Chester, PA | Historic National Champions (1977, 1981 — NOT 2025)
+# Bill Manlove dynasty (1970-2001); championship years: 1977 (39-36 vs Wabash), 1981 (17-10 vs Dayton)
+
+status: live
+slug: widener
+team_id: null
+program_name: Widener University
+program_tier: 7
+
+emotional_core:
+  primary: grievance         # the gap between historic champion identity (1977, 1981) and current competitive position
+  secondary: restoration     # post-championship-era rebuilding; proving the legacy means something
+  core_variant: the-chronic-chip
+  one_line: "Widener is the historic Pride, a two-time Division III national champion (1977, 1981 under Bill Manlove), fighting to prove that 50 years of history means more than recent seasons of struggle."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "Once one of Division III's most dominant programs under legendary coach Bill Manlove (1977, 1981 championships; 32-year tenure), Widener has spent the last two decades competing against programs that remember the Manlove era as the standard that defines the Pride identity."
+
+the_wound:
+  name: "The end of the Manlove era and the distance between past glory and present reality"
+  detail: "Bill Manlove retired in 2001 after 32 seasons at Widener, leaving behind a legacy of two national championships (1977, 1981), 11-1 and 13-0 championship seasons, and a program that was unquestionably elite. Twenty-five years later, Widener competes respectably but cannot match those heights. The wound is generational: the distance between the Manlove standard and current competitive position has widened, making the legacy feel distant."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to the standard Bill Manlove set—a program that competes for national championships, not just MAC titles; a Pride that belongs in the national conversation, not relegated to historical footnotes."
+  drought: { since: 1981, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe the chip is against time itself. Widener knows it was great 50 years ago; the question is whether the institution can rebuild that greatness. The Pride is determined to prove that history confers something real: the ability to return to elite status."
+
+the_delusion:
+  tone: self-aware
+  text: "That a program with Hall-of-Famer Bill Manlove in its bones could return to championship contention under the right coach—that institutional memory compounds into advantage. Widener knows rebuilds take time; it believes in the foundation anyway."
+
+the_grudge_texture:
+  rival: delaware-valley
+  texture: blood-feud   # MAC Commonwealth rivals; both historic programs battling for divisional supremacy
+
+the_coach_relationship: hot-seat-churn      # Mike Barainyak (2020-present, 31-32 record) inherits a championship legacy and cannot match it
+the_internal_fracture: manlove-nostalgia vs new-standard — the faction wanting to return to 1977-1981 glory vs those accepting current tier
+register: chester-pride-manlove-legacy-rebuilt-history
+never_use:
+  - "Widener never won a national championship — 1977 and 1981 championships are documented, verified, factual"
+  - "The Manlove era was fake — 11-1 (1977) and 13-0 (1981) records, Hall of Fame induction (2011), 32-year tenure are undisputed"
+  - "Widener is irrelevant — the Pride competes in the MAC and preseason rankings; historical status confers respect"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The Chester Pride—a historic program with two Division III national championships (1977, 1981) under legendary coach Bill Manlove (Hall of Fame, 2011), now fighting to prove that championship heritage can be reclaimed after a 50-year drought."
+  the_origin: "Widener University in Chester, Pennsylvania began fielding a football program in 1879—one of the oldest in the nation. The program reached its zenith under coach Bill Manlove, who led the Pride to national prominence across 32 seasons (1970-2001)."
+  golden_ages:
+    - { era: "Manlove dynasty (1970-2001)", what: "32 seasons, two national championships (1977, 1981), consistent MAC dominance, 321 wins, Hall of Fame induction 2011" }
+    - { era: "1977 championship", what: "11-1 record, defeated Wabash 39-36 for national title" }
+    - { era: "1981 championship", what: "13-0 record, defeated Dayton 17-10 for national title" }
+  legends:
+    - { name: Bill Manlove, role: coach, why: "Legendary coach (1970-2001), two national championships, 321 career wins, inducted College Football Hall of Fame 2011; defined Pride identity for a generation" }
+    - { name: "1977 championship team", role: achievement, why: "11-1 record, defeated Wabash 39-36 for Division III title" }
+    - { name: "1981 championship team", role: achievement, why: "13-0 perfect record, defeated Dayton 17-10 for Division III title" }
+  canonical_moments:
+    - { name: "1977 national championship", year: 1977, what: "Widener defeats Wabash 39-36 for Division III national title; 11-1 record under Bill Manlove", handling: glory }
+    - { name: "1981 national championship", year: 1981, what: "Widener defeats Dayton 17-10 for Division III national title; perfect 13-0 record under Bill Manlove", handling: glory }
+    - { name: "Manlove Hall of Fame induction", year: 2011, what: "Bill Manlove inducted into College Football Hall of Fame, cementing legacy as one of Division III's all-time great coaches", handling: glory }
+  the_place: "Leslie C. Quick Jr. Stadium (Elizabeth J. Hirschmann Field) in Chester, PA—home of the Pride, capacity 4,000, representing the institutional legacy of two national championships."
+  brand_of_football: "The historic champion—a program built on the memory of national greatness under Bill Manlove, determined to prove that championship DNA can be reclaimed in Division III."
+  cultural_footprint: "Widener represents the possibility of sustained institutional excellence in Division III—two championships 4 years apart (1977, 1981) under legendary coach Bill Manlove prove that programs can build dynasties."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Widener entered the 2025-2026 season with Mike Barainyak (6th season, 31-32 record)
+    as head coach, after being ranked 4th in the MAC Commonwealth Preseason Coaches' Poll. The Pride organization continues
+    to reference the championship legacy of the 1977 and 1981 national title seasons under Bill Manlove (1970-2001, Hall of
+    Fame 2011), framing the program's identity around recapturing championship-era competitiveness. The question facing Chester
+    in 2026: can institutional commitment and improved coaching translate the 50-year-old championship memory into present-day
+    national tournament contention, or has Manlove's era become too distant to reclaim?
+  research_checklist:
+    - Founded 1879 (147-year-old program)
+    - Chester, PA; Leslie C. Quick Jr. Stadium
+    - Bill Manlove coached 1970-2001 (32 seasons, 321 wins)
+    - 1977 championship: 11-1, defeated Wabash 39-36
+    - 1981 championship: 13-0, defeated Dayton 17-10
+    - Manlove Hall of Fame 2011
+    - 2025-2026: Mike Barainyak (6th season, 31-32 record)
+  sources:
+    - https://widenerpride.com/
+    - https://www.d3football.com/teams/widener
+    - https://gomacsports.com/
+    - https://en.wikipedia.org/wiki/Widener_Pride_football
+    - https://en.wikipedia.org/wiki/Bill_Manlove

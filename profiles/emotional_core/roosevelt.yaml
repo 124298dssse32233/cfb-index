@@ -1,0 +1,72 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: roosevelt
+team_id: null
+program_name: Roosevelt University
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: honor
+  one_line: "Roosevelt is the Chicago program learning to compete at the Division II level — a young program in the GLIAC that is building football culture from the ground up."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small Chicago university that joined the GLIAC in 2024 and is rebuilding football infrastructure to compete with established Midwest programs."
+
+the_wound:
+  name: "Late arrival to Division II"
+  detail: "Roosevelt is new to the GLIAC and Division II college football. The program is not wounded, but rather nascent — building football culture in a city and university context that has not historically prioritized the sport at the D2 level."
+  handling: never-a-punchline
+  freshness: this-era
+
+the_dream:
+  text: "Establish Roosevelt as a respected GLIAC competitor and prove that a Chicago-based program can build winning football culture in Division II."
+  drought: { since: 2024, unit: relevance }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Roosevelt is in the early stages of building program identity. The chip is the future chip: establishing yourself."
+
+the_delusion:
+  tone: earnest
+  text: "Fans believe the program can build something real — that with investment, development, and time, Roosevelt can become a respectable GLIAC competitor."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: total-trust
+the_internal_fracture: "None — the program is unified in its mission to build football culture."
+register: chicago-rough-rider-GLIAC-new-member
+never_use:
+  - Historic program — Roosevelt is new to Division II and the GLIAC (joined 2024)
+  - Established rival — too early; the program is still building
+  - Title contender — unrealistic given newness to the level
+
+story_canon:
+  the_unique_thing: "A Chicago university that joined the GLIAC in 2024 and is building Division II football culture from the ground up — representing an urban, academically rigorous institution in the Midwest conference."
+  the_origin: "Roosevelt University is based in Chicago and joined the GLIAC in 2024, bringing Division II football to the institution for the first time."
+  golden_ages: []
+  legends: []
+  canonical_moments: []
+  the_place: "Chicago, Illinois — a major city where Roosevelt represents urban higher education and community pride."
+  brand_of_football: "Building; the program is establishing its identity through investment, coaching, and development."
+  cultural_footprint: "Roosevelt represents the expansion of Division II football into new urban markets and the challenge of building program culture in a competitive conference."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Roosevelt finished 2-8 in its 2025 season, the second year competing in
+    the GLIAC after joining the conference in 2024. Under head coach William McKeon (2 seasons), the program
+    is in development mode, building infrastructure, recruiting, and establishing a winning culture. The 2-8
+    record reflects the difficulty of competing in the GLIAC as a new program, but the investment signals
+    that Roosevelt is committed to development. The 2026 season will be critical in showing progress and
+    establishing the program as a viable GLIAC competitor.
+  research_checklist:
+    - GLIAC entry in 2024
+    - William McKeon tenure (2 seasons)
+    - 2025 record (2-8)
+    - Chicago location and community context
+  sources:
+    - https://en.wikipedia.org/wiki/Roosevelt_University
+    - https://www.roosevelt.edu/
+    - https://www.gliac.org/

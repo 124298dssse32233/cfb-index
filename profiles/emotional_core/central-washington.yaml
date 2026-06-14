@@ -1,0 +1,82 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: central-washington
+team_id: null
+program_name: Central Washington
+program_tier: 6
+
+emotional_core:
+  primary: spectacle
+  secondary: restoration
+  one_line: "Central Washington is the Pacific Northwest Wildcats that seized the Lone Star Conference championship in their first year of eligibility—a program reborn on the national stage."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "32 conference titles in all sports and a 1995 NAIA national championship vs. the myth that a 90-year-old program just arrived at Division II in 2022."
+
+the_wound:
+  name: "The 2021 GNAC shutdown — forced reinvention"
+  detail: "The Great Northwest Athletic Conference dropped football after 2021, erasing a 70-year home. Central Washington had to migrate to the Lone Star Conference as a football-only member in 2022, an exile from the Pacific Northwest and the assumption that the Wildcats would spend years rebuilding in a new league."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a Lone Star Conference championship as a fish-out-of-water program, prove that GNAC pedigree travels to Division II's toughest conference, and build a new dynasty on the East Texas plains."
+  drought: { since: 2021, unit: national_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe for 70 years, CWU was a GNAC power. When the conference died, the assumption was that the Wildcats were too regional, too small, too Pacific-Northwest for the modern game. The 2025 LSC championship was the answer: the mountain came to Texas and won."
+
+the_delusion:
+  tone: self-aware
+  text: "That a program born in the Pacific Northwest could dominate Division II's toughest conference on the first try. The fanbase knew better—rebuilding takes time—but they also believed the GNAC pedigree was real and portable. 2025 proved it."
+
+the_grudge_texture:
+  rival: western-oregon
+  texture: blood-feud
+  # Western Oregon is CWU's closest Pacific Northwest neighbor and now their LSC rival. The 2025 championship game (19–17, last-second TD) was a blood feud fought a thousand miles from home.
+
+the_coach_relationship: savior
+  # Chris Fisk navigated the GNAC shutdown, built CWU into an LSC contender in 4 years, and delivered the 2025 championship.
+
+the_internal_fracture: "Regional identity vs. national ambition—how much of the GNAC is Central Washington still, and how much is it now a Lone Star program?"
+
+register: "pacific-northwest-wildcats-lsc-champion-gnac-legacy"
+
+never_use:
+  - "Central Washington is a new Division II program — 90 years old; relocated conference home in 2022, not new"
+  - "The Wildcats have never won a championship — 32 conference titles across sports; 1995 NAIA football national championship"
+  - "CWU had no football history before the LSC — 70 years in GNAC; FCS/D2 level before migration"
+  - "The 2025 championship was expected — first LSC title ever, first in new league, upset narrative is core"
+
+story_canon:
+  the_unique_thing: "The only program to win a Lone Star Conference championship in its first year of eligibility after a forced conference migration—proof that institutional pedigree is portable."
+  the_origin: "Central Washington University in Ellensburg, founded 1891; football established in the early 1900s; spent 70 years building a Pacific Northwest tradition in the GNAC."
+  golden_ages:
+    - { era: "1950s–2000s (GNAC era)", what: "32 all-sport conference titles; 1995 NAIA football national championship under legendary coach Mike Dunbar" }
+    - { era: "2025", what: "First Lone Star Conference football championship after migration from GNAC in 2022" }
+  legends:
+    - { name: Mike Dunbar, role: coach, why: "GNAC legend; won 1995 NAIA national championship and built the program's identity" }
+    - { name: Chris Fisk, role: coach, why: "Modern architect; navigated GNAC closure and delivered the 2025 LSC championship in year 7" }
+    - { name: Kennedy McGill, role: player, why: "Senior QB; won 2025 LSC Championship and LSC Academic Player of the Year; threw championship-winning TD pass" }
+  canonical_moments:
+    - { name: "2025 LSC Championship", year: 2025, what: "Central Washington defeats Western Oregon 19–17 in the championship game on a last-second TD pass from McGill to Brady", handling: glory }
+    - { name: "1995 NAIA National Championship", year: 1995, what: "The program's crowning achievement in the GNAC era", handling: glory }
+    - { name: "2021 GNAC Shutdown", year: 2021, what: "Conference dissolution forced CWU to migrate to LSC and rebuild", handling: heartbreak }
+  the_place: "Central Washington's McArthur Field (modernized 2019), in the Cascade foothills of Ellensburg, Washington—a stadium that built 70 years of GNAC tradition and now hosts a new LSC legacy."
+  brand_of_football: "Disciplined, tough, fundamentally sound Pacific Northwest football that doesn't surrender and believes in next-level grit."
+  cultural_footprint: "A proof that a mid-major program can transplant its identity and win at the highest level of a new conference; Central Washington's 2025 championship rewrote the migration narrative."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After winning the LSC championship in 2025 (their first as a Lone Star member), Central Washington enters 2026 as a proven contender. QB Kennedy McGill (LSC Academic Player of the Year) graduated, and the Wildcats must rebuild the QB room while defending the crown. Coach Chris Fisk is in year 8 and carries the weight of sustained championship culture. The question: is 2025 the start of a new Lone Star dynasty, or a one-year miracle after the GNAC closure?
+  research_checklist:
+    - 2025 LSC championship game (vs. Western Oregon, 19–17) ✓
+    - Kennedy McGill (senior QB, championship hero) ✓
+    - GNAC shutdown (2021 conference dissolution) ✓
+    - 1995 NAIA national championship (legacy) ✓
+    - Pacific Northwest identity + Ellensburg location ✓
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Central_Washington_Wildcats_football_team
+    - https://wildcatsports.com/news/2025/11/15/football-wildcats-win-first-lsc-championship-after-19-17-thriller-over-pacific-northwest-rival-western-oregon.aspx
+    - https://wildcatsports.com/sports/football

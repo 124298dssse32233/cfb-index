@@ -1,0 +1,84 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Massachusetts Maritime Academy Division III emotional core
+
+status: live
+slug: mass-maritime
+team_id: null
+program_name: Massachusetts Maritime Academy
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: contentment
+  one_line: "Massachusetts Maritime Academy is the Buccaneer — a military academy with 53 years of Division III football history, an Admiral's Cup rivalry tradition, and two NEFC conference championships (1977, 1983) anchored in 21 years of coaching stability under Jeremy Cameron."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A federal maritime academy with a unique military mission, 53 years of football history (resurrected 1973), two conference championships (1977, 1983), and a legendary coach Jeremy Cameron (21 seasons, since 2005) who has built sustained institutional excellence."
+
+the_wound:
+  name: "The 43-year drought since 1983 — no conference title since the Reagan era"
+  detail: "Massachusetts Maritime won NEFC championships in 1977 and 1983, then never again. The 43-year gap between 1983 and now is the program's defining wound — not a crisis, but a ceiling that has hardened. Jeremy Cameron has built a competent program, but not a title-winning one."
+  handling: dated-grievance
+  freshness: generational
+
+the_dream:
+  text: "Another NEFC/MASCAC title. Proof that Massachusetts Maritime can compete for a conference championship again, 43 years later."
+  drought: { since: 1983, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "No chip — Massachusetts Maritime's identity is too rooted in its unique military mission to carry a grievance. The fanbase understands the constraints and takes pride in what the academy has built."
+
+the_delusion:
+  tone: self-aware
+  text: "That Jeremy Cameron, in his later years, could spark one more title run before his eventual retirement. The fanbase knows it's unlikely after 43 years; they believe anyway."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: military-mission-vs-athletics — the academy's primary mission is maritime education and military training; football is secondary, which constrains recruiting and program growth
+register: buzzards-bay-buccaneer-maritime-academy
+
+never_use:
+  - Massachusetts Maritime is a new program (resurrected 1973, 53 years old; original football program pre-1970)
+  - The academy has won multiple recent titles (two titles in 1977 and 1983, none since)
+  - Jeremy Cameron is a new coach (21 seasons, since 2005)
+  - The Admiral's Cup rivalry is modern (traditional storied rivalry)
+
+story_canon:
+  the_unique_thing: "A federal maritime academy fielding a Division III football team — Massachusetts Maritime is unique in that the program is secondary to the academy's primary mission of training maritime officers."
+  the_origin: "Massachusetts Maritime Academy, founded 1891 as a maritime training institution, began football originally in the early decades. The program was discontinued and resurrected in 1973 under coach Don Ruggeri. The academy is one of the five federal maritime academies in the United States."
+  golden_ages:
+    - { era: "1977–1983", what: "Two NEFC conference championships (1977, 1983), the program's only titles" }
+    - { era: "2005–present (Jeremy Cameron)", what: "21 seasons of sustained competence and organizational stability within the constraints of a military academy" }
+  legends:
+    - { name: Don Ruggeri, role: coach, why: "Resurrected the football program in 1973 after a hiatus" }
+    - { name: Jeremy Cameron, role: coach, why: "21-season tenure (2005–present), the definition of coaching stability at a military academy" }
+  canonical_moments:
+    - { name: "Program Resurrection (1973)", year: 1973, what: "Massachusetts Maritime restarts its football program under Don Ruggeri after a long hiatus", handling: glory }
+    - { name: "1977 NEFC Championship", year: 1977, what: "Massachusetts Maritime wins the NEFC championship with an 8–1 season", handling: glory }
+    - { name: "1983 NEFC Championship", year: 1983, what: "Massachusetts Maritime captures a second NEFC title, the program's last conference championship", handling: glory }
+    - { name: "Jeremy Cameron Era (2005–present)", year: 2025, what: "21 seasons of coaching stability and sustained competence within the constraints of a military academy", handling: glory }
+  the_place: "Buzzards Bay, Massachusetts — a maritime academy on the edge of Cape Cod, where the Buccaneer identity is tied to the academy's seafaring mission."
+  brand_of_football: "Disciplined, military-structured football with a unique identity tied to the academy's training mission."
+  cultural_footprint: "Massachusetts Maritime football is a small footnote in college football but a significant part of the academy's institutional identity. The Buccaneer tradition and Admiral's Cup rivalry are sources of pride."
+  the_ongoing_story: >
+    LIVE MASCAC — researched 2026-06-13: Massachusetts Maritime continues as a MASCAC competitor under
+    Jeremy Cameron's 21st season (since 2005). The Buccaneers remain competitive within the unique constraints
+    of a federal maritime academy. The fanbase accepts that another conference title is unlikely, but the
+    program's stability and sustained competence are sources of institutional pride.
+  research_checklist:
+    - Maritime Academy founding (1891)
+    - Football program resurrection (1973, Don Ruggeri)
+    - 1977 NEFC Championship (8–1 season)
+    - 1983 NEFC Championship
+    - Jeremy Cameron tenure (2005–present, 21 seasons)
+    - Admiral's Cup rivalry tradition
+    - Federal maritime academy status (one of five in the U.S.)
+  sources:
+    - https://en.wikipedia.org/wiki/Massachusetts_Maritime_Buccaneers_football
+    - https://www.maritime.edu/athletics/football
+    - https://mascac.com/sports/fball/index

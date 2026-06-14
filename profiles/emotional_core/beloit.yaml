@@ -1,0 +1,82 @@
+# Emotional Core — Beloit College (beloit)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: beloit
+team_id: null
+program_name: Beloit College
+program_tier: 7
+
+emotional_core:
+  primary: standard
+  secondary: standard
+  one_line: "A Wisconsin liberal-arts bedrock in a conference of peers, defining itself through consistent presence and steady pride rather than a single defining moment."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A historic institution with deep roots and quiet success, content in its Midwest Conference home without the glamour or fanfare of larger programs."
+
+the_wound:
+  name: ""
+  detail: ""
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Remain the stable, respected voice in the Midwest Conference — a program that values excellence without chasing something it can never be."
+  drought: { since: null, unit: "" }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: knox
+  texture: border-war
+
+the_coach_relationship: forever-ours
+the_internal_fracture: ""
+register: wisconsin-liberal-arts-steady
+never_use:
+  - "Regional power — Beloit is content in its niche"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "A Wisconsin liberal-arts tradition rooted in Beloit since 1846 — a program that plays big-college football on a small-college stage and doesn't apologize for either."
+  the_origin: "Founded 1846 as Beloit College in Beloit, Wisconsin; athletics began as regional Midwest Conference participant with consistent presence across 150+ years."
+  golden_ages:
+    - { era: "1900s–1920s", what: "Regional Wisconsin/Illinois recognition as a competitive member of early Midwest Conference play" }
+  legends:
+    - { name: "Kyle Langhoff", role: coach, why: "31st head coach and current steward of the Beloit tradition" }
+  canonical_moments:
+    - { name: "150+ years of Midwest Conference membership", year: null, what: "Continuous play since the conference's founding, rarely the headline, always present", handling: glory }
+  the_place: "Strong Stadium Complex in Beloit, Wisconsin — home field of consistent autumn tradition."
+  brand_of_football: "Midwest Conference football — honest, steady, unpretentious play with deep roots in Wisconsin culture."
+  cultural_footprint: "One of the Midwest Conference's bedrock programs; a resource for students who want college football as part of a comprehensive liberal-arts education."
+  the_ongoing_story: "LIVE as of 2026-06: Beloit remains an active Midwest Conference competitor under Head Coach Kyle Langhoff (31st coach), participating in the steady rhythm of league play without fanfare or crisis. The program embodies the conference's philosophy: good football, rooted education, sustainable excellence."
+  sources:
+    - https://en.wikipedia.org/wiki/Beloit_College_Bearcats_football
+    - https://www.beloitcollege.edu/
+    - https://beloitcollege.com/sports/football/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Beloit is the Wisconsin Midwest Conference bedrock — 150+ years of steady, unpretentious football tradition.
+  mantra: Steady tradition.
+  cultural_anchors:
+    fan_archetype_dominant: Wisconsin-Liberal-Arts-Faithful
+    outsider_archetype_dominant: Regional-MWC-Participant
+    one_sentence: Beloit is the liberal-arts Wisconsin anchor of the Midwest Conference — steady, rooted, and content in its niche.
+  selfname: the Buccaneers
+  rituals:
+    - Midwest Conference membership (150+ years)
+    - Wisconsin athletic tradition
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

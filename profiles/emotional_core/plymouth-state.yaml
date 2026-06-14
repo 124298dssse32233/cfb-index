@@ -1,0 +1,84 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+# Plymouth State University Division III emotional core
+
+status: live
+slug: plymouth-state
+team_id: null
+program_name: Plymouth State University
+program_tier: 7
+
+emotional_core:
+  primary: honor
+  secondary: restoration
+  one_line: "Plymouth State is the New Hampshire Panther with 55 years of football history and a remarkable co-head coaching structure (since 2020) under Castonia and Zeman, a program that broke through to a 2017 MASCAC title and won New England Bowl championships (2021, 2024)."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "A New Hampshire state university with 56 years of football history (since 1970), 16 MASCAC/predecessor conference titles, five NCAA tournament appearances, and a culture of sustained regional competence anchored in a unique co-head coaching structure."
+
+the_wound:
+  name: "The pre-2017 ceiling — 47 years without a MASCAC title"
+  detail: "Plymouth State competed from 1970–2016 without winning a MASCAC (or predecessor conference) championship. The program was consistently tournament-eligible but never broke through to a title. The 2017 MASCAC championship finally ended the drought and proved the Panthers could be regional contenders."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Another MASCAC title. Another New England Bowl victory. Plymouth State's dream is sustained regional excellence and the proof that 2017 was not a fluke."
+  drought: { since: 2017, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe plymouth State won a MASCAC title (2017) and a New England Bowl (2021); nobody outside New England knows it. The chip is the invisibility of success."
+
+the_delusion:
+  tone: self-aware
+  text: "That the co-head coaching structure (Castonia and Zeman since 2020) can sustain the success of 2017 and the bowl wins of 2021, 2024. The fanbase knows it's a unique experiment; they believe it's working."
+
+the_grudge_texture:
+  rival: bridgewater-state
+  texture: championship
+
+the_coach_relationship: forever-ours
+the_internal_fracture: innovation-vs-tradition — the co-head coaching model (unique in Division III) is either brilliant (two voices, one vision) or unstable (eventual conflict); 6 years in, it appears stable
+register: plymouth-panther-co-head-coaches
+
+never_use:
+  - Plymouth State is a new program (football began 1970, 56 years old)
+  - The Panthers have never won a MASCAC title (2017 title + New England Bowls in 2021, 2024)
+  - The co-head coaching structure is recent (implemented 2020, now 6 years old)
+  - Plymouth State has only one bowl appearance (New England Bowl titles in 2021 and 2024)
+
+story_canon:
+  the_unique_thing: "A unique co-head coaching structure (Paul Castonia and Devin Zeman, since 2020) that has proven sustainable for 6+ seasons, a rare experiment in college football that works."
+  the_origin: "Plymouth State University began football in 1970, 56 years ago. A New Hampshire state university with limited resources, the Panthers have competed regionally and consistently made NCAA tournaments since the late 1980s."
+  golden_ages:
+    - { era: "2007–2017 (Castonia's early tenure)", what: "Multiple NCAA playoff appearances, including the 2017 MASCAC championship" }
+    - { era: "2020–present (co-head model)", what: "Castonia and Zeman have maintained competitive excellence and won New England Bowls in 2021 and 2024" }
+  legends:
+    - { name: Paul Castonia, role: coach, why: "23+ seasons with the program, including the 2017 MASCAC title and transition to co-head model (2020)" }
+    - { name: Devin Zeman, role: coach, why: "Co-head coach since 2020, part of the unique two-coach structure that has sustained success" }
+  canonical_moments:
+    - { name: "First MASCAC Championship (2017)", year: 2017, what: "Plymouth State wins its first MASCAC championship, breaking a 47-year drought", handling: miracle }
+    - { name: "Co-Head Coaching Structure (July 2020)", year: 2020, what: "Plymouth State implements a unique co-head coaching model with Castonia and Zeman, an experiment that has proven sustainable", handling: glory }
+    - { name: "New England Bowl Championship (2021)", year: 2021, what: "Plymouth State defeats Alfred State 42–16 to win the New England Bowl", handling: glory }
+    - { name: "New England Bowl Victory (2024)", year: 2024, what: "Plymouth State wins a second New England Bowl, proving the post-2017 success is sustainable", handling: glory }
+  the_place: "Plymouth, New Hampshire — a small New England college town where the Panthers represent a state university with surprising football success."
+  brand_of_football: "Competitive, well-organized football built on sustained coaching excellence and a unique two-coach leadership structure."
+  cultural_footprint: "Plymouth State football is a New Hampshire institution, known for consistent NCAA tournament eligibility and recent bowl success."
+  the_ongoing_story: >
+    LIVE MASCAC — researched 2026-06-13: Plymouth State continues as a MASCAC competitor under the co-head
+    coaching structure of Paul Castonia and Devin Zeman (six seasons together, July 2020 onward). The
+    Panthers remain tournament-eligible and have won postseason bowl games. The unique two-coach model has
+    proven sustainable, and the fanbase believes the program is built for sustained regional success.
+  research_checklist:
+    - Program founding (1970, 56 years old)
+    - Paul Castonia tenure (23+ seasons)
+    - Co-head coaching structure (Castonia & Zeman, July 2020–present, 6 seasons)
+    - 2017 MASCAC championship (first title)
+    - New England Bowl victories (2021, 2024)
+    - 16 MASCAC/predecessor conference titles
+    - Five NCAA playoff appearances
+  sources:
+    - https://en.wikipedia.org/wiki/Plymouth_State_Panthers_football
+    - https://www.plymouth.edu/athletics/football
+    - https://mascac.com/sports/fball/index

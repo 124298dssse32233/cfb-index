@@ -1,0 +1,85 @@
+# AUTHORED (D3 MAC) 2026-06-13 — web-verified
+# Middle Atlantic Conference | Radnor/Wayne, PA | Ascendant Eagles
+# EXTRAORDINARY ARC: Launched 2022, joined MAC 2023, won MAC championship 2025 in year 3
+
+status: live
+slug: eastern-pa
+team_id: null
+program_name: Eastern University
+program_tier: 7
+
+emotional_core:
+  primary: spectacle        # the improbable rise story — a three-year-old program winning a conference championship
+  secondary: honor          # competitive excellence and fast institutional ascension
+  one_line: "Eastern is the Eagle that launched in 2022, joined the MAC in 2023, and won the conference championship in 2025—the fastest rise from foundation to crowned champion in Division III history."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A program literally born four years ago, competing against institutions with half a century of Division III history, and somehow crowned MAC champion in year three—proof that institutional commitment and coaching excellence can compress decades into seasons."
+
+the_wound:
+  name: "None yet—only the question of sustainability"
+  detail: "Eastern has no wound because the story is too recent and too improbable. The only wound is the shadow question: can a brand-new program sustain championship football, or was 2025 lightning that will fade as quickly as it struck? Eastern fans know the real test begins in year four."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that 2025 wasn't an anomaly—back-to-back MAC championships, NCAA tournament Rounds 3-4, a program that competes with the old guard despite being brand-new."
+  drought: { since: 2022, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip—only the quiet hunger to silence doubters who said a four-year-old program couldn't compete in Division III football. Eastern is proving nobody."
+
+the_delusion:
+  tone: self-aware
+  text: "That a young program with minimal roster continuity can replicate a championship caliber year after year—Eastern knows it's harder to repeat than to break through, but the fanbase believes anyway."
+
+the_grudge_texture:
+  rival: stevenson
+  texture: championship    # MAC divisional rivals; 2025 championship game saw Eastern defeat Stevenson 16-10
+
+the_coach_relationship: savior              # Billy Crocker (2025 MAC Coach of the Year) as architect of the rise
+the_internal_fracture: celebration vs cautious-humility — the faction celebrating the championship vs those tempering expectations
+register: radnor-eagle-upstart-champion-new-era
+never_use:
+  - "Eastern is not a real program — NCAA Division III recognition, conference championship, tournament advancement prove otherwise"
+  - "The championship was a fluke — a 9-1 record, MAC title, and tournament depth suggest structural strength"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "The Eastern Eagle—launched 2022, joined the Middle Atlantic Conference 2023, and won the 2025 MAC championship (16-10 over Stevenson, November 15) in year three of existence—the fastest rise from foundation to conference crowned champion in modern Division III history."
+  the_origin: "Eastern University, a historic Quaker institution in Radnor, PA (Wayne area), launched a Division III football program in 2022 after a 35-year hiatus from football, entering the Middle Atlantic Conference in 2023."
+  golden_ages:
+    - { era: "2022-2025 ascension arc", what: "Launch → MAC entry → National tournament → Conference championship in three years—unprecedented speed of institutional ascension" }
+  legends:
+    - { name: Billy Crocker, role: head coach, why: "2025 MAC Coach of the Year; architect of the rapid rise from launch to championship in three years" }
+    - { name: O'Hara Field, role: stadium, why: "Located at Valley Forge Military Academy campus (Wayne, PA); underwent major renovation 2021+ to support the launch" }
+  canonical_moments:
+    - { name: "2022 launch", year: 2022, what: "Eastern University returns to Division III football after a 35-year absence", handling: glory }
+    - { name: "2023 MAC entry", year: 2023, what: "Eagles join the Middle Atlantic Conference, competing against established Division III powers", handling: glory }
+    - { name: "2025 MAC championship", year: 2025, what: "Eastern defeats Stevenson 16-10 on November 15, winning the conference title in year three", handling: glory }
+    - { name: "2025 NCAA tournament Round 3", year: 2025, what: "Eagles advance to third round of Division III tournament; 15 players named All-MAC Honors", handling: glory }
+  the_place: "O'Hara Field at Valley Forge Military Academy (820 Radnor Rd, Wayne, PA)—home of the Eagles, a storied facility supporting the resurgent program."
+  brand_of_football: "The upstart champion—a brand-new program competing with coaching excellence and institutional commitment, compressing what typically takes decades into a three-year arc."
+  cultural_footprint: "Eastern's ascension represents the possibility of rapid institutional transformation in Division III—proof that coaching, culture, and commitment can override history and experience."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Eastern University won the 2025 MAC championship (9-1 overall, 8-0 MAC, perfect
+    undefeated conference record), defeating Stevenson 16-10 in the title game on November 15. Head coach Billy Crocker
+    was named 2025 MAC Coach of the Year. The Eagles advanced to Round 3 of the NCAA Division III playoff tournament,
+    claiming national tournament legitimacy in year three of existence. Fifteen Eastern players earned All-MAC Honors.
+    The question facing Radnor now is whether the Eagles can sustain the championship standard or whether 2025 represented
+    a singular moment in program arc.
+  research_checklist:
+    - Launched 2022; returned after 35-year hiatus
+    - Joined MAC in 2023
+    - O'Hara Field, Wayne PA (Valley Forge Military Academy campus)
+    - 2025: 9-1 overall, 8-0 MAC (undefeated), MAC champions
+    - 2025 coach: Billy Crocker (MAC Coach of the Year)
+    - NCAA tournament: Round 3
+  sources:
+    - https://www.eastern.edu/news/
+    - https://goeasterneagles.com/
+    - https://gomacsports.com/
+    - https://www.d3football.com/teams/eastern
+    - 2025 MAC Championship Game recap (November 15, 2025)

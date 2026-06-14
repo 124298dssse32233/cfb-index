@@ -1,0 +1,80 @@
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+
+status: live
+slug: weber-state
+team_id: 342
+program_name: Weber State
+program_tier: 5
+
+emotional_core:
+  primary: grief
+  secondary: restoration
+  one_line: "Weber State is the Wildcat program that won four consecutive Big Sky titles (2017–2020) and reached the FCS quarterfinals (2008, 2017) — and now rebuilds after a mid-season coaching change, asking whether the Jay Hill dynasty is truly over."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A program that touched FCS playoffs repeatedly (10 appearances, 8–10 record) and owned Big Sky for four consecutive years (2017–2020), now facing the question of whether excellence was unsustainable or just temporarily paused."
+
+the_wound:
+  name: "The 2025 midseason coaching collapse"
+  detail: "Weber State went 4–8 (2–6 Big Sky) in 2025 and fired coach Mickey Mental mid-season. The Wildcats were dominant in 2017–2020 under Jay Hill (four consecutive Big Sky titles), then saw that standard evaporate over four years. The 2025 collapse and coaching change is the moment of reckoning: can a rebuild return to the Hill standard, or has the program settled into mid-tier?"
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to Big Sky titles, reclaim the FCS playoff standard, prove the 2017–2020 dynasty was a sustainable model, not a peak."
+  drought: { since: 2020, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Weber State carries no chip — the fanbase is focused on rebuilding from the rubble of 2025."
+
+the_delusion:
+  tone: none
+  text: ""
+
+the_grudge_texture:
+  rival: southern-utah
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "Hill loyalty vs new-coach hope — the fanbase wants to honor the 2017–2020 standard but believes a new coach is necessary for 2026"
+register: ogden-utah-weber-state-wildcats-hill-era
+never_use:
+  - Weber State never won Big Sky titles — the four consecutive championships (2017–2020) are documented
+  - The Wildcats are still dominant — the 2017–2020 era ended; the program has collapsed from that standard
+  - Jay Hill is still coaching — he stepped down after 2020; Mickey Mental (his successor) was fired mid-2025
+
+story_canon:
+  the_unique_thing: "The Jay Hill dynasty (2017–2020) — four consecutive Big Sky championships, making Weber State the most dominant conference team of the late 2010s and establishing FCS playoff consistency (8–10 record in 10 playoff appearances)."
+  the_origin: "Weber State is a small university in Ogden, Utah that became an FCS program in 1992, competing in Big Sky and building toward the Jay Hill era dominance."
+  golden_ages:
+    - { era: "2017–2020 (Jay Hill Dynasty)", what: "Weber State wins four consecutive Big Sky championships under Jay Hill, the program's peak era" }
+    - { era: "2008, 2017 (FCS Quarterfinals)", what: "Two FCS playoff deep runs (quarterfinals) establishing Weber State as playoff-capable" }
+  legends:
+    - { name: Jay Hill, role: coach, why: "Won four consecutive Big Sky championships (2017–2020), established FCS playoff consistency, and defined modern Weber State excellence" }
+  canonical_moments:
+    - { name: "2017–2020 Big Sky Dynasty", year: 2020, what: "Weber State wins four consecutive Big Sky championships, establishing modern program dominance", handling: glory }
+    - { name: "2017 FCS Quarterfinal", year: 2017, what: "Weber State reaches the FCS playoffs and wins through the second round", handling: glory }
+  the_place: "Stewart Stadium in Ogden, Utah — a small-town facility in the northern Utah mountains"
+  brand_of_football: "Jay Hill-style championship football — disciplined, defensive, built on leverage and execution"
+  cultural_footprint: "Weber State's 2017–2020 dynasty proved that a small-town Utah program could dominate a major FCS conference and reach the national playoffs consistently."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Weber State went 4–8 (2–6 Big Sky) in 2025 and fired coach Mickey Mental mid-season.
+    Mental was hired to replace Jay Hill (who retired after 2020) but failed to maintain the standard. Eric Kjar was named the 2026
+    head coach. Kjar inherits a program in free-fall from the Jay Hill dynasty years. The question is brutal: can a new coach rebuild,
+    or has Weber State seen its best days? The Beehive Bowl rivalry with Southern Utah (renewed 2026 after Southern Utah's Big Sky return)
+    offers a fresh start point. But the pressure is immense — the 2017–2020 four consecutive Big Sky titles set the bar impossibly high.
+    Kjar must establish a new baseline and culture while the shadow of Hill lingers.
+  research_checklist:
+    - Four consecutive Big Sky titles (2017–2020)
+    - Jay Hill as the legendary coach (retired after 2020)
+    - Mickey Mental fired mid-2025
+    - Eric Kjar as 2026 head coach
+    - 2008 and 2017 FCS quarterfinal runs
+    - 4–8 record in 2025
+    - 10 FCS playoff appearances total (8–10 record)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_Weber_State_Wildcats_football_team
+    - https://en.wikipedia.org/wiki/Weber_State_Wildcats_football
+    - https://en.wikipedia.org/wiki/Jay_Hill

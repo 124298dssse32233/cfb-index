@@ -1,0 +1,167 @@
+# Emotional Core — Tennessee  (tennessee)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# DRAFT = auto-seeded from the profile (confirm it). TODO = the bespoke soul — author WITH Kevin.
+# never_use is LAW. Run scripts/verify_emotional_cores.py before flipping status to reviewed/live.
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: tennessee
+team_id: 151
+program_name: Tennessee
+program_tier: 2
+
+emotional_core:
+  primary: restoration    # the program rebuilding the muscle memory of what it once was
+  secondary: grievance    # a decade of being told the giant was permanently asleep
+  core_variant: dynasty-restoration
+  one_line: "Tennessee remembers exactly what it was — a national champion, the SEC's loudest fall Saturday, Peyton in the huddle — and after a decade in the wilderness it's writing the sequel, even after the quarterback meant to headline it walked out over money."
+
+self_image:
+  archetype: sleeping-giant
+  standard_gap_frame: "Six national titles, the 1998 championship, and one of the sport's great traditions vs a decade (2008-2020) of losing seasons and coaching churn that the SEC spent every year reminding it about."
+
+the_wound:
+  name: "The Iamaleava departure"
+  detail: "Days before the 2025 spring game, quarterback Nico Iamaleava missed practice in an NIL standoff and transferred to UCLA, leaving the restoration's centerpiece gone over a contract dispute. Heupel rebuilt around App State transfer Joey Aguilar, who threw for the third-most yards in a Vols season ever, but an 8-5 finish and a Music City Bowl loss to Illinois showed how thin the margin still is."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Stand on the Tennessee River with a championship again — not the memory of one, but a Playoff run that puts the Vols back where they sat in 1998."
+  drought: { since: 1998, unit: national_title }
+
+the_chip:
+  villain: national_media
+  text: "Fans spent a decade hearing the program eulogized — that the giant was done, that the wilderness was the new normal, that the fight song was the only thing left worth showing on TV. They never believed it, and the Heupel years are the receipt they keep waving."
+
+the_delusion:
+  tone: earnest
+  text: "The fanbase believes the restoration is one quarterback and one schedule break from complete — that Knoxville is still a destination program where the talent of 1998 is a recruiting promise, not a museum exhibit, and that the next champion is a matter of when."
+
+the_grudge_texture:
+  rival: alabama
+  texture: blood-feud   # the Third Saturday in October — and the 2022 win that broke a 15-year losing streak
+
+the_coach_relationship: savior   # Josh Heupel pulled the program out of the wilderness and made it a Playoff team
+the_internal_fracture: patience vs urgency — the faction that says the rebuild is real and accelerating vs the faction that wants Alabama-and-Georgia results now and reads every loss as proof the gap won't close
+register: restoration-era-orange — confident, aware of what's been rebuilt, neither nostalgic nor apologetic; an engineer's progress report, not a victory speech
+never_use:   # DRAFT from profile — LAW, do not violate in any authored line
+  - Rocky Top as a caption instead of a cultural fact
+  - Wait till next year as resignation register
+  - Phil Fulmer as a historical artifact (he is alive and institutional)
+  - Peyton Manning as a detached trophy (he is present)
+  - the 2008 Kiffin year as a laugh line
+  - turned the corner as filler framing
+  - orange as a joke color
+
+# ── STORY CANON (doc 64) — what makes this program unique & amazing. Web-research the deep
+#    canon (owner-approved); CITE sources. Orchestrate the existing modules, don't duplicate. ──
+story_canon:
+  the_unique_thing: "The Vol Navy and 'Rocky Top' — Tennessee is the only program whose fans sail to the game, mooring a fleet of boats on the Tennessee River outside Neyland Stadium, while the most instantly recognizable fight song in college sports plays on a loop. The checkerboard end zones and 100,000-plus in orange make it one of the sport's true cathedrals."
+  the_origin: "A flagship state university in Knoxville whose football identity was forged by Robert Neyland in the 1920s-50s — defense, field position, the 'Game Maxims' — building the standard that the stadium and the program still carry his name to honor."
+  golden_ages:
+    - { era: "1938–1951 (Neyland)", what: "National championships in 1938, 1940, 1950 and 1951 — the foundation era" }
+    - { era: "1994–1998 (Fulmer)", what: "Peyton Manning's run capped by the 1998 national championship under Phillip Fulmer" }
+  legends:
+    - { name: Robert Neyland, role: coach, why: "The architect; the stadium bears his name and the program still cites his maxims" }
+    - { name: Peyton Manning, role: player, why: "The cultural and recruiting foundation of the modern program; a present, active presence on campus" }
+    - { name: Phillip Fulmer, role: coach, why: "Won the 1998 national title and remains an institutional figure" }
+  canonical_moments:
+    - { name: "1998 national championship", year: 1999, what: "Tennessee beats Florida State in the Fiesta Bowl for its most recent title", handling: glory }
+    - { name: "52-49 over Alabama", year: 2022, what: "Tennessee ends a 15-year losing streak to the Tide; fans tear down the goalposts and float them in the river", handling: glory }
+    - { name: "The wilderness years", year: 2012, what: "A decade of losing seasons and coaching churn that the restoration is answering", handling: wound }
+  the_place: "Neyland Stadium (cap 101,915) — third-largest on-campus venue in the country, checkerboard end zones, the Vol Walk pregame, and the Vol Navy moored on the river outside."
+  brand_of_football: "Restoration-era-orange — Heupel's fast, vertical, points-in-bunches offense layered over a defense-and-field-position heritage; a program that plays like it's making up for lost time."
+  cultural_footprint: "The gravity center of East Tennessee and one of the SEC's signature fanbases — 'Rocky Top' a cultural fact, the checkerboards and the Vol Navy among the sport's most distinctive traditions."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Josh Heupel's restoration hit turbulence in 2025 when QB Nico Iamaleava
+    left for UCLA in an NIL dispute before the spring game. App State transfer Joey Aguilar took over and threw
+    for 3,565 yards (third-most in a Vols season, behind only Manning and Bray), but Tennessee finished 8-5 and
+    lost the Music City Bowl to Illinois. The question entering 2026 is whether the restoration can clear the
+    next rung — a Playoff run and the SEC's elite tier — or whether the talent gap with Alabama and Georgia holds.
+  research_checklist:   # what to look up (web) when we author this team together
+    - the program's 3-7 most iconic games/plays (the ones fans tell you about at a bar)
+    - the legendary coaches + players (the statue-worthy)
+    - the unique tradition / identity / the one amazing thing
+    - the origin + the golden-age dynasty eras
+    - the current-era storyline (the ongoing chapter)
+  sources:
+    - https://www.espn.com/college-football/story/_/id/44787682/why-nico-iamaleava-left-tennessee-joined-ucla
+    - https://www.rockytopinsider.com/2026/01/01/joey-aguilar-finishes-top-three-in-all-time-tennessee-passing-statistic/
+    - https://en.wikipedia.org/wiki/2025_Tennessee_Volunteers_football_team
+
+# ── BRIEFING (read-only context for the authoring session; NOT part of the published core) ──
+briefing:
+  identity_phrase: Tennessee is a program that remembers what it was and is writing the sequel.
+  mantra: Rocky Top.
+  cultural_anchors:
+    fan_archetype_dominant: Restoration-Believer
+    outsider_archetype_dominant: Permanent-Almost
+    one_sentence: Tennessee is the program perpetually one season away from being back — a fanbase whose
+      patience is its identity, even when patience exhausts itself annually.
+  selfname: the Vols
+  aspiration_ladder_top: National Championship
+  rivalries:
+  - alabama
+  - florida
+  - georgia
+  - kentucky
+  - vanderbilt
+  heritage:
+    national_titles: 6
+    conference_titles: 16
+    current_conference: SEC
+  prose_excerpts:
+    taboos: The 2020–2021 NCAA violations that led to the Pruitt firing are institutional memory and not
+      a punchline. The 2009 Lane Kiffin year is complicated — Kiffin was hired, coached one year, left for
+      USC — and should not be reduced to a joke about the exit. Peyton Manning is a living presence on campus;
+      copy should reflect that. The wilderness years (2009–2020) are honest fact and do not need to be romanticized
+      or mocked — they simply happened. The 1998 national championship is a…
+    fans_culture: 'The fanbase is structurally the most geographically-concentrated in the SEC East — Knoxville
+      as the cultural gravity center, East Tennessee as the recruiting footprint, with a Nashville/Memphis
+      presence as the secondary cohort. The gameday culture runs: the Vol Walk (players walk from the locker
+      room to the stadium through a corridor of fans) pregame, the Pride of the Southland marching band''s
+      "Salute to the Hill" formation (spelling TENNESSEE on the field), and Rocky Top…'
+    voice_ethos: 'The voice is restoration-era-orange: confident, institutional, aware of what''s been rebuilt,
+      and neither nostalgic nor apologetic. Tennessee speaks like a program that remembers what it was,
+      accepts what it has been, and is writing the sequel in real time. Performative modesty reads as outsider-voice;
+      so does chest-thumping about wilderness seasons. The register is closer to an engineer''s progress
+      report than a victory speech. Identity phrase: **"Tennessee is a program that…'
+    narratives: 'The Heupel restoration is the single open narrative thread. Three questions drive the fan
+      intelligence pipeline: (1) can the Heupel offense reach a CFP semifinal given SEC schedule difficulty;
+      (2) can Tennessee recruit at the tier Alabama/Georgia do in the modern NIL era; (3) does the restoration
+      reach an SEC Championship Game before the schedule window closes. The 2024 CFP appearance was a first-sentence
+      answer to (1); (2) and (3) are still being written. The 2022 Hendon…'
+    in_jokes: '"Good ol'' Rocky Top" — the song''s opening line; used as sign-off in post-win callbacks.
+      "Pride of the Southland" — the band, not a metaphor. The 2022 Alabama win ("52–49, goalposts in the
+      Tennessee River") is a real and appropriate fanbase reference; the Smokey''s Smoke still plays in
+      the commentary track. "Vol Walk" — the pregame ritual.'
+  story_materials:
+    legendary_coach: Robert Neyland
+    era_name_overrides:
+      1926-1934: The Neyland I
+      1936-1952: The Neyland II / III
+      1964-1976: The Dickey / Battle Era
+      1977-1992: The Majors Era
+      1992-2008: The Fulmer Era
+      2009-2020: The Wilderness
+      2021-: The Heupel Restoration
+    always_surface:
+    - 6 claimed national championships (1938, 1940, 1950, 1951, 1967, 1998)
+    - Peyton Manning (1994-1997) as recruiting and cultural foundation
+    - Neyland Stadium capacity 101,915 (third largest on-campus venue in the country)
+    - Rocky Top as the most identifiable fight song in college sports
+    - The Heupel era (since 2021) and the restoration-bet it represents
+    - The Vol Walk pregame tradition
+    - 2024 CFP first appearance
+    rituals:
+    - Rocky Top
+    - Vol Navy
+    - Power T (Pride of the Southland)
+    - Smokey (the bluetick coonhound)
+    - Checkerboard End Zones
+    modules_already_rendering: moment_of_year · on_this_day · bowl_history · hero_arc strip · Chronicle
+      AI Narratives
+  live_fingerprint:
+    backometer: uneasy (50/100, n=239)
+    voice_profile: present
+    delusion_premium: present

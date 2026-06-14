@@ -1,0 +1,76 @@
+# Emotional Core — UT Martin  (ut-martin)
+# HAIKU-AUTHORED (FCS expansion) 2026-06-13 — web-verified
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+
+status: live
+slug: ut-martin
+team_id: null
+program_name: UT Martin
+program_tier: 5
+
+emotional_core:
+  primary: contentment
+  secondary: restoration
+  one_line: "UT Martin is the West Tennessee Skyhawk program, a consistent OVC champion that owns five titles in the past two decades and a playoff regular under coach Jason Simpson."
+
+self_image:
+  archetype: perennial-almost
+  standard_gap_frame: "Five OVC championships and multiple FCS playoff appearances vs the challenge of sustaining conference contention in a changing OVC-Big South landscape."
+
+the_wound:
+  name: "The sustainability question"
+  detail: "UT Martin has won five OVC titles (2006, 2021, 2022, 2023, 2024) and made FCS playoffs twice (2021, 2024) under coach Jason Simpson in his two decades at the helm. The wound is the knowledge that success is rare and the program is in the elevated tier but not the championship tier — the fear of losing the formula that's worked and dropping into mediocrity."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win back-to-back OVC championships, make consecutive FCS playoff appearances, and establish UT Martin as the conference standard-bearer."
+  drought: { since: 2024, unit: bowl }
+
+the_chip:
+  villain: none
+  text: ""
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes Jason Simpson and UT Martin have built something sustainable, that five OVC titles prove the program belongs in the conversation, and that the Skyhawks can keep winning in the OVC-Big South."
+
+the_grudge_texture:
+  rival:
+  texture:
+
+the_coach_relationship: forever-ours
+the_internal_fracture: simpson-loyalty-vs-next-era — the faction devoted to Simpson vs the faction preparing for the post-Simpson future
+register: martin-tennessee-skyhawk-ovc-championship
+never_use:
+  - Small-time program (five OVC championships disprove this)
+  - Never won anything (the 2006-2024 title count is verifiable success)
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "UT Martin is a consistent OVC champion program that has won five conference titles in the past two decades (2006, 2021, 2022, 2023, 2024) and made FCS playoffs twice (2021, 2024) under the steady leadership of coach Jason Simpson in his twenty-year tenure."
+  the_origin: "A University of Tennessee branch campus in Martin that built a competitive FCS football program focused on OVC success, developing into a championship contender in the third tier."
+  golden_ages:
+    - { era: "2021-2024 (Simpson Dynasty)", what: "Four OVC titles in five years and two FCS playoff appearances, the most dominant stretch in program history" }
+    - { era: "2006 (Early Title)", what: "UT Martin's first OVC championship and a symbol of early success" }
+  legends:
+    - { name: Jason Simpson, role: coach, why: "Built UT Martin into an OVC championship program over two decades, winning five titles and establishing the Skyhawks as a conference power" }
+  canonical_moments:
+    - { name: "2021 FCS playoff appearance", year: 2021, what: "UT Martin makes the FCS playoffs, proving the Skyhawks can compete on the national stage", handling: glory }
+    - { name: "2022-2023 back-to-back OVC titles", year: 2023, what: "The Skyhawks win back-to-back conference championships, the peak of the Simpson era", handling: glory }
+    - { name: "2024 FCS playoff appearance", year: 2024, what: "UT Martin returns to the FCS playoffs, sustaining the pattern of postseason success", handling: glory }
+  the_place: "Skyhawk Field in Martin, Tennessee — the home of Skyhawk football in West Tennessee."
+  brand_of_football: "Disciplined, championship-focused OVC football built on consistency, recruiting, and the Jason Simpson formula of sustained excellence."
+  cultural_footprint: "UT Martin represents the OVC championship program, a school that has made itself a fixture in conference contention and FCS playoff conversation."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: UT Martin went 6-6 in 2025 in the Big South-OVC conference, stepping back slightly from the playoff appearance of 2024 but remaining competitive under coach Jason Simpson in his twenty-first year. The Skyhawks face the challenge of sustaining their recent run of OVC titles and playoff appearances in a reorganized conference landscape. Simpson's longevity is a strength but also raises questions about the program's identity in the post-Simpson era.
+  research_checklist:
+    - Five OVC titles (2006, 2021, 2022, 2023, 2024) (verified)
+    - Two FCS playoff appearances (2021, 2024) (verified)
+    - Jason Simpson as coach, 20+ years (verified, 21st year in 2026)
+    - 2025 season 6-6 record (verified)
+    - Big South-OVC conference affiliation (verified)
+  sources:
+    - https://en.wikipedia.org/wiki/UT_Martin_Skyhawks_football
+    - https://utmsports.com/news/2022/11/19/football-back-to-back-no-25-ut-martin-picks-up-34-31-win-over-eiu-to-claim-second-straight-ovc-title.aspx
+    - https://utmsports.com/sports/football/roster/coaches/jason-simpson/1956

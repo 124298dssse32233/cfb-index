@@ -1,0 +1,78 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: angelo-state
+team_id: null
+program_name: Angelo State
+program_tier: 6
+
+emotional_core:
+  primary: grievance
+  secondary: restoration
+  one_line: "Angelo State is the West Texas program that seized the Lone Star Conference crown—back-to-back titles in 2022 and 2024—and demands recognition as the class of Division II."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "Two LSC championships in four years and a blue-collar oil-patch identity vs. a Division II ceiling that still doesn't know the Rams' name."
+
+the_wound:
+  name: "2025 stumble — the expectation hangover"
+  detail: "After winning the LSC title in 2024 (a year of consolidation), Angelo State entered 2025 as preseason favorites to repeat but went 6–5, a regression that fed whispers about whether the Rams' rise was sustainable or a flash."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to the LSC throne — reclaim the conference championship that slipped in 2025, prove the 2022–2024 dominance was a dynasty, not a lucky stretch."
+  drought: { since: 2024, unit: conference_title }
+
+the_chip:
+  villain: big_brother
+  text: "Fans here believe every P5 school in Texas has overlooked the Rams since 1957. Angelo State built an answer: back-to-back LSC titles in the toughest conference in Division II. That doesn't erase the silence, but it proves the Rams belong at the table."
+
+the_delusion:
+  tone: self-aware
+  text: "That the 2024 championship run was a coronation and not a narrow window. Fans and coaches know the LSC is harder now—more parity, more talent dispersed—but the Rams believe they can be the first back-to-back-to-back champions the league has seen."
+
+the_grudge_texture:
+  rival: midwestern-state
+  texture: championship
+  # Midwestern State is the LSC's legacy powerhouse (5 LSC titles under Maskill). Angelo State now rivals them for supremacy.
+
+the_coach_relationship: savior
+  # Jeff Girsch built the recent championship runs and carries the weight of 2025 regression.
+
+the_internal_fracture: "Defensive depth vs. offensive firepower—the debate about where the 2025 collapse came from and what the 2026 roster can rebuild."
+
+register: "west-texas-ram-lsc-power-oil-patch-football"
+
+never_use:
+  - "Angelo State has won the LSC five times — false, two titles (2022, 2024) in modern era"
+  - "The Rams are a Texas FBS feeder school — no P5 pipeline; they build their own"
+  - "2025 was a program-ending collapse — one down year after a championship run is normal"
+  - "Angelo State won NAIA titles — program split after D2 reclassification; don't conflate"
+
+story_canon:
+  the_unique_thing: "Two Lone Star Conference championships in four years (2022, 2024) in what may be the toughest Division II conference, built by a program that never backs down in the West Texas desert."
+  the_origin: "A small regional university in San Angelo, Texas (founded 1928), football established in the 1950s; climbed from NAIA to NCAA Division II and built itself into an LSC power through the 2010s."
+  golden_ages:
+    - { era: "2022–2024", what: "Back-to-back-to-back LSC contention, crowned with LSC titles in 2022 and 2024; established Angelo State as the new standard in the Lone Star" }
+  legends:
+    - { name: Jeff Girsch, role: coach, why: "Architect of the Angelo State rise; 7 years in, built the 2022 and 2024 conference champions" }
+  canonical_moments:
+    - { name: "2024 LSC Championship", year: 2024, what: "Angelo State defeats Western Oregon 38–16 in the championship game, sealing back-to-back titles", handling: glory }
+    - { name: "2022 LSC Title", year: 2022, what: "First LSC championship under Girsch, launching the modern Rams dynasty", handling: glory }
+  the_place: "LeGrand Stadium in San Angelo, Texas—a West Texas outpost where the Rams have built a winning culture brick by brick."
+  brand_of_football: "Tough, smash-mouth, blue-collar Division II football that doesn't need P5 recognition to believe in itself."
+  cultural_footprint: "A regional power in the oil patch and ranching country of West Texas—proof that a mid-sized university can build LSC supremacy."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: After the 2024 LSC championship, Angelo State was preseason favorite to repeat in 2025, but went 6–5, a stumble that tested the narrative of dynasty. QB Braeden Fuller (senior, 2,318 passing yards, 19 TDs) and RB Jayden Jones led an offense that could not maintain 2024's dominance. Jeff Girsch enters 2026 in year 7 with the mandate to prove the 2022–2024 run was sustainable, not a window. The question: can the Rams reclaim the LSC throne and restore the narrative that Angelo State is Division II's next permanent power?
+  research_checklist:
+    - 2024 LSC championship game (vs. Western Oregon, 38–16) ✓
+    - 2022 LSC championship (Girsch first title) ✓
+    - Braeden Fuller era (senior QB, 2026 transition) ✓
+    - Traditional rival: Midwestern State (5 LSC titles, Maskill legacy) ✓
+    - West Texas geographic/cultural identity ✓
+  sources:
+    - https://en.wikipedia.org/wiki/Angelo_State_Rams_football
+    - https://americanfootball.fandom.com/wiki/2025_Angelo_State_Rams
+    - https://www.texasfootball.com/team/angelo-state-rams

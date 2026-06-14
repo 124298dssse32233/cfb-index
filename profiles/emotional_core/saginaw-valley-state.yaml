@@ -1,0 +1,74 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: saginaw-valley-state
+team_id: null
+program_name: Saginaw Valley State University
+program_tier: 6
+
+emotional_core:
+  primary: house-money
+  secondary: restoration
+  one_line: "Saginaw Valley State is the mid-Michigan program with upside — a 6-5 team in 2025 with a new offensive-minded coach signaling a belief that the Cardinals can climb back to GLIAC competitiveness."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A program that competes in the GLIAC without the resources or national profile of the league's elite, but believes steady improvement and offensive talent can change the trajectory."
+
+the_wound:
+  name: "Perpetual mid-tier status in a tough conference"
+  detail: "Saginaw Valley State has never won a national title or made a serious national tournament run. The wound is not acute, but chronic: the consistent 6-7 win program in a conference that demands 8+ for tournament contention."
+  handling: dated-grievance
+  freshness: this-era
+
+the_dream:
+  text: "One season where the new offensive system clicks and the Cardinals reach eight wins and a playoff berth — a tournament run that announces the coaching change was the missing piece."
+  drought: { since: 2005, unit: bowl }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Saginaw Valley sees the offensive hiring as a statement of ambition, not grievance. The goal is to build something new and different."
+
+the_delusion:
+  tone: self-aware
+  text: "Fans believe the new coach brings a system that can unlock offensive talent and turn 6 wins into 8 — it's a hope grounded in tangible coaching change, not pure wishful thinking."
+
+the_grudge_texture:
+  rival: none
+  texture: championship
+
+the_coach_relationship: savior
+the_internal_fracture: "Old offensive philosophy vs new system — the tension between what was and what the new hire is building."
+register: michigan-cardinal-mid-tier-GLIAC-upside
+never_use:
+  - Never competed — incorrect; Saginaw Valley regularly competes in the GLIAC
+  - Title contender — unrealistic; the program is 6-7 win level historically
+  - Established tradition — the program is still building identity
+
+story_canon:
+  the_unique_thing: "A program that has hovered around 6-7 wins in the GLIAC and is now investing in a new offensive-minded head coach to try and climb back to 8+ win seasons and tournament contention."
+  the_origin: "Saginaw Valley State joined NCAA Division II and the GLIAC in the 1990s as a mid-tier competitor."
+  golden_ages:
+    - { era: "2000s", what: "Competitive GLIAC seasons with occasional tournament appearances" }
+  legends: []
+  canonical_moments: []
+  the_place: "University Center, Michigan — a campus in mid-Michigan near Saginaw, part of the regional community."
+  brand_of_football: "Competitive but constrained; the new era aims to be more aggressive and offensive-minded."
+  cultural_footprint: "Saginaw Valley State represents the mid-tier GLIAC program that is always a game away from tournament contention and always believing this coaching change could be the one."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Saginaw Valley State hired a new head coach Michael Engle in 2025,
+    bringing him in from University of Indianapolis where he was the offensive coordinator. This move signals
+    a commitment to building a more explosive offensive system. The Cardinals finished 6-5 in 2025, right on
+    the border of tournament contention. With a full offseason to implement the new system, Saginaw Valley
+    is positioned to either break through to 8+ wins in 2026 or remain stuck in the 6-7 win range. The
+    coaching change represents genuine hope that an offensive-minded approach can unlock the program's
+    latent talent.
+  research_checklist:
+    - Michael Engle hire (University of Indianapolis offensive coordinator)
+    - 2025 record (6-5)
+    - GLIAC membership and competitive position
+    - Offensive system change
+  sources:
+    - https://en.wikipedia.org/wiki/Saginaw_Valley_State_Cardinals_football
+    - https://svsu.edu/
+    - https://www.gliac.org/

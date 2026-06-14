@@ -1,0 +1,84 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+# Livingstone College Blue Bears (CIAA Division II)
+
+status: live
+slug: livingstone
+team_id: null
+program_name: Livingstone College
+program_tier: 6
+
+emotional_core:
+  primary: restoration       # physical, defensive dominance returning under Sean Gilbert
+  secondary: honor           # the birthplace of Black college football and 132-year heritage
+  one_line: "Livingstone College is the birthplace of Black college football, home to the first HBCU team in 1892, now rising under a tough-love coach who has made the Blue Bears physically fearsome again."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A historic HBCU with claim to the very foundation of Black college football, now proving it can compete in the modern CIAA under a disciplined, defensive-first philosophy."
+
+the_wound:
+  name: "Decades of mediocrity and the erosion of heritage"
+  detail: "Livingstone, despite its legendary 1892 status, spent decades unable to live up to its historical pedigree. The program was competitive but not dominant, winning 15-10 against Johnson C. Smith in 2024 on senior day after years of losing to rivals. The wound was quiet: being the founder of something you could no longer be great at."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return Livingstone to three-CIAA-title caliber, not as a memory but as a reality. Sean Gilbert's dream is simple: build the toughest defense in the CIAA and prove that the birthplace of Black college football can be a modern power."
+  drought: { since: 1998, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip against outsiders. The motivation is internal and historical: Livingstone has 132 years of CIAA football heritage and only three conference titles (1960, 1997-98). The Blue Bears play to honor that history and add to it."
+
+the_delusion:
+  tone: self-aware
+  text: "That a dominant defense and tough-love coaching can sustain a power program with limited resources. The fanbase knows Sean Gilbert is building something real — the 2024 and 2025 records prove it — but also knows talent is fragile."
+
+the_grudge_texture:
+  rival: johnson-c-smith
+  texture: blood-feud         # The 1892 Commemorative Classic — oldest HBCU rivalry, 132+ years, Livingstone won first game
+
+the_coach_relationship: savior           # Sean Gilbert, former NFL Pro Bowler and Pitt All-American, brought a distinct physical identity to the program
+the_internal_fracture: old-school tough-love vs. modern player development — Gilbert's intensity and no-nonsense approach works for some players but clashes with others
+register: livingstone-blue-bears-first-hbcu-football-1892-gilbert-tough-defense
+never_use:
+  - Livingstone is a consistent power — only three CIAA titles (1960, 1997-98); decades without titles
+  - Historic dynasty — one era (1997-98) is the recent peak; nothing sustained since
+  - A national-level HBCU football contender — Livingstone competes in CIAA, not nationally
+  - Sean Gilbert is a former NFL coach — he was a Pro-Bowl defensive lineman, not a head coach at the NFL level
+
+story_canon:
+  the_unique_thing: "Livingstone College played the first-ever HBCU football game on December 27, 1892, against Johnson C. Smith (then Biddle Institute). The Blue Bears ARE the birthplace of Black college football. Every program descended from that moment. Livingstone's identity is that it came first."
+  the_origin: "Livingstone College was founded in 1879 as a religious and educational institution in Salisbury, North Carolina. In 1892, the Blue Bears became the first HBCU football team to field a team and play against another HBCU (Johnson C. Smith), establishing the foundation of Black college football."
+  golden_ages:
+    - { era: "1892 founding (first HBCU game)", what: "Livingstone plays the first-ever HBCU football game on December 27, 1892, establishing the foundation of Black college football" }
+    - { era: "1960 CIAA Championship", what: "Livingstone wins a CIAA title, affirming its place as a power" }
+    - { era: "1997-1998 back-to-back titles", what: "Livingstone wins two straight CIAA titles in the modern era, the last sustained dominance" }
+    - { era: "2024-2025 (Gilbert era)", what: "Sean Gilbert's tough-defense philosophy returns Livingstone to .500+ football; defensive prowess led all Division II in 2025" }
+  legends:
+    - { name: Sean Gilbert, role: coach, why: "Former NFL Pro Bowler (Denver Broncos, LA Rams) and Pitt All-American; brought a physical, defensive-first identity to rebuild Livingstone" }
+    - { name: Kenyon Garner, role: player, why: "2025 CIAA Defensive Player of the Year with 54 tackles, 27 TFL, 14 sacks — led all Division II in sacks" }
+    - { name: First HBCU Football Team, role: institution, why: "Livingstone played the first HBCU game in 1892, establishing the foundation for all Black college football that followed" }
+  canonical_moments:
+    - { name: "First HBCU football game", year: 1892, what: "Livingstone Blue Bears play Johnson C. Smith (Biddle) on December 27, 1892, the first-ever HBCU matchup", handling: glory }
+    - { name: "1960 CIAA Championship", year: 1960, what: "Livingstone wins a CIAA title in the post-war era", handling: glory }
+    - { name: "1997-1998 back-to-back titles", year: 1998, what: "Livingstone wins two straight CIAA championships, establishing the most recent dynasty", handling: glory }
+    - { name: "2025 Kenyon Garner DPOY", year: 2025, what: "Kenyon Garner leads all Division II in sacks (14) and is named CIAA Defensive Player of the Year", handling: glory }
+  the_place: "Salisbury, North Carolina — home to Livingstone College, a small town in the Piedmont region where the first HBCU football game was played in 1892."
+  brand_of_football: "Physical, defensive-first HBCU football. Under Sean Gilbert, Livingstone plays with a tough-love mentality and defensive dominance. The Blue Bears are built to punish opponents and grind out wins."
+  cultural_footprint: "Livingstone's cultural footprint is foundational — the birthplace of Black college football itself. Every HBCU program that came after is part of the Blue Bears' legacy. The 1892 game is the origin story of the entire sport."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Livingstone College went 5-5 overall and 3-4 in CIAA in 2025, continuing the steady rise under Sean Gilbert that began in 2024 (6-4). The Blue Bears' signature achievement: Kenyon Garner, a CIAA Defensive Player of the Year, led all of Division II with 14 sacks and 27 tackles for loss, building a fearsome defense. Gilbert's tough-love approach, rooted in his NFL Pro Bowl pedigree, has created a distinctive identity: Livingstone plays physical, defensive football. The 2026 season begins with momentum — back-to-back winning seasons for the first time in a decade — and the possibility of a return to CIAA title contention.
+  research_checklist:
+    - The December 27, 1892 first HBCU football game (vs. Johnson C. Smith)
+    - Sean Gilbert's playing career (Denver, LA Rams, Pitt All-American)
+    - The 1997-1998 back-to-back CIAA titles
+    - Kenyon Garner's 2025 DPOY season and Division II sack record
+    - Rivalry with Johnson C. Smith (Commemorative Classic)
+    - Back-to-back winning seasons (2024-2025) signaling turnaround
+  sources:
+    - https://bluebearathletics.com
+    - https://theciaa.com/sports/fball/index
+    - https://hbcugameday.com/livingstone-blue-bears
+    - https://en.wikipedia.org/wiki/Livingstone_College_Blue_Bears_football
+    - https://en.wikipedia.org/wiki/1892_Commemorative_Classic

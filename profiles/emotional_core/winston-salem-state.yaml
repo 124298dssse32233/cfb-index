@@ -1,0 +1,81 @@
+# HAIKU-AUTHORED (D2/D3 expansion) 2026-06-13 — web-verified
+# Winston-Salem State University Rams (CIAA Division II)
+
+status: live
+slug: winston-salem-state
+team_id: null
+program_name: Winston-Salem State University
+program_tier: 6
+
+emotional_core:
+  primary: grievance        # the 2012 dynasty and the decade of decline since
+  secondary: restoration    # new coaching leadership after Robert Massey's departure
+  one_line: "Winston-Salem State is the HBCU that achieved glory in 2012 (14-1, best record in HBCU history) and has spent the last 13 years chasing that memory, now seeking a coach who can restore what was lost."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "A program that scaled the mountain in 2012 with the best HBCU record ever (14-1) and has never recaptured that glory, now facing fundamental questions about identity and direction."
+
+the_wound:
+  name: "The 13-year fall from a historic 14-1 season and a coaching change born of it"
+  detail: "Winston-Salem State went 14-1 in 2012, the best record in HBCU football history (validated across multiple sources). Since then, the program has been unable to sustain that excellence. Robert Massey (hired 2019) finished with a 25-34 record and was let go after 2025 (final record ~5-5 or 6-4). The wound is the gap between what was and what is."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Return to a national-level HBCU contender. The dream is not just CIAA power — it is to reach another level, to build a program that wins 12+ games and competes against the Tier 1 HBCU programs. The 2012 standard is the benchmark."
+  drought: { since: 2012, unit: conference_title }
+
+the_chip:
+  villain: blue_bloods
+  text: "Fans here believe a quiet chip against a national narrative that ignores HBCU football. Winston-Salem State proved in 2012 that a historically Black institution could achieve at the highest level of college football (14-1 record). The chip is: never forget that this school can do it."
+
+the_delusion:
+  tone: earnest
+  text: "That the 2012 team was sustainable and a dynasty could be built from it. The fanbase knows 2012 was special, knows it came with a great coach and great players, and wonders if that moment can ever be replicated."
+
+the_grudge_texture:
+  rival: null
+  texture: none               # No traditional blood rival identified in CIAA frame
+
+the_coach_relationship: hot-seat-churn          # Robert Massey out after 2025 (25-34 record); new coach to be hired
+the_internal_fracture: legacy of excellence vs. modern reality — the tension between the 2012 standard and the current program's ability to compete
+register: winston-salem-state-rams-2012-14-win-dynasty-fallen-seeking-restoration
+never_use:
+  - Winston-Salem State is consistently competitive — 25-34 record under Massey; not competitive in CIAA
+  - The 2012 season is repeatable — it came with specific coaching, specific talent, and specific timing; unlikely to replicate
+  - Bill Hayes won a championship at WSSU in 1987 — the 2012 season was under a different coach; Hayes' 1987 title is historic but not recent
+  - WSSU is an HBCU power NOW — the program needs rebuilding; 2012 was the peak, not the norm
+
+story_canon:
+  the_unique_thing: "The 2012 season — 14-1 record, the best in HBCU football history. No HBCU program has ever gone 14-1 or better. Winston-Salem State did it in 2012 and proved that a historically Black institution could scale to the heights of college football."
+  the_origin: "Winston-Salem State University, founded in 1892, has a rich HBCU football tradition competing in what became the CIAA. The program built regional prestige and championship tradition over more than a century."
+  golden_ages:
+    - { era: "CIAA championship era (1977+)", what: "Winston-Salem State wins 12 CIAA titles starting in 1977" }
+    - { era: "2010-2012 peak", what: "Winston-Salem State reaches the apex with the 2012 season: 14-1 record, best in HBCU history" }
+    - { era: "2010s titles", what: "WSSU wins CIAA titles in 2012, 2015, 2017, 2018 during the modern era" }
+  legends:
+    - { name: 2012 championship team, role: team, why: "14-1 record, the best in HBCU football history; defined what Winston-Salem State could achieve" }
+    - { name: Bill Hayes, role: coach, why: "1987 CIAA champion at WSSU; founder of a coaching legacy (his nephew Richard Hayes Jr. coaches Fayetteville State)" }
+    - { name: Daylin Lee, role: player, why: "2025 starting QB with 1,728 passing yards and 14 TDs; symbol of individual talent amid program struggle" }
+  canonical_moments:
+    - { name: "1987 CIAA Championship", year: 1987, what: "Bill Hayes wins CIAA title at WSSU", handling: glory }
+    - { name: "2012 season (14-1 record)", year: 2012, what: "Winston-Salem State goes 14-1, the best record in HBCU football history", handling: glory }
+    - { name: "2010s CIAA titles", year: 2018, what: "WSSU wins CIAA titles in 2012, 2015, 2017, 2018, establishing a decade of dominance", handling: glory }
+  the_place: "Winston-Salem, North Carolina — home to Winston-Salem State University and a city rich in HBCU tradition and culture."
+  brand_of_football: "Explosive offensive football in 2012; disciplined system football in the 1987 era. The Rams play for pride and the memory of what was achieved."
+  cultural_footprint: "The 2012 season is the defining moment in WSSU football history — the proof that a small HBCU could reach the heights of college football. That legacy carries the program through the lean years."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Winston-Salem State went approximately 5-5 to 6-4 overall in 2025 (final record not fully resolved), and head coach Robert Massey was let go after the season. Massey's six-year tenure (2019-2025) produced a 25-34 record and was marked by inconsistency. The program faces a coaching search with a mandate: find a coach who can bridge the gap between the 2012 glory (14-1 record) and the modern reality of CIAA competition. Quarterback Daylin Lee (1,728 passing yards, 14 TDs in 2025) provides a talented foundation. The 2026 season begins under new leadership with a clear benchmark: restore Winston-Salem State to championship football.
+  research_checklist:
+    - 2012 season (14-1 record) and championship status
+    - Bill Hayes 1987 CIAA championship
+    - Robert Massey coaching tenure and 25-34 record
+    - WSSU CIAA titles 2010-2018 (2012, 2015, 2017, 2018)
+    - Current roster composition and key players
+    - Daylin Lee's 2025 statistics and trajectory
+  sources:
+    - https://wssurams.com
+    - https://theciaa.com/sports/fball/index
+    - https://hbcugameday.com/winston-salem-state-rams
+    - https://en.wikipedia.org/wiki/Winston-Salem_State_Rams_football

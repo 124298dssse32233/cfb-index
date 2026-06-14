@@ -1,0 +1,79 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: charleston-wv
+team_id: null
+program_name: University of Charleston
+program_tier: 6
+
+emotional_core:
+  primary: restoration
+  secondary: spectacle
+  one_line: "Charleston revived football from the dead in 2003 and has spent 23 years proving the Golden Eagles belong — capping with three straight MEC championships (2023-2025) and sustained NCAA D2 playoff runs."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A historic West Virginia college that dropped football in 1956, resurrected it in 2003, and climbed from obscurity to a back-to-back-to-back conference champion in 20 years."
+
+the_wound:
+  name: "The 47-year football death (1956-2003)"
+  detail: "Charleston (originally Morris Harvey College, renamed 1978) had an undefeated 10-0 team in 1950 and won eight WVIAC titles (1938-1954), but dropped football entirely in 1956 and did not resurrect it until 2003. That's 47 years of silence — nearly two generations of Golden Eagles fans with no football program."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Win a D2 national title and cement Charleston as a permanent fixture in the D2 playoff conversation — prove the resurrection is permanent, not temporary."
+  drought: { since: 1950, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Charleston's identity is built on resurrection and proving doubters wrong. Every playoff run is vindication of the 2003 decision to bring football back."
+
+the_delusion:
+  tone: self-aware
+  text: "That a 23-year-old program with a 47-year gap in its history can compete with established D2 powers for national titles — the fanbase knows the resurrection is young, but believes Charleston's stock of conference championships proves it can win the big one."
+
+the_grudge_texture:
+  rival: west-virginia-state
+  texture: blood-feud
+
+the_coach_relationship: total-trust
+the_internal_fracture: championship-pressure-vs-stability — tension between the hunger for the first D2 national title (to complement the 1950 unclaimed crown) and the need to stay grounded
+register: charleston-1950-undefeated-resurrection-2003-back-to-back-mec
+never_use:
+  - Historic football powerhouse (the 1950 team was great, but there is a 47-year gap that erases continuity)
+  - Established D2 contender (23 years in, still building legitimacy)
+  - Reigning national champions (three MEC titles, no D2 national title yet)
+
+story_canon:
+  the_unique_thing: "Charleston's resurrection story — the 1950 undefeated 10-0 team was a forgotten national champion candidate, the program died for 47 years (1956-2003), and then the Golden Eagles brought football back in 2003 and climbed to D2 contender in two decades. The 2025 MEC co-championship (alongside Frostburg) is the latest proof the resurrection is real."
+  the_origin: "Originally Morris Harvey College (founded 1904), renamed University of Charleston in 1978. The football program had golden-age success in the 1930s-1950s (eight WVIAC titles, including the 1950 undefeated season), then was discontinued in 1956. In 2003, the university resurrected football and began climbing from scratch."
+  golden_ages:
+    - { era: "1938–1954", what: "Eight WVIAC conference titles, including the 1950 undefeated 10-0 team" }
+    - { era: "2023–2025", what: "Back-to-back-to-back MEC championships (2023, 2024, 2025) and sustained NCAA D2 playoff appearances" }
+  legends:
+    - { name: "The 1950 undefeated team", role: team, why: "10-0 overall, undefeated, an unclaimed national championship that defined Golden Eagles identity for 75 years" }
+    - { name: Michael Tesch, role: coach, why: "Hired in 2025 (1st season) to lead Charleston's championship charge after steady builds by predecessors" }
+  canonical_moments:
+    - { name: "1950 Undefeated Season", year: 1950, what: "Charleston went 10-0 undefeated, an unclaimed national championship that haunted the program for 75 years", handling: glory }
+    - { name: "2003 Resurrection", year: 2003, what: "Football returned to Charleston after a 47-year gap, beginning a 23-year climb that culminated in conference dominance", handling: miracle }
+    - { name: "2023-2025 MEC Dynasty", year: 2025, what: "Back-to-back-to-back MEC championships (2023, 2024, 2025), proving the resurrection was permanent", handling: glory }
+  the_place: "Charleston, West Virginia, the state capital."
+  brand_of_football: "Resilient, hungry, second-chance football — a program that died and came back, built on the belief that nothing is permanent in sports except the fight to matter."
+  cultural_footprint: "Charleston's cultural footprint is the resurrection itself — a state-capital school that brought football back and proved it belonged. The 2025 MEC co-championship is the latest chapter in a 23-year climb from zero."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Charleston finished 8-3 overall (7-1 MEC regular season) in 2025, co-won the MEC championship with Frostburg, and
+    advanced to the NCAA D2 playoffs. Head coach Michael Tesch is in year one, inheriting a 2024 team that went 11-1 (9-0 MEC) and made the playoffs.
+    QB Ean Hamric (RS-JR from Glenville) led the offense with multiple TD passes. The Golden Eagles are positioned to compete for a D2 national title,
+    which would be their first since the 1950 unclaimed crown. For Charleston, the 2026 season is about finishing what the resurrection started: a real
+    D2 championship.
+  research_checklist:
+    - 1950 undefeated 10-0 season (unclaimed national title)
+    - 47-year football death (1956-2003)
+    - 2003 resurrection
+    - 2023-2025 back-to-back-to-back MEC championships
+    - 2024 11-1 season and playoff run
+  sources:
+    - https://en.wikipedia.org/wiki/University_of_Charleston
+    - https://en.wikipedia.org/wiki/2025_NCAA_Division_II_football_season
+    - https://www.ucwv.edu/athletics/

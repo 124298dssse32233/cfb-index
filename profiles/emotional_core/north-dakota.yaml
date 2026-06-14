@@ -1,0 +1,95 @@
+# Emotional Core — North Dakota (north-dakota)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# status: live (web-researched 2026-06-13)
+# NOTE: This is North Dakota (MVFC), NOT North Dakota State (FBS/NDSU)
+
+status: live            # todo | drafted | authored | reviewed | live
+slug: north-dakota
+team_id: null
+program_name: North Dakota
+program_tier: 2
+
+emotional_core:
+  primary: restoration      # new coach Eric Schmidt's first year after a program reset
+  secondary: standard
+  core_variant: regime-reset
+  one_line: "North Dakota is the Fighting Hawks with a new head coach — Eric Schmidt's first year replacing Bubba Schweigert, and an 8-6 record that proves the program can stay competitive during a transition."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "A Missouri Valley program navigating a coaching transition after years under Bubba Schweigert, and doing it successfully with an 8-6 season and playoff eligibility under new leader Eric Schmidt."
+
+the_wound:
+  name: "The coaching change"
+  detail: "North Dakota had to say goodbye to longtime coach Bubba Schweigert and trust that Eric Schmidt could maintain the program's competitive standing. The 8-6 record and playoff eligibility prove the transition didn't disrupt the program's trajectory."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that Eric Schmidt is the long-term answer and build North Dakota into a perennial MVFC contender — a conference title and sustained playoff appearances."
+  drought: { since: 2020, unit: conference_title }
+
+the_chip:
+  villain: national_media
+  text: "North Dakota could have cratered during a coaching transition. Instead, Eric Schmidt's first team went 8-6 and made the playoffs. The fanbase believes the program is in the right hands."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes the transition was seamless — that Eric Schmidt immediately arrived and the Hawks will be Elite MVFC competitors from here forward. But year one proves capability, not sustainability. Multiple years of success will define his tenure."
+
+the_grudge_texture:
+  rival: south-dakota
+  texture: border-war   # the classic North Dakota vs. South Dakota rivalry
+
+the_coach_relationship: savior   # Eric Schmidt tasked with carrying the Hawks forward after Schweigert
+the_internal_fracture: ""  # united around the coaching transition and 8-6 success
+register: north-dakota-fighting-hawks-regime-reset
+never_use:
+  - Confused with North Dakota State (NDSU is FBS; North Dakota is MVFC FCS)
+  - Mid-tier MVFC (8-6 and playoff eligibility shows competitive stature)
+
+# ── STORY CANON (doc 64) ──
+
+story_canon:
+  the_unique_thing: "North Dakota's coaching transition success — Eric Schmidt arrived as the new head coach after Bubba Schweigert's tenure and immediately led the Hawks to an 8-6 season with playoff eligibility, proving the program's stability."
+  the_origin: "A Missouri Valley program with a deep football tradition, now navigating a generational coaching transition with success."
+  golden_ages:
+    - { era: "Schweigert era", what: "Years of competitive MVFC play under the longtime coach" }
+    - { era: "2025 Schmidt arrival", what: "8-6 season and playoff eligibility prove the transition was successful" }
+  legends:
+    - { name: Bubba Schweigert, role: coach, why: "Long tenure building North Dakota into an MVFC force before stepping down" }
+    - { name: Eric Schmidt, role: coach, why: "Arrived in 2025 and immediately led the Hawks to 8-6 and playoff eligibility" }
+  canonical_moments:
+    - { name: "2025 coaching transition", year: 2025, what: "North Dakota goes 8-6 (5-3 MVFC) in Eric Schmidt's first year, making the playoffs and proving the program didn't skip a beat", handling: miracle }
+  the_place: "Alerus Center in Grand Forks, North Dakota — home of the Fighting Hawks."
+  brand_of_football: "Tough, MVFC-competitive football — built on the foundation of Schweigert and now being continued by Eric Schmidt."
+  cultural_footprint: "A program that successfully navigated a coaching transition and proved its strength extends beyond one coach — North Dakota is a MVFC fixture."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: North Dakota finished 8-6 overall (5-3 MVFC) in 2025
+    under new head coach Eric Schmidt, who replaced longtime coach Bubba Schweigert. The Hawks
+    made the playoffs and proved the transition was successful. Schmidt's task is now to build
+    sustained success — proving year one wasn't a fluke. The rivalry with South Dakota (who
+    went 10-5) will intensify as both programs are competitive in the MVFC.
+  research_checklist:
+    - the Schweigert legacy (what he built)
+    - Eric Schmidt's hiring and first-year success
+    - the 8-6 season and playoff eligibility
+    - the South Dakota rivalry
+    - the coaching transition narrative
+    - the MVFC context (competitive standing)
+  sources:
+    - https://en.wikipedia.org/wiki/2025_North_Dakota_Fighting_Hawks_football_team
+    - https://www.undsports.com/sports/football
+
+# ── BRIEFING ──
+briefing:
+  identity_phrase: "North Dakota is the Fighting Hawks successfully navigating a coaching transition — Eric Schmidt's 8-6 first year proves the program's strength."
+  mantra: "Transition. Compete. Belong."
+  cultural_anchors:
+    fan_archetype_dominant: MVFC-Believer
+    outsider_archetype_dominant: Transition-Skeptic
+    one_sentence: "North Dakota is the Fighting Hawks proving that Eric Schmidt can continue the program's MVFC competitive standing."
+  selfname: the Fighting Hawks
+  live_fingerprint:
+    voice_profile: "present (coaching transition story)"
+    signal: "STRONG — 8-6 and playoff eligibility"

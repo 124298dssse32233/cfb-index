@@ -1,0 +1,71 @@
+# HAIKU-AUTHORED (D3 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: howard-payne
+team_id: null
+program_name: Howard Payne University
+program_tier: 7
+
+emotional_core:
+  primary: contentment
+  secondary: house-money
+  one_line: "Howard Payne is the Brownwood, Texas Baptist college competing in Division III, navigating a transition year after coaching change with local pride intact."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A small Baptist liberal-arts college in Brownwood, Texas that competes in the ASC and is rebuilding after a coaching transition."
+
+the_wound:
+  name: "The coaching transition"
+  detail: "Howard Payne brought in new head coach Coby Gipson in 2025, suggesting the previous regime had run its course. The 2025 season was difficult (4-6, 2-4 ASC)."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Return to competitive ASC football and establish Howard Payne as a consistent contender in West Texas Division III."
+  drought: { since: 2020, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — Howard Payne plays for the institution and the city."
+
+the_delusion:
+  tone: self-aware
+  text: "That new coach Coby Gipson is the start of a turnaround — fans hope the first-year HC can stabilize the program and build something sustainable."
+
+the_grudge_texture:
+  rival: mcmurry
+  texture: blood-feud
+
+the_coach_relationship: hot-seat-churn
+the_internal_fracture: "patience for a new coach vs frustration from underperformance"
+register: brownwood-texas-yellow-jackets
+never_use:
+  - Invented national championships or major titles
+  - Minimized the rivalry with McMurry (it's real and longstanding)
+  - Made the transition sound catastrophic (it's a normal coaching change)
+
+story_canon:
+  the_unique_thing: "Howard Payne University in Brownwood, Texas — a small Baptist college with a longtime rivalry with McMurry in West Texas Division III."
+  the_origin: "Howard Payne College, a Baptist institution in Brownwood, Texas, has a football program anchored in local community pride."
+  golden_ages:
+    - { era: "2000s–2010s", what: "Competitive West Texas division football" }
+  legends: []
+  canonical_moments:
+    - { name: "Rivalry with McMurry", year: 2000, what: "Historic West Texas rivalry between Howard Payne and McMurry", handling: glory }
+  the_place: "Brownwood, Texas — the home of Howard Payne University, a small Baptist college in West Texas."
+  brand_of_football: "Rooted in local pride and Baptist values."
+  cultural_footprint: "Part of the West Texas Division III landscape and a familiar rival."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Howard Payne went 4-6 in 2025 (2-4 ASC) under first-year head coach Coby Gipson.
+    The Yellow Jackets are navigating a coaching transition and rebuilding. The 2025 season was challenging, but the question in Brownwood is whether Gipson can
+    stabilize the roster and return Howard Payne to competitive standing within the ASC. The historic rivalry with McMurry remains a focal point of the program identity.
+  research_checklist:
+    - Coaching change and Coby Gipson hiring
+    - 2025 season record and performance
+    - ASC competitiveness and Howard Payne's standing
+    - Rivalry with McMurry history
+  sources:
+    - https://en.wikipedia.org/wiki/Howard_Payne_University
+    - https://www.d3football.com/schools/howard-payne
+    - https://hpuathletics.com/sports/football

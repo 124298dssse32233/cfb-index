@@ -1,0 +1,76 @@
+# HAIKU-AUTHORED (D2 expansion) 2026-06-13 — web-verified
+
+status: live
+slug: post
+team_id: null
+program_name: Post University
+program_tier: 6
+
+emotional_core:
+  primary: house-money      # a brand-new program still in its infancy, every win is a celebration
+  secondary: contentment    # learning the game at their own pace, not rushing success
+  one_line: "Post is the Eagle that pivoted from Sprint Football to NCAA Division II in 2021 and just completed its first year in the Northeast-10 (2024 inaugural season, 4-6), proof that small Connecticut schools can build football programs from scratch."
+
+self_image:
+  archetype: lovable-have-not
+  standard_gap_frame: "A club-sport origin through 2020 vs the 2021-present varsity Division II climb, learning football infrastructure year by year."
+
+the_wound:
+  name: "The learning curve and the startup reality"
+  detail: "Post switched from club/Sprint Football to NCAA Division II in 2021 and has been in a long startup phase — no tradition, no alumni base, no established playbook. The 2024 transition to the Northeast-10 added a new competitive challenge, but also a home conference. An institution building football culture from zero is grinding work."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Prove that a small private school can build a sustainable Division II program — competing above .500 within five years of the NE10 transition."
+  drought: { since: 2024, unit: conference_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe no chip — just the quiet determination to prove Post football is real, not a one-year experiment."
+
+the_delusion:
+  tone: none
+  text: null
+
+the_grudge_texture:
+  rival: none
+  texture: none
+
+the_coach_relationship: savior         # Adam Schultz building the program from scratch
+the_internal_fracture: rapid growth vs sustainable pace — the faction wanting to accelerate progress vs those taking the long view
+register: waterbury-eagles-northeast-startup
+never_use:
+  - "Post will never have real football — now in NE10 as full member (2024 inaugural)"
+  - "Expansion teams always fail — Post is year four of varsity D2 competition with a 4-6 record"
+  - "No tradition means no future — many programs started exactly where Post is now"
+
+# ── STORY CANON ──
+story_canon:
+  the_unique_thing: "A brand-new Division II program born in 2021 from a club-sport Sprint Football legacy (1994-2020). Post represents what a small private school can build when it commits to varsity athletics — in four years, they went from club status to a Northeast-10 member competing against 100-year-old programs."
+  the_origin: "Post University fielded Sprint Football (7-on-7 club format) from 1994-2020, then transitioned to full Division II varsity football in 2021. They competed as an independent and in 2023-24 before joining the Northeast-10 in 2024."
+  golden_ages:
+    - { era: "2024 inaugural NE10 season", what: "Post earns its first home win (41-24 vs West Virginia Wesleyan), four players named NE10 All-Conference (Joshua Tracey, Michael Gabettie, Myles Snead, Adonis White)" }
+  legends:
+    - { name: Joshua Tracey, role: wide receiver, why: "Earned First and Second Team All-Conference honors in inaugural NE10 season, setting the standard for Post receivers" }
+  canonical_moments:
+    - { name: "2024 Home Victory vs WVU Wesleyan", year: 2024, what: "Post earns its first home win in the NE10, 41-24, a landmark moment for the newborn program", handling: glory }
+  the_place: "Municipal Stadium in Waterbury, Connecticut — the home of Post Eagles football, a program building its own identity from the ground up."
+  brand_of_football: "The startup program — hungry, learning, and refusing to accept that small schools can't build football culture. Every win is earned."
+  cultural_footprint: "Post proves that a private institution without football heritage can create Division II infrastructure from scratch. If they succeed in the next 5-10 years, Post becomes a model for other small schools."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Post University finished the 2025 season 4-6 overall and 3-6 in Northeast-10 Conference play in their
+    second year as a full NE10 member. The Eagles showed growth from their 2024 inaugural season, with key recruits including QB Joseph Galeotafiore,
+    RB Dylan McCollough, and OL Jadon Gibbs. In 2024, Post earned its first-ever home win (41-24 vs WVU Wesleyan) and saw four players named to
+    All-Conference teams. The 2025 squad is still learning the NE10 competitive level, but the trajectory suggests Post is on the right path. The program's
+    challenge is proving it's not a one-year novelty but a sustainable Division II institution.
+  research_checklist:
+    - Sprint Football 1994-2020
+    - D2 varsity 2021-present
+    - NE10 member 2024-present
+    - 2024: inaugural NE10 season, 4-6, first home win
+    - 2025: 4-6, 3-6 NE10
+  sources:
+    - https://posteagles.com/news/2023/5/10/post-university-football-to-join-northeast-10-as-associate-member.aspx
+    - https://posteagles.com/news/2024/11/21/four-from-football-highlight-first-ever-ne10-all-conference-release-in-program-history.aspx
+    - https://en.wikipedia.org/wiki/Post_Eagles

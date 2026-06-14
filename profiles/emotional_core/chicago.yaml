@@ -1,0 +1,89 @@
+# Emotional Core — University of Chicago (chicago)
+# Authoring sidecar for docs/design-system/63-per-program-emotional-identity.md
+# AUTHORED 2026-06-13 from live web research — see story_canon.sources.
+
+status: live
+slug: chicago
+team_id: null
+program_name: University of Chicago
+program_tier: 7
+
+emotional_core:
+  primary: restoration
+  secondary: redemption
+  core_variant: regime-reset
+  one_line: "The birthplace of American football coaching revived from a 61-year silence — Amos Alonzo Stagg's intellectual ghost reclaiming the Midway."
+
+self_image:
+  archetype: blue-blood-fallen
+  standard_gap_frame: "The program that invented the modern game under Stagg (1892–1932) surrendered football entirely for three generations, then walked back onto the field in 2001 to remember who it was."
+
+the_wound:
+  name: "The Great Hiatus"
+  detail: "Chicago suspended football in 1940 after Stagg's era ended, walking away from the game it had defined. For 61 years, the nation's first great coach's program sat silent while the game moved on."
+  handling: referenceable
+  freshness: generational
+
+the_dream:
+  text: "Restore the intellectual tradition of Stagg — prove that a school that pioneered coaching can rebuild what de-emphasis erased, one Midwest Conference season at a time."
+  drought: { since: 1940, unit: national_title }
+
+the_chip:
+  villain: none
+  text: "Fans here believe chicago had every claim to be a football blue blood — it invented coaching itself — then walked away and let others own the game. The wound is self-inflicted, and the return is reclamation."
+
+the_delusion:
+  tone: self-aware
+  text: "The fanbase believes that the Big Ten ghost still matters — that somewhere in the DNA is a champion program waiting to be remembered. It's not. But the program's back anyway."
+
+the_grudge_texture:
+  rival: wisconsin
+  texture: border-war
+
+the_coach_relationship: legends-shadow
+the_internal_fracture: "Stagg's intellectual legacy vs. the practical reality of modern D3 football — honoring what the program was while accepting what it's become."
+register: maroon-stagg-revival
+never_use:
+  - "Never won a national title — Three national championships and a Big Ten powerhouse era (1892–1940)"
+  - "Irrelevant since suspension — The 2001 revival and 20+ years of active D3 play have reestablished presence"
+
+# ── STORY CANON (doc 64) ──
+story_canon:
+  the_unique_thing: "Amos Alonzo Stagg (1892–1932) — the man who invented the modern game. Chicago didn't just play football; under Stagg, it defined what coaching could be. The program then walked away for 61 years and came back."
+  the_origin: "Amos Alonzo Stagg arrived in 1892 as the first dedicated football coach in American history. He transformed Chicago from a regional team into a national powerhouse and, in doing so, invented the coaching profession itself. The Maroons dominated the Big Ten from 1892 until the program's suspension in 1940."
+  golden_ages:
+    - { era: "1892–1915 (Stagg's rise)", what: "National championships and the birth of American football coaching — Stagg's 'Amos Alonzo Stagg era' became synonymous with football innovation and intellectual rigor" }
+    - { era: "1916–1932 (Stagg's legacy)", what: "Sustained Big Ten dominance as Stagg refined his system before stepping back from the field" }
+  legends:
+    - { name: "Amos Alonzo Stagg", role: coach, why: "Invented the modern game and the coaching profession (1892–1932); Chicago's entire football identity traces to his 40-year revolution" }
+  canonical_moments:
+    - { name: "The Stagg Era", year: 1892, what: "Amos Alonzo Stagg arrives and transforms Chicago into a national power and coaching innovation center", handling: glory }
+    - { name: "The Great Hiatus begins", year: 1940, what: "Chicago suspends football after 48 years, choosing de-emphasis over the modern game", handling: wound }
+    - { name: "The 2001 Revival", year: 2001, what: "Chicago reactivates football after 61 years and joins the Midwest Conference", handling: miracle }
+  the_place: "Stagg Field and the Midway — the spiritual and literal home of Amos Alonzo Stagg's revolution, on the University of Chicago campus in Hyde Park."
+  brand_of_football: "Intellectual football — Stagg's legacy of innovation, preparation, and treating coaching as a craft rather than a sport. The modern game itself."
+  cultural_footprint: "The program that invented coaching and then stepped away. The intellectual giant of American football history, now rebuilding from scratch with the ghosts of Stagg watching the Midway lights again."
+  the_ongoing_story: "LIVE as of 2026-06: After 25 years of revival (2001–2026), Chicago plays active Midwest Conference football under Head Coach Craig Knoche (3rd coach in 5 years, signaling active search for stability). The program is neither the powerhouse Stagg built nor the silent shadow of the hiatus — it's a working rebuild, reclaiming a voice it surrendered in 1940, one season at a time on the Midway."
+  sources:
+    - https://en.wikipedia.org/wiki/Chicago_Maroons_football
+    - https://en.wikipedia.org/wiki/Amos_Alonzo_Stagg
+    - https://maroonmania.uchicago.edu/sports/football/
+    - https://www.uchicago.edu/about/facts/
+
+# ── BRIEFING (read-only context for the authoring session) ──
+briefing:
+  identity_phrase: Chicago is the program that invented coaching under Amos Alonzo Stagg (1892–1932), suspended for 61 years (1940–2001), and is now rebuilding its intellectual football tradition in Division III.
+  mantra: The Midway returns.
+  cultural_anchors:
+    fan_archetype_dominant: Maroon-Stagg-Heir
+    outsider_archetype_dominant: Big-Ten-Ghost
+    one_sentence: Chicago is the birthplace of American football coaching (Stagg, 1892) that suspended play for 61 years and returned in 2001 to reclaim a tradition on the Midway.
+  selfname: the Maroons
+  rituals:
+    - Amos Alonzo Stagg legacy
+    - The Midway
+    - 2001 Revival
+  modules_already_rendering: ""
+  live_fingerprint:
+    voice_profile: absent
+    delusion_premium: absent

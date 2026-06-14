@@ -1,0 +1,69 @@
+# AUTHORED (D3/UMAC) 2026-06-13 — web-verified (limited data)
+
+status: live
+slug: northwestern-mn
+team_id: null
+program_name: Northwestern College (Minnesota)
+program_tier: 7
+
+emotional_core:
+  primary: disbelief
+  secondary: contentment
+  one_line: "Evangelical Minnesota program (2001) that joined D3 in growth phase—a young institution building athletic identity in UMAC with modest but stable competitive presence."
+
+self_image:
+  archetype: riser-proving
+  standard_gap_frame: "2001 college founding with zero program vs. stable UMAC mid-tier presence (2001–2025)"
+
+the_wound:
+  name: "The institutional youth"
+  detail: "Northwestern College Minnesota was founded in 2001; football is barely older than the college itself. The program is explicitly in growth phase, not trying to recapture glory."
+  handling: referenceable
+  freshness: this-era
+
+the_dream:
+  text: "Build sustained UMAC competitiveness and establish Northwestern as an evangelical college with legitimate D3 athletic identity."
+  drought: { since: 2001, unit: relevance }
+
+the_chip:
+  villain: national_media
+  text: "Fans here believe nobody expected an evangelical college founded in 2001 to build real D3 football. Northwestern is building institutional identity from zero—no predecessors to prove anything."
+
+the_delusion:
+  tone: earnest
+  text: "Northwestern fans believe the program foundation is solid enough to produce consecutive winning seasons and competitive UMAC years, proving youth ≠ weakness."
+
+the_grudge_texture:
+  rival: crown
+  texture: little-brother
+
+the_coach_relationship: total-trust
+the_internal_fracture: growth-vs-consolidation — whether to push for UMAC championships or consolidate foundational competitiveness
+
+register: minnesota-evangelical-building
+
+never_use:
+  - "Institutional afterthought (Northwestern is building legitimate D3 presence)"
+  - "Too young to be real (25 years is plenty of time; the program is legitimate)"
+
+story_canon:
+  the_unique_thing: "Founded 2001; football beginning 2001 as part of institutional growth strategy—a young evangelical college building D3 identity from zero."
+  the_origin: "Northwestern College Minnesota (founded 2001) is a young evangelical institution that began football as part of institutional growth strategy in 2001."
+  golden_ages:
+    - { era: "2001–2010", what: "Program establishment phase; building athletic infrastructure" }
+    - { era: "2010–2025", what: "Stable UMAC participant; modest but consistent competitive presence" }
+  legends: []
+  canonical_moments:
+    - { name: "2001 college founding", year: 2001, what: "Institutional establishment and D3 entry pathway", handling: glory }
+  the_place: "Orange City, Iowa (serves Minnesota region)—a young evangelical college building institutional identity and athletic presence in the Midwest."
+  brand_of_football: "Growth-phase, committed football—a program proving that institutional youth doesn't prevent competitive presence."
+  cultural_footprint: "Proof that a newly-founded evangelical college can establish legitimate Division III football."
+  the_ongoing_story: >
+    LIVE ARC — researched 2026-06-13: Northwestern remains a stable UMAC competitor. The program's identity is explicitly growth-phase—young,
+    committed, building incrementally. Public documentation of specific 2025 records or recent seasons is limited; the program is part of
+    larger institutional identity-building rather than athletic prominence. The rivalry with Crown College is emerging as the institutional
+    focal point; competitive equity is developing.
+  sources:
+    - https://www.nwc.edu/athletics
+    - https://www.umacathletics.org
+    - https://www.ncaa.org/sports/football/d3
